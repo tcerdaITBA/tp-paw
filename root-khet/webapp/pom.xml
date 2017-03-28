@@ -15,7 +15,18 @@
   <url>http://maven.apache.org</url>
 
   <dependencies>
-      <dependency>
+  <dependency>
+        <groupId>tp.paw.khet</groupId>
+        <artifactId>service</artifactId>
+        <version>${project.parent.version}</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>tp.paw.khet</groupId>
+        <artifactId>interface</artifactId>
+        <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
     </dependency>

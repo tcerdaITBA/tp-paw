@@ -9,6 +9,10 @@
 
   <modules>
     <module>webapp</module>
+    <module>persistence</module>
+    <module>service</module>
+    <module>interface</module>
+    <module>model</module>
   </modules>
 
     <properties>
