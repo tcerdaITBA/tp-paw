@@ -1,12 +1,18 @@
 package tp.paw.khet;
 
 public class User {
+	private int userId;
 	private String name;
 	private String mail;
 	
-	public User(String name, String mail) {
+	public User(int userId, String name, String mail) {
+		this.userId = userId;
 		this.name = name;
 		this.mail = mail;
+	}
+	
+	public int getUserId() {
+		return userId;
 	}
 	
 	public String getName() {
@@ -28,7 +34,7 @@ public class User {
 		
 		User other = (User) obj;
 		
-		return name.equals(other.name) && mail.equals(other.mail);
+		return userId == other.userId;
 	}
 	
 	@Override

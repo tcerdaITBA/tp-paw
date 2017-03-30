@@ -1,22 +1,22 @@
 package tp.paw.khet;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Product {
 	private int id;
 	private String name;
 	private String description;
 	private String shortDescription;
-	private Date uploadDate;
+	private LocalDate uploadDate;
+	private byte[] logo;
 	
-	// TODO: logo
-	
-	public Product(int id, String name, String description, String shortDescription, Date uploadDate) {
+	public Product(int id, String name, String description, String shortDescription, LocalDate uploadDate, byte[] logo) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.shortDescription = shortDescription;
 		this.uploadDate = uploadDate;
+		this.logo = logo;
 	}
 	
 	public int getId() {
@@ -35,8 +35,12 @@ public class Product {
 		return shortDescription;
 	}
 	
-	public Date getUploadDate() {
+	public LocalDate getUploadDate() {
 		return uploadDate;
+	}
+	
+	public byte[] logo() {
+		return logo;
 	}
 	
 	@Override

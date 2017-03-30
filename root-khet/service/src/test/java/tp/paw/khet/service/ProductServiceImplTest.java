@@ -2,8 +2,8 @@ package tp.paw.khet.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class ProductServiceImplTest {
 	public void testGetUserByProduct() {
 		int productId = 1;
 		Product product = dummyProduct(productId);
-		User expectedUser = new User("tomas", "cerda");
+		User expectedUser = new User(1, "tomas", "cerda");
 		Mockito.when(productDao.getCreatorByProductId(productId)).thenReturn(expectedUser);
 		
 		User retrievedUser = productService.getProductCreator(product);
@@ -58,6 +58,6 @@ public class ProductServiceImplTest {
 	}
 
 	private Product dummyProduct(int id) {
-		return new Product(id, "", "", "", new Date());
+		return new Product(id, "", "", "", LocalDate.now(), null);
 	}
 }

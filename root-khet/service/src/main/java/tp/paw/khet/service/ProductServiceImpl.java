@@ -1,5 +1,6 @@
 package tp.paw.khet.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,12 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProducts();
 	}
 
+	public Product createProduct(String name, String description, String shortDescription, byte[] logo) {
+		return productDao.createProduct(name, description, shortDescription, LocalDate.now(), logo);
+	}
+	
 	// para testing con mocks
 	void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
 	}
-	
 }
