@@ -4,12 +4,17 @@ import java.nio.charset.StandardCharsets;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -19,6 +24,23 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({"tp.paw.khet.webapp.controller", "tp.paw.khet.persistence", "tp.paw.khet.service"})
 @Configuration
 public class WebConfig {
+	
+	@Value("classpath:schema.sql")
+	private Resource schemaSql;
+	
+	@Bean
+	public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
+		final DataSourceInitializer dsi = new DataSourceInitializer();
+		dsi.setDataSource(ds);
+		dsi.setDatabasePopulator(databasePopulator());
+		return dsi;
+	}
+	
+	private DatabasePopulator databasePopulator() {
+		final ResourceDatabasePopulator dbp = new ResourceDatabasePopulator();
+		dbp.addScript(schemaSql);
+		return dbp;
+	}
 	
 	@Bean
 	public ViewResolver viewResolver() {
