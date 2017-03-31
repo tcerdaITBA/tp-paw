@@ -26,30 +26,38 @@
 		<div>
 			<form:label path="name"><spring:message code="formLabel.productName" /></form:label>
 			<form:input type="text" path="name" />
+			<form:errors path="name" cssClass="" element="p"/>
 		</div>
 		<div>
-			<form:label path="name"><spring:message code="formLabel.creatorName" /></form:label>
+			<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
 			<form:input type="text" path="name" />
+			<form:errors path="creatorName" cssClass="" element="p"/>
 		</div>
 		<div>
 			<form:label path="description"><spring:message code="formLabel.description" /></form:label>
 			<form:input type="text" path="description" />
+			<form:errors path="description" cssClass="" element="p"/>
+			
 		</div>
 		<div>
 			<form:label path="shortDescription"><spring:message code="formLabel.shortDescription" /></form:label>
 			<form:input type="text" path="description" />
+			<form:errors path="shortDescription" cssClass="" element="p"/>
 		</div>
 		<div>
-			<form:label path="name"><spring:message code="formLabel.logo" /></form:label>
-			<form:input type="file" path="name" />
+			<form:label path="logo"><spring:message code="formLabel.logo" /></form:label>
+			<form:input type="file" path="logo" />
+			<form:errors path="logo" cssClass="" element="p"/>
 		</div>
 		<div>
-			<form:label path="name"><spring:message code="formLabel.image" /></form:label>
-			<form:input type="file" path="name" />
+			<form:label path="image"><spring:message code="formLabel.image" /></form:label>
+			<form:input type="file" path="image" />
+			<form:errors path="image" cssClass="" element="p"/>
 		</div>
 		<div>
-			<form:label path="name"><spring:message code="formLabel.video" /></form:label>
-			<form:input type="url" path="name" />
+			<form:label path="video"><spring:message code="formLabel.video" /></form:label>
+			<form:input type="url" path="video" />
+			<form:errors path="video" cssClass="" element="p"/>
 		</div>
 		
 		<div>

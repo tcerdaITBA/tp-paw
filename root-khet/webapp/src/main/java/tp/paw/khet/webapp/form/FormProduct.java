@@ -2,15 +2,33 @@ package tp.paw.khet.webapp.form;
 
 import java.time.LocalDate;
 
-import tp.paw.khet.Product;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class FormProduct {
+	
 	private int id;
+	
+	@NotNull
+	@Size(max = 64)
 	private String name;
+	
+	@NotNull
 	private String description;
+	
+	@NotNull
+	@Size(max = 140)
 	private String shortDescription;
-	private LocalDate uploadDate;
+	
+	//@NotNull
 	private byte[] logo;
+	
+	//Debe ser un usuario
+	@NotNull
+	private String creatorName;
+	
+	private byte[] image;
+	private String video;
 
 	
 	public int getId() {
@@ -29,12 +47,13 @@ public class FormProduct {
 		return shortDescription;
 	}
 	
-	public LocalDate getUploadDate() {
-		return uploadDate;
+	
+	public byte[] getLogo() {
+		return logo;
 	}
 	
-	public byte[] logo() {
-		return logo;
+	public void setLogo(byte[] logo){
+		this.logo = logo;
 	}
 	
 	@Override
@@ -54,5 +73,29 @@ public class FormProduct {
 	@Override
 	public int hashCode() {
 		return id;
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
 	}
 }

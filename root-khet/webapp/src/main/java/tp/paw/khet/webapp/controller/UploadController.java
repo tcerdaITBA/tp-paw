@@ -1,11 +1,18 @@
 package tp.paw.khet.webapp.controller;
 
 
+import java.io.IOException;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.*;
 
 import tp.paw.khet.Product;
@@ -25,10 +32,17 @@ public class UploadController {
 	}
 	
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
-	public ModelAndView upload(@ModelAttribute("uploadForm") final FormProduct formProduct) {
-		final Product prod =  productService.createProduct(formProduct.getName(), 
-												formProduct.getDescription(), formProduct.getShortDescription(),
-												formProduct.logo());
+	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
+										final BindingResult errors //,
+										//@RequestParam("logo") MultipartFile logo,
+										/*@RequestParam("image") MultipartFile image*/) throws IOException {
+		
+		if(errors.hasErrors()){
+			return formCompletion(formProduct);
+		}
+//		final Product prod =  productService.createProduct(formProduct.getName(), 
+//												formProduct.getDescription(), formProduct.getShortDescription(),
+//												logo.getBytes());
 		return new ModelAndView("submitted");
 	}
 	

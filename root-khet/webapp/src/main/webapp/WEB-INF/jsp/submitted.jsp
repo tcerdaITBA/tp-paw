@@ -8,6 +8,7 @@
 
 <body>
 <h2>Página a la que va luego de creado un producto</h2>
+<h3>${logo.originalFilename}</h3>
 <h5>
 
 </body>
