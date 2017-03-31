@@ -2,6 +2,7 @@ package tp.paw.khet.persistence;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +103,7 @@ public class ProductJdbcDaoTest {
 	}
 
 	private Product dummyProduct(int id) {
-		return new Product(id, "Product Seeker", "Search a product", "Seek products", null, new byte[] {(byte) 0x80}); // LocalDate en null pues hsql no sabe manejar ese tipo
+		return new Product(id, "Product Seeker", "Search a product", "Seek products", LocalDate.now(), new byte[] {(byte) 0x80});
 	}
 	
 	private Product insertProduct(Product product, int creatorId) {

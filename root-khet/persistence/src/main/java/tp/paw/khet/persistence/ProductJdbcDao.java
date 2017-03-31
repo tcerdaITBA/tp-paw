@@ -1,5 +1,6 @@
 package tp.paw.khet.persistence;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -31,11 +32,11 @@ public class ProductJdbcDao implements ProductDao {
 		jdbcTemplate = new JdbcTemplate(ds);
 		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 					.withTableName("products")
-					.usingGeneratedKeyColumns("productId");		
+					.usingGeneratedKeyColumns("productid");		
 	}
 	
 	public List<Product> getProducts() {
-		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate", PRODUCT_ROW_MAPPER);
+		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", PRODUCT_ROW_MAPPER);
 	}
 
 	public User getCreatorByProductId(int id) {
@@ -54,7 +55,7 @@ public class ProductJdbcDao implements ProductDao {
 		args.put("productName", name);
 		args.put("description", description);
 		args.put("shortDescription", shortDescription);
-		args.put("uploadDate", uploadDate);
+		args.put("uploadDate", Date.valueOf(uploadDate));
 		args.put("logo", logo);
 		args.put("userId", creatorId);
 		

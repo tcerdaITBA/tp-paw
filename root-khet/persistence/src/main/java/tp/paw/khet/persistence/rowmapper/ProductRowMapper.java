@@ -3,6 +3,7 @@ package tp.paw.khet.persistence.rowmapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.sql.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,8 +21,9 @@ public class ProductRowMapper implements RowMapper<Product> {
 	}
 	
 	public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-		LocalDate date = rs.getObject("uploadDate", LocalDate.class);
+		Date date = rs.getDate("uploadDate");
+		LocalDate localDate = date.toLocalDate();
 		return new Product(rs.getInt("productId"), rs.getString("productName"), 
-				rs.getString("description"), rs.getString("shortDescription"), date, rs.getBytes("logo"));
+				rs.getString("description"), rs.getString("shortDescription"), localDate, rs.getBytes("logo"));
 	}
 }

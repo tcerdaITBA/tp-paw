@@ -30,7 +30,7 @@ public class UserJdbcDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		jdbcTemplate = new JdbcTemplate(dataSource);
-		JdbcTestUtils.deleteFromTables(jdbcTemplate, "users");
+		jdbcTemplate.execute("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK");
 	}
 
 	@Test
