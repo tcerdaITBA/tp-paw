@@ -24,8 +24,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProducts();
 	}
 
-	public Product createProduct(String name, String description, String shortDescription, byte[] logo) {
-		return productDao.createProduct(name, description, shortDescription, LocalDate.now(), logo);
+	public Product createProduct(String name, String description, String shortDescription, byte[] logo, int creatorId) {
+		return productDao.createProduct(name, description, shortDescription, LocalDate.now(), logo, creatorId);
 	}
 	
 	// para testing con mocks

@@ -48,7 +48,7 @@ public class ProductJdbcDao implements ProductDao {
 	}
 
 	public Product createProduct(String name, String description, String shortDescription, LocalDate uploadDate,
-			byte[] logo) {
+			byte[] logo, int creatorId) {
 
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("productName", name);
@@ -56,6 +56,7 @@ public class ProductJdbcDao implements ProductDao {
 		args.put("shortDescription", shortDescription);
 		args.put("uploadDate", uploadDate);
 		args.put("logo", logo);
+		args.put("userId", creatorId);
 		
 		final Number productId = jdbcInsert.executeAndReturnKey(args);
 		
