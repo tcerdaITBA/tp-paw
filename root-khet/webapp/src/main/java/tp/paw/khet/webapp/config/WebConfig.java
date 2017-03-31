@@ -17,13 +17,15 @@ import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @ComponentScan({"tp.paw.khet.webapp.controller", "tp.paw.khet.persistence", "tp.paw.khet.service"})
 @Configuration
-public class WebConfig {
+public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Value("classpath:schema.sql")
 	private Resource schemaSql;
@@ -68,5 +70,10 @@ public class WebConfig {
 		messageSource.setBasename("classpath:i18n/messages");
 		messageSource.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
 		return messageSource;
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 }
