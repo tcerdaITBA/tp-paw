@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS products (
     description TEXT NOT NULL,
     logo BYTEA NOT NULL,
     uploadDate DATE NOT NULL,
-    userId INTEGER REFERENCES users(userId)
+    userId INTEGER REFERENCES users(userId) NOT NULL
 );

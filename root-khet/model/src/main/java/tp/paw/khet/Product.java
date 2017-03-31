@@ -39,7 +39,7 @@ public class Product {
 		return uploadDate;
 	}
 	
-	public byte[] logo() {
+	public byte[] getLogo() {
 		return logo;
 	}
 	

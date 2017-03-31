@@ -39,7 +39,7 @@ public class ProductJdbcDao implements ProductDao {
 	}
 
 	public User getCreatorByProductId(int id) {
-		List<User> user = jdbcTemplate.query("SELECT userId, userName, email FROM products NATURAL JOIN users WHERE productId = ?", USER_ROW_MAPPER, id);
+		List<User> user = jdbcTemplate.query("SELECT userId, userName, mailAddr FROM products NATURAL JOIN users WHERE productId = ?", USER_ROW_MAPPER, id);
 		
 		if (user.isEmpty())
 			return null;

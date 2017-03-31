@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS products (
     shortDescription VARCHAR(140) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     logo BLOB NOT NULL,
-    uploadDate DATE NOT NULL,
-    userId INTEGER REFERENCES users(userId)
+    uploadDate DATE,
+    userId INTEGER REFERENCES users(userId) NOT NULL
 );

@@ -1,6 +1,6 @@
 package tp.paw.khet.persistence;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import javax.sql.DataSource;
 
@@ -35,9 +35,12 @@ public class UserJdbcDaoTest {
 
 	@Test
 	public void testCreate() {
-		User expectedUser = new User(0, "Tomás Cerdá", "tcerda@itba.edu.ar");
+		User expectedUser = dummyUser();
 		User createdUser = userDao.createUser(expectedUser.getName(), expectedUser.getMail());
 		
+		assertNotNull(createdUser);
+		
+		assertEquals(expectedUser, createdUser);
 		assertEquals(expectedUser.getUserId(), createdUser.getUserId());
 		assertEquals(expectedUser.getName(), createdUser.getName());
 		assertEquals(expectedUser.getMail(), createdUser.getMail());
@@ -45,4 +48,7 @@ public class UserJdbcDaoTest {
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
 	}
 
+	private User dummyUser() {
+		return new User(0, "Tomás Cerdá", "tcerda@itba.edu.ar");
+	}
 }
