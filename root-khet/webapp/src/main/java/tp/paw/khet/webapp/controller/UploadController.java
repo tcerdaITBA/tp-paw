@@ -26,9 +26,9 @@ public class UploadController {
 	
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
 	public ModelAndView upload(@ModelAttribute("uploadForm") final FormProduct formProduct) {
-//		final Product prod =  productService.createProduct(formProduct.getName(), 
-//												formProduct.getDescription(), formProduct.getShortDescription(),
-//												formProduct.logo());
+		final Product prod =  productService.createProduct(formProduct.getName(), 
+												formProduct.getDescription(), formProduct.getShortDescription(),
+												formProduct.logo());
 		return new ModelAndView("submitted");
 	}
 	
