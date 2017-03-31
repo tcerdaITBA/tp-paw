@@ -23,9 +23,8 @@ public class ProductServiceImplTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		productService = new ProductServiceImpl();
 		productDao = Mockito.mock(ProductDao.class);
-		productService.setProductDao(productDao);
+		productService = new ProductServiceImpl(productDao);
 	}
 
 	@Test
