@@ -1,0 +1,29 @@
+
+body {
+	background-color: #f9f9f9;
+}
+
+.navbar-default {
+	background-color: #fff;
+	border-radius: 0;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.04);
+}
+
+.navbar-default .navbar-nav>.active>a:hover {
+	background-color: #fff;
+}
+
+.navbar-default .navbar-nav>.active>a {
+	background-color: #fff;
+	color: #39C6A6;
+}
+
+nav img {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.navbar-brand {
+	margin-left: 0;
+	padding: 8px 0;
+}
