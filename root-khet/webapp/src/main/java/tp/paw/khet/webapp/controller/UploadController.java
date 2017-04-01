@@ -33,9 +33,15 @@ public class UploadController {
 	
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
-										final BindingResult errors //,
-										//@RequestParam("logo") MultipartFile logo,
-										/*@RequestParam("image") MultipartFile image*/) throws IOException {
+										final BindingResult errors) throws IOException {
+		
+		//DEBUG
+		if (formProduct.getLogo() != null)
+			System.out.println(formProduct.getLogo().getSize());
+		
+		//DEBUG
+		if (formProduct.getImage() != null)
+			System.out.println(formProduct.getImage().getSize());
 		
 		if(errors.hasErrors()){
 			return formCompletion(formProduct);

@@ -22,7 +22,7 @@
 		</div>
 		<div>
 		<c:url value="/upload" var="postPath" />
-		<form:form modelAttribute="uploadForm" action="${postPath}" method="post">
+		<form:form modelAttribute="uploadForm" action="${postPath}" method="post" enctype="multipart/form-data">
 		<div>
 			<form:label path="name"><spring:message code="formLabel.productName" /></form:label>
 			<form:input type="text" path="name" />

@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FormProduct {
 	
 	private int id;
@@ -21,13 +23,13 @@ public class FormProduct {
 	private String shortDescription;
 	
 	//@NotNull
-	private byte[] logo;
+	private MultipartFile logo;
 	
 	//Debe ser un usuario
 	@NotNull
 	private String creatorName;
 	
-	private byte[] image;
+	private MultipartFile image;
 	private String video;
 
 	
@@ -47,12 +49,11 @@ public class FormProduct {
 		return shortDescription;
 	}
 	
-	
-	public byte[] getLogo() {
+	public MultipartFile getLogo() {
 		return logo;
 	}
 	
-	public void setLogo(byte[] logo){
+	public void setLogo(MultipartFile logo){
 		this.logo = logo;
 	}
 	
@@ -83,11 +84,11 @@ public class FormProduct {
 		this.creatorName = creatorName;
 	}
 
-	public byte[] getImage() {
+	public MultipartFile getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
 
