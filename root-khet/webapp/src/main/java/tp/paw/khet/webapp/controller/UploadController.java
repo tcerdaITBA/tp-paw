@@ -16,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.*;
 
 import tp.paw.khet.Product;
+import tp.paw.khet.User;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.ProductServiceImpl;
+import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.form.FormProduct;
 
 @Controller
@@ -25,6 +27,9 @@ public class UploadController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
@@ -35,21 +40,17 @@ public class UploadController {
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
 										final BindingResult errors) throws IOException {
 		
-		//DEBUG
-		if (formProduct.getLogo() != null) {
-			System.out.println(formProduct.getLogo().getSize());
-		}
-		
-		//DEBUG
-		if (formProduct.getImage() != null)
-			System.out.println(formProduct.getImage().getSize());
-		
-		if(errors.hasErrors()){
+		if (errors.hasErrors()) {
+			System.out.println("eerrors");
 			return formCompletion(formProduct);
 		}
-//		final Product prod =  productService.createProduct(formProduct.getName(), 
-//												formProduct.getDescription(), formProduct.getShortDescription(),
-//												logo.getBytes());
+		
+		final User user = userService.createUser(formProduct.getCreatorName(), formProduct.getCreatorMail());
+		
+		final Product prod =  productService.createProduct(formProduct.getName(), 
+												formProduct.getDescription(), formProduct.getShortDescription(),
+												formProduct.getLogo().getBytes(), user.getUserId());
+		
 		return new ModelAndView("submitted");
 	}
 	

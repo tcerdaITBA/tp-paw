@@ -1,0 +1,15 @@
+.ps-btn {
+	background-color: #39C6A6;
+	color: #fff;
+	border-color: #39C6C6;
+}
+
+.ps-btn:hover {
+	background-color: #33bb9c !important;
+	color: #fff;
+	border-color: #33bb9c !important;
+}
+
+.ps-btn:focus {
+	color: #fff;
+}

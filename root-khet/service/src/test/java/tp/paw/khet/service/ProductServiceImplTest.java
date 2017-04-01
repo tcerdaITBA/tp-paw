@@ -23,9 +23,8 @@ public class ProductServiceImplTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		productService = new ProductServiceImpl();
 		productDao = Mockito.mock(ProductDao.class);
-		productService.setProductDao(productDao);
+		productService = new ProductServiceImpl(productDao);
 	}
 
 	@Test
@@ -58,6 +57,6 @@ public class ProductServiceImplTest {
 	}
 
 	private Product dummyProduct(int id) {
-		return new Product(id, "", "", "", LocalDate.now(), null);
+		return new Product(id, "", "", "", LocalDate.now());
 	}
 }

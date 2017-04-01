@@ -8,15 +8,13 @@ public class Product {
 	private String description;
 	private String shortDescription;
 	private LocalDate uploadDate;
-	private byte[] logo;
 	
-	public Product(int id, String name, String description, String shortDescription, LocalDate uploadDate, byte[] logo) {
+	public Product(int id, String name, String description, String shortDescription, LocalDate uploadDate) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.shortDescription = shortDescription;
 		this.uploadDate = uploadDate;
-		this.logo = logo;
 	}
 	
 	public int getId() {
@@ -37,10 +35,6 @@ public class Product {
 	
 	public LocalDate getUploadDate() {
 		return uploadDate;
-	}
-	
-	public byte[] logo() {
-		return logo;
 	}
 	
 	@Override

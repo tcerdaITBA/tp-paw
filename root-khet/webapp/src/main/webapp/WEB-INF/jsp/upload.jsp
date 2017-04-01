@@ -30,8 +30,13 @@
 		</div>
 		<div>
 			<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
-			<form:input type="text" path="name" />
+			<form:input type="text" path="creatorName" />
 			<form:errors path="creatorName" cssClass="" element="p"/>
+		</div>
+		<div>
+			<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
+			<form:input type="email" path="creatorMail" />
+			<form:errors path="creatorMail" cssClass="" element="p"/>
 		</div>
 		<div>
 			<form:label path="description"><spring:message code="formLabel.description" /></form:label>
@@ -41,7 +46,7 @@
 		</div>
 		<div>
 			<form:label path="shortDescription"><spring:message code="formLabel.shortDescription" /></form:label>
-			<form:input type="text" path="description" />
+			<form:input type="text" path="shortDescription" />
 			<form:errors path="shortDescription" cssClass="" element="p"/>
 		</div>
 		<div>

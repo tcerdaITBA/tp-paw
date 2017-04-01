@@ -23,13 +23,13 @@ public class UserJdbcDao implements UserDao {
 		jdbcTemplate = new JdbcTemplate(ds);
 		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 					.withTableName("users")
-					.usingGeneratedKeyColumns("userId");		
+					.usingGeneratedKeyColumns("userid");		
 	}
 	
 	public User createUser(String userName, String email) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("userName", userName);
-		args.put("email", email);
+		args.put("mailAddr", email);
 		
 		final Number userId = jdbcInsert.executeAndReturnKey(args);
 		

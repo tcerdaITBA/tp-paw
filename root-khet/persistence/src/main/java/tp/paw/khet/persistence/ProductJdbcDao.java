@@ -1,5 +1,6 @@
 package tp.paw.khet.persistence;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -31,15 +32,15 @@ public class ProductJdbcDao implements ProductDao {
 		jdbcTemplate = new JdbcTemplate(ds);
 		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 					.withTableName("products")
-					.usingGeneratedKeyColumns("productId");		
+					.usingGeneratedKeyColumns("productid");		
 	}
 	
 	public List<Product> getProducts() {
-		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate", PRODUCT_ROW_MAPPER);
+		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", PRODUCT_ROW_MAPPER);
 	}
 
 	public User getCreatorByProductId(int id) {
-		List<User> user = jdbcTemplate.query("SELECT userId, userName, email FROM products NATURAL JOIN users WHERE productId = ?", USER_ROW_MAPPER, id);
+		List<User> user = jdbcTemplate.query("SELECT userId, userName, mailAddr FROM products NATURAL JOIN users WHERE productId = ?", USER_ROW_MAPPER, id);
 		
 		if (user.isEmpty())
 			return null;
@@ -48,18 +49,28 @@ public class ProductJdbcDao implements ProductDao {
 	}
 
 	public Product createProduct(String name, String description, String shortDescription, LocalDate uploadDate,
-			byte[] logo) {
+			byte[] logo, int creatorId) {
 
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("productName", name);
 		args.put("description", description);
 		args.put("shortDescription", shortDescription);
-		args.put("uploadDate", uploadDate);
+		args.put("uploadDate", Date.valueOf(uploadDate));
 		args.put("logo", logo);
+		args.put("userId", creatorId);
 		
 		final Number productId = jdbcInsert.executeAndReturnKey(args);
 		
-		return new Product(productId.intValue(), name, description, shortDescription, uploadDate, logo);
+		return new Product(productId.intValue(), name, description, shortDescription, uploadDate);
+	}
+
+	public byte[] getLogoByProductId(int productId) {
+		byte[] logo = jdbcTemplate.queryForObject("SELECT logo FROM products WHERE productId = ?", byte[].class, productId);
+		
+		if (logo == null)
+			return new byte[0];
+		
+		return logo;
 	}
 
 }

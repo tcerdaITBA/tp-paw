@@ -13,8 +13,12 @@ import tp.paw.khet.persistence.ProductDao;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
 	private ProductDao productDao;
+	
+	@Autowired
+	public ProductServiceImpl(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 	
 	public User getProductCreator(Product product) {
 		return productDao.getCreatorByProductId(product.getId());
@@ -24,12 +28,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProducts();
 	}
 
-	public Product createProduct(String name, String description, String shortDescription, byte[] logo) {
-		return productDao.createProduct(name, description, shortDescription, LocalDate.now(), logo);
+	public Product createProduct(String name, String description, String shortDescription, byte[] logo, int creatorId) {
+		return productDao.createProduct(name, description, shortDescription, LocalDate.now(), logo, creatorId);
 	}
-	
-	// para testing con mocks
-	void setProductDao(ProductDao productDao) {
-		this.productDao = productDao;
+
+	public byte[] getLogoByProductId(int productId) {
+		return productDao.getLogoByProductId(productId);
 	}
 }

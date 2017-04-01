@@ -3,6 +3,7 @@ package tp.paw.khet.webapp.form;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.web.multipart.MultipartFile;
 
 import tp.paw.khet.webapp.form.constraints.FileSize;
@@ -29,6 +30,10 @@ public class FormProduct {
 	@NotNull
 	private String creatorName;
 	
+	@NotNull
+	@Email
+	private String creatorMail;
+	
 	private MultipartFile image;
 	private String video;
 
@@ -49,6 +54,26 @@ public class FormProduct {
 		return shortDescription;
 	}
 	
+	public String getCreatorMail() {
+		return creatorMail;
+	}
+	
+	public void setCreatorMail(String creatorMail) {
+		this.creatorMail = creatorMail;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
 	public MultipartFile getLogo() {
 		return logo;
 	}
