@@ -1,5 +1,6 @@
 package tp.paw.khet.webapp.config;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import javax.sql.DataSource;
@@ -15,6 +16,8 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -72,8 +75,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return messageSource;
 	}
 	
+<<<<<<< HEAD
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+=======
+	@Bean
+	public MultipartResolver multipartResolver() throws IOException {
+		return new CommonsMultipartResolver();
+>>>>>>> 8e97cc52a82a444eeda25f409e97af6ee0d831cf
 	}
 }
