@@ -23,7 +23,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<p class="navbar-btn">
-						<a href="#" class="ps-btn btn">Upload Product</a>
+						<a href="<c:url value="/upload" />" class="ps-btn btn">Upload Product</a>
 					</p>
 				</li>
 			</ul>
