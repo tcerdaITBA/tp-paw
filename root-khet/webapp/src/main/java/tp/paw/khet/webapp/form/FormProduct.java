@@ -1,11 +1,11 @@
 package tp.paw.khet.webapp.form;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import tp.paw.khet.webapp.form.constraints.FileSize;
 
 public class FormProduct {
 	
@@ -22,7 +22,7 @@ public class FormProduct {
 	@Size(max = 140)
 	private String shortDescription;
 	
-	//@NotNull
+	@FileSize(min = 1)
 	private MultipartFile logo;
 	
 	//Debe ser un usuario
@@ -56,25 +56,6 @@ public class FormProduct {
 	public void setLogo(MultipartFile logo){
 		this.logo = logo;
 	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (obj == null)
-			return false;
-		if (!this.getClass().equals(obj.getClass()))
-			return false;
-		
-		FormProduct other = (FormProduct) obj;
-		
-		return id == other.id;
-	}
-	
-	@Override
-	public int hashCode() {
-		return id;
-	}
 
 	public String getCreatorName() {
 		return creatorName;
@@ -98,5 +79,24 @@ public class FormProduct {
 
 	public void setVideo(String video) {
 		this.video = video;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (obj == null)
+			return false;
+		if (!this.getClass().equals(obj.getClass()))
+			return false;
+		
+		FormProduct other = (FormProduct) obj;
+		
+		return id == other.id;
+	}
+	
+	@Override
+	public int hashCode() {
+		return id;
 	}
 }

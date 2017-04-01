@@ -36,8 +36,9 @@ public class UploadController {
 										final BindingResult errors) throws IOException {
 		
 		//DEBUG
-		if (formProduct.getLogo() != null)
+		if (formProduct.getLogo() != null) {
 			System.out.println(formProduct.getLogo().getSize());
+		}
 		
 		//DEBUG
 		if (formProduct.getImage() != null)
