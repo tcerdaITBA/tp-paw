@@ -72,6 +72,7 @@ public class ProductJdbcDaoTest {
 		assertEquals(expectedUser, retrievedUser);
 		assertEquals(expectedUser.getName(), retrievedUser.getName());
 		assertEquals(expectedUser.getMail(), retrievedUser.getMail());
+		assertEquals(expectedUser.getUserId(), retrievedUser.getUserId());
 	}
 	
 	@Test
@@ -88,18 +89,19 @@ public class ProductJdbcDaoTest {
 		assertEquals(expectedProduct.getDescription(), createdProduct.getDescription());
 		assertEquals(expectedProduct.getShortDescription(), createdProduct.getShortDescription());
 		assertEquals(expectedProduct.getUploadDate(), createdProduct.getUploadDate());
-
+		
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
 	
 	@Test
 	public void getLogoByProductIdTest() {
+		Product dummyProduct = dummyProduct(0);
 		insertDummyUser();
-		insertProduct(dummyProduct(0), 0);
+		insertProduct(dummyProduct, 0);
 		
 		byte[] logo = productDao.getLogoByProductId(0);
 		
-		assertArrayEquals(logo, new byte[] {0x20});
+		assertArrayEquals(logo, imageFromProduct(dummyProduct));
 	}
 		
 	private void insertDummyUser() {
@@ -112,12 +114,12 @@ public class ProductJdbcDaoTest {
 	}
 
 	private Product dummyProduct(int id) {
-		return new Product(id, "Product Seeker", "Search a product", "Seek products", LocalDate.now());
+		return new Product(id, "Product Seeker " + id, "Search a product " + id, "Seek products " + id, LocalDate.now());
 	}
 	
 	private Product insertProduct(Product product, int creatorId) {
 		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), 
-				product.getUploadDate(), new byte[] {0x20}, creatorId);
+				product.getUploadDate(), imageFromProduct(product), creatorId);
 	}
 	
 	private List<Product> dummyProductList(int length) {
@@ -132,6 +134,10 @@ public class ProductJdbcDaoTest {
 	private void insertProducts(List<Product> products, int creatorId) {
 		for(Product product : products)
 			productDao.createProduct(product.getName(), product.getDescription(), 
-					product.getShortDescription(), product.getUploadDate(), new byte[] {0x20}, creatorId);
+					product.getShortDescription(), product.getUploadDate(), imageFromProduct(product), creatorId);
+	}
+	
+	private byte[] imageFromProduct(Product product) {
+		return product.getName().getBytes();
 	}
 }

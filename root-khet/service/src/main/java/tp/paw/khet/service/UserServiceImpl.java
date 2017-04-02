@@ -9,8 +9,12 @@ import tp.paw.khet.persistence.UserDao;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	public UserServiceImpl(UserDao userDao) {
+		this.userDao = userDao;
+	}
 	
 	public User createUser(String userName, String email) {
 		return userDao.createUser(userName, email.toLowerCase());

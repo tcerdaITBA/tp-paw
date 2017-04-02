@@ -20,8 +20,8 @@ public class ProductServiceImpl implements ProductService {
 		this.productDao = productDao;
 	}
 	
-	public User getProductCreator(Product product) {
-		return productDao.getCreatorByProductId(product.getId());
+	public User getCreatorByProductId(int productId) {
+		return productDao.getCreatorByProductId(productId);
 	}
 
 	public List<Product> getProducts() {
