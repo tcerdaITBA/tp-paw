@@ -9,5 +9,6 @@ import tp.paw.khet.User;
 public interface ProductDao {
 	public Product createProduct(String name, String description, String shortDescription, LocalDate uploadDate, byte[] logo, int creatorId);
 	public List<Product> getProducts();
+	public Product getProductByProductId(int id);
 	public User getCreatorByProductId(int id);
 }

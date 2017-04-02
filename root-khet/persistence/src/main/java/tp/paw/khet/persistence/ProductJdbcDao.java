@@ -39,6 +39,15 @@ public class ProductJdbcDao implements ProductDao {
 		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", PRODUCT_ROW_MAPPER);
 	}
 
+	public Product getProductByProductId(int id) {
+		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", PRODUCT_ROW_MAPPER, id);
+		
+		if (product.isEmpty())
+			return null;
+		
+		return product.get(0);
+	}
+	
 	public User getCreatorByProductId(int id) {
 		List<User> user = jdbcTemplate.query("SELECT userId, userName, mailAddr FROM products NATURAL JOIN users WHERE productId = ?", USER_ROW_MAPPER, id);
 		

@@ -52,5 +52,4 @@ public class UploadController {
 //												logo.getBytes());
 		return new ModelAndView("submitted");
 	}
-	
 }

@@ -13,3 +13,10 @@ CREATE TABLE IF NOT EXISTS products (
     uploadDate DATE NOT NULL,
     userId INTEGER REFERENCES users(userId) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS videos (
+	videoId VARCHAR(11),
+	productId INTEGER REFERENCES products(productId),
+	PRIMARY KEY(videoId, productId)
+);
+

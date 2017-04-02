@@ -75,14 +75,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return messageSource;
 	}
 	
-<<<<<<< HEAD
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-=======
-	@Bean
-	public MultipartResolver multipartResolver() throws IOException {
-		return new CommonsMultipartResolver();
->>>>>>> 8e97cc52a82a444eeda25f409e97af6ee0d831cf
 	}
+		
+//	@Bean
+//	public MultipartResolver multipartResolver() throws IOException {
+//		return new CommonsMultipartResolver();
+//	}
 }

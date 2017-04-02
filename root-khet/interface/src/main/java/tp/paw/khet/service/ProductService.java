@@ -7,6 +7,7 @@ import tp.paw.khet.User;
 
 public interface ProductService {
 	public Product createProduct(String name, String description, String shortDescription, byte[] logo, int creatorId);
+	public Product getProduct(int productId);
 	public User getProductCreator(Product product);
 	public List<Product> getProducts();
 }
