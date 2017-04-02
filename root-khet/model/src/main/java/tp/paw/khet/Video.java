@@ -9,11 +9,11 @@ public class Video {
 		this.productId = productId;
 	}
 	
-	public String getVideos() {
+	public String getVideoId() {
 		return videoId;
 	}
 	
-	public void setVideos(String videoId) {
+	public void setVideoId(String videoId) {
 		this.videoId = videoId;
 	}
 	
