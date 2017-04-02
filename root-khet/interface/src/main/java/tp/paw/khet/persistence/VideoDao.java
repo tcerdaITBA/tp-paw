@@ -6,5 +6,5 @@ import tp.paw.khet.Video;
 
 public interface VideoDao {
 	public List<Video> getVideosByProductId(int id);
-	public Video createVideo(List<String> videos, int productId);
+	public Video createVideo(String videoId, int productId);
 }

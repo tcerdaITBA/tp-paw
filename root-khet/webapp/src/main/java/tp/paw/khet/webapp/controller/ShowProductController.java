@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.service.VideoService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 
 @Controller
@@ -19,6 +20,9 @@ public class ShowProductController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private VideoService videoService;
 	
 	private Product product;
 	
