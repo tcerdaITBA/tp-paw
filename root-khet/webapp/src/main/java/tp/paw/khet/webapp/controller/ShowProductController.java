@@ -43,10 +43,5 @@ public class ShowProductController {
 		mav.addObject("videos", videoService.getVideosByProductId(product.getId()));
 		
 		return mav;
-	}
-
-	// matias, mtsperazzo@itba.edu.ar, id=3
-			
-	// producto, "asd", "probando", del 4-7 (id) . La id 4 tiene los videos
-	 
+	} 
 }

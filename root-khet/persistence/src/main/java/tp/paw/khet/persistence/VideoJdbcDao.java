@@ -30,9 +30,8 @@ public class VideoJdbcDao implements VideoDao {
 					.withTableName("videos");
 		}
 	
-
 	public List<Video> getVideosByProductId(int id) {
-		List<Video> videos = jdbcTemplate.query("SELECT videoId, productId FROM videos WHERE productId = ?", VIDEO_ROW_MAPPER, id);
+		List<Video> videos = jdbcTemplate.query("SELECT * FROM videos WHERE productId = ?", VIDEO_ROW_MAPPER, id);
 		return videos;
 	}
 

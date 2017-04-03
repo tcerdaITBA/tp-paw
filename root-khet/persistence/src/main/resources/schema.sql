@@ -15,8 +15,7 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 CREATE TABLE IF NOT EXISTS videos (
-	videoId VARCHAR(11),
+	videoId CHAR(11),
 	productId INTEGER REFERENCES products(productId),
 	PRIMARY KEY(videoId, productId)
 );
-
