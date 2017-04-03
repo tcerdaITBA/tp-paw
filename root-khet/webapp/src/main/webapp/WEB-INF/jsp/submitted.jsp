@@ -12,7 +12,7 @@
 <%-- 		    <spring:url value="/resources/probando.css" var="submittedCSSS" /> --%>
 <%-- 		    <link href="${submittedCSSS}" rel="stylesheet" /> --%>
 <%-- 		    <link href="<c:url value="/resources/probando.css" />" rel="stylesheet"> --%>
-				<link href="/assets/css/submitted.css" rel="stylesheet" />
+				<link href="<c:url value="/resources/css/submitted.css" />" rel="stylesheet" />
 
 </head>
 <body>
