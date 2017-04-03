@@ -54,17 +54,20 @@
 			<form:input type="file" path="logo" />
 			<form:errors path="logo" cssClass="" element="p"/>
 		</div>
+		<c:forEach items="${uploadForm.images}" varStatus="status">
 		<div>
-			<form:label path="image"><spring:message code="formLabel.image" /></form:label>
-			<form:input type="file" path="image" />
-			<form:errors path="image" cssClass="" element="p"/>
+			<form:label path="images[${status.index}]"><spring:message code="formLabel.image" /></form:label>
+			<form:input type="file" path="images[${status.index}]" />
+			<form:errors path="images[${status.index}]" cssClass="" element="p"/>
 		</div>
+		</c:forEach>
+		<c:forEach items="${uploadForm.videos}" varStatus="status">
 		<div>
-			<form:label path="video"><spring:message code="formLabel.video" /></form:label>
-			<form:input type="url" path="video" />
-			<form:errors path="video" cssClass="" element="p"/>
+			<form:label path="videos[${status.index}]"><spring:message code="formLabel.video" /></form:label>
+			<form:input type="url" path="videos[${status.index}]" />
+			<form:errors path="videos[${status.index}]" cssClass="" element="p"/>
 		</div>
-		
+		</c:forEach>
 		<div>
 			<input type="submit" value="Upload Product!" />
 		</div>

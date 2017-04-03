@@ -10,6 +10,9 @@ import tp.paw.khet.webapp.form.constraints.FileSize;
 
 public class FormProduct {
 	
+	private static final int MAX_IMAGES = 4;
+	private static final int MAX_VIDEOS = 2;
+
 	private int id;
 	
 	@NotNull
@@ -34,9 +37,13 @@ public class FormProduct {
 	@Email
 	private String creatorMail;
 	
-	private MultipartFile image;
-	private String video;
+	private MultipartFile[] images;
+	private String[] videos;
 
+	public FormProduct() {
+		images = new MultipartFile[MAX_IMAGES];
+		videos = new String[MAX_VIDEOS];
+	}
 	
 	public int getId() {
 		return id;
@@ -90,20 +97,20 @@ public class FormProduct {
 		this.creatorName = creatorName;
 	}
 
-	public MultipartFile getImage() {
-		return image;
+	public MultipartFile[] getImages() {
+		return images;
 	}
 
-	public void setImage(MultipartFile image) {
-		this.image = image;
+	public void setImage(MultipartFile[] images) {
+		this.images = images;
 	}
 
-	public String getVideo() {
-		return video;
+	public String[] getVideos() {
+		return videos;
 	}
 
-	public void setVideo(String video) {
-		this.video = video;
+	public void setVideos(String[] videos) {
+		this.videos = videos;
 	}
 	
 	@Override
