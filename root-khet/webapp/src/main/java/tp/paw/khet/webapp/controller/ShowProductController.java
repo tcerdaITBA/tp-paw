@@ -27,37 +27,26 @@ public class ShowProductController {
 	@Autowired
 	private VideoService videoService;
 	
-	private Product product;
-	
 	@RequestMapping(value = "/product/{productId}", method = {RequestMethod.GET})
 	public ModelAndView getProduct(@PathVariable final int productId, HttpServletResponse response) 
 	throws ResourceNotFoundException {
 					
-		product = productService.getProduct(productId);
+		Product product = productService.getProduct(productId);
 		
 		if (product == null) {
 			throw new ResourceNotFoundException();
 		}
 		
-		return new ModelAndView("submitted");
+		ModelAndView mav = new ModelAndView("submitted");
+		
+		mav.addObject("product", product);
+		mav.addObject("videos", videoService.getVideosByProductId(product.getId()));
+		
+		return mav;
 	}
 
-	@ModelAttribute("product")
-	public Product getProduct() {
-		return (product == null) ? null : product;
-	}
-	
-	@ModelAttribute("videos")
-	public List<Video> getVideos() {
-		return (product == null) ? null : videoService.getVideosByProductId(product.getId());
-	}
-	
-	@ModelAttribute("firstvideo")
-	public Video getFirst() {
-		return (product == null) ? null : videoService.getVideosByProductId(product.getId()).get(0);
-	}
 	// matias, mtsperazzo@itba.edu.ar, id=3
 			
-	// producto, "asd", "probando", CDRIVES, del 4-7 (id) . La id 4 tiene los videos
+	// producto, "asd", "probando", del 4-7 (id) . La id 4 tiene los videos
 	 
 }
