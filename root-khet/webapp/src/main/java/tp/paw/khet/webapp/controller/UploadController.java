@@ -11,14 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.*;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 import tp.paw.khet.service.ProductService;
-import tp.paw.khet.service.ProductServiceImpl;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.form.FormProduct;
 
@@ -40,10 +37,8 @@ public class UploadController {
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
 										final BindingResult errors) throws IOException {
 		
-		if (errors.hasErrors()) {
-			System.out.println("eerrors");
+		if (errors.hasErrors())
 			return formCompletion(formProduct);
-		}
 		
 		final User user = userService.createUser(formProduct.getCreatorName(), formProduct.getCreatorMail());
 		
