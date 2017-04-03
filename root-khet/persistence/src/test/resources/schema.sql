@@ -19,4 +19,10 @@ CREATE TABLE IF NOT EXISTS productImages (
 	productId INTEGER REFERENCES products(productId) NOT NULL,
 	data BLOB NOT NULL,
 	PRIMARY KEY (productImageId, productId)
-)
+);
+
+CREATE TABLE IF NOT EXISTS videos (
+	videoId CHAR(11),
+	productId INTEGER REFERENCES products(productId),
+	PRIMARY KEY(videoId, productId)
+);

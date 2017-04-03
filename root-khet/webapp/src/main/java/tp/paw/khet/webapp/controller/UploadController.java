@@ -19,6 +19,7 @@ import tp.paw.khet.User;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
+import tp.paw.khet.service.VideoService;
 import tp.paw.khet.webapp.form.FormProduct;
 
 @Controller
@@ -32,6 +33,9 @@ public class UploadController {
 	
 	@Autowired
 	private ProductImageService productImageService;
+	
+	@Autowired
+	private VideoService videoService;
 	
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
@@ -53,7 +57,7 @@ public class UploadController {
 		
 		storeImages(formProduct.getImages(), prod.getId());
 		
-		return new ModelAndView("submitted");
+		return new ModelAndView("redirect:/product/" + prod.getId());
 	}
 	
 	private void storeImages(MultipartFile[] images, int productId) throws IOException {
