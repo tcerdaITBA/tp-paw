@@ -29,7 +29,7 @@
 						<c:forEach items="${products}" var="product">
 							<div class="row product-list-item vertical-align">
 								<div class="col-md-3 product-logo">
-									<img src="https://i0.wp.com/tentulogo.com/wp-content/uploads/2010/04/logo-apple-arcoiris-257x300.jpg">
+									<img src="<c:url value="/product/${product.id}/logo"/>">
 								</div>
 								<div class="col-md-9 product-info-box">
 									<div class="row col-md-12">
