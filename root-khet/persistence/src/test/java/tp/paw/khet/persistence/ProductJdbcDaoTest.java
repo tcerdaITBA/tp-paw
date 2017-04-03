@@ -26,6 +26,8 @@ import tp.paw.khet.User;
 @Sql("classpath:schema.sql")
 public class ProductJdbcDaoTest {
 
+	private static final int LIST_SIZE = 20;
+	
 	@Autowired
 	private ProductJdbcDao productDao;
 	
@@ -46,18 +48,26 @@ public class ProductJdbcDaoTest {
 	@Test
 	public void getProductsTest() {
 		insertDummyUser();
-		List<Product> expectedProducts = dummyProductList(20);
+		List<Product> expectedProducts = dummyProductList(LIST_SIZE);
 		insertProducts(expectedProducts, 0);
 		
 		List<Product> retrievedProducts = productDao.getProducts();
 		
-		assertEquals(20, retrievedProducts.size());
+		assertEquals(LIST_SIZE, retrievedProducts.size());
 		assertFalse(retrievedProducts.isEmpty());
+		
+		for (int i = 0; i < expectedProducts.size(); i++) {
+			Product expected = expectedProducts.get(expectedProducts.size()-i-1);
+			Product retrieved = retrievedProducts.get(i);
+			assertEquals(expected, retrieved);
+			if (i > 0)
+				assertTrue(retrieved.getUploadDate().compareTo(retrievedProducts.get(i-1).getUploadDate()) < 0);
+		}
 		
 		assertTrue(expectedProducts.containsAll(retrievedProducts));
 		assertTrue(retrievedProducts.containsAll(expectedProducts));
 		
-		assertEquals(20, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
 
 	@Test

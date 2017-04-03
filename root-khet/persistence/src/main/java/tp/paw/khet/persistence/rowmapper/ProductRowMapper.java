@@ -21,9 +21,8 @@ public class ProductRowMapper implements RowMapper<Product> {
 	}
 	
 	public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Date date = rs.getDate("uploadDate");
-		LocalDate localDate = date.toLocalDate();
+		LocalDate date = rs.getTimestamp("uploadDate").toLocalDateTime().toLocalDate();
 		return new Product(rs.getInt("productId"), rs.getString("productName"), 
-				rs.getString("description"), rs.getString("shortDescription"), localDate);
+				rs.getString("description"), rs.getString("shortDescription"), date);
 	}
 }

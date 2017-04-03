@@ -1,6 +1,7 @@
 package tp.paw.khet.webapp.form;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -38,6 +39,8 @@ public class FormProduct {
 	private String creatorMail;
 	
 	private MultipartFile[] images;
+	
+	@Pattern(regexp = "")
 	private String[] videos;
 
 	public FormProduct() {

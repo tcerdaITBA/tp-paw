@@ -1,7 +1,5 @@
 package tp.paw.khet.webapp.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class ShowProductController {
 			throw new ResourceNotFoundException();
 		}
 		
-		ModelAndView mav = new ModelAndView("submitted");
+		ModelAndView mav = new ModelAndView("product");
 		
 		mav.addObject("product", product);
 		mav.addObject("videos", videoService.getVideosByProductId(product.getId()));

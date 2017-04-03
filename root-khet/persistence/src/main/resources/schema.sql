@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS products (
     shortDescription VARCHAR(140) NOT NULL,
     description TEXT NOT NULL,
     logo BYTEA NOT NULL,
-    uploadDate DATE NOT NULL,
+    uploadDate TIMESTAMP NOT NULL,
     userId INTEGER REFERENCES users(userId) NOT NULL
 );
 
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS productImages (
 );
 
 CREATE TABLE IF NOT EXISTS videos (
-	videoId CHAR(11),
-	productId INTEGER REFERENCES products(productId),
+	videoId CHAR(11) NOT NULL,
+	productId INTEGER REFERENCES products(productId) NOT NULL,
 	PRIMARY KEY(videoId, productId)
 );
