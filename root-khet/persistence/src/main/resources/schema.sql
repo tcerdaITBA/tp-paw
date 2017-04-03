@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 CREATE TABLE IF NOT EXISTS productImages (
-	imageId INTEGER NOT NULL,
+	productImageId INTEGER NOT NULL,
 	productId INTEGER REFERENCES products(productId) NOT NULL,
 	data BYTEA NOT NULL,
-	PRIMARY KEY (imageId, productId)
+	PRIMARY KEY (productImageId, productId)
 )

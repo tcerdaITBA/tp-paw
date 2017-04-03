@@ -6,5 +6,5 @@ import tp.paw.khet.ProductImage;
 
 public interface ProductImageDao {
 	public List<ProductImage> getImagesByProductId(int productId);
-	public ProductImage createImage(int imageId, int productId, byte[] data);	
+	public ProductImage createProductImage(int imageId, int productId, byte[] data);	
 }

@@ -13,3 +13,10 @@ CREATE TABLE IF NOT EXISTS products (
     uploadDate DATE,
     userId INTEGER REFERENCES users(userId) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS productImages (
+	productImageId INTEGER NOT NULL,
+	productId INTEGER REFERENCES products(productId) NOT NULL,
+	data BLOB NOT NULL,
+	PRIMARY KEY (productImageId, productId)
+)
