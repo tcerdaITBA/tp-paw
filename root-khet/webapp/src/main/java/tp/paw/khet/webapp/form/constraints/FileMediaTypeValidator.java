@@ -19,7 +19,7 @@ public class FileMediaTypeValidator implements ConstraintValidator<FileMediaType
 			return true;
 		
 		String contentType = value.getContentType();
-		System.out.println(contentType);
+
 		for(String mediaType : values){
 			if(mediaType.equals(contentType))
 				return true;
