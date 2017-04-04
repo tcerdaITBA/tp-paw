@@ -14,104 +14,106 @@
 					<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 					<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
 					<link href="<c:url value="/resources/css/dropzone.css"/>" rel="stylesheet">
+					<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 
 				</head>
 
 				<body>
-					<div class="form-container container">
-						<div class="row">
-							<c:url value="/upload" var="postPath"/>
-							<div class="col-md-10">
-								<div class="col-sm-9 col-sm-offset-3">
-									<div>
-										<h2>Post Product</h2>
-									</div>
-									<div>
-										<h4>Give us some information about your product</h4>
-									</div>
-								</div>
-								<form:form modelAttribute="uploadForm" action="${postPath}" method="post" enctype="multipart/form-data"
-													 class="form-horizontal">
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
-											<div class="col-sm-9">
-												<form:input type="text" path="name" class="form-control" placeholder="Name"/>
-												<form:errors path="name" cssClass="" element="p"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.shortDescription"/></form:label>
-											<div class="col-sm-9">
-												<form:textarea type="text" path="shortDescription" placeholder="Short Description" class="form-control" rows="1"/>
-												<form:errors path="shortDescription" cssClass="" element="p"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<form:label path="description" class="col-sm-3 control-label"><spring:message code="formLabel.description"/></form:label>
-											<div class="col-sm-9">
-												<form:textarea type="text" path="description" class="form-control" rows="4" placeholder="Full Description"/>
-												<form:errors path="description" cssClass="" element="p"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<form:label path="logo"><spring:message code="formLabel.logo" /></form:label>
-											<form:input type="file" path="logo" accept="image/*"/>
-											<form:errors path="logo" cssClass="" element="p"/>
-										</div>
-									</div>
-									<c:forEach items="${uploadForm.images}" varStatus="status">
+					<%@include file="includes/navbar.jsp" %>
+						<div class="form-container container">
+							<div class="row">
+								<c:url value="/upload" var="postPath"/>
+								<div class="col-md-10">
+									<div class="col-sm-9 col-sm-offset-3">
 										<div>
-											<form:label path="images[${status.index}]"><spring:message code="formLabel.image" /></form:label>
-											<form:input type="file" path="images[${status.index}]" accept="image/*"/>
-											<form:errors path="images[${status.index}]" cssClass="" element="p"/>
+											<h2>Post Product</h2>
 										</div>
-									</c:forEach>
-									<c:forEach items="${uploadForm.videos}" varStatus="status">
 										<div>
-											<form:label path="videos[${status.index}]"><spring:message code="formLabel.video" /></form:label>
-											<form:input type="url" path="videos[${status.index}]" />
-											<form:errors path="videos[${status.index}]" cssClass="" element="p"/>
+											<h4>Give us some information about your product</h4>
 										</div>
-									</c:forEach>
-									<div>
+									</div>
+									<form:form modelAttribute="uploadForm" action="${postPath}" method="post" enctype="multipart/form-data"
+														 class="form-horizontal">
 										<div class="row">
-											<div class="col-md-12 form-inline">
-												<div class="col-sm-9 col-sm-offset-3">
-												<div class="form-group">
-												<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
-												<form:input type="text" path="creatorName" class="form-control" placeholder="Name"/>
-												<form:errors path="creatorName" cssClass="" element="p"/>
-												</div>
-												<div class="form-group">
-												<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
-												<form:input type="email" path="creatorMail" class="form-control" placeholder="Email"/>
-												<form:errors path="creatorMail" cssClass="" element="p"/>
-												</div>
+											<div class="col-md-12 form-group">
+												<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
+												<div class="col-sm-9">
+													<form:input type="text" path="name" class="form-control" placeholder="Name"/>
+													<form:errors path="name" cssClass="" element="p"/>
 												</div>
 											</div>
 										</div>
-										<input type="submit" value="Upload Product!" />
-									</div>
-								</form:form>
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.shortDescription"/></form:label>
+												<div class="col-sm-9">
+													<form:textarea type="text" path="shortDescription" placeholder="Short Description" class="form-control" rows="1"/>
+													<form:errors path="shortDescription" cssClass="" element="p"/>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<form:label path="description" class="col-sm-3 control-label"><spring:message code="formLabel.description"/></form:label>
+												<div class="col-sm-9">
+													<form:textarea type="text" path="description" class="form-control" rows="4" placeholder="Full Description"/>
+													<form:errors path="description" cssClass="" element="p"/>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<form:label path="logo"><spring:message code="formLabel.logo" /></form:label>
+												<form:input type="file" path="logo" accept="image/*"/>
+												<form:errors path="logo" cssClass="" element="p"/>
+											</div>
+										</div>
+										<c:forEach items="${uploadForm.images}" varStatus="status">
+											<div>
+												<form:label path="images[${status.index}]"><spring:message code="formLabel.image" /></form:label>
+												<form:input type="file" path="images[${status.index}]" accept="image/*"/>
+												<form:errors path="images[${status.index}]" cssClass="" element="p"/>
+											</div>
+										</c:forEach>
+										<c:forEach items="${uploadForm.videos}" varStatus="status">
+											<div>
+												<form:label path="videos[${status.index}]"><spring:message code="formLabel.video" /></form:label>
+												<form:input type="url" path="videos[${status.index}]" />
+												<form:errors path="videos[${status.index}]" cssClass="" element="p"/>
+											</div>
+										</c:forEach>
+										<div>
+											<div class="row">
+												<div class="col-md-12 form-inline">
+													<div class="col-sm-9 col-sm-offset-3">
+														<div class="form-group">
+															<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
+															<form:input type="text" path="creatorName" class="form-control" placeholder="Name"/>
+															<form:errors path="creatorName" cssClass="" element="p"/>
+														</div>
+														<div class="form-group">
+															<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
+															<form:input type="email" path="creatorMail" class="form-control" placeholder="Email"/>
+															<form:errors path="creatorMail" cssClass="" element="p"/>
+														</div>
+													</div>
+												</div>
+											</div>
+											<input type="submit" value="Upload Product!" />
+										</div>
+									</form:form>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-					<script
-									src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-					<!-- Include all compiled plugins (below), or include individual files as needed -->
-					<script
-									src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-									integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-									crossorigin="anonymous"></script>
-					<script src="<c:url value="/resources/js/dropzone.js"/>"></script>
-				</body>
-			</html>
+						<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+						<script
+										src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+						<!-- Include all compiled plugins (below), or include individual files as needed -->
+						<script
+										src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+										integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+										crossorigin="anonymous"></script>
+						<script src="<c:url value="/resources/js/dropzone.js"/>"></script>
+						</body>
+					</html>
