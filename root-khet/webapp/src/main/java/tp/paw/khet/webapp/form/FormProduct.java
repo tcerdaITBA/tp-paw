@@ -1,14 +1,19 @@
 package tp.paw.khet.webapp.form;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.web.multipart.MultipartFile;
 
 import tp.paw.khet.webapp.form.constraints.FileSize;
 
 public class FormProduct {
 	
+	private static final int MAX_IMAGES = 4;
+	private static final int MAX_VIDEOS = 2;
+
 	private int id;
 	
 	@NotNull
@@ -29,9 +34,18 @@ public class FormProduct {
 	@NotNull
 	private String creatorName;
 	
-	private MultipartFile image;
-	private String video;
+	@NotNull
+	@Email
+	private String creatorMail;
+	
+	private MultipartFile[] images;
+	
+	private String[] videos;
 
+	public FormProduct() {
+		images = new MultipartFile[MAX_IMAGES];
+		videos = new String[MAX_VIDEOS];
+	}
 	
 	public int getId() {
 		return id;
@@ -49,6 +63,26 @@ public class FormProduct {
 		return shortDescription;
 	}
 	
+	public String getCreatorMail() {
+		return creatorMail;
+	}
+	
+	public void setCreatorMail(String creatorMail) {
+		this.creatorMail = creatorMail;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
 	public MultipartFile getLogo() {
 		return logo;
 	}
@@ -65,20 +99,20 @@ public class FormProduct {
 		this.creatorName = creatorName;
 	}
 
-	public MultipartFile getImage() {
-		return image;
+	public MultipartFile[] getImages() {
+		return images;
 	}
 
-	public void setImage(MultipartFile image) {
-		this.image = image;
+	public void setImage(MultipartFile[] images) {
+		this.images = images;
 	}
 
-	public String getVideo() {
-		return video;
+	public String[] getVideos() {
+		return videos;
 	}
 
-	public void setVideo(String video) {
-		this.video = video;
+	public void setVideos(String[] videos) {
+		this.videos = videos;
 	}
 	
 	@Override

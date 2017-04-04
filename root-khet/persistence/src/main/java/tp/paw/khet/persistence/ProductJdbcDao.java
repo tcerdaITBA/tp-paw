@@ -1,7 +1,9 @@
 package tp.paw.khet.persistence;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,20 +59,29 @@ public class ProductJdbcDao implements ProductDao {
 		return user.get(0);
 	}
 
-	public Product createProduct(String name, String description, String shortDescription, LocalDate uploadDate,
+	public Product createProduct(String name, String description, String shortDescription, LocalDateTime uploadDate,
 			byte[] logo, int creatorId) {
 
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("productName", name);
 		args.put("description", description);
 		args.put("shortDescription", shortDescription);
-		args.put("uploadDate", Date.valueOf(uploadDate));
+		args.put("uploadDate", Timestamp.valueOf(uploadDate));
 		args.put("logo", logo);
 		args.put("userId", creatorId);
 		
 		final Number productId = jdbcInsert.executeAndReturnKey(args);
 		
-		return new Product(productId.intValue(), name, description, shortDescription, uploadDate, logo);
+		return new Product(productId.intValue(), name, description, shortDescription, uploadDate);
+	}
+
+	public byte[] getLogoByProductId(int productId) {
+		byte[] logo = jdbcTemplate.queryForObject("SELECT logo FROM products WHERE productId = ?", byte[].class, productId);
+		
+		if (logo == null)
+			return new byte[0];
+		
+		return logo;
 	}
 
 }
