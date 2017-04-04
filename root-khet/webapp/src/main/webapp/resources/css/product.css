@@ -1,0 +1,29 @@
+.carousel {
+	background-color: white;
+	height: 300px;
+}
+
+.product-item {
+	background-color: white;
+	margin-bottom: -1px;
+	padding: 15 0;
+	margin-top: 20px;
+}
+
+.highlighted {
+	border-radius: 3px;
+  	border: 1px solid rgba(0,0,0,.09);
+  	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
+}
+
+ .slick-next:before { 
+ 	color: grey; 
+ 	font-size:30px; 
+}
+ 
+ .slick-prev:before { 
+ 	color: grey; 
+ 	font-size:30px;
+ 	position: relative;
+ 	right: 10px; 
+}
