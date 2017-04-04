@@ -18,12 +18,16 @@ public class ProductImageServiceImpl implements ProductImageService {
 		this.productImageDao = productImageDao;
 	}
 	
-	public List<ProductImage> getImagesByProductId(int productId) {
-		return productImageDao.getImagesByProductId(productId);
-	}
-
 	public ProductImage createProductImage(int imageId, int productId, byte[] data) {
 		return productImageDao.createProductImage(imageId, productId, data);
+	}
+
+	public List<Integer> getImagesIdByProductId(int productId) {
+		return productImageDao.getImagesIdByProductId(productId);
+	}
+
+	public ProductImage getImageByIds(int imageId, int productId) {
+		return productImageDao.getImageByIds(imageId, productId);
 	}
 
 }

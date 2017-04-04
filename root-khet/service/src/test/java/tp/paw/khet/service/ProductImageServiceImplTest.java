@@ -27,17 +27,27 @@ public class ProductImageServiceImplTest {
 	}
 
 	@Test
-	public void getImagesByProductIdTest() {
-		List<ProductImage> expectedList = dummyProductImageList(DUMMY_LIST_SIZE);
-		Mockito.when(productImageDaoMock.getImagesByProductId(ID)).thenReturn(expectedList);
+	public void getImagesIdByProductIdTest() {
+		List<Integer> expectedIdList = dummyProductImageIdList(DUMMY_LIST_SIZE);
+		Mockito.when(productImageDaoMock.getImagesIdByProductId(ID)).thenReturn(expectedIdList);
 		
-		List<ProductImage> retrievedList = productImageService.getImagesByProductId(ID);
+		List<Integer> retrievedList = productImageService.getImagesIdByProductId(ID);
 		
 		int i;
-		for (i = 0; i < expectedList.size(); i++)
-			assertIdenticalProductImages(expectedList.get(i), retrievedList.get(i));
+		for (i = 0; i < expectedIdList.size(); i++)
+			assertEquals(expectedIdList.get(i), retrievedList.get(i));
 		
 		assertEquals(i, retrievedList.size());
+	}
+	
+	@Test
+	public void getImageByIdsTest() {
+		ProductImage expected = dummyProductImage(ID);
+		Mockito.when(productImageDaoMock.getImageByIds(expected.getProductImageId(), expected.getProductId())).thenReturn(expected);
+		
+		ProductImage retrieved = productImageDaoMock.getImageByIds(expected.getProductImageId(), expected.getProductId());
+		
+		assertIdenticalProductImages(expected, retrieved);
 	}
 
 	@Test
@@ -55,19 +65,19 @@ public class ProductImageServiceImplTest {
 		return new ProductImage(productImageId, ID, new byte[]{(byte) productImageId});
 	}
 	
-	private List<ProductImage> dummyProductImageList(int size) {
-		List<ProductImage> list = new ArrayList<ProductImage>(size);
+	private List<Integer> dummyProductImageIdList(int size) {
+		List<Integer> list = new ArrayList<Integer>(size);
 		for (int i = 0; i < size; i++)
-			list.add(dummyProductImage(i));
+			list.add(i);
 		
 		return list;
 	}
 	
-	private void assertIdenticalProductImages(ProductImage expected, ProductImage created) {
-		assertEquals(expected, created);
-		assertEquals(expected.getProductImageId(), created.getProductImageId());
-		assertEquals(expected.getProductId(), created.getProductId());
-		assertArrayEquals(expected.getData(), created.getData());
+	private void assertIdenticalProductImages(ProductImage expected, ProductImage retrieved) {
+		assertEquals(expected, retrieved);
+		assertEquals(expected.getProductImageId(), retrieved.getProductImageId());
+		assertEquals(expected.getProductId(), retrieved.getProductId());
+		assertArrayEquals(expected.getData(), retrieved.getData());
 	}
 	
 	

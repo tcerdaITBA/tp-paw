@@ -53,20 +53,31 @@ public class ProductImageJdbcDaoTest {
 	}
 
 	@Test
-	public void getImagesByProductIdTest() {
+	public void getImagesIdByProductIdTest() {
 		List<ProductImage> expectedList = dummyProductImageList(DUMMY_LIST_SIZE);
 		
 		for (ProductImage productImage : expectedList)
 			productImageDao.createProductImage(productImage.getProductImageId(), productImage.getProductId(), productImage.getData());
 		
-		List<ProductImage> retrievedList = productImageDao.getImagesByProductId(ID);
+		List<Integer> retrievedList = productImageDao.getImagesIdByProductId(ID);
 		
 		int i;
 		for (i = 0; i < expectedList.size(); i++)
-			assertIdenticalProductImages(expectedList.get(i), retrievedList.get(i));
+			assertEquals(expectedList.get(i).getProductImageId(), retrievedList.get(i).intValue());
 		
 		assertEquals(i, retrievedList.size());
-		assertEquals(0, productImageDao.getImagesByProductId(ID+1).size());
+		assertEquals(0, productImageDao.getImagesIdByProductId(ID+1).size());
+	}
+	
+	@Test
+	public void getImageByIdsTest() {
+		ProductImage expected = dummyProductImage(0);
+		
+		productImageDao.createProductImage(expected.getProductImageId(), expected.getProductId(), expected.getData());
+		
+		ProductImage retrieved = productImageDao.getImageByIds(0, ID);
+		
+		assertIdenticalProductImages(expected, retrieved);
 	}
 	
 	@Test
