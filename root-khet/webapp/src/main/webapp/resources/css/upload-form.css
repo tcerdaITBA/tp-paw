@@ -1,0 +1,36 @@
+.form-container h2{
+	text-align: center;
+	margin-top: 0;
+}
+
+.form-container h4 {
+	text-align: center;
+}
+
+.upload-btn {
+	visibility: hidden;
+}
+
+.submit-btn {
+	font-size: 1.5em;
+	padding: 10px 30px;
+	display: inline-block;
+	float: none;
+	margin-top: 2em;
+}
+
+.row-centered {
+	text-align: center;
+}
+
+.creator-data-row {
+	margin-top: 1em;
+}
+
+.video-form {
+	margin-top: 10px;
+}
+
+.video-form input {
+	width: 80% !important;
+}

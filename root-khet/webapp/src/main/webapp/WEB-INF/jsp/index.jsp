@@ -12,14 +12,14 @@
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
 <link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
-<link href="<c:url value="/resources/css/ps-buttons.css"/>"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/general.css"/>"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
+<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
+						<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
 <body>
-	<%@include file="includes/navbar.jsp" %>
+	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -27,25 +27,27 @@
 					<div class="col-md-12 product-list">
 
 						<c:forEach items="${products}" var="product">
-							<div class="row product-list-item vertical-align">
-								<div class="col-md-3 product-logo">
-									<img src="https://i0.wp.com/tentulogo.com/wp-content/uploads/2010/04/logo-apple-arcoiris-257x300.jpg">
-								</div>
-								<div class="col-md-9 product-info-box">
-									<div class="row col-md-12">
-										<div class="row product-name">
-											<div class="col-md-12">
-												<p><c:out value="${product.name}"/></p>
+							<a href="<c:url value="/product/${product.id}"/>">
+								<div class="row product-list-item vertical-align">
+									<div class="col-md-3 product-logo">
+										<img src="<c:url value="/product/${product.id}/logo"/>">
+									</div>
+									<div class="col-md-9 product-info-box">
+										<div class="row col-md-12">
+											<div class="row product-name">
+												<div class="col-md-12">
+													<p><c:out value="${product.name}"/></p>
+												</div>
 											</div>
-										</div>
-										<div class="row product-short-description">
-											<div class="col-md-12">
-												<p><c:out value="${product.shortDescription}"/></p>
+											<div class="row product-short-description">
+												<div class="col-md-12">
+													<p><c:out value="${product.shortDescription}"/></p>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>					
+								</div>	
+							</a>				
 						</c:forEach>
 						
 
@@ -54,7 +56,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- /.container -->
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

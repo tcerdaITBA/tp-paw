@@ -13,7 +13,7 @@
 					class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="#"><img
+			<a class="navbar-brand" href="<c:url value="/"/>"><img
 				src="<c:url value="/resources/img/logo-wide.svg"/>" /></a>
 		</div>
 
@@ -23,7 +23,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<p class="navbar-btn">
-						<a href="#" class="ps-btn btn">Upload Product</a>
+						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn">Upload Product</a>
 					</p>
 				</li>
 			</ul>

@@ -1,6 +1,6 @@
 package tp.paw.khet.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,12 @@ public class ProductServiceImpl implements ProductService {
 		this.productDao = productDao;
 	}
 	
-	public User getProductCreator(Product product) {
-		return productDao.getCreatorByProductId(product.getId());
+	public User getCreatorByProductId(int productId) {
+		return productDao.getCreatorByProductId(productId);
+	}
+
+	public Product getProduct(int productId) {
+		return productDao.getProductByProductId(productId);
 	}
 
 	public List<Product> getProducts() {
@@ -29,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public Product createProduct(String name, String description, String shortDescription, byte[] logo, int creatorId) {
-		return productDao.createProduct(name, description, shortDescription, LocalDate.now(), logo, creatorId);
+		return productDao.createProduct(name, description, shortDescription, LocalDateTime.now(), logo, creatorId);
 	}
 
 	public byte[] getLogoByProductId(int productId) {

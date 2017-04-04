@@ -11,13 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 import tp.paw.khet.service.ProductService;
 
 @Controller
-public class HelloWorldController {
+public class IndexController {
 	
     @Autowired
     private ProductService productService;
     
 	@RequestMapping("/")
-	public ModelAndView helloWorld() {
+	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("products", productService.getProducts());
 		return mav;
