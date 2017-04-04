@@ -5,3 +5,15 @@
 .upload-btn {
 	visibility: hidden;
 }
+
+.submit-btn {
+	font-size: 1.5em;
+	padding: 10px 30px;
+	display: inline-block;
+	float: none;
+	margin-top: 2em;
+}
+
+.row-centered {
+	text-align: center;
+}
