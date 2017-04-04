@@ -26,3 +26,11 @@
 .creator-data-row {
 	margin-top: 1em;
 }
+
+.video-form {
+	margin-top: 10px;
+}
+
+.video-form input {
+	width: 80% !important;
+}

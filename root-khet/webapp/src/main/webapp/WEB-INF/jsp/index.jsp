@@ -15,6 +15,7 @@
 <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
+						<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
 <body>

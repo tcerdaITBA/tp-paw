@@ -10,6 +10,7 @@
 					<!-- Optional theme -->
 					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 					<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
+					<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 					<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 					<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
@@ -81,11 +82,10 @@
 												<div class="col-sm-9 col-sm-offset-3">
 													<h5>Youtube Videos</h5>
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
-														<div class="form-inline">
+														<div class="form-inline video-form">
 															<!--												<form:label path="videos[${status.index}]"><spring:message code="formLabel.video" /></form:label>-->
 															<form:input type="url" path="videos[${status.index}]" class="form-control" placeholder="Video URL"/>
 															<form:errors path="videos[${status.index}]" cssClass="" element="p"/>
-															<button class="btn btn-primary">+</button>
 														</div>
 													</c:forEach>
 												</div>
