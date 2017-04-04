@@ -1,15 +1,16 @@
 package tp.paw.khet;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Product {
 	private int id;
 	private String name;
 	private String description;
 	private String shortDescription;
-	private LocalDate uploadDate;
+	private LocalDateTime uploadDate;
 	
-	public Product(int id, String name, String description, String shortDescription, LocalDate uploadDate) {
+	public Product(int id, String name, String description, String shortDescription, LocalDateTime uploadDate) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -33,7 +34,7 @@ public class Product {
 		return shortDescription;
 	}
 	
-	public LocalDate getUploadDate() {
+	public LocalDateTime getUploadDate() {
 		return uploadDate;
 	}
 	

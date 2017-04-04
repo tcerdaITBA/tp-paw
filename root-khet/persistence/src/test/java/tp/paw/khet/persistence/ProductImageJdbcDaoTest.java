@@ -2,7 +2,7 @@ package tp.paw.khet.persistence;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +93,7 @@ public class ProductImageJdbcDaoTest {
 	}
 	
 	private void insertDummyProduct() {
-		productDao.createProduct("a", "b", "c", LocalDate.now(), new byte[]{0x20}, ID);
+		productDao.createProduct("a", "b", "c", LocalDateTime.now(), new byte[]{0x20}, ID);
 	}
 
 	private void insertDummyUser() {

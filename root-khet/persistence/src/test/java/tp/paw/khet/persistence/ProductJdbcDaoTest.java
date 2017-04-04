@@ -2,7 +2,7 @@ package tp.paw.khet.persistence;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,9 +64,6 @@ public class ProductJdbcDaoTest {
 				assertTrue(retrieved.getUploadDate().compareTo(retrievedProducts.get(i-1).getUploadDate()) < 0);
 		}
 		
-		assertTrue(expectedProducts.containsAll(retrievedProducts));
-		assertTrue(retrievedProducts.containsAll(expectedProducts));
-		
 		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
 
@@ -124,7 +121,7 @@ public class ProductJdbcDaoTest {
 	}
 
 	private Product dummyProduct(int id) {
-		return new Product(id, "Product Seeker " + id, "Search a product " + id, "Seek products " + id, LocalDate.now());
+		return new Product(id, "Product Seeker " + id, "Search a product " + id, "Seek products " + id, LocalDateTime.now().plusSeconds(id));
 	}
 	
 	private Product insertProduct(Product product, int creatorId) {

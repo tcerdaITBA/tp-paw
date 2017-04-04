@@ -40,7 +40,6 @@ public class FormProduct {
 	
 	private MultipartFile[] images;
 	
-	@Pattern(regexp = "")
 	private String[] videos;
 
 	public FormProduct() {
