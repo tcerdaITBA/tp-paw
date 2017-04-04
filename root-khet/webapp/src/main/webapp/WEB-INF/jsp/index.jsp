@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<%@include file="includes/navbar.jsp" %>
+	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -55,7 +55,6 @@
 			</div>
 		</div>
 	</div>
-	</container>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
