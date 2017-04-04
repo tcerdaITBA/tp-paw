@@ -12,10 +12,9 @@
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
 <link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
-<link href="<c:url value="/resources/css/ps-buttons.css"/>"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/general.css"/>"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
+<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 </head>
 
 <body>
@@ -56,7 +55,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- /.container -->
+	</container>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
