@@ -3,38 +3,45 @@ package tp.paw.khet.webapp.form;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
+import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.springframework.http.MediaType;
+
+
+import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
+
 
 public class FormProduct {
 	
 	private static final int MAX_IMAGES = 4;
 	private static final int MAX_VIDEOS = 2;
-
+	
 	private int id;
 	
-	@NotNull
+	@NotEmpty
 	@Size(max = 64)
 	private String name;
 	
-	@NotNull
+	@NotEmpty
 	private String description;
 	
-	@NotNull
+	@NotEmpty
 	@Size(max = 140)
 	private String shortDescription;
 	
+	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
 	@FileSize(min = 1)
 	private MultipartFile logo;
 	
 	//Debe ser un usuario
-	@NotNull
+	@NotEmpty
 	private String creatorName;
 	
-	@NotNull
+	@NotEmpty
 	@Email
 	private String creatorMail;
 	
