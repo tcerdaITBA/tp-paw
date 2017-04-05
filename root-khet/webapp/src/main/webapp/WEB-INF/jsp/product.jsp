@@ -29,13 +29,13 @@
 						<c:forEach items="${videos}" var="video">
 							<div class="row">
 								<div class="col-md-10 col-md-offset-1 embed-responsive embed-responsive-16by9">
-									<iframe class="embed-responsive-item video-frame" src="//www.youtube.com/embed/${video.videoId}?rel=0" style="height:300px; margin-top:20px" allowfullscreen></iframe>
+									<iframe class="embed-responsive-item" src="//www.youtube.com/embed/${video.videoId}?rel=0" style="height:300px; margin-top:20px" allowfullscreen></iframe>
 								</div>
 							</div>
 						</c:forEach>
 						<c:forEach items="${images}" var="image">
 							<div class="row">
-								<div class="col-md-10 col-md-offset-1">
+								<div class="col-md-10 col-md-offset-1" style="height:300px; margin-top:20px">
 									<img src="<c:url value="/product/${product.id}/image/${image}"/>">
 								</div>
 							</div>
