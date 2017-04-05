@@ -15,10 +15,11 @@
 <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
+						<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
 <body>
-	<%@include file="includes/navbar.jsp" %>
+	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -55,7 +56,6 @@
 			</div>
 		</div>
 	</div>
-	</container>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

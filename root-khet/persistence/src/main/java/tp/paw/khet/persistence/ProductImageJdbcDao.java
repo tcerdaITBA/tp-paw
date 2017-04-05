@@ -35,10 +35,6 @@ public class ProductImageJdbcDao implements ProductImageDao {
 		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("productImages");
 	}
 	
-	public List<ProductImage> getImagesByProductId(int productId) {
-		return jdbcTemplate.query("SELECT * FROM productImages WHERE productId = ? ORDER BY productImageId", ROW_MAPPER, productId);
-	}
-
 	public ProductImage createProductImage(int imageId, int productId, byte[] data) {
 		Map<String, Object> args = new HashMap<String, Object>();
 		args.put("productImageId", imageId);
@@ -47,6 +43,20 @@ public class ProductImageJdbcDao implements ProductImageDao {
 		
 		jdbcInsert.execute(args);
 		return new ProductImage(imageId, productId, data);
+	}
+
+	public List<Integer> getImagesIdByProductId(int productId) {
+		return jdbcTemplate.queryForList("SELECT productImageId FROM productImages WHERE productId = ? ORDER BY productImageId", Integer.class, productId);
+	}
+
+	public ProductImage getImageByIds(int imageId, int productId) {
+		List<ProductImage> list = jdbcTemplate.query("SELECT * FROM productImages WHERE productId = ? AND productImageId = ?", 
+				ROW_MAPPER, productId, imageId);
+		
+		if (list.isEmpty())
+			return null;
+		
+		return list.get(0);
 	}
 
 }
