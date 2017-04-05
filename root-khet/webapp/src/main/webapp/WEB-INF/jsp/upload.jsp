@@ -107,9 +107,6 @@
 													</div>
 												</div>
 											</div>
-
-
-
 											<div class="row row-centered">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
@@ -137,7 +134,9 @@
 											src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 											integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 											crossorigin="anonymous"></script>
+<!--
 							<script src="<c:url value="/resources/js/dropzone.js"/>"></script>
 							<script src="<c:url value="/resources/js/uploadapp.js"/>"></script>
+-->
 							</body>
 						</html>
