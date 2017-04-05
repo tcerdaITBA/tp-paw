@@ -36,7 +36,7 @@
 						<c:forEach items="${images}" var="image">
 							<div class="row">
 								<div class="col-md-10 col-md-offset-1">
-									<img src="/product/${product.id}/image/${image}">
+									<img src="<c:url value="/product/${product.id}/image/${image}"/>">
 								</div>
 							</div>
 						</c:forEach>
