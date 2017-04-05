@@ -1,6 +1,7 @@
 .carousel {
 	background-color: white;
-	height: 300px;
+	height: 340px;
+	padding:0px;
 }
 
 .highlighted {
@@ -20,4 +21,3 @@
  	position: relative;
  	right: 10px; 
 }
-
