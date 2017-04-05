@@ -1,10 +1,11 @@
 package tp.paw.khet.webapp.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,10 +37,15 @@ public class ShowProductController {
 		}
 		
 		ModelAndView mav = new ModelAndView("product");
+				
+		List<Video> videos = videoService.getVideosByProductId(product.getId());
+		
+		Integer carouselSize = videos.size() + 2;
 		
 		mav.addObject("product", product);
-		mav.addObject("videos", videoService.getVideosByProductId(product.getId()));
-		
+		mav.addObject("videos",videos );
+		mav.addObject("carouselSize", carouselSize.toString());
+
 		return mav;
 	} 
 }
