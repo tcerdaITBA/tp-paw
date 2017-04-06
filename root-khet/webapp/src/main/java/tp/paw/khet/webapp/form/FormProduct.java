@@ -2,12 +2,10 @@ package tp.paw.khet.webapp.form;
 
 import javax.validation.constraints.Size;
 
-import java.util.regex.Matcher;
 
-import javax.validation.constraints.*;
+import javax.validation.Valid;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.http.MediaType;
@@ -15,11 +13,11 @@ import org.springframework.http.MediaType;
 
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
+import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
+import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
 
 
 public class FormProduct {
-	private static final String YOUTUBE_REGEX = "(?:https:\\/\\/(?:www\\.)?)?(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?"
-			+ "\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{11})";
 	private static final int MAX_IMAGES = 4;
 	private static final int MAX_VIDEOS = 2;
 	
@@ -48,17 +46,15 @@ public class FormProduct {
 	@Email
 	private String creatorMail;
 	
-	private MultipartFile[] images;
+	@Valid
+	private MultipartFileImageWrapper[] images;
 	
-	private String[] videos;
-	
-	@URL
-	@Pattern(regexp = YOUTUBE_REGEX)
-	private String video;
+	@Valid
+	private VideoStringWrapper[] videos;
 
 	public FormProduct() {
-		images = new MultipartFile[MAX_IMAGES];
-		videos = new String[MAX_VIDEOS];
+		images = new MultipartFileImageWrapper[MAX_IMAGES];
+		videos = new VideoStringWrapper[MAX_VIDEOS];
 	}
 	
 	public int getId() {
@@ -113,19 +109,19 @@ public class FormProduct {
 		this.creatorName = creatorName;
 	}
 
-	public MultipartFile[] getImages() {
+	public MultipartFileImageWrapper[] getImages() {
 		return images;
 	}
 
-	public void setImage(MultipartFile[] images) {
+	public void setImage(MultipartFileImageWrapper[] images) {
 		this.images = images;
 	}
 
-	public String[] getVideos() {
+	public VideoStringWrapper[] getVideos() {
 		return videos;
 	}
 
-	public void setVideos(String[] videos) {
+	public void setVideos(VideoStringWrapper[] videos) {
 		this.videos = videos;
 	}
 	
@@ -146,29 +142,5 @@ public class FormProduct {
 	@Override
 	public int hashCode() {
 		return id;
-	}
-
-	public String getVideo() {
-		return this.video;
-	}
-
-	public void setVideo(String video) {
-		this.video = video;
-	}
-	
-	/**
-	 * Extrae el ID de un video de Youtube.
-	 * @return id - ID del video de youtube
-	 */
-	public String getVideoId(){
-		String pattern = YOUTUBE_REGEX;
-        java.util.regex.Pattern compiledPattern = java.util.regex.Pattern.compile(pattern);
-        Matcher matcher = compiledPattern.matcher(video);
-        if (matcher.find()) {
-             return matcher.group(1);
-        }
-        //No deberia llegar a esta instancia, pues el formato de url fue validado por Spring
-        
-        throw new IllegalStateException("regex should match");
 	}
 }

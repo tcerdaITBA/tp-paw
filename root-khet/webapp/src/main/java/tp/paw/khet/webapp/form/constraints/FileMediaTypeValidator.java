@@ -11,7 +11,6 @@ public class FileMediaTypeValidator implements ConstraintValidator<FileMediaType
 	
 	public void initialize(FileMediaType constraintAnnotation) {
 		values = constraintAnnotation.value();
-		
 	}
 
 	public boolean isValid(MultipartFile value, ConstraintValidatorContext context) {

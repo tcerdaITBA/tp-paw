@@ -73,9 +73,9 @@
 											</div>
 											<c:forEach items="${uploadForm.images}" varStatus="status">
 												<div>
-													<form:label path="images[${status.index}]"><spring:message code="formLabel.image" /></form:label>
-													<form:input type="file" path="images[${status.index}]" accept="image/*"/>
-													<form:errors path="images[${status.index}]" cssClass="" element="p"/>
+													<form:label path="images[${status.index}].file"><spring:message code="formLabel.image" /></form:label>
+													<form:input type="file" path="images[${status.index}].file" accept="image/*"/>
+													<form:errors path="images[${status.index}].file" cssClass="" element="p"/>
 												</div>
 											</c:forEach>
 											<div class="row">
@@ -83,21 +83,11 @@
 													<h5>Youtube Videos</h5>
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
 														<div class="form-inline video-form">
-															<!--												<form:label path="videos[${status.index}]"><spring:message code="formLabel.video" /></form:label>-->
-															<form:input type="url" path="videos[${status.index}]" class="form-control" placeholder="Video URL"/>
-															<form:errors path="videos[${status.index}]" cssClass="" element="p"/>
+															<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
+															<form:input type="url" path="videos[${status.index}].url" class="form-control" placeholder="Video URL"/>
+															<form:errors path="videos[${status.index}].url" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="col-md-12 form-group">
-													<div class="col-sm-9 col-sm-offset-3">
-														<form:label path="video"><spring:message code="formLabel.video" /></form:label>
-														<form:textarea type="text" path="video" class="form-control" rows="1" placeholder="VIDEO"/>
-														<form:errors path="video" cssClass="" element="p"/>
-													</div>
 												</div>
 											</div>
 											
