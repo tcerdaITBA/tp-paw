@@ -23,7 +23,7 @@
 <body>
 	<%@include file="includes/navbar.jsp" %>
 	<div class="container">
-		<div class="row">
+		<div class="row" id="carouselHolder">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="multiple-items carousel highlighted">
 					<c:forEach items="${videos}" var="video">
@@ -83,11 +83,12 @@
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
     	</div>
     </div>
 	<!-- 	This span is used by javascript in order to know the size of the corousel -->
-	<span hidden id="carouselSize"> <c:out value="${carouselSize}" /></span>	
+	<span id="carouselSize" style="display:none"> <c:out value="${carouselSize}" /></span>	
 	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
