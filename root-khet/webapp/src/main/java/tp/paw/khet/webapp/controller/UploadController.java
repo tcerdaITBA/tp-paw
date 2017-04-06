@@ -67,4 +67,5 @@ public class UploadController {
 				productImageService.createProductImage(j++, productId, images[i].getBytes());
 		}
 	}
+	
 }

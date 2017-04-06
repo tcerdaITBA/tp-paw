@@ -91,6 +91,16 @@
 												</div>
 											</div>
 
+											<div class="row">
+												<div class="col-md-12 form-group">
+													<div class="col-sm-9 col-sm-offset-3">
+														<form:label path="video"><spring:message code="formLabel.video" /></form:label>
+														<form:textarea type="text" path="video" class="form-control" rows="1" placeholder="VIDEO"/>
+														<form:errors path="video" cssClass="" element="p"/>
+													</div>
+												</div>
+											</div>
+											
 											<div class="row creator-data-row">
 												<div class="col-md-12 form-inline">
 													<div class="col-sm-9 col-sm-offset-3">
