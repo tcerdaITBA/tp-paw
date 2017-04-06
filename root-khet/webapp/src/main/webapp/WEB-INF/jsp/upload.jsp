@@ -86,8 +86,8 @@
 												<div class="col-sm-9 col-sm-offset-3">
 													<c:forEach items="${uploadForm.images}" varStatus="status">
 														<div class="col-md-3"> 
-															<form:input class="image-input" type="file" path="images[${status.index}]" accept="image/*"/>
-															<form:label path="images[${status.index}]">
+															<form:input class="image-input" type="file" path="images[${status.index}].file" accept="image/*"/>
+															<form:label path="images[${status.index}].file">
 																<div class="preview-container">
 																	<img class="preview-image" src="#">
 																	<span class="add-img-text">
@@ -97,7 +97,7 @@
 																	<div class="remove-btn glyphicon glyphicon-remove"></div>
 																</div>
 															</form:label>
-															<form:errors path="images[${status.index}]" cssClass="" element="p"/>
+															<form:errors path="images[${status.index}].file" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
 												</div>
