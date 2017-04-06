@@ -40,7 +40,13 @@
 											<div class="row">
 												<div class="col-md-9 col-md-offset-3">
 													<form:input class="image-input" type="file" path="logo" accept="image/*"/>
-													<form:label id="logo-label" path="logo" style="text-align:center;"><img src="#" class="preview-image"><spring:message code="formLabel.logo"/></form:label>
+													<form:label id="logo-label" path="logo" style="text-align:center;">
+														<div class="preview-container">
+															<img src="#" class="preview-image">
+															<span class="add-img-text"><spring:message code="formLabel.logo"/></span>
+															<div class="remove-btn glyphicon glyphicon-remove"></div>
+														</div>
+													</form:label>
 													<form:errors path="logo" cssClass="" element="p"/>
 												</div>
 											</div>
@@ -71,13 +77,19 @@
 													</div>
 												</div>
 											</div>
-											
+
 											<div class="row"> 
 												<div class="col-md-offset-3">
 													<c:forEach items="${uploadForm.images}" varStatus="status">
 														<div class="col-md-3"> 
 															<form:input class="image-input" type="file" path="images[${status.index}]" accept="image/*"/>
-															<form:label path="images[${status.index}]"><img class="preview-image" src="#"><spring:message code="formLabel.image" /></form:label>
+															<form:label path="images[${status.index}]">
+																<div class="preview-container">
+																	<img class="preview-image" src="#">
+																	<span class="add-img-text"><spring:message code="formLabel.image"/></span>
+																	<div class="remove-btn glyphicon glyphicon-remove"></div>
+																</div>
+															</form:label>
 															<form:errors path="images[${status.index}]" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
