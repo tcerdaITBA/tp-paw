@@ -62,8 +62,8 @@
 	font-size: 1.25em;
 	font-weight: 400;
 	width: 100%;
-	height: 100px;
-	color: #333;
+	height: 100%;
+	color: #8e8e8e;
 	background-color: #fff;
 	border-radius: 3px;
 	
@@ -114,6 +114,15 @@
 	margin: 15px auto;
 }
 
+#product-images {
+	height: 120px;
+}
+
 .add-img-text {
 	align-self: center;
+}
+
+p { /* errors */
+	color: orangered;
+	text-align: center;
 }

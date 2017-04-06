@@ -29,10 +29,10 @@
 									<div class="col-md-10">
 										<div class="col-sm-9 col-sm-offset-3">
 											<div>
-												<h2>Post Product</h2>
+												<h2><spring:message code="formLabel.postProduct"/></h2>
 											</div>
 											<div>
-												<h4>Give us some information about your product</h4>
+												<h4><spring:message code="formLabel.giveUsInfo" /></h4>
 											</div>
 										</div>
 										<form:form modelAttribute="uploadForm" action="${postPath}" method="post" enctype="multipart/form-data"
@@ -43,7 +43,10 @@
 													<form:label id="logo-label" path="logo" style="text-align:center;">
 														<div class="preview-container">
 															<img src="#" class="preview-image">
-															<span class="add-img-text"><spring:message code="formLabel.logo"/></span>
+															<span class="add-img-text">
+																<span class="glyphicon glyphicon-plus"></span>
+																<spring:message code="formLabel.logo"/>
+															</span>
 															<div class="remove-btn glyphicon glyphicon-remove"></div>
 														</div>
 													</form:label>
@@ -78,21 +81,26 @@
 												</div>
 											</div>
 
-											<div class="row"> 
-												<div class="col-md-offset-3">
+											<div class="row">
+												<div class="col-md-12 form-group" id="product-images">
+												<div class="col-sm-9 col-sm-offset-3">
 													<c:forEach items="${uploadForm.images}" varStatus="status">
 														<div class="col-md-3"> 
 															<form:input class="image-input" type="file" path="images[${status.index}]" accept="image/*"/>
 															<form:label path="images[${status.index}]">
 																<div class="preview-container">
 																	<img class="preview-image" src="#">
-																	<span class="add-img-text"><spring:message code="formLabel.image"/></span>
+																	<span class="add-img-text">
+																		<span class="glyphicon glyphicon-plus"></span>
+																		<spring:message code="formLabel.image"/>
+																	</span>
 																	<div class="remove-btn glyphicon glyphicon-remove"></div>
 																</div>
 															</form:label>
 															<form:errors path="images[${status.index}]" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
+												</div>
 												</div>
 											</div>
 											<div class="row">
@@ -111,15 +119,18 @@
 											<div class="row creator-data-row">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
-														<h3>Creator</h3>
+														<h3>
+															<span class="glyphicon glyphicon-user"></span>
+															<spring:message code="formLabel.creator" />
+														</h3>
 														<div class="form-group creator-name-form">
 															<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
-															<form:input type="text" path="creatorName" class="form-control" placeholder="Juan Pérez"/>
+															<form:input type="text" path="creatorName" class="form-control" placeholder="Alex Salerno"/>
 															<form:errors path="creatorName" cssClass="" element="p"/>
 														</div>
 														<div class="form-group email-form">
 															<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
-															<form:input type="email" path="creatorMail" class="form-control" placeholder="juan@productseek.com"/>
+															<form:input type="email" path="creatorMail" class="form-control" placeholder="salerno@gmail.com"/>
 															<form:errors path="creatorMail" cssClass="" element="p"/>
 														</div>
 													</div>
@@ -132,13 +143,6 @@
 													</div>
 												</div>
 											</div>
-
-											<!--
-<div id="dZUpload" class="dropzone">
-<div class="dz-default dz-message"></div>
-</div>
--->
-
 										</form:form>
 									</div>
 								</div>
@@ -153,10 +157,5 @@
 											integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 											crossorigin="anonymous"></script>
 							<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
-
-							<!--
-<script src="<c:url value="/resources/js/dropzone.js"/>"></script>
-<script src="<c:url value="/resources/js/uploadapp.js"/>"></script>
--->
 							</body>
 						</html>
