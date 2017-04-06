@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	function setRemoveButton(removeBtn, image, labelText, input) {
-		removeBtn.on("click", function(e) {
+		removeBtn.click(function(e) {
 			// Empty input
 			input.value="";
 			
@@ -15,8 +15,8 @@ $(document).ready(function() {
 			//Show label
 			labelText.css("display", "inline-block");
 			
-			//TODO: esto no anda bien - vuelve a llamarse la ventana de subir archivo
-			//e.stopImmediatePropagation();
+			//So it doesn't open the file browser window
+			e.preventDefault();
 		});
 	}
 	
@@ -51,6 +51,8 @@ $(document).ready(function() {
 		}
 	}
 
+	
+	
 	$(".image-input").change(function(){
 		loadImage(this);
 	});
