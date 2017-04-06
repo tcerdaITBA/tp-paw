@@ -86,6 +86,13 @@
 
 .preview-image {
 	display: none;
-	max-height: 100%;
-	max-width: 100%;
+	max-height: 95%;
+	max-width: 95%;
+	padding: 2.5%;
+}
+
+#logo-label {
+	width: 150px !important;
+	height: 150px !important;
+	margin: 15px auto;
 }

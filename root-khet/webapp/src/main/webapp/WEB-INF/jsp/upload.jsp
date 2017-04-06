@@ -38,6 +38,13 @@
 										<form:form modelAttribute="uploadForm" action="${postPath}" method="post" enctype="multipart/form-data"
 															 class="form-horizontal">
 											<div class="row">
+												<div class="col-md-9 col-md-offset-3">
+													<form:input class="image-input" type="file" path="logo" accept="image/*"/>
+													<form:label id="logo-label" path="logo" style="text-align:center;"><img src="#" class="preview-image"><spring:message code="formLabel.logo"/></form:label>
+													<form:errors path="logo" cssClass="" element="p"/>
+												</div>
+											</div>
+											<div class="row">
 												<div class="col-md-12 form-group">
 													<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
 													<div class="col-sm-9">
@@ -64,13 +71,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<form:label path="logo"><spring:message code="formLabel.logo" /></form:label>
-													<form:input type="file" path="logo" accept="image/*"/>
-													<form:errors path="logo" cssClass="" element="p"/>
-												</div>
-											</div>
+											
 											<div class="row"> 
 												<div class="col-md-offset-3">
 													<c:forEach items="${uploadForm.images}" varStatus="status">

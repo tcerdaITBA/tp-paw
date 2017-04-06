@@ -6,8 +6,12 @@ $(document).ready(function() {
 		}).remove();
 	}
 	
+	function showImage (image, data) {
+		image.attr("src", data);
+		image.css("display", "block");
+	}
+	
 	function readURL(input) {
-
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 
@@ -16,9 +20,7 @@ $(document).ready(function() {
 				var previewLabel = $(input).parent().find("label");
 
 				removeOnlyText(previewLabel);
-
-				previewImg.attr("src", e.target.result);
-				previewImg.css("display", "block");
+				showImage(previewImg, e.target.result);
 			}
 
 			reader.readAsDataURL(input.files[0]);
