@@ -24,25 +24,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<div class="row">
-					<div class="col-md-12 multiple-items carousel highlighted">
+					<div class="multiple-items carousel highlighted">
 						<c:forEach items="${videos}" var="video">
-							<div class="row">
-								<div class="col-md-10 col-md-offset-1 embed-responsive embed-responsive-16by9">
-									<iframe class="embed-responsive-item video-frame" src="//www.youtube.com/embed/${video.videoId}?rel=0" style="height:300px; margin-top:20px" allowfullscreen></iframe>
+								<div class="embed-responsive embed-responsive-16by9 video-holder">
+									<iframe class="embed-responsive-item video-item" src="//www.youtube.com/embed/${video.videoId}?rel=0" allowfullscreen></iframe>
 								</div>
-							</div>
 						</c:forEach>
 						<c:forEach items="${images}" var="image">
-							<div class="row">
-								<div class="col-md-10 col-md-offset-1">
-									<img src="<c:url value="/product/${product.id}/image/${image}"/>">
+								<div class="image-holder">
+									<img class="image-item" src="<c:url value="/product/${product.id}/image/${image}"/>" ">
 								</div>
-							</div>
 						</c:forEach>
 						
 					</div>
-				</div>
 			</div>
 	    </div>
     </div>

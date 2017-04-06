@@ -38,6 +38,29 @@
 }
 
 .slick-dots li button:before
-    {
-        font-size: 15px;
-    }
+{
+	font-size: 15px;
+}
+
+.image-holder {
+	margin-top: 17px;
+	margin-right:25px;
+	margin-left:25px;
+}
+
+.image-item {
+	width: 500px;
+	height: 300px;
+}
+
+.video-item {
+	width: 500px;
+}
+
+.video-holder {
+	padding: 0px;
+	height: 300px;
+	margin-top: 17px;
+	margin-right:25px;
+	margin-left:25px;
+}
