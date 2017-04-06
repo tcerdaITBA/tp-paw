@@ -29,7 +29,7 @@ public class VideoStringWrapper {
 	
 	/**
 	 * Extracts Youtube video's ID.
-	 * @return id - ID del video de youtube
+	 * @return id - Youtube video ID
 	 */
 	public String getVideoId() {
         Matcher matcher = COMPILED_PATTERN.matcher(url);
