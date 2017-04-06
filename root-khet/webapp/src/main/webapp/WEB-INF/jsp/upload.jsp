@@ -113,6 +113,7 @@
 											<div class="row row-centered">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
+														<form:errors path="images" cssClass="" element="p"/>
 														<input class="ps-btn-red btn submit-btn" type="submit" value="Post 🎉" />
 													</div>
 												</div>

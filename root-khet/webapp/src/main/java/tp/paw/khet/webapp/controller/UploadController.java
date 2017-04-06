@@ -22,6 +22,7 @@ import tp.paw.khet.service.VideoService;
 import tp.paw.khet.webapp.form.FormProduct;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
+import tp.paw.khet.webapp.validators.ImageOrVideoValidator;
 
 @Controller
 public class UploadController {
@@ -47,7 +48,9 @@ public class UploadController {
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
 										final BindingResult errors) throws IOException {
 		
-
+		ImageOrVideoValidator imageOrVideoValidator = new ImageOrVideoValidator();
+		imageOrVideoValidator.validate(formProduct, errors);
+		
 		if (errors.hasErrors())
 			return formCompletion(formProduct);
 		
