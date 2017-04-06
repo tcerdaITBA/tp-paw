@@ -71,13 +71,17 @@
 													<form:errors path="logo" cssClass="" element="p"/>
 												</div>
 											</div>
-											<c:forEach items="${uploadForm.images}" varStatus="status">
-												<div>
-													<form:label path="images[${status.index}]"><spring:message code="formLabel.image" /></form:label>
-													<form:input type="file" path="images[${status.index}]" accept="image/*"/>
-													<form:errors path="images[${status.index}]" cssClass="" element="p"/>
+											<div class="row"> 
+												<div class="col-md-offset-3">
+													<c:forEach items="${uploadForm.images}" varStatus="status">
+														<div class="col-md-3"> 
+															<form:input class="image-input" type="file" path="images[${status.index}]" accept="image/*"/>
+															<form:label path="images[${status.index}]"><img class="preview-image" src="#"><spring:message code="formLabel.image" /></form:label>
+															<form:errors path="images[${status.index}]" cssClass="" element="p"/>
+														</div>
+													</c:forEach>
 												</div>
-											</c:forEach>
+											</div>
 											<div class="row">
 												<div class="col-sm-9 col-sm-offset-3">
 													<h5>Youtube Videos</h5>
@@ -92,14 +96,15 @@
 											</div>
 
 											<div class="row creator-data-row">
-												<div class="col-md-12 form-inline">
+												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
-														<div class="form-group">
+														<h3>Creator</h3>
+														<div class="form-group creator-name-form">
 															<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
 															<form:input type="text" path="creatorName" class="form-control" placeholder="Juan Pérez"/>
 															<form:errors path="creatorName" cssClass="" element="p"/>
 														</div>
-														<div class="form-group">
+														<div class="form-group email-form">
 															<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
 															<form:input type="email" path="creatorMail" class="form-control" placeholder="juan@productseek.com"/>
 															<form:errors path="creatorMail" cssClass="" element="p"/>
@@ -115,12 +120,12 @@
 												</div>
 											</div>
 
-<!--
-											<div id="dZUpload" class="dropzone">
-												<div class="dz-default dz-message"></div>
-											</div>
+											<!--
+<div id="dZUpload" class="dropzone">
+<div class="dz-default dz-message"></div>
+</div>
 -->
-											
+
 										</form:form>
 									</div>
 								</div>
@@ -134,9 +139,11 @@
 											src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 											integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 											crossorigin="anonymous"></script>
-<!--
-							<script src="<c:url value="/resources/js/dropzone.js"/>"></script>
-							<script src="<c:url value="/resources/js/uploadapp.js"/>"></script>
+							<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
+
+							<!--
+<script src="<c:url value="/resources/js/dropzone.js"/>"></script>
+<script src="<c:url value="/resources/js/uploadapp.js"/>"></script>
 -->
 							</body>
 						</html>
