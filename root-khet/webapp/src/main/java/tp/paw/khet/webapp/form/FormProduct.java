@@ -1,50 +1,60 @@
 package tp.paw.khet.webapp.form;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+
+import javax.validation.Valid;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.springframework.http.MediaType;
+
+
+import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
+import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
+import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
+
 
 public class FormProduct {
-	
 	private static final int MAX_IMAGES = 4;
 	private static final int MAX_VIDEOS = 2;
-
+	
 	private int id;
 	
-	@NotNull
+	@NotEmpty
 	@Size(max = 64)
 	private String name;
 	
-	@NotNull
+	@NotEmpty
 	private String description;
 	
-	@NotNull
+	@NotEmpty
 	@Size(max = 140)
 	private String shortDescription;
 	
+	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
 	@FileSize(min = 1)
 	private MultipartFile logo;
 	
 	//Debe ser un usuario
-	@NotNull
+	@NotEmpty
 	private String creatorName;
 	
-	@NotNull
+	@NotEmpty
 	@Email
 	private String creatorMail;
 	
-	private MultipartFile[] images;
+	@Valid
+	private MultipartFileImageWrapper[] images;
 	
-	private String[] videos;
+	@Valid
+	private VideoStringWrapper[] videos;
 
 	public FormProduct() {
-		images = new MultipartFile[MAX_IMAGES];
-		videos = new String[MAX_VIDEOS];
+		images = new MultipartFileImageWrapper[MAX_IMAGES];
+		videos = new VideoStringWrapper[MAX_VIDEOS];
 	}
 	
 	public int getId() {
@@ -99,19 +109,19 @@ public class FormProduct {
 		this.creatorName = creatorName;
 	}
 
-	public MultipartFile[] getImages() {
+	public MultipartFileImageWrapper[] getImages() {
 		return images;
 	}
 
-	public void setImage(MultipartFile[] images) {
+	public void setImage(MultipartFileImageWrapper[] images) {
 		this.images = images;
 	}
 
-	public String[] getVideos() {
+	public VideoStringWrapper[] getVideos() {
 		return videos;
 	}
 
-	public void setVideos(String[] videos) {
+	public void setVideos(VideoStringWrapper[] videos) {
 		this.videos = videos;
 	}
 	

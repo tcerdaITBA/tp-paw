@@ -108,14 +108,14 @@
 													<h5>Youtube Videos</h5>
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
 														<div class="form-inline video-form">
-															<!--												<form:label path="videos[${status.index}]"><spring:message code="formLabel.video" /></form:label>-->
-															<form:input type="url" path="videos[${status.index}]" class="form-control" placeholder="Video URL"/>
-															<form:errors path="videos[${status.index}]" cssClass="" element="p"/>
+															<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
+															<form:input type="url" path="videos[${status.index}].url" class="form-control" placeholder="Video URL"/>
+															<form:errors path="videos[${status.index}].url" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
 												</div>
 											</div>
-
+											
 											<div class="row creator-data-row">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
@@ -139,6 +139,7 @@
 											<div class="row row-centered">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
+														<form:errors path="images" cssClass="" element="p"/>
 														<input class="ps-btn-red btn submit-btn" type="submit" value="Post 🎉" />
 													</div>
 												</div>
