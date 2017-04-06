@@ -13,6 +13,7 @@
 		crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+	<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/product.css" />" rel="stylesheet" />
@@ -24,45 +25,67 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-					<div class="multiple-items carousel highlighted">
-						<c:forEach items="${videos}" var="video">
-							<div class="embed-responsive embed-responsive-16by9 video-holder">
-								<iframe class="embed-responsive-item video-item" src="//www.youtube.com/embed/${video.videoId}?rel=0" allowfullscreen></iframe>
-							</div>
-						</c:forEach>
-						<c:forEach items="${images}" var="image">
-							<div class="image-holder">
-								<img class="image-item" src="<c:url value="/product/${product.id}/image/${image}"/>" ">
-							</div>
-						</c:forEach>
-						
-					</div>
+				<div class="multiple-items carousel highlighted">
+					<c:forEach items="${videos}" var="video">
+						<div class="embed-responsive embed-responsive-16by9 video-holder">
+							<iframe class="embed-responsive-item video-item" src="//www.youtube.com/embed/${video.videoId}?rel=0" allowfullscreen></iframe>
+						</div>
+					</c:forEach>
+					<c:forEach items="${images}" var="image">
+						<div class="image-holder">
+							<img class="image-item" src="<c:url value="/product/${product.id}/image/${image}"/>" ">
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 	    </div>
+	    <div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row product-item vertical-align highlighted">
+							<div class="col-md-3 product-logo">
+								<img src="<c:url value="/product/${product.id}/logo"/>">
+							</div>
+							<div class="col-md-9 product-info-box">
+								<div class="row col-md-12">
+									<div class="row product-name">
+										<div class="col-md-12">
+											<p><c:out value="${product.name}"/></p>
+										</div>
+									</div>
+									<div class="row product-short-description">
+										<div class="col-md-12">
+											<p><c:out value="${product.shortDescription}"/></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-md-offset-1  creator-item highlighted">
+						<div class="row col-md-12">
+							<div class="row product-name">
+								<div class="col-md-12">
+									<p><c:out value="Creator"/></p>
+<!-- 											DESHARCODIAR "Creator" -->
+								</div>
+							</div>
+							<div class="row product-short-description">
+								<div class="col-md-12">
+									<p><c:out value="${user.name}"/></p>
+								</div>
+							</div>
+							<div class="row product-short-description">
+								<div class="col-md-12">
+									<p><c:out value="${user.mail}"/></p>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+    	</div>
     </div>
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-md-12"> -->
-<!-- 					<div class="row product-item vertical-align highlighted"> -->
-<!-- 						<div class="col-md-3 product-logo"> -->
-<%-- 							<img src="<c:url value="/product/${product.id}/logo"/>"> --%>
-<!-- 						</div> -->
-<!-- 						<div class="col-md-9 product-info-box"> -->
-<!-- 							<div class="row col-md-12"> -->
-<!-- 								<div class="row product-name"> -->
-<!-- 									<div class="col-md-12"> -->
-<%-- 										<p><c:out value="${product.name}"/></p> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="row product-short-description"> -->
-<!-- 									<div class="col-md-12"> -->
-<%-- 										<p><c:out value="${product.shortDescription}"/></p> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
 	<!-- 	This span is used by javascript in order to know the size of the corousel -->
 	<span hidden id="carouselSize"> <c:out value="${carouselSize}" /></span>	
 	

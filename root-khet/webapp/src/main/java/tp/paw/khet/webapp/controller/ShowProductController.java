@@ -53,6 +53,7 @@ public class ShowProductController {
 		mav.addObject("images", images);
 		mav.addObject("videos",videos);
 		mav.addObject("carouselSize", carouselSize.toString());
+		mav.addObject("user", productService.getCreatorByProductId(product.getId()));
 
 		return mav;
 	}
