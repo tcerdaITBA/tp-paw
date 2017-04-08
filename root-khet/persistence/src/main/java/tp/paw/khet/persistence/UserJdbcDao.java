@@ -1,19 +1,24 @@
 package tp.paw.khet.persistence;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.User;
+import tp.paw.khet.persistence.rowmapper.UserRowMapper;
 
 @Repository
 public class UserJdbcDao implements UserDao {
+	
+	private static final UserRowMapper ROW_MAPPER = UserRowMapper.getInstance();
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -30,10 +35,23 @@ public class UserJdbcDao implements UserDao {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("userName", userName);
 		args.put("mailAddr", email);
+
+		try {
+			final Number userId = jdbcInsert.executeAndReturnKey(args);
+			return new User(userId.intValue(), userName, email);
+		} 
+		catch (DuplicateKeyException e) {
+			return null;
+		}
+	}
+	
+	public User getUserByEmail(String email) {
+		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE mailAddr = ?", ROW_MAPPER, email);
 		
-		final Number userId = jdbcInsert.executeAndReturnKey(args);
+		if (user.isEmpty())
+			return null;
 		
-		return new User(userId.intValue(), userName, email);
+		return user.get(0);
 	}
 
 }

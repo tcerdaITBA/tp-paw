@@ -8,7 +8,14 @@ public interface UserDao {
 	 * Creates an {@link User} given it's username and email
 	 * @param userName
 	 * @param email
-	 * @return user
+	 * @return Created User or null if it's a duplicate
 	 */
 	public User createUser(String userName, String email);
+
+	/**
+	 * Returns an {@link User} given it's email
+	 * @param email - email User is registered with
+	 * @return The corresponding User or null if it doesn't exist
+	 */
+	public User getUserByEmail(String email);
 }

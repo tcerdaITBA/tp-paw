@@ -20,4 +20,20 @@ public class UserServiceImpl implements UserService {
 		return userDao.createUser(userName, email.toLowerCase());
 	}
 
+	public User getUserByEmail(String email) {
+		return userDao.getUserByEmail(email);
+	}
+
+	public User createUserOrRetrieveIfExists(String userName, String email) {
+		User user = createUser(userName, email);
+		
+		if (user == null)
+			user = getUserByEmail(email);
+		
+		if (user == null)
+			throw new IllegalStateException("User with email " + email + " must exist");
+		
+		return user;
+	}
+
 }

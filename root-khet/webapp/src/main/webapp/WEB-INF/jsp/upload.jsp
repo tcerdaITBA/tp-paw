@@ -126,7 +126,7 @@
 														<div class="form-group creator-name-form">
 															<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
 															<form:input type="text" path="creatorName" class="form-control" placeholder="Alex Salerno"/>
-															<form:errors path="creatorName" cssClass="" element="p"/>
+															<form:errors path="creatorName" cssClass="" element="p" />
 														</div>
 														<div class="form-group email-form">
 															<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>

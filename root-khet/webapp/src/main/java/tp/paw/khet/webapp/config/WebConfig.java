@@ -16,7 +16,6 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -27,7 +26,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan({"tp.paw.khet.webapp.controller", "tp.paw.khet.persistence", "tp.paw.khet.service"})
+@ComponentScan({"tp.paw.khet.webapp.controller", "tp.paw.khet.webapp.validators", "tp.paw.khet.persistence", "tp.paw.khet.service"})
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 	

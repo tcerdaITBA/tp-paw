@@ -1,6 +1,5 @@
 package tp.paw.khet.webapp.controller;
 
-
 import java.io.IOException;
 
 import javax.validation.Valid;
@@ -22,6 +21,7 @@ import tp.paw.khet.service.VideoService;
 import tp.paw.khet.webapp.form.FormProduct;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
+import tp.paw.khet.webapp.validators.EqualsUsernameValidator;
 import tp.paw.khet.webapp.validators.ImageOrVideoValidator;
 
 @Controller
@@ -39,6 +39,12 @@ public class UploadController {
 	@Autowired
 	private VideoService videoService;
 	
+	@Autowired
+	private ImageOrVideoValidator imageOrVideoValidator;
+	
+	@Autowired 
+	private EqualsUsernameValidator equalsUsernameValidator;
+	
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
 		return new ModelAndView("upload");
@@ -48,13 +54,15 @@ public class UploadController {
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
 										final BindingResult errors) throws IOException {
 		
-		ImageOrVideoValidator imageOrVideoValidator = new ImageOrVideoValidator();
 		imageOrVideoValidator.validate(formProduct, errors);
-		
 		if (errors.hasErrors())
 			return formCompletion(formProduct);
 		
-		final User user = userService.createUser(formProduct.getCreatorName(), formProduct.getCreatorMail());
+		final User user = userService.createUserOrRetrieveIfExists(formProduct.getCreatorName(), formProduct.getCreatorMail());
+		
+		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formProduct.getCreatorName(), user.getName()), errors);
+		if (errors.hasErrors())
+			return formCompletion(formProduct);
 		
 		final Product product =  productService.createProduct(formProduct.getName(), 
 												formProduct.getDescription(), formProduct.getShortDescription(),
@@ -65,7 +73,7 @@ public class UploadController {
 		
 		return new ModelAndView("redirect:/product/" + product.getId());
 	}
-	
+		
 	private void storeVideos(VideoStringWrapper[] videos, int productId) {		
 		for (VideoStringWrapper video : videos)
 			if (video.hasUrl())
