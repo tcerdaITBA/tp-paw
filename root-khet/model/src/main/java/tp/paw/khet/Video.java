@@ -5,6 +5,9 @@ public class Video {
 	private int productId;
 	
 	public Video(String videoId, int productId) {
+		if (videoId == null)
+			throw new IllegalArgumentException("videoId may not be null");
+		
 		this.videoId = videoId;
 		this.productId = productId;
 	}
@@ -32,9 +35,9 @@ public class Video {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = 17;
 		result = prime * result + productId;
-		result = prime * result + ((videoId == null) ? 0 : videoId.hashCode());
+		result = prime * result + videoId.hashCode();
 		return result;
 	}
 }

@@ -37,6 +37,12 @@ public class ProductImage {
 	
 	@Override
 	public int hashCode() {
-		return getProductImageId() ^ getProductId();
+		final int prime = 31;
+		int result = 17;
+		
+		result = result * prime + productImageId;
+		result = result * prime + productId;
+		
+		return result;
 	}
 }
