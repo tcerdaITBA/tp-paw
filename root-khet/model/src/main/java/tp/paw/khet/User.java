@@ -39,4 +39,9 @@ public class User {
 	public int hashCode() {
 		return userId;
 	}
+	
+	@Override
+	public String toString() {
+		return name + " " + mail;
+	}
 }

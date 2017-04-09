@@ -45,4 +45,9 @@ public class ProductImage {
 		
 		return result;
 	}
+	
+	@Override
+	public String toString() {
+		return "Image " + productImageId + " from product " + productId;
+	}
 }

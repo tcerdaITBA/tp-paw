@@ -40,4 +40,9 @@ public class Video {
 		result = prime * result + videoId.hashCode();
 		return result;
 	}
+	
+	@Override
+	public String toString() {
+		return videoId;
+	}
 }
