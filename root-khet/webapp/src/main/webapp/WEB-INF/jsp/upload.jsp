@@ -57,7 +57,7 @@
 												<div class="col-md-12 form-group">
 													<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
 													<div class="col-sm-9">
-														<form:input type="text" path="name" class="form-control" placeholder="Name"/>
+														<form:input type="text" path="name" class="form-control" placeholder="Name" maxlength="64"/>
 														<form:errors path="name" cssClass="" element="p"/>
 													</div>
 												</div>
@@ -105,7 +105,7 @@
 											</div>
 											<div class="row">
 												<div class="col-sm-9 col-sm-offset-3">
-													<h5>Youtube Videos</h5>
+													<h5><spring:message text="Youtube Videos"/></h5>
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
 														<div class="form-inline video-form">
 															<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
@@ -125,7 +125,7 @@
 														</h3>
 														<div class="form-group creator-name-form">
 															<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
-															<form:input type="text" path="creatorName" class="form-control" placeholder="Alex Salerno"/>
+															<form:input type="text" path="creatorName" class="form-control" placeholder="AlexSalerno" maxlength="30"/>
 															<form:errors path="creatorName" cssClass="" element="p" />
 														</div>
 														<div class="form-group email-form">

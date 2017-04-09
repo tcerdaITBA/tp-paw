@@ -1,5 +1,6 @@
 package tp.paw.khet.webapp.form;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -23,8 +24,7 @@ public class FormProduct {
 	
 	private int id;
 	
-	@NotEmpty
-	@Size(max = 64)
+	@Size(max = 64, min=4)
 	private String name;
 	
 	@NotEmpty
@@ -39,7 +39,8 @@ public class FormProduct {
 	private MultipartFile logo;
 	
 	//Debe ser un usuario
-	@NotEmpty
+	@Size(max=30, min=4)
+	@Pattern(regexp = "[A-Za-z0-9_\\-.]+")
 	private String creatorName;
 	
 	@NotEmpty
