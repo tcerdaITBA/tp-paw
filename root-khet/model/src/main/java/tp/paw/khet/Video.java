@@ -13,18 +13,10 @@ public class Video {
 		return videoId;
 	}
 	
-	public void setVideoId(String videoId) {
-		this.videoId = videoId;
-	}
-	
 	public int getProductId() {
 		return productId;
 	}
 	
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -36,13 +28,7 @@ public class Video {
 		
 		Video other = (Video) obj;
 		
-		if (productId != other.productId)
-			return false;
-				
-		if (videoId != other.videoId)
-			return false;
-		
-		return true;
+		return productId == other.productId && videoId == other.videoId;
 	}
 	
 	@Override

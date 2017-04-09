@@ -1,6 +1,7 @@
 package tp.paw.khet.persistence;
 
 import static org.junit.Assert.*;
+import static tp.paw.khet.testutils.UserTestUtils.*;
 
 import javax.sql.DataSource;
 
@@ -20,6 +21,7 @@ import tp.paw.khet.User;
 @ContextConfiguration(classes = TestConfig.class)
 @Sql("classpath:schema.sql")
 public class UserJdbcDaoTest {
+	
 	@Autowired
 	private UserJdbcDao userDao;
 	
@@ -34,21 +36,22 @@ public class UserJdbcDaoTest {
 	}
 
 	@Test
-	public void testCreate() {
-		User expectedUser = dummyUser();
-		User createdUser = userDao.createUser(expectedUser.getName(), expectedUser.getMail());
+	public void createUserTest() {
+		User expected = dummyUser(0);
+		User actual = userDao.createUser(expected.getName(), expected.getMail());
 		
-		assertNotNull(createdUser);
-		
-		assertEquals(expectedUser, createdUser);
-		assertEquals(expectedUser.getUserId(), createdUser.getUserId());
-		assertEquals(expectedUser.getName(), createdUser.getName());
-		assertEquals(expectedUser.getMail(), createdUser.getMail());
-
+		assertEqualsUsers(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
 	}
-
-	private User dummyUser() {
-		return new User(0, "Tomás Cerdá", "tcerda@itba.edu.ar");
+	
+	@Test
+	public void getUserByEmailTest() {
+		User expected = dummyUser(0);
+		userDao.createUser(expected.getName(), expected.getMail());
+		
+		User actual = userDao.getUserByEmail(expected.getMail());
+		
+		assertEqualsUsers(expected, actual);
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
 	}
 }

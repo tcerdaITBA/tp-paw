@@ -1,40 +1,76 @@
 package tp.paw.khet.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static tp.paw.khet.testutils.UserTestUtils.*;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import tp.paw.khet.User;
 import tp.paw.khet.persistence.UserDao;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
 
+	@Mock
 	private UserDao userDaoMock;
-	private UserServiceImpl userService;
 	
-	@Before
-	public void setUp() throws Exception {
-		userDaoMock = Mockito.mock(UserDao.class);
-		userService = new UserServiceImpl(userDaoMock);
-	}
+	@InjectMocks
+	private UserServiceImpl userService;
 
 	@Test
 	public void createUserTest() {
-		User expectedUser = dummyUser(0);
-		Mockito.when(userDaoMock.createUser(expectedUser.getName(), expectedUser.getMail())).thenReturn(expectedUser);
+		User expected = dummyUser(0);
+		when(userDaoMock.createUser(expected.getName(), expected.getMail())).thenReturn(expected).thenReturn(null);
 		
-		User retrievedUser = userService.createUser(expectedUser.getName(), expectedUser.getMail());
+		User actual = userService.createUser(expected.getName(), expected.getMail());
+		assertEqualsUsers(expected, actual);
 		
-		assertEquals(expectedUser, retrievedUser);
-		assertEquals(expectedUser.getUserId(), retrievedUser.getUserId());
-		assertEquals(expectedUser.getName(), retrievedUser.getName());
-		assertEquals(expectedUser.getMail(), retrievedUser.getMail());
+		User shouldBeNull = userService.createUser(expected.getName(), expected.getMail());
+		assertNull(shouldBeNull);
+		
+		verify(userDaoMock, times(2)).createUser(expected.getName(), expected.getMail());
 	}
-
-	private User dummyUser(int i) {
-		return new User(i, "Tomás Cerdá", "tcerda@itba.edu.ar");
+	
+	@Test
+	public void getUserByEmailTest() {
+		User expected = dummyUser(0);
+		when(userDaoMock.getUserByEmail(expected.getMail())).thenReturn(expected);
+		
+		User actual = userService.getUserByEmail(expected.getMail());
+		assertEqualsUsers(expected, actual);
+		
+		verify(userDaoMock, times(1)).getUserByEmail(expected.getMail());
 	}
-
+	
+	@Test
+	public void createUserOrRetrieveIfExistsAndUserExistsTest() {
+		User alreadyCreated = dummyUser(0);
+		when(userDaoMock.createUser(anyString(), eq(alreadyCreated.getMail()))).thenReturn(null);
+		when(userDaoMock.getUserByEmail(alreadyCreated.getMail())).thenReturn(alreadyCreated);
+		
+		User actual = userService.createUserOrRetrieveIfExists("Miguel", alreadyCreated.getMail());
+		
+		assertEqualsUsers(alreadyCreated, actual);
+		
+		verify(userDaoMock, times(1)).createUser(anyString(), eq(alreadyCreated.getMail()));
+		verify(userDaoMock, atLeastOnce()).getUserByEmail(alreadyCreated.getMail());
+	}
+	
+	@Test
+	public void createUserOrRetrieveIfExistsAndUserNotExistsTest() {
+		User expected = dummyUser(0);
+		when(userDaoMock.createUser(expected.getName(), expected.getMail())).thenReturn(expected);
+		
+		User actual = userService.createUserOrRetrieveIfExists(expected.getName(), expected.getMail());
+		
+		assertEqualsUsers(expected, actual);
+		
+		verify(userDaoMock, times(1)).createUser(anyString(), eq(expected.getMail()));
+		verify(userDaoMock, atMost(1)).getUserByEmail(anyString());
+	}
 }

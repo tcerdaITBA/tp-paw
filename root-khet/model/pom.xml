@@ -12,7 +12,26 @@
   <version>1.0-SNAPSHOT</version>
   <name>model</name>
   <url>http://maven.apache.org</url>
+  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${org.apache.maven.plugins.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+  
   <properties>
+  	<org.apache.maven.plugins.version>3.0.2</org.apache.maven.plugins.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>

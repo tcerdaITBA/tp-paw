@@ -13,12 +13,8 @@ import tp.paw.khet.persistence.ProductDao;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	private ProductDao productDao;
-	
 	@Autowired
-	public ProductServiceImpl(ProductDao productDao) {
-		this.productDao = productDao;
-	}
+	private ProductDao productDao;
 	
 	public User getCreatorByProductId(int productId) {
 		return productDao.getCreatorByProductId(productId);

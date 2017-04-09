@@ -16,10 +16,17 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
-   <dependency>
+  	<dependency>
       <groupId>tp.paw.khet</groupId>
       <artifactId>interface</artifactId>
       <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>tp.paw.khet</groupId>
+      <artifactId>model</artifactId>
+      <version>${project.parent.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
