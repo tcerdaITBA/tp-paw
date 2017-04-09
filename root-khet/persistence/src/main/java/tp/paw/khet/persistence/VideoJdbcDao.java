@@ -11,14 +11,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import tp.paw.khet.User;
 import tp.paw.khet.Video;
 import tp.paw.khet.persistence.rowmapper.VideoRowMapper;
 
 @Repository
 public class VideoJdbcDao implements VideoDao {
 	
-	private final static VideoRowMapper VIDEO_ROW_MAPPER = VideoRowMapper.getInstance();
+	@Autowired
+	private VideoRowMapper videoRowMapper;
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -31,7 +31,7 @@ public class VideoJdbcDao implements VideoDao {
 		}
 	
 	public List<Video> getVideosByProductId(int id) {
-		List<Video> videos = jdbcTemplate.query("SELECT * FROM videos WHERE productId = ?", VIDEO_ROW_MAPPER, id);
+		List<Video> videos = jdbcTemplate.query("SELECT * FROM videos WHERE productId = ?", videoRowMapper, id);
 		return videos;
 	}
 

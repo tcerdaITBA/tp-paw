@@ -18,7 +18,8 @@ import tp.paw.khet.persistence.rowmapper.UserRowMapper;
 @Repository
 public class UserJdbcDao implements UserDao {
 	
-	private static final UserRowMapper ROW_MAPPER = UserRowMapper.getInstance();
+	@Autowired
+	private UserRowMapper userRowMapper;
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -46,7 +47,7 @@ public class UserJdbcDao implements UserDao {
 	}
 	
 	public User getUserByEmail(String email) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE mailAddr = ?", ROW_MAPPER, email);
+		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE mailAddr = ?", userRowMapper, email);
 		
 		if (user.isEmpty())
 			return null;

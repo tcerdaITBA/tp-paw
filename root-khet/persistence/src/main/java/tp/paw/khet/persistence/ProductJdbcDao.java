@@ -1,8 +1,6 @@
 package tp.paw.khet.persistence;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +21,11 @@ import tp.paw.khet.persistence.rowmapper.UserRowMapper;
 @Repository
 public class ProductJdbcDao implements ProductDao {
 	
-	private final static ProductRowMapper PRODUCT_ROW_MAPPER = ProductRowMapper.getInstance();
-	private final static UserRowMapper USER_ROW_MAPPER = UserRowMapper.getInstance();
+	@Autowired
+	private ProductRowMapper productRowMapper;
+	
+	@Autowired
+	private UserRowMapper userRowMapper;
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -38,11 +39,11 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	public List<Product> getProducts() {
-		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", PRODUCT_ROW_MAPPER);
+		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", productRowMapper);
 	}
 
 	public Product getProductByProductId(int id) {
-		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", PRODUCT_ROW_MAPPER, id);
+		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", productRowMapper, id);
 		
 		if (product.isEmpty())
 			return null;
@@ -51,7 +52,7 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	public User getCreatorByProductId(int id) {
-		List<User> user = jdbcTemplate.query("SELECT userId, userName, mailAddr FROM products NATURAL JOIN users WHERE productId = ?", USER_ROW_MAPPER, id);
+		List<User> user = jdbcTemplate.query("SELECT userId, userName, mailAddr FROM products NATURAL JOIN users WHERE productId = ?", userRowMapper, id);
 		
 		if (user.isEmpty())
 			return null;

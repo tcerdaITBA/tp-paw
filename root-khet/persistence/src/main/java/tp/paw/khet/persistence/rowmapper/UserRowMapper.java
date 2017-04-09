@@ -4,20 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import tp.paw.khet.User;
 
+@Component
 public class UserRowMapper implements RowMapper<User> {
-
-	private final static UserRowMapper INSTANCE = new UserRowMapper();
-	
-	public final static UserRowMapper getInstance() {
-		return INSTANCE;
-	}
-	
-	private UserRowMapper() {
-	}
-	
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 		return new User(rs.getInt("userId"), rs.getString("userName"), rs.getString("mailAddr"));
 	}
