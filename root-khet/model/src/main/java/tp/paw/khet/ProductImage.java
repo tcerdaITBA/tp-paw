@@ -27,9 +27,7 @@ public class ProductImage {
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (obj == null)
-			return false;
-		if (!this.getClass().equals(obj.getClass()))
+		if (!(obj instanceof ProductImage))
 			return false;
 		
 		ProductImage other = (ProductImage) obj;

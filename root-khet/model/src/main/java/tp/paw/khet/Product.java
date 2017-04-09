@@ -1,6 +1,5 @@
 package tp.paw.khet;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Product {
@@ -42,9 +41,7 @@ public class Product {
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (obj == null)
-			return false;
-		if (!this.getClass().equals(obj.getClass()))
+		if (!(obj instanceof Product))
 			return false;
 		
 		Product other = (Product) obj;
