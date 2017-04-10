@@ -49,8 +49,9 @@
 }
 
 .image-item {
-	width: 500px;
-	height: 300px;
+	max-width: 500px;
+	max-height: 300px;
+	margin: auto auto;
 }
 
 .video-item {

@@ -123,6 +123,11 @@
 }
 
 p { /* errors */
-	color: orangered;
+	color: #bc0f0f;
+	text-align: left;
+}
+
+.logo-form p { /* logo errors */
 	text-align: center;
+	margin-top: -1em;
 }

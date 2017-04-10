@@ -38,7 +38,7 @@
 										<form:form modelAttribute="uploadForm" action="${postPath}" method="post" enctype="multipart/form-data"
 															 class="form-horizontal">
 											<div class="row">
-												<div class="col-md-9 col-md-offset-3">
+												<div class="col-md-9 col-md-offset-3 logo-form">
 													<form:input class="image-input" type="file" path="logo" accept="image/*"/>
 													<form:label id="logo-label" path="logo" style="text-align:center;">
 														<div class="preview-container">
