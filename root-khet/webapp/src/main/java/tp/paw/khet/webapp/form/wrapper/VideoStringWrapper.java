@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 public class VideoStringWrapper {
 
 	private static final String YOUTUBE_REGEX = "(?:https:\\/\\/(?:www\\.)?)?(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?"
-			+ "\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{11})|^$";
+			+ "\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{11})(?:\\?t=(?:[0-9]+m)?[0-9]+s)?|^$";
 	
 	private static final java.util.regex.Pattern COMPILED_PATTERN = java.util.regex.Pattern.compile(YOUTUBE_REGEX);
 
