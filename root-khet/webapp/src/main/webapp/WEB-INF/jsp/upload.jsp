@@ -21,6 +21,13 @@
 
 				<body>
 					<!--TODO: No se pone #fff el navbar-->
+					<spring:message code="formLabel.namePlaceholder" var="NamePlaceholder"/>
+					<spring:message code="formLabel.taglinePlaceholder" var="TaglinePlaceholder"/>
+					<spring:message code="formLabel.descriptionPlaceholder" var="DescriptionPlaceholder"/>
+					<spring:message code="formLabel.linkPlaceholder" var="LinkPlaceholder"/>
+					<spring:message code="formLabel.creatorNamePlaceholder" var="CreatorNamePlaceholder"/>
+					<spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>
+
 					<%@include file="includes/navbar.jsp" %>
 						<div class="form-container container">
 							<div class="row">
@@ -57,7 +64,7 @@
 												<div class="col-md-12 form-group">
 													<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
 													<div class="col-sm-9">
-														<form:input type="text" path="name" class="form-control" placeholder="Name" maxlength="64"/>
+														<form:input type="text" path="name" class="form-control" placeholder="${NamePlaceholder}" maxlength="64"/>
 														<form:errors path="name" cssClass="" element="p"/>
 													</div>
 												</div>
@@ -66,7 +73,7 @@
 												<div class="col-md-12 form-group">
 													<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.tagline"/></form:label>
 													<div class="col-sm-9">
-														<form:textarea type="text" path="shortDescription" placeholder="A quick product description" class="form-control" rows="1" maxlength="140"/>
+														<form:textarea type="text" path="shortDescription" placeholder="${TaglinePlaceholder}" class="form-control" rows="1" maxlength="140"/>
 														<form:errors path="shortDescription" cssClass="" element="p"/>
 													</div>
 												</div>
@@ -75,7 +82,7 @@
 												<div class="col-md-12 form-group">
 													<form:label path="description" class="col-sm-3 control-label"><spring:message code="formLabel.description"/></form:label>
 													<div class="col-sm-9">
-														<form:textarea type="text" path="description" class="form-control" rows="4" placeholder="Full Description"/>
+														<form:textarea type="text" path="description" class="form-control" rows="4" placeholder="${DescriptionPlaceholder}"/>
 														<form:errors path="description" cssClass="" element="p"/>
 													</div>
 												</div>
@@ -110,7 +117,7 @@
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
 														<div class="col-md-12 form-group video-form">
 															<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
-															<form:input type="url" path="videos[${status.index}].url" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE"/>
+															<form:input type="url" path="videos[${status.index}].url" class="form-control" placeholder="${LinkPlaceholder}"/>
 															<form:errors path="videos[${status.index}].url" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
@@ -129,12 +136,12 @@
 													</h3>
 													<div class="col-md-12 form-group creator-name-form">
 														<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
-														<form:input type="text" path="creatorName" class="form-control" placeholder="AlexSalerno" maxlength="30"/>
+														<form:input type="text" path="creatorName" class="form-control" placeholder="${CreatorNamePlaceholder}" maxlength="30"/>
 														<form:errors path="creatorName" cssClass="" element="p" />
 													</div>
 													<div class="col-md-12 form-group email-form">
 														<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
-														<form:input type="email" path="creatorMail" class="form-control" placeholder="salerno@gmail.com"/>
+														<form:input type="email" path="creatorMail" class="form-control" placeholder="${EmailPlaceholder}"/>
 														<form:errors path="creatorMail" cssClass="" element="p"/>
 													</div>
 												</div>
