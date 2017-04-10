@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+			<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -40,9 +41,9 @@
 			</div>
 	    </div>
 	    <div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-10 col-md-offset-1">
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<div class="row product-item vertical-align highlighted">
 							<div class="col-md-3 product-logo">
 								<img src="<c:url value="/product/${product.id}/logo"/>">
@@ -63,28 +64,37 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3 col-md-offset-1  creator-item highlighted">
-						<div class="row col-md-12">
-							<div class="row product-name">
-								<div class="col-md-12">
-									<p><c:out value="Creator"/></p>
-<!-- 											DESHARCODIAR "Creator" -->
+					<div class="col-md-4 col-md-offset-1 creator-item highlighted">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row product-name">
+									<div class="col-md-12">
+										<p><c:out value="Creator"/></p>
+	<!-- 											DESHARCODIAR "Creator" -->
+									</div>
 								</div>
-							</div>
-							<div class="row product-short-description">
-								<div class="col-md-12">
-									<p><c:out value="${user.name}"/></p>
+								<div class="row product-short-description">
+									<div class="col-md-12">
+										<p><c:out value="${user.name}"/></p>
+									</div>
 								</div>
-							</div>
-							<div class="row product-short-description">
-								<div class="col-md-12">
-									<p><c:out value="${user.mail}"/></p>
+								<div class="row product-short-description">
+									<div class="col-md-12">
+										<p><c:out value="${user.mail}"/></p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+				<div class="row long-description">
+					<div class="col-md-12">
+						<p>${product.description}</p>
+						<div class="back-to-products">
+							<a href="<c:url value="/"/>"><spring:message code="productPage.backToProducts" /></a>
+						</div>
+					</div>
+				</div>
     	</div>
     </div>
 	<!-- 	This span is used by javascript in order to know the size of the corousel -->
