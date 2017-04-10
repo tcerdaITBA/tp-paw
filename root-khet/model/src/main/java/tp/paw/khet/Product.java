@@ -8,7 +8,7 @@ public class Product {
 	private String description;
 	private String shortDescription;
 	private LocalDateTime uploadDate;
-	
+
 	public Product(int id, String name, String description, String shortDescription, LocalDateTime uploadDate) {
 		this.id = id;
 		this.name = name;

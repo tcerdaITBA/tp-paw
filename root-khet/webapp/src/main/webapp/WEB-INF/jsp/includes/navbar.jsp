@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <nav class="navbar navbar-default">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -23,7 +24,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<p class="navbar-btn">
-						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn">Upload Product</a>
+						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
 					</p>
 				</li>
 			</ul>

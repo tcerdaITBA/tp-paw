@@ -29,7 +29,7 @@ public class Video {
 		
 		Video other = (Video) obj;
 		
-		return productId == other.productId && videoId == other.videoId;
+		return productId == other.productId && videoId.equals(other.videoId);
 	}
 	
 	@Override
