@@ -42,9 +42,10 @@ public class UserServiceImplTest {
 		when(userDaoMock.getUserByEmail(expected.getMail())).thenReturn(expected);
 		
 		User actual = userService.getUserByEmail(expected.getMail());
-		assertEqualsUsers(expected, actual);
 		
-		verify(userDaoMock, times(1)).getUserByEmail(expected.getMail());
+		assertEqualsUsers(expected, actual);
+		assertNull(userService.getUserByEmail("anyEmail@example.com"));
+		verify(userDaoMock, times(2)).getUserByEmail(anyString());
 	}
 	
 	@Test

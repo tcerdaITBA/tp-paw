@@ -47,6 +47,7 @@ public class VideoServiceImplTest {
 		for (int i = 0; i < expectedList.size(); i++)
 			assertEquals(expectedList.get(0), actualList.get(0));
 		
-		verify(videoDaoMock, times(1)).getVideosByProductId(0);
+		assertTrue(videoService.getVideosByProductId(1).isEmpty());
+		verify(videoDaoMock, times(2)).getVideosByProductId(anyInt());
 	}
 }

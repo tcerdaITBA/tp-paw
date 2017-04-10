@@ -1,6 +1,6 @@
 package tp.paw.khet.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static tp.paw.khet.testutils.ProductTestUtils.*;
 import static tp.paw.khet.testutils.UserTestUtils.*;
@@ -33,8 +33,9 @@ public class ProductServiceImplTest {
 		
 		User actualUser = productService.getCreatorByProductId(1);
 		
-		assertEquals(expectedUser, actualUser);
-		verify(productDaoMock, times(1)).getCreatorByProductId(1);
+		assertEqualsUsers(expectedUser, actualUser);
+		assertNull(productService.getCreatorByProductId(2));
+		verify(productDaoMock, times(2)).getCreatorByProductId(anyInt());		
 	}
 	
 	@Test
@@ -44,12 +45,11 @@ public class ProductServiceImplTest {
 		
 		List<Product> actual = productService.getProducts();
 		
-		int i;
-		for (i = 0; i < expected.size() && i < actual.size(); i++)
+		assertEquals(expected.size(), actual.size());
+		
+		for (int i = 0; i < expected.size(); i++)
 			assertEqualsProducts(expected.get(i), actual.get(i));
 		
-		assertEquals(i, expected.size());
-		assertEquals(i, actual.size());
 		verify(productDaoMock, times(1)).getProducts();
 	}
 
@@ -63,6 +63,7 @@ public class ProductServiceImplTest {
 		byte[] actualImage = productService.getLogoByProductId(0);
 		
 		assertEquals(expectedImage, actualImage);
-		verify(productDaoMock, times(1)).getLogoByProductId(0);
+		assertNull(productService.getLogoByProductId(1));
+		verify(productDaoMock, times(2)).getLogoByProductId(anyInt());		
 	}
 }
