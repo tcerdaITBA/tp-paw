@@ -115,6 +115,7 @@
 														</div>
 													</c:forEach>
 													<div class="col-md-12">
+														<form:errors path="videos" cssClass="" element="p"/>
 														<form:errors path="images" cssClass="" element="p"/>
 													</div>
 												</div>
