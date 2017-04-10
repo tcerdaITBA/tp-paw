@@ -105,7 +105,7 @@
 											</div>
 											<div class="row">
 												<div class="col-sm-9 col-sm-offset-3">
-													<h5><spring:message text="Youtube Videos"/></h5>
+													<h5><spring:message code="formLabel.videos"/></h5>
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
 														<div class="form-inline video-form">
 															<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
