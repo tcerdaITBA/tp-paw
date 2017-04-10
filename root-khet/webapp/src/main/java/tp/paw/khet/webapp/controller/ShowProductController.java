@@ -44,15 +44,9 @@ public class ShowProductController {
 		
 		ModelAndView mav = new ModelAndView("product");
 				
-		List<Video> videos = videoService.getVideosByProductId(product.getId());
-		List<Integer> images = productImageService.getImagesIdByProductId(product.getId());
-		
-		Integer carouselSize = videos.size() + images.size();
-		
 		mav.addObject("product", product);
-		mav.addObject("images", images);
-		mav.addObject("videos",videos);
-		mav.addObject("carouselSize", carouselSize.toString());
+		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
+		mav.addObject("videos",videoService.getVideosByProductId(product.getId()));
 		mav.addObject("user", productService.getCreatorByProductId(product.getId()));
 
 		return mav;
