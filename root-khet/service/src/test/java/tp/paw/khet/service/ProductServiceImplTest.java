@@ -62,7 +62,7 @@ public class ProductServiceImplTest {
 		
 		byte[] actualImage = productService.getLogoByProductId(0);
 		
-		assertEquals(expectedImage, actualImage);
+		assertArrayEquals(expectedImage, actualImage);
 		assertNull(productService.getLogoByProductId(1));
 		verify(productDaoMock, times(2)).getLogoByProductId(anyInt());		
 	}
