@@ -34,7 +34,7 @@
 					</c:forEach>
 					<c:forEach items="${images}" var="image">
 						<div class="image-holder">
-							<img class="image-item" src="<c:url value="/product/${product.id}/image/${image}"/>" ">
+							<img class="image-item" src="<c:url value="/product/${product.id}/image/${image}"/>" >
 						</div>
 					</c:forEach>
 				</div>
@@ -69,8 +69,7 @@
 							<div class="col-md-12">
 								<div class="row product-name">
 									<div class="col-md-12">
-										<p><c:out value="Creator"/></p>
-	<!-- 											DESHARCODIAR "Creator" -->
+										<p><spring:message code="productPage.creator" /></p>
 									</div>
 								</div>
 								<div class="row product-short-description">
@@ -89,7 +88,7 @@
 				</div>
 				<div class="row long-description">
 					<div class="col-md-12">
-						<p>${product.description}</p>
+						<p><c:out value="${product.description}" /></p>
 						<div class="back-to-products">
 							<a href="<c:url value="/"/>"><spring:message code="productPage.backToProducts" /></a>
 						</div>
@@ -97,6 +96,7 @@
 				</div>
     	</div>
     </div>
+	</div>
 	<!-- 	This span is used by javascript in order to know the size of the corousel -->
 	<span id="carouselSize" style="display:none"> <c:out value="${carouselSize}" /></span>	
 	

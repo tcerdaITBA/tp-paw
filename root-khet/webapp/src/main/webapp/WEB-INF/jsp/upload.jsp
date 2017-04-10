@@ -105,7 +105,7 @@
 											</div>
 											<div class="row">
 												<div class="col-sm-9 col-sm-offset-3">
-													<h5><spring:message text="Youtube Videos"/></h5>
+													<h5><spring:message code="formLabel.videos"/></h5>
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
 														<div class="form-inline video-form">
 															<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
@@ -113,6 +113,7 @@
 															<form:errors path="videos[${status.index}].url" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
+															<form:errors path="images" cssClass="" element="p"/>
 												</div>
 											</div>
 
@@ -138,7 +139,6 @@
 											<div class="row row-centered">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
-														<form:errors path="images" cssClass="" element="p"/>
 														<input class="ps-btn-red btn submit-btn" type="submit" value="Post 🎉" />
 													</div>
 												</div>
@@ -148,6 +148,7 @@
 								</div>
 							</div>
 
+						</div>
 							<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 							<script
 											src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
