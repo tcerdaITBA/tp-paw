@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 
 import javax.validation.constraints.Pattern;
 
+import tp.paw.khet.User;
+
 public class VideoStringWrapper {
 
 	private static final String YOUTUBE_REGEX = "(?:https:\\/\\/(?:www\\.)?)?(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?"
@@ -11,7 +13,6 @@ public class VideoStringWrapper {
 	
 	private static final java.util.regex.Pattern COMPILED_PATTERN = java.util.regex.Pattern.compile(YOUTUBE_REGEX);
 
-	
 	@Pattern(regexp = YOUTUBE_REGEX)
 	private String url;
 
@@ -38,4 +39,26 @@ public class VideoStringWrapper {
         
         throw new IllegalStateException("URL should already be validated and regex should therefore match");
 	}
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        
+        if (!(obj instanceof VideoStringWrapper))
+            return false;
+        
+        VideoStringWrapper other = (VideoStringWrapper) obj;
+        return url.equals(other.url);
+    }
+	
+	
 }

@@ -32,7 +32,7 @@
 }
 
 .video-form input {
-	width: 80% !important;
+	width: 100% !important;
 }
 
 .creator-name-form {
@@ -71,8 +71,8 @@
 
 .image-input:focus + label,
 .image-input + label:hover {
-	box-shadow: 0 2px 4px 0 #F64763;
-	border-color: #F64763;
+	box-shadow: 0 2px 4px 0 #33bb9c;
+	border-color: #33bb9c;
 	transition: all .2s ease-in;
 }
 
@@ -122,4 +122,19 @@ p { /* errors */
 .logo-form p { /* logo errors */
 	text-align: center;
 	margin-top: -1em;
+}
+
+.video-section p {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.video-form p {
+	margin-top: 5px;
+	text-align: left;
+}
+
+.video-form {
+	margin-top: 5px;;
+	margin-bottom: 0px;
 }

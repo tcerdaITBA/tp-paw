@@ -64,9 +64,9 @@
 											</div>
 											<div class="row">
 												<div class="col-md-12 form-group">
-													<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.shortDescription"/></form:label>
+													<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.tagline"/></form:label>
 													<div class="col-sm-9">
-														<form:textarea type="text" path="shortDescription" placeholder="Short Description" class="form-control" rows="1"/>
+														<form:textarea type="text" path="shortDescription" placeholder="A quick product description" class="form-control" rows="1" maxlength="140"/>
 														<form:errors path="shortDescription" cssClass="" element="p"/>
 													</div>
 												</div>
@@ -103,17 +103,20 @@
 													</div>
 												</div>
 											</div>
+
 											<div class="row">
-												<div class="col-sm-9 col-sm-offset-3">
+												<div class="col-sm-9 col-sm-offset-3 video-section">
 													<h5><spring:message code="formLabel.videos"/></h5>
 													<c:forEach items="${uploadForm.videos}" varStatus="status">
-														<div class="form-inline video-form">
+														<div class="col-md-12 form-group video-form">
 															<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
-															<form:input type="url" path="videos[${status.index}].url" class="form-control" placeholder="Video URL"/>
+															<form:input type="url" path="videos[${status.index}].url" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE"/>
 															<form:errors path="videos[${status.index}].url" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
-															<form:errors path="images" cssClass="" element="p"/>
+													<div class="col-md-12">
+														<form:errors path="images" cssClass="" element="p"/>
+													</div>
 												</div>
 											</div>
 
@@ -135,7 +138,7 @@
 													</div>
 												</div>
 											</div>
-											
+
 											<div class="row row-centered">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
@@ -149,14 +152,14 @@
 							</div>
 
 						</div>
-							<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-							<script
-											src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-							<!-- Include all compiled plugins (below), or include individual files as needed -->
-							<script
-											src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-											integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-											crossorigin="anonymous"></script>
-							<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
-							</body>
-						</html>
+						<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+						<script
+										src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+						<!-- Include all compiled plugins (below), or include individual files as needed -->
+						<script
+										src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+										integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+										crossorigin="anonymous"></script>
+						<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
+						</body>
+					</html>

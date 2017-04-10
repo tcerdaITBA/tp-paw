@@ -11,9 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.http.MediaType;
 
-
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
+import tp.paw.khet.webapp.form.constraints.NoDuplicateValues;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
 
@@ -40,7 +40,7 @@ public class FormProduct {
 	
 	//Debe ser un usuario
 	@Size(max=30, min=4)
-	@Pattern(regexp = "[A-Za-z0-9_\\-.]+")
+	@Pattern(regexp = "[A-Za-z0-9_\\s\\-.]+")
 	private String creatorName;
 	
 	@NotEmpty
@@ -51,6 +51,7 @@ public class FormProduct {
 	private MultipartFileImageWrapper[] images;
 	
 	@Valid
+	@NoDuplicateValues
 	private VideoStringWrapper[] videos;
 
 	public FormProduct() {
