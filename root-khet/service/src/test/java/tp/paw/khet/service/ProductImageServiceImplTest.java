@@ -27,17 +27,18 @@ public class ProductImageServiceImplTest {
 	
 	@Test
 	public void getImagesIdByProductIdTest() {
-		List<Integer> expectedIdList = dummyProductImageIdList(20);
-		when(productImageDaoMock.getImagesIdByProductId(0)).thenReturn(expectedIdList);
+		List<Integer> expectedList = dummyProductImageIdList(20);
+		when(productImageDaoMock.getImagesIdByProductId(0)).thenReturn(expectedList);
 		
 		List<Integer> actualList = productImageService.getImagesIdByProductId(0);
 		
-		int i;
-		for (i = 0; i < expectedIdList.size(); i++)
-			assertEquals(expectedIdList.get(i), actualList.get(i));
+		assertEquals(expectedList.size(), actualList.size());
 		
-		assertEquals(i, actualList.size());
-		verify(productImageDaoMock, times(1)).getImagesIdByProductId(anyInt());
+		for (int i = 0; i < expectedList.size(); i++)
+			assertEquals(expectedList.get(i), actualList.get(i));
+		
+		assertTrue(productImageService.getImagesIdByProductId(1).isEmpty());
+		verify(productImageDaoMock, times(2)).getImagesIdByProductId(anyInt());
 	}
 	
 	@Test
@@ -48,7 +49,9 @@ public class ProductImageServiceImplTest {
 		ProductImage actual = productImageService.getImageByIds(0, 0);
 		
 		assertEqualsProductImages(expected, actual);
-		verify(productImageDaoMock, times(1)).getImageByIds(anyInt(), anyInt());
+		assertNull(productImageService.getImageByIds(1, 0));
+		assertNull(productImageService.getImageByIds(0, 1));
+		verify(productImageDaoMock, times(3)).getImageByIds(anyInt(), anyInt());
 	}
 
 	@Test
