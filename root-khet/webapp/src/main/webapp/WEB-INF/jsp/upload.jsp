@@ -83,24 +83,24 @@
 
 											<div class="row">
 												<div class="col-md-12 form-group" id="product-images">
-												<div class="col-sm-9 col-sm-offset-3">
-													<c:forEach items="${uploadForm.images}" varStatus="status">
-														<div class="col-md-3"> 
-															<form:input class="image-input" type="file" path="images[${status.index}].file" accept="image/*"/>
-															<form:label path="images[${status.index}].file">
-																<div class="preview-container">
-																	<img class="preview-image" src="#">
-																	<span class="add-img-text">
-																		<span class="glyphicon glyphicon-plus"></span>
-																		<spring:message code="formLabel.image"/>
-																	</span>
-																	<div class="remove-btn glyphicon glyphicon-remove"></div>
-																</div>
-															</form:label>
-															<form:errors path="images[${status.index}].file" cssClass="" element="p"/>
-														</div>
-													</c:forEach>
-												</div>
+													<div class="col-sm-9 col-sm-offset-3">
+														<c:forEach items="${uploadForm.images}" varStatus="status">
+															<div class="col-md-3"> 
+																<form:input class="image-input" type="file" path="images[${status.index}].file" accept="image/*"/>
+																<form:label path="images[${status.index}].file">
+																	<div class="preview-container">
+																		<img class="preview-image" src="#">
+																		<span class="add-img-text">
+																			<span class="glyphicon glyphicon-plus"></span>
+																			<spring:message code="formLabel.image"/>
+																		</span>
+																		<div class="remove-btn glyphicon glyphicon-remove"></div>
+																	</div>
+																</form:label>
+																<form:errors path="images[${status.index}].file" cssClass="" element="p"/>
+															</div>
+														</c:forEach>
+													</div>
 												</div>
 											</div>
 											<div class="row">
@@ -115,27 +115,26 @@
 													</c:forEach>
 												</div>
 											</div>
-											
+
 											<div class="row creator-data-row">
-												<div class="col-md-12">
-													<div class="col-sm-9 col-sm-offset-3">
-														<h3>
-															<span class="glyphicon glyphicon-user"></span>
-															<spring:message code="formLabel.creator" />
-														</h3>
-														<div class="form-group creator-name-form">
-															<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
-															<form:input type="text" path="creatorName" class="form-control" placeholder="AlexSalerno" maxlength="30"/>
-															<form:errors path="creatorName" cssClass="" element="p" />
-														</div>
-														<div class="form-group email-form">
-															<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
-															<form:input type="email" path="creatorMail" class="form-control" placeholder="salerno@gmail.com"/>
-															<form:errors path="creatorMail" cssClass="" element="p"/>
-														</div>
+												<div class="col-sm-9 col-sm-offset-3">
+													<h3>
+														<span class="glyphicon glyphicon-user"></span>
+														<spring:message code="formLabel.creator" />
+													</h3>
+													<div class="col-md-12 form-group creator-name-form">
+														<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
+														<form:input type="text" path="creatorName" class="form-control" placeholder="AlexSalerno" maxlength="30"/>
+														<form:errors path="creatorName" cssClass="" element="p" />
+													</div>
+													<div class="col-md-12 form-group email-form">
+														<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
+														<form:input type="email" path="creatorMail" class="form-control" placeholder="salerno@gmail.com"/>
+														<form:errors path="creatorMail" cssClass="" element="p"/>
 													</div>
 												</div>
 											</div>
+											
 											<div class="row row-centered">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">

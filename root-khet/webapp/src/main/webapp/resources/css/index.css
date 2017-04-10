@@ -47,5 +47,6 @@
 
 .product-short-description p {
 	color: #8c8c8c;
-	font-weight: 400;
+	font-weight: 400;	
+	word-wrap: break-word;
 }
