@@ -113,6 +113,7 @@
 															<form:errors path="videos[${status.index}].url" cssClass="" element="p"/>
 														</div>
 													</c:forEach>
+															<form:errors path="images" cssClass="" element="p"/>
 												</div>
 											</div>
 											
@@ -139,7 +140,6 @@
 											<div class="row row-centered">
 												<div class="col-md-12">
 													<div class="col-sm-9 col-sm-offset-3">
-														<form:errors path="images" cssClass="" element="p"/>
 														<input class="ps-btn-red btn submit-btn" type="submit" value="Post 🎉" />
 													</div>
 												</div>
@@ -149,6 +149,7 @@
 								</div>
 							</div>
 
+						</div>
 							<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 							<script
 											src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
