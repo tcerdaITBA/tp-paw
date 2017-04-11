@@ -58,6 +58,7 @@
 			</div>
 		</div>
 	</div>
+	<%@include file="includes/footer.jsp"%>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
