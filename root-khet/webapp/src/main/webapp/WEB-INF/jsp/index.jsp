@@ -25,9 +25,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
+				<h2>
+					<spring:message code="index.mostrecent"/>
+				</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
 				<div class="row">
 					<div class="col-md-12 product-list">
-
 						<c:forEach items="${products}" var="product">
 							<a href="<c:url value="/product/${product.id}"/>">
 								<div class="row product-list-item vertical-align">

@@ -54,3 +54,9 @@
 	word-wrap: break-word;
 }
 
+h2 {
+font-size: 25px;
+color: #737373;
+font-weight: 300;
+text-align: center;
+}
