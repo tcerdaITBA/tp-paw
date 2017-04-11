@@ -8,6 +8,7 @@
 	background-color: #33bb9c !important;
 	color: #fff;
 	border-color: #33bb9c !important;
+	transition: all .2s ease-in;
 }
 
 .ps-btn:focus, ps-btn-red:focus {
@@ -24,5 +25,7 @@
 	background-color: #d6354f !important;
 	color: #fff;
 	border-color: #d6354f !important;
+	transition: all .2s ease-in;
 }
+
 
