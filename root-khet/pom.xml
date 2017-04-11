@@ -39,6 +39,8 @@
               <configuration>
               	<downloadSources>true</downloadSources>
               	<downloadJavadocs>true</downloadJavadocs>
+              	<source>1.8</source>
+              	<target>1.8</target>
               </configuration>
           </plugin>
       </plugins>
