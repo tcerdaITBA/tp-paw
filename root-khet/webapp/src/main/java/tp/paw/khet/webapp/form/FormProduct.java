@@ -45,7 +45,7 @@ public class FormProduct {
 	
 	@NotEmpty
 	@Email
-	private String creatorMail;
+	private String creatorEmail;
 	
 	@Valid
 	private MultipartFileImageWrapper[] images;
@@ -75,12 +75,12 @@ public class FormProduct {
 		return shortDescription;
 	}
 	
-	public String getCreatorMail() {
-		return creatorMail;
+	public String getCreatorEmail() {
+		return creatorEmail;
 	}
 	
-	public void setCreatorMail(String creatorMail) {
-		this.creatorMail = creatorMail;
+	public void setCreatorEmail(String creatorEmail) {
+		this.creatorEmail = creatorEmail;
 	}
 	
 	public void setName(String name) {

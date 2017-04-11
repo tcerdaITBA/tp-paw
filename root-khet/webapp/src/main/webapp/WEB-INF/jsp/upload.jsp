@@ -143,9 +143,9 @@
 									<form:errors path="creatorName" cssClass="" element="p" />
 								</div>
 								<div class="col-md-12 form-group email-form">
-									<form:label path="creatorMail"><spring:message code="formLabel.creatorMail" /></form:label>
-									<form:input type="email" path="creatorMail" class="form-control" placeholder="${EmailPlaceholder}"/>
-									<form:errors path="creatorMail" cssClass="" element="p"/>
+									<form:label path="creatorEmail"><spring:message code="formLabel.creatorEmail" /></form:label>
+									<form:input type="email" path="creatorEmail" class="form-control" placeholder="${EmailPlaceholder}"/>
+									<form:errors path="creatorEmail" cssClass="" element="p"/>
 								</div>
 							</div>
 						</div>

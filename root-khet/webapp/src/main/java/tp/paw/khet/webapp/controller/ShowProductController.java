@@ -1,6 +1,5 @@
 package tp.paw.khet.webapp.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Product;
-import tp.paw.khet.Video;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.VideoService;

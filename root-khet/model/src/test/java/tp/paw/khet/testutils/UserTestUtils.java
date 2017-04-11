@@ -29,6 +29,6 @@ public final class UserTestUtils {
 		assertEquals(expected, actual);
 		assertEquals(expected.getUserId(), actual.getUserId());
 		assertEquals(expected.getName(), actual.getName());
-		assertEquals(expected.getMail(), actual.getMail());
+		assertEquals(expected.getEmail(), actual.getEmail());
 	}
 }

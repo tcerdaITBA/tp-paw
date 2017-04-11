@@ -58,7 +58,7 @@ public class UploadController {
 		if (errors.hasErrors())
 			return formCompletion(formProduct);
 		
-		final User user = userService.createUserOrRetrieveIfExists(formProduct.getCreatorName(), formProduct.getCreatorMail());
+		final User user = userService.createUserOrRetrieveIfExists(formProduct.getCreatorName(), formProduct.getCreatorEmail());
 		
 		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formProduct.getCreatorName(), user.getName()), errors);
 		if (errors.hasErrors())

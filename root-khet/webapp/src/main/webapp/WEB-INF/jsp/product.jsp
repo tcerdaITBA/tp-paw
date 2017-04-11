@@ -79,8 +79,8 @@
 								</div>
 								<div class="row product-short-description">
 									<div class="col-md-12">
-										<a href="mailto:<c:out value="${user.mail}"/>">
-											<p><c:out value="${user.mail}"/></p>
+										<a href="mailto:<c:out value="${user.email}"/>">
+											<p><c:out value="${user.email}"/></p>
 										</a>
 									</div>
 								</div>

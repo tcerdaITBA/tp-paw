@@ -3,7 +3,6 @@ package tp.paw.khet.webapp.form.constraints;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MultipartFileSizeValidator implements ConstraintValidator<FileSize, MultipartFile> {

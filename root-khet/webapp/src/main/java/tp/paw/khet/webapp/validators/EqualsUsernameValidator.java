@@ -27,7 +27,7 @@ public class EqualsUsernameValidator implements Validator {
 		String retrievedUserName = userPair.retrievedUserName;
 		
 		if (!expectedUserName.equals(retrievedUserName))
-			errors.rejectValue("creatorMail", "EqualsUsernameValidator", new Object[]{retrievedUserName}, "EqualsUsernameValidator");
+			errors.rejectValue("creatorEmail", "EqualsUsernameValidator", new Object[]{retrievedUserName}, "EqualsUsernameValidator");
 	}
 
 	private static class UserNamePair {

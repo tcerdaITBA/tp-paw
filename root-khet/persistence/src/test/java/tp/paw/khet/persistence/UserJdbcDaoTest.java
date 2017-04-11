@@ -38,7 +38,7 @@ public class UserJdbcDaoTest {
 	@Test
 	public void createUserTest() {
 		User expected = dummyUser(0);
-		User actual = userDao.createUser(expected.getName(), expected.getMail());
+		User actual = userDao.createUser(expected.getName(), expected.getEmail());
 		
 		assertEqualsUsers(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
@@ -47,9 +47,9 @@ public class UserJdbcDaoTest {
 	@Test
 	public void getUserByEmailTest() {
 		User expected = dummyUser(0);
-		userDao.createUser(expected.getName(), expected.getMail());
+		userDao.createUser(expected.getName(), expected.getEmail());
 		
-		User actual = userDao.getUserByEmail(expected.getMail());
+		User actual = userDao.getUserByEmail(expected.getEmail());
 		
 		assertEqualsUsers(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));

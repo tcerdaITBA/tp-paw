@@ -3,12 +3,12 @@ package tp.paw.khet;
 public class User {
 	private int userId;
 	private String name;
-	private String mail;
+	private String email;
 	
-	public User(int userId, String name, String mail) {
+	public User(int userId, String name, String email) {
 		this.userId = userId;
 		this.name = name;
-		this.mail = mail;
+		this.email = email;
 	}
 	
 	public int getUserId() {
@@ -19,8 +19,8 @@ public class User {
 		return name;
 	}
 	
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
 	
 	@Override
@@ -42,6 +42,6 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return name + " " + mail;
+		return name + " " + email;
 	}
 }

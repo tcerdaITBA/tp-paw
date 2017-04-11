@@ -35,7 +35,7 @@ public class UserJdbcDao implements UserDao {
 	public User createUser(String userName, String email) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("userName", userName);
-		args.put("mailAddr", email);
+		args.put("email", email);
 
 		try {
 			final Number userId = jdbcInsert.executeAndReturnKey(args);
@@ -47,7 +47,7 @@ public class UserJdbcDao implements UserDao {
 	}
 	
 	public User getUserByEmail(String email) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE mailAddr = ?", userRowMapper, email);
+		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE email = ?", userRowMapper, email);
 		
 		if (user.isEmpty())
 			return null;
