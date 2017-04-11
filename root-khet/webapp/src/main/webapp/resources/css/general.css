@@ -33,3 +33,10 @@ textarea {
 	resize: none;
 }
 
+footer p {
+	text-align: right;
+	padding: 25px;
+	color: #b7b7b7;
+	font-weight: 400;
+	margin-top: 10px;
+}
