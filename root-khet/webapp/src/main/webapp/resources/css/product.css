@@ -94,3 +94,15 @@
 .back-to-products {
 	text-align: center;
 }
+
+.creator-mail {
+	text-decoration: underline;
+}
+
+.creator-mail p {
+	display: inline;
+}
+
+.glyphicon {
+	padding-right: 5px;
+}
