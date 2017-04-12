@@ -78,6 +78,18 @@ public class VideoJdbcDaoTest {
 		
 		assertEquals(DUMMY_LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
 	}
+	
+	@Test
+	public void onDeleteCascadeTest() {
+		Video dummy = dummyVideo(0);
+		videoDao.createVideo(dummy.getVideoId(), 0);
+		
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
+
+		JdbcTestUtils.deleteFromTables(jdbcTemplate, "products");
+		
+		assertEquals(0, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
+	}
 
 	private void insertVideoList(List<Video> videoList) {
 		for (Video video : videoList)
