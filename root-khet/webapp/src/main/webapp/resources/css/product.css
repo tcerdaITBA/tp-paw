@@ -84,6 +84,7 @@
 	font-size: 1.3em;
 	font-weight: 400;
 	margin-top: 2em;
+	white-space: pre-wrap;
 }
 
 .long-description a {
