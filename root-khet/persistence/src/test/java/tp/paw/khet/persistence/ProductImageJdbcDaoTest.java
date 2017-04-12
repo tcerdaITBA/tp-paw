@@ -87,11 +87,22 @@ public class ProductImageJdbcDaoTest {
 	public void createProductImageTest() {
 		ProductImage expected = dummyProductImage(0, 0);
 		
-		ProductImage actual = productImageDao.createProductImage(expected.getProductImageId(), 
-				expected.getProductId(), expected.getData());
+		ProductImage actual = productImageDao.createProductImage(0, 0, expected.getData());
 		
 		assertEqualsProductImages(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
+	}
+	
+	@Test
+	public void onDeleteCascadeTest() {
+		ProductImage dummy = dummyProductImage(0, 0);
+		productImageDao.createProductImage(0, 0, dummy.getData());
+		
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
+
+		JdbcTestUtils.deleteFromTables(jdbcTemplate, "products");
+		
+		assertEquals(0, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
 	}
 	
 	private void insertDummyProduct() {
