@@ -16,13 +16,13 @@ CREATE TABLE IF NOT EXISTS products (
 
 CREATE TABLE IF NOT EXISTS productImages (
 	productImageId INTEGER NOT NULL,
-	productId INTEGER REFERENCES products(productId) NOT NULL,
+	productId INTEGER REFERENCES products(productId) NOT NULL ON DELETE CASCADE,
 	data BYTEA NOT NULL,
 	PRIMARY KEY (productImageId, productId)
 );
 
 CREATE TABLE IF NOT EXISTS videos (
 	videoId CHAR(11) NOT NULL,
-	productId INTEGER REFERENCES products(productId) NOT NULL,
+	productId INTEGER REFERENCES products(productId) NOT NULL ON DELETE CASCADE,
 	PRIMARY KEY(videoId, productId)
 );
