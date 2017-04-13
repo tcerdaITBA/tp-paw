@@ -26,3 +26,13 @@ CREATE TABLE IF NOT EXISTS videos (
 	productId INTEGER REFERENCES products(productId) ON DELETE CASCADE NOT NULL,
 	PRIMARY KEY(videoId, productId)
 );
+
+CREATE TABLE IF NOT EXISTS comments (
+    commentId INTEGER IDENTITY NOT NULL,
+    commentContent VARCHAR(1024) NOT NULL,
+    commentDate TIMESTAMP NOT NULL,
+    userId INTEGER REFERENCES users(userId) NOT NULL
+    productId INTEGER REFERENCES products(productId) NOT NULL
+    parentId INTEGER REFERENCES comments(commentId)
+    PRIMARY KEY(commentDate, userId, productId)
+);
