@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS products (
     productName    VARCHAR(64) NOT NULL,
     shortDescription VARCHAR(140) NOT NULL,
     description VARCHAR(1024) NOT NULL,
+    category CHAR(16) NOT NULL CHECK (category IN ('app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other')),
     logo BLOB NOT NULL,
     uploadDate TIMESTAMP NOT NULL,
     userId INTEGER REFERENCES users(userId) NOT NULL
