@@ -29,8 +29,8 @@ public interface ProductService {
 	
 	
 	/**
-	 * Returns a {@link Product} given its creator's ID
-	 * @param id - Creator's ID
+	 * Returns a {@link Product} given its ID
+	 * @param id - Product's ID
 	 * @return product
 	 */
 	public Product getProduct(int productId);
@@ -40,6 +40,14 @@ public interface ProductService {
 	 * @return List of the existing products
 	 */
 	public List<Product> getProducts();
+	
+	/**
+	 * Lists products belonging to certain category
+	 * @param category - category the products belong to
+	 * @return List of the products belonging to the category.<p>
+	 * 		   If there are no products in given category, the returned List is empty.
+	 */
+	public List<Product> getProductsByCategory(Category category);
 	
 	/**
 	 * Returns a logo or image given a {@link Product} ID

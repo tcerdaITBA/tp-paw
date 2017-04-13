@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 
@@ -65,6 +66,29 @@ public class ProductJdbcDaoTest {
 		
 		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
+	
+	@Test
+	public void getProductsByCategoryTest() {
+		Category[] categories = Category.values();
+		List<Product> productList = dummyProductList(categories.length * 3, 0);
+		insertProducts(productList, 0);
+		
+		for (int i = 0; i < categories.length; i++)
+			assertRetrievedCategory(categories[i], productList);
+
+		assertEquals(categories.length * 3, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+	}
+
+	private void assertRetrievedCategory(Category category, List<Product> productList) {
+		List<Product> productsByCategory = productDao.getProductsByCategory(category.name());
+		
+		for (Product product : productsByCategory) {
+			assertTrue(productList.contains(product));
+			assertEquals(category, product.getCategory());
+		}
+		
+		assertEquals(3, productsByCategory.size());
+	}
 
 	@Test
 	public void getCreatorByProductIdTest() {
@@ -83,6 +107,17 @@ public class ProductJdbcDaoTest {
 		
 		assertEqualsProducts(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+	}
+	
+	@Test
+	public void getProductByProductIdTest() {
+		Product expected = dummyProduct(0);
+		insertProduct(expected, 0);
+		
+		Product actual = productDao.getProductByProductId(0);
+		
+		assertEqualsProducts(expected, actual);
+		assertNull(productDao.getProductByProductId(1));
 	}
 	
 	@Test

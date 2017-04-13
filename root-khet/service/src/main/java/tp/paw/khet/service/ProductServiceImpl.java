@@ -29,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProducts();
 	}
 
+	@Override
+	public List<Product> getProductsByCategory(Category category) {
+		return productDao.getProductsByCategory(category.name());
+	}
+	
 	public Product createProduct(String name, String description, String shortDescription, Category category, byte[] logo, int creatorId) {
 		return productDao.createProduct(name, description, shortDescription, category.name(), LocalDateTime.now(),  logo, creatorId);
 	}

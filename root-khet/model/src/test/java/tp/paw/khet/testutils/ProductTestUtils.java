@@ -14,18 +14,24 @@ public final class ProductTestUtils {
 	private ProductTestUtils() {
 	}
 	
-	public static Product dummyProduct(int id) {
-		Category[] categories = Category.values();
-		int len = categories.length;
-		
+	private static Product.ProductBuilder productBuilder(int id) {
 		return Product.getBuilder()
 				.id(id)
 				.name("Product " + id)
 				.description("Description " + id)
 				.shortDescription("Short Description " + id)
-				.category(categories[id % len])
-				.uploadDate(LocalDateTime.now().plusSeconds(id))
-				.build();
+				.uploadDate(LocalDateTime.now().plusSeconds(id));
+	}
+	
+	public static Product dummyProduct(int id) {
+		Category[] categories = Category.values();
+		int len = categories.length;
+		
+		return productBuilder(id).category(categories[id % len]).build();
+	}
+	
+	public static Product dummyProductWithCategory(int id, Category category) {
+		return productBuilder(id).category(category).build();
 	}
 	
 	public static List<Product> dummyProductList(int size, int initialId) {
@@ -36,6 +42,16 @@ public final class ProductTestUtils {
 		
 		return productList;
 	}
+	
+	public static List<Product> dummyProductListWithCategory(int size, int initialId, Category category) {
+		List<Product> productList = new ArrayList<Product>(size);
+		
+		for (int i = 0; i < size; i++)
+			productList.add(dummyProductWithCategory(initialId + i, category));
+		
+		return productList;
+	}
+
 	
 	public static void assertEqualsProducts(Product expected, Product actual) {
 		assertEquals(expected, actual);

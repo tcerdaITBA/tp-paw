@@ -43,6 +43,11 @@ public class ProductJdbcDao implements ProductDao {
 		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", productRowMapper);
 	}
 
+	@Override
+	public List<Product> getProductsByCategory(String category) {
+		return jdbcTemplate.query("SELECT * FROM products WHERE category = ? ORDER BY uploadDate DESC", productRowMapper, category.toUpperCase(Locale.ENGLISH));
+	}
+	
 	public Product getProductByProductId(int id) {
 		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", productRowMapper, id);
 		
