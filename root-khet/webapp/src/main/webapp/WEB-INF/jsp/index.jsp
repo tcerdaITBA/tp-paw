@@ -30,8 +30,22 @@
 				</h2>
 			</div>
 		</div>
+		
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-2">
+				<div class="row">
+					<ul class="nav nav-pills nav-stacked categoryBox">
+					<c:forEach items="${categories}" var="category">
+					<li role="presentation" class="">
+							<a href="<c:url value="/category/${category}"/>">${category}</a>
+							</li>
+					</c:forEach>
+					</ul>
+				</div>
+			</div>
+			
+			
+			<div class="col-md-6 col-md-offset-1">
 				<div class="row">
 					<div class="col-md-12 product-list">
 						<c:forEach items="${products}" var="product">
@@ -50,6 +64,11 @@
 											<div class="row product-short-description">
 												<div class="col-md-12">
 													<p><c:out value="${product.shortDescription}"/></p>
+												</div>
+											</div>
+											<div class="row product-category">
+												<div class="col-md-12">
+													<p><c:out value="${product.category}"/></p>
 												</div>
 											</div>
 										</div>

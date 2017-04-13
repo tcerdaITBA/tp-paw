@@ -107,3 +107,10 @@
 .glyphicon {
 	padding-right: 5px;
 }
+
+.product-category p {
+    color: #8c8c8c;
+    font-weight: 200;
+    word-wrap: break-word;
+    font-size: small;
+}
