@@ -90,6 +90,16 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class=row">
+							<div class="col-md-12 form-group">
+								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
+								<div class="col-sm-5">
+									<form:select path="category" items="${categories}" class="form-control"/>									
+									<form:errors path="category" cssClass="" element="p"/>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-sm-9 col-sm-offset-3">

@@ -1,5 +1,8 @@
 package tp.paw.khet;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Category {
 	APP,
 	ART,
@@ -16,4 +19,5 @@ public enum Category {
 	public String toString() {
 		return name().toLowerCase();
 	}
+
 }
