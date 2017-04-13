@@ -55,7 +55,7 @@ public class FormProduct {
 	@NoDuplicateVideos
 	private VideoStringWrapper[] videos;
 	
-	private Category category;
+	private Category category = Category.OTHER; // TODO: para que haya algún default hasta que este hecho bien
 
 	public FormProduct() {
 		images = new MultipartFileImageWrapper[MAX_IMAGES];
