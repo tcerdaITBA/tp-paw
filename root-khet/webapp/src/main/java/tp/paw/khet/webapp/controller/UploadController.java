@@ -51,7 +51,7 @@ public class UploadController {
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
 		ModelAndView mav = new ModelAndView("upload");
-		Map<Category,String> categoriesMap = getCategories();
+		Map<Category,String> categoriesMap = Category.getCategories();
 		mav.addObject("categories",categoriesMap);
 		return mav;
 	}
@@ -94,15 +94,5 @@ public class UploadController {
 			if (image.hasFile())
 				productImageService.createProductImage(j++, productId, image.getFile().getBytes());
 	}
-	
-	
-	public Map<Category,String> getCategories(){
-		Map<Category,String> map = new HashMap<>();
-		for(Category category:Category.values())
-			map.put(category, category.toString());
-		
-		return map;	
-	}
-	
 	
 }
