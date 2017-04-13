@@ -1,7 +1,6 @@
 package tp.paw.khet.webapp.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;

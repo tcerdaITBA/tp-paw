@@ -67,3 +67,11 @@ color: #737373;
 font-weight: 300;
 text-align: center;
 }
+
+.categoryBox li {
+	text-align: center;
+    background: white;
+    border-color: #737373;
+    border-style: solid;
+    border-width: thin;
+}
