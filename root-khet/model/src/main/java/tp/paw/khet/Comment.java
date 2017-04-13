@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 public class Comment {
 
 	private int id;
-	private int parentId;
+	private Integer parentId;
 	private String content;
 	private LocalDateTime commentDate;
 	
-	public Comment(int id, int parentId, String content, LocalDateTime date) {
+	public Comment(int id, Integer parentId, String content, LocalDateTime date) {
 		this.id = id;
 		this.parentId = parentId;
 		this.content=content;
@@ -25,7 +25,7 @@ public class Comment {
 	public int getParentId() {
 		return parentId;
 	}
-	public void setParentId(int parentId) {
+	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
 	public String getContent() {

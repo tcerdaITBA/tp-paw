@@ -7,5 +7,5 @@ import tp.paw.khet.Comment;
 
 public interface CommentDao {
 	public List<Comment> getCommentsByProductId(int id);
-	public Comment createComment(String content, LocalDateTime date, int parentId, int productId, int userId );
+	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId );
 }

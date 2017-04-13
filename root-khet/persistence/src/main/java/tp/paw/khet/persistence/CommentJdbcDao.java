@@ -35,11 +35,11 @@ public class CommentJdbcDao implements CommentDao {
 
 	@Override
 	public List<Comment> getCommentsByProductId(int id) {
-		List<Comment> comments  = jdbcTemplate.query("SELECT * FROM comments WHERE productId = ? ORDER BY parentId, commentDate ASC", commentRowMapper, id);
+		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments WHERE productId = ? ORDER BY parentId, commentDate ASC", commentRowMapper, id);
 		return comments;	
 	}
 	
-	public Comment createComment(String content, LocalDateTime date, int parentId, int productId, int userId ) {
+	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId ) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("commentContent", content);
 		args.put("commentDate", date);
