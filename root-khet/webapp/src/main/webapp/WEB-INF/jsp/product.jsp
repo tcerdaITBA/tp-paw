@@ -60,6 +60,11 @@
 											<p><c:out value="${product.shortDescription}"/></p>
 										</div>
 									</div>
+									<div class="row product-category">
+										<div class="col-md-12">
+											<p><c:out value="${product.category}"/></p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
