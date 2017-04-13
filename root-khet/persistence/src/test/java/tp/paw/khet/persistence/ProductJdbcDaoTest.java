@@ -43,14 +43,14 @@ public class ProductJdbcDaoTest {
 	public void setUp() throws Exception {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK");
+		insertDummyUser();
 	}
 
 	@Test
 	public void getProductsTest() {
-		insertDummyUser();
 		List<Product> expectedProducts = dummyProductList(LIST_SIZE, 0);
 		insertProducts(expectedProducts, 0);
-		
+				
 		List<Product> actualProducts = productDao.getProducts();
 		
 		assertEquals(expectedProducts.size(), actualProducts.size());
@@ -68,7 +68,6 @@ public class ProductJdbcDaoTest {
 
 	@Test
 	public void getCreatorByProductIdTest() {
-		insertDummyUser();
 		User expected = dummyUser(0);
 		insertProduct(dummyProduct(0), 0);
 		
@@ -79,7 +78,6 @@ public class ProductJdbcDaoTest {
 	
 	@Test
 	public void createProductTest() {
-		insertDummyUser();
 		Product expected = dummyProduct(0);
 		Product actual = insertProduct(expected, 0);
 		
@@ -89,7 +87,6 @@ public class ProductJdbcDaoTest {
 	
 	@Test
 	public void getLogoByProductIdTest() {
-		insertDummyUser();
 		Product dummyProduct = dummyProduct(0);
 		insertProduct(dummyProduct, 0);
 		
@@ -105,7 +102,7 @@ public class ProductJdbcDaoTest {
 	
 	private Product insertProduct(Product product, int creatorId) {
 		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), 
-				product.getUploadDate(), logoFromProduct(product), creatorId);
+				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), creatorId);
 	}
 		
 	private void insertProducts(List<Product> products, int creatorId) {

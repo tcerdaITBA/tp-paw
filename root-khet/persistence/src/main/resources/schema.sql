@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS products (
     productName    VARCHAR(64) NOT NULL,
     shortDescription VARCHAR(140) NOT NULL,
     description TEXT NOT NULL,
-    category CHAR(16) NOT NULL CHECK (category IN ('app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other')),
+    category VARCHAR(16) NOT NULL CHECK (category IN ('APP', 'ART', 'BOOK', 'FASHION', 'FILM', 'FOOD', 'GADGET', 'GAME', 'MUSIC', 'OTHER')),
     logo BYTEA NOT NULL,
     uploadDate TIMESTAMP NOT NULL,
     userId INTEGER REFERENCES users(userId) NOT NULL

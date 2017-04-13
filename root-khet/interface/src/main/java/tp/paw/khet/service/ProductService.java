@@ -2,21 +2,23 @@ package tp.paw.khet.service;
 
 import java.util.List;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 
 public interface ProductService {
 	
 	/**
-	 * Creates a Product.
+	 * Creates a {@link Product}.
 	 * @param name - Name of the product
 	 * @param description - Description of the product
 	 * @param shortDescription - Brief comment or description of the product
+	 * @param category - Category the product belongs to
 	 * @param logo - Logo or image that identifies the product
 	 * @param creatorId - Product creator ID
 	 * @return Product
 	 */
-	public Product createProduct(String name, String description, String shortDescription, byte[] logo, int creatorId);
+	public Product createProduct(String name, String description, String shortDescription, Category category, byte[] logo, int creatorId);
 	
 	/**
 	 * Returns a {@link User} given a {@link Product} ID.

@@ -13,12 +13,14 @@ public interface ProductDao {
 	 * @param name - Name of the product
 	 * @param description - Description of the product
 	 * @param shortDescription - Brief comment or description of the product
+	 * @param category - category the product belongs to
 	 * @param uploadDate
 	 * @param logo - Logo or image that identifies the product
 	 * @param creatorId - Product creator ID
 	 * @return Product
 	 */
-	public Product createProduct(String name, String description, String shortDescription, LocalDateTime uploadDate, byte[] logo, int creatorId);
+	public Product createProduct(String name, String description, String shortDescription, String category,
+			LocalDateTime uploadDate, byte[] logo, int creatorId);
 	
 	/**
 	 * Lists every existing {@link Product}

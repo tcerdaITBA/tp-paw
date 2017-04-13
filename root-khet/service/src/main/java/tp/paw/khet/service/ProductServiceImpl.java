@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 import tp.paw.khet.persistence.ProductDao;
@@ -28,8 +29,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProducts();
 	}
 
-	public Product createProduct(String name, String description, String shortDescription, byte[] logo, int creatorId) {
-		return productDao.createProduct(name, description, shortDescription, LocalDateTime.now(), logo, creatorId);
+	public Product createProduct(String name, String description, String shortDescription, Category category, byte[] logo, int creatorId) {
+		return productDao.createProduct(name, description, shortDescription, category.name(), LocalDateTime.now(),  logo, creatorId);
 	}
 
 	public byte[] getLogoByProductId(int productId) {

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 
 public final class ProductTestUtils {
@@ -14,7 +15,17 @@ public final class ProductTestUtils {
 	}
 	
 	public static Product dummyProduct(int id) {
-		return new Product(id, "Product " + id, "Description " + id, "Short Description " + id, LocalDateTime.now().plusSeconds(id));
+		Category[] categories = Category.values();
+		int len = categories.length;
+		
+		return Product.getBuilder()
+				.id(id)
+				.name("Product " + id)
+				.description("Description " + id)
+				.shortDescription("Short Description " + id)
+				.category(categories[id % len])
+				.uploadDate(LocalDateTime.now().plusSeconds(id))
+				.build();
 	}
 	
 	public static List<Product> dummyProductList(int size, int initialId) {
@@ -32,6 +43,7 @@ public final class ProductTestUtils {
 		assertEquals(expected.getName(), actual.getName());
 		assertEquals(expected.getDescription(), actual.getDescription());
 		assertEquals(expected.getShortDescription(), actual.getShortDescription());
+		assertEquals(expected.getCategory(), actual.getCategory());
 		assertEquals(expected.getUploadDate(), actual.getUploadDate());
 	}
 	

@@ -66,6 +66,7 @@ public class UploadController {
 		
 		final Product product =  productService.createProduct(formProduct.getName(), 
 												formProduct.getDescription(), formProduct.getShortDescription(),
+												formProduct.getCategory(),
 												formProduct.getLogo().getBytes(), user.getUserId());
 		
 		storeImages(formProduct.getImages(), product.getId());

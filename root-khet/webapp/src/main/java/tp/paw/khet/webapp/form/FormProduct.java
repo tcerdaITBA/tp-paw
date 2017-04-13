@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.http.MediaType;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
 import tp.paw.khet.webapp.form.constraints.NoDuplicateVideos;
@@ -53,6 +54,8 @@ public class FormProduct {
 	@Valid
 	@NoDuplicateVideos
 	private VideoStringWrapper[] videos;
+	
+	private Category category;
 
 	public FormProduct() {
 		images = new MultipartFileImageWrapper[MAX_IMAGES];
@@ -125,6 +128,14 @@ public class FormProduct {
 
 	public void setVideos(VideoStringWrapper[] videos) {
 		this.videos = videos;
+	}
+	
+	public Category getCategory() {
+		return category;
+	}
+	
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	@Override

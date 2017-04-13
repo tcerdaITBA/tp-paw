@@ -98,7 +98,7 @@ public class VideoJdbcDaoTest {
 	
 	private void insertDummyProduct() {
 		Product dummy = dummyProduct(0);
-		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), 
+		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), dummy.getCategory().toString(),
 				dummy.getUploadDate(), logoFromProduct(dummy), 0);
 	}
 
