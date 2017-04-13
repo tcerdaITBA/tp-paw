@@ -54,6 +54,13 @@
 	word-wrap: break-word;
 }
 
+.product-category p {
+	color: #8c8c8c;
+    font-weight: 200;
+    word-wrap: break-word;
+    font-size: small;
+}
+
 h2 {
 font-size: 25px;
 color: #737373;
