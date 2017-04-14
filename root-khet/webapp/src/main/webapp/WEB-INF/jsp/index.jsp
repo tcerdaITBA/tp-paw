@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -36,9 +37,10 @@
 				<div class="row">
 					<ul class="nav nav-pills nav-stacked categoryBox">
 					<c:forEach items="${categories}" var="category">
-					<li role="presentation" class="">
+					     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
+						<li role="presentation" class="${active ? 'active' : 'none'}">
 							<a href="<c:url value="/category/${category}"/>">${category}</a>
-							</li>
+						</li>
 					</c:forEach>
 					</ul>
 				</div>
