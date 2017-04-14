@@ -92,3 +92,12 @@ text-align: center;
 .nav-pills>li.active {
 	pointer-events:none;
 }
+
+.categoryTag {
+	text-align: center;
+    background-color: rgb(249, 249, 249);
+    border-radius: 24px;
+    margin-left: 15px;
+    color: #8c8c8c;
+    word-wrap: break-word;
+}

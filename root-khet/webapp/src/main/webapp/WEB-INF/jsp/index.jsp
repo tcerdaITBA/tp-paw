@@ -73,7 +73,7 @@
 												</div>
 											</div>
 											<div class="row product-category">
-												<div class="col-md-12">
+												<div class="col-md-2 categoryTag">
 													<p><c:out value="${product.category}"/></p>
 												</div>
 											</div>
