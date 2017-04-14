@@ -14,10 +14,10 @@ public final class CommentTestUtils {
 	}
 	
 	public static Comment dummyRootComment(int commentId) {
-		return dummyComment(commentId, null);
+		return new Comment(commentId, "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
 	}
 	
-	public static Comment dummyComment(int commentId, Integer parentId) {
+	public static Comment dummyComment(int commentId, int parentId) {
 		return new Comment(commentId, parentId, "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
 	}
 	

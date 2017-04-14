@@ -4,11 +4,15 @@ import java.time.LocalDateTime;
 
 public class Comment {
 	private final int id;
-	private final Integer parentId;
+	private final int  parentId;
 	private final String content;
 	private final LocalDateTime commentDate;
 	
-	public Comment(int id, Integer parentId, String content, LocalDateTime date) {
+	public Comment(int id, String content, LocalDateTime date) {
+		this(id, -1, content, date);
+	}
+	
+	public Comment(int id, int parentId, String content, LocalDateTime date) {
 		this.id = id;
 		this.parentId = parentId;
 		this.content = content;
@@ -19,7 +23,7 @@ public class Comment {
 		return id;
 	}
 	
-	public Integer getParentId() {
+	public int getParentId() {
 		return parentId;
 	}
 	
@@ -32,7 +36,7 @@ public class Comment {
 	}
 	
 	public boolean hasParent() {
-		return this.parentId != null;
+		return this.parentId != -1;
 	}
 	
 	@Override

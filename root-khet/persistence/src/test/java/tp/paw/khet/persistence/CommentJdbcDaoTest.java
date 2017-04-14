@@ -58,17 +58,18 @@ public class CommentJdbcDaoTest {
 	@Test
 	public void createRootCommentTest() {
 		Comment expected = dummyRootComment(0);
-		Comment actual = insertComment(expected, 0, 0, " ", " ");
+		Comment actual = insertComment(expected, 0, 0);
 		
 		assertEqualsComments(expected, actual);
+		assertFalse(actual.hasParent());
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
 	}
 	
 	@Test
 	public void createChildCommentTest() {
-		insertComment(dummyRootComment(0), 0, 0, " ", " ").getId();
+		insertComment(dummyRootComment(0), 0, 0).getId();
 		Comment expected = dummyComment(1, 0);
-		Comment actual = insertComment(expected, 0, 0, " ", " ");
+		Comment actual = insertComment(expected, 0, 0);
 
 		assertEqualsComments(expected, actual);
 		assertEquals(2, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
@@ -76,10 +77,10 @@ public class CommentJdbcDaoTest {
 	
 	@Test
 	public void getCommentsByProductIdTest() {
-		insertCommentList(dummyRootCommentList(7, 0), 0, 0, " ", " ");
+		insertCommentList(dummyRootCommentList(7, 0), 0, 0);
 		
 		for (int i = 0; i < 7; i++)
-			insertCommentList(dummyCommentList(5, 7 + i * 5, i), 0, 0, " ", " ");
+			insertCommentList(dummyCommentList(5, 7 + i * 5, i), 0, 0);
 		
 		List<CommentAndCommenter> actual = commentDao.getCommentsByProductId(0);
 		List<Comment> comments = new ArrayList<>(actual.size());
@@ -89,27 +90,27 @@ public class CommentJdbcDaoTest {
 		assertCommentsOrder(comments);
 	}
 	
-	private void insertCommentList(List<Comment> comments, int productId, int userId, String userName, String email) {
+	private void insertCommentList(List<Comment> comments, int productId, int userId) {
 		for (Comment comment : comments)
-			insertComment(comment, productId, userId, userName, email);
+			insertComment(comment, productId, userId);
 	}
 
 	// Asserts that a block of root comments come first, then a block of child comments with parentId of the first root comment and so on
 	private void assertCommentsOrder(List<Comment> comments) {
-		assertNull(comments.get(0).getParentId());
+		assertFalse(comments.get(0).hasParent());
 		
 		for (int i = 0, j = childrenPointer(comments); j < comments.size(); j++) {
 			Comment parent = comments.get(i);
 			Comment child = comments.get(j);
 			
-			assertNull(parent.getParentId());
+			assertFalse(parent.hasParent());
 			
 			if (child.getParentId() > parent.getId()) {
 				i++;
 			}
 			else {
-				assertEquals(Integer.valueOf(parent.getId()), child.getParentId());
-				if (j < comments.size() - 1 && child.getParentId().equals(comments.get(j+1).getParentId()))
+				assertEquals(parent.getId(), child.getParentId());
+				if (j < comments.size() - 1 && child.getParentId() == comments.get(j+1).getParentId())
 					assertTrue(child.getCommentDate().compareTo(comments.get(j+1).getCommentDate()) < 0); // Oldest comments first
 			}
 		}
@@ -117,18 +118,20 @@ public class CommentJdbcDaoTest {
 	
 	private int childrenPointer(List<Comment> comments) {
 		for (int i = 0; i < comments.size(); i++) {
-			if (comments.get(i).getParentId() != null)
+			if (comments.get(i).hasParent())
 				return i;
 			
-			if (i < comments.size()-1 && comments.get(i+1).getParentId() != null)
+			if (i < comments.size()-1 && comments.get(i+1).hasParent())
 				assertTrue(comments.get(i).getCommentDate().compareTo(comments.get(i+1).getCommentDate()) < 0); // Oldest comments first
 		}
 		
 		return comments.size();
 	}
 	
-	private Comment insertComment(Comment comment, int productId, int userId, String userName, String email) {
-		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, userId);
+	private Comment insertComment(Comment comment, int productId, int userId) {
+		if (comment.hasParent())
+			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, userId);
+		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), productId, userId);
 	}
 
 	private void insertDummyProduct() {

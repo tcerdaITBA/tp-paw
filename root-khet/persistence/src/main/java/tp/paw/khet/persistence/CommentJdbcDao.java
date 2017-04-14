@@ -41,12 +41,8 @@ public class CommentJdbcDao implements CommentDao {
 	}
 	
 	@Override
-	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId) {
-		final Map<String, Object> args = new HashMap<String, Object>();
-		args.put("commentContent", content);
-		args.put("commentDate", Timestamp.valueOf(date));
-		args.put("userId", userId);
-		args.put("productId", productId);
+	public Comment createComment(String content, LocalDateTime date, int parentId, int productId, int userId) {
+		final Map<String, Object> args = argsMap(content, date, productId, userId);
 		args.put("parentId", parentId);
 		
 		final Number commentId = jdbcInsert.executeAndReturnKey(args);
@@ -54,4 +50,22 @@ public class CommentJdbcDao implements CommentDao {
 		return new Comment(commentId.intValue(), parentId, content, date);
 	}
 
+	@Override
+	public Comment createComment(String content, LocalDateTime date, int productId, int userId) {
+		final Map<String, Object> args = argsMap(content, date, productId, userId);
+		
+		final Number commentId = jdbcInsert.executeAndReturnKey(args);
+
+		return new Comment(commentId.intValue(), content, date);
+	}
+
+	private Map<String, Object> argsMap(String content, LocalDateTime date, int productId, int userId) {
+		final Map<String, Object> args = new HashMap<String, Object>();
+		args.put("commentContent", content);
+		args.put("commentDate", Timestamp.valueOf(date));
+		args.put("userId", userId);
+		args.put("productId", productId);
+		
+		return args;
+	}
 }

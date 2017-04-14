@@ -12,8 +12,9 @@ import tp.paw.khet.Comment;
 public class CommentRowMapper implements RowMapper<Comment> {
 	public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Integer parentId = rs.getInt("parentId");
+		
 		if (rs.wasNull())
-			parentId = null;
+			return new Comment(rs.getInt("commentId"), rs.getString("commentContent"), rs.getTimestamp("commentDate").toLocalDateTime());		
 		
 		return new Comment(rs.getInt("commentId"), parentId, 
 				rs.getString("commentContent"), rs.getTimestamp("commentDate").toLocalDateTime());
