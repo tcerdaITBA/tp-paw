@@ -99,6 +99,24 @@
 				</div>
     	</div>
     </div>
+    <div class="row">
+			<div class="col-md-8 col-md-offset-2 comments-holder highlighted">
+				<c:forEach items="${parentcomments}" var="parentNode">
+					<div class="row parentcomment">
+						<div class="col-md-12">
+							<p><c:out value="${parentNode.parent.content}" /></p>
+						</div>
+					</div>
+					<c:forEach items="${parentNode.childs}" var="childComment">
+						<div class="row childcomment">
+							<div class="col-md-10 col-md-offset-1">
+								<p><c:out value="${childComment.content}" /></p>
+							</div>
+						</div>
+					</c:forEach>
+				</c:forEach>
+			</div>
+	</div>
 	</div>
 	<%@include file="includes/footer.jsp"%>
 

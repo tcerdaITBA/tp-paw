@@ -50,6 +50,7 @@ public class ShowProductController {
 		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
 		mav.addObject("videos",videoService.getVideosByProductId(product.getId()));
 		mav.addObject("user", productService.getCreatorByProductId(product.getId()));
+		mav.addObject("parentcomments", commentService.getCommentsByProductId(product.getId()));
 
 		return mav;
 	}
