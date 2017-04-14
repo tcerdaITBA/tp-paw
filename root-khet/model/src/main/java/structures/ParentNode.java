@@ -3,8 +3,6 @@ package structures;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.paw.khet.User;
-
 public class ParentNode<T> {
 	
 	private T parent;
@@ -25,16 +23,8 @@ public class ParentNode<T> {
 		return parent;
 	}
 
-	public void setParent(T parent) {
-		this.parent = parent;
-	}
-
 	public List<T> getChilds() {
 		return childs;
-	}
-
-	public void setChilds(List<T> childs) {
-		this.childs = childs;
 	}
 
 	public void addChild(T child) {

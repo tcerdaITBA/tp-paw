@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 			
 			Comment c = comments.get(commentIndex);
 			
-			if (!c.hasPerent()) {	
+			if (!c.hasParent()) {	
 				ParentNode<Comment> node = new ParentNode<Comment>(c);
 				parents.add(node);
 				commentIndex++;

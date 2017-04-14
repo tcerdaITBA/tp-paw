@@ -24,51 +24,27 @@ public class Comment {
 		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public Integer getParentId() {
 		return parentId;
-	}
-	
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
 	}
 	
 	public String getContent() {
 		return content;
 	}
 	
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
 	public LocalDateTime getCommentDate() {
 		return commentDate;
-	}
-	
-	public void setCommentDate(LocalDateTime commentDate) {
-		this.commentDate = commentDate;
 	}
 	
 	public String getUserName() {
 		return userName;
 	}
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	
 	public String getUserEmail() {
 		return userEmail;
 	}
 	
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-	
-	public boolean hasPerent() {
+	public boolean hasParent() {
 		return this.parentId != null;
 	}
 	
