@@ -11,7 +11,11 @@ import tp.paw.khet.Comment;
 @Component
 public class CommentRowMapper implements RowMapper<Comment> {
 	public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
-		return new Comment(rs.getInt("commentId"), rs.getInt("parentId"), 
+		Integer parentId = rs.getInt("parentId");
+		if (rs.wasNull())
+			parentId = null;
+		
+		return new Comment(rs.getInt("commentId"), parentId, 
 				rs.getString("commentContent"), rs.getTimestamp("commentDate").toLocalDateTime());
 	}
 }

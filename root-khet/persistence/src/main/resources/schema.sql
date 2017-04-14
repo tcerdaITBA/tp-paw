@@ -28,11 +28,11 @@ CREATE TABLE IF NOT EXISTS videos (
 );
 
 CREATE TABLE IF NOT EXISTS comments (
-    commentId SERIAL UNIQUE NOT NULL,
+    commentId SERIAL PRIMARY KEY NOT NULL,
     commentContent VARCHAR(1024) NOT NULL,
     commentDate TIMESTAMP NOT NULL,
-    userId INTEGER REFERENCES users(userId) NOT NULL,
-    productId INTEGER REFERENCES products(productId) NOT NULL,
-    parentId INTEGER REFERENCES comments(commentId),
-    PRIMARY KEY(commentDate, userId, productId)
+    userId INTEGER REFERENCES users(userId) ON DELETE CASCADE NOT NULL,
+    productId INTEGER REFERENCES products(productId) ON DELETE CASCADE NOT NULL,
+    parentId INTEGER REFERENCES comments(commentId) ON DELETE CASCADE,
+    UNIQUE(commentDate, userId, productId)
 );

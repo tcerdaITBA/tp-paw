@@ -14,7 +14,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.Comment;
-import tp.paw.khet.Video;
 import tp.paw.khet.persistence.rowmapper.CommentRowMapper;
 
 @Repository
@@ -36,7 +35,7 @@ public class CommentJdbcDao implements CommentDao {
 
 	@Override
 	public List<Comment> getCommentsByProductId(int id) {
-		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments WHERE productId = ? ORDER BY parentId, commentDate ASC", commentRowMapper, id);
+		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", commentRowMapper, id);
 		return comments;	
 	}
 	
@@ -48,8 +47,8 @@ public class CommentJdbcDao implements CommentDao {
 		args.put("productId", productId);
 		args.put("parentId", parentId);
 		
-		final Number commentId = jdbcInsert.execute(args);
-		
+		final Number commentId = jdbcInsert.executeAndReturnKey(args);
+
 		return new Comment(commentId.intValue(), parentId, content, date);
 	} 
 

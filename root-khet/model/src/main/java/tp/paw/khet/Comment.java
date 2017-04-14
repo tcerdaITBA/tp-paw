@@ -22,7 +22,7 @@ public class Comment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getParentId() {
+	public Integer getParentId() {
 		return parentId;
 	}
 	public void setParentId(Integer parentId) {
@@ -40,6 +40,7 @@ public class Comment {
 	public void setCommentDate(LocalDateTime commentDate) {
 		this.commentDate = commentDate;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -47,9 +48,10 @@ public class Comment {
 		result = prime * result + ((commentDate == null) ? 0 : commentDate.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
-		result = prime * result + parentId;
+		result = prime * result + ((parentId == null) ? 0 : parentId);
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -75,4 +77,8 @@ public class Comment {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return content;
+	}
 }
