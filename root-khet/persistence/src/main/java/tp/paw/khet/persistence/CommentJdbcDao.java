@@ -35,11 +35,11 @@ public class CommentJdbcDao implements CommentDao {
 
 	@Override
 	public List<Comment> getCommentsByProductId(int id) {
-		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", commentRowMapper, id);
+		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments NATURAL JOIN users WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", commentRowMapper, id);
 		return comments;	
 	}
 	
-	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId) {
+	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId, String userName, String email) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("commentContent", content);
 		args.put("commentDate", Timestamp.valueOf(date));
@@ -49,7 +49,7 @@ public class CommentJdbcDao implements CommentDao {
 		
 		final Number commentId = jdbcInsert.executeAndReturnKey(args);
 
-		return new Comment(commentId.intValue(), parentId, content, date);
+		return new Comment(commentId.intValue(), parentId, content, date, userName, email);
 	} 
 
 }

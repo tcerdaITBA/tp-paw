@@ -8,12 +8,16 @@ public class Comment {
 	private Integer parentId;
 	private String content;
 	private LocalDateTime commentDate;
+	private String userName;
+	private String userEmail;
 	
-	public Comment(int id, Integer parentId, String content, LocalDateTime date) {
+	public Comment(int id, Integer parentId, String content, LocalDateTime date, String userName, String userEmail) {
 		this.id = id;
 		this.parentId = parentId;
 		this.content=content;
 		this.commentDate = date;
+		this.userName = userName;
+		this.userEmail = userEmail;
 	}
 	
 	public int getId() {
@@ -48,6 +52,22 @@ public class Comment {
 		this.commentDate = commentDate;
 	}
 	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public String getUserEmail() {
+		return userEmail;
+	}
+	
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	
 	public boolean hasPerent() {
 		return this.parentId != null;
 	}
@@ -59,7 +79,9 @@ public class Comment {
 		result = prime * result + ((commentDate == null) ? 0 : commentDate.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((parentId == null) ? 0 : parentId);
+		result = prime * result + ((parentId == null) ? 0 : parentId.hashCode());
+		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 	
@@ -69,7 +91,6 @@ public class Comment {
 			return true;
 		if (!(obj instanceof Comment))
 			return false;
-		
 		Comment other = (Comment) obj;
 		if (commentDate == null) {
 			if (other.commentDate != null)
@@ -83,7 +104,20 @@ public class Comment {
 			return false;
 		if (id != other.id)
 			return false;
-		if (parentId != other.parentId)
+		if (parentId == null) {
+			if (other.parentId != null)
+				return false;
+		} else if (!parentId.equals(other.parentId))
+			return false;
+		if (userEmail == null) {
+			if (other.userEmail != null)
+				return false;
+		} else if (!userEmail.equals(other.userEmail))
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}

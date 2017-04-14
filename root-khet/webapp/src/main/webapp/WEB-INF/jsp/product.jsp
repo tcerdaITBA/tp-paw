@@ -106,11 +106,23 @@
 						<div class="col-md-12">
 							<p><c:out value="${parentNode.parent.content}" /></p>
 						</div>
+						<div class="col-md-12">
+							<p><c:out value="${parentNode.parent.userName}" /></p>
+						</div>
+						<div class="col-md-12">
+							<p><c:out value="${parentNode.parent.userEmail}" /></p>
+						</div>
 					</div>
 					<c:forEach items="${parentNode.childs}" var="childComment">
 						<div class="row childcomment">
 							<div class="col-md-10 col-md-offset-1">
 								<p><c:out value="${childComment.content}" /></p>
+							</div>
+							<div class="col-md-10 col-md-offset-1">
+								<p><c:out value="${childComment.userName}" /></p>
+							</div>
+							<div class="col-md-10 col-md-offset-1">
+								<p><c:out value="${childComment.userEmail}" /></p>
 							</div>
 						</div>
 					</c:forEach>

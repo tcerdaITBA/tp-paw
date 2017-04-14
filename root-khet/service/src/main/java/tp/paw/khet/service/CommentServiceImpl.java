@@ -50,8 +50,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment createComment(String content, Integer parentId, int productId, int userId) {
-		return commentDao.createComment(content, LocalDateTime.now(), parentId, productId, userId);
+	public Comment createComment(String content, Integer parentId, int productId, int userId, String userName, String email) {
+		return commentDao.createComment(content, LocalDateTime.now(), parentId, productId, userId, userName, email);
 	}
 
 }

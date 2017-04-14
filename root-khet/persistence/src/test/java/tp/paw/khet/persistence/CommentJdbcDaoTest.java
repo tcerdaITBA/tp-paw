@@ -56,7 +56,7 @@ public class CommentJdbcDaoTest {
 	@Test
 	public void createRootCommentTest() {
 		Comment expected = dummyRootComment(0);
-		Comment actual = insertComment(expected, 0, 0);
+		Comment actual = insertComment(expected, 0, 0, " ", " ");
 		
 		assertEqualsComments(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
@@ -64,9 +64,9 @@ public class CommentJdbcDaoTest {
 	
 	@Test
 	public void createChildCommentTest() {
-		insertComment(dummyRootComment(0), 0, 0).getId();
+		insertComment(dummyRootComment(0), 0, 0, " ", " ").getId();
 		Comment expected = dummyComment(1, 0);
-		Comment actual = insertComment(expected, 0, 0);
+		Comment actual = insertComment(expected, 0, 0, " ", " ");
 
 		assertEqualsComments(expected, actual);
 		assertEquals(2, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
@@ -74,19 +74,19 @@ public class CommentJdbcDaoTest {
 	
 	@Test
 	public void getCommentsByProductIdTest() {
-		insertCommentList(dummyRootCommentList(7, 0), 0, 0);
+		insertCommentList(dummyRootCommentList(7, 0), 0, 0, " ", " ");
 		
 		for (int i = 0; i < 7; i++)
-			insertCommentList(dummyCommentList(5, 7 + i * 5, i), 0, 0);
+			insertCommentList(dummyCommentList(5, 7 + i * 5, i), 0, 0, " ", " ");
 		
 		List<Comment> actual = commentDao.getCommentsByProductId(0);
 		
 		assertCommentsOrder(actual);
 	}
 	
-	private void insertCommentList(List<Comment> comments, int productId, int userId) {
+	private void insertCommentList(List<Comment> comments, int productId, int userId, String userName, String email) {
 		for (Comment comment : comments)
-			insertComment(comment, productId, userId);
+			insertComment(comment, productId, userId, userName, email);
 	}
 
 	// Asserts that a block of root comments come first, then a block of child comments with parentId of the first root comment and so on
@@ -122,8 +122,8 @@ public class CommentJdbcDaoTest {
 		return comments.size();
 	}
 	
-	private Comment insertComment(Comment comment, int productId, int userId) {
-		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, userId);
+	private Comment insertComment(Comment comment, int productId, int userId, String userName, String email) {
+		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, userId, userName, email);
 	}
 
 	private void insertDummyProduct() {
