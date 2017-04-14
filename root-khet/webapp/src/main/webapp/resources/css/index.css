@@ -88,3 +88,7 @@ text-align: center;
     background-color: #39c6a6;
     opacity: 0.2;
 }
+
+.nav-pills>li.active {
+	pointer-events:none;
+}
