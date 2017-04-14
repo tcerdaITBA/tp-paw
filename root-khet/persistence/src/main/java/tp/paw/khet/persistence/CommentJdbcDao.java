@@ -1,5 +1,6 @@
 package tp.paw.khet.persistence;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CommentJdbcDao implements CommentDao {
 		jdbcTemplate = new JdbcTemplate(ds);
 		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 					.withTableName("comments")
-					.usingGeneratedKeyColumns("commentId");		
+					.usingGeneratedKeyColumns("commentid");		
 	}
 
 	@Override
@@ -39,13 +40,13 @@ public class CommentJdbcDao implements CommentDao {
 		return comments;	
 	}
 	
-	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId ) {
+	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("commentContent", content);
-		args.put("commentDate", date);
-		args.put("parentId", parentId);
-		args.put("productId", productId);
+		args.put("commentDate", Timestamp.valueOf(date));
 		args.put("userId", userId);
+		args.put("productId", productId);
+		args.put("parentId", parentId);
 		
 		final Number commentId = jdbcInsert.execute(args);
 		
