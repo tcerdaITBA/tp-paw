@@ -64,7 +64,7 @@
 									</div>
 									<div class="row product-category">
 										<div class="col-md-3 categoryTag">
-											<p><a href="<c:url value="/category/${product.category}"/>"><spring:message code="index.${product.category}"/></a></p>
+											<p><a href="<c:url value="/category/${product.category}"/>"><spring:message code="category.${product.category}"/></a></p>
 										</div>
 									</div>
 								</div>
