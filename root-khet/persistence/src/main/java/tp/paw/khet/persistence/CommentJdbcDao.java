@@ -14,13 +14,13 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.Comment;
-import tp.paw.khet.persistence.rowmapper.CommentRowMapper;
+import tp.paw.khet.CommentAndCommenter;
+import tp.paw.khet.persistence.rowmapper.CommentAndCommenterRowMapper;
 
 @Repository
-public class CommentJdbcDao implements CommentDao {
-	
+public class CommentJdbcDao implements CommentDao {	
 	@Autowired
-	private CommentRowMapper commentRowMapper;
+	private CommentAndCommenterRowMapper commentAndCommenterRowMapper;
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -34,12 +34,14 @@ public class CommentJdbcDao implements CommentDao {
 	}
 
 	@Override
-	public List<Comment> getCommentsByProductId(int id) {
-		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments NATURAL JOIN users WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", commentRowMapper, id);
+	public List<CommentAndCommenter> getCommentsByProductId(int id) {
+		List<CommentAndCommenter> comments = jdbcTemplate.query("SELECT * FROM comments NATURAL JOIN users WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", 
+				commentAndCommenterRowMapper, id);
 		return comments;	
 	}
 	
-	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId, String userName, String email) {
+	@Override
+	public Comment createComment(String content, LocalDateTime date, Integer parentId, int productId, int userId) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("commentContent", content);
 		args.put("commentDate", Timestamp.valueOf(date));
@@ -49,7 +51,7 @@ public class CommentJdbcDao implements CommentDao {
 		
 		final Number commentId = jdbcInsert.executeAndReturnKey(args);
 
-		return new Comment(commentId.intValue(), parentId, content, date, userName, email);
-	} 
+		return new Comment(commentId.intValue(), parentId, content, date);
+	}
 
 }

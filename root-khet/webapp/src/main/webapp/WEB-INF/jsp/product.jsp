@@ -104,25 +104,25 @@
 				<c:forEach items="${parentcomments}" var="parentNode">
 					<div class="row parentcomment">
 						<div class="col-md-12">
-							<p><c:out value="${parentNode.parent.content}" /></p>
+							<p><c:out value="${parentNode.parent.comment.content}" /></p>
 						</div>
 						<div class="col-md-12">
-							<p><c:out value="${parentNode.parent.userName}" /></p>
+							<p><c:out value="${parentNode.parent.commenter.name}" /></p>
 						</div>
 						<div class="col-md-12">
-							<p><c:out value="${parentNode.parent.userEmail}" /></p>
+							<p><c:out value="${parentNode.parent.commenter.email}" /></p>
 						</div>
 					</div>
-					<c:forEach items="${parentNode.childs}" var="childComment">
+					<c:forEach items="${parentNode.children}" var="child">
 						<div class="row childcomment">
 							<div class="col-md-10 col-md-offset-1">
-								<p><c:out value="${childComment.content}" /></p>
+								<p><c:out value="${child.comment.content}" /></p>
 							</div>
 							<div class="col-md-10 col-md-offset-1">
-								<p><c:out value="${childComment.userName}" /></p>
+								<p><c:out value="${child.commenter.name}" /></p>
 							</div>
 							<div class="col-md-10 col-md-offset-1">
-								<p><c:out value="${childComment.userEmail}" /></p>
+								<p><c:out value="${child.commenter.email}" /></p>
 							</div>
 						</div>
 					</c:forEach>

@@ -3,21 +3,16 @@ package tp.paw.khet;
 import java.time.LocalDateTime;
 
 public class Comment {
-
-	private int id;
-	private Integer parentId;
-	private String content;
-	private LocalDateTime commentDate;
-	private String userName;
-	private String userEmail;
+	private final int id;
+	private final Integer parentId;
+	private final String content;
+	private final LocalDateTime commentDate;
 	
-	public Comment(int id, Integer parentId, String content, LocalDateTime date, String userName, String userEmail) {
+	public Comment(int id, Integer parentId, String content, LocalDateTime date) {
 		this.id = id;
 		this.parentId = parentId;
-		this.content=content;
+		this.content = content;
 		this.commentDate = date;
-		this.userName = userName;
-		this.userEmail = userEmail;
 	}
 	
 	public int getId() {
@@ -36,29 +31,13 @@ public class Comment {
 		return commentDate;
 	}
 	
-	public String getUserName() {
-		return userName;
-	}
-	
-	public String getUserEmail() {
-		return userEmail;
-	}
-	
 	public boolean hasParent() {
 		return this.parentId != null;
 	}
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((commentDate == null) ? 0 : commentDate.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((parentId == null) ? 0 : parentId.hashCode());
-		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		return result;
+		return id;
 	}
 	
 	@Override
@@ -67,35 +46,9 @@ public class Comment {
 			return true;
 		if (!(obj instanceof Comment))
 			return false;
+		
 		Comment other = (Comment) obj;
-		if (commentDate == null) {
-			if (other.commentDate != null)
-				return false;
-		} else if (!commentDate.equals(other.commentDate))
-			return false;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
-			return false;
-		if (id != other.id)
-			return false;
-		if (parentId == null) {
-			if (other.parentId != null)
-				return false;
-		} else if (!parentId.equals(other.parentId))
-			return false;
-		if (userEmail == null) {
-			if (other.userEmail != null)
-				return false;
-		} else if (!userEmail.equals(other.userEmail))
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
-		return true;
+		return getId() == other.getId();
 	}
 
 	@Override

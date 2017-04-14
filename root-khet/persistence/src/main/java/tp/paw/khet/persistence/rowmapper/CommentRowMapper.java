@@ -16,6 +16,6 @@ public class CommentRowMapper implements RowMapper<Comment> {
 			parentId = null;
 		
 		return new Comment(rs.getInt("commentId"), parentId, 
-				rs.getString("commentContent"), rs.getTimestamp("commentDate").toLocalDateTime(), rs.getString("userName"), rs.getString("email"));
+				rs.getString("commentContent"), rs.getTimestamp("commentDate").toLocalDateTime());
 	}
 }

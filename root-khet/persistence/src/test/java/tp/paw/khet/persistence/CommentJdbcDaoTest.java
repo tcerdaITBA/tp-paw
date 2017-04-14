@@ -5,6 +5,7 @@ import static tp.paw.khet.testutils.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.testutils.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.testutils.UserTestUtils.dummyUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static tp.paw.khet.testutils.CommentTestUtils.*;
@@ -22,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import tp.paw.khet.Comment;
+import tp.paw.khet.CommentAndCommenter;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 
@@ -79,9 +81,12 @@ public class CommentJdbcDaoTest {
 		for (int i = 0; i < 7; i++)
 			insertCommentList(dummyCommentList(5, 7 + i * 5, i), 0, 0, " ", " ");
 		
-		List<Comment> actual = commentDao.getCommentsByProductId(0);
+		List<CommentAndCommenter> actual = commentDao.getCommentsByProductId(0);
+		List<Comment> comments = new ArrayList<>(actual.size());
+		for (CommentAndCommenter cc : actual)
+			comments.add(cc.getComment());
 		
-		assertCommentsOrder(actual);
+		assertCommentsOrder(comments);
 	}
 	
 	private void insertCommentList(List<Comment> comments, int productId, int userId, String userName, String email) {
@@ -123,7 +128,7 @@ public class CommentJdbcDaoTest {
 	}
 	
 	private Comment insertComment(Comment comment, int productId, int userId, String userName, String email) {
-		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, userId, userName, email);
+		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, userId);
 	}
 
 	private void insertDummyProduct() {

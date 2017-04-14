@@ -18,7 +18,7 @@ public final class CommentTestUtils {
 	}
 	
 	public static Comment dummyComment(int commentId, Integer parentId) {
-		return new Comment(commentId, parentId, "Content " + commentId, LocalDateTime.now().plusSeconds(commentId), "User" + commentId, "email" + commentId);
+		return new Comment(commentId, parentId, "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
 	}
 	
 	public static List<Comment> dummyRootCommentList(int size, int initialId) {

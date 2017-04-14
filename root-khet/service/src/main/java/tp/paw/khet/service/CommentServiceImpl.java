@@ -7,9 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import structures.ParentNode;
 import tp.paw.khet.Comment;
+import tp.paw.khet.CommentAndCommenter;
 import tp.paw.khet.persistence.CommentDao;
+import tp.paw.khet.structures.ParentNode;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -18,28 +19,23 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 
 	@Override
-	public List<ParentNode<Comment>> getCommentsByProductId(int id) {
-		
-		List<Comment> comments = commentDao.getCommentsByProductId(id);
-		
-		List<ParentNode<Comment>> parents = new ArrayList<>();
-		
+	public List<ParentNode<CommentAndCommenter>> getCommentsByProductId(int id) {
+		List<CommentAndCommenter> comments = commentDao.getCommentsByProductId(id);
+		List<ParentNode<CommentAndCommenter>> parents = new ArrayList<>();
 		int parentIndex = 0;
-		
 		int commentIndex = 0;
 		
 		while (commentIndex < comments.size()) {
-			
-			Comment c = comments.get(commentIndex);
+			CommentAndCommenter cc = comments.get(commentIndex);
+			Comment c = cc.getComment();
 			
 			if (!c.hasParent()) {	
-				ParentNode<Comment> node = new ParentNode<Comment>(c);
+				ParentNode<CommentAndCommenter> node = new ParentNode<CommentAndCommenter>(cc);
 				parents.add(node);
 				commentIndex++;
 			}
-			
-			else if (c.getParentId() == parents.get(parentIndex).getParent().getId()) {
-				parents.get(parentIndex).addChild(c);
+			else if (c.getParentId() == parents.get(parentIndex).getParent().getComment().getId()) {
+				parents.get(parentIndex).addChild(cc);
 				commentIndex++;
 			}
 			else
@@ -50,8 +46,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment createComment(String content, Integer parentId, int productId, int userId, String userName, String email) {
-		return commentDao.createComment(content, LocalDateTime.now(), parentId, productId, userId, userName, email);
+	public Comment createComment(String content, Integer parentId, int productId, int userId) {
+		return commentDao.createComment(content, LocalDateTime.now(), parentId, productId, userId);
 	}
 
 }
