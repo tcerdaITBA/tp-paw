@@ -43,7 +43,7 @@
 					<c:forEach items="${categories}" var="category">
 					     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
 						<li role="presentation" class="${active ? 'active' : 'none'}">
-							<a href="<c:url value="/category/${category}"/>">${category}</a>
+							<a href="<c:url value="/category/${category}"/>"><spring:message code="index.${category}"/></a>
 						</li>
 					</c:forEach>
 					</ul>
@@ -73,8 +73,8 @@
 												</div>
 											</div>
 											<div class="row product-category">
-												<div class="col-md-2 categoryTag">
-													<p><c:out value="${product.category}"/></p>
+												<div class="col-md-3 categoryTag">
+													<p><spring:message code="index.${product.category}"/></p>
 												</div>
 											</div>
 										</div>

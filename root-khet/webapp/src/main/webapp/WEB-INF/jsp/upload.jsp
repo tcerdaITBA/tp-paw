@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <html>
 	<head>
@@ -96,7 +98,9 @@
 								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
 								<div class="col-sm-5">
 									<form:select path="category" class="form-control">
-										<form:options items="${categories}"/>
+										<c:forEach var="catOpt" items="${categories.keySet()}">
+											<option value="${catOpt}"><spring:message code="index.${catOpt}"/></option>
+										</c:forEach>
 									</form:select>									
 									<form:errors path="category" cssClass="" element="p"/>
 								</div>
