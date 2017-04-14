@@ -61,7 +61,7 @@
 										</div>
 									</div>
 									<div class="row product-category">
-										<div class="col-md-12">
+										<div class="col-md-2 categoryTag">
 											<p><a href="<c:url value="/category/${product.category}"/>"><c:out value="${product.category}"/></a></p>
 										</div>
 									</div>
