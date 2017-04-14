@@ -27,4 +27,8 @@ public enum Category {
 		
 		return map;	
 	}
+	
+	public String firstUpperCase() {
+		return name().substring(0,1) + name().substring(1).toLowerCase();
+	}
 }
