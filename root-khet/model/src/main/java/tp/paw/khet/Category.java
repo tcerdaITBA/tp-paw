@@ -23,8 +23,12 @@ public enum Category {
 	public static Map<Category,String> getCategories(){
 		Map<Category,String> map = new HashMap<>();
 		for(Category category:Category.values())
-			map.put(category, category.toString());
+			map.put(category, category.firstUpperCase());
 		
 		return map;	
+	}
+	
+	public String firstUpperCase() {
+		return name().substring(0,1) + name().substring(1).toLowerCase();
 	}
 }
