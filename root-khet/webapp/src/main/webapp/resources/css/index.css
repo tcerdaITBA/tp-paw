@@ -71,12 +71,20 @@ text-align: center;
 .categoryBox li {
 	text-align: center;
     background: white;
-    border-color: #737373;
-    border-style: solid;
-    border-width: thin;
+    border-radius: 4px;
+}
+
+.categoryBox a{
+	color: #737373;
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
     color: #fff;
     background-color: #39c6a6;
+}
+
+.nav-pills>li>a:hover{
+	color: #fff;
+    background-color: #39c6a6;
+    opacity: 0.2;
 }
