@@ -19,26 +19,37 @@ public class Comment {
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public Integer getParentId() {
 		return parentId;
 	}
+	
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
+	
 	public String getContent() {
 		return content;
 	}
+	
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
 	public LocalDateTime getCommentDate() {
 		return commentDate;
 	}
+	
 	public void setCommentDate(LocalDateTime commentDate) {
 		this.commentDate = commentDate;
+	}
+	
+	public boolean hasPerent() {
+		return this.parentId != null;
 	}
 	
 	@Override

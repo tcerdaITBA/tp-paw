@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Product;
+import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.VideoService;
@@ -29,6 +30,9 @@ public class ShowProductController {
 	
 	@Autowired
 	private ProductImageService productImageService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	@RequestMapping(value = "/product/{productId}", method = {RequestMethod.GET})
 	public ModelAndView getProduct(@PathVariable final int productId, HttpServletResponse response) 

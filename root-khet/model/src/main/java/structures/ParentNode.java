@@ -1,5 +1,6 @@
 package structures;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tp.paw.khet.User;
@@ -9,6 +10,11 @@ public class ParentNode<T> {
 	private T parent;
 	
 	private List<T> childs;
+	
+	public ParentNode(T parent) {
+		this.parent = parent;
+		this.childs = new ArrayList<T>();
+	}
 	
 	public ParentNode(T parent, List<T> childs) {
 		this.parent = parent;
@@ -31,6 +37,10 @@ public class ParentNode<T> {
 		this.childs = childs;
 	}
 
+	public void addChild(T child) {
+		this.childs.add(child);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
