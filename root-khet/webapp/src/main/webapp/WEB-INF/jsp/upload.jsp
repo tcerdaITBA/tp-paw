@@ -95,7 +95,9 @@
 							<div class="col-md-12 form-group">
 								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
 								<div class="col-sm-5">
-									<form:select path="category" items="${categories}" class="form-control"/>									
+									<form:select path="category" class="form-control">
+										<form:options items="${categories}"/>
+									</form:select>									
 									<form:errors path="category" cssClass="" element="p"/>
 								</div>
 							</div>
