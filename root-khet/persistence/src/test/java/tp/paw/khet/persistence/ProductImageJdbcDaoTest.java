@@ -107,7 +107,7 @@ public class ProductImageJdbcDaoTest {
 	
 	private void insertDummyProduct() {
 		Product dummy = dummyProduct(0);
-		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), dummy.getCategory().name(),
+		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), dummy.getWebsite(), dummy.getCategory().name(),
 				dummy.getUploadDate(), logoFromProduct(dummy), 0);
 	}
 

@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import javax.validation.Valid;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.http.MediaType;
@@ -38,6 +39,9 @@ public class FormProduct {
 	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
 	@FileSize(min = 1)
 	private MultipartFile logo;
+	
+	@URL //TODO: no valida sin http://
+	private String website;
 	
 	//Debe ser un usuario
 	@Size(max=30, min=4)
@@ -78,6 +82,10 @@ public class FormProduct {
 		return shortDescription;
 	}
 	
+	public String getWebsite() {
+	    return website;
+	}
+	
 	public String getCreatorEmail() {
 		return creatorEmail;
 	}
@@ -96,6 +104,10 @@ public class FormProduct {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+	
+	public void setWebsite(String url) {
+	    this.website = url;
 	}
 
 	public MultipartFile getLogo() {

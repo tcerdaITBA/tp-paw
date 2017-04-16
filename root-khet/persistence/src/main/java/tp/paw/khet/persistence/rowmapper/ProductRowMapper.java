@@ -16,6 +16,7 @@ public class ProductRowMapper implements RowMapper<Product> {
 				.name(rs.getString("productName"))
 				.description(rs.getString("description"))
 				.shortDescription(rs.getString("shortDescription"))
+				.website(rs.getString("website"))
 				.category(rs.getString("category"))
 				.uploadDate(rs.getTimestamp("uploadDate").toLocalDateTime())
 				.build();

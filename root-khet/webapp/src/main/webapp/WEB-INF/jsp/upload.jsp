@@ -32,6 +32,8 @@
 <spring:message code="formLabel.linkPlaceholder" var="LinkPlaceholder"/>
 <spring:message code="formLabel.creatorNamePlaceholder" var="CreatorNamePlaceholder"/>
 <spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>
+<spring:message code="formLabel.websitePlaceholder" var="WebsitePlaceholder"/>
+
 
 <%@include file="includes/navbar.jsp" %>
 	<div class="form-container container">
@@ -93,7 +95,17 @@
 							</div>
 						</div>
 						
-						<div class=row">
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<form:label path="website" class="col-sm-3 control-label"><spring:message code="formLabel.productwebsite"/></form:label>
+								<div class="col-sm-9">
+									<form:textarea type="text" path="website" class="form-control" rows="1" placeholder="${WebsitePlaceholder}"/>
+									<form:errors path="website" cssClass="" element="p"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
 							<div class="col-md-12 form-group">
 								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
 								<div class="col-sm-5">

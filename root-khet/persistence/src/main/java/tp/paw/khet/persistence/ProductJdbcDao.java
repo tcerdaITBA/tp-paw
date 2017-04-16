@@ -66,13 +66,14 @@ public class ProductJdbcDao implements ProductDao {
 		return user.get(0);
 	}
 
-	public Product createProduct(String name, String description, String shortDescription, String category,
+	public Product createProduct(String name, String description, String shortDescription, String website, String category,
 			LocalDateTime uploadDate, byte[] logo, int creatorId) {
 
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("productName", name);
 		args.put("description", description);
 		args.put("shortDescription", shortDescription);
+		args.put("website", website);
 		args.put("category", category.toUpperCase(Locale.ENGLISH));
 		args.put("uploadDate", Timestamp.valueOf(uploadDate));
 		args.put("logo", logo);
@@ -85,6 +86,7 @@ public class ProductJdbcDao implements ProductDao {
 				.name(name)
 				.description(description)
 				.shortDescription(shortDescription)
+				.website(website)
 				.category(category)
 				.uploadDate(uploadDate)
 				.build();		
