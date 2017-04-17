@@ -26,6 +26,10 @@
 
 				</head>
 				<body>
+				<spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>
+				<spring:message code="commentLabel.userNamePlaceholder" var="UserNamePlaceholder"/>
+				<spring:message code="commentLabel.contentPlaceholder" var="ContentPlaceholder"/>	
+			
 					<%@include file="includes/navbar.jsp" %>
 						<div class="container">
 							<div class="row" id="carouselHolder">
@@ -110,17 +114,17 @@
 								 	<form:form modelAttribute="commentForm" action="${postPath}" method="post">
 									    <div class="row">
 									    	<div class="col-md-6">
-									    		<form:input type="text" path="formUser.userName" maxlength="30" />
+									    		<form:input type="text" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
 									    		<form:errors path="formUser.userName" element="p" />
 									    	</div>
 									    	<div class="col-md-6">
-									 		    <form:input type="email" path="formUser.userEmail" />
+									 		    <form:input type="email" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
 									 		    <form:errors path="formUser.userEmail" element="p" />
 									    	</div>
 									    </div>
 									    <div class="row">
 									    	<div class="col-md-9">
-											    <form:textarea type="text" rows="1" path="content" />
+											    <form:textarea type="text" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
 											    <form:errors path="content" element="p" />
 										    </div>
 										    <div class="col-md-3">
@@ -156,19 +160,19 @@
 													</div>
 												</c:forEach>
 												<form:form modelAttribute="commentForm" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
-												    <div class="row">
+													<div class="row">
 												    	<div class="col-md-6">
-												    		<form:input type="text" path="formUser.userName" maxlength="30" />
+												    		<form:input type="text" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
 												    		<form:errors path="formUser.userName" element="p" />
 												    	</div>
 												    	<div class="col-md-6">
-												 		    <form:input type="email" path="formUser.userEmail" />
+												 		    <form:input type="email" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
 												 		    <form:errors path="formUser.userEmail" element="p" />
 												    	</div>
 													</div>
 												    <div class="row">
 												    	<div class="col-md-9">
-														    <form:textarea type="text" rows="1" path="content" />
+														    <form:textarea type="text" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
 														    <form:errors path="content" element="p" />
 													    </div>
 													    <div class="col-md-3">
