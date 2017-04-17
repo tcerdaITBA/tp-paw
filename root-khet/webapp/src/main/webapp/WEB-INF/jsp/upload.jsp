@@ -110,8 +110,8 @@
 								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
 								<div class="col-sm-5">
 									<form:select path="category" class="form-control">
-										<c:forEach var="catOpt" items="${categories.keySet()}">
-											<option value="${catOpt}"><spring:message code="category.${catOpt}"/></option>
+										<c:forEach var="catOpt" items="${categories}">
+											<option value="${catOpt}" <c:if test="${catOpt eq 'OTHER'}">selected="true"</c:if>><spring:message code="category.${catOpt}"/></option>
 										</c:forEach>
 									</form:select>									
 									<form:errors path="category" cssClass="" element="p"/>
