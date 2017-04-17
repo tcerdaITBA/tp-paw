@@ -54,9 +54,50 @@
 	word-wrap: break-word;
 }
 
+.product-category p {
+	color: #8c8c8c;
+    font-weight: 200;
+    word-wrap: break-word;
+    font-size: small;
+}
+
 h2 {
 font-size: 25px;
 color: #737373;
 font-weight: 300;
 text-align: center;
+}
+
+.categoryBox li {
+	text-align: center;
+    background: white;
+    border-radius: 4px;
+}
+
+.categoryBox a{
+	color: #737373;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #39c6a6;
+}
+
+.nav-pills>li>a:hover{
+	color: #fff;
+    background-color: #39c6a6;
+    opacity: 0.2;
+}
+
+.nav-pills>li.active {
+	pointer-events:none;
+}
+
+.categoryTag {
+	text-align: center;
+    background-color: rgb(249, 249, 249);
+    border-radius: 24px;
+    margin-left: 15px;
+    color: #8c8c8c;
+    word-wrap: break-word;
 }

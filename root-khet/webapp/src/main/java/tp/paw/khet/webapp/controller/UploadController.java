@@ -1,6 +1,7 @@
 package tp.paw.khet.webapp.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.*;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 import tp.paw.khet.service.ProductImageService;
@@ -47,7 +49,10 @@ public class UploadController {
 	
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
-		return new ModelAndView("upload");
+		ModelAndView mav = new ModelAndView("upload");
+		Map<Category,String> categoriesMap = Category.getCategories();
+		mav.addObject("categories",categoriesMap);
+		return mav;
 	}
 	
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
@@ -66,6 +71,8 @@ public class UploadController {
 		
 		final Product product =  productService.createProduct(formProduct.getName(), 
 												formProduct.getDescription(), formProduct.getShortDescription(),
+												formProduct.getWebsite(),
+												formProduct.getCategory(),
 												formProduct.getLogo().getBytes(), user.getUserId());
 		
 		storeImages(formProduct.getImages(), product.getId());

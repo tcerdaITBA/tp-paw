@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.service.ProductService;
 
 @Controller
@@ -20,6 +21,7 @@ public class IndexController {
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("products", productService.getProducts());
+		mav.addObject("categories", Category.values());
 		return mav;
 	}
 	

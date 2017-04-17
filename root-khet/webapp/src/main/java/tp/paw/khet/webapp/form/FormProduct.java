@@ -7,10 +7,12 @@ import javax.validation.constraints.Size;
 import javax.validation.Valid;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.http.MediaType;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
 import tp.paw.khet.webapp.form.constraints.NoDuplicateVideos;
@@ -38,6 +40,9 @@ public class FormProduct {
 	@FileSize(min = 1)
 	private MultipartFile logo;
 	
+	@URL //TODO: no valida sin http://
+	private String website;
+	
 	//Debe ser un usuario
 	@Size(max=30, min=4)
 	@Pattern(regexp = "[A-Za-z0-9_\\s\\-.]+")
@@ -53,6 +58,8 @@ public class FormProduct {
 	@Valid
 	@NoDuplicateVideos
 	private VideoStringWrapper[] videos;
+	
+	private Category category = Category.OTHER; // TODO: para que haya algún default hasta que este hecho bien
 
 	public FormProduct() {
 		images = new MultipartFileImageWrapper[MAX_IMAGES];
@@ -75,6 +82,10 @@ public class FormProduct {
 		return shortDescription;
 	}
 	
+	public String getWebsite() {
+	    return website;
+	}
+	
 	public String getCreatorEmail() {
 		return creatorEmail;
 	}
@@ -93,6 +104,10 @@ public class FormProduct {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+	
+	public void setWebsite(String url) {
+	    this.website = url;
 	}
 
 	public MultipartFile getLogo() {
@@ -125,6 +140,14 @@ public class FormProduct {
 
 	public void setVideos(VideoStringWrapper[] videos) {
 		this.videos = videos;
+	}
+	
+	public Category getCategory() {
+		return category;
+	}
+	
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	@Override

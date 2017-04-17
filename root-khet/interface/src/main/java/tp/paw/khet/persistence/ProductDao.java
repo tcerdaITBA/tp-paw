@@ -13,12 +13,15 @@ public interface ProductDao {
 	 * @param name - Name of the product
 	 * @param description - Description of the product
 	 * @param shortDescription - Brief comment or description of the product
+	 * @param website - Official product website URL
+	 * @param category - category the product belongs to
 	 * @param uploadDate
 	 * @param logo - Logo or image that identifies the product
 	 * @param creatorId - Product creator ID
 	 * @return Product
 	 */
-	public Product createProduct(String name, String description, String shortDescription, LocalDateTime uploadDate, byte[] logo, int creatorId);
+	public Product createProduct(String name, String description, String shortDescription, String website, String category,
+			LocalDateTime uploadDate, byte[] logo, int creatorId);
 	
 	/**
 	 * Lists every existing {@link Product}
@@ -26,6 +29,14 @@ public interface ProductDao {
 	 */
 	public List<Product> getProducts();
 	
+	/**
+	 * Lists products belonging to certain category
+	 * @param category - category the products belong to
+	 * @return List of the products belonging to the category.<p>
+	 * 		   If there are no products in given category, the returned List is empty.
+	 */
+	public List<Product> getProductsByCategory(String category);
+
 	/**
 	 * Returns a {@link Product} given its creator's ID
 	 * @param id - Creator's ID

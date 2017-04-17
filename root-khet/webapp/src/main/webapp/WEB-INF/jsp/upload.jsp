@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <html>
 	<head>
@@ -30,6 +32,8 @@
 <spring:message code="formLabel.linkPlaceholder" var="LinkPlaceholder"/>
 <spring:message code="formLabel.creatorNamePlaceholder" var="CreatorNamePlaceholder"/>
 <spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>
+<spring:message code="formLabel.websitePlaceholder" var="WebsitePlaceholder"/>
+
 
 <%@include file="includes/navbar.jsp" %>
 	<div class="form-container container">
@@ -87,6 +91,30 @@
 								<div class="col-sm-9">
 									<form:textarea type="text" path="description" class="form-control" rows="4" placeholder="${DescriptionPlaceholder}"/>
 									<form:errors path="description" cssClass="" element="p"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<form:label path="website" class="col-sm-3 control-label"><spring:message code="formLabel.productwebsite"/></form:label>
+								<div class="col-sm-9">
+									<form:textarea type="text" path="website" class="form-control" rows="1" placeholder="${WebsitePlaceholder}"/>
+									<form:errors path="website" cssClass="" element="p"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
+								<div class="col-sm-5">
+									<form:select path="category" class="form-control">
+										<c:forEach var="catOpt" items="${categories.keySet()}">
+											<option value="${catOpt}"><spring:message code="category.${catOpt}"/></option>
+										</c:forEach>
+									</form:select>									
+									<form:errors path="category" cssClass="" element="p"/>
 								</div>
 							</div>
 						</div>

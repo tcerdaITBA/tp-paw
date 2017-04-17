@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -42,6 +43,11 @@ public class ProductJdbcDao implements ProductDao {
 		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", productRowMapper);
 	}
 
+	@Override
+	public List<Product> getProductsByCategory(String category) {
+		return jdbcTemplate.query("SELECT * FROM products WHERE category = ? ORDER BY uploadDate DESC", productRowMapper, category.toUpperCase(Locale.ENGLISH));
+	}
+	
 	public Product getProductByProductId(int id) {
 		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", productRowMapper, id);
 		
@@ -60,20 +66,30 @@ public class ProductJdbcDao implements ProductDao {
 		return user.get(0);
 	}
 
-	public Product createProduct(String name, String description, String shortDescription, LocalDateTime uploadDate,
-			byte[] logo, int creatorId) {
+	public Product createProduct(String name, String description, String shortDescription, String website, String category,
+			LocalDateTime uploadDate, byte[] logo, int creatorId) {
 
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("productName", name);
 		args.put("description", description);
 		args.put("shortDescription", shortDescription);
+		args.put("website", website);
+		args.put("category", category.toUpperCase(Locale.ENGLISH));
 		args.put("uploadDate", Timestamp.valueOf(uploadDate));
 		args.put("logo", logo);
 		args.put("userId", creatorId);
 		
 		final Number productId = jdbcInsert.executeAndReturnKey(args);
 		
-		return new Product(productId.intValue(), name, description, shortDescription, uploadDate);
+		return Product.getBuilder()
+				.id(productId.intValue())
+				.name(name)
+				.description(description)
+				.shortDescription(shortDescription)
+				.website(website)
+				.category(category)
+				.uploadDate(uploadDate)
+				.build();		
 	}
 
 	public byte[] getLogoByProductId(int productId) {

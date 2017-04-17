@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 
@@ -43,14 +44,14 @@ public class ProductJdbcDaoTest {
 	public void setUp() throws Exception {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK");
+		insertDummyUser();
 	}
 
 	@Test
 	public void getProductsTest() {
-		insertDummyUser();
 		List<Product> expectedProducts = dummyProductList(LIST_SIZE, 0);
 		insertProducts(expectedProducts, 0);
-		
+				
 		List<Product> actualProducts = productDao.getProducts();
 		
 		assertEquals(expectedProducts.size(), actualProducts.size());
@@ -65,10 +66,32 @@ public class ProductJdbcDaoTest {
 		
 		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
+	
+	@Test
+	public void getProductsByCategoryTest() {
+		Category[] categories = Category.values();
+		List<Product> productList = dummyProductList(categories.length * 3, 0);
+		insertProducts(productList, 0);
+		
+		for (int i = 0; i < categories.length; i++)
+			assertRetrievedCategory(categories[i], productList);
+
+		assertEquals(categories.length * 3, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+	}
+
+	private void assertRetrievedCategory(Category category, List<Product> productList) {
+		List<Product> productsByCategory = productDao.getProductsByCategory(category.name());
+		
+		for (Product product : productsByCategory) {
+			assertTrue(productList.contains(product));
+			assertEquals(category, product.getCategory());
+		}
+		
+		assertEquals(3, productsByCategory.size());
+	}
 
 	@Test
 	public void getCreatorByProductIdTest() {
-		insertDummyUser();
 		User expected = dummyUser(0);
 		insertProduct(dummyProduct(0), 0);
 		
@@ -79,7 +102,6 @@ public class ProductJdbcDaoTest {
 	
 	@Test
 	public void createProductTest() {
-		insertDummyUser();
 		Product expected = dummyProduct(0);
 		Product actual = insertProduct(expected, 0);
 		
@@ -88,8 +110,18 @@ public class ProductJdbcDaoTest {
 	}
 	
 	@Test
+	public void getProductByProductIdTest() {
+		Product expected = dummyProduct(0);
+		insertProduct(expected, 0);
+		
+		Product actual = productDao.getProductByProductId(0);
+		
+		assertEqualsProducts(expected, actual);
+		assertNull(productDao.getProductByProductId(1));
+	}
+	
+	@Test
 	public void getLogoByProductIdTest() {
-		insertDummyUser();
 		Product dummyProduct = dummyProduct(0);
 		insertProduct(dummyProduct, 0);
 		
@@ -104,8 +136,8 @@ public class ProductJdbcDaoTest {
 	}
 	
 	private Product insertProduct(Product product, int creatorId) {
-		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), 
-				product.getUploadDate(), logoFromProduct(product), creatorId);
+		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), product.getWebsite(),
+				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), creatorId);
 	}
 		
 	private void insertProducts(List<Product> products, int creatorId) {

@@ -119,3 +119,18 @@
 .childcomment {
 	background-color: white;
 }
+.product-category p {
+    color: #8c8c8c;
+    font-weight: 200;
+    word-wrap: break-word;
+    font-size: small;
+}
+
+.website-btn-row {
+	text-align: center;
+}
+
+.website-btn {
+	margin-top: 10px;
+	font-weight: 600;
+}
