@@ -1,7 +1,6 @@
 package tp.paw.khet.webapp.controller;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -50,8 +49,7 @@ public class UploadController {
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
 		ModelAndView mav = new ModelAndView("upload");
-		Map<Category,String> categoriesMap = Category.getCategories();
-		mav.addObject("categories",categoriesMap);
+		mav.addObject("categories", Category.values());
 		return mav;
 	}
 	
