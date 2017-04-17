@@ -110,12 +110,12 @@
 								 	<form:form modelAttribute="commentForm" action="${postPath}" method="post">
 									    <div class="row">
 									    	<div class="col-md-6">
-									    		<form:input type="text" path="userName" maxlength="30" />
-									    		<form:errors path="userName" element="p" />
+									    		<form:input type="text" path="formUser.userName" maxlength="30" />
+									    		<form:errors path="formUser.userName" element="p" />
 									    	</div>
 									    	<div class="col-md-6">
-									 		    <form:input type="email" path="email" />
-									 		    <form:errors path="email" element="p" />
+									 		    <form:input type="email" path="formUser.userEmail" />
+									 		    <form:errors path="formUser.userEmail" element="p" />
 									    	</div>
 									    </div>
 									    <div class="row">
@@ -158,14 +158,14 @@
 												<form:form modelAttribute="commentForm" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
 												    <div class="row">
 												    	<div class="col-md-6">
-												    		<form:input type="text" path="userName" maxlength="30" />
-												    		<form:errors path="userName" element="p" />
+												    		<form:input type="text" path="formUser.userName" maxlength="30" />
+												    		<form:errors path="formUser.userName" element="p" />
 												    	</div>
 												    	<div class="col-md-6">
-												 		    <form:input type="email" path="email" />
-												 		    <form:errors path="email" element="p" />
+												 		    <form:input type="email" path="formUser.userEmail" />
+												 		    <form:errors path="formUser.userEmail" element="p" />
 												    	</div>
-												    </div>
+													</div>
 												    <div class="row">
 												    	<div class="col-md-9">
 														    <form:textarea type="text" rows="1" path="content" />

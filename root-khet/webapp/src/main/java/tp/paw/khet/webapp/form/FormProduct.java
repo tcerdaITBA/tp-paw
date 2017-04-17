@@ -1,11 +1,8 @@
 package tp.paw.khet.webapp.form;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
 import javax.validation.Valid;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,15 +40,9 @@ public class FormProduct {
 	@URL //TODO: no valida sin http://
 	private String website;
 	
-	//Debe ser un usuario
-	@Size(max=30, min=4)
-	@Pattern(regexp = "[A-Za-z0-9_\\s\\-.]+")
-	private String creatorName;
-	
-	@NotEmpty
-	@Email
-	private String creatorEmail;
-	
+	@Valid
+	private FormUser formUser = new FormUser();
+		
 	@Valid
 	private MultipartFileImageWrapper[] images;
 	
@@ -59,11 +50,19 @@ public class FormProduct {
 	@NoDuplicateVideos
 	private VideoStringWrapper[] videos;
 	
-	private Category category = Category.OTHER; // TODO: para que haya algún default hasta que este hecho bien
+	private Category category = Category.OTHER;
 
 	public FormProduct() {
 		images = new MultipartFileImageWrapper[MAX_IMAGES];
 		videos = new VideoStringWrapper[MAX_VIDEOS];
+	}
+	
+	public FormUser getFormUser() {
+		return formUser;
+	}
+	
+	public void setFormUser(FormUser formUser) {
+		this.formUser = formUser;
 	}
 	
 	public int getId() {
@@ -85,15 +84,7 @@ public class FormProduct {
 	public String getWebsite() {
 	    return website;
 	}
-	
-	public String getCreatorEmail() {
-		return creatorEmail;
-	}
-	
-	public void setCreatorEmail(String creatorEmail) {
-		this.creatorEmail = creatorEmail;
-	}
-	
+		
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -118,14 +109,14 @@ public class FormProduct {
 		this.logo = logo;
 	}
 
-	public String getCreatorName() {
-		return creatorName;
+	public String getUserName() {
+		return formUser.getUserName();
 	}
 
-	public void setCreatorName(String creatorName) {
-		this.creatorName = creatorName;
+	public String getUserEmail() {
+		return formUser.getUserEmail();
 	}
-
+	
 	public MultipartFileImageWrapper[] getImages() {
 		return images;
 	}

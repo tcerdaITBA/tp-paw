@@ -85,7 +85,7 @@ public class ShowProductController {
 		if (errors.hasErrors())
 			return getProduct(productId, form);
 		
-		User user = userService.createUserOrRetrieveIfExists(form.getUserName(), form.getEmail());
+		User user = userService.createUserOrRetrieveIfExists(form.getUserName(), form.getUserEmail());
 		
 		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(form.getUserName(), user.getName()), errors);
 		
