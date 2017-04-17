@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-	<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-		<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+		
 
 			<html>
 				<head>
@@ -104,6 +106,80 @@
 											</div>
 										</div>
 									</div>
+									<c:url value="/product/${product.id}/comment" var="postPath" />
+								 	<form:form modelAttribute="commentForm" action="${postPath}" method="post">
+									    <div class="row">
+									    	<div class="col-md-6">
+									    		<form:input type="text" path="userName" maxlength="30" />
+									    		<form:errors path="userName" element="p" />
+									    	</div>
+									    	<div class="col-md-6">
+									 		    <form:input type="email" path="email" />
+									 		    <form:errors path="email" element="p" />
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-md-9">
+											    <form:textarea type="text" rows="1" path="content" />
+											    <form:errors path="content" element="p" />
+										    </div>
+										    <div class="col-md-3">
+										    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
+										    </div>
+									    </div>
+								    </form:form>
+								    <div class="row">
+										<div class="col-md-8 col-md-offset-2 comments-holder highlighted">
+											<c:forEach items="${parentcomments}" var="parentNode">
+												<div class="row parentcomment">
+													<div class="col-md-12">
+														<p><c:out value="${parentNode.parent.comment.content}" /></p>
+													</div>
+													<div class="col-md-12">
+														<p><c:out value="${parentNode.parent.commenter.name}" /></p>
+													</div>
+													<div class="col-md-12">
+														<p><c:out value="${parentNode.parent.commenter.email}" /></p>
+													</div>
+												</div>
+												<c:forEach items="${parentNode.children}" var="child">
+													<div class="row childcomment">
+														<div class="col-md-10 col-md-offset-1">
+														<p><c:out value="${child.comment.content}" /></p>
+														</div>
+														<div class="col-md-10 col-md-offset-1">
+															<p><c:out value="${child.commenter.name}" /></p>
+														</div>
+														<div class="col-md-10 col-md-offset-1">
+															<p><c:out value="${child.commenter.email}" /></p>
+														</div>
+													</div>
+												</c:forEach>
+												<form:form modelAttribute="commentForm" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
+												    <div class="row">
+												    	<div class="col-md-6">
+												    		<form:input type="text" path="userName" maxlength="30" />
+												    		<form:errors path="userName" element="p" />
+												    	</div>
+												    	<div class="col-md-6">
+												 		    <form:input type="email" path="email" />
+												 		    <form:errors path="email" element="p" />
+												    	</div>
+												    </div>
+												    <div class="row">
+												    	<div class="col-md-9">
+														    <form:textarea type="text" rows="1" path="content" />
+														    <form:errors path="content" element="p" />
+													    </div>
+													    <div class="col-md-3">
+													    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
+													    </div>
+												    </div>
+										   		</form:form>
+											</c:forEach>
+										</div>
+									</div>
+									
 									<div class="row long-description">
 										<div class="col-md-12">
 											<p><c:out value="${product.description}" /></p>
@@ -115,74 +191,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4 col-md-offset-1 creator-item highlighted">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="row product-name">
-									<div class="col-md-12">
-										<p><spring:message code="productPage.creator" /></p>
-									</div>
-								</div>
-								<div class="row product-short-description">
-									<div class="col-md-12">
-										<p><span class="glyphicon glyphicon-user"></span><c:out value="${user.name}"/></p>
-									</div>
-								</div>
-								<div class="row product-short-description">
-									<div class="col-md-12">
-										<a class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
-											<span class="glyphicon glyphicon-envelope"></span>
-											<p><c:out value="${user.email}"/></p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row long-description">
-					<div class="col-md-12">
-						<p><c:out value="${product.description}" /></p>
-						<div class="back-to-products">
-							<a href="<c:url value="/"/>"><spring:message code="productPage.backToProducts" /></a>
-						</div>
-					</div>
-				</div>
-    	</div>
-    </div>
-    <div class="row">
-			<div class="col-md-8 col-md-offset-2 comments-holder highlighted">
-				<c:forEach items="${parentcomments}" var="parentNode">
-					<div class="row parentcomment">
-						<div class="col-md-12">
-							<p><c:out value="${parentNode.parent.comment.content}" /></p>
-						</div>
-						<div class="col-md-12">
-							<p><c:out value="${parentNode.parent.commenter.name}" /></p>
-						</div>
-						<div class="col-md-12">
-							<p><c:out value="${parentNode.parent.commenter.email}" /></p>
-						</div>
-					</div>
-					<c:forEach items="${parentNode.children}" var="child">
-						<div class="row childcomment">
-							<div class="col-md-10 col-md-offset-1">
-								<p><c:out value="${child.comment.content}" /></p>
-							</div>
-							<div class="col-md-10 col-md-offset-1">
-								<p><c:out value="${child.commenter.name}" /></p>
-							</div>
-							<div class="col-md-10 col-md-offset-1">
-								<p><c:out value="${child.commenter.email}" /></p>
-							</div>
-						</div>
-					</c:forEach>
-				</c:forEach>
-			</div>
-	</div>
-	</div>
-	<%@include file="includes/footer.jsp"%>
+						<%@include file="includes/footer.jsp"%>
 
 							<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 							<script

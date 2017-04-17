@@ -51,7 +51,7 @@ public class UploadController {
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
 		ModelAndView mav = new ModelAndView("upload");
 		Map<Category,String> categoriesMap = Category.getCategories();
-		mav.addObject("categories",categoriesMap);
+		mav.addObject("categories", categoriesMap);
 		return mav;
 	}
 	

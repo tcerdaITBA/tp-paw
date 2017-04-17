@@ -137,7 +137,7 @@ public class CommentJdbcDaoTest {
 	private void insertDummyProduct() {
 		Product dummy = dummyProduct(0);
 		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), 
-				dummy.getUploadDate(), logoFromProduct(dummy), 0);
+				dummy.getWebsite(), dummy.getCategory().name(), dummy.getUploadDate(), logoFromProduct(dummy), 0);
 	}
 
 	private void insertDummyUser() {

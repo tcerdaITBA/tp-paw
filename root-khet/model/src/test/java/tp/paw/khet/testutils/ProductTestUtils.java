@@ -58,6 +58,7 @@ public final class ProductTestUtils {
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getName(), actual.getName());
 		assertEquals(expected.getDescription(), actual.getDescription());
+		assertEquals(expected.getWebsite(), actual.getWebsite());
 		assertEquals(expected.getShortDescription(), actual.getShortDescription());
 		assertEquals(expected.getCategory(), actual.getCategory());
 		assertEquals(expected.getUploadDate(), actual.getUploadDate());

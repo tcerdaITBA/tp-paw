@@ -1,23 +1,32 @@
 package tp.paw.khet.webapp.controller;
 
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Product;
+import tp.paw.khet.User;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.service.UserService;
 import tp.paw.khet.service.VideoService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
+import tp.paw.khet.webapp.form.FormComment;
+import tp.paw.khet.webapp.validators.EqualsUsernameValidator;
 
 @Controller
 public class ShowProductController {
@@ -34,8 +43,14 @@ public class ShowProductController {
 	@Autowired
 	private CommentService commentService;
 	
-	@RequestMapping(value = "/product/{productId}", method = {RequestMethod.GET})
-	public ModelAndView getProduct(@PathVariable final int productId, HttpServletResponse response) 
+	@Autowired
+	private UserService userService;
+	
+	@Autowired 
+	private EqualsUsernameValidator equalsUsernameValidator;
+	
+	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
+	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("commentForm") FormComment form) 
 	throws ResourceNotFoundException {
 					
 		Product product = productService.getProduct(productId);
@@ -59,5 +74,29 @@ public class ShowProductController {
 	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) {
 		return productImageService.getImageByIds(imageId, productId).getData();
+	}
+	
+	@RequestMapping(value = "/product/{productId}/comment", method = RequestMethod.POST)
+	public ModelAndView postComment (@PathVariable final int productId,
+									 @RequestParam(value = "parentid", required = false) Optional<Integer> parentId,
+									 @Valid @ModelAttribute("commentForm") FormComment form,
+									 final BindingResult errors) {
+		
+		if (errors.hasErrors())
+			return getProduct(productId, form);
+		
+		User user = userService.createUserOrRetrieveIfExists(form.getUserName(), form.getEmail());
+		
+		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(form.getUserName(), user.getName()), errors);
+		
+		if (errors.hasErrors())
+			return getProduct(productId, form);
+		
+		if (parentId.isPresent())
+			commentService.createComment(form.getContent(), parentId.get(), productId, user.getUserId());
+		else
+			commentService.createComment(form.getContent(), productId, user.getUserId());
+		
+		return new ModelAndView("redirect:/product/" + productId);
 	}
 }
