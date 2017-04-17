@@ -1,15 +1,18 @@
 package tp.paw.khet;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 public class Comment {
+	private static final int NO_PARENT_ID = -1;
+	
 	private final int id;
 	private final int  parentId;
 	private final String content;
 	private final LocalDateTime commentDate;
 	
 	public Comment(int id, String content, LocalDateTime date) {
-		this(id, -1, content, date);
+		this(id, NO_PARENT_ID, content, date);
 	}
 	
 	public Comment(int id, int parentId, String content, LocalDateTime date) {
@@ -24,6 +27,8 @@ public class Comment {
 	}
 	
 	public int getParentId() {
+		if (!hasParent())
+			throw new NoSuchElementException("Root comment has no parent");
 		return parentId;
 	}
 	
@@ -36,7 +41,7 @@ public class Comment {
 	}
 	
 	public boolean hasParent() {
-		return this.parentId != -1;
+		return this.parentId != NO_PARENT_ID;
 	}
 	
 	@Override
