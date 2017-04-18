@@ -101,3 +101,10 @@ text-align: center;
     color: #8c8c8c;
     word-wrap: break-word;
 }
+
+.categoryDescription {
+	font-size: 13px;
+    font-family: inherit;
+    color: #737373;
+    text-align: center;
+}

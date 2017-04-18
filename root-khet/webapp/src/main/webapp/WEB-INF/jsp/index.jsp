@@ -26,13 +26,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h2>
+				<div>
 					<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
 					<c:choose>
-					 <c:when test="${activeURL == ''}"><spring:message code="index.mostrecent"/></c:when>
-					 <c:otherwise><spring:message code="category.${activeURL}"/></c:otherwise>
+					 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
+					 <c:otherwise>
+					 <h2><spring:message code="category.${activeURL}"/></h2>
+					 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
+					 </c:otherwise>
 					 </c:choose>					
-				</h2>
+				</div>
 			</div>
 		</div>
 		
