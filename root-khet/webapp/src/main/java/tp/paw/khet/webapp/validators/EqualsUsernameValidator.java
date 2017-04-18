@@ -5,6 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import tp.paw.khet.User;
+import tp.paw.khet.webapp.form.FormUser;
 
 /**
  * Validates that {@link User} with the form's Email has the 
@@ -27,7 +28,7 @@ public class EqualsUsernameValidator implements Validator {
 		String retrievedUserName = userPair.retrievedUserName;
 		
 		if (!expectedUserName.equals(retrievedUserName))
-			errors.rejectValue("creatorEmail", "EqualsUsernameValidator", new Object[]{retrievedUserName}, "EqualsUsernameValidator");
+			errors.rejectValue(FormUser.MAIL_PATH, "EqualsUsernameValidator", new Object[]{retrievedUserName}, "EqualsUsernameValidator");
 	}
 
 	private static class UserNamePair {

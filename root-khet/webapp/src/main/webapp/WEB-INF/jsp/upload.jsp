@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <html>
 	<head>
@@ -30,6 +32,8 @@
 <spring:message code="formLabel.linkPlaceholder" var="LinkPlaceholder"/>
 <spring:message code="formLabel.creatorNamePlaceholder" var="CreatorNamePlaceholder"/>
 <spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>
+<spring:message code="formLabel.websitePlaceholder" var="WebsitePlaceholder"/>
+
 
 <%@include file="includes/navbar.jsp" %>
 	<div class="form-container container">
@@ -90,6 +94,30 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<form:label path="website" class="col-sm-3 control-label"><spring:message code="formLabel.productwebsite"/></form:label>
+								<div class="col-sm-9">
+									<form:textarea type="text" path="website" class="form-control" rows="1" placeholder="${WebsitePlaceholder}"/>
+									<form:errors path="website" cssClass="" element="p"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
+								<div class="col-sm-5">
+									<form:select path="category" class="form-control">
+										<c:forEach var="catOpt" items="${categories}">
+											<option value="${catOpt}" <c:if test="${catOpt eq 'OTHER'}">selected="true"</c:if>><spring:message code="category.${catOpt}"/></option>
+										</c:forEach>
+									</form:select>									
+									<form:errors path="category" cssClass="" element="p"/>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-sm-9 col-sm-offset-3">
@@ -144,14 +172,14 @@
 									<spring:message code="formLabel.creator" />
 								</h3>
 								<div class="col-md-12 form-group creator-name-form">
-									<form:label path="creatorName"><spring:message code="formLabel.creatorName" /></form:label>
-									<form:input type="text" path="creatorName" class="form-control" placeholder="${CreatorNamePlaceholder}" maxlength="30"/>
-									<form:errors path="creatorName" cssClass="" element="p" />
+									<form:label path="formUser.userName"><spring:message code="formLabel.creatorName" /></form:label>
+									<form:input type="text" path="formUser.userName" class="form-control" placeholder="${CreatorNamePlaceholder}" maxlength="30"/>
+									<form:errors path="formUser.userName" cssClass="" element="p" />
 								</div>
 								<div class="col-md-12 form-group email-form">
-									<form:label path="creatorEmail"><spring:message code="formLabel.creatorEmail" /></form:label>
-									<form:input type="email" path="creatorEmail" class="form-control" placeholder="${EmailPlaceholder}"/>
-									<form:errors path="creatorEmail" cssClass="" element="p"/>
+									<form:label path="formUser.userEmail"><spring:message code="formLabel.creatorEmail" /></form:label>
+									<form:input type="email" path="formUser.userEmail" class="form-control" placeholder="${EmailPlaceholder}"/>
+									<form:errors path="formUser.userEmail" cssClass="" element="p"/>
 								</div>
 							</div>
 						</div>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -26,12 +27,31 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<h2>
-					<spring:message code="index.mostrecent"/>
+					<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
+					<c:choose>
+					 <c:when test="${activeURL == ''}"><spring:message code="index.mostrecent"/></c:when>
+					 <c:otherwise><spring:message code="category.${activeURL}"/></c:otherwise>
+					 </c:choose>					
 				</h2>
 			</div>
 		</div>
+		
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-2">
+				<div class="row">
+					<ul class="nav nav-pills nav-stacked categoryBox">
+					<c:forEach items="${categories}" var="category">
+					     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
+						<li role="presentation" class="${active ? 'active' : 'none'}">
+							<a href="<c:url value="/category/${category}"/>"><spring:message code="category.${category}"/></a>
+						</li>
+					</c:forEach>
+					</ul>
+				</div>
+			</div>
+			
+			
+			<div class="col-md-6 col-md-offset-1">
 				<div class="row">
 					<div class="col-md-12 product-list">
 						<c:forEach items="${products}" var="product">
@@ -50,6 +70,11 @@
 											<div class="row product-short-description">
 												<div class="col-md-12">
 													<p><c:out value="${product.shortDescription}"/></p>
+												</div>
+											</div>
+											<div class="row product-category">
+												<div class="col-md-3 categoryTag">
+													<p><spring:message code="category.${product.category}"/></p>
 												</div>
 											</div>
 										</div>

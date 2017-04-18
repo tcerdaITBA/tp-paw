@@ -8,6 +8,7 @@ public final class Product {
 	private final String name;
 	private final String description;
 	private final String shortDescription;
+	private final String website;
 	private final Category category;
 	private final LocalDateTime uploadDate;
 
@@ -20,6 +21,7 @@ public final class Product {
 		this.name = builder.name;
 		this.description = builder.description;
 		this.shortDescription = builder.shortDescription;
+		this.website = builder.website;
 		this.category = builder.category;
 		this.uploadDate = builder.uploadDate;
 	}
@@ -38,6 +40,10 @@ public final class Product {
 	
 	public String getShortDescription() {
 		return shortDescription;
+	}
+	
+	public String getWebsite() {
+	    return website;
 	}
 	
 	public Category getCategory() {
@@ -75,6 +81,7 @@ public final class Product {
 		private String name;
 		private String description;
 		private String shortDescription;
+		private String website;
 		private Category category = Category.OTHER;
 		private LocalDateTime uploadDate = LocalDateTime.now();
 
@@ -99,6 +106,11 @@ public final class Product {
 		public ProductBuilder shortDescription(String shortDescription) {
 			this.shortDescription = shortDescription;
 			return this;
+		}
+		
+		public ProductBuilder website(String link) {
+		    this.website = link;
+		    return this;
 		}
 		
 		public ProductBuilder category(Category category) {

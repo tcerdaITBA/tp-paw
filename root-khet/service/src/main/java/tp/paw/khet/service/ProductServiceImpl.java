@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProductsByCategory(category.name());
 	}
 	
-	public Product createProduct(String name, String description, String shortDescription, Category category, byte[] logo, int creatorId) {
-		return productDao.createProduct(name, description, shortDescription, category.name(), LocalDateTime.now(),  logo, creatorId);
+	public Product createProduct(String name, String description, String shortDescription, String website, Category category, byte[] logo, int creatorId) {
+		return productDao.createProduct(name, description, shortDescription, website, category.name(), LocalDateTime.now(),  logo, creatorId);
 	}
 
 	public byte[] getLogoByProductId(int productId) {

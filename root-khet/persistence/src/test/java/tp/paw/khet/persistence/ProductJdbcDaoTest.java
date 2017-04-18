@@ -136,7 +136,7 @@ public class ProductJdbcDaoTest {
 	}
 	
 	private Product insertProduct(Product product, int creatorId) {
-		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), 
+		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), product.getWebsite(),
 				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), creatorId);
 	}
 		

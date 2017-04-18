@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.*;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 import tp.paw.khet.service.ProductImageService;
@@ -47,7 +48,9 @@ public class UploadController {
 	
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
-		return new ModelAndView("upload");
+		ModelAndView mav = new ModelAndView("upload");
+		mav.addObject("categories", Category.values());
+		return mav;
 	}
 	
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
@@ -58,14 +61,15 @@ public class UploadController {
 		if (errors.hasErrors())
 			return formCompletion(formProduct);
 		
-		final User user = userService.createUserOrRetrieveIfExists(formProduct.getCreatorName(), formProduct.getCreatorEmail());
+		final User user = userService.createUserOrRetrieveIfExists(formProduct.getUserName(), formProduct.getUserEmail());
 		
-		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formProduct.getCreatorName(), user.getName()), errors);
+		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formProduct.getUserName(), user.getName()), errors);
 		if (errors.hasErrors())
 			return formCompletion(formProduct);
 		
 		final Product product =  productService.createProduct(formProduct.getName(), 
 												formProduct.getDescription(), formProduct.getShortDescription(),
+												formProduct.getWebsite(),
 												formProduct.getCategory(),
 												formProduct.getLogo().getBytes(), user.getUserId());
 		
