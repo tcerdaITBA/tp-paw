@@ -124,9 +124,13 @@
 										</div>
 									</div>
 									
+									<p class="join-discussion" >
+										<spring:message code="productPage.joinDiscussion"/>
+									</p>
+									
 									<c:url value="/product/${product.id}/comment" var="postPath" />
 									<div class="row">
-										<div class="col-md-7 highlighted">
+										<div class="col-md-7 highlighted">	
 											<form:form modelAttribute="commentForm" class="comment-form" action="${postPath}" method="post">
 												<div class="form-inline">
 													<form:input type="text" class="form-control" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
@@ -177,7 +181,7 @@
 														<div class="col-md-4">
 															<p class="reply-btn">
 																<span class="glyphicon glyphicon-share-alt"></span>
-																Reply
+																<spring:message code="productPage.reply"/>
 															</p>
 														</div>
 													</div>
@@ -216,24 +220,32 @@
 													</div>	
 												</c:forEach>
 												
-												<form:form modelAttribute="commentForm" class="comment-form reply-comment" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
-													<div class="form-inline">
-														<form:input type="text" class="form-control" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-														<form:errors path="formUser.userName" element="p" />
-														<form:input type="email" class="form-control" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-														<form:errors path="formUser.userEmail" element="p" />
+												<div class="row">
+													<div class="col-md-10 col-md-offset-2">
+														<form:form modelAttribute="commentForm" class="comment-form reply-comment" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
+															<p class="reply-to">
+																<span class="glyphicon glyphicon-share-alt"></span>
+																<spring:message code="productPage.replyTo" arguments="${parentNode.parent.commenter.name}"/>
+															</p>
+															<div class="form-inline">
+																<form:input type="text" class="form-control" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
+																<form:errors path="formUser.userName" element="p" />
+																<form:input type="email" class="form-control" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
+																<form:errors path="formUser.userEmail" element="p" />
+															</div>
+															<div class="form-group">
+																<form:textarea type="text" class="form-control" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
+																<form:errors path="content" element="p" />
+															</div>
+															<div class="btn-place">
+																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
+															</div>
+															<div class="row comment-divider">
+																<div class="col-md-12"></div>
+															</div>
+														</form:form>
 													</div>
-													<div class="form-group">
-														<form:textarea type="text" class="form-control" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
-														<form:errors path="content" element="p" />
-													</div>
-													<div class="btn-place">
-														<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
-													</div>
-													<div class="row comment-divider">
-														<div class="col-md-12"></div>
-													</div>
-										   	</form:form>
+												</div>
 												</div>
 											</c:forEach>
 										</div>

@@ -7,7 +7,7 @@
 .highlighted {
 	border-radius: 3px;
 	border: 1px solid rgba(0,0,0,.09);
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
+/*	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);*/
 }
 
 .slick-next:before { 
@@ -145,6 +145,7 @@
 .btn-place {
 	text-align: right;
 	margin-top: -10px;
+	margin-bottom: 10px;
 }
 
 .post-comment-btn {
@@ -188,4 +189,16 @@
 .reply-btn:hover {
 	color: #1b735d;
 	cursor: pointer;
+}
+
+.reply-to {
+	margin-bottom: -5px;
+	margin-top: 5px;
+}
+
+.join-discussion {
+	font-size: 1.2em;
+	font-weight: 500;
+	margin-bottom: 5px;
+	color: #F64763;
 }
