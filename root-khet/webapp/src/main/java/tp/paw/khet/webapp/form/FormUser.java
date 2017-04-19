@@ -4,7 +4,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class FormUser {
 	
@@ -14,7 +13,7 @@ public class FormUser {
 	@Pattern(regexp = "[A-Za-z0-9_\\s\\-.]+")
 	private String userName;
 	
-	@NotEmpty
+	@Size(min=1)
 	@Email
 	private String userEmail;
 

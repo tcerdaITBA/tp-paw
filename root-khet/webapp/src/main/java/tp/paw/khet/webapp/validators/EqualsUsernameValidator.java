@@ -27,8 +27,12 @@ public class EqualsUsernameValidator implements Validator {
 		String expectedUserName = userPair.expectedUserName;
 		String retrievedUserName = userPair.retrievedUserName;
 		
+		String prefix = errors.getNestedPath();
+		if (prefix.length() > 0)
+			errors.popNestedPath();
+		
 		if (!expectedUserName.equals(retrievedUserName))
-			errors.rejectValue(FormUser.MAIL_PATH, "EqualsUsernameValidator", new Object[]{retrievedUserName}, "EqualsUsernameValidator");
+			errors.rejectValue(prefix + FormUser.MAIL_PATH, "EqualsUsernameValidator", new Object[]{retrievedUserName}, "EqualsUsernameValidator");
 	}
 
 	private static class UserNamePair {

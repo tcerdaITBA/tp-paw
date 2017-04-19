@@ -111,21 +111,21 @@
 										</div>
 									</div>
 									<c:url value="/product/${product.id}/comment" var="postPath" />
-								 	<form:form modelAttribute="commentForm" action="${postPath}" method="post">
+								 	<form:form modelAttribute="commentsForm" action="${postPath}" method="post">
 									    <div class="row">
 									    	<div class="col-md-6">
-									    		<form:input type="text" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-									    		<form:errors path="formUser.userName" element="p" />
+									    		<form:input type="text" path="parentForm.formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
+									    		<form:errors path="parentForm.formUser.userName" element="p" />
 									    	</div>
 									    	<div class="col-md-6">
-									 		    <form:input type="email" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-									 		    <form:errors path="formUser.userEmail" element="p" />
+									 		    <form:input type="email" path="parentForm.formUser.userEmail" placeholder="${EmailPlaceholder}"/>
+									 		    <form:errors path="parentForm.formUser.userEmail" element="p" />
 									    	</div>
 									    </div>
 									    <div class="row">
 									    	<div class="col-md-9">
-											    <form:textarea type="text" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
-											    <form:errors path="content" element="p" />
+											    <form:textarea type="text" rows="1" path="parentForm.content" placeholder="${ContentPlaceholder}"/>
+											    <form:errors path="parentForm.content" element="p" />
 										    </div>
 										    <div class="col-md-3">
 										    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
@@ -134,7 +134,7 @@
 								    </form:form>
 								    <div class="row">
 										<div class="col-md-8 col-md-offset-2 comments-holder highlighted">
-											<c:forEach items="${parentcomments}" var="parentNode">
+											<c:forEach items="${parentcomments}" var="parentNode" varStatus="status">
 												<div class="row parentcomment">
 													<div class="col-md-12">
 														<p><c:out value="${parentNode.parent.comment.content}" /></p>
@@ -159,21 +159,21 @@
 														</div>
 													</div>
 												</c:forEach>
-												<form:form modelAttribute="commentForm" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
+												<form:form modelAttribute="commentsForm" action="${postPath}?parentid=${parentNode.parent.comment.id}&index=${status.index}" method="post">
 													<div class="row">
 												    	<div class="col-md-6">
-												    		<form:input type="text" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-												    		<form:errors path="formUser.userName" element="p" />
+												    		<form:input type="text" path="childForms[${status.index}].formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
+												    		<form:errors path="childForms[${status.index}].formUser.userName" element="p" />
 												    	</div>
 												    	<div class="col-md-6">
-												 		    <form:input type="email" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-												 		    <form:errors path="formUser.userEmail" element="p" />
+												 		    <form:input type="email" path="childForms[${status.index}].formUser.userEmail" placeholder="${EmailPlaceholder}"/>
+												 		    <form:errors path="childForms[${status.index}].formUser.userEmail" element="p" />
 												    	</div>
 													</div>
 												    <div class="row">
 												    	<div class="col-md-9">
-														    <form:textarea type="text" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
-														    <form:errors path="content" element="p" />
+														    <form:textarea type="text" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
+														    <form:errors path="childForms[${status.index}].content" element="p" />
 													    </div>
 													    <div class="col-md-3">
 													    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />

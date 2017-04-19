@@ -1,6 +1,5 @@
 package tp.paw.khet.webapp.controller;
 
-
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -26,6 +25,7 @@ import tp.paw.khet.service.UserService;
 import tp.paw.khet.service.VideoService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.form.FormComment;
+import tp.paw.khet.webapp.form.FormComments;
 import tp.paw.khet.webapp.validators.EqualsUsernameValidator;
 
 @Controller
@@ -50,7 +50,7 @@ public class ShowProductController {
 	private EqualsUsernameValidator equalsUsernameValidator;
 	
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
-	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("commentForm") FormComment form) 
+	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("commentsForm") FormComments form) 
 	throws ResourceNotFoundException {
 					
 		Product product = productService.getProduct(productId);
@@ -58,9 +58,9 @@ public class ShowProductController {
 		if (product == null) {
 			throw new ResourceNotFoundException();
 		}
-		
-		ModelAndView mav = new ModelAndView("product");
 				
+		ModelAndView mav = new ModelAndView("product");
+		
 		mav.addObject("product", product);
 		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
 		mav.addObject("videos",videoService.getVideosByProductId(product.getId()));
@@ -70,33 +70,38 @@ public class ShowProductController {
 		return mav;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
-	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) {
-		return productImageService.getImageByIds(imageId, productId).getData();
-	}
-	
 	@RequestMapping(value = "/product/{productId}/comment", method = RequestMethod.POST)
 	public ModelAndView postComment (@PathVariable final int productId,
-									 @RequestParam(value = "parentid", required = false) Optional<Integer> parentId,
-									 @Valid @ModelAttribute("commentForm") FormComment form,
-									 final BindingResult errors) {
+							   @RequestParam(value = "parentid", required = false) Optional<Integer> parentId,
+							   @RequestParam(value = "index", required = false) Optional<Integer> index,
+							   @Valid @ModelAttribute("commentsForm") FormComments form, 
+							   BindingResult errors) {
+		
+		FormComment formToValidate = index.isPresent() ? form.getChildForm(index.get()) : form.getParentForm();
 		
 		if (errors.hasErrors())
 			return getProduct(productId, form);
 		
-		User user = userService.createUserOrRetrieveIfExists(form.getUserName(), form.getUserEmail());
+		User user = userService.createUserOrRetrieveIfExists(formToValidate.getUserName(), formToValidate.getUserEmail());
 		
-		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(form.getUserName(), user.getName()), errors);
+		errors.pushNestedPath(index.isPresent() ? "childForms[" + index.get() + "]" : "parentForm");
+		
+		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formToValidate.getUserName(), user.getName()), errors);
 		
 		if (errors.hasErrors())
 			return getProduct(productId, form);
 		
 		if (parentId.isPresent())
-			commentService.createComment(form.getContent(), parentId.get(), productId, user.getUserId());
+			commentService.createComment(formToValidate.getContent(), parentId.get(), productId, user.getUserId());
 		else
-			commentService.createComment(form.getContent(), productId, user.getUserId());
+			commentService.createComment(formToValidate.getContent(), productId, user.getUserId());
 		
 		return new ModelAndView("redirect:/product/" + productId);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) {
+		return productImageService.getImageByIds(imageId, productId).getData();
+	}	
 }
