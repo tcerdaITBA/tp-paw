@@ -151,6 +151,7 @@
 										<div class="col-md-7 comments-holder highlighted">
 											<c:forEach items="${parentcomments}" var="parentNode">
 												
+												<div class="comment-and-replies">
 												<div class="parent-comment">
 													<div class="row comment-user-info">
 														<div class="col-md-12">
@@ -229,7 +230,11 @@
 													<div class="btn-place">
 														<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
 													</div>
+													<div class="row comment-divider">
+														<div class="col-md-12"></div>
+													</div>
 										   	</form:form>
+												</div>
 											</c:forEach>
 										</div>
 									</div>
