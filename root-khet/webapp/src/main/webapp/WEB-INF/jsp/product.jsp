@@ -137,29 +137,29 @@
 											<c:forEach items="${parentcomments}" var="parentNode" varStatus="status">
 												<div class="row parentcomment">
 													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.comment.content}" /></p>
+														<p><c:out value="${parentNode.parent.content}" /></p>
 													</div>
 													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.commenter.name}" /></p>
+														<p><c:out value="${parentNode.parent.author.name}" /></p>
 													</div>
 													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.commenter.email}" /></p>
+														<p><c:out value="${parentNode.parent.author.email}" /></p>
 													</div>
 												</div>
 												<c:forEach items="${parentNode.children}" var="child">
 													<div class="row childcomment">
 														<div class="col-md-10 col-md-offset-1">
-														<p><c:out value="${child.comment.content}" /></p>
+														<p><c:out value="${child.content}" /></p>
 														</div>
 														<div class="col-md-10 col-md-offset-1">
-															<p><c:out value="${child.commenter.name}" /></p>
+															<p><c:out value="${child.author.name}" /></p>
 														</div>
 														<div class="col-md-10 col-md-offset-1">
-															<p><c:out value="${child.commenter.email}" /></p>
+															<p><c:out value="${child.author.email}" /></p>
 														</div>
 													</div>
 												</c:forEach>
-												<form:form modelAttribute="commentsForm" action="${postPath}?parentid=${parentNode.parent.comment.id}&index=${status.index}" method="post">
+												<form:form modelAttribute="commentsForm" action="${postPath}?parentid=${parentNode.parent.id}&index=${status.index}" method="post">
 													<div class="row">
 												    	<div class="col-md-6">
 												    		<form:input type="text" path="childForms[${status.index}].formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />

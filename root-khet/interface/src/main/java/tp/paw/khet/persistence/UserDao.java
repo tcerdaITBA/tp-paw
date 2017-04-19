@@ -18,4 +18,11 @@ public interface UserDao {
 	 * @return The corresponding User or null if it doesn't exist
 	 */
 	public User getUserByEmail(String email);
+
+	/**
+	 * Returns an {@link User} given it's id
+	 * @param userId - id of the User to retrieve
+	 * @return The corresponding User
+	 */
+	public User getUserById(int userId);
 }

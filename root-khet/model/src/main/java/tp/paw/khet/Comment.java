@@ -10,14 +10,16 @@ public class Comment {
 	private final int  parentId;
 	private final String content;
 	private final LocalDateTime commentDate;
+	private final User author;
 	
-	public Comment(int id, String content, LocalDateTime date) {
-		this(id, NO_PARENT_ID, content, date);
+	public Comment(int id, User author, String content, LocalDateTime date) {
+		this(id, NO_PARENT_ID, author, content, date);
 	}
 	
-	public Comment(int id, int parentId, String content, LocalDateTime date) {
+	public Comment(int id, int parentId, User author, String content, LocalDateTime date) {
 		this.id = id;
 		this.parentId = parentId;
+		this.author = author;
 		this.content = content;
 		this.commentDate = date;
 	}
@@ -34,6 +36,10 @@ public class Comment {
 	
 	public String getContent() {
 		return content;
+	}
+	
+	public User getAuthor() {
+		return author;
 	}
 	
 	public LocalDateTime getCommentDate() {

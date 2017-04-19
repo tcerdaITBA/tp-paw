@@ -55,4 +55,12 @@ public class UserJdbcDao implements UserDao {
 		return user.get(0);
 	}
 
+	public User getUserById(int userId) {
+		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", userRowMapper, userId);
+		
+		if (user.isEmpty())
+			return null;
+		
+		return user.get(0);
+	}
 }

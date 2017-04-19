@@ -1,6 +1,7 @@
 package tp.paw.khet.testutils;
 
 import static org.junit.Assert.assertEquals;
+import static tp.paw.khet.testutils.UserTestUtils.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ public final class CommentTestUtils {
 	}
 	
 	public static Comment dummyRootComment(int commentId) {
-		return new Comment(commentId, "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
+		return new Comment(commentId, dummyUser(commentId), "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
 	}
 	
 	public static Comment dummyComment(int commentId, int parentId) {
-		return new Comment(commentId, parentId, "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
+		return new Comment(commentId, parentId, dummyUser(commentId), "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
 	}
 	
 	public static List<Comment> dummyRootCommentList(int size, int initialId) {
@@ -40,12 +41,11 @@ public final class CommentTestUtils {
 	}
 	
 	public static void assertEqualsComments(Comment expected, Comment actual) {
+		assertEqualsUsers(expected.getAuthor(), actual.getAuthor());
 		assertEquals(expected.getParentId(), actual.getParentId());
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getContent(), actual.getContent());
 		assertEquals(expected.getCommentDate(), actual.getCommentDate());
 		assertEquals(expected, actual);
-	}
-	
-	// public static List<Comment> dummyRootComment
+	}	
 }

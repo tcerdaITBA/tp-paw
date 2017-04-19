@@ -14,13 +14,15 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.Comment;
-import tp.paw.khet.CommentAndCommenter;
-import tp.paw.khet.persistence.rowmapper.CommentAndCommenterRowMapper;
+import tp.paw.khet.persistence.rowmapper.CommentRowMapper;
 
 @Repository
 public class CommentJdbcDao implements CommentDao {	
 	@Autowired
-	private CommentAndCommenterRowMapper commentAndCommenterRowMapper;
+	private CommentRowMapper commentRowMapper;
+	
+	@Autowired 
+	private UserDao userDao;
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -34,9 +36,9 @@ public class CommentJdbcDao implements CommentDao {
 	}
 
 	@Override
-	public List<CommentAndCommenter> getCommentsByProductId(int id) {
-		List<CommentAndCommenter> comments = jdbcTemplate.query("SELECT * FROM comments NATURAL JOIN users WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", 
-				commentAndCommenterRowMapper, id);
+	public List<Comment> getCommentsByProductId(int id) {
+		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments NATURAL JOIN users WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", 
+				commentRowMapper, id);
 		return comments;	
 	}
 	
@@ -47,7 +49,7 @@ public class CommentJdbcDao implements CommentDao {
 		
 		final Number commentId = jdbcInsert.executeAndReturnKey(args);
 
-		return new Comment(commentId.intValue(), parentId, content, date);
+		return new Comment(commentId.intValue(), parentId, userDao.getUserById(userId), content, date);
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class CommentJdbcDao implements CommentDao {
 		
 		final Number commentId = jdbcInsert.executeAndReturnKey(args);
 
-		return new Comment(commentId.intValue(), content, date);
+		return new Comment(commentId.intValue(), userDao.getUserById(userId), content, date);
 	}
 
 	private Map<String, Object> argsMap(String content, LocalDateTime date, int productId, int userId) {

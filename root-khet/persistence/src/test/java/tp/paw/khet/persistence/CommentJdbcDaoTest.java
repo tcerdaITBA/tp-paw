@@ -23,7 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import tp.paw.khet.Comment;
-import tp.paw.khet.CommentAndCommenter;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 
@@ -69,7 +68,7 @@ public class CommentJdbcDaoTest {
 	public void createChildCommentTest() {
 		insertComment(dummyRootComment(0), 0, 0).getId();
 		Comment expected = dummyComment(1, 0);
-		Comment actual = insertComment(expected, 0, 0);
+		Comment actual = insertComment(expected, 0, 1);
 
 		assertEqualsComments(expected, actual);
 		assertEquals(2, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
@@ -82,10 +81,10 @@ public class CommentJdbcDaoTest {
 		for (int i = 0; i < 7; i++)
 			insertCommentList(dummyCommentList(5, 7 + i * 5, i), 0, 0);
 		
-		List<CommentAndCommenter> actual = commentDao.getCommentsByProductId(0);
+		List<Comment> actual = commentDao.getCommentsByProductId(0);
 		List<Comment> comments = new ArrayList<>(actual.size());
-		for (CommentAndCommenter cc : actual)
-			comments.add(cc.getComment());
+		for (Comment comment : actual)
+			comments.add(comment);
 		
 		assertCommentsOrder(comments);
 	}

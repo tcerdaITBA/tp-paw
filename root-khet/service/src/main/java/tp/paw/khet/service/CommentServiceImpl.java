@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tp.paw.khet.Comment;
-import tp.paw.khet.CommentAndCommenter;
 import tp.paw.khet.persistence.CommentDao;
 import tp.paw.khet.structures.ParentNode;
 
@@ -19,23 +18,22 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 
 	@Override
-	public List<ParentNode<CommentAndCommenter>> getCommentsByProductId(int id) {
-		List<CommentAndCommenter> comments = commentDao.getCommentsByProductId(id);
-		List<ParentNode<CommentAndCommenter>> parents = new ArrayList<>();
+	public List<ParentNode<Comment>> getCommentsByProductId(int id) {
+		List<Comment> comments = commentDao.getCommentsByProductId(id);
+		List<ParentNode<Comment>> parents = new ArrayList<>();
 		int parentIndex = 0;
 		int commentIndex = 0;
 		
 		while (commentIndex < comments.size()) {
-			CommentAndCommenter cc = comments.get(commentIndex);
-			Comment c = cc.getComment();
+			Comment c = comments.get(commentIndex);
 			
 			if (!c.hasParent()) {	
-				ParentNode<CommentAndCommenter> node = new ParentNode<CommentAndCommenter>(cc);
+				ParentNode<Comment> node = new ParentNode<Comment>(c);
 				parents.add(node);
 				commentIndex++;
 			}
-			else if (c.getParentId() == parents.get(parentIndex).getParent().getComment().getId()) {
-				parents.get(parentIndex).addChild(cc);
+			else if (c.getParentId() == parents.get(parentIndex).getParent().getId()) {
+				parents.get(parentIndex).addChild(c);
 				commentIndex++;
 			}
 			else
@@ -44,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
 				
 		return parents;
 	}
-
+	
 	@Override
 	public Comment createComment(String content, int parentId, int productId, int userId) {
 		return commentDao.createComment(content, LocalDateTime.now(), parentId, productId, userId);
