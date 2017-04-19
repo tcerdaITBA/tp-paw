@@ -77,24 +77,24 @@ public class ShowProductController {
 							   @Valid @ModelAttribute("commentsForm") FormComments form, 
 							   BindingResult errors) {
 		
-		FormComment formToValidate = index.isPresent() ? form.getChildForm(index.get()) : form.getParentForm();
+		FormComment postedForm = index.isPresent() ? form.getChildForm(index.get()) : form.getParentForm();
 		
 		if (errors.hasErrors())
 			return getProduct(productId, form);
 		
-		User user = userService.createUserOrRetrieveIfExists(formToValidate.getUserName(), formToValidate.getUserEmail());
+		User user = userService.createUserOrRetrieveIfExists(postedForm.getUserName(), postedForm.getUserEmail());
 		
 		errors.pushNestedPath(index.isPresent() ? "childForms[" + index.get() + "]" : "parentForm");
 		
-		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formToValidate.getUserName(), user.getName()), errors);
+		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(postedForm.getUserName(), user.getName()), errors);
 		
 		if (errors.hasErrors())
 			return getProduct(productId, form);
 		
 		if (parentId.isPresent())
-			commentService.createComment(formToValidate.getContent(), parentId.get(), productId, user.getUserId());
+			commentService.createComment(postedForm.getContent(), parentId.get(), productId, user.getUserId());
 		else
-			commentService.createComment(formToValidate.getContent(), productId, user.getUserId());
+			commentService.createComment(postedForm.getContent(), productId, user.getUserId());
 		
 		return new ModelAndView("redirect:/product/" + productId);
 	}
