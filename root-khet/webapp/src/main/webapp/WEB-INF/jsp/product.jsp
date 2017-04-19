@@ -51,6 +51,7 @@
 							<div class="row">
 								<div class="col-md-10 col-md-offset-1">
 									<div class="row">
+										
 										<div class="col-md-7">
 											<div class="row product-item vertical-align highlighted">
 												<div class="col-md-3 product-logo">
@@ -85,6 +86,7 @@
 												</div>
 											</c:if>
 										</div>
+										
 										<div class="col-md-4 col-md-offset-1 creator-item highlighted">
 											<div class="row">
 												<div class="col-md-12">
@@ -110,30 +112,43 @@
 											</div>
 										</div>
 									</div>
+									
+									<div class="row long-description">
+										<div class="col-md-12">
+											<p><c:out value="${product.description}" /></p>
+<!--
+											<div class="back-to-products">
+												<a href="<c:url value="/"/>"><spring:message code="productPage.backToProducts" /></a>
+											</div>
+-->
+										</div>
+									</div>
+									
 									<c:url value="/product/${product.id}/comment" var="postPath" />
-								 	<form:form modelAttribute="commentForm" action="${postPath}" method="post">
-									    <div class="row">
-									    	<div class="col-md-6">
-									    		<form:input type="text" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-									    		<form:errors path="formUser.userName" element="p" />
-									    	</div>
-									    	<div class="col-md-6">
-									 		    <form:input type="email" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-									 		    <form:errors path="formUser.userEmail" element="p" />
-									    	</div>
-									    </div>
-									    <div class="row">
-									    	<div class="col-md-9">
-											    <form:textarea type="text" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
-											    <form:errors path="content" element="p" />
-										    </div>
-										    <div class="col-md-3">
-										    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
-										    </div>
-									    </div>
-								    </form:form>
+									<div class="row">
+										<div class="col-md-7 highlighted">
+											<form:form modelAttribute="commentForm" class="comment-form" action="${postPath}" method="post">
+												<div class="form-inline">
+													<form:input type="text" class="form-control" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
+													<form:errors path="formUser.userName" element="p" />
+													<form:input type="email" class="form-control" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
+													<form:errors path="formUser.userEmail" element="p" />
+												</div>
+
+												<div class="form-group">
+													<form:textarea type="text" class="form-control" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
+													<form:errors path="content" element="p" />
+												</div>
+												<div class="btn-place">
+													<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
+												</div>
+											</form:form>
+										</div>
+									</div>
+									
+									
 								    <div class="row">
-										<div class="col-md-8 col-md-offset-2 comments-holder highlighted">
+										<div class="col-md-7 comments-holder highlighted">
 											<c:forEach items="${parentcomments}" var="parentNode">
 												<div class="row parentcomment">
 													<div class="col-md-12">
@@ -159,7 +174,24 @@
 														</div>
 													</div>
 												</c:forEach>
-												<form:form modelAttribute="commentForm" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
+												
+												<form:form modelAttribute="commentForm" class="comment-form" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
+													
+													<div class="form-inline">
+														<form:input type="text" class="form-control" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
+														<form:errors path="formUser.userName" element="p" />
+														<form:input type="email" class="form-control" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
+														<form:errors path="formUser.userEmail" element="p" />
+													</div>
+
+													<div class="form-group">
+														<form:textarea type="text" class="form-control" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
+														<form:errors path="content" element="p" />
+													</div>
+													<div class="btn-place">
+														<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
+													</div>
+<!--
 													<div class="row">
 												    	<div class="col-md-6">
 												    		<form:input type="text" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
@@ -179,19 +211,12 @@
 													    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
 													    </div>
 												    </div>
+-->
 										   		</form:form>
 											</c:forEach>
 										</div>
 									</div>
 									
-									<div class="row long-description">
-										<div class="col-md-12">
-											<p><c:out value="${product.description}" /></p>
-											<div class="back-to-products">
-												<a href="<c:url value="/"/>"><spring:message code="productPage.backToProducts" /></a>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>

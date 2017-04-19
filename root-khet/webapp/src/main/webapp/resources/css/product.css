@@ -6,23 +6,23 @@
 
 .highlighted {
 	border-radius: 3px;
-  	border: 1px solid rgba(0,0,0,.09);
-  	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
+	border: 1px solid rgba(0,0,0,.09);
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
 }
 
- .slick-next:before { 
- 	color: grey; 
- 	font-size:50px; 
- 	position:relative;
- 	bottom: 12px;
+.slick-next:before { 
+	color: grey; 
+	font-size:50px; 
+	position:relative;
+	bottom: 12px;
 }
- 
- .slick-prev:before { 
- 	color: grey; 
- 	font-size:50px;
- 	position: relative;
- 	right: 30px;
- 	bottom:12px;
+
+.slick-prev:before { 
+	color: grey; 
+	font-size:50px;
+	position: relative;
+	right: 30px;
+	bottom:12px;
 }
 
 .slick-dotes {
@@ -120,10 +120,10 @@
 	background-color: white;
 }
 .product-category p {
-    color: #8c8c8c;
-    font-weight: 200;
-    word-wrap: break-word;
-    font-size: small;
+	color: #8c8c8c;
+	font-weight: 200;
+	word-wrap: break-word;
+	font-size: small;
 }
 
 .website-btn-row {
@@ -133,4 +133,28 @@
 .website-btn {
 	margin-top: 10px;
 	font-weight: 600;
+}
+
+.comment-form {
+	border-radius: 3px;
+}
+
+.comment-form input, .comment-form textarea {
+	margin-top: 5px;
+}
+
+.comment-form .form-inline {
+	margin-top: 10px;
+}
+
+.btn-place {
+	text-align: right;
+	margin-top: -10px;
+}
+
+.post-comment-btn {
+	font-size: 1.1em;
+	font-weight: 700;
+	padding: 5px 25px;
+	margin-top: 0 !important;
 }
