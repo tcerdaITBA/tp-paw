@@ -150,40 +150,78 @@
 								    <div class="row">
 										<div class="col-md-7 comments-holder highlighted">
 											<c:forEach items="${parentcomments}" var="parentNode">
-												<div class="row parentcomment">
-													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.comment.content}" /></p>
+												
+												<div class="parent-comment">
+													<div class="row comment-user-info">
+														<div class="col-md-12">
+															<p>
+																<span class="glyphicon glyphicon-user"></span>
+																<c:out value="${parentNode.parent.commenter.name}" />
+															</p>
+															<p>
+																<span class="glyphicon glyphicon-envelope"></span>
+																<c:out value="${parentNode.parent.commenter.email}"/>
+															</p>
+														</div>
 													</div>
-													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.commenter.name}" /></p>
+													<div class="row">
+														<div class="col-md-12 comment-content">
+															<p>
+																<span class="glyphicon glyphicon-bullhorn"></span>
+																<c:out value="${parentNode.parent.comment.content}" />
+															</p>
+														</div>
 													</div>
-													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.commenter.email}" /></p>
+													<div class="row">
+														<div class="col-md-4">
+															<p class="reply-btn">
+																<span class="glyphicon glyphicon-share-alt"></span>
+																Reply
+															</p>
+														</div>
+													</div>
+													<div class="row comment-divider">
+														<div class="col-md-12"></div>
 													</div>
 												</div>
+												
 												<c:forEach items="${parentNode.children}" var="child">
-													<div class="row childcomment">
-														<div class="col-md-10 col-md-offset-1">
-														<p><c:out value="${child.comment.content}" /></p>
+													<div class="row child-comment">
+														<div class="col-md-10 col-md-offset-2">
+															<div class="row comment-user-info">
+																<div class="col-md-12">
+																	<p>
+																		<span class="glyphicon glyphicon-user"></span>
+																		<c:out value="${child.commenter.name}" />
+																	</p>
+																	<p>
+																		<span class="glyphicon glyphicon-envelope"></span>
+																		<c:out value="${child.commenter.email}" />
+																	</p>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-12 comment-content">
+																	<p>
+																		<span class="glyphicon glyphicon-bullhorn"></span>
+																		<c:out value="${child.comment.content}" />
+																	</p>
+																</div>
+															</div>
+															<div class="row comment-divider">
+																<div class="col-md-12"></div>
+															</div>
 														</div>
-														<div class="col-md-10 col-md-offset-1">
-															<p><c:out value="${child.commenter.name}" /></p>
-														</div>
-														<div class="col-md-10 col-md-offset-1">
-															<p><c:out value="${child.commenter.email}" /></p>
-														</div>
-													</div>
+													</div>	
 												</c:forEach>
 												
-												<form:form modelAttribute="commentForm" class="comment-form" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
-													
+												<form:form modelAttribute="commentForm" class="comment-form reply-comment" action="${postPath}?parentid=${parentNode.parent.comment.id}" method="post">
 													<div class="form-inline">
 														<form:input type="text" class="form-control" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
 														<form:errors path="formUser.userName" element="p" />
 														<form:input type="email" class="form-control" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
 														<form:errors path="formUser.userEmail" element="p" />
 													</div>
-
 													<div class="form-group">
 														<form:textarea type="text" class="form-control" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
 														<form:errors path="content" element="p" />
@@ -191,28 +229,7 @@
 													<div class="btn-place">
 														<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
 													</div>
-<!--
-													<div class="row">
-												    	<div class="col-md-6">
-												    		<form:input type="text" path="formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-												    		<form:errors path="formUser.userName" element="p" />
-												    	</div>
-												    	<div class="col-md-6">
-												 		    <form:input type="email" path="formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-												 		    <form:errors path="formUser.userEmail" element="p" />
-												    	</div>
-													</div>
-												    <div class="row">
-												    	<div class="col-md-9">
-														    <form:textarea type="text" rows="1" path="content" placeholder="${ContentPlaceholder}"/>
-														    <form:errors path="content" element="p" />
-													    </div>
-													    <div class="col-md-3">
-													    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
-													    </div>
-												    </div>
--->
-										   		</form:form>
+										   	</form:form>
 											</c:forEach>
 										</div>
 									</div>
