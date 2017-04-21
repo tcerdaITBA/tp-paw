@@ -51,6 +51,7 @@
 							<div class="row">
 								<div class="col-md-10 col-md-offset-1">
 									<div class="row">
+										
 										<div class="col-md-7">
 											<div class="row product-item vertical-align highlighted">
 												<div class="col-md-3 product-logo">
@@ -85,6 +86,7 @@
 												</div>
 											</c:if>
 										</div>
+										
 										<div class="col-md-4 col-md-offset-1 creator-item highlighted">
 											<div class="row">
 												<div class="col-md-12">
@@ -110,88 +112,144 @@
 											</div>
 										</div>
 									</div>
-									<c:url value="/product/${product.id}/comment" var="postPath" />
-								 	<form:form modelAttribute="commentsForm" action="${postPath}" method="post">
-									    <div class="row">
-									    	<div class="col-md-6">
-									    		<form:input type="text" path="parentForm.formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-									    		<form:errors path="parentForm.formUser.userName" element="p" />
-									    	</div>
-									    	<div class="col-md-6">
-									 		    <form:input type="email" path="parentForm.formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-									 		    <form:errors path="parentForm.formUser.userEmail" element="p" />
-									    	</div>
-									    </div>
-									    <div class="row">
-									    	<div class="col-md-9">
-											    <form:textarea type="text" rows="1" path="parentForm.content" placeholder="${ContentPlaceholder}"/>
-											    <form:errors path="parentForm.content" element="p" />
-										    </div>
-										    <div class="col-md-3">
-										    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
-										    </div>
-									    </div>
-								    </form:form>
-								    <div class="row">
-										<div class="col-md-8 col-md-offset-2 comments-holder highlighted">
-											<c:forEach items="${parentcomments}" var="parentNode" varStatus="status">
-												<div class="row parentcomment">
-													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.content}" /></p>
-													</div>
-													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.author.name}" /></p>
-													</div>
-													<div class="col-md-12">
-														<p><c:out value="${parentNode.parent.author.email}" /></p>
-													</div>
-												</div>
-												<c:forEach items="${parentNode.children}" var="child">
-													<div class="row childcomment">
-														<div class="col-md-10 col-md-offset-1">
-														<p><c:out value="${child.content}" /></p>
-														</div>
-														<div class="col-md-10 col-md-offset-1">
-															<p><c:out value="${child.author.name}" /></p>
-														</div>
-														<div class="col-md-10 col-md-offset-1">
-															<p><c:out value="${child.author.email}" /></p>
-														</div>
-													</div>
-												</c:forEach>
-												<form:form modelAttribute="commentsForm" action="${postPath}?parentid=${parentNode.parent.id}&index=${status.index}" method="post">
-													<div class="row">
-												    	<div class="col-md-6">
-												    		<form:input type="text" path="childForms[${status.index}].formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-												    		<form:errors path="childForms[${status.index}].formUser.userName" element="p" />
-												    	</div>
-												    	<div class="col-md-6">
-												 		    <form:input type="email" path="childForms[${status.index}].formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-												 		    <form:errors path="childForms[${status.index}].formUser.userEmail" element="p" />
-												    	</div>
-													</div>
-												    <div class="row">
-												    	<div class="col-md-9">
-														    <form:textarea type="text" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
-														    <form:errors path="childForms[${status.index}].content" element="p" />
-													    </div>
-													    <div class="col-md-3">
-													    	<input type="submit" value="<spring:message code="productPage.comment.post" />" />
-													    </div>
-												    </div>
-										   		</form:form>
-											</c:forEach>
-										</div>
-									</div>
 									
 									<div class="row long-description">
 										<div class="col-md-12">
 											<p><c:out value="${product.description}" /></p>
+<!--
 											<div class="back-to-products">
 												<a href="<c:url value="/"/>"><spring:message code="productPage.backToProducts" /></a>
 											</div>
+-->
 										</div>
 									</div>
+									
+									<p class="join-discussion" >
+										<spring:message code="productPage.joinDiscussion"/>
+									</p>
+									
+									<c:url value="/product/${product.id}/comment" var="postPath" />
+									<div class="row">
+										<div class="col-md-7 highlighted">	
+											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
+												<div class="form-inline">
+													<form:input type="text" class="form-control" path="parentForm.formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
+													<form:errors path="parentForm.formUser.userName" element="p" />
+													<form:input type="email" class="form-control" path="parentForm.formUser.userEmail" placeholder="${EmailPlaceholder}"/>
+													<form:errors path="parentForm.formUser.userEmail" element="p" />
+												</div>
+
+												<div class="form-group">
+													<form:textarea type="text" class="form-control" rows="1" path="parentForm.content" placeholder="${ContentPlaceholder}"/>
+													<form:errors path="parentForm.content" element="p" />
+												</div>
+												<div class="btn-place">
+													<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
+												</div>
+											</form:form>
+										</div>
+									</div>
+									
+									
+								    <div class="row">
+										<div class="col-md-7 comments-holder highlighted">
+											<c:forEach items="${parentcomments}" var="parentNode" varStatus="status">
+												
+												<div class="comment-and-replies">
+												<div class="parent-comment">
+													<div class="row comment-user-info">
+														<div class="col-md-12">
+															<p>
+																<span class="glyphicon glyphicon-user"></span>
+																<c:out value="${parentNode.parent.author.name}" />
+															</p>
+															<p>
+																<span class="glyphicon glyphicon-envelope"></span>
+																<c:out value="${parentNode.parent.author.email}"/>
+															</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12 comment-content">
+															<p>
+																<span class="glyphicon glyphicon-bullhorn"></span>
+																<c:out value="${parentNode.parent.content}" />
+															</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-4">
+															<p class="reply-btn">
+																<span class="glyphicon glyphicon-share-alt"></span>
+																<spring:message code="productPage.reply"/>
+															</p>
+														</div>
+													</div>
+													<div class="row comment-divider">
+														<div class="col-md-12"></div>
+													</div>
+												</div>
+												
+												<c:forEach items="${parentNode.children}" var="child">
+													<div class="row child-comment">
+														<div class="col-md-10 col-md-offset-2">
+															<div class="row comment-user-info">
+																<div class="col-md-12">
+																	<p>
+																		<span class="glyphicon glyphicon-user"></span>
+																		<c:out value="${child.author.name}" />
+																	</p>
+																	<p>
+																		<span class="glyphicon glyphicon-envelope"></span>
+																		<c:out value="${child.author.email}" />
+																	</p>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-12 comment-content">
+																	<p>
+																		<span class="glyphicon glyphicon-bullhorn"></span>
+																		<c:out value="${child.content}" />
+																	</p>
+																</div>
+															</div>
+															<div class="row comment-divider">
+																<div class="col-md-12"></div>
+															</div>
+														</div>
+													</div>	
+												</c:forEach>												
+												<div class="row">
+													<div class="col-md-10 col-md-offset-2">
+														<form:form modelAttribute="commentsForm" class="comment-form reply-comment" action="${postPath}?parentid=${parentNode.parent.id}&index=${status.index}" method="post">
+															<p class="reply-to">
+																<span class="glyphicon glyphicon-share-alt"></span>
+																<spring:message code="productPage.replyTo" arguments="${parentNode.parent.author.name}"/>
+															</p>
+															<div class="form-inline">
+																<form:input type="text" class="form-control" path="childForms[${status.index}].formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
+																<form:errors path="childForms[${status.index}].formUser.userName" element="p" />
+																<form:input type="email" class="form-control" path="childForms[${status.index}].formUser.userEmail" placeholder="${EmailPlaceholder}"/>
+																<form:errors path="childForms[${status.index}].formUser.userEmail" element="p" />
+															</div>
+															<div class="form-group">
+																<form:textarea type="text" class="form-control" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
+																<form:errors path="childForms[${status.index}].content" element="p" />
+															</div>
+															<div class="btn-place">
+																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
+															</div>
+															<div class="row comment-divider">
+																<div class="col-md-12"></div>
+															</div>
+														</form:form>
+													</div>
+												</div>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									
 								</div>
 							</div>
 						</div>
