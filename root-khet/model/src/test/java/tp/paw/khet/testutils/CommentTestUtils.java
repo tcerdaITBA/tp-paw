@@ -14,38 +14,39 @@ public final class CommentTestUtils {
 	private CommentTestUtils() {
 	}
 	
-	public static Comment dummyRootComment(int commentId) {
-		return new Comment(commentId, dummyUser(commentId), "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
+	public static Comment dummyParentComment(int commentId, int authorId) {
+		return new Comment(commentId, dummyUser(authorId), "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
 	}
 	
-	public static Comment dummyComment(int commentId, int parentId) {
-		return new Comment(commentId, parentId, dummyUser(commentId), "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
+	public static Comment dummyComment(int commentId, int parentId, int authorId) {
+		return new Comment(commentId, parentId, dummyUser(authorId), "Content " + commentId, LocalDateTime.now().plusSeconds(commentId));
 	}
 	
-	public static List<Comment> dummyRootCommentList(int size, int initialId) {
+	public static List<Comment> dummyParentCommentList(int size, int initialId, int authorId) {
 		List<Comment> list = new ArrayList<>(size);
 		
 		for (int i = 0; i < size; i++)
-			list.add(dummyRootComment(initialId + i));
+			list.add(dummyParentComment(initialId + i, authorId));
 
 		return list;
 	}
 
-	public static List<Comment> dummyCommentList(int size, int initialId, Integer parentId) {
+	public static List<Comment> dummyCommentList(int size, int initialId, Integer parentId, int authorId) {
 		List<Comment> list = new ArrayList<>(size);
 		
 		for (int i = 0; i < size; i++)
-			list.add(dummyComment(initialId + i, parentId));
+			list.add(dummyComment(initialId + i, parentId, authorId));
 
 		return list;
 	}
 	
 	public static void assertEqualsComments(Comment expected, Comment actual) {
 		assertEqualsUsers(expected.getAuthor(), actual.getAuthor());
-		assertEquals(expected.getParentId(), actual.getParentId());
+		assertEquals(expected.hasParent(), actual.hasParent());
+		if (expected.hasParent())
+			assertEquals(expected.getParentId(), actual.getParentId());
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getContent(), actual.getContent());
-		assertEquals(expected.getCommentDate(), actual.getCommentDate());
 		assertEquals(expected, actual);
 	}	
 }

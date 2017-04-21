@@ -55,9 +55,9 @@ public class CommentJdbcDaoTest {
 	}
 
 	@Test
-	public void createRootCommentTest() {
-		Comment expected = dummyRootComment(0);
-		Comment actual = insertComment(expected, 0, 0);
+	public void createParentCommentTest() {
+		Comment expected = dummyParentComment(0, 0);
+		Comment actual = insertComment(expected, 0);
 		
 		assertEqualsComments(expected, actual);
 		assertFalse(actual.hasParent());
@@ -66,9 +66,9 @@ public class CommentJdbcDaoTest {
 	
 	@Test
 	public void createChildCommentTest() {
-		insertComment(dummyRootComment(0), 0, 0).getId();
-		Comment expected = dummyComment(1, 0);
-		Comment actual = insertComment(expected, 0, 1);
+		insertComment(dummyParentComment(0, 0), 0).getId();
+		Comment expected = dummyComment(1, 0, 0);
+		Comment actual = insertComment(expected, 0);
 
 		assertEqualsComments(expected, actual);
 		assertEquals(2, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
@@ -76,10 +76,10 @@ public class CommentJdbcDaoTest {
 	
 	@Test
 	public void getCommentsByProductIdTest() {
-		insertCommentList(dummyRootCommentList(7, 0), 0, 0);
+		insertCommentList(dummyParentCommentList(7, 0, 0), 0);
 		
 		for (int i = 0; i < 7; i++)
-			insertCommentList(dummyCommentList(5, 7 + i * 5, i), 0, 0);
+			insertCommentList(dummyCommentList(5, 7 + i * 5, i, 0), 0);
 		
 		List<Comment> actual = commentDao.getCommentsByProductId(0);
 		List<Comment> comments = new ArrayList<>(actual.size());
@@ -89,12 +89,12 @@ public class CommentJdbcDaoTest {
 		assertCommentsOrder(comments);
 	}
 	
-	private void insertCommentList(List<Comment> comments, int productId, int userId) {
+	private void insertCommentList(List<Comment> comments, int productId) {
 		for (Comment comment : comments)
-			insertComment(comment, productId, userId);
+			insertComment(comment, productId);
 	}
 
-	// Asserts that a block of root comments come first, then a block of child comments with parentId of the first root comment and so on
+	// Asserts that a block of parent comments come first, then a block of child comments with parentId of the first parent comment and so on
 	private void assertCommentsOrder(List<Comment> comments) {
 		assertFalse(comments.get(0).hasParent());
 		
@@ -127,10 +127,10 @@ public class CommentJdbcDaoTest {
 		return comments.size();
 	}
 	
-	private Comment insertComment(Comment comment, int productId, int userId) {
+	private Comment insertComment(Comment comment, int productId) {
 		if (comment.hasParent())
-			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, userId);
-		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), productId, userId);
+			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, comment.getAuthor().getUserId());
+		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), productId, comment.getAuthor().getUserId());
 	}
 
 	private void insertDummyProduct() {
