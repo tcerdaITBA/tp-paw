@@ -39,6 +39,7 @@ public class ProductJdbcDao implements ProductDao {
 					.usingGeneratedKeyColumns("productid");		
 	}
 	
+	@Override
 	public List<Product> getProducts() {
 		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", productRowMapper);
 	}
@@ -48,6 +49,7 @@ public class ProductJdbcDao implements ProductDao {
 		return jdbcTemplate.query("SELECT * FROM products WHERE category = ? ORDER BY uploadDate DESC", productRowMapper, category.toUpperCase(Locale.ENGLISH));
 	}
 	
+	@Override
 	public Product getProductByProductId(int id) {
 		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", productRowMapper, id);
 		
@@ -57,6 +59,7 @@ public class ProductJdbcDao implements ProductDao {
 		return product.get(0);
 	}
 	
+	@Override
 	public User getCreatorByProductId(int id) {
 		List<User> user = jdbcTemplate.query("SELECT userId, userName, email FROM products NATURAL JOIN users WHERE productId = ?", userRowMapper, id);
 		
@@ -66,6 +69,7 @@ public class ProductJdbcDao implements ProductDao {
 		return user.get(0);
 	}
 
+	@Override
 	public Product createProduct(String name, String description, String shortDescription, String website, String category,
 			LocalDateTime uploadDate, byte[] logo, int creatorId) {
 
@@ -92,6 +96,7 @@ public class ProductJdbcDao implements ProductDao {
 				.build();		
 	}
 
+	@Override
 	public byte[] getLogoByProductId(int productId) {
 		byte[] logo = jdbcTemplate.queryForObject("SELECT logo FROM products WHERE productId = ?", byte[].class, productId);
 		

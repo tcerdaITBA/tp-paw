@@ -30,11 +30,13 @@ public class VideoJdbcDao implements VideoDao {
 					.withTableName("videos");
 		}
 	
+	@Override
 	public List<Video> getVideosByProductId(int id) {
 		List<Video> videos = jdbcTemplate.query("SELECT * FROM videos WHERE productId = ?", videoRowMapper, id);
 		return videos;
 	}
 
+	@Override
 	public Video createVideo(String videoId, int productId) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("videoId", videoId);

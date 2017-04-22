@@ -17,14 +17,17 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 	
+	@Override
 	public User getCreatorByProductId(int productId) {
 		return productDao.getCreatorByProductId(productId);
 	}
 
+	@Override
 	public Product getProduct(int productId) {
 		return productDao.getProductByProductId(productId);
 	}
 
+	@Override
 	public List<Product> getProducts() {
 		return productDao.getProducts();
 	}
@@ -34,10 +37,12 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProductsByCategory(category.name());
 	}
 	
+	@Override
 	public Product createProduct(String name, String description, String shortDescription, String website, Category category, byte[] logo, int creatorId) {
 		return productDao.createProduct(name, description, shortDescription, website, category.name(), LocalDateTime.now(),  logo, creatorId);
 	}
 
+	@Override
 	public byte[] getLogoByProductId(int productId) {
 		return productDao.getLogoByProductId(productId);
 	}

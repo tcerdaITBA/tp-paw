@@ -32,6 +32,7 @@ public class UserJdbcDao implements UserDao {
 					.usingGeneratedKeyColumns("userid");		
 	}
 	
+	@Override
 	public User createUser(String userName, String email) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("userName", userName);
@@ -46,6 +47,7 @@ public class UserJdbcDao implements UserDao {
 		}
 	}
 	
+	@Override
 	public User getUserByEmail(String email) {
 		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE email = ?", userRowMapper, email);
 		
@@ -55,6 +57,7 @@ public class UserJdbcDao implements UserDao {
 		return user.get(0);
 	}
 
+	@Override
 	public User getUserById(int userId) {
 		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", userRowMapper, userId);
 		

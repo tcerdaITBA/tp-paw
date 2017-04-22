@@ -14,10 +14,12 @@ public class VideoServiceImpl implements VideoService {
 	@Autowired
 	private VideoDao videoDao;
 	
+	@Override
 	public List<Video> getVideosByProductId(int id) {
 		return videoDao.getVideosByProductId(id);
 	}
 	
+	@Override
 	public Video createVideo(String videoId, int productId) {
 		return videoDao.createVideo(videoId, productId);
 	}

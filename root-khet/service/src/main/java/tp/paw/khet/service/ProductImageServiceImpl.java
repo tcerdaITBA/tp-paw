@@ -14,14 +14,17 @@ public class ProductImageServiceImpl implements ProductImageService {
 	@Autowired
 	private ProductImageDao productImageDao;
 	
+	@Override
 	public ProductImage createProductImage(int imageId, int productId, byte[] data) {
 		return productImageDao.createProductImage(imageId, productId, data);
 	}
 
+	@Override
 	public List<Integer> getImagesIdByProductId(int productId) {
 		return productImageDao.getImagesIdByProductId(productId);
 	}
 
+	@Override
 	public ProductImage getImageByIds(int imageId, int productId) {
 		return productImageDao.getImageByIds(imageId, productId);
 	}

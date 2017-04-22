@@ -12,14 +12,17 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Override
 	public User createUser(String userName, String email) {
 		return userDao.createUser(userName, email.toLowerCase());
 	}
 
+	@Override
 	public User getUserByEmail(String email) {
 		return userDao.getUserByEmail(email);
 	}
 
+	@Override
 	public User createUserOrRetrieveIfExists(String userName, String email) {
 		User user = createUser(userName, email);
 		
