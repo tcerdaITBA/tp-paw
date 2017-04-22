@@ -15,44 +15,44 @@ public interface ProductService {
 	 * @param shortDescription - Brief comment or description of the product
 	 * @param website - Official product website URL
 	 * @param category - Category the product belongs to
+	 * @param uploadDate - Date the product was uploaded
 	 * @param logo - Logo or image that identifies the product
-	 * @param creatorId - Product creator ID
-	 * @return Product
+	 * @param creatorId - ID of the product creator
+	 * @return Product - The newly created product
 	 */
 	public Product createProduct(String name, String description, String shortDescription, String website, Category category, byte[] logo, int creatorId);
 	
 	/**
-	 * Returns a {@link User} given a {@link Product} ID.
-	 * @param id - ID of a product
-	 * @return user - creator
-	 */
-	public User getCreatorByProductId(int productId);
-	
-	
-	/**
-	 * Returns a {@link Product} given its ID
-	 * @param id - Product's ID
-	 * @return product
-	 */
-	public Product getProduct(int productId);
-	
-	/**
 	 * Lists every existing {@link Product}
-	 * @return List of the existing products
+	 * @return {@link List} of the existing products
 	 */
 	public List<Product> getProducts();
 	
 	/**
-	 * Lists products belonging to certain category
-	 * @param category - category the products belong to
-	 * @return List of the products belonging to the category.<p>
-	 * 		   If there are no products in given category, the returned List is empty.
+	 * Lists products belonging to certain {@link Category}.
+	 * @param category - Category the products belong to
+	 * @return {@link List} of the products belonging to the category. 
+	 * 		   Could be empty if there are no products registered in given category.
 	 */
 	public List<Product> getProductsByCategory(Category category);
 	
 	/**
-	 * Returns a logo or image given a {@link Product} ID
+	 * Retrieves a {@link Product}.
 	 * @param productId - ID of the product
+	 * @return Product with the associated ID of null if it doesn't exist
+	 */
+	public Product getProductById(int productId);
+	
+	/**
+	 * Retrieves a {@link User} given a {@link Product} ID.
+	 * @param productId - ID of the product the User created
+	 * @return {@link User} representing the product's creator
+	 */
+	public User getCreatorByProductId(int productId);
+	
+	/**
+	 * Retrieves the logo of a {@link Product}.
+	 * @param productId - ID of the product the logo belongs to.
 	 * @return byte array containing the image bytes
 	 */
 	public byte[] getLogoByProductId(int productId);

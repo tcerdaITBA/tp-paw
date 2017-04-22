@@ -23,8 +23,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product getProduct(int productId) {
-		return productDao.getProductByProductId(productId);
+	public Product getProductById(int productId) {
+		return productDao.getProductById(productId);
 	}
 
 	@Override

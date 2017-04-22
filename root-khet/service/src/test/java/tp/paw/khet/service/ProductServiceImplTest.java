@@ -71,13 +71,13 @@ public class ProductServiceImplTest {
 	@Test
 	public void getProductByIdTest() {
 		Product expected = dummyProduct(0);
-		when(productDaoMock.getProductByProductId(0)).thenReturn(expected);
+		when(productDaoMock.getProductById(0)).thenReturn(expected);
 		
-		Product actual = productService.getProduct(0);
+		Product actual = productService.getProductById(0);
 		
 		assertEqualsProducts(expected, actual);
-		assertNull(productService.getProduct(1));
-		verify(productDaoMock, times(2)).getProductByProductId(anyInt());
+		assertNull(productService.getProductById(1));
+		verify(productDaoMock, times(2)).getProductById(anyInt());
 	}
 	
 	@Test

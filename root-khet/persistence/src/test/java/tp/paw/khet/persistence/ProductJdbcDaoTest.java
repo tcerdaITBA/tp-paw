@@ -114,10 +114,10 @@ public class ProductJdbcDaoTest {
 		Product expected = dummyProduct(0);
 		insertProduct(expected, 0);
 		
-		Product actual = productDao.getProductByProductId(0);
+		Product actual = productDao.getProductById(0);
 		
 		assertEqualsProducts(expected, actual);
-		assertNull(productDao.getProductByProductId(1));
+		assertNull(productDao.getProductById(1));
 	}
 	
 	@Test

@@ -130,7 +130,7 @@ public class CommentJdbcDaoTest {
 	private Comment insertComment(Comment comment, int productId) {
 		if (comment.hasParent())
 			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, comment.getAuthor().getUserId());
-		return commentDao.createComment(comment.getContent(), comment.getCommentDate(), productId, comment.getAuthor().getUserId());
+		return commentDao.createParentComment(comment.getContent(), comment.getCommentDate(), productId, comment.getAuthor().getUserId());
 	}
 
 	private void insertDummyProduct() {

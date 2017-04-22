@@ -50,7 +50,7 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public Product getProductByProductId(int id) {
+	public Product getProductById(int id) {
 		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", productRowMapper, id);
 		
 		if (product.isEmpty())

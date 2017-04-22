@@ -53,7 +53,7 @@ public class CommentJdbcDao implements CommentDao {
 	}
 
 	@Override
-	public Comment createComment(String content, LocalDateTime date, int productId, int userId) {
+	public Comment createParentComment(String content, LocalDateTime date, int productId, int userId) {
 		final Map<String, Object> args = argsMap(content, date, productId, userId);
 		
 		final Number commentId = jdbcInsert.executeAndReturnKey(args);

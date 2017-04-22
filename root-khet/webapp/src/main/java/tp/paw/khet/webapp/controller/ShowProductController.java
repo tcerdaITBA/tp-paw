@@ -53,7 +53,7 @@ public class ShowProductController {
 	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("commentsForm") FormComments form) 
 	throws ResourceNotFoundException {
 					
-		Product product = productService.getProduct(productId);
+		Product product = productService.getProductById(productId);
 		
 		if (product == null) {
 			throw new ResourceNotFoundException();
@@ -94,7 +94,7 @@ public class ShowProductController {
 		if (parentId.isPresent())
 			commentService.createComment(postedForm.getContent(), parentId.get(), productId, user.getUserId());
 		else
-			commentService.createComment(postedForm.getContent(), productId, user.getUserId());
+			commentService.createParentComment(postedForm.getContent(), productId, user.getUserId());
 		
 		return new ModelAndView("redirect:/product/" + productId);
 	}

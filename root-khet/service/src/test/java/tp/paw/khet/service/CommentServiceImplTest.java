@@ -41,12 +41,12 @@ public class CommentServiceImplTest {
 	@Test
 	public void createParentComment() {
 		Comment expected = dummyParentComment(0, 0);
-		when(commentDaoMock.createComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0))).thenReturn(expected);
+		when(commentDaoMock.createParentComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0))).thenReturn(expected);
 		
-		Comment actual = commentServiceImpl.createComment(expected.getContent(), 0, 0);
+		Comment actual = commentServiceImpl.createParentComment(expected.getContent(), 0, 0);
 		
 		assertEqualsComments(expected, actual);
-		verify(commentDaoMock, times(1)).createComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0));
+		verify(commentDaoMock, times(1)).createParentComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0));
 	}
 	
 	@Test
