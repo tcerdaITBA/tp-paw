@@ -55,10 +55,9 @@ public class ShowProductController {
 					
 		Product product = productService.getProductById(productId);
 		
-		if (product == null) {
+		if (product == null)
 			throw new ResourceNotFoundException();
-		}
-				
+		
 		ModelAndView mav = new ModelAndView("product");
 		
 		mav.addObject("product", product);

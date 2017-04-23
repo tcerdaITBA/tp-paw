@@ -221,7 +221,7 @@
 												</c:forEach>												
 												<div class="row">
 													<div class="col-md-10 col-md-offset-2">
-														<form:form modelAttribute="commentsForm" class="comment-form reply-comment" action="${postPath}?parentid=${parentNode.parent.id}&index=${status.index}" method="post">
+														<form:form modelAttribute="commentsForm" id="reply${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${parentNode.parent.id}&index=${status.index}#reply${status.index}" method="post">
 															<p class="reply-to">
 																<span class="glyphicon glyphicon-share-alt"></span>
 																<spring:message code="productPage.replyTo" arguments="${parentNode.parent.author.name}"/>
