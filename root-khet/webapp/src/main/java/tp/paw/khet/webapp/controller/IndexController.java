@@ -13,7 +13,7 @@ import tp.paw.khet.service.ProductService;
 
 @Controller
 public class IndexController {
-	
+		
     @Autowired
     private ProductService productService;
     

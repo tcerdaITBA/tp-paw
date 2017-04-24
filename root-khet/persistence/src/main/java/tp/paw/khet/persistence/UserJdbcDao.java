@@ -17,7 +17,7 @@ import tp.paw.khet.persistence.rowmapper.UserRowMapper;
 
 @Repository
 public class UserJdbcDao implements UserDao {
-	
+		
 	@Autowired
 	private UserRowMapper userRowMapper;
 	
