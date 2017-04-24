@@ -45,12 +45,19 @@
 					<ul class="nav nav-pills nav-stacked categoryBox">
 						<c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],'/')}"/>
 						<li role="presentation" class="${active ? 'active' : 'none'}">
-							<a href="<c:url value="/"/>"><spring:message code="category.all"/></a>
+								<a href="<c:url value="/"/>">
+								<div class="col-md-5"></div>
+								<spring:message code="category.all"/></a>
 						</li>
 					<c:forEach items="${categories}" var="category">
 				     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
-						<li role="presentation" class="${active ? 'active' : 'none'}">
-							<a href="<c:url value="/category/${category}"/>"><spring:message code="category.${category}"/></a>
+						<li role="presentation" class="${active ? 'active' : 'none'}">					
+							<a href="<c:url value="/category/${category}"/>">
+							<div class="col-md-5">
+								<img class="icon" src="<c:url value="/resources/img/${category}.svg"/>"/>
+							</div>
+								<spring:message code="category.${category}"/>
+							</a>
 						</li>
 					</c:forEach>
 					</ul>
