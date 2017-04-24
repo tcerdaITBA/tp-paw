@@ -130,7 +130,7 @@
 									
 									<c:url value="/product/${product.id}/comment" var="postPath" />
 									<div class="row">
-										<div class="col-md-7 highlighted">	
+										<div class="col-md-10 highlighted">	
 											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
 												<div class="form-inline">
 													<form:input type="text" class="form-control" path="parentForm.formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
@@ -226,18 +226,18 @@
 																<span class="glyphicon glyphicon-share-alt"></span>
 																<spring:message code="productPage.replyTo" arguments="${parentNode.parent.author.name}"/>
 															</p>
-															<div class="form-inline">
+															<div class="form-inline comment-form-fields">
 																<form:input type="text" class="form-control" path="childForms[${status.index}].formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
 																<form:errors path="childForms[${status.index}].formUser.userName" element="p" />
 																<form:input type="email" class="form-control" path="childForms[${status.index}].formUser.userEmail" placeholder="${EmailPlaceholder}"/>
 																<form:errors path="childForms[${status.index}].formUser.userEmail" element="p" />
 															</div>
-															<div class="form-group">
+															<div class="form-group comment-form-fields">
 																<form:textarea type="text" class="form-control" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
 																<form:errors path="childForms[${status.index}].content" element="p" />
 															</div>
 															<div class="btn-place">
-																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
+																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post"/>" />
 															</div>
 															<div class="row comment-divider">
 																<div class="col-md-12"></div>

@@ -200,5 +200,9 @@
 	font-size: 1.2em;
 	font-weight: 500;
 	margin-bottom: 5px;
-	color: #F64763;
+	color: #39C6C6;
+}
+
+.comment-form-fields p { /* errors */
+	color: #bc0f0f;
 }
