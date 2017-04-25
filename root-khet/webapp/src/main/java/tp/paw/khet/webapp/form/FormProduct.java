@@ -27,6 +27,7 @@ public class FormProduct {
 	private String name;
 	
 	@NotEmpty
+	@Size(max = 8000)
 	private String description;
 	
 	@NotEmpty
@@ -38,6 +39,7 @@ public class FormProduct {
 	private MultipartFile logo;
 	
 	@URL //TODO: no valida sin http://
+	@Size(max = 1000)
 	private String website;
 	
 	@Valid
