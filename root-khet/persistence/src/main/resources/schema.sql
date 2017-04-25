@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS products (
     shortDescription VARCHAR(140) NOT NULL,
     website VARCHAR(1024),
     description TEXT NOT NULL,
-    category VARCHAR(16) NOT NULL CHECK (category IN ('APP', 'ART', 'BOOK', 'FASHION', 'FILM', 'FOOD', 'GADGET', 'GAME', 'MUSIC', 'OTHER')),
+    category VARCHAR(32) NOT NULL CHECK (category IN ('APP', 'ART', 'BOOK', 'FASHION', 'FILM', 'FOOD', 'GADGET', 'GAME', 'MUSIC', 'OTHER')),
     logo BYTEA NOT NULL,
     uploadDate TIMESTAMP NOT NULL,
     userId INTEGER REFERENCES users(userId) NOT NULL

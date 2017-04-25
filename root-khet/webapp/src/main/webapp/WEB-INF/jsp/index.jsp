@@ -52,11 +52,11 @@
 					<c:forEach items="${categories}" var="category">
 				     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
 						<li role="presentation" class="${active ? 'active' : 'none'}">					
-							<a href="<c:url value="/category/${category}"/>">
+							<a href="<c:url value="/category/${category.lowerName}"/>">
 							<div class="col-md-5">
-								<img class="icon" src="<c:url value="/resources/img/${category}.svg"/>"/>
+								<img class="icon" src="<c:url value="/resources/img/${category.lowerName}.svg"/>"/>
 							</div>
-								<spring:message code="category.${category}"/>
+								<spring:message code="category.${category.lowerName}"/>
 							</a>
 						</li>
 					</c:forEach>
@@ -88,7 +88,7 @@
 											</div>
 											<div class="row product-category">
 												<div class="col-md-3 categoryTag">
-													<p><spring:message code="category.${product.category}"/></p>
+													<p><spring:message code="category.${product.category.lowerName}"/></p>
 												</div>
 											</div>
 										</div>

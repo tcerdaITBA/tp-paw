@@ -111,7 +111,7 @@
 								<div class="col-sm-5">
 									<form:select path="category" class="form-control">
 										<c:forEach var="catOpt" items="${categories}">
-											<option value="${catOpt}" <c:if test="${catOpt eq 'OTHER'}">selected="true"</c:if>><spring:message code="category.${catOpt}"/></option>
+											<option value="${catOpt}" <c:if test="${catOpt eq 'OTHER'}">selected="true"</c:if>><spring:message code="category.${catOpt.lowerName}"/></option>
 										</c:forEach>
 									</form:select>									
 									<form:errors path="category" cssClass="" element="p"/>
