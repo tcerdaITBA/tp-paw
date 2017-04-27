@@ -1,6 +1,7 @@
 package tp.paw.khet.testutils;
 
 import static org.junit.Assert.*;
+import static tp.paw.khet.testutils.UserTestUtils.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,15 +15,6 @@ public final class ProductTestUtils {
 	private ProductTestUtils() {
 	}
 	
-	private static Product.ProductBuilder productBuilder(int id) {
-		return Product.getBuilder()
-				.id(id)
-				.name("Product " + id)
-				.description("Description " + id)
-				.shortDescription("Short Description " + id)
-				.uploadDate(LocalDateTime.now().plusSeconds(id));
-	}
-	
 	public static Product dummyProduct(int id) {
 		Category[] categories = Category.values();
 		int len = categories.length;
@@ -30,8 +22,16 @@ public final class ProductTestUtils {
 		return productBuilder(id).category(categories[id % len]).build();
 	}
 	
+	
 	public static Product dummyProductWithCategory(int id, Category category) {
 		return productBuilder(id).category(category).build();
+	}
+	
+	private static Product.ProductBuilder productBuilder(int id) {
+		return Product.getBuilder(id, "Product " + id, "Short Description " + id)
+				.description("Description " + id)
+				.creator(dummyUser(id))
+				.uploadDate(LocalDateTime.now().plusSeconds(id));
 	}
 	
 	public static List<Product> dummyProductList(int size, int initialId) {
@@ -53,7 +53,7 @@ public final class ProductTestUtils {
 	}
 
 	
-	public static void assertEqualsProducts(Product expected, Product actual) {
+	public static void assertEqualsFullProducts(Product expected, Product actual) {
 		assertEquals(expected, actual);
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getName(), actual.getName());
@@ -62,6 +62,14 @@ public final class ProductTestUtils {
 		assertEquals(expected.getShortDescription(), actual.getShortDescription());
 		assertEquals(expected.getCategory(), actual.getCategory());
 		assertEquals(expected.getUploadDate(), actual.getUploadDate());
+		assertEqualsUsers(expected.getCreator(), actual.getCreator());
+	}
+	
+	public static void assertEqualsPlainProducts(Product expected, Product actual) {
+		assertEquals(expected, actual);
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getShortDescription(), actual.getShortDescription());
+		assertEquals(expected.getCategory(), actual.getCategory());
 	}
 	
 	public static byte[] logoFromProduct(Product product) {

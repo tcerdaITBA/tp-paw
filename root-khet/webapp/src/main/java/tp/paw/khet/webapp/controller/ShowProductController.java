@@ -53,7 +53,7 @@ public class ShowProductController {
 	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("commentsForm") FormComments form) 
 	throws ResourceNotFoundException {
 					
-		Product product = productService.getProductById(productId);
+		Product product = productService.getFullProductById(productId);
 		
 		if (product == null)
 			throw new ResourceNotFoundException();
@@ -62,8 +62,8 @@ public class ShowProductController {
 		
 		mav.addObject("product", product);
 		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
-		mav.addObject("videos",videoService.getVideosByProductId(product.getId()));
-		mav.addObject("user", productService.getCreatorByProductId(product.getId()));
+		mav.addObject("videos", videoService.getVideosByProductId(product.getId()));
+		mav.addObject("user", product.getCreator());
 		mav.addObject("parentcomments", commentService.getCommentsByProductId(product.getId()));
 
 		return mav;

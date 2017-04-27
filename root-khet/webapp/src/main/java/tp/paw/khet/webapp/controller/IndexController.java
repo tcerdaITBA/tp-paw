@@ -20,7 +20,7 @@ public class IndexController {
 	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("products", productService.getProducts());
+		mav.addObject("products", productService.getPlainProducts());
 		mav.addObject("categories", Category.values());
 		return mav;
 	}

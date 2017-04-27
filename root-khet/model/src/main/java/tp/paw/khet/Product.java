@@ -11,9 +11,12 @@ public final class Product {
 	private final String website;
 	private final Category category;
 	private final LocalDateTime uploadDate;
+	private final User creator;
 
-	public static ProductBuilder getBuilder() {
-		return new ProductBuilder();
+	public static ProductBuilder getBuilder(int id, String name, String shortDescription) {
+		if (id < 0 || name == null || name.length() == 0 || shortDescription == null || shortDescription.length() == 0)
+			throw new IllegalArgumentException();
+		return new ProductBuilder(id, name, shortDescription);
 	}
 	
 	private Product(ProductBuilder builder) {
@@ -24,6 +27,7 @@ public final class Product {
 		this.website = builder.website;
 		this.category = builder.category;
 		this.uploadDate = builder.uploadDate;
+		this.creator = builder.creator;
 	}
 	
 	public int getId() {
@@ -48,6 +52,10 @@ public final class Product {
 	
 	public Category getCategory() {
 		return category;
+	}
+	
+	public User getCreator() {
+		return creator;
 	}
 	
 	public LocalDateTime getUploadDate() {
@@ -84,27 +92,16 @@ public final class Product {
 		private String website;
 		private Category category = Category.OTHER;
 		private LocalDateTime uploadDate = LocalDateTime.now();
+		private User creator;
 
-		private ProductBuilder() {
-		}
-		
-		public ProductBuilder id(int id) {
+		private ProductBuilder(int id, String name, String shortDescription) {
 			this.id = id;
-			return this;
-		}
-		
-		public ProductBuilder name(String name) {
 			this.name = name;
-			return this;
+			this.shortDescription = shortDescription;
 		}
 		
 		public ProductBuilder description(String description) {
 			this.description = description;
-			return this;
-		}
-		
-		public ProductBuilder shortDescription(String shortDescription) {
-			this.shortDescription = shortDescription;
 			return this;
 		}
 		
@@ -128,9 +125,12 @@ public final class Product {
 			return this;
 		}
 		
+		public ProductBuilder creator(User creator) {
+			this.creator = creator;
+			return this;
+		}
+		
 		public Product build() {
-			if (name == null || description == null || shortDescription == null)
-				throw new IllegalStateException();
 			return new Product(this);
 		}
 	}

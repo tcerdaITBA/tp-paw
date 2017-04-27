@@ -3,7 +3,6 @@ package tp.paw.khet.service;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static tp.paw.khet.testutils.ProductTestUtils.*;
-import static tp.paw.khet.testutils.UserTestUtils.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
-import tp.paw.khet.User;
 import tp.paw.khet.persistence.ProductDao;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,32 +25,20 @@ public class ProductServiceImplTest {
 	
 	@InjectMocks
 	private ProductServiceImpl productService;
-
-	@Test
-	public void testGetCreatorByProductId() {
-		User expectedUser = dummyUser(0);
-		when(productDaoMock.getCreatorByProductId(1)).thenReturn(expectedUser);
-		
-		User actualUser = productService.getCreatorByProductId(1);
-		
-		assertEqualsUsers(expectedUser, actualUser);
-		assertNull(productService.getCreatorByProductId(2));
-		verify(productDaoMock, times(2)).getCreatorByProductId(anyInt());		
-	}
 	
 	@Test
 	public void testGetProducts() {
 		List<Product> expected = dummyProductList(20, 0);
-		when(productDaoMock.getProducts()).thenReturn(expected);
+		when(productDaoMock.getPlainProducts()).thenReturn(expected);
 		
-		List<Product> actual = productService.getProducts();
+		List<Product> actual = productService.getPlainProducts();
 		
 		assertEquals(expected.size(), actual.size());
 		
 		for (int i = 0; i < expected.size(); i++)
-			assertEqualsProducts(expected.get(i), actual.get(i));
+			assertEqualsPlainProducts(expected.get(i), actual.get(i));
 		
-		verify(productDaoMock, times(1)).getProducts();
+		verify(productDaoMock, times(1)).getPlainProducts();
 	}
 
 	@Test
@@ -71,13 +57,13 @@ public class ProductServiceImplTest {
 	@Test
 	public void getProductByIdTest() {
 		Product expected = dummyProduct(0);
-		when(productDaoMock.getProductById(0)).thenReturn(expected);
+		when(productDaoMock.getFullProductById(0)).thenReturn(expected);
 		
-		Product actual = productService.getProductById(0);
+		Product actual = productService.getFullProductById(0);
 		
-		assertEqualsProducts(expected, actual);
-		assertNull(productService.getProductById(1));
-		verify(productDaoMock, times(2)).getProductById(anyInt());
+		assertEqualsFullProducts(expected, actual);
+		assertNull(productService.getFullProductById(1));
+		verify(productDaoMock, times(2)).getFullProductById(anyInt());
 	}
 	
 	@Test
@@ -90,20 +76,20 @@ public class ProductServiceImplTest {
 			id += 5;
 		}
 		
-		verify(productDaoMock, times(categories.length)).getProductsByCategory(anyString());
+		verify(productDaoMock, times(categories.length)).getPlainProductsByCategory(anyString());
 	}
 	
 	private void assertCategoryRetrieval(Category category, int initialId) {
 		List<Product> expected = dummyProductListWithCategory(5, initialId, category);
-		when(productDaoMock.getProductsByCategory(category.name())).thenReturn(expected);
+		when(productDaoMock.getPlainProductsByCategory(category.name())).thenReturn(expected);
 		
-		List<Product> actual = productService.getProductsByCategory(category);
+		List<Product> actual = productService.getPlainProductsByCategory(category);
 		Collections.reverse(expected); // actual list is ordered descendant by upload date
 		
 		assertEquals(expected, actual);
 		
 		for (int i = 0; i < expected.size(); i++)
-			assertEqualsProducts(expected.get(0), actual.get(0));
+			assertEqualsPlainProducts(expected.get(0), actual.get(0));
 	}
 
 }

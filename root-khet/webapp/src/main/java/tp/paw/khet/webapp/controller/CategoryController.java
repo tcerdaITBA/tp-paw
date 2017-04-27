@@ -20,7 +20,7 @@ public class CategoryController {
 	@RequestMapping(value = "/category/{category}")
 	public ModelAndView showProductsForCategory(@PathVariable(value = "category") Category category) {
 		 ModelAndView mav = new ModelAndView("index");
-		 mav.addObject("products",productService.getProductsByCategory(category));
+		 mav.addObject("products",productService.getPlainProductsByCategory(category));
 		 mav.addObject("categories", Category.values());
 		 return mav;
 	}

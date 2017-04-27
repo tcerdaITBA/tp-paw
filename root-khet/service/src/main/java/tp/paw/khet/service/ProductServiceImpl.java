@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
-import tp.paw.khet.User;
 import tp.paw.khet.persistence.ProductDao;
 
 @Service
@@ -18,23 +17,23 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDao productDao;
 	
 	@Override
-	public User getCreatorByProductId(int productId) {
-		return productDao.getCreatorByProductId(productId);
+	public Product getFullProductById(int productId) {
+		return productDao.getFullProductById(productId);
 	}
 
 	@Override
-	public Product getProductById(int productId) {
-		return productDao.getProductById(productId);
+	public Product getPlainProductById(int productId) {
+		return productDao.getPlainProductById(productId);
+	}
+	
+	@Override
+	public List<Product> getPlainProducts() {
+		return productDao.getPlainProducts();
 	}
 
 	@Override
-	public List<Product> getProducts() {
-		return productDao.getProducts();
-	}
-
-	@Override
-	public List<Product> getProductsByCategory(Category category) {
-		return productDao.getProductsByCategory(category.name());
+	public List<Product> getPlainProductsByCategory(Category category) {
+		return productDao.getPlainProductsByCategory(category.name());
 	}
 	
 	@Override

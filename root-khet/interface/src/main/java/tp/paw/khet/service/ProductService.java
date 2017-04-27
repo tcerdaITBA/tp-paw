@@ -4,7 +4,6 @@ import java.util.List;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
-import tp.paw.khet.User;
 
 public interface ProductService {
 	
@@ -23,33 +22,33 @@ public interface ProductService {
 	public Product createProduct(String name, String description, String shortDescription, String website, Category category, byte[] logo, int creatorId);
 	
 	/**
-	 * Lists every existing {@link Product}
+	 * Lists every existing {@link Product} as a plain product: ID, name, short description and category.
 	 * @return {@link List} of the existing products
 	 */
-	public List<Product> getProducts();
+	public List<Product> getPlainProducts();
 	
 	/**
-	 * Lists products belonging to certain {@link Category}.
+	 * Lists plain products belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
 	 * @return {@link List} of the products belonging to the category. 
 	 * 		   Could be empty if there are no products registered in given category.
 	 */
-	public List<Product> getProductsByCategory(Category category);
+	public List<Product> getPlainProductsByCategory(Category category);
 	
 	/**
-	 * Retrieves a {@link Product}.
+	 * Retrieves a {@link Product} with no null attributes.
 	 * @param productId - ID of the product
-	 * @return Product with the associated ID of null if it doesn't exist
+	 * @return Product with the associated ID or null if it doesn't exist
 	 */
-	public Product getProductById(int productId);
+	public Product getFullProductById(int productId);
 	
 	/**
-	 * Retrieves a {@link User} given a {@link Product} ID.
-	 * @param productId - ID of the product the User created
-	 * @return {@link User} representing the product's creator
+	 * Retrieves a {@link Product} with only it's ID, name, short description and category.
+	 * @param productId - ID of the product
+	 * @return Plain Product with the associated ID or null if it doesn't exist
 	 */
-	public User getCreatorByProductId(int productId);
-	
+	public Product getPlainProductById(int productId);
+		
 	/**
 	 * Retrieves the logo of a {@link Product}.
 	 * @param productId - ID of the product the logo belongs to.

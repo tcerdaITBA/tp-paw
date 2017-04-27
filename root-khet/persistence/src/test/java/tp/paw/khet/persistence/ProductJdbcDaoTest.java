@@ -52,7 +52,7 @@ public class ProductJdbcDaoTest {
 		List<Product> expectedProducts = dummyProductList(LIST_SIZE, 0);
 		insertProducts(expectedProducts, 0);
 				
-		List<Product> actualProducts = productDao.getProducts();
+		List<Product> actualProducts = productDao.getPlainProducts();
 		
 		assertEquals(expectedProducts.size(), actualProducts.size());
 		
@@ -61,7 +61,7 @@ public class ProductJdbcDaoTest {
 			Product actual = actualProducts.get(i);
 			assertEquals(expected, actual);
 			if (i > 0)
-				assertTrue(actual.getUploadDate().compareTo(actualProducts.get(i-1).getUploadDate()) < 0);
+				assertTrue(actual.getId() < actualProducts.get(i-1).getId());
 		}
 		
 		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
@@ -80,7 +80,7 @@ public class ProductJdbcDaoTest {
 	}
 
 	private void assertRetrievedCategory(Category category, List<Product> productList) {
-		List<Product> productsByCategory = productDao.getProductsByCategory(category.name());
+		List<Product> productsByCategory = productDao.getPlainProductsByCategory(category.name());
 		
 		for (Product product : productsByCategory) {
 			assertTrue(productList.contains(product));
@@ -91,21 +91,11 @@ public class ProductJdbcDaoTest {
 	}
 
 	@Test
-	public void getCreatorByProductIdTest() {
-		User expected = dummyUser(0);
-		insertProduct(dummyProduct(0), 0);
-		
-		User actual = productDao.getCreatorByProductId(0);
-		
-		assertEqualsUsers(expected, actual);
-	}
-	
-	@Test
 	public void createProductTest() {
 		Product expected = dummyProduct(0);
 		Product actual = insertProduct(expected, 0);
 		
-		assertEqualsProducts(expected, actual);
+		assertEqualsFullProducts(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
 	
@@ -114,10 +104,10 @@ public class ProductJdbcDaoTest {
 		Product expected = dummyProduct(0);
 		insertProduct(expected, 0);
 		
-		Product actual = productDao.getProductById(0);
+		Product actual = productDao.getFullProductById(0);
 		
-		assertEqualsProducts(expected, actual);
-		assertNull(productDao.getProductById(1));
+		assertEqualsFullProducts(expected, actual);
+		assertNull(productDao.getFullProductById(1));
 	}
 	
 	@Test

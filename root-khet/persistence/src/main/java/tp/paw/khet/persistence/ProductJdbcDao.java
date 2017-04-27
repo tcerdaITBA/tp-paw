@@ -15,18 +15,20 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.Product;
-import tp.paw.khet.User;
-import tp.paw.khet.persistence.rowmapper.ProductRowMapper;
-import tp.paw.khet.persistence.rowmapper.UserRowMapper;
+import tp.paw.khet.persistence.rowmapper.PlainProductRowMapper;
+import tp.paw.khet.persistence.rowmapper.FullProductRowMapper;
 
 @Repository
 public class ProductJdbcDao implements ProductDao {
 	
 	@Autowired
-	private ProductRowMapper productRowMapper;
+	private FullProductRowMapper fullProductRowMapper;
 	
 	@Autowired
-	private UserRowMapper userRowMapper;
+	private PlainProductRowMapper plainProductRowMapper;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -40,18 +42,20 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public List<Product> getProducts() {
-		return jdbcTemplate.query("SELECT * FROM products ORDER BY uploadDate DESC", productRowMapper);
+	public List<Product> getPlainProducts() {
+		return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products ORDER BY uploadDate DESC", 
+				plainProductRowMapper);
 	}
 
 	@Override
-	public List<Product> getProductsByCategory(String category) {
-		return jdbcTemplate.query("SELECT * FROM products WHERE category = ? ORDER BY uploadDate DESC", productRowMapper, category.toUpperCase(Locale.ENGLISH));
+	public List<Product> getPlainProductsByCategory(String category) {
+		return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE category = ? ORDER BY uploadDate DESC", 
+				plainProductRowMapper, category.toUpperCase(Locale.ENGLISH));
 	}
 	
 	@Override
-	public Product getProductById(int id) {
-		List<Product> product = jdbcTemplate.query("SELECT * FROM products WHERE productId = ?", productRowMapper, id);
+	public Product getFullProductById(int productId) {
+		List<Product> product = jdbcTemplate.query("SELECT * FROM products NATURAL JOIN users WHERE productId = ?", fullProductRowMapper, productId);
 		
 		if (product.isEmpty())
 			return null;
@@ -60,15 +64,16 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public User getCreatorByProductId(int id) {
-		List<User> user = jdbcTemplate.query("SELECT userId, userName, email FROM products NATURAL JOIN users WHERE productId = ?", userRowMapper, id);
+	public Product getPlainProductById(int productId) {
+		List<Product> product = jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE productId = ?", 
+				plainProductRowMapper, productId);
 		
-		if (user.isEmpty())
+		if (product.isEmpty())
 			return null;
 		
-		return user.get(0);
+		return product.get(0);
 	}
-
+	
 	@Override
 	public Product createProduct(String name, String description, String shortDescription, String website, String category,
 			LocalDateTime uploadDate, byte[] logo, int creatorId) {
@@ -85,14 +90,12 @@ public class ProductJdbcDao implements ProductDao {
 		
 		final Number productId = jdbcInsert.executeAndReturnKey(args);
 		
-		return Product.getBuilder()
-				.id(productId.intValue())
-				.name(name)
+		return Product.getBuilder(productId.intValue(), name, shortDescription)
 				.description(description)
-				.shortDescription(shortDescription)
 				.website(website)
 				.category(category)
 				.uploadDate(uploadDate)
+				.creator(userDao.getUserById(creatorId))
 				.build();		
 	}
 
@@ -105,5 +108,4 @@ public class ProductJdbcDao implements ProductDao {
 		
 		return logo;
 	}
-
 }
