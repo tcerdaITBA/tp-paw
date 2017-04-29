@@ -5,8 +5,8 @@ import java.util.List;
 
 public class ParentNode<T> {
 	
-	private T parent;
-	private List<T> children;
+	private final T parent;
+	private final List<T> children;
 	
 	public ParentNode(T parent) {
 		this.parent = parent;

@@ -3,6 +3,7 @@ package tp.paw.khet.service;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static tp.paw.khet.testutils.ProductTestUtils.*;
+import static tp.paw.khet.testutils.VideoTestUtils.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,12 @@ public class ProductServiceImplTest {
 	
 	@Mock
 	private ProductDao productDaoMock;
+
+	@Mock
+	private CommentService commentServiceMock;
+
+	@Mock
+	private VideoService videoServiceMock;	
 	
 	@InjectMocks
 	private ProductServiceImpl productService;
@@ -57,13 +64,16 @@ public class ProductServiceImplTest {
 	@Test
 	public void getProductByIdTest() {
 		Product expected = dummyProduct(0);
-		when(productDaoMock.getFullProductById(0)).thenReturn(expected);
+		when(productDaoMock.getFullProductById(0)).thenReturn(dummyProductBuilder(0));
+		when(videoServiceMock.getVideosByProductId(0)).thenReturn(dummyVideoList(2,0));
+		when(commentServiceMock.getCommentsByProductId(0)).thenReturn(Collections.emptyList());
 		
 		Product actual = productService.getFullProductById(0);
 		
 		assertEqualsFullProducts(expected, actual);
-		assertNull(productService.getFullProductById(1));
-		verify(productDaoMock, times(2)).getFullProductById(anyInt());
+		assertEquals(2, actual.getVideos().size());
+		assertEquals(0, actual.getCommentFamilies().size());
+		verify(productDaoMock, times(1)).getFullProductById(anyInt());
 	}
 	
 	@Test

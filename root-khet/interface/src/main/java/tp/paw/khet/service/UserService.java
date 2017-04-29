@@ -20,6 +20,13 @@ public interface UserService {
 	public User getUserByEmail(String email);
 
 	/**
+	 * Retrieves an {@link User} given it's ID
+	 * @param creatorId - ID of the user
+	 * @return User object corresponding to the given id
+	 */
+	public User getUserById(int userId);
+	
+	/**
 	 * Attempts to create an {@link User} given it's username and email. <p>
 	 * If it alreadys exists, this method returns the already registered User.
 	 * Note that in this case the userName parameter may not be the same as the returned User. <p>
@@ -29,4 +36,5 @@ public interface UserService {
 	 * @return User with the given userName and email if created or the User that already existed.
 	 */
 	public User createUserOrRetrieveIfExists(String userName, String email);
+
 }

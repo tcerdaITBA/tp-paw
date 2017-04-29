@@ -11,9 +11,18 @@ public interface ProductImageService {
 	 * Creates an {@link ProductImage} for a {@link Product}.
 	 * @param imageId - ID of the new image
 	 * @param productId - ID of the product the image belongs to
-	 * @return The created ProductImage
+	 * @param data - byte array of the image data
+	 * @return The created product image
 	 */
 	public ProductImage createProductImage(int imageId, int productId, byte[] data);
+	
+	/**
+	 * Creates a {@link List} of {@link ProductImage} associated with a {@link Product}
+	 * @param imageBytes - list of byte arrays of the images data
+	 * @param productId - ID of the product the images belong to
+	 * @return The created list of product images
+	 */
+	public List<ProductImage> createProductImages(List<byte[]> imageBytes, int productId);
 	
 	/**
 	 * Lists images ID of a {@link Product}.

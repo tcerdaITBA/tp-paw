@@ -17,9 +17,12 @@ public interface ProductService {
 	 * @param uploadDate - Date the product was uploaded
 	 * @param logo - Logo or image that identifies the product
 	 * @param creatorId - ID of the product creator
+	 * @param imageBytes - List of bytes corresponding to the products images
+	 * @param videoIds - List of Youtube video's IDs.
 	 * @return Product - The newly created product
 	 */
-	public Product createProduct(String name, String description, String shortDescription, String website, Category category, byte[] logo, int creatorId);
+	public Product createProduct(String name, String description, String shortDescription, String website, 
+			Category category, byte[] logo, int creatorId, List<byte[]> imageBytes, List<String> videoIds);
 	
 	/**
 	 * Lists every existing {@link Product} as a plain product: ID, name, short description and category.

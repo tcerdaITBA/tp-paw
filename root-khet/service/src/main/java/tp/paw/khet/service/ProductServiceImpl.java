@@ -16,9 +16,26 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 	
+	@Autowired
+	private CommentService commentService;
+	
+	@Autowired
+	private VideoService videoService;
+	
+	@Autowired
+	private ProductImageService productImageService;
+	
+	@Autowired
+	private UserService userService;
+	
 	@Override
 	public Product getFullProductById(int productId) {
-		return productDao.getFullProductById(productId);
+		Product.ProductBuilder productBuilder = productDao.getFullProductById(productId);
+		
+		productBuilder.commentFamilies(commentService.getCommentsByProductId(productId))
+					  .videos(videoService.getVideosByProductId(productId));
+		
+		return productBuilder.build();
 	}
 
 	@Override
@@ -37,12 +54,24 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Product createProduct(String name, String description, String shortDescription, String website, Category category, byte[] logo, int creatorId) {
-		return productDao.createProduct(name, description, shortDescription, website, category.name(), LocalDateTime.now(),  logo, creatorId);
+	public Product createProduct(String name, String description, String shortDescription, String website,
+			Category category, byte[] logo, int creatorId, List<byte[]> imageBytes, List<String> videoIds) {
+		
+		Product.ProductBuilder productBuilder = productDao.createProduct(name, description, shortDescription, 
+				website, category.name(), LocalDateTime.now(), logo, creatorId);
+		
+		int productId = productBuilder.build().getId();
+		
+		productBuilder.creator(userService.getUserById(creatorId));
+		productBuilder.videos(videoService.createVideos(videoIds, productId));
+		productImageService.createProductImages(imageBytes, productId);
+		
+		return productBuilder.build();
 	}
 
 	@Override
 	public byte[] getLogoByProductId(int productId) {
 		return productDao.getLogoByProductId(productId);
 	}
+
 }

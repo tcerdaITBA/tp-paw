@@ -16,15 +16,18 @@ public final class ProductTestUtils {
 	}
 	
 	public static Product dummyProduct(int id) {
+		return dummyProductBuilder(id).build();
+	}
+
+	public static Product dummyProductWithCategory(int id, Category category) {
+		return productBuilder(id).category(category).build();
+	}
+	
+	public static Product.ProductBuilder dummyProductBuilder(int id) {
 		Category[] categories = Category.values();
 		int len = categories.length;
 		
-		return productBuilder(id).category(categories[id % len]).build();
-	}
-	
-	
-	public static Product dummyProductWithCategory(int id, Category category) {
-		return productBuilder(id).category(category).build();
+		return productBuilder(id).category(categories[id % len]);
 	}
 	
 	private static Product.ProductBuilder productBuilder(int id) {
@@ -62,7 +65,6 @@ public final class ProductTestUtils {
 		assertEquals(expected.getShortDescription(), actual.getShortDescription());
 		assertEquals(expected.getCategory(), actual.getCategory());
 		assertEquals(expected.getUploadDate(), actual.getUploadDate());
-		assertEqualsUsers(expected.getCreator(), actual.getCreator());
 	}
 	
 	public static void assertEqualsPlainProducts(Product expected, Product actual) {

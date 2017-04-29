@@ -153,7 +153,7 @@
 									
 								    <div class="row">
 										<div class="col-md-7 comments-holder highlighted">
-											<c:forEach items="${parentcomments}" var="parentNode" varStatus="status">
+											<c:forEach items="${parentcomments}" var="commentFamily" varStatus="status">
 												
 												<div class="comment-and-replies">
 												<div class="parent-comment">
@@ -161,11 +161,11 @@
 														<div class="col-md-12">
 															<p>
 																<span class="glyphicon glyphicon-user"></span>
-																<c:out value="${parentNode.parent.author.name}" />
+																<c:out value="${commentFamily.parentComment.author.name}" />
 															</p>
 															<p>
 																<span class="glyphicon glyphicon-envelope"></span>
-																<c:out value="${parentNode.parent.author.email}"/>
+																<c:out value="${commentFamily.parentComment.author.email}"/>
 															</p>
 														</div>
 													</div>
@@ -173,7 +173,7 @@
 														<div class="col-md-12 comment-content">
 															<p>
 																<span class="glyphicon glyphicon-bullhorn"></span>
-																<c:out value="${parentNode.parent.content}" />
+																<c:out value="${commentFamily.parentComment.content}" />
 															</p>
 														</div>
 													</div>
@@ -190,7 +190,7 @@
 													</div>
 												</div>
 												
-												<c:forEach items="${parentNode.children}" var="child">
+												<c:forEach items="${commentFamily.childComments}" var="child">
 													<div class="row child-comment">
 														<div class="col-md-10 col-md-offset-2">
 															<div class="row comment-user-info">
@@ -221,10 +221,10 @@
 												</c:forEach>												
 												<div class="row">
 													<div class="col-md-10 col-md-offset-2">
-														<form:form modelAttribute="commentsForm" id="reply${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${parentNode.parent.id}&index=${status.index}#reply${status.index}" method="post">
+														<form:form modelAttribute="commentsForm" id="reply${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${commentFamily.parentComment.id}&index=${status.index}#reply${status.index}" method="post">
 															<p class="reply-to">
 																<span class="glyphicon glyphicon-share-alt"></span>
-																<spring:message code="productPage.replyTo" arguments="${parentNode.parent.author.name}"/>
+																<spring:message code="productPage.replyTo" arguments="${commentFamily.parentComment.author.name}"/>
 															</p>
 															<div class="form-inline comment-form-fields">
 																<form:input type="text" class="form-control" path="childForms[${status.index}].formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />

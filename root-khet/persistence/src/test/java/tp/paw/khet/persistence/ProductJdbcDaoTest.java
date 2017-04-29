@@ -104,7 +104,7 @@ public class ProductJdbcDaoTest {
 		Product expected = dummyProduct(0);
 		insertProduct(expected, 0);
 		
-		Product actual = productDao.getFullProductById(0);
+		Product actual = productDao.getFullProductById(0).build();
 		
 		assertEqualsFullProducts(expected, actual);
 		assertNull(productDao.getFullProductById(1));
@@ -127,7 +127,7 @@ public class ProductJdbcDaoTest {
 	
 	private Product insertProduct(Product product, int creatorId) {
 		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), product.getWebsite(),
-				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), creatorId);
+				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), creatorId).build();
 	}
 		
 	private void insertProducts(List<Product> products, int creatorId) {

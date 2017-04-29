@@ -1,8 +1,8 @@
 package tp.paw.khet;
 
 public class Video {
-	private String videoId;
-	private int productId;
+	private final String videoId;
+	private final int productId;
 	
 	public Video(String videoId, int productId) {
 		if (videoId == null)

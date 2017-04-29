@@ -1,8 +1,18 @@
 package tp.paw.khet.service;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static tp.paw.khet.testutils.CommentTestUtils.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static tp.paw.khet.testutils.CommentTestUtils.assertEqualsComments;
+import static tp.paw.khet.testutils.CommentTestUtils.dummyComment;
+import static tp.paw.khet.testutils.CommentTestUtils.dummyCommentList;
+import static tp.paw.khet.testutils.CommentTestUtils.dummyParentComment;
+import static tp.paw.khet.testutils.CommentTestUtils.dummyParentCommentList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,8 +25,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import tp.paw.khet.Comment;
+import tp.paw.khet.CommentFamily;
 import tp.paw.khet.persistence.CommentDao;
-import tp.paw.khet.structures.ParentNode;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommentServiceImplTest {
@@ -59,11 +69,11 @@ public class CommentServiceImplTest {
 		
 		when(commentDaoMock.getCommentsByProductId(anyInt())).thenReturn(comments);
 		
-		List<ParentNode<Comment>> commentsList = commentServiceImpl.getCommentsByProductId(0);
+		List<CommentFamily> commentsList = commentServiceImpl.getCommentsByProductId(0);
 		assertEquals(60, commentsList.size());
 		
-		for (ParentNode<Comment> parentNode : commentsList) {
-			if (!parentNode.getChildren().isEmpty())
+		for (CommentFamily parentNode : commentsList) {
+			if (!parentNode.getChildComments().isEmpty())
 				assertValidChildCommentList(parentNode);
 		}
 	}
@@ -80,11 +90,11 @@ public class CommentServiceImplTest {
 		return list;
 	}
 	
-	private void assertValidChildCommentList(ParentNode<Comment> parentNode) {
-		Comment parentComment = parentNode.getParent();		
+	private void assertValidChildCommentList(CommentFamily parentNode) {
+		Comment parentComment = parentNode.getParentComment();		
 		
 		Comment prev = null;
-		for	(Comment child : parentNode.getChildren()) {
+		for	(Comment child : parentNode.getChildComments()) {
 			if (prev != null)
 				assertTrue(child.getCommentDate().compareTo(prev.getCommentDate()) > 0);
 			

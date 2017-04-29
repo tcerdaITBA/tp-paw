@@ -1,9 +1,9 @@
 package tp.paw.khet;
 
 public class User {
-	private int userId;
-	private String name;
-	private String email;
+	private final int userId;
+	private final String name;
+	private final String email;
 	
 	public User(int userId, String name, String email) {
 		this.userId = userId;

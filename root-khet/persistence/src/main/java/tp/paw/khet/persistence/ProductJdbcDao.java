@@ -15,20 +15,18 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.Product;
+import tp.paw.khet.Product.ProductBuilder;
 import tp.paw.khet.persistence.rowmapper.PlainProductRowMapper;
-import tp.paw.khet.persistence.rowmapper.FullProductRowMapper;
+import tp.paw.khet.persistence.rowmapper.ProductBuilderRowMapper;
 
 @Repository
 public class ProductJdbcDao implements ProductDao {
 	
 	@Autowired
-	private FullProductRowMapper fullProductRowMapper;
+	private ProductBuilderRowMapper productBuilderRowMapper;
 	
 	@Autowired
 	private PlainProductRowMapper plainProductRowMapper;
-	
-	@Autowired
-	private UserDao userDao;
 	
 	private JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
@@ -54,13 +52,13 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public Product getFullProductById(int productId) {
-		List<Product> product = jdbcTemplate.query("SELECT * FROM products NATURAL JOIN users WHERE productId = ?", fullProductRowMapper, productId);
+	public Product.ProductBuilder getFullProductById(int productId) {
+		List<Product.ProductBuilder> productBuilder = jdbcTemplate.query("SELECT * FROM products NATURAL JOIN users WHERE productId = ?", productBuilderRowMapper, productId);
 		
-		if (product.isEmpty())
+		if (productBuilder.isEmpty())
 			return null;
 		
-		return product.get(0);
+		return productBuilder.get(0);
 	}
 	
 	@Override
@@ -75,7 +73,7 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public Product createProduct(String name, String description, String shortDescription, String website, String category,
+	public ProductBuilder createProduct(String name, String description, String shortDescription, String website, String category,
 			LocalDateTime uploadDate, byte[] logo, int creatorId) {
 
 		final Map<String, Object> args = new HashMap<String, Object>();
@@ -94,9 +92,7 @@ public class ProductJdbcDao implements ProductDao {
 				.description(description)
 				.website(website)
 				.category(category)
-				.uploadDate(uploadDate)
-				.creator(userDao.getUserById(creatorId))
-				.build();		
+				.uploadDate(uploadDate);		
 	}
 
 	@Override

@@ -22,7 +22,6 @@ import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
-import tp.paw.khet.service.VideoService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.form.FormComment;
 import tp.paw.khet.webapp.form.FormComments;
@@ -33,9 +32,6 @@ public class ShowProductController {
 
 	@Autowired
 	private ProductService productService;
-	
-	@Autowired
-	private VideoService videoService;
 	
 	@Autowired
 	private ProductImageService productImageService;
@@ -62,9 +58,9 @@ public class ShowProductController {
 		
 		mav.addObject("product", product);
 		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
-		mav.addObject("videos", videoService.getVideosByProductId(product.getId()));
+		mav.addObject("videos", product.getVideos());
 		mav.addObject("user", product.getCreator());
-		mav.addObject("parentcomments", commentService.getCommentsByProductId(product.getId()));
+		mav.addObject("parentcomments", product.getCommentFamilies());
 
 		return mav;
 	}

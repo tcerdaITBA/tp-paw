@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
 	public User getUserByEmail(String email) {
 		return userDao.getUserByEmail(email);
 	}
+	
+	@Override
+	public User getUserById(int userId) {
+		return userDao.getUserById(userId);
+	}
 
 	@Override
 	public User createUserOrRetrieveIfExists(String userName, String email) {
@@ -34,5 +39,4 @@ public class UserServiceImpl implements UserService {
 		
 		return user;
 	}
-
 }

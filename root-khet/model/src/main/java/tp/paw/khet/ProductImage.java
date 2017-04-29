@@ -1,9 +1,9 @@
 package tp.paw.khet;
 
 public class ProductImage {
-	private int productImageId;
-	private int productId;
-	private byte[] data;
+	private final int productImageId;
+	private final int productId;
+	private final byte[] data;
 	
 	public ProductImage(int productImageId, int productId, byte[] data) {
 		this.productImageId = productImageId;

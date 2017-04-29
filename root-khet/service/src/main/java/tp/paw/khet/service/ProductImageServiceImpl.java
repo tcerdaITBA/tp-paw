@@ -1,5 +1,6 @@
 package tp.paw.khet.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,15 @@ public class ProductImageServiceImpl implements ProductImageService {
 	public ProductImage createProductImage(int imageId, int productId, byte[] data) {
 		return productImageDao.createProductImage(imageId, productId, data);
 	}
+	
+	@Override
+	public List<ProductImage> createProductImages(List<byte[]> imageBytes, int productId) {
+		List<ProductImage> productImages = new ArrayList<>();
+		for (int i = 0; i < imageBytes.size(); i++)
+			productImages.add(createProductImage(i, productId, imageBytes.get(i)));
+		
+		return productImages;
+	}
 
 	@Override
 	public List<Integer> getImagesIdByProductId(int productId) {
@@ -28,5 +38,6 @@ public class ProductImageServiceImpl implements ProductImageService {
 	public ProductImage getImageByIds(int imageId, int productId) {
 		return productImageDao.getImageByIds(imageId, productId);
 	}
+
 
 }

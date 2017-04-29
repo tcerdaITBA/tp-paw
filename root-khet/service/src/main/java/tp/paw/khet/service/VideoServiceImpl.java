@@ -1,5 +1,6 @@
 package tp.paw.khet.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,16 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public Video createVideo(String videoId, int productId) {
 		return videoDao.createVideo(videoId, productId);
+	}
+
+	@Override
+	public List<Video> createVideos(List<String> videoIds, int productId) {
+		List<Video> videos = new ArrayList<>();
+		
+		for (String videoId : videoIds)
+			videos.add(createVideo(videoId, productId));
+		
+		return null;
 	}
 
 }

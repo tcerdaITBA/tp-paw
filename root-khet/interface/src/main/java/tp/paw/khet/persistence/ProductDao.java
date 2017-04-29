@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import tp.paw.khet.Product;
+import tp.paw.khet.Product.ProductBuilder;
 import tp.paw.khet.Category;
 
 public interface ProductDao {
 	
 	/**
-	 * Creates a {@link Product} inserting it into de database.
+	 * Creates a {@link Product.ProductBuilder} inserting the {@link Product} data into the database.
 	 * @param name - Name of the product
 	 * @param description - Description of the product
 	 * @param shortDescription - Brief comment or description of the product
@@ -20,7 +21,7 @@ public interface ProductDao {
 	 * @param creatorId - ID of the product creator
 	 * @return Product - The newly created product
 	 */
-	public Product createProduct(String name, String description, String shortDescription, String website, String category,
+	public ProductBuilder createProduct(String name, String description, String shortDescription, String website, String category,
 			LocalDateTime uploadDate, byte[] logo, int creatorId);
 	
 	/**
@@ -38,11 +39,12 @@ public interface ProductDao {
 	public List<Product> getPlainProductsByCategory(String category);
 
 	/**
-	 * Retrieves a {@link Product}.
+	 * Retrieves a {@link Product.ProductBuilder} with every attribute set except for 
+	 * the familyComments and videos.
 	 * @param productId - ID of the product
 	 * @return Product with the associated ID of null if it doesn't exist
 	 */
-	public Product getFullProductById(int productId);
+	public Product.ProductBuilder getFullProductById(int productId);
 	
 	/**
 	 * Retrieves a {@link Product} with only it's ID, name, short description and category.

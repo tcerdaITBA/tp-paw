@@ -3,9 +3,9 @@ package tp.paw.khet.service;
 import java.util.List;
 
 import tp.paw.khet.Comment;
+import tp.paw.khet.CommentFamily;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
-import tp.paw.khet.structures.ParentNode;
 
 public interface CommentService {
 	
@@ -33,5 +33,5 @@ public interface CommentService {
 	 * @param productId - ID of the product the comments belong to
 	 * @return List of parent comments associated with their child comments
 	 */
-	public List<ParentNode<Comment>> getCommentsByProductId(int productId);
+	public List<CommentFamily> getCommentsByProductId(int productId);
 }

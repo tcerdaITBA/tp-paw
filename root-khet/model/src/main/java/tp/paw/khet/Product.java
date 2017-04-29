@@ -1,6 +1,8 @@
 package tp.paw.khet;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public final class Product {
@@ -12,6 +14,8 @@ public final class Product {
 	private final Category category;
 	private final LocalDateTime uploadDate;
 	private final User creator;
+	private final List<CommentFamily> commentFamilies;
+	private final List<Video> videos;
 
 	public static ProductBuilder getBuilder(int id, String name, String shortDescription) {
 		if (id < 0 || name == null || name.length() == 0 || shortDescription == null || shortDescription.length() == 0)
@@ -28,6 +32,8 @@ public final class Product {
 		this.category = builder.category;
 		this.uploadDate = builder.uploadDate;
 		this.creator = builder.creator;
+		this.commentFamilies = builder.commentFamilies;
+		this.videos = builder.videos;
 	}
 	
 	public int getId() {
@@ -62,6 +68,14 @@ public final class Product {
 		return uploadDate;
 	}
 	
+	public List<CommentFamily> getCommentFamilies() {
+		return Collections.unmodifiableList(commentFamilies);
+	}
+	
+	public List<Video> getVideos() {
+		return Collections.unmodifiableList(videos);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -93,6 +107,8 @@ public final class Product {
 		private Category category = Category.OTHER;
 		private LocalDateTime uploadDate = LocalDateTime.now();
 		private User creator;
+		private List<CommentFamily> commentFamilies = Collections.emptyList();
+		private List<Video> videos = Collections.emptyList();
 
 		private ProductBuilder(int id, String name, String shortDescription) {
 			this.id = id;
@@ -127,6 +143,16 @@ public final class Product {
 		
 		public ProductBuilder creator(User creator) {
 			this.creator = creator;
+			return this;
+		}
+
+		public ProductBuilder commentFamilies(List<CommentFamily> commentFamilies) {
+			this.commentFamilies = commentFamilies;
+			return this;
+		}
+		
+		public ProductBuilder videos(List<Video> videos) {
+			this.videos = videos;
 			return this;
 		}
 		

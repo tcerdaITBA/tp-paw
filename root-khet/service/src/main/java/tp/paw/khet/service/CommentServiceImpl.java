@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tp.paw.khet.Comment;
+import tp.paw.khet.CommentFamily;
 import tp.paw.khet.persistence.CommentDao;
-import tp.paw.khet.structures.ParentNode;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -18,9 +18,9 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 
 	@Override
-	public List<ParentNode<Comment>> getCommentsByProductId(int id) {
+	public List<CommentFamily> getCommentsByProductId(int id) {
 		List<Comment> comments = commentDao.getCommentsByProductId(id);
-		List<ParentNode<Comment>> parents = new ArrayList<>();
+		List<CommentFamily> parents = new ArrayList<>();
 		int parentIndex = 0;
 		int commentIndex = 0;
 		
@@ -28,12 +28,12 @@ public class CommentServiceImpl implements CommentService {
 			Comment c = comments.get(commentIndex);
 			
 			if (!c.hasParent()) {	
-				ParentNode<Comment> node = new ParentNode<Comment>(c);
-				parents.add(node);
+				CommentFamily commentFamily = new CommentFamily(c);
+				parents.add(commentFamily);
 				commentIndex++;
 			}
-			else if (c.getParentId() == parents.get(parentIndex).getParent().getId()) {
-				parents.get(parentIndex).addChild(c);
+			else if (c.getParentId() == parents.get(parentIndex).getParentComment().getId()) {
+				parents.get(parentIndex).addChildComment(c);
 				commentIndex++;
 			}
 			else
