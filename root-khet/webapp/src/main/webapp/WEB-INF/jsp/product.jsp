@@ -163,10 +163,12 @@
 																<span class="glyphicon glyphicon-user"></span>
 																<c:out value="${commentFamily.parentComment.author.name}" />
 															</p>
-															<p>
+													
+															<a class="" href="mailto:<c:out value="${commentFamily.parentComment.author.email}"/>">
 																<span class="glyphicon glyphicon-envelope"></span>
-																<c:out value="${commentFamily.parentComment.author.email}"/>
-															</p>
+																<p><c:out value="${commentFamily.parentComment.author.email}"/></p>
+															</a>
+															
 														</div>
 													</div>
 													<div class="row">
@@ -199,10 +201,10 @@
 																		<span class="glyphicon glyphicon-user"></span>
 																		<c:out value="${child.author.name}" />
 																	</p>
-																	<p>
+																	<a class="" href="mailto:<c:out value="${child.author.email}"/>">
 																		<span class="glyphicon glyphicon-envelope"></span>
-																		<c:out value="${child.author.email}" />
-																	</p>
+																		<p><c:out value="${child.author.email}"/></p>
+																	</a>
 																</div>
 															</div>
 															<div class="row">
