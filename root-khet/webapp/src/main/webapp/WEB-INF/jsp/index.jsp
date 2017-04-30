@@ -68,34 +68,43 @@
 			<div class="col-md-6 col-md-offset-1">
 				<div class="row">
 					<div class="col-md-12 product-list">
-						<c:forEach items="${products}" var="product">
-							<a href="<c:url value="/product/${product.id}"/>">
-								<div class="row product-list-item vertical-align">
-									<div class="col-md-3 product-logo">
-										<img src="<c:url value="/product/${product.id}/logo"/>">
-									</div>
-									<div class="col-md-9 product-info-box">
-										<div class="row col-md-12">
-											<div class="row product-name">
-												<div class="col-md-12">
-													<p><c:out value="${product.name}"/></p>
+					<c:choose>
+						<c:when test="${products.isEmpty()}">
+							<!-- FALTA UNA IMAGEN PARA ZRP, INSERTAR ACA -->
+							<h2><c:out value="ZRP"></c:out>
+							</h2>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${products}" var="product">
+								<a href="<c:url value="/product/${product.id}"/>">
+									<div class="row product-list-item vertical-align">
+										<div class="col-md-3 product-logo">
+											<img src="<c:url value="/product/${product.id}/logo"/>">
+										</div>
+										<div class="col-md-9 product-info-box">
+											<div class="row col-md-12">
+												<div class="row product-name">
+													<div class="col-md-12">
+														<p><c:out value="${product.name}"/></p>
+													</div>
 												</div>
-											</div>
-											<div class="row product-short-description">
-												<div class="col-md-12">
-													<p><c:out value="${product.shortDescription}"/></p>
+												<div class="row product-short-description">
+													<div class="col-md-12">
+														<p><c:out value="${product.shortDescription}"/></p>
+													</div>
 												</div>
-											</div>
-											<div class="row product-category">
-												<div class="col-md-3 categoryTag">
-													<p><spring:message code="category.${product.category.lowerName}"/></p>
+												<div class="row product-category">
+													<div class="col-md-3 categoryTag">
+														<p><spring:message code="category.${product.category.lowerName}"/></p>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>	
-							</a>				
-						</c:forEach>
+									</div>	
+								</a>				
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 						
 
 					</div>
