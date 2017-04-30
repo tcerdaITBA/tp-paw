@@ -33,7 +33,10 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>tp.paw.khet.webapp.config.WebConfig</param-value>
+		<param-value>
+		tp.paw.khet.webapp.config.WebConfig,
+		tp.paw.khet.webapp.config.WebAuthConfig,
+		</param-value>
 	</context-param>
 	
 	<listener>
