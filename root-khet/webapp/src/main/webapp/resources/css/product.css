@@ -206,3 +206,7 @@
 .comment-form-fields p { /* errors */
 	color: #bc0f0f;
 }
+
+.info-box-field {
+	padding-left: 0;
+}
