@@ -140,7 +140,7 @@
 												</div>
 
 												<div class="form-group">
-													<form:textarea type="text" class="form-control" rows="1" path="parentForm.content" placeholder="${ContentPlaceholder}"/>
+													<form:textarea type="text" class="form-control" rows="3" path="parentForm.content" placeholder="${ContentPlaceholder}" maxlength="512"/>
 													<form:errors path="parentForm.content" element="p" />
 												</div>
 												<div class="btn-place">
@@ -233,7 +233,7 @@
 																<form:errors path="childForms[${status.index}].formUser.userEmail" element="p" />
 															</div>
 															<div class="form-group comment-form-fields">
-																<form:textarea type="text" class="form-control" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
+																<form:textarea type="text" class="form-control" rows="3" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"  maxlength="512"/>
 																<form:errors path="childForms[${status.index}].content" element="p" />
 															</div>
 															<div class="btn-place">
