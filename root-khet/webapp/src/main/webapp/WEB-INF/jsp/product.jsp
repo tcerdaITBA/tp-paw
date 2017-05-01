@@ -131,14 +131,8 @@
 									<c:url value="/product/${product.id}/comment" var="postPath" />
 									<div class="row">
 										<div class="col-md-10 highlighted">	
+											<p><c:out value="${loggedUser.name}" /></p>
 											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
-												<div class="form-inline">
-													<form:input type="text" class="form-control" path="parentForm.formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-													<form:errors path="parentForm.formUser.userName" element="p" />
-													<form:input type="email" class="form-control" path="parentForm.formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-													<form:errors path="parentForm.formUser.userEmail" element="p" />
-												</div>
-
 												<div class="form-group">
 													<form:textarea type="text" class="form-control" rows="1" path="parentForm.content" placeholder="${ContentPlaceholder}"/>
 													<form:errors path="parentForm.content" element="p" />
@@ -226,12 +220,7 @@
 																<span class="glyphicon glyphicon-share-alt"></span>
 																<spring:message code="productPage.replyTo" arguments="${commentFamily.parentComment.author.name}"/>
 															</p>
-															<div class="form-inline comment-form-fields">
-																<form:input type="text" class="form-control" path="childForms[${status.index}].formUser.userName" placeholder="${UserNamePlaceholder}" maxlength="30" />
-																<form:errors path="childForms[${status.index}].formUser.userName" element="p" />
-																<form:input type="email" class="form-control" path="childForms[${status.index}].formUser.userEmail" placeholder="${EmailPlaceholder}"/>
-																<form:errors path="childForms[${status.index}].formUser.userEmail" element="p" />
-															</div>
+															<p><c:out value="${loggedUser.name}" /></p>
 															<div class="form-group comment-form-fields">
 																<form:textarea type="text" class="form-control" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
 																<form:errors path="childForms[${status.index}].content" element="p" />

@@ -25,7 +25,6 @@ import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.form.FormComment;
 import tp.paw.khet.webapp.form.FormComments;
-import tp.paw.khet.webapp.validators.EqualsUsernameValidator;
 
 @Controller
 public class ShowProductController {
@@ -42,8 +41,10 @@ public class ShowProductController {
 	@Autowired
 	private SecurityUserService securityUserService;
 	
-	@Autowired 
-	private EqualsUsernameValidator equalsUsernameValidator;
+	@ModelAttribute("loggedUser")
+	public User loggedUser() {
+		return securityUserService.getLoggedInUser();
+	}
 	
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
 	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("commentsForm") FormComments form) 
@@ -61,12 +62,13 @@ public class ShowProductController {
 		mav.addObject("videos", product.getVideos());
 		mav.addObject("user", product.getCreator());
 		mav.addObject("parentcomments", product.getCommentFamilies());
-
+		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/product/{productId}/comment", method = RequestMethod.POST)
 	public ModelAndView postComment (@PathVariable final int productId,
+							   @ModelAttribute("loggedUser") final User loggedUser,
 							   @RequestParam(value = "parentid", required = false) Optional<Integer> parentId,
 							   @RequestParam(value = "index", required = false) Optional<Integer> index,
 							   @Valid @ModelAttribute("commentsForm") FormComments form, 
@@ -77,19 +79,10 @@ public class ShowProductController {
 		if (errors.hasErrors())
 			return getProduct(productId, form);
 		
-		User user = securityUserService.getLoggedInUser();
-		
-		errors.pushNestedPath(index.isPresent() ? "childForms[" + index.get() + "]" : "parentForm");
-		
-		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(postedForm.getUserName(), user.getName()), errors);
-		
-		if (errors.hasErrors())
-			return getProduct(productId, form);
-		
 		if (parentId.isPresent())
-			commentService.createComment(postedForm.getContent(), parentId.get(), productId, user.getUserId());
+			commentService.createComment(postedForm.getContent(), parentId.get(), productId, loggedUser.getUserId());
 		else
-			commentService.createParentComment(postedForm.getContent(), productId, user.getUserId());
+			commentService.createParentComment(postedForm.getContent(), productId, loggedUser.getUserId());
 		
 		return new ModelAndView("redirect:/product/" + productId);
 	}

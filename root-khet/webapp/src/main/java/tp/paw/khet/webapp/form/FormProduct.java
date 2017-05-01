@@ -43,9 +43,6 @@ public class FormProduct {
 	private String website;
 	
 	@Valid
-	private FormUser formUser = new FormUser();
-		
-	@Valid
 	private MultipartFileImageWrapper[] images;
 	
 	@Valid
@@ -57,14 +54,6 @@ public class FormProduct {
 	public FormProduct() {
 		images = new MultipartFileImageWrapper[MAX_IMAGES];
 		videos = new VideoStringWrapper[MAX_VIDEOS];
-	}
-	
-	public FormUser getFormUser() {
-		return formUser;
-	}
-	
-	public void setFormUser(FormUser formUser) {
-		this.formUser = formUser;
 	}
 	
 	public int getId() {
@@ -111,14 +100,6 @@ public class FormProduct {
 		this.logo = logo;
 	}
 
-	public String getUserName() {
-		return formUser.getName();
-	}
-
-	public String getUserEmail() {
-		return formUser.getEmail();
-	}
-	
 	public MultipartFileImageWrapper[] getImages() {
 		return images;
 	}

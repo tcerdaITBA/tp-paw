@@ -172,14 +172,10 @@
 									<spring:message code="formLabel.creator" />
 								</h3>
 								<div class="col-md-12 form-group creator-name-form">
-									<form:label path="formUser.userName"><spring:message code="formLabel.creatorName" /></form:label>
-									<form:input type="text" path="formUser.userName" class="form-control" placeholder="${CreatorNamePlaceholder}" maxlength="30"/>
-									<form:errors path="formUser.userName" cssClass="" element="p" />
+									<p><spring:message code="formLabel.creatorName"/>: <c:out value="${loggedUser.name}" /></p>								
 								</div>
 								<div class="col-md-12 form-group email-form">
-									<form:label path="formUser.userEmail"><spring:message code="formLabel.creatorEmail" /></form:label>
-									<form:input type="email" path="formUser.userEmail" class="form-control" placeholder="${EmailPlaceholder}"/>
-									<form:errors path="formUser.userEmail" cssClass="" element="p"/>
+									<p><spring:message code="formLabel.creatorEmail"/>: <c:out value="${loggedUser.email}" /></p>
 								</div>
 							</div>
 						</div>

@@ -24,7 +24,6 @@ import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.form.FormProduct;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
-import tp.paw.khet.webapp.validators.EqualsUsernameValidator;
 import tp.paw.khet.webapp.validators.ImageOrVideoValidator;
 
 @Controller
@@ -41,8 +40,10 @@ public class UploadController {
 	@Autowired
 	private ImageOrVideoValidator imageOrVideoValidator;
 	
-	@Autowired 
-	private EqualsUsernameValidator equalsUsernameValidator;
+	@ModelAttribute("loggedUser")
+	public User loggedUser() {
+		return securityUserService.getLoggedInUser();
+	}
 	
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
@@ -52,16 +53,10 @@ public class UploadController {
 	}
 	
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
-	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
-										final BindingResult errors) throws IOException {
+	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct, final BindingResult errors,
+							   @ModelAttribute("loggedUser") final User loggedUser) throws IOException {
 		
 		imageOrVideoValidator.validate(formProduct, errors);
-		if (errors.hasErrors())
-			return formCompletion(formProduct);
-		
-		final User user = securityUserService.getLoggedInUser();
-		
-		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formProduct.getUserName(), user.getName()), errors);
 		if (errors.hasErrors())
 			return formCompletion(formProduct);
 		
@@ -70,7 +65,7 @@ public class UploadController {
 												formProduct.getWebsite(),
 												formProduct.getCategory(),
 												formProduct.getLogo().getBytes(), 
-												user.getUserId(),
+												loggedUser.getUserId(),
 												imageByteList(formProduct.getImages()),
 												videoIdList(formProduct.getVideos()));
 		

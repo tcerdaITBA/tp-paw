@@ -1,27 +1,10 @@
 package tp.paw.khet.webapp.form;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 public class FormComment {
-
-	@Valid
-	private FormUser formUser = new FormUser();
-	
 	@Size(min = 1, max = 512)
 	private String content;
-	
-	public FormUser getFormUser() {
-		return formUser;
-	}
-
-	public String getUserName() {
-		return formUser.getName();
-	}
-
-	public String getUserEmail() {
-		return formUser.getEmail();
-	}
 
 	public String getContent() {
 		return content;
@@ -29,9 +12,5 @@ public class FormComment {
 	
 	public void setContent(String content) {
 		this.content = content;
-	}
-	
-	public void setFormUser(FormUser formUser) {
-		this.formUser = formUser;
 	}
 }
