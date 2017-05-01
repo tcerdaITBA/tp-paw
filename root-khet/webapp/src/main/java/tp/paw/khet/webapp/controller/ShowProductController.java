@@ -18,10 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
-import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.form.FormComment;
 import tp.paw.khet.webapp.form.FormComments;
@@ -40,7 +40,7 @@ public class ShowProductController {
 	private CommentService commentService;
 	
 	@Autowired
-	private UserService userService;
+	private SecurityUserService securityUserService;
 	
 	@Autowired 
 	private EqualsUsernameValidator equalsUsernameValidator;
@@ -77,7 +77,7 @@ public class ShowProductController {
 		if (errors.hasErrors())
 			return getProduct(productId, form);
 		
-		User user = userService.createUserOrRetrieveIfExists(postedForm.getUserName(), postedForm.getUserEmail());
+		User user = securityUserService.getLoggedInUser();
 		
 		errors.pushNestedPath(index.isPresent() ? "childForms[" + index.get() + "]" : "parentForm");
 		

@@ -8,10 +8,11 @@ public interface UserService {
 	 * Creates an {@link User}.
 	 * @param userName - User name of the new User
 	 * @param email - Email address of the new User
-	 * @param
+	 * @param password - User's encrypted password
+	 * @param profilePicture - byte array with User's profile picture
 	 * @return The created {@link User} or null if it's a duplicate
 	 */
-	public User createUser(String userName, String email, String rawPassword);
+	public User createUser(String userName, String email, String password, byte[] profilePicture);
 	
 	/**
 	 * Retrieves an {@link User} given it's email.
@@ -26,4 +27,11 @@ public interface UserService {
 	 * @return User object corresponding to the given id
 	 */
 	public User getUserById(int userId);
+
+	/**
+	 * Retrieves an {@link User} profile picture.
+	 * @param userId - ID of the user's profile picture to retrieve
+	 * @return Byte array corresponding to the user's profile picture
+	 */
+	byte[] getProfilePictureByUserId(int userId);
 }

@@ -16,11 +16,11 @@ public class FormComment {
 	}
 
 	public String getUserName() {
-		return formUser.getUserName();
+		return formUser.getName();
 	}
 
 	public String getUserEmail() {
-		return formUser.getUserEmail();
+		return formUser.getEmail();
 	}
 
 	public String getContent() {

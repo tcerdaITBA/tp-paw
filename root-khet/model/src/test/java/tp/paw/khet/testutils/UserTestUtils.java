@@ -31,4 +31,8 @@ public final class UserTestUtils {
 		assertEquals(expected.getName(), actual.getName());
 		assertEquals(expected.getEmail(), actual.getEmail());
 	}
+	
+	public static byte[] profilePictureFromUser(User dummyUser) {
+		return dummyUser.getEmail().getBytes();
+	}
 }

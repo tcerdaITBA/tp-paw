@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,9 +30,9 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 		http.userDetailsService(userDetailsService).sessionManagement()
 				  .invalidSessionUrl("/login")
 			.and().authorizeRequests()
-				.antMatchers("/login").anonymous()
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/**").authenticated()
+				.antMatchers("/upload").authenticated()
+				.antMatchers(HttpMethod.POST, "/product/**").authenticated()
+				.antMatchers("/**").permitAll()
 			.and().formLogin()
 				.usernameParameter("j_username").passwordParameter("j_password")
 				.defaultSuccessUrl("/", false).loginPage("/login")

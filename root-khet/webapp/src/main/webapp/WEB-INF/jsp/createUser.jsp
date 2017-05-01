@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
@@ -23,11 +23,9 @@
 	
 	<body>
 		<%@include file="includes/navbar.jsp"%>
-		<c:url value="/createUser" var="postPath"/>
 		<spring:message code="userFormLabel.namePlaceholder" var="NamePlaceholder"/>
 		<spring:message code="userFormLabel.emailPlaceholder" var="EmailPlaceholder"/>
 		<spring:message code="userFormLabel.passwordPlaceholder" var="PasswordPlaceholder"/>
-		
 		
 		<div class="container">
 			<div class="row">
@@ -37,7 +35,8 @@
 							<h2><spring:message code="userFormLabel.createUser"/></h2>
 						</div>
 					</div>
-					<form:form modelAttribute="createUserForm" action="${postPath}" method="post" enctype="multipar/form-data"
+					<c:url value="/register" var="postPath" />
+					<form:form modelAttribute="createUserForm" action="${postPath}" method="post" enctype="multipart/form-data"
 								class="form-horizontal">
 						<div class="row">
 							<div class="col-md-9 col-md-offset-3">
@@ -76,7 +75,7 @@
 							<div class="col-md-12 form-group">
 								<form:label path="name" class="col-sm-3 control-label"><spring:message code="userFormLabel.password" /></form:label>
 								<div class="col-sm-9">
-									<form:input type="password" path="password" class="form-control" placeholder="${PasswordPlaceholder}" maxlength="64"/>
+									<form:input type="password" path="password" class="form-control" placeholder="${PasswordPlaceholder}" maxlength="60"/>
 									<form:errors path="password" cssClass="" element="p"/>
 								</div>
 							</div>

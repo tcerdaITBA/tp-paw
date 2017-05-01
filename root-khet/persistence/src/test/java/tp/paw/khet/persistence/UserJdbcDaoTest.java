@@ -38,7 +38,7 @@ public class UserJdbcDaoTest {
 	@Test
 	public void createUserTest() {
 		User expected = dummyUser(0);
-		User actual = userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword());
+		User actual = userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), profilePictureFromUser(expected));
 		
 		assertEqualsUsers(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
@@ -47,11 +47,35 @@ public class UserJdbcDaoTest {
 	@Test
 	public void getUserByEmailTest() {
 		User expected = dummyUser(0);
-		userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword());
+		userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), profilePictureFromUser(expected));
 		
 		User actual = userDao.getUserByEmail(expected.getEmail());
 		
 		assertEqualsUsers(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
 	}
+	
+	@Test
+	public void getUserByIdTest() {
+		User expected = dummyUser(0);
+		userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), profilePictureFromUser(expected));
+		
+		User actual = userDao.getUserById(expected.getUserId());
+		
+		assertEqualsUsers(expected, actual);
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
+	}
+	
+	@Test
+	public void getProfilePictureFromIdTest() {
+		User dummyUser = dummyUser(0);
+		byte[] expected = profilePictureFromUser(dummyUser);
+		userDao.createUser(dummyUser.getName(), dummyUser.getEmail(), dummyUser.getPassword(), expected);
+		
+		byte[] actual = userDao.getProfilePictureByUserId(dummyUser.getUserId());
+		
+		assertArrayEquals(expected, actual);
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
+	}
+	
 }

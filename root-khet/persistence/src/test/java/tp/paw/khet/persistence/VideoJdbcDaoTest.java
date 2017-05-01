@@ -3,11 +3,10 @@ package tp.paw.khet.persistence;
 import static org.junit.Assert.*;
 import static tp.paw.khet.testutils.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.testutils.ProductTestUtils.logoFromProduct;
+import static tp.paw.khet.testutils.UserTestUtils.*;
 import static tp.paw.khet.testutils.VideoTestUtils.*;
 
 import java.util.List;
-
-import static tp.paw.khet.testutils.UserTestUtils.dummyUser;
 
 import javax.sql.DataSource;
 
@@ -104,6 +103,6 @@ public class VideoJdbcDaoTest {
 
 	private void insertDummyUser() {
 		User dummy = dummyUser(0);
-		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword());
+		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
 	}
 }

@@ -19,8 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
-import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.form.FormProduct;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
@@ -36,7 +36,7 @@ public class UploadController {
 	private ProductService productService;
 	
 	@Autowired
-	private UserService userService;
+	private SecurityUserService securityUserService;
 	
 	@Autowired
 	private ImageOrVideoValidator imageOrVideoValidator;
@@ -59,7 +59,7 @@ public class UploadController {
 		if (errors.hasErrors())
 			return formCompletion(formProduct);
 		
-		final User user = userService.createUserOrRetrieveIfExists(formProduct.getUserName(), formProduct.getUserEmail());
+		final User user = securityUserService.getLoggedInUser();
 		
 		equalsUsernameValidator.validate(EqualsUsernameValidator.buildUserNamePair(formProduct.getUserName(), user.getName()), errors);
 		if (errors.hasErrors())

@@ -3,7 +3,7 @@ package tp.paw.khet.persistence;
 import static org.junit.Assert.*;
 import static tp.paw.khet.testutils.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.testutils.ProductTestUtils.logoFromProduct;
-import static tp.paw.khet.testutils.UserTestUtils.dummyUser;
+import static tp.paw.khet.testutils.UserTestUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +141,6 @@ public class CommentJdbcDaoTest {
 
 	private void insertDummyUser() {
 		User dummy = dummyUser(0);
-		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword());
+		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
 	}
 }

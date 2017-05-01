@@ -33,11 +33,12 @@ public class UserJdbcDao implements UserDao {
 	}
 	
 	@Override
-	public User createUser(String userName, String email, String password) {
+	public User createUser(String userName, String email, String password, byte[] profilePicture) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("userName", userName);
 		args.put("email", email);
 		args.put("password", password);
+		args.put("profilePicture", profilePicture);
 
 		try {
 			final Number userId = jdbcInsert.executeAndReturnKey(args);
@@ -66,5 +67,15 @@ public class UserJdbcDao implements UserDao {
 			return null;
 		
 		return user.get(0);
+	}
+
+	@Override
+	public byte[] getProfilePictureByUserId(int userId) {
+		byte[] profilePicture = jdbcTemplate.queryForObject("SELECT profilePicture FROM users WHERE userId = ?", byte[].class, userId);
+		
+		if (profilePicture == null)
+			return new byte[0];
+		
+		return profilePicture;
 	}
 }

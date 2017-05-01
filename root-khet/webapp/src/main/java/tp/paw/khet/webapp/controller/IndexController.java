@@ -30,4 +30,9 @@ public class IndexController {
 	public byte[] deliverLogo(@PathVariable(value = "productId") int productId) {
 		return productService.getLogoByProductId(productId);
 	}
+	
+	@RequestMapping("/login")
+	public ModelAndView login() {
+		return new ModelAndView("login");
+	}
 }

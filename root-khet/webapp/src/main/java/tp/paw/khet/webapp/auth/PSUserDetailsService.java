@@ -9,10 +9,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import tp.paw.khet.User;
 import tp.paw.khet.service.UserService;
 
+@Component
 public class PSUserDetailsService implements UserDetailsService {
 
 	@Autowired

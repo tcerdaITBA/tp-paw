@@ -122,7 +122,7 @@ public class ProductJdbcDaoTest {
 		
 	private void insertDummyUser() {
 		User dummy = dummyUser(0);
-		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword());
+		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
 	}
 	
 	private Product insertProduct(Product product, int creatorId) {
