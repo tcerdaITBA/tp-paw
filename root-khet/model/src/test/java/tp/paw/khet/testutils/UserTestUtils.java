@@ -13,7 +13,7 @@ public final class UserTestUtils {
 	}
 	
 	public static User dummyUser(int id) {
-		return new User(id, "Tomas " + id, "tcerda" + id + "@itba.edu.ar");
+		return new User(id, "Tomas " + id, "tcerda" + id + "@itba.edu.ar", "secreto" + id);
 	}
 	
 	public static List<User> dummyUserList(int size, int initialId) {

@@ -33,14 +33,15 @@ public class UserJdbcDao implements UserDao {
 	}
 	
 	@Override
-	public User createUser(String userName, String email) {
+	public User createUser(String userName, String email, String password) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("userName", userName);
 		args.put("email", email);
+		args.put("password", password);
 
 		try {
 			final Number userId = jdbcInsert.executeAndReturnKey(args);
-			return new User(userId.intValue(), userName, email);
+			return new User(userId.intValue(), userName, email, password);
 		} 
 		catch (DuplicateKeyException e) {
 			return null;

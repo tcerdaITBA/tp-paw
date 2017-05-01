@@ -104,6 +104,6 @@ public class VideoJdbcDaoTest {
 
 	private void insertDummyUser() {
 		User dummy = dummyUser(0);
-		userDao.createUser(dummy.getName(), dummy.getEmail());
+		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword());
 	}
 }

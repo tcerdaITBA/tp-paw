@@ -8,9 +8,10 @@ public interface UserDao {
 	 * Creates an {@link User} inserting it into the database.
 	 * @param userName - User name of the new User
 	 * @param email - Email address of the new User
+	 * @param password - User's crypted password.
 	 * @return The created {@link User} or null if it's a duplicate
 	 */
-	public User createUser(String userName, String email);
+	public User createUser(String userName, String email, String password);
 
 	/**
 	 * Retrieves an {@link User} given it's email.
@@ -25,4 +26,5 @@ public interface UserDao {
 	 * @return The corresponding {@link User} or null if it doesn't exist
 	 */
 	public User getUserById(int userId);
+
 }
