@@ -1,6 +1,7 @@
 package tp.paw.khet.service;
 
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 
 public interface UserService {
 	
@@ -11,8 +12,9 @@ public interface UserService {
 	 * @param password - User's encrypted password
 	 * @param profilePicture - byte array with User's profile picture
 	 * @return The created {@link User} or null if it's a duplicate
+	 * @throws DuplicateEmailException - if user with given exception already exists
 	 */
-	public User createUser(String userName, String email, String password, byte[] profilePicture);
+	public User createUser(String userName, String email, String password, byte[] profilePicture) throws DuplicateEmailException;
 	
 	/**
 	 * Retrieves an {@link User} given it's email.

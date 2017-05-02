@@ -25,6 +25,7 @@ import org.springframework.test.jdbc.JdbcTestUtils;
 import tp.paw.khet.Comment;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
@@ -139,7 +140,7 @@ public class CommentJdbcDaoTest {
 				dummy.getWebsite(), dummy.getCategory().name(), dummy.getUploadDate(), logoFromProduct(dummy), 0);
 	}
 
-	private void insertDummyUser() {
+	private void insertDummyUser() throws DuplicateEmailException {
 		User dummy = dummyUser(0);
 		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
 	}

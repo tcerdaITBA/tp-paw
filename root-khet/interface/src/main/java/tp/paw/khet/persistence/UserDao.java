@@ -1,6 +1,7 @@
 package tp.paw.khet.persistence;
 
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 
 public interface UserDao {
 	
@@ -11,8 +12,9 @@ public interface UserDao {
 	 * @param password - User's crypted password.
 	 * @param profilePicture - Byte array with user's profile picture
 	 * @return The created user or null if it's a duplicate
+	 * @throws DuplicateEmailException - if user with given email aready exists
 	 */
-	public User createUser(String userName, String email, String password, byte[] profilePicture);
+	public User createUser(String userName, String email, String password, byte[] profilePicture) throws DuplicateEmailException ;
 
 	/**
 	 * Retrieves an {@link User} given it's email.

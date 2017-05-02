@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.persistence.UserDao;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,7 +27,7 @@ public class UserServiceImplTest {
 	private UserServiceImpl userService;
 	
 	@Test
-	public void createUserTest() {
+	public void createUserTest() throws DuplicateEmailException {
 		User expected = dummyUser(0);
 		byte[] picture = profilePictureFromUser(expected);
 		when(userDaoMock.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), picture)).thenReturn(expected).thenReturn(null);

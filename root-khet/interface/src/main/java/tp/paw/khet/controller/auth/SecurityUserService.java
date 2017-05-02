@@ -1,6 +1,7 @@
 package tp.paw.khet.controller.auth;
 
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 
 public interface SecurityUserService {
 	/**
@@ -17,6 +18,7 @@ public interface SecurityUserService {
 	 * @param password - User's raw password
 	 * @param profilePicture - User's profile picture
 	 * @return The new created user
+	 * @throws DuplicateEmailException - if user with given email already exists
 	 */
-	public User registerUser(String name, String email, String password, byte[] profilePicture);
+	public User registerUser(String name, String email, String password, byte[] profilePicture) throws DuplicateEmailException;
 }

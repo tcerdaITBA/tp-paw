@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
@@ -46,8 +47,13 @@ public class ShowProductController {
 		return securityUserService.getLoggedInUser();
 	}
 	
+	@ModelAttribute("commentsForm")
+	public FormComments formComments() {
+		return new FormComments();
+	}
+	
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
-	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("commentsForm") FormComments form) 
+	public ModelAndView getProduct(@PathVariable final int productId) 
 	throws ResourceNotFoundException {
 					
 		Product product = productService.getFullProductById(productId);
@@ -72,12 +78,13 @@ public class ShowProductController {
 							   @RequestParam(value = "parentid", required = false) Optional<Integer> parentId,
 							   @RequestParam(value = "index", required = false) Optional<Integer> index,
 							   @Valid @ModelAttribute("commentsForm") FormComments form, 
-							   BindingResult errors) {
+							   BindingResult errors,
+							   RedirectAttributes attr) {
 		
 		FormComment postedForm = index.isPresent() ? form.getChildForm(index.get()) : form.getParentForm();
 		
 		if (errors.hasErrors())
-			return getProduct(productId, form);
+			return errorState(productId, form, errors, attr);
 		
 		if (parentId.isPresent())
 			commentService.createComment(postedForm.getContent(), parentId.get(), productId, loggedUser.getUserId());
@@ -91,5 +98,12 @@ public class ShowProductController {
 	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) {
 		return productImageService.getImageByIds(imageId, productId).getData();
-	}	
+	}
+	
+	private ModelAndView errorState(int productId, FormComments form, final BindingResult errors, RedirectAttributes attr) {
+		attr.addFlashAttribute("org.springframework.validation.BindingResult.commentsForm", errors);
+		attr.addFlashAttribute("commentsForm", form);
+		return new ModelAndView("redirect:/product/" + productId);		
+	}
+
 }

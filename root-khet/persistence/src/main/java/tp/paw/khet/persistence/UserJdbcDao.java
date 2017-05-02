@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.persistence.rowmapper.UserRowMapper;
 
 @Repository
@@ -33,7 +34,7 @@ public class UserJdbcDao implements UserDao {
 	}
 	
 	@Override
-	public User createUser(String userName, String email, String password, byte[] profilePicture) {
+	public User createUser(String userName, String email, String password, byte[] profilePicture) throws DuplicateEmailException {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("userName", userName);
 		args.put("email", email);
@@ -45,7 +46,7 @@ public class UserJdbcDao implements UserDao {
 			return new User(userId.intValue(), userName, email, password);
 		} 
 		catch (DuplicateKeyException e) {
-			return null;
+			throw new DuplicateEmailException("There already exists an user with email: " + email);
 		}
 	}
 	

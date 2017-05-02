@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
@@ -45,8 +46,13 @@ public class UploadController {
 		return securityUserService.getLoggedInUser();
 	}
 	
+	@ModelAttribute("uploadForm")
+	public FormProduct uploadForm() {
+		return new FormProduct();
+	}
+	
 	@RequestMapping("/upload")
-	public ModelAndView formCompletion(@ModelAttribute("uploadForm") final FormProduct product){
+	public ModelAndView formCompletion(){
 		ModelAndView mav = new ModelAndView("upload");
 		mav.addObject("categories", Category.values());
 		return mav;
@@ -54,11 +60,13 @@ public class UploadController {
 	
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct, final BindingResult errors,
-							   @ModelAttribute("loggedUser") final User loggedUser) throws IOException {
+							   @ModelAttribute("loggedUser") final User loggedUser,
+							   RedirectAttributes attr) throws IOException {
 		
 		imageOrVideoValidator.validate(formProduct, errors);
+		
 		if (errors.hasErrors())
-			return formCompletion(formProduct);
+			return errorState(formProduct, errors, attr);
 		
 		final Product product =  productService.createProduct(formProduct.getName(), 
 												formProduct.getDescription(), formProduct.getShortDescription(),
@@ -95,6 +103,12 @@ public class UploadController {
 		}
 		
 		return byteList;
+	}
+	
+	private ModelAndView errorState(FormProduct form, final BindingResult errors, RedirectAttributes attr) {
+		attr.addFlashAttribute("org.springframework.validation.BindingResult.uploadForm", errors);
+		attr.addFlashAttribute("uploadForm", form);
+		return new ModelAndView("redirect:/upload");		
 	}
 	
 }

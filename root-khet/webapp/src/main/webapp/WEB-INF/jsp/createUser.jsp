@@ -51,6 +51,7 @@
 										<div class="remove-btn glyphicon glyphicon-remove"></div>
 									</div>
 								</form:label>
+								<form:errors path="profilePicture" cssClass="" element="p" />
 							</div>
 						</div>
 						<div class="row">
