@@ -41,14 +41,14 @@ public class RegisterController {
 	public ModelAndView register(@ModelAttribute("createUserForm") @Valid FormUser createUserForm, 
 			final BindingResult errors, RedirectAttributes attr) throws IOException {
 
-		if (errors.hasErrors()) {
+		if (errors.hasErrors())
 			return errorState(createUserForm, errors, attr);
-		}
 		
 		try {
 			securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), createUserForm.getPassword(), createUserForm.getProfilePicture().getBytes());
 		} catch (DuplicateEmailException e) {
 			LOGGER.warn("Duplicate email exception: {}", e.getMessage());
+			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}
 		
