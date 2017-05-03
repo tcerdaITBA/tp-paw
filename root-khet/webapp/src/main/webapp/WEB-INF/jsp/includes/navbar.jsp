@@ -1,4 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -24,8 +26,12 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<p class="navbar-btn">
+					<sec:authorize access="isAnonymous()">
+						<a href="<c:url value="/login" />" class="ps-btn btn upload-btn"><spring:message code="navBar.loginButton" /></a>				
+					</sec:authorize>
 						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
 					</p>
+				
 				</li>
 			</ul>
 		</div>
