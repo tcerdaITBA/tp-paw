@@ -30,6 +30,9 @@
 						<a href="<c:url value="/login" />" class="ps-btn btn upload-btn"><spring:message code="navBar.loginButton" /></a>
 						<a href="<c:url value="/register" />" class="ps-btn btn upload-btn"><spring:message code="navBar.registerButton" /></a>								
 					</sec:authorize>
+					<sec:authorize access="isAuthenticated()">
+						<a href="<c:url value="/logout" />" class="ps-btn btn upload-btn"><spring:message code="navBar.logoutButton" /></a>
+					</sec:authorize>
 						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
 					</p>
 				
