@@ -27,7 +27,8 @@
 				<li>
 					<p class="navbar-btn">
 					<sec:authorize access="isAnonymous()">
-						<a href="<c:url value="/login" />" class="ps-btn btn upload-btn"><spring:message code="navBar.loginButton" /></a>				
+						<a href="<c:url value="/login" />" class="ps-btn btn upload-btn"><spring:message code="navBar.loginButton" /></a>
+						<a href="<c:url value="/register" />" class="ps-btn btn upload-btn"><spring:message code="navBar.registerButton" /></a>								
 					</sec:authorize>
 						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
 					</p>
