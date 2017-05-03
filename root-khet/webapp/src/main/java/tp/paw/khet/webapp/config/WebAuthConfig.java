@@ -28,9 +28,10 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.userDetailsService(userDetailsService).sessionManagement()
-				  .invalidSessionUrl("/login")
+				  .invalidSessionUrl("/")
 			.and().authorizeRequests()
 				.antMatchers("/upload").authenticated()
+				.antMatchers("/login").anonymous()
 				.antMatchers(HttpMethod.POST, "/product/**").authenticated()
 				.antMatchers("/**").permitAll()
 			.and().formLogin()
@@ -42,7 +43,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 				.key("mysupersecretkeythatnobodyknowsabout")
 				.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
 			.and().logout()
-				.logoutUrl("/logout").logoutSuccessUrl("/login")
+				.logoutUrl("/logout").logoutSuccessUrl("/")
 			.and().exceptionHandling()
 				.accessDeniedPage("/403")
 			.and().csrf().disable();
