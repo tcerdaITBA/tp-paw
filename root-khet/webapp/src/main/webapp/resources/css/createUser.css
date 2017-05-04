@@ -8,3 +8,7 @@
 	height: 200px !important;
 	margin: 15px auto;
 }
+
+.error-centered {
+	text-align: center;
+} 

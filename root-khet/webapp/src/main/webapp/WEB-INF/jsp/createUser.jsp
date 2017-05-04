@@ -31,6 +31,8 @@
 		<spring:message code="userFormLabel.namePlaceholder" var="NamePlaceholder"/>
 		<spring:message code="userFormLabel.emailPlaceholder" var="EmailPlaceholder"/>
 		<spring:message code="userFormLabel.passwordPlaceholder" var="PasswordPlaceholder"/>
+		<spring:message code="userFormLabel.passwordConfirmPlaceholder" var="PasswordConfirmPlaceholder"/>
+		
 		
 		<div class="container">
 			<div class="row">
@@ -56,7 +58,7 @@
 										<div class="remove-btn glyphicon glyphicon-remove"></div>
 									</div>
 								</form:label>
-								<form:errors path="profilePicture" cssClass="" element="p" />
+								<form:errors path="profilePicture" cssClass="" element="p" class="error-centered"/>
 							</div>
 						</div>
 						<div class="row">
@@ -83,6 +85,15 @@
 								<div class="col-sm-9">
 									<form:input type="password" path="password" class="form-control" placeholder="${PasswordPlaceholder}" maxlength="60"/>
 									<form:errors path="password" cssClass="" element="p"/>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<form:label path="name" class="col-sm-3 control-label"><spring:message code="userFormLabel.passwordConfirm" /></form:label>
+								<div class="col-sm-9">
+									<form:input type="password" path="passwordConf" class="form-control" placeholder="${PasswordConfirmPlaceholder}" maxlength="60"/>
+									<form:errors path="passwordConf" cssClass="" element="p"/>
 								</div>
 							</div>
 						</div>
