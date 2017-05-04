@@ -8,17 +8,22 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><spring:message code="default.title" /></title>
-		<link
-					href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-					rel="stylesheet"
-					integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-					crossorigin="anonymous">
+		<title><spring:message code="register.title" /></title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+		
 		<link href="<c:url value="/resources/css/login.css"/>" rel="stylesheet">
-		<lin"src/main/webapp/WEB-INF/jsp/upload.jsp"k href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/dropzone.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/css/createUser.css"/>" rel="stylesheet">
+		
 	</head>
 	
 	<body>
@@ -39,7 +44,7 @@
 					<form:form modelAttribute="createUserForm" action="${postPath}" method="post" enctype="multipart/form-data"
 								class="form-horizontal">
 						<div class="row">
-							<div class="col-md-9 col-md-offset-3">
+							<div class="col-md-9 col-md-offset-3 profilePicture-form">
 								<form:input class="image-input" type="file" path="profilePicture" accept="image/*"/>
 								<form:label id="profilePicture-label" path="profilePicture" style="text-align:center;">
 									<div class="preview-container">
