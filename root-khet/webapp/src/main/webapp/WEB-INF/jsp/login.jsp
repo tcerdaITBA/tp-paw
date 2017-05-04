@@ -38,30 +38,31 @@
 						<form action="${loginPath}" method="post" enctype="application/x-www-form-urlencoded" 
 								class="form-horizontal">
 						<div class="row">
-							<div class="col-md-offset-3">		
+							<div class="col-md-12">
+							<div class="col-md-offset-3 col-md-6">		
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<div class="col-md-2">
+										<div class="col-md-3">
 		        							<label for="j_username"><spring:message code="loginLabel.email"/></label>
 										</div>
-										<div class="col-md-5">
+										<div class="col-md-9">
 											<input type="text" name="j_username" id="j_username" class="form-control"/>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<div class="col-md-2">
+										<div class="col-md-3">
 	        								<label for="password"><spring:message code="loginLabel.password"/></label>
 	        							</div>
-	        							<div class="col-md-5">
+	        							<div class="col-md-9">
 											<input type="password" name="j_password" id="j_password" class="form-control"/>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<div class="col-md-2">
+										<div class="col-md-3">
 	        								<label for="j_rememberme"><spring:message code="loginLabel.rememberMe"/></label>
 	        							</div>
 	        							<div class="col-md-1">
@@ -71,11 +72,21 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<div class="col-sm-9 col-sm-offset-3">
+										<div class="centered">
 											<input class="ps-btn-red btn submit-btn" type="submit" value="Sign In" />
 										</div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-md-12 signUpLink">
+										<div class="centered">
+											<a href="<c:url value="/register"/>">
+												<spring:message code="login.goToRegister"/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
 							</div>
 						</div>
 						</form>										 

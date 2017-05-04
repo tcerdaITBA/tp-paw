@@ -101,7 +101,7 @@
 						<div class="row row-centered">
 							<div class="col-md-12">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input class="ps-btn-red btn submit-btn" type="submit" value="Post" />
+									<input class="ps-btn-red btn submit-btn" type="submit" value="Sign Up" />
 								</div>
 							</div>
 						</div>
