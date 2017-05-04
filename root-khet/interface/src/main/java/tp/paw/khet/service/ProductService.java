@@ -31,12 +31,47 @@ public interface ProductService {
 	public List<Product> getPlainProducts();
 	
 	/**
+     * Lists a range of existing {@link Product} as a plain product: ID, name, short description and category.
+     * Products are ordered by uploadDate, the range given is [page * pageSize, (page + 1) * pageSize] 
+     * @param page - index of the page to be retrieved
+     * @param pageSize - amount of products per page
+     * @return {@link List} of the products in the given range. 
+     */
+	public List<Product> getPlainProductsPaged(int page, int pageSize);
+	
+	/**
 	 * Lists plain products belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
 	 * @return {@link List} of the products belonging to the category. 
 	 * 		   Could be empty if there are no products registered in given category.
 	 */
 	public List<Product> getPlainProductsByCategory(Category category);
+	
+	/**
+	 * Lists a range of plain products belonging to certain {@link Category}.
+	 * Products are ordered by uploadDate, the range given is [page * pageSize, (page + 1) * pageSize] 
+	 * @param category Category the products belong to
+	 * @param page - index of the page to be retrieved
+	 * @param pageSize - amount of products per page
+	 * @return {@link List} of the products belonging to the category. 
+     *         Could be empty if there are no products registered in given category.
+	 */
+	public List<Product> getPlainProductsByCategoryPaged(Category category, int page, int pageSize);
+ 	
+	/**
+	 * Returns the amount of pages available for a given page size.
+	 * @param pageSize - amount of products per page
+	 * @return the maximum page number, which is the total number of pages for the given size.
+	 */
+	public int getMaxProductPageWithSize(int pageSize);
+	
+	   /**
+     * Returns the amount of pages available for a given page size with products of a given category.
+     * @param category - the category the products belong to.
+     * @param pageSize - amount of products per page
+     * @return the maximum page number, which is the total number of pages for the given size.
+     */
+    public int getMaxProductPageInCategoryWithSize(Category category, int pageSize);
 	
 	/**
 	 * Retrieves a {@link Product} with no null attributes.
