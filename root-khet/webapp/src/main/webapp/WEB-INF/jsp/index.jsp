@@ -24,49 +24,55 @@
 <body>
 	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div>
-					<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
-					<c:choose>
-					 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
-					 <c:otherwise>
-					 <h2><spring:message code="category.${activeURL}"/></h2>
-					 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
-					 </c:otherwise>
-					 </c:choose>					
+	<div class="row title-row">
+		<div class="col-md-8 col-md-offset-3">
+			<div class="row content-title">
+				<div class="col-md-12">
+					<div>
+						<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
+						<c:choose>
+						 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
+						 <c:otherwise>
+						 <h2><spring:message code="category.${activeURL}"/></h2>
+						 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
+						 </c:otherwise>
+						 </c:choose>					
+					</div>
 				</div>
 			</div>
-		</div>
 		
-		<div class="row">
-			<div class="col-md-2">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
 				<div class="row">
-					<ul class="nav nav-pills nav-stacked categoryBox">
-						<c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],'/')}"/>
-						<li role="presentation" class="${active ? 'active' : 'none'}">
-								<a href="<c:url value="/"/>">
-								<div class="col-md-5"></div>
-								<spring:message code="category.all"/></a>
-						</li>
-					<c:forEach items="${categories}" var="category">
-				     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
-						<li role="presentation" class="${active ? 'active' : 'none'}">					
-							<a href="<c:url value="/category/${category.lowerName}"/>">
-							<div class="col-md-5">
-								<img class="icon" src="<c:url value="/resources/img/${category.lowerName}.svg"/>"/>
-							</div>
-								<spring:message code="category.${category.lowerName}"/>
-							</a>
-						</li>
-					</c:forEach>
-					</ul>
-				</div>
+					<div class="col-md-9">
+						<div class="row">
+							<ul class="nav nav-pills nav-stacked categoryBox">
+								<c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],'/')}"/>
+								<li role="presentation" class="${active ? 'active' : 'none'}">
+										<a href="<c:url value="/"/>">
+										<div class="col-md-5"></div>
+										<spring:message code="category.all"/></a>
+								</li>
+							<c:forEach items="${categories}" var="category">
+						     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
+								<li role="presentation" class="${active ? 'active' : 'none'}">					
+									<a href="<c:url value="/category/${category.lowerName}"/>">
+									<div class="col-md-5">
+										<img class="icon" src="<c:url value="/resources/img/${category.lowerName}.svg"/>"/>
+									</div>
+										<spring:message code="category.${category.lowerName}"/>
+									</a>
+								</li>
+							</c:forEach>
+							</ul>
+						</div>
+					</div>
 			</div>
-			
-			
-			<div class="col-md-6 col-md-offset-1">
-				<div class="row">
+		</div>	
+	
+		<div class="col-md-8">
 					<div class="col-md-12 product-list">
 					<c:choose>
 						<c:when test="${products.isEmpty()}">
@@ -109,8 +115,9 @@
 
 					</div>
 				</div>
-			</div>
-		</div>
+				
+	</div>
+	
 	</div>
 	<%@include file="includes/footer.jsp"%>
 
