@@ -60,12 +60,12 @@
 												<div class="col-md-9 product-info-box">
 													<div class="row col-md-12">
 														<div class="row product-name">
-															<div class="col-md-12">
+															<div class="col-md-12 info-box-field">
 																<p><c:out value="${product.name}"/></p>
 															</div>
 														</div>
 														<div class="row product-short-description">
-															<div class="col-md-12">
+															<div class="col-md-12 info-box-field">
 																<p><c:out value="${product.shortDescription}"/></p>
 															</div>
 														</div>
@@ -74,17 +74,17 @@
 																<p><a href="<c:url value="/category/${product.category.lowerName}"/>"><spring:message code="category.${product.category.lowerName}"/></a></p>
 															</div>
 														</div>
+															<c:if test="${not empty product.website}">
+																<div class="website-btn-row">
+																	<a href="${product.website}" class="ps-btn btn website-btn" target="_blank">
+																		<span class="glyphicon glyphicon-globe"></span>
+																		<spring:message code="productPage.visitWebsite"/>
+																	</a>
+																</div>
+															</c:if>
 													</div>
 												</div>
 											</div>
-											<c:if test="${not empty product.website}">
-												<div class="row col-md-12 website-btn-row">
-													<a href="${product.website}" class="ps-btn btn website-btn">
-														<span class="glyphicon glyphicon-globe"></span>
-														<spring:message code="productPage.visitWebsite"/>
-													</a>
-												</div>
-											</c:if>
 										</div>
 										
 										<div class="col-md-4 col-md-offset-1 creator-item highlighted">
@@ -134,7 +134,7 @@
 											<p><c:out value="${loggedUser.name}" /></p>
 											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
 												<div class="form-group">
-													<form:textarea type="text" class="form-control" rows="1" path="parentForm.content" placeholder="${ContentPlaceholder}"/>
+													<form:textarea type="text" class="form-control" rows="3" path="parentForm.content" placeholder="${ContentPlaceholder}" maxlength="512"/>
 													<form:errors path="parentForm.content" element="p" />
 												</div>
 												<div class="btn-place">
@@ -157,10 +157,12 @@
 																<span class="glyphicon glyphicon-user"></span>
 																<c:out value="${commentFamily.parentComment.author.name}" />
 															</p>
-															<p>
+													
+															<a class="" href="mailto:<c:out value="${commentFamily.parentComment.author.email}"/>">
 																<span class="glyphicon glyphicon-envelope"></span>
-																<c:out value="${commentFamily.parentComment.author.email}"/>
-															</p>
+																<p><c:out value="${commentFamily.parentComment.author.email}"/></p>
+															</a>
+															
 														</div>
 													</div>
 													<div class="row">
@@ -193,10 +195,10 @@
 																		<span class="glyphicon glyphicon-user"></span>
 																		<c:out value="${child.author.name}" />
 																	</p>
-																	<p>
+																	<a class="" href="mailto:<c:out value="${child.author.email}"/>">
 																		<span class="glyphicon glyphicon-envelope"></span>
-																		<c:out value="${child.author.email}" />
-																	</p>
+																		<p><c:out value="${child.author.email}"/></p>
+																	</a>
 																</div>
 															</div>
 															<div class="row">
@@ -222,7 +224,7 @@
 															</p>
 															<p><c:out value="${loggedUser.name}" /></p>
 															<div class="form-group comment-form-fields">
-																<form:textarea type="text" class="form-control" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
+																<form:textarea type="text" class="form-control" rows="3" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"  maxlength="512"/>
 																<form:errors path="childForms[${status.index}].content" element="p" />
 															</div>
 															<div class="btn-place">

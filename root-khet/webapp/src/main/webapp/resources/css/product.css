@@ -122,7 +122,7 @@
 }
 
 .website-btn-row {
-	text-align: center;
+	text-align: end;
 }
 
 .website-btn {
@@ -194,6 +194,7 @@
 .reply-to {
 	margin-bottom: -5px;
 	margin-top: 5px;
+	padding-top: 20px
 }
 
 .join-discussion {
@@ -205,4 +206,8 @@
 
 .comment-form-fields p { /* errors */
 	color: #bc0f0f;
+}
+
+.info-box-field {
+	padding-left: 0;
 }
