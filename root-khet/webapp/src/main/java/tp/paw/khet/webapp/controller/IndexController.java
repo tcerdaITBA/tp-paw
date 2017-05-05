@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 
 @Controller
 public class IndexController {
@@ -23,12 +24,15 @@ public class IndexController {
     
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-	    // TODO: página negativa, página inválida
+	    int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);
+	    if (page < 1 || page > maxPage)
+	        throw new ResourceNotFoundException();
+	    
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
 		mav.addObject("categories", Category.values());
 		mav.addObject("currentPage", page);
-		mav.addObject("totalPages", productService.getMaxProductPageWithSize(PAGE_SIZE));
+		mav.addObject("totalPages", maxPage);
 		return mav;
 	}
 	

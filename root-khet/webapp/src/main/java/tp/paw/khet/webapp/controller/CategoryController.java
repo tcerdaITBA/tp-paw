@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import tp.paw.khet.Category;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.utils.CaseInsensitiveConverter;
 
 @Controller
@@ -24,11 +25,15 @@ public class CategoryController {
 	@RequestMapping(value = "/category/{category}")
 	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
 	        @PathVariable(value = "category") Category category) {
+	     int maxPage = productService.getMaxProductPageInCategoryWithSize(category, PAGE_SIZE);
+         if (page < 1 || page > maxPage)
+            throw new ResourceNotFoundException();
+	    
 		 ModelAndView mav = new ModelAndView("index");
 		 mav.addObject("categories", Category.values());
 	     mav.addObject("products", productService.getPlainProductsByCategoryPaged(category, page, PAGE_SIZE));
 	     mav.addObject("currentPage", page);
-	     mav.addObject("totalPages", productService.getMaxProductPageInCategoryWithSize(category, PAGE_SIZE));
+	     mav.addObject("totalPages", maxPage);
 	     return mav;
 	}
 
