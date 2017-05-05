@@ -33,7 +33,10 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>tp.paw.khet.webapp.config.WebConfig</param-value>
+		<param-value>
+		tp.paw.khet.webapp.config.WebConfig,
+		tp.paw.khet.webapp.config.WebAuthConfig,
+		</param-value>
 	</context-param>
 	
 	<listener>
@@ -64,4 +67,15 @@
         	<page-encoding>UTF-8</page-encoding>
     	</jsp-property-group>
 	</jsp-config>
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>	
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<servlet-name>dispatcher</servlet-name>
+	</filter-mapping>
+	
 </web-app>

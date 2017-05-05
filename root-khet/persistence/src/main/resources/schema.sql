@@ -1,7 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
     userId SERIAL PRIMARY KEY,
     userName   VARCHAR(64) NOT NULL,
-    email VARCHAR(256) UNIQUE NOT NULL
+    email VARCHAR(256) UNIQUE NOT NULL,
+    password CHAR(60) NOT NULL,
+    profilePicture BYTEA NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS products (

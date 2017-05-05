@@ -30,6 +30,17 @@ public interface ProductDao {
 	 */
 	public List<Product> getPlainProducts();
 	
+	 /**
+     * Lists a range of plain products.
+     * Products are ordered by uploadDate.
+     * @param offset - Offset in the list of all products.
+     * @param length - Length of the range to be retrieved
+     * @return {@link List} of the products in the given range. 
+     *         Could be empty if offset is greater than the total number of products available.
+     *         The amount of products retrieved could be smaller than the length given.
+     */
+    public List<Product> getPlainProductsRange(int offset, int length);
+	
 	/**
 	 * Lists plain products belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
@@ -37,7 +48,33 @@ public interface ProductDao {
 	 * 		   Could be empty if there are no products registered in given category.
 	 */
 	public List<Product> getPlainProductsByCategory(String category);
+	
+	 /**
+     * Lists a range of plain products belonging to certain {@link Category}.
+     * Products are ordered by uploadDate.
+     * @param offset - Offset in the list of all products.
+     * @param category - Category the products belong to
+     * @param length - Length of the range to be retrieved
+     * @return {@link List} of the products in the given range. 
+     *         Could be empty if offset is greater than the total number of products belonging
+     *         to the given {@link Category}.
+     *         The amount of products retrieved could be smaller than the length given.
+     */
+    public List<Product> getPlainProductsRangeByCategory(String category, int offset, int length);
 
+    /**
+     * Retrieves the total amount of products registered.
+     * @return The number of products.
+     */
+    public int getTotalProducts();
+    
+    /**
+     * Retrieves the total amount of products registered for a given {@link Category}.
+     * @param category - Category the products belong to.
+     * @return The number of products in the given category.
+     */
+    public int getTotalProductsInCategory(Category category);
+    
 	/**
 	 * Retrieves a {@link Product.ProductBuilder} with every attribute set except for 
 	 * the familyComments and videos.
@@ -59,4 +96,5 @@ public interface ProductDao {
 	 * @return byte array containing the image bytes
 	 */
 	public byte[] getLogoByProductId(int productId);
+	
 }

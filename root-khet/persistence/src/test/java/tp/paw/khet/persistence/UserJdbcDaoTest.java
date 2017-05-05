@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
@@ -36,22 +37,46 @@ public class UserJdbcDaoTest {
 	}
 
 	@Test
-	public void createUserTest() {
+	public void createUserTest() throws DuplicateEmailException {
 		User expected = dummyUser(0);
-		User actual = userDao.createUser(expected.getName(), expected.getEmail());
+		User actual = userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), profilePictureFromUser(expected));
 		
 		assertEqualsUsers(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
 	}
 	
 	@Test
-	public void getUserByEmailTest() {
+	public void getUserByEmailTest() throws DuplicateEmailException {
 		User expected = dummyUser(0);
-		userDao.createUser(expected.getName(), expected.getEmail());
+		userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), profilePictureFromUser(expected));
 		
 		User actual = userDao.getUserByEmail(expected.getEmail());
 		
 		assertEqualsUsers(expected, actual);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
 	}
+	
+	@Test
+	public void getUserByIdTest() throws DuplicateEmailException {
+		User expected = dummyUser(0);
+		userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), profilePictureFromUser(expected));
+		
+		User actual = userDao.getUserById(expected.getUserId());
+		
+		assertEqualsUsers(expected, actual);
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
+	}
+	
+	@Test
+	public void getProfilePictureFromIdTest() throws DuplicateEmailException {
+		User dummyUser = dummyUser(0);
+		byte[] expected = profilePictureFromUser(dummyUser);
+		userDao.createUser(dummyUser.getName(), dummyUser.getEmail(), dummyUser.getPassword(), expected);
+		
+		byte[] actual = userDao.getProfilePictureByUserId(dummyUser.getUserId());
+		
+		assertArrayEquals(expected, actual);
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "users"));
+	}
+	
 }

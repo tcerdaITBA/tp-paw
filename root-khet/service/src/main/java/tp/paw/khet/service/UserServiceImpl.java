@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tp.paw.khet.User;
+import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.persistence.UserDao;
 
 @Service
@@ -13,8 +14,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	public User createUser(String userName, String email) {
-		return userDao.createUser(userName, email.toLowerCase());
+	public User createUser(String userName, String email, String password, byte[] profilePicture) throws DuplicateEmailException {
+		return userDao.createUser(userName, email.toLowerCase(), password, profilePicture);
 	}
 
 	@Override
@@ -26,17 +27,9 @@ public class UserServiceImpl implements UserService {
 	public User getUserById(int userId) {
 		return userDao.getUserById(userId);
 	}
-
+	
 	@Override
-	public User createUserOrRetrieveIfExists(String userName, String email) {
-		User user = createUser(userName, email);
-		
-		if (user == null)
-			user = getUserByEmail(email);
-		
-		if (user == null)
-			throw new IllegalStateException("User with email " + email + " must exist");
-		
-		return user;
+	public byte[] getProfilePictureByUserId(int userId) {
+		return userDao.getProfilePictureByUserId(userId);
 	}
 }

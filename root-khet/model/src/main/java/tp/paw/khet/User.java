@@ -4,11 +4,13 @@ public class User {
 	private final int userId;
 	private final String name;
 	private final String email;
+	private final String password;
 	
-	public User(int userId, String name, String email) {
+	public User(int userId, String name, String email, String password) {
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
+		this.password = password;
 	}
 	
 	public int getUserId() {
@@ -23,6 +25,10 @@ public class User {
 		return email;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -32,7 +38,7 @@ public class User {
 		
 		User other = (User) obj;
 		
-		return userId == other.userId;
+		return userId == other.userId || email.equals(other.email);
 	}
 	
 	@Override
