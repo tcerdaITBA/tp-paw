@@ -47,7 +47,7 @@ public class IndexController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/user/{userId}/profilePicture", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+	@RequestMapping(value = "/profile/{userId}/profilePicture", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] deliverProfilePicture(@PathVariable(value = "userId") int userId) {
 		return userService.getProfilePictureByUserId(userId);
 	}
@@ -56,4 +56,12 @@ public class IndexController {
 	public ModelAndView login() {
 		return new ModelAndView("login");
 	}
+	
+	@RequestMapping("/profile/{userId}")
+	public ModelAndView user() {
+		ModelAndView mav = new ModelAndView("profile");
+		mav.addObject("user", loggedUser());
+		return mav;
+	}
+	
 }

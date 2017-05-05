@@ -32,8 +32,8 @@
 						<a href="<c:url value="/register" />" class="ps-btn btn upload-btn"><spring:message code="navBar.registerButton" /></a>								
 					</sec:authorize>
 					<sec:authorize access="isAuthenticated()">
-						<a href="<c:url value="/" />" class="user-btn">
-						<img class="user-nav-img" src="<c:url value="/user/${loggedUser.userId}/profilePicture"/>">
+						<a href="<c:url value="/profile/${loggedUser.userId}" />" class="user-btn">
+						<img class="user-nav-img" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
 						<span><c:out value="${loggedUser.name}"/></span>
 						</a>
 						<a href="<c:url value="/logout" />" class="ps-btn btn upload-btn"><spring:message code="navBar.logoutButton" /></a>
