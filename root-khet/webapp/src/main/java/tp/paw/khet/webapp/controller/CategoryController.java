@@ -6,6 +6,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import tp.paw.khet.Category;
 import tp.paw.khet.service.ProductService;
@@ -17,12 +18,18 @@ public class CategoryController {
 	@Autowired
     private ProductService productService;
 	
+	//TODO: sacar
+    private static int PAGE_SIZE = 1; 
+	
 	@RequestMapping(value = "/category/{category}")
-	public ModelAndView showProductsForCategory(@PathVariable(value = "category") Category category) {
+	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+	        @PathVariable(value = "category") Category category) {
 		 ModelAndView mav = new ModelAndView("index");
-		 mav.addObject("products",productService.getPlainProductsByCategory(category));
 		 mav.addObject("categories", Category.values());
-		 return mav;
+	     mav.addObject("products", productService.getPlainProductsByCategoryPaged(category, page, PAGE_SIZE));
+	     mav.addObject("currentPage", page);
+	     mav.addObject("totalPages", productService.getMaxProductPageInCategoryWithSize(category, PAGE_SIZE));
+	     return mav;
 	}
 
 	@InitBinder
