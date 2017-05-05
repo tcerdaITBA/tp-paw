@@ -58,9 +58,9 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/profile/{userId}")
-	public ModelAndView user() {
+	public ModelAndView user(@PathVariable final int userId) {
 		ModelAndView mav = new ModelAndView("profile");
-		mav.addObject("user", loggedUser());
+		mav.addObject("us", userService.getUserById(userId));
 		return mav;
 	}
 	

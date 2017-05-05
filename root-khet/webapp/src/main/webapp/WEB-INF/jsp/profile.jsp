@@ -30,13 +30,13 @@
 					<div class="col-md-3 profile-info-box">
 					
 								<div class="row img-row">
-									<img class="profile-img" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+									<img class="profile-img" src="<c:url value="/profile/${us.userId}/profilePicture"/>">
 								</div>
 								<div class="row">
-									<h3><c:out value="${loggedUser.name}"></c:out></h3>	
+									<h3><c:out value="${us.name}"></c:out></h3>	
 								</div>
 								<div class="row">
-									<h3><c:out value="${loggedUser.email}"></c:out></h3>	
+									<h3><c:out value="${us.email}"></c:out></h3>	
 								</div>
 						
 					</div>
