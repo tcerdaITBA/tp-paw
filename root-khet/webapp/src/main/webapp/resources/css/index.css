@@ -126,3 +126,23 @@ h2 {
 .categoryBoxTag {
 	padding-left: 30px;
 }
+
+.page-numbers {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.page-num, .page-numbers .glyphicon {
+	color: #39c6a6;
+	font-size: 1.2em;
+}
+
+.page-num:hover, .page-numbers .glyphicon:hover {
+	color: #23527c;
+	text-decoration: none;
+}
+
+.page-num.selected {
+	color: #23527c;
+	font-size: 1.45em;
+}

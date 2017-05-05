@@ -76,13 +76,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getPlainProductsPaged(int page, int pageSize) {
-        return productDao.getPlainProductsRange(page * pageSize, pageSize);
+        return productDao.getPlainProductsRange((page - 1) * pageSize, pageSize);
     }
 
     @Override
     public List<Product> getPlainProductsByCategoryPaged(Category category, int page,
             int pageSize) {
-        return productDao.getPlainProductsRangeByCategory(category.name(), page * pageSize, pageSize);
+        return productDao.getPlainProductsRangeByCategory(category.name(), (page - 1) * pageSize, pageSize);
     }
 
     @Override

@@ -19,10 +19,11 @@ public class IndexController {
     private ProductService productService;
     
     //TODO sacar
-    private static int PAGE_SIZE = 10; 
+    private static int PAGE_SIZE = 1; 
     
 	@RequestMapping("/")
-	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
+	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+	    // TODO: página negativa, página inválida
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
 		mav.addObject("categories", Category.values());

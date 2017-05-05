@@ -32,7 +32,8 @@ public interface ProductService {
 	
 	/**
      * Lists a range of existing {@link Product} as a plain product: ID, name, short description and category.
-     * Products are ordered by uploadDate, the range given is [page * pageSize, (page + 1) * pageSize] 
+     * Products are ordered by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize].
+     * First page is number 1.
      * @param page - index of the page to be retrieved
      * @param pageSize - amount of products per page
      * @return {@link List} of the products in the given range. 
@@ -49,7 +50,8 @@ public interface ProductService {
 	
 	/**
 	 * Lists a range of plain products belonging to certain {@link Category}.
-	 * Products are ordered by uploadDate, the range given is [page * pageSize, (page + 1) * pageSize] 
+	 * Products are ordered by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize] 
+	 * First page is number 1.
 	 * @param category Category the products belong to
 	 * @param page - index of the page to be retrieved
 	 * @param pageSize - amount of products per page
