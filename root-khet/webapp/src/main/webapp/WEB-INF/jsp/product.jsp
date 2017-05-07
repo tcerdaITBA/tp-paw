@@ -130,7 +130,7 @@
 									<p class="join-discussion" >
 										<spring:message code="productPage.joinDiscussion"/>
 									</p>
-									
+									<sec:authorize access="isAuthenticated()">
 									<c:url value="/product/${product.id}/comment" var="postPath" />
 									<div class="row">
 										<div class="col-md-7 highlighted parent-form-comment">	
@@ -160,7 +160,18 @@
 											</form:form>
 										</div>
 									</div>
-									
+									</sec:authorize>
+									<sec:authorize access="isAnonymous()">
+									<div class="row">
+										<div class="col-md-7 highlighted anonymous-holder">
+											<p> <spring:message code="productPage.anonymousComment1"/> 
+											<a href="<c:url value="/login"/>"><spring:message code="productPage.anonymousComment2"/> </a>
+											<spring:message code="productPage.anonymousComment3"/>
+											<a href="<c:url value="/register"/>"><spring:message code="productPage.anonymousComment4"/></a>
+											</p>
+										</div>
+									</div>
+									</sec:authorize>
 									
 								    <div class="row">
 										<div class="col-md-7 comments-holder highlighted">
@@ -236,6 +247,7 @@
 														</div>
 													</div>	
 												</c:forEach>												
+												<sec:authorize access="isAuthenticated()">
 												<div class="row">
 													<div class="col-md-10 col-md-offset-2">
 														<form:form modelAttribute="commentsForm" id="reply${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${commentFamily.parentComment.id}&index=${status.index}#reply${status.index}" method="post">
@@ -272,6 +284,22 @@
 														</form:form>
 													</div>
 												</div>
+												</sec:authorize>
+												<sec:authorize access="isAnonymous()">
+												<div class="row reply-comment">
+													<div class="col-md-12 anonymous-holder">
+														<p class="child-text-anonymous"> <spring:message code="productPage.anonymousComment1"/> 
+														<a href="<c:url value="/login"/>"><spring:message code="productPage.anonymousComment2"/> </a>
+														<spring:message code="productPage.anonymousComment3"/>
+														<a href="<c:url value="/register"/>"><spring:message code="productPage.anonymousComment4"/></a>
+														</p>
+													
+														<div class="row comment-divider">
+															<div class="col-md-12"></div>
+														</div>
+													</div>
+												</div>
+												</sec:authorize>
 												</div>
 											</c:forEach>
 										</div>

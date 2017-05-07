@@ -255,3 +255,12 @@
 	padding-top: 20px;
 	padding-left: 30px;
 }
+
+.anonymous-holder {
+	background-color: white;
+	padding-top: 10px;
+}
+
+.child-text-anonymous {
+	margin-left: 130px;
+}
