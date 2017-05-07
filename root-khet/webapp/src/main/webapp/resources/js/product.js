@@ -1,4 +1,11 @@
 $(document).ready(function(){	
+	$.fn.goTo = function() {
+        $('html, body').animate({
+            scrollTop: $(this).offset().top + - 100 + 'px'
+        }, 'fast');
+        return this; // for chaining...
+    };
+	
 	$('.multiple-items').slick({
 		  dots: true,
 		  infinite: false,
@@ -17,5 +24,7 @@ $(document).ready(function(){
 		
 		var replyform = $(this).closest('.comment-and-replies').find('.reply-comment');
 		replyform.css('display', 'inline');
+		
+		replyform.goTo();
 	});
 });
