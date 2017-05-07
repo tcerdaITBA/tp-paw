@@ -103,4 +103,11 @@ public interface ProductService {
 	 * @return byte array containing the image bytes
 	 */
 	public byte[] getLogoByProductId(int productId);
+
+	/**
+	 * Deletes a {@link Product}
+	 * @param productId - ID of the product to delete
+	 * @return true if a product was deleted
+	 */
+	boolean deleteProductById(int productId);
 }

@@ -101,4 +101,9 @@ public class ProductServiceImpl implements ProductService {
         int total = productDao.getTotalProductsInCategory(category);
         return (int) Math.ceil((float) total / pageSize);
     }
+    
+    @Override
+    public boolean deleteProductById(int productId) {
+    	return productDao.deleteProductById(productId);
+    }
 }

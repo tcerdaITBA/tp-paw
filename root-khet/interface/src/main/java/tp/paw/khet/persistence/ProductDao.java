@@ -106,4 +106,11 @@ public interface ProductDao {
 	 */
 	public byte[] getLogoByProductId(int productId);
 
+	/**
+	 * Deletes a {@link Product} from the database
+	 * @param productId - ID of the product to delete
+	 * @return true if a product was deleted
+	 */
+	public boolean deleteProductById(int productId);
+
 }

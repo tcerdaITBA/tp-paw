@@ -113,7 +113,18 @@ public class ProductJdbcDaoTest {
 		
 		assertArrayEquals(logo, logoFromProduct(dummyProduct));
 	}
+	
+	@Test
+	public void deleteProductByUserId() {
+		Product dummyProduct = dummyProduct(0);
+		insertProduct(dummyProduct);
+
+		assertTrue(productDao.deleteProductById(0));
+		assertFalse(productDao.deleteProductById(0));
 		
+		assertEquals(0, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+	}
+	
 	private void insertDummyUser() throws DuplicateEmailException {
 		List<User> list = dummyUserList(LIST_SIZE, 0);
 		for (User dummy : list)

@@ -37,7 +37,7 @@ public class ProductJdbcDao implements ProductDao {
 		jdbcTemplate = new JdbcTemplate(ds);
 		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 					.withTableName("products")
-					.usingGeneratedKeyColumns("productid");		
+					.usingGeneratedKeyColumns("productid");
 	}
 	
 	@Override
@@ -134,5 +134,10 @@ public class ProductJdbcDao implements ProductDao {
     public int getTotalProductsInCategory(Category category) {
         Integer total = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM products WHERE category = ?", Integer.class, category.name());
         return total != null ? total : 0;
-    }    
+    }
+
+	@Override
+	public boolean deleteProductById(int productId) {
+		return jdbcTemplate.update("DELETE FROM products WHERE productId = ?", productId) == 1;
+	}    
 }
