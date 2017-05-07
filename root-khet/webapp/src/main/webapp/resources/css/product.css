@@ -98,6 +98,8 @@
 
 .creator-mail {
 	text-decoration: underline;
+	position: relative;
+	bottom: 12px;
 }
 
 .creator-mail p {
@@ -225,4 +227,24 @@
 
 .profile-name {
 	font-weight: bold;
+	position: relative;
+	bottom: 4px;
+}
+
+.parent-name-mail-holder {
+	margin-left: 10px;
+}
+
+.child-name-mail-holder {
+	margin-left: 20px;
+}
+
+.comment-content {
+	position: relative;
+	bottom: 8px;
+}
+
+.reply-button-holder {
+	position: relative;
+	bottom: 8px;
 }

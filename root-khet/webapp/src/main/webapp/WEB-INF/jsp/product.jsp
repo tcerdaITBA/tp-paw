@@ -95,17 +95,20 @@
 															<p><spring:message code="productPage.creator" /></p>
 														</div>
 													</div>
-													<div class="row product-short-description">
-														<div class="col-md-12">
-															<p><span class="glyphicon glyphicon-user"></span><c:out value="${creator.name}"/></p>
+													<div class="row">
+														<div class="col-md-2">
+															<img class="profile-img-circle" src="<c:url value="/profile/${creator.userId}/profilePicture"/>">
 														</div>
-													</div>
-													<div class="row product-short-description">
-														<div class="col-md-12">
-															<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
-																<span class="glyphicon glyphicon-envelope"></span>
-																<p><c:out value="${creator.email}"/></p>
-															</a>
+														<div class="col-md-10">
+															<div class="row col-md-12">
+																<p class="profile-name"> <c:out value="${creator.name}" /> </p>
+															</div>
+															<div class="row col-md-12 product-short-description">
+																<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+																	<span class="glyphicon glyphicon-envelope"></span>
+																	<p><c:out value="${creator.email}"/></p>
+																</a>
+															</div>										
 														</div>
 													</div>
 												</div>
@@ -151,18 +154,20 @@
 												
 												<div class="comment-and-replies">
 												<div class="parent-comment">
-													<div class="row comment-user-info">
-														<div class="col-md-12">
-															<p>
-																<img class="profile-img-circle" src="<c:url value="/profile/${commentFamily.parentComment.author.userId}/profilePicture"/>" >
-																<p class="profile-name"><c:out value="${commentFamily.parentComment.author.name}" /> </p>
-															</p>
-													
-															<a class="" href="mailto:<c:out value="${commentFamily.parentComment.author.email}"/>">
-																<span class="glyphicon glyphicon-envelope"></span>
-																<p><c:out value="${commentFamily.parentComment.author.email}"/></p>
-															</a>
-															
+													<div class="row">
+														<div class="col-md-1">
+															<img class="profile-img-circle" src="<c:url value="/profile/${creator.userId}/profilePicture"/>">
+														</div>
+														<div class="col-md-10 parent-name-mail-holder">
+															<div class="row col-md-12">
+																<p class="profile-name"> <c:out value="${creator.name}" /> </p>
+															</div>
+															<div class="row col-md-12 product-short-description">
+																<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+																	<span class="glyphicon glyphicon-envelope"></span>
+																	<p><c:out value="${creator.email}"/></p>
+																</a>
+															</div>										
 														</div>
 													</div>
 													<div class="row">
@@ -172,7 +177,7 @@
 															</p>
 														</div>
 													</div>
-													<div class="row">
+													<div class="row reply-button-holder">
 														<div class="col-md-4">
 															<p class="reply-btn">
 																<span class="glyphicon glyphicon-share-alt"></span>
@@ -188,16 +193,20 @@
 												<c:forEach items="${commentFamily.childComments}" var="child">
 													<div class="row child-comment">
 														<div class="col-md-10 col-md-offset-2">
-															<div class="row comment-user-info">
-																<div class="col-md-12">
-																	<p>
-																		<img class="profile-img-circle" src="<c:url value="/profile/${child.author.userId}/profilePicture"/>">
-																		<p class="profile-name"><c:out value="${child.author.name}" /> </p>
-																	</p>
-																	<a class="" href="mailto:<c:out value="${child.author.email}"/>">
-																		<span class="glyphicon glyphicon-envelope"></span>
-																		<p><c:out value="${child.author.email}"/></p>
-																	</a>
+															<div class="row">
+																<div class="col-md-1">
+																	<img class="profile-img-circle" src="<c:url value="/profile/${creator.userId}/profilePicture"/>">
+																</div>
+																<div class="col-md-10 child-name-mail-holder">
+																	<div class="row col-md-12">
+																		<p class="profile-name"> <c:out value="${creator.name}" /> </p>
+																	</div>
+																	<div class="row col-md-12 product-short-description">
+																		<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+																			<span class="glyphicon glyphicon-envelope"></span>
+																			<p><c:out value="${creator.email}"/></p>
+																		</a>
+																	</div>										
 																</div>
 															</div>
 															<div class="row">
