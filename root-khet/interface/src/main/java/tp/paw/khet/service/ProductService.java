@@ -2,6 +2,7 @@ package tp.paw.khet.service;
 
 import java.util.List;
 
+import tp.paw.khet.User;
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 
@@ -29,6 +30,13 @@ public interface ProductService {
 	 * @return {@link List} of the existing products
 	 */
 	public List<Product> getPlainProducts();
+	
+	/**
+	 * Lists product created by {@link User} with the given userId.
+	 * @param userId - ID of the creator
+	 * @return List of products. Empty in case the user did not create any product
+	 */
+	public List<Product> getPlainProductsByUserId(int userId);
 	
 	/**
      * Lists a range of existing {@link Product} as a plain product: ID, name, short description and category.
@@ -81,7 +89,7 @@ public interface ProductService {
 	 * @return Product with the associated ID or null if it doesn't exist
 	 */
 	public Product getFullProductById(int productId);
-	
+		
 	/**
 	 * Retrieves a {@link Product} with only it's ID, name, short description and category.
 	 * @param productId - ID of the product

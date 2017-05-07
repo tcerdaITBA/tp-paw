@@ -74,6 +74,12 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
+	public List<Product> getPlainProductsByUserId(int userId) {
+		return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE userId = ? ORDER BY uploadDate DESC", 
+				plainProductRowMapper, userId);
+	}
+	
+	@Override
 	public ProductBuilder createProduct(String name, String description, String shortDescription, String website, String category,
 			LocalDateTime uploadDate, byte[] logo, int creatorId) {
 
@@ -128,7 +134,5 @@ public class ProductJdbcDao implements ProductDao {
     public int getTotalProductsInCategory(Category category) {
         Integer total = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM products WHERE category = ?", Integer.class, category.name());
         return total != null ? total : 0;
-    }
-    
-    
+    }    
 }

@@ -28,7 +28,7 @@ import tp.paw.khet.exception.DuplicateEmailException;
 @Sql("classpath:schema.sql")
 public class ProductJdbcDaoTest {
 
-	private static final int LIST_SIZE = 20;
+	private static final int LIST_SIZE = Category.values().length * 5;
 	
 	@Autowired
 	private ProductJdbcDao productDao;
@@ -50,20 +50,12 @@ public class ProductJdbcDaoTest {
 
 	@Test
 	public void getProductsTest() {
-		List<Product> expectedProducts = dummyProductList(LIST_SIZE, 0);
-		insertProducts(expectedProducts, 0);
+		List<Product> expected = dummyProductList(LIST_SIZE, 0);
+		insertProducts(expected);
 				
-		List<Product> actualProducts = productDao.getPlainProducts();
+		List<Product> actual = productDao.getPlainProducts();
 		
-		assertEquals(expectedProducts.size(), actualProducts.size());
-		
-		for (int i = 0; i < expectedProducts.size(); i++) {
-			Product expected = expectedProducts.get(expectedProducts.size()-i-1);
-			Product actual = actualProducts.get(i);
-			assertEquals(expected, actual);
-			if (i > 0)
-				assertTrue(actual.getId() < actualProducts.get(i-1).getId());
-		}
+		assertEqualsReversedOrderedList(expected, actual);
 		
 		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
@@ -71,13 +63,83 @@ public class ProductJdbcDaoTest {
 	@Test
 	public void getProductsByCategoryTest() {
 		Category[] categories = Category.values();
-		List<Product> productList = dummyProductList(categories.length * 3, 0);
-		insertProducts(productList, 0);
+		List<Product> productList = dummyProductList(LIST_SIZE, 0);
+		insertProducts(productList);
 		
 		for (int i = 0; i < categories.length; i++)
 			assertRetrievedCategory(categories[i], productList);
 
-		assertEquals(categories.length * 3, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+	}
+
+	@Test
+	public void createProductTest() {
+		Product expected = dummyProduct(0);
+		Product actual = insertProduct(expected);
+		
+		assertEqualsFullProducts(expected, actual);
+		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+	}
+	
+	@Test
+	public void getProductByProductIdTest() {
+		Product expected = dummyProduct(0);
+		insertProduct(expected);
+		
+		Product actual = productDao.getFullProductById(0).build();
+		
+		assertEqualsFullProducts(expected, actual);
+		assertNull(productDao.getFullProductById(1));
+	}
+	
+	@Test
+	public void getPlainProductByUserIdTest() {
+		List<Product> expected = dummyProductListWithUserId(LIST_SIZE, 0, 0);
+		insertProducts(expected);
+		
+		List<Product> actual = productDao.getPlainProductsByUserId(0);
+		
+		assertEqualsReversedOrderedList(expected, actual);
+		
+		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+	}
+
+	@Test
+	public void getLogoByProductIdTest() {
+		Product dummyProduct = dummyProduct(0);
+		insertProduct(dummyProduct);
+		
+		byte[] logo = productDao.getLogoByProductId(0);
+		
+		assertArrayEquals(logo, logoFromProduct(dummyProduct));
+	}
+		
+	private void insertDummyUser() throws DuplicateEmailException {
+		List<User> list = dummyUserList(LIST_SIZE, 0);
+		for (User dummy : list)
+			userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
+	}
+	
+	private Product insertProduct(Product product) {
+		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), product.getWebsite(),
+				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), product.getCreator().getUserId()).build();
+	}
+		
+	private void insertProducts(List<Product> products) {
+		for(Product product : products)
+			insertProduct(product);
+	}
+	
+	private void assertEqualsReversedOrderedList(List<Product> expected, List<Product> actual) {
+		assertEquals(expected.size(), actual.size());
+		
+		for (int i = 0; i < expected.size(); i++) {
+			Product expectedProduct = expected.get(expected.size()-i-1);
+			Product actualProduct = actual.get(i);
+			assertEquals(expectedProduct, actualProduct);
+			if (i > 0)
+				assertTrue(actualProduct.getId() < actual.get(i-1).getId());
+		}		
 	}
 
 	private void assertRetrievedCategory(Category category, List<Product> productList) {
@@ -88,51 +150,6 @@ public class ProductJdbcDaoTest {
 			assertEquals(category, product.getCategory());
 		}
 		
-		assertEquals(3, productsByCategory.size());
+		assertEquals(LIST_SIZE / Category.values().length, productsByCategory.size());
 	}
-
-	@Test
-	public void createProductTest() {
-		Product expected = dummyProduct(0);
-		Product actual = insertProduct(expected, 0);
-		
-		assertEqualsFullProducts(expected, actual);
-		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
-	}
-	
-	@Test
-	public void getProductByProductIdTest() {
-		Product expected = dummyProduct(0);
-		insertProduct(expected, 0);
-		
-		Product actual = productDao.getFullProductById(0).build();
-		
-		assertEqualsFullProducts(expected, actual);
-		assertNull(productDao.getFullProductById(1));
-	}
-	
-	@Test
-	public void getLogoByProductIdTest() {
-		Product dummyProduct = dummyProduct(0);
-		insertProduct(dummyProduct, 0);
-		
-		byte[] logo = productDao.getLogoByProductId(0);
-		
-		assertArrayEquals(logo, logoFromProduct(dummyProduct));
-	}
-		
-	private void insertDummyUser() throws DuplicateEmailException {
-		User dummy = dummyUser(0);
-		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
-	}
-	
-	private Product insertProduct(Product product, int creatorId) {
-		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), product.getWebsite(),
-				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), creatorId).build();
-	}
-		
-	private void insertProducts(List<Product> products, int creatorId) {
-		for(Product product : products)
-			insertProduct(product, creatorId);
-	}	
 }
