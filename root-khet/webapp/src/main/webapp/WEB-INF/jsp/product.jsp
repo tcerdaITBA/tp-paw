@@ -133,9 +133,23 @@
 									
 									<c:url value="/product/${product.id}/comment" var="postPath" />
 									<div class="row">
-										<div class="col-md-10 highlighted">	
-											<p><c:out value="${loggedUser.name}" /></p>
-											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
+										<div class="col-md-7 highlighted parent-form-comment">	
+											<div class="row">
+												<div class="col-md-1">
+													<img class="profile-img-circle" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+												</div>
+												<div class="col-md-10 parent-name-mail-holder">
+													<div class="row col-md-12">
+														<p class="profile-name"> <c:out value="${loggedUser.name}" /> </p>
+													</div>
+													<div class="row col-md-12 product-short-description">
+														<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
+															<span class="glyphicon glyphicon-envelope"></span>
+															<p><c:out value="${creator.email}"/></p>
+														</a>
+													</div>										
+												</div>
+											</div>											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
 												<div class="form-group">
 													<form:textarea type="text" class="form-control" rows="3" path="parentForm.content" placeholder="${ContentPlaceholder}" maxlength="512"/>
 													<form:errors path="parentForm.content" element="p" />
@@ -229,7 +243,22 @@
 																<span class="glyphicon glyphicon-share-alt"></span>
 																<spring:message code="productPage.replyTo" arguments="${commentFamily.parentComment.author.name}"/>
 															</p>
-															<p><c:out value="${loggedUser.name}" /></p>
+															<div class="row">
+																<div class="col-md-1">
+																	<img class="profile-img-circle" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+																</div>
+																<div class="col-md-10 child-name-mail-holder">
+																	<div class="row col-md-12">
+																		<p class="profile-name"> <c:out value="${loggedUser.name}" /> </p>
+																	</div>
+																	<div class="row col-md-12 product-short-description">
+																		<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
+																			<span class="glyphicon glyphicon-envelope"></span>
+																			<p><c:out value="${creator.email}"/></p>
+																		</a>
+																	</div>										
+																</div>
+															</div>	
 															<div class="form-group comment-form-fields">
 																<form:textarea type="text" class="form-control" rows="3" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"  maxlength="512"/>
 																<form:errors path="childForms[${status.index}].content" element="p" />
