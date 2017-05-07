@@ -176,6 +176,7 @@
 }
 
 .comment-content p {
+	margin-left: 55px;
 	font-size: 1.1em;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -183,6 +184,8 @@
 }
 
 .reply-btn {
+	margin-top: 5px;
+	margin-left: 55px;
 	color: #39C6C6;
 }
 
@@ -210,4 +213,16 @@
 
 .info-box-field {
 	padding-left: 0;
+}
+
+.profile-img-circle {
+	margin-right: 5px;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .8);
+}
+
+.profile-name {
+	font-weight: bold;
 }

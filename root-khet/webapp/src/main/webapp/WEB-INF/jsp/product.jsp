@@ -154,8 +154,8 @@
 													<div class="row comment-user-info">
 														<div class="col-md-12">
 															<p>
-																<span class="glyphicon glyphicon-user"></span>
-																<c:out value="${commentFamily.parentComment.author.name}" />
+																<img class="profile-img-circle" src="<c:url value="/profile/${commentFamily.parentComment.author.userId}/profilePicture"/>" >
+																<p class="profile-name"><c:out value="${commentFamily.parentComment.author.name}" /> </p>
 															</p>
 													
 															<a class="" href="mailto:<c:out value="${commentFamily.parentComment.author.email}"/>">
@@ -168,7 +168,6 @@
 													<div class="row">
 														<div class="col-md-12 comment-content">
 															<p>
-																<span class="glyphicon glyphicon-bullhorn"></span>
 																<c:out value="${commentFamily.parentComment.content}" />
 															</p>
 														</div>
@@ -192,8 +191,8 @@
 															<div class="row comment-user-info">
 																<div class="col-md-12">
 																	<p>
-																		<span class="glyphicon glyphicon-user"></span>
-																		<c:out value="${child.author.name}" />
+																		<img class="profile-img-circle" src="<c:url value="/profile/${child.author.userId}/profilePicture"/>">
+																		<p class="profile-name"><c:out value="${child.author.name}" /> </p>
 																	</p>
 																	<a class="" href="mailto:<c:out value="${child.author.email}"/>">
 																		<span class="glyphicon glyphicon-envelope"></span>
@@ -204,7 +203,6 @@
 															<div class="row">
 																<div class="col-md-12 comment-content">
 																	<p>
-																		<span class="glyphicon glyphicon-bullhorn"></span>
 																		<c:out value="${child.content}" />
 																	</p>
 																</div>
