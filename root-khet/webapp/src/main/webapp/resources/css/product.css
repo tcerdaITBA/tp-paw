@@ -308,3 +308,12 @@
 	padding-left: 	15px;
 	padding-right: 15px;
 }
+
+.creator-name {
+	position:relative;
+	top:5px;
+}
+
+.creator-firstrow-holder {
+	margin-bottom: 10px;	
+}

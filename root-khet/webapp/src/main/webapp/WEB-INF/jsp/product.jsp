@@ -90,8 +90,8 @@
 										<div class="col-md-4 col-md-offset-1 creator-item highlighted">
 											<div class="row">
 												<div class="col-md-12">
-													<div class="row product-name">
-														<div class="col-md-5">
+													<div class="row creator-firstrow-holder">
+														<div class="col-md-5 product-name creator-name">
 															<p><spring:message code="productPage.creator" /></p>
 														</div>
 														<sec:authorize access="isAuthenticated()">
