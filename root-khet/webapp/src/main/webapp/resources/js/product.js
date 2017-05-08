@@ -15,8 +15,8 @@ $(document).ready(function(){
 	});
 	
 	if (window.location.hash) {
-		var errorReplyId = window.location.hash.substring(1);
-		$('#' + errorReplyId).show();
+		var replyId = window.location.hash.substring(1);
+		$('#' + replyId).show();
 	}
 	
 	$('.reply-btn').on('click', function() {

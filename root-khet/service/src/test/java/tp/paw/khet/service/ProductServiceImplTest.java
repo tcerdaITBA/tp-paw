@@ -76,9 +76,8 @@ public class ProductServiceImplTest {
 			assertEqualsPlainProducts(expected.get(i), actual.get(i));
 		
 		assertTrue(productDaoMock.getPlainProductsByUserId(1).isEmpty());
-		
+
 		verify(productDaoMock, times(2)).getPlainProductsByUserId(anyInt());
-		
 	}
 	
 	@Test
@@ -94,6 +93,8 @@ public class ProductServiceImplTest {
 		assertEquals(2, actual.getVideos().size());
 		assertEquals(0, actual.getCommentFamilies().size());
 		verify(productDaoMock, times(1)).getFullProductById(anyInt());
+		
+		assertNull(productService.getFullProductById(1));
 	}
 	
 	@Test

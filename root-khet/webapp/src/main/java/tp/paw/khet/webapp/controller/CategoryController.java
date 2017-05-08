@@ -23,16 +23,17 @@ public class CategoryController {
 	@Autowired
     private ProductService productService;
 	
-	//TODO: sacar
-    private static int PAGE_SIZE = 1; 
 
-    @Autowired
+	@Autowired
 	private SecurityUserService securityUserService;
 	
 	@ModelAttribute("loggedUser")
 	public User loggedUser() {
 		return securityUserService.getLoggedInUser();
 	}
+
+	//TODO: sacar
+    private static int PAGE_SIZE = 1; 
 	
 	@RequestMapping(value = "/category/{category}")
 	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 

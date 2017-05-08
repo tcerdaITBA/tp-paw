@@ -27,9 +27,6 @@ public class IndexController {
     @Autowired
     private ProductService productService;
     
-    //TODO sacar
-    private static int PAGE_SIZE = 1; 
-
     @Autowired 
     private UserService userService;
     
@@ -40,7 +37,9 @@ public class IndexController {
 	public User loggedUser() {
 		return securityUserService.getLoggedInUser();
 	}
-
+	
+    //TODO sacar
+    private static int PAGE_SIZE = 1; 
     
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -77,6 +76,7 @@ public class IndexController {
 	public ModelAndView user(@PathVariable final int userId) {
 		ModelAndView mav = new ModelAndView("profile");
 		mav.addObject("us", userService.getUserById(userId));
+		mav.addObject("products", productService.getPlainProductsByUserId(userId));
 		return mav;
 	}
 	
