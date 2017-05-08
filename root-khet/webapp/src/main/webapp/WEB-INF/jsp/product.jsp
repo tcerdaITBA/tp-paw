@@ -333,7 +333,8 @@
 										<p id="leftModalButton" class="ps-btn btn modal-left-button"><spring:message code="productPage.modal.leftButton" /></p>
 							  		</div>
 							  		<div class="col-md-1 col-md-offset-1">
-										<form:form action="/webapp/delete/product/${product.id}" method="post">
+										<c:url value="/delete/product/${product.id}" var="deletePath" />
+										<form:form action="${deletePath}" method="post">
 											<input type="submit" class="ps-btn btn" value="<spring:message code="productPage.modal.rightButton"/>" />
 							  			</form:form>
 							  		</div>
