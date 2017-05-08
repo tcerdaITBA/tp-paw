@@ -3,6 +3,7 @@ package tp.paw.khet.webapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Category;
+import tp.paw.khet.User;
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 
 @Controller
@@ -19,6 +23,17 @@ public class IndexController {
     @Autowired
     private ProductService productService;
     
+    @Autowired 
+    private UserService userService;
+    
+	@Autowired
+	private SecurityUserService securityUserService;
+    
+	@ModelAttribute("loggedUser")
+	public User loggedUser() {
+		return securityUserService.getLoggedInUser();
+	}
+
     //TODO sacar
     private static int PAGE_SIZE = 1; 
     
@@ -42,8 +57,23 @@ public class IndexController {
 		return productService.getLogoByProductId(productId);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/profile/{userId}/profilePicture", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+	public byte[] deliverProfilePicture(@PathVariable(value = "userId") int userId) {
+		return userService.getProfilePictureByUserId(userId);
+	}
+	
 	@RequestMapping("/login")
 	public ModelAndView login() {
 		return new ModelAndView("login");
 	}
+	
+	@RequestMapping("/profile/{userId}")
+	public ModelAndView user(@PathVariable final int userId) {
+		ModelAndView mav = new ModelAndView("profile");
+		mav.addObject("us", userService.getUserById(userId));
+		mav.addObject("products", productService.getPlainProductsByUserId(userId));
+		return mav;
+	}
+	
 }

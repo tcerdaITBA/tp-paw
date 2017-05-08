@@ -18,3 +18,11 @@
 	float: none;
 	margin-top: 1em;
 }
+
+.error-centered {
+	text-align: center;
+} 
+
+.text-centered {
+	text-align: center;
+}
