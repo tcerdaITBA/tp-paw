@@ -26,6 +26,8 @@ public class FormUser {
 	@Size(min=6, max=60)
 	private String password;
 	
+	private String passwordConf;
+		
 	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
 	@FileSize(min = 1)
 	private MultipartFile profilePicture;
@@ -60,5 +62,13 @@ public class FormUser {
 
 	public void setProfilePicture(MultipartFile profilePicture) {
 		this.profilePicture = profilePicture;
+	}
+
+	public String getPasswordConf() {
+		return passwordConf;
+	}
+
+	public void setPasswordConf(String passwordConf) {
+		this.passwordConf = passwordConf;
 	}
 }
