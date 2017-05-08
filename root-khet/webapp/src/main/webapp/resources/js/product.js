@@ -1,7 +1,8 @@
 $(document).ready(function(){	
 	$.fn.goTo = function() {
+		var offset = 100;
         $('html, body').animate({
-            scrollTop: $(this).offset().top + - 100 + 'px'
+            scrollTop: $(this).offset().top + - offset + 'px'
         }, 'fast');
         return this; // for chaining...
     };

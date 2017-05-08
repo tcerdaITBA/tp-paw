@@ -91,9 +91,16 @@
 											<div class="row">
 												<div class="col-md-12">
 													<div class="row product-name">
-														<div class="col-md-12">
+														<div class="col-md-5">
 															<p><spring:message code="productPage.creator" /></p>
 														</div>
+														<sec:authorize access="isAuthenticated()">
+														<c:if test="${loggedUser.userId == product.creator.userId }">
+														<div class="col-md-5 col-md-offset-1">
+															<a href="<c:url value="/delete/product/${product.id}" />" class="ps-btn-red btn upload-btn"><spring:message code="productPage.delete" /></a>
+														</div>
+														</c:if>
+														</sec:authorize>
 													</div>
 													<div class="row">
 														<div class="col-md-2">

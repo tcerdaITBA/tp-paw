@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,9 @@ import tp.paw.khet.Category;
 import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.service.UserService;
 
 @Controller
@@ -74,6 +77,26 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView("profile");
 		mav.addObject("us", userService.getUserById(userId));
 		return mav;
+	}
+	
+	@RequestMapping(value = "delete/product/{productId}", method = RequestMethod.GET)
+	public ModelAndView deleteProduct(@PathVariable final int productId)
+	throws ResourceNotFoundException, UnauthorizedException, ForbiddenException{
+		User loggedUser = securityUserService.getLoggedInUser();
+		User productCreator = productService.getFullProductById(productId).getCreator();
+		
+		if (productCreator == null)
+			throw new ResourceNotFoundException();
+		
+		if (loggedUser == null)
+			throw new UnauthorizedException();
+		
+		if (loggedUser == null || (loggedUser.getUserId() != productCreator.getUserId()))
+				throw new ForbiddenException();
+	
+		productService.deleteProductById(productId);
+		
+		return new ModelAndView("redirect:/");
 	}
 	
 }
