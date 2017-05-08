@@ -3,6 +3,7 @@ package tp.paw.khet.persistence;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import tp.paw.khet.User;
 import tp.paw.khet.Product;
 import tp.paw.khet.Product.ProductBuilder;
 import tp.paw.khet.Category;
@@ -30,6 +31,14 @@ public interface ProductDao {
 	 */
 	public List<Product> getPlainProducts();
 	
+	/**
+	 * Lists product created by {@link User} with the given userId.
+	 * @param userId - ID of the creator
+	 * @return List of products. Empty in case the user did not create any product
+	 */
+	public List<Product> getPlainProductsByUserId(int userId);
+	
+
 	 /**
      * Lists a range of plain products.
      * Products are ordered by uploadDate.
@@ -96,5 +105,12 @@ public interface ProductDao {
 	 * @return byte array containing the image bytes
 	 */
 	public byte[] getLogoByProductId(int productId);
-	
+
+	/**
+	 * Deletes a {@link Product} from the database
+	 * @param productId - ID of the product to delete
+	 * @return true if a product was deleted
+	 */
+	public boolean deleteProductById(int productId);
+
 }

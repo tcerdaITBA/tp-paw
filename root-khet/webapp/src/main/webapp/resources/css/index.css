@@ -19,8 +19,8 @@
 }
 
 .product-logo img {
-	max-height: 80px;
-	max-width: 80px;
+	max-height: 100px;
+	max-width: 100px;
 	object-fit: cover;
 }
 
@@ -52,6 +52,7 @@
 	color: #8c8c8c;
 	font-weight: 400;	
 	word-wrap: break-word;
+	font-size: 1.2em;
 }
 
 .product-category p {

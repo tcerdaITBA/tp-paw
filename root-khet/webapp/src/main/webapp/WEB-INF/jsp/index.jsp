@@ -72,7 +72,7 @@
 		</div>	
 	
 		<div class="col-md-8">
-					<div class="col-md-12 product-list">
+					<div class="col-md-10 col-md-offset-1 product-list">
 					<c:choose>
 						<c:when test="${products.isEmpty()}">
 							<!-- FALTA UNA IMAGEN PARA ZRP, INSERTAR ACA -->
@@ -99,8 +99,10 @@
 													</div>
 												</div>
 												<div class="row product-category">
-													<div class="col-md-3 categoryTag">
-														<p><spring:message code="category.${product.category.lowerName}"/></p>
+													<div class="col-md-3">
+														<div class="categoryTag">
+															<p><spring:message code="category.${product.category.lowerName}"/></p>
+														</div>
 													</div>
 												</div>
 											</div>
