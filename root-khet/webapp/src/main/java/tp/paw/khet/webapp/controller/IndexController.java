@@ -79,7 +79,7 @@ public class IndexController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "delete/product/{productId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/product/{productId}", method = RequestMethod.GET)
 	public ModelAndView deleteProduct(@PathVariable final int productId)
 	throws ResourceNotFoundException, UnauthorizedException, ForbiddenException{
 		User loggedUser = securityUserService.getLoggedInUser();
@@ -91,7 +91,7 @@ public class IndexController {
 		if (loggedUser == null)
 			throw new UnauthorizedException();
 		
-		if (loggedUser == null || (loggedUser.getUserId() != productCreator.getUserId()))
+		if (loggedUser.getUserId() != productCreator.getUserId())
 				throw new ForbiddenException();
 	
 		productService.deleteProductById(productId);

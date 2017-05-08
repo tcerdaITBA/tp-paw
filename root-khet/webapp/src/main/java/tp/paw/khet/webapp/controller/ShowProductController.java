@@ -56,6 +56,8 @@ public class ShowProductController {
 	public ModelAndView getProduct(@PathVariable final int productId) 
 	throws ResourceNotFoundException {
 					
+		//TODO: builder explota cuando el producto no existe
+		
 		Product product = productService.getFullProductById(productId);
 		
 		if (product == null)

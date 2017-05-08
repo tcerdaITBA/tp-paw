@@ -19,6 +19,10 @@ $(document).ready(function(){
 		$('#' + errorReplyId).show();
 	}
 	
+	$('.ps-btn-red').on('click', function() {
+		
+	})
+	
 	$('.reply-btn').on('click', function() {
 		// Hide all other open comment forms.
 		$('.reply-comment').hide();
