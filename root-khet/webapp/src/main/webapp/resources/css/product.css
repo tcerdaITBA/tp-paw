@@ -264,3 +264,47 @@
 .child-text-anonymous {
 	margin-left: 130px;
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    border: 1px solid #888;
+}
+
+/* The Close Button */
+.close {
+    color: #888a85;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-text {
+	text-align: center;
+}
+
+.modal-buttons-holder {
+	margin-top: 5px;
+	padding-bottom: 20px;
+}
+
+.modal-left-button {
+	padding-left: 	15px;
+	padding-right: 15px;
+}

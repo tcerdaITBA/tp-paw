@@ -97,7 +97,7 @@
 														<sec:authorize access="isAuthenticated()">
 														<c:if test="${loggedUser.userId == product.creator.userId }">
 														<div class="col-md-5 col-md-offset-1">
-															<a href="<c:url value="/delete/product/${product.id}" />" class="ps-btn-red btn upload-btn"><spring:message code="productPage.delete" /></a>
+															<p class="ps-btn-red btn upload-btn"><spring:message code="productPage.delete" /></p>
 														</div>
 														</c:if>
 														</sec:authorize>
@@ -315,6 +315,29 @@
 								</div>
 							</div>
 						</div>
+						
+						
+						<!-- The Modal -->
+						<div id="myModal" class="row modal">
+						  <!-- Modal content -->
+							  <div class="col-md-4 col-md-offset-4 modal-content">
+							    <span class="close">&times;</span>
+							    <div class="row">
+							    	<div class="col-md-12">
+							    		<p class="modal-text"><spring:message code="productPage.modal.text" /></p>
+							  		</div>
+							  	</div>
+							  	<div class="row modal-buttons-holder">
+							  		<div class="col-md-1 col-md-offset-4">
+										<p id="leftModalButton" class="ps-btn btn modal-left-button"><spring:message code="productPage.modal.leftButton" /></p>
+							  		</div>
+							  		<div class="col-md-1 col-md-offset-1">
+										<a href="<c:url value="/delete/product/${product.id}" />" class="ps-btn btn"><spring:message code="productPage.modal.rightButton" /></a>
+							  		</div>
+							  	</div>
+							  </div>
+						</div>
+						
 						<%@include file="includes/footer.jsp"%>
 
 							<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
