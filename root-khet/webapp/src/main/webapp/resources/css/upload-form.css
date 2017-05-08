@@ -114,7 +114,7 @@
 	align-self: center;
 }
 
-p { /* errors */
+#upload-form p { /* errors */
 	color: #bc0f0f;
 	text-align: left;
 }
@@ -145,4 +145,13 @@ p { /* errors */
 	font-size: 1.3em;
 	margin-bottom: 15px;
 	font-weight: 500;
+}
+
+.creator-data-row p, .creator-data-row a {
+	font-size: 1.2em;
+	font-weight: 400;
+}
+.creator-data-row h3 {
+	margin-bottom: 15px;
+	margin-top: 15px;
 }

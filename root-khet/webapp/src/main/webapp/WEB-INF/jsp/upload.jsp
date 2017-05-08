@@ -20,7 +20,6 @@
 		
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/css/dropzone.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 	</head>
 
@@ -168,15 +167,16 @@
 						<div class="row creator-data-row">
 							<div class="col-sm-9 col-sm-offset-3">
 								<h3>
-									<span class="glyphicon glyphicon-user"></span>
-									<spring:message code="formLabel.creator" />
+									<spring:message code="formLabel.creator"/>
 								</h3>
-								<div class="col-md-12 form-group creator-name-form">
-									<p><spring:message code="formLabel.creatorName"/>: <c:out value="${loggedUser.name}" /></p>								
-								</div>
-								<div class="col-md-12 form-group email-form">
-									<p><spring:message code="formLabel.creatorEmail"/>: <c:out value="${loggedUser.email}" /></p>
-								</div>
+								<p> 
+									<span class="glyphicon glyphicon-user"></span>
+									<c:out value="${loggedUser.name}"/>								
+								</p>
+								<a href="mailto:${loggedUser.email}">
+									<span class="glyphicon glyphicon-envelope"></span>
+									<c:out value="${loggedUser.email}"/>
+								</a>
 							</div>
 						</div>
 
