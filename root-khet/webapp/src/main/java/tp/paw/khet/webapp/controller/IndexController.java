@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Category;
+import tp.paw.khet.Product;
 import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
@@ -82,11 +83,13 @@ public class IndexController {
 	@RequestMapping(value = "/delete/product/{productId}", method = RequestMethod.POST)
 	public ModelAndView deleteProduct(@PathVariable final int productId)
 	throws ResourceNotFoundException, UnauthorizedException, ForbiddenException{
-		User loggedUser = securityUserService.getLoggedInUser();
-		User productCreator = productService.getFullProductById(productId).getCreator();
+		Product product = productService.getFullProductById(productId);
 		
-		if (productCreator == null) 
+		if (product == null) 
 			throw new ResourceNotFoundException();
+		
+		User loggedUser = securityUserService.getLoggedInUser();
+		User productCreator = product.getCreator();
 		
 		if (loggedUser == null)
 			throw new UnauthorizedException();
