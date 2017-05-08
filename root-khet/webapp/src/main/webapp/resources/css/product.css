@@ -111,7 +111,7 @@
 }
 
 .comments-holder {
-	padding: 10px 30px;
+	padding: 0px;
 	margin-top: 20px;
 	background-color: #fff;
 }
@@ -316,4 +316,8 @@
 
 .creator-firstrow-holder {
 	margin-bottom: 10px;	
+}
+
+.comment-and-replies {
+	padding: 10px 30px;
 }
