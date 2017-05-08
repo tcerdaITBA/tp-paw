@@ -33,6 +33,7 @@ public final class ProductTestUtils {
 	private static Product.ProductBuilder productBuilder(int id) {
 		return Product.getBuilder(id, "Product " + id, "Short Description " + id)
 				.description("Description " + id)
+				.website("http://www.productseek.com/" + id)
 				.creator(dummyUser(id))
 				.uploadDate(LocalDateTime.now().plusSeconds(id));
 	}
@@ -42,6 +43,15 @@ public final class ProductTestUtils {
 		
 		for (int i = 0; i < size; i++)
 			productList.add(dummyProduct(initialId + i));
+		
+		return productList;
+	}
+
+	public static List<Product> dummyProductListWithUserId(int size, int initialId, int userId) {
+		List<Product> productList = new ArrayList<Product>(size);
+		
+		for (int i = 0; i < size; i++)
+			productList.add(dummyProductBuilder(initialId + i).creator(dummyUser(userId)).build());
 		
 		return productList;
 	}
@@ -64,7 +74,6 @@ public final class ProductTestUtils {
 		assertEquals(expected.getWebsite(), actual.getWebsite());
 		assertEquals(expected.getShortDescription(), actual.getShortDescription());
 		assertEquals(expected.getCategory(), actual.getCategory());
-		assertEquals(expected.getUploadDate(), actual.getUploadDate());
 	}
 	
 	public static void assertEqualsPlainProducts(Product expected, Product actual) {
