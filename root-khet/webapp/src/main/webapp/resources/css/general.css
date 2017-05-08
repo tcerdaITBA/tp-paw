@@ -20,6 +20,11 @@ body {
 	color: #39C6A6;
 }
 
+.navbar-link {
+	color: #39C6A6 !important;
+	font-weight: 500 !important; 
+}
+
 nav img {
 	max-height: 100%;
 	max-width: 100%;

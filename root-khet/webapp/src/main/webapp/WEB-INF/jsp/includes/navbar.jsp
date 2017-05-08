@@ -25,14 +25,17 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<li>
+					<a href="<c:url value="/register" />" class="navbar-link"><spring:message code="navBar.signupButton" /></a>
+				</li>	
+				<sec:authorize access="isAnonymous()">
+					<li>
+						<a href="<c:url value="/login" />" class="navbar-link"><spring:message code="navBar.loginButton" /></a>	
+					</li>
+				</sec:authorize>
+				<li>	
 					<p class="navbar-btn">
-						<a href="<c:url value="/register" />" class="ps-btn btn upload-btn"><spring:message code="navBar.signupButton" /></a>
-						<sec:authorize access="isAnonymous()">
-							<a href="<c:url value="/login" />" class="ps-btn btn upload-btn"><spring:message code="navBar.loginButton" /></a>				
-						</sec:authorize>
 						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
 					</p>
-				
 				</li>
 			</ul>
 		</div>

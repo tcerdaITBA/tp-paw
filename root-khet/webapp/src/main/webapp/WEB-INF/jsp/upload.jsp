@@ -21,6 +21,7 @@
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
 	</head>
 
 <body>
@@ -32,6 +33,7 @@
 <spring:message code="formLabel.creatorNamePlaceholder" var="CreatorNamePlaceholder"/>
 <spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>
 <spring:message code="formLabel.websitePlaceholder" var="WebsitePlaceholder"/>
+<spring:message code="formLabel.postButton" var="PostButtonMessage"/>
 
 
 <%@include file="includes/navbar.jsp" %>
@@ -183,7 +185,7 @@
 						<div class="row row-centered">
 							<div class="col-md-12">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input class="ps-btn-red btn submit-btn" type="submit" value="Post 🎉" />
+									<input class="ps-btn-red btn submit-btn" type="submit" value="${PostButtonMessage}" />
 								</div>
 							</div>
 						</div>
