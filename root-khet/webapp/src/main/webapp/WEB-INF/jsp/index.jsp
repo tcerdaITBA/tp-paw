@@ -72,14 +72,14 @@
 		</div>	
 	
 		<div class="col-md-8">
-					<div class="col-md-10 col-md-offset-1 product-list">
 					<c:choose>
 						<c:when test="${products.isEmpty()}">
-							<!-- FALTA UNA IMAGEN PARA ZRP, INSERTAR ACA -->
-							<h2><c:out value="ZRP"></c:out>
-							</h2>
+							<div class="col-md-10 col-md-offset-1">
+								<%@include file="includes/category-zrp.jsp"%></%@include>
+							</div>
 						</c:when>
 						<c:otherwise>
+							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
 								<a href="<c:url value="/product/${product.id}"/>">
 									<div class="row product-list-item vertical-align">
@@ -110,10 +110,10 @@
 									</div>	
 								</a>				
 							</c:forEach>
+							</div>
 						</c:otherwise>
 				</c:choose>									
-				</div>
-				<%@include file="includes/pagination.jsp"%>
+				<%@include file="includes/pagination.jsp"%></%@include>
 		</div>
 			
 	</div>
