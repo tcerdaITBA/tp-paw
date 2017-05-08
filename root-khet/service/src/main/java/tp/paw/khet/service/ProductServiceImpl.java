@@ -74,4 +74,27 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getLogoByProductId(productId);
 	}
 
+    @Override
+    public List<Product> getPlainProductsPaged(int page, int pageSize) {
+        return productDao.getPlainProductsRange((page - 1) * pageSize, pageSize);
+    }
+
+    @Override
+    public List<Product> getPlainProductsByCategoryPaged(Category category, int page,
+            int pageSize) {
+        return productDao.getPlainProductsRangeByCategory(category.name(), (page - 1) * pageSize, pageSize);
+    }
+
+    @Override
+    public int getMaxProductPageWithSize(int pageSize) {
+        int total = productDao.getTotalProducts();
+        return (int) Math.ceil((float) total / pageSize);
+    }
+
+    @Override
+    public int getMaxProductPageInCategoryWithSize(Category category, int pageSize) {
+        int total = productDao.getTotalProductsInCategory(category);
+        return (int) Math.ceil((float) total / pageSize);
+    }
+
 }

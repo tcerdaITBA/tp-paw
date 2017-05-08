@@ -40,7 +40,6 @@
 					</div>
 				</div>
 			</div>
-		
 		</div>
 	</div>
 	<div class="row">
@@ -110,16 +109,14 @@
 								</a>				
 							</c:forEach>
 						</c:otherwise>
-					</c:choose>
-						
-
-					</div>
+				</c:choose>									
 				</div>
-				
-	</div>
-	
+				<%@include file="includes/pagination.jsp"%>
+		</div>
+			
 	</div>
 	<%@include file="includes/footer.jsp"%>
+	</div>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

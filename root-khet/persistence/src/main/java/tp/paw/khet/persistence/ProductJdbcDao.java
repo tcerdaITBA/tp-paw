@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.Product.ProductBuilder;
 import tp.paw.khet.persistence.rowmapper.PlainProductRowMapper;
@@ -21,7 +22,7 @@ import tp.paw.khet.persistence.rowmapper.ProductBuilderRowMapper;
 
 @Repository
 public class ProductJdbcDao implements ProductDao {
-	
+	    
 	@Autowired
 	private ProductBuilderRowMapper productBuilderRowMapper;
 	
@@ -104,4 +105,30 @@ public class ProductJdbcDao implements ProductDao {
 		
 		return logo;
 	}
+
+    @Override
+    public List<Product> getPlainProductsRange(int offset, int length) {
+        return jdbcTemplate.query("SELECT productId, productName, shortDescription, category "
+                + "FROM products ORDER BY uploadDate DESC LIMIT ? OFFSET ?", plainProductRowMapper, length, offset);
+    }
+
+    @Override
+    public List<Product> getPlainProductsRangeByCategory(String category, int offset, int length) {
+        return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE category = ? "
+                + "ORDER BY uploadDate DESC LIMIT ? OFFSET ?", plainProductRowMapper, category.toUpperCase(Locale.ENGLISH), length, offset);
+    }
+
+    @Override
+    public int getTotalProducts() {
+        Integer total = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM products", Integer.class);
+        return total != null ? total : 0;
+    }
+
+    @Override
+    public int getTotalProductsInCategory(Category category) {
+        Integer total = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM products WHERE category = ?", Integer.class, category.name());
+        return total != null ? total : 0;
+    }
+    
+    
 }
