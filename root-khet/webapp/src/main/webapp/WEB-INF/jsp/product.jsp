@@ -95,11 +95,11 @@
 															<p><spring:message code="productPage.creator" /></p>
 														</div>
 														<sec:authorize access="isAuthenticated()">
-														<c:if test="${loggedUser.userId == product.creator.userId }">
-														<div class="col-md-5 col-md-offset-1">
-															<p class="ps-btn-red btn upload-btn"><spring:message code="productPage.delete" /></p>
-														</div>
-														</c:if>
+															<c:if test="${loggedUser.userId == product.creator.userId }">
+																<div class="col-md-5 col-md-offset-1">
+																	<p class="ps-btn-red btn upload-btn"><spring:message code="productPage.delete" /></p>
+																</div>
+															</c:if>
 														</sec:authorize>
 													</div>
 													<div class="row">
@@ -156,7 +156,8 @@
 														</a>
 													</div>										
 												</div>
-											</div>											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
+											</div>											
+											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
 												<div class="form-group">
 													<form:textarea type="text" class="form-control" rows="3" path="parentForm.content" placeholder="${ContentPlaceholder}" maxlength="512"/>
 													<form:errors path="parentForm.content" element="p" />
@@ -332,7 +333,9 @@
 										<p id="leftModalButton" class="ps-btn btn modal-left-button"><spring:message code="productPage.modal.leftButton" /></p>
 							  		</div>
 							  		<div class="col-md-1 col-md-offset-1">
-										<a href="<c:url value="/delete/product/${product.id}" />" class="ps-btn btn"><spring:message code="productPage.modal.rightButton" /></a>
+										<form:form action="/webapp/delete/product/${product.id}" method="post">
+											<input type="submit" class="ps-btn btn" value="<spring:message code="productPage.modal.rightButton"/>" />
+							  			</form:form>
 							  		</div>
 							  	</div>
 							  </div>
