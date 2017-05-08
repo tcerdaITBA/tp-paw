@@ -97,14 +97,14 @@
 													</div>
 													<div class="row product-short-description">
 														<div class="col-md-12">
-															<p><span class="glyphicon glyphicon-user"></span><c:out value="${user.name}"/></p>
+															<p><span class="glyphicon glyphicon-user"></span><c:out value="${creator.name}"/></p>
 														</div>
 													</div>
 													<div class="row product-short-description">
 														<div class="col-md-12">
-															<a class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
+															<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
 																<span class="glyphicon glyphicon-envelope"></span>
-																<p><c:out value="${user.email}"/></p>
+																<p><c:out value="${creator.email}"/></p>
 															</a>
 														</div>
 													</div>

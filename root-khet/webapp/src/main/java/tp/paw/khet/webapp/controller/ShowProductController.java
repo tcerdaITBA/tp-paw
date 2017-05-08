@@ -66,7 +66,7 @@ public class ShowProductController {
 		mav.addObject("product", product);
 		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
 		mav.addObject("videos", product.getVideos());
-		mav.addObject("user", product.getCreator());
+		mav.addObject("creator", product.getCreator());
 		mav.addObject("parentcomments", product.getCommentFamilies());
 		
 		return mav;

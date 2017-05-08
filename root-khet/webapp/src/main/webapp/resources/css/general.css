@@ -41,3 +41,13 @@ footer p {
 	font-weight: 400;
 	margin-top: 10px;
 }
+
+.user-btn {
+	padding: 20px;
+}
+
+.user-nav-img {
+    height: 35px;
+    width: 35px;
+    border-radius: 100%;
+}

@@ -1,0 +1,21 @@
+.profile-img {
+	height: 220px;
+    width: 220px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    border-radius: 100%;
+    
+}
+
+.img-row {
+	text-align: center;
+}
+
+.profile-info-box {
+	background-color: white;
+}
+
+.activity-box {
+	background-color: white;
+	margin-left: 20px;
+}

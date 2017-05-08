@@ -19,29 +19,82 @@
 		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/dropzone.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/css/login.css"/>" rel="stylesheet">
+		
 	</head>
 
     <body>
     	<%@include file="includes/navbar.jsp"%>
-    	<h2><spring:message code="login.title" /></h2>
-        <c:url value="/login" var="postPath" />
-        <form action="${postPath}" method="post" enctype="application/x-www-form-urlencoded">
-        	<div>
-        		<label for="j_username">Username: </label>
-        		<input type="text" name="j_username" id="j_username" />
-        	</div>
-        	<div>
-        		<label for="password">Password: </label>
-        		<input type="password" name="j_password" id="j_password"/>
-        	</div>
-        	<div>
-        		<label for="j_rememberme">Remember me: </label>
-        		<input type="checkbox" name="j_rememberme" id="j_rememberme" />
-        	</div>
-        	<div>
-        		<input type="submit" value="Login!" />
-        	</div>
-        </form >
+    	<div class="form-container container">
+    		<div class="row">
+    			<div class="row">
+    				<c:url value="/login" var="loginPath"/>
+    				<div class="col-md-12">
+    					<div class="row">
+							<div class="col-md-12 title">
+								<h2><spring:message code="loginLabel.title"/></h2>
+							</div>
+						</div>
+						<form action="${loginPath}" method="post" enctype="application/x-www-form-urlencoded" 
+								class="form-horizontal">
+						<div class="row">
+							<div class="col-md-12">
+							<div class="col-md-offset-3 col-md-6">		
+								<div class="row">
+									<div class="col-md-12 form-group">
+										<div class="col-md-3">
+		        							<label for="j_username"><spring:message code="loginLabel.email"/></label>
+										</div>
+										<div class="col-md-9">
+											<input type="text" name="j_username" id="j_username" class="form-control"/>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 form-group">
+										<div class="col-md-3">
+	        								<label for="password"><spring:message code="loginLabel.password"/></label>
+	        							</div>
+	        							<div class="col-md-9">
+											<input type="password" name="j_password" id="j_password" class="form-control"/>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 form-group">
+										<div class="col-md-3">
+	        								<label for="j_rememberme"><spring:message code="loginLabel.rememberMe"/></label>
+	        							</div>
+	        							<div class="col-md-1">
+											<input type="checkbox" name="j_rememberme" id="j_rememberme" class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="centered">
+											<input class="ps-btn-red btn submit-btn" type="submit" value="Sign In" />
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 signUpLink">
+										<div class="centered">
+											<a href="<c:url value="/register"/>">
+												<spring:message code="login.goToRegister"/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						</form>										 
+    				</div>  
+    			</div>
+    		</div>
+    	</div>
+			<%@include file="includes/footer.jsp"%>
     </body>
     
     	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
