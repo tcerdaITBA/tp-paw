@@ -75,7 +75,16 @@
 					<c:choose>
 						<c:when test="${products.isEmpty()}">
 							<div class="col-md-10 col-md-offset-1">
-								<%@include file="includes/category-zrp.jsp"%></%@include>
+								<div id="category-zrp">
+									<h2><spring:message code="categoryZRP.sorry"/></h2>
+									<h3><spring:message code="categoryZRP.noProducts"/></h3>
+									<p>
+										<span><spring:message code="categoryZRP.checkOther"/></span>
+										<span>
+											<a href="<c:url value="/upload"/>"><spring:message code="categoryZRP.postYourOwn"/></a>
+										</span>
+									</p>
+								</div>
 							</div>
 						</c:when>
 						<c:otherwise>

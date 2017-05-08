@@ -153,7 +153,12 @@ h2 {
 }
 
 #category-zrp h2 {
+	font-size: 4em;
+}
+
+#category-zrp h3 {
 	color: black;
+	font-weight: 400;
 }
 
 #category-zrp p {
