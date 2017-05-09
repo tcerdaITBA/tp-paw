@@ -61,12 +61,28 @@
 											<div class="col-md-9 product-info-box">
 												<div class="row col-md-12">
 													<div class="row product-name">
-														<div class="col-md-6">
-															<p><c:out value="${product.name}"/></p>
-														</div>
-														<div class="col-md-1 col-md-offset-5">
-															<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-														</div>
+														<sec:authorize access="isAuthenticated()">
+															<c:choose>
+																<c:when test="${loggedUser.userId == profileUser.userId}">
+																	<div class="col-md-10">
+																		<p><c:out value="${product.name}"/></p>
+																	</div>
+																	<div class="col-md-1 col-md-offset-1">
+																		<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+																	</div>
+																</c:when>
+																<c:otherwise>
+																	<div class="col-md-12">
+																		<p><c:out value="${product.name}"/></p>
+																	</div>
+																</c:otherwise>
+															</c:choose>
+														</sec:authorize>
+														<sec:authorize access="isAnonymous()">
+															<div class="col-md-12">
+																		<p><c:out value="${product.name}"/></p>
+															</div>
+														</sec:authorize>
 													</div>
 													<div class="row product-short-description">
 														<div class="col-md-12">
@@ -83,28 +99,32 @@
 										</div>	
 									</a>
 									<!-- The Modal -->
-									<div id="modal${product.id}" class="row modal">
-									  <!-- Modal content -->
-										  <div class="col-md-4 col-md-offset-4 modal-content">
-										    <span id ="closeModal${product.id}" class="close-modal">&times;</span>
-										    <div class="row">
-										    	<div class="col-md-12">
-										    		<p class="modal-text"><spring:message code="productPage.modal.text" /></p>
-										  		</div>
-										  	</div>
-										  	<div class="row modal-buttons-holder">
-										  		<div class="col-md-1 col-md-offset-4">
-													<c:url value="/delete/product/${product.id}" var="deletePath" />
-													<form:form action="${deletePath}" method="post">
-														<input type="submit" class="ps-btn btn" value="<spring:message code="Profile.modal.leftButton"/>" />
-										  			</form:form>
-										  		</div>
-										  		<div class="col-md-1 col-md-offset-1">
-													<p id="leftModalButton${product.id}" class="ps-btn btn modal-left-button"><spring:message code="Profile.modal.rightButton" /></p>
-										  		</div>
-										  	</div>
-										  </div>
-									</div>			
+									<sec:authorize access="isAuthenticated()">
+										<c:if test="${loggedUser.userId == profileUser.userId}">
+											<div id="modal${product.id}" class="row modal">
+											  <!-- Modal content -->
+												  <div class="col-md-4 col-md-offset-4 modal-content">
+												    <span id ="closeModal${product.id}" class="close-modal">&times;</span>
+												    <div class="row">
+												    	<div class="col-md-12">
+												    		<p class="modal-text"><spring:message code="productPage.modal.text" /></p>
+												  		</div>
+												  	</div>
+												  	<div class="row modal-buttons-holder">
+												  		<div class="col-md-1 col-md-offset-4">
+															<c:url value="/delete/product/${product.id}" var="deletePath" />
+															<form:form action="${deletePath}" method="post">
+																<input type="submit" class="ps-btn btn" value="<spring:message code="Profile.modal.leftButton"/>" />
+												  			</form:form>
+												  		</div>
+												  		<div class="col-md-1 col-md-offset-1">
+															<p id="leftModalButton${product.id}" class="ps-btn btn modal-left-button"><spring:message code="Profile.modal.rightButton" /></p>
+												  		</div>
+												  	</div>
+												  </div>
+											</div>
+										</c:if>
+									</sec:authorize>		
 								</c:forEach>
 							</c:otherwise>
 					</c:choose>									

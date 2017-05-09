@@ -81,6 +81,10 @@ public class IndexController {
 		if (user == null)
 			throw new ResourceNotFoundException();
 		
+		User loggedUser = securityUserService.getLoggedInUser();
+		
+		mav.addObject("loggedUser", loggedUser);
+		mav.addObject("profileUser", user);
 		mav.addObject("us", userService.getUserById(userId));
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
 		return mav;
