@@ -20,6 +20,15 @@ body {
 	color: #39C6A6;
 }
 
+.navbar-link {
+	color: #39C6A6 !important;
+	font-weight: 500 !important; 
+}
+
+.navbar-link:hover {
+	text-decoration: underline !important;
+}
+
 nav img {
 	max-height: 100%;
 	max-width: 100%;
@@ -42,12 +51,20 @@ footer p {
 	margin-top: 10px;
 }
 
-.user-btn {
-	padding: 20px;
+.user-nav-img {
+	margin-right: -10px !important;
+	margin-top: 8px !important;
+	padding: 0 !important;
 }
 
-.user-nav-img {
-    height: 35px;
-    width: 35px;
-    border-radius: 100%;
+.user-nav-img img {
+   height: 35px;
+   width: 35px;
+   border-radius: 100%;
+}
+
+.user-nav-name {
+	margin-right: -1em;
+	color: #333 !important;
+	font-weight: 500;
 }

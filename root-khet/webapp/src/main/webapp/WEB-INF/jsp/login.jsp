@@ -16,11 +16,8 @@
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 		
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/css/dropzone.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/login.css"/>" rel="stylesheet">
-		
 	</head>
 
     <body>

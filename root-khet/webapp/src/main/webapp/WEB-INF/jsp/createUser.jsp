@@ -17,13 +17,10 @@
 		<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 		
-		<link href="<c:url value="/resources/css/login.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/css/dropzone.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/createUser.css"/>" rel="stylesheet">
-		
 	</head>
 	
 	<body>
@@ -31,34 +28,35 @@
 		<spring:message code="userFormLabel.namePlaceholder" var="NamePlaceholder"/>
 		<spring:message code="userFormLabel.emailPlaceholder" var="EmailPlaceholder"/>
 		<spring:message code="userFormLabel.passwordPlaceholder" var="PasswordPlaceholder"/>
+		<spring:message code="userFormLabel.signUp" var="signUpMessage"/>
 		<spring:message code="userFormLabel.passwordConfirmPlaceholder" var="PasswordConfirmPlaceholder"/>
-		
+
 		
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10">
-					<div class="col-sm-9 col-sm-offset-3 text-centered">
-						<div>
-							<h2><spring:message code="userFormLabel.createUser"/></h2>
-						</div>
-					</div>
 					<c:url value="/register" var="postPath" />
 					<form:form modelAttribute="createUserForm" action="${postPath}" method="post" enctype="multipart/form-data"
 								class="form-horizontal">
-						<div class="row">
-							<div class="col-md-9 col-md-offset-3 profilePicture-form">
-								<form:input class="image-input" type="file" path="profilePicture" accept="image/*"/>
-								<form:label id="profilePicture-label" path="profilePicture" style="text-align:center;">
-									<div class="preview-container">
-										<img src="#" class="preview-image">
-										<span class="add-img-text">
-											<span class="glyphicon glyphicon-plus"></span>
-											<spring:message code="userFormLabel.profilePicture"/>
-										</span>
-										<div class="remove-btn glyphicon glyphicon-remove"></div>
+						<div class="row row-centered">
+							<div class="col-md-12 form-group">
+								<div class="col-sm-9 col-sm-offset-3">
+									<h2 class="create-title"><spring:message code="userFormLabel.signUp"/></h2>
+									<div class="profile-img-input">
+										<form:input class="image-input" type="file" path="profilePicture" accept="image/*"/>
+										<form:label id="profilePicture-label" path="profilePicture">
+											<div class="preview-container">
+												<img src="#" class="preview-image">
+												<span class="add-img-text">
+													<span class="glyphicon glyphicon-plus"></span>
+													<spring:message code="userFormLabel.profilePicture"/>
+												</span>
+												<div class="remove-btn glyphicon glyphicon-remove"></div>
+											</div>
+										</form:label>
 									</div>
-								</form:label>
-								<form:errors path="profilePicture" cssClass="" element="p" class="error-centered"/>
+									<form:errors path="profilePicture" cssClass="" element="p" class="error-centered"/>
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -99,9 +97,10 @@
 						</div>
 								
 						<div class="row row-centered">
-							<div class="col-md-12">
-								<div class="col-sm-9 col-sm-offset-3">
-									<input class="ps-btn-red btn submit-btn" type="submit" value="Sign Up" />
+							<div class="col-md-12 form-group">
+								<div class="col-sm-9 col-sm-offset-3" style="text-align: center;">
+									<input class="ps-btn-red btn submit-btn" type="submit" value="${signUpMessage}"/>
+
 								</div>
 							</div>
 						</div>

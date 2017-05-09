@@ -1,12 +1,22 @@
-.profilePicture-form {
+.profile-img-input {
 	text-align: center;
-	margin-top: -1em;
+	width: 15em;
+	height: 15em;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
-#profilePicture-label {
-	width: 200px !important;
-	height: 200px !important;
-	margin: 15px auto;
+.create-title {
+	text-align: center;
+}
+
+.submit-btn {
+	font-size: 1.5em;
+	padding: 10px 30px;
+	display: inline-block;
+	float: none;
+	margin-top: 1em;
 }
 
 .error-centered {

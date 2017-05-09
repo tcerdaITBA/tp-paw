@@ -83,12 +83,6 @@ h2 {
 	background-color: #39c6a6;    
 }
 
-.nav-pills>li>a:hover{
-	color: #fff;
-	background-color: #39c6a6;
-	opacity: 0.2;    
-}
-
 .nav-pills>li.active {
 	pointer-events:none;
 
@@ -150,4 +144,30 @@ h2 {
 .page-num.selected {
 	color: #23527c;
 	font-size: 1.45em;
+}
+
+.zrp {
+	text-align: center;
+	padding: 10%;
+	box-shadow: 0 0 3px 0 rgba(0,0,0,.2);
+}
+
+.zrp h2 {
+	font-size: 4em;
+}
+
+.zrp h3 {
+	color: black;
+	font-weight: 400;
+}
+
+.zrp p {
+	margin-top: 2em;	
+	font-size: 1.5em;
+	font-weight: 300;
+	color: #737373;
+}
+
+.zrp a {
+	color: #39c6a6;
 }

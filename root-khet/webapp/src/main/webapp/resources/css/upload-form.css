@@ -40,66 +40,6 @@
 	margin-top: 10px;
 }
 
-/* Hiding ugly input */
-.image-input {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1; 
-}
-
-.image-input + label {
-	font-size: 1.25em;
-	font-weight: 400;
-	width: 100%;
-	height: 100%;
-	color: #8e8e8e;
-	background-color: #fff;
-	border-radius: 3px;
-
-	display: flex;
-	justify-content: center; /* align horizontal */
-	align-items: center; /* align vertical */
-
-	cursor: pointer; /* "hand" cursor */
-
-	border: 1px solid rgba(0,0,0,.09);
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
-}
-
-.image-input:focus + label,
-.image-input + label:hover {
-	box-shadow: 0 2px 4px 0 #33bb9c;
-	border-color: #33bb9c;
-	transition: all .2s ease-in;
-}
-
-.preview-image {
-	display: none;
-	max-height: 95%;
-	max-width: 95%;
-	padding: 2.5%;
-	align-self: center;
-}
-
-.remove-btn {
-	display: none;
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	color: #F64763;
-}
-
-.preview-container {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-}
-
 #logo-label {
 	width: 150px !important;
 	height: 150px !important;
@@ -110,11 +50,7 @@
 	height: 120px;
 }
 
-.add-img-text {
-	align-self: center;
-}
-
-p { /* errors */
+#upload-form p { /* errors */
 	color: #bc0f0f;
 	text-align: left;
 }
@@ -145,4 +81,13 @@ p { /* errors */
 	font-size: 1.3em;
 	margin-bottom: 15px;
 	font-weight: 500;
+}
+
+.creator-data-row p, .creator-data-row a {
+	font-size: 1.2em;
+	font-weight: 400;
+}
+.creator-data-row h3 {
+	margin-bottom: 15px;
+	margin-top: 15px;
 }
