@@ -115,10 +115,13 @@
 }
 
 .product-category p {
-	color: #8c8c8c;
-	font-weight: 200;
+	font-weight: 500;
 	word-wrap: break-word;
 	font-size: small;
+}
+
+.product-category a {
+	color: #8c8c8c;
 }
 
 .website-btn-row {
