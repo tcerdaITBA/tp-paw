@@ -32,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
 	public Product getFullProductById(int productId) {
 		Product.ProductBuilder productBuilder = productDao.getFullProductById(productId);
 		
+		if (productBuilder == null)
+			return null;
+		
 		productBuilder.commentFamilies(commentService.getCommentsByProductId(productId))
 					  .videos(videoService.getVideosByProductId(productId));
 		
