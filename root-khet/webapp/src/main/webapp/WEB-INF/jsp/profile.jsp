@@ -64,8 +64,8 @@
 														<div class="col-md-6">
 															<p><c:out value="${product.name}"/></p>
 														</div>
-														<div class="col-md-2 col-md-offset-4">
-															<span id="delete${product.id}" class="glyphicon glyphicon-trash"></span>
+														<div class="col-md-1 col-md-offset-5">
+															<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
 														</div>
 													</div>
 													<div class="row product-short-description">

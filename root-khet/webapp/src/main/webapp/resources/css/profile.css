@@ -63,9 +63,13 @@
 	padding-right: 15px;
 }
 
-.delete-product {
+.delete-product-button {
+	font-size: 25px;
 	color: #888a85;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+}
+
+.delete-product-button:hover, .delete-product-button:focus {
+	color: #ef2929;
+	text-decoration: none;
+	cursor: pointer;
 }
