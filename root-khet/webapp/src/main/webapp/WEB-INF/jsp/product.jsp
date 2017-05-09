@@ -90,17 +90,10 @@
 										<div class="col-md-4 col-md-offset-1 creator-item highlighted">
 											<div class="row">
 												<div class="col-md-12">
-													<div class="row creator-firstrow-holder">
+													<div class="row creator-first-row-holder">
 														<div class="col-md-5 product-name creator-name">
 															<p><spring:message code="productPage.creator" /></p>
 														</div>
-														<sec:authorize access="isAuthenticated()">
-															<c:if test="${loggedUser.userId == product.creator.userId }">
-																<div class="col-md-5 col-md-offset-1">
-																	<p class="ps-btn-red btn upload-btn"><spring:message code="productPage.delete" /></p>
-																</div>
-															</c:if>
-														</sec:authorize>
 													</div>
 													<div class="row">
 														<div class="col-md-2">
@@ -110,7 +103,7 @@
 															<div class="row col-md-12">
 																<p class="profile-name"> <c:out value="${creator.name}" /> </p>
 															</div>
-															<div class="row col-md-12 product-short-description">
+														<div class="row col-md-12 product-short-description">
 																<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
 																	<span class="glyphicon glyphicon-envelope"></span>
 																	<p><c:out value="${creator.email}"/></p>
@@ -316,32 +309,7 @@
 								</div>
 							</div>
 						</div>
-						
-						
-						<!-- The Modal -->
-						<div id="myModal" class="row modal">
-						  <!-- Modal content -->
-							  <div class="col-md-4 col-md-offset-4 modal-content">
-							    <span class="close">&times;</span>
-							    <div class="row">
-							    	<div class="col-md-12">
-							    		<p class="modal-text"><spring:message code="productPage.modal.text" /></p>
-							  		</div>
-							  	</div>
-							  	<div class="row modal-buttons-holder">
-							  		<div class="col-md-1 col-md-offset-4">
-										<p id="leftModalButton" class="ps-btn btn modal-left-button"><spring:message code="productPage.modal.leftButton" /></p>
-							  		</div>
-							  		<div class="col-md-1 col-md-offset-1">
-										<c:url value="/delete/product/${product.id}" var="deletePath" />
-										<form:form action="${deletePath}" method="post">
-											<input type="submit" class="ps-btn btn" value="<spring:message code="productPage.modal.rightButton"/>" />
-							  			</form:form>
-							  		</div>
-							  	</div>
-							  </div>
-						</div>
-						
+				
 						<%@include file="includes/footer.jsp"%>
 
 							<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

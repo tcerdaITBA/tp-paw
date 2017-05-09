@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 	<html>
 		<head>
@@ -60,8 +61,11 @@
 											<div class="col-md-9 product-info-box">
 												<div class="row col-md-12">
 													<div class="row product-name">
-														<div class="col-md-12">
+														<div class="col-md-6">
 															<p><c:out value="${product.name}"/></p>
+														</div>
+														<div class="col-md-2 col-md-offset-4">
+															<span id="delete${product.id}" class="glyphicon glyphicon-trash"></span>
 														</div>
 													</div>
 													<div class="row product-short-description">
@@ -77,18 +81,50 @@
 												</div>
 											</div>
 										</div>	
-									</a>				
+									</a>
+									<!-- The Modal -->
+									<div id="modal${product.id}" class="row modal">
+									  <!-- Modal content -->
+										  <div class="col-md-4 col-md-offset-4 modal-content">
+										    <span id ="closeModal${product.id}" class="close-modal">&times;</span>
+										    <div class="row">
+										    	<div class="col-md-12">
+										    		<p class="modal-text"><spring:message code="productPage.modal.text" /></p>
+										  		</div>
+										  	</div>
+										  	<div class="row modal-buttons-holder">
+										  		<div class="col-md-1 col-md-offset-4">
+													<c:url value="/delete/product/${product.id}" var="deletePath" />
+													<form:form action="${deletePath}" method="post">
+														<input type="submit" class="ps-btn btn" value="<spring:message code="Profile.modal.leftButton"/>" />
+										  			</form:form>
+										  		</div>
+										  		<div class="col-md-1 col-md-offset-1">
+													<p id="leftModalButton${product.id}" class="ps-btn btn modal-left-button"><spring:message code="Profile.modal.rightButton" /></p>
+										  		</div>
+										  	</div>
+										  </div>
+									</div>			
 								</c:forEach>
 							</c:otherwise>
 					</c:choose>									
 					</div>
 					
 					</div>
-				</div>
-				
+				</div>	
+			
 			</div>
 			<%@include file="includes/footer.jsp"%>
-		
+			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+			<script
+							src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<!-- 	Include all compiled plugins (below), or include individual files as needed -->
+			<script
+							src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+							integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+							crossorigin="anonymous"></script>
+			<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+			<script src="<c:url value="/resources/js/profile.js" />"></script>		
 		</body>
 		
 	</html>
