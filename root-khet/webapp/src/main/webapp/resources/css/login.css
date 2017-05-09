@@ -10,3 +10,10 @@
 	margin-top: 20px;
 	
 }
+
+.login-error {
+    text-align: center;
+    margin-bottom: 30px;
+    color: red;
+	
+}

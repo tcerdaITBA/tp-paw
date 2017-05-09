@@ -69,11 +69,22 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
+										<c:if test="${not empty param['error']}">
+											<div class="login-error">
+												<spring:message code="login.BadCredentials"></spring:message>
+											</div>
+										</c:if>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-12">
 										<div class="centered">
 											<input class="ps-btn-red btn submit-btn" type="submit" value="Sign In" />
 										</div>
 									</div>
 								</div>
+							
 								<div class="row">
 									<div class="col-md-12 signUpLink">
 										<div class="centered">
