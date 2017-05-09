@@ -107,7 +107,9 @@
 												    <span id ="closeModal${product.id}" class="close-modal">&times;</span>
 												    <div class="row">
 												    	<div class="col-md-12">
-												    		<p class="modal-text"><spring:message code="productPage.modal.text" /></p>
+												    		<p class="modal-text"><spring:message code="Profile.modal.textBeginning" />
+												    		<span class="modal-product-name"><c:out value="${product.name}" /></span>
+												    		<spring:message code="Profile.modal.textEnd" /></p>
 												  		</div>
 												  	</div>
 												  	<div class="row modal-buttons-holder">

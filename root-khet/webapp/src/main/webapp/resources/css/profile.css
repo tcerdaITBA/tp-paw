@@ -73,3 +73,8 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.modal-product-name {
+	font-weight: bold;
+	text-transform: uppercase;	
+}
