@@ -35,8 +35,12 @@
 				</sec:authorize>	
 				<sec:authorize access="isAuthenticated()">
 					<li>
-						<a href="<c:url value="/profile/${loggedUser.userId}"/>" class="user-btn">
-							<img class="user-nav-img" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+						<a class="user-nav-img" href="<c:url value="/profile/${loggedUser.userId}"/>">
+							<img src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+						</a>
+					</li>
+					<li>
+						<a class="user-nav-name" href="<c:url value="/profile/${loggedUser.userId}"/>">
 							<span><c:out value="${loggedUser.name}"/></span>
 						</a>
 					</li>

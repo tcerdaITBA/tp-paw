@@ -47,12 +47,18 @@ footer p {
 	margin-top: 10px;
 }
 
-.user-btn {
-	padding: 20px;
+.user-nav-img {
+	margin-right: -10px !important;
+	margin-top: 8px !important;
+	padding: 0 !important;
 }
 
-.user-nav-img {
-    height: 35px;
-    width: 35px;
-    border-radius: 100%;
+.user-nav-img img {
+   height: 35px;
+   width: 35px;
+   border-radius: 100%;
+}
+
+.user-nav-name {
+	margin-right: -1em;
 }
