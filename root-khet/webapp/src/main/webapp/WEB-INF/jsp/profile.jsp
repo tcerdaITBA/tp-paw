@@ -40,15 +40,16 @@
 								</div>
 						
 					</div>
-					<div class="col-md-8 activity-box">
+					<div class="col-md-7 col-md-offset-1">
 						<div class="col-md-12 products-title">
 							<h2><spring:message code="uploadedProductsTitle"/></h2>
 							<div class="col-md-12 product-list">
 						<c:choose>
 							<c:when test="${products.isEmpty()}">
-								<!-- FALTA UNA IMAGEN PARA ZRP, INSERTAR ACA -->
-								<h2><c:out value="ZRP"></c:out>
-								</h2>
+								<div class="zrp" id="user-products-zrp">
+									<h2><spring:message code="userZRP.empty"/></h2>
+									<h3><spring:message code="userZRP.noProducts"/></h3>
+								</div>
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${products}" var="product">
@@ -70,14 +71,16 @@
 														</div>
 													</div>
 													<div class="row product-category">
-														<div class="col-md-3 categoryTag">
-															<p><spring:message code="category.${product.category.lowerName}"/></p>
+														<div class="col-md-3">
+															<div class="categoryTag">
+																<p><spring:message code="category.${product.category.lowerName}"/></p>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>	
-									</a>				
+									</a>			
 								</c:forEach>
 							</c:otherwise>
 					</c:choose>									

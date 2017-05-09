@@ -75,7 +75,7 @@
 					<c:choose>
 						<c:when test="${products.isEmpty()}">
 							<div class="col-md-10 col-md-offset-1">
-								<div id="category-zrp">
+								<div class="zrp" id="category-zrp">
 									<h2><spring:message code="categoryZRP.sorry"/></h2>
 									<h3><spring:message code="categoryZRP.noProducts"/></h3>
 									<p>

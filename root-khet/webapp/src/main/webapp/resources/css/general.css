@@ -25,6 +25,10 @@ body {
 	font-weight: 500 !important; 
 }
 
+.navbar-link:hover {
+	text-decoration: underline !important;
+}
+
 nav img {
 	max-height: 100%;
 	max-width: 100%;
@@ -61,4 +65,6 @@ footer p {
 
 .user-nav-name {
 	margin-right: -1em;
+	color: #333 !important;
+	font-weight: 500;
 }
