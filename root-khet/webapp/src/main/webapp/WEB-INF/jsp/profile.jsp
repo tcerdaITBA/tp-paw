@@ -30,28 +30,39 @@
 					<div class="col-md-3 profile-info-box">
 					
 								<div class="row img-row">
-									<img class="profile-img" src="<c:url value="/profile/${us.userId}/profilePicture"/>">
+									<div class="col-md-12">
+										<img class="profile-img" src="<c:url value="/profile/${us.userId}/profilePicture"/>">
+									</div>
 								</div>
 								<div class="row">
-									<h3><c:out value="${us.name}"></c:out></h3>	
+									<div class="col-md-12">
+										<div class="profile-username">
+											<span class="glyphicon glyphicon-user"></span>
+											<p><c:out value="${us.name}"></c:out></p>
+										</div>	
+									</div>
 								</div>
 								<div class="row">
-									<h3><c:out value="${us.email}"></c:out></h3>	
+									<div class="col-md-12">
+										<a class="profile-mail" href="mailto:<c:out value="${us.email}"/>">
+											<span class="glyphicon glyphicon-envelope"></span>
+											<p><c:out value="${us.email}"></c:out></p>
+										</a>	
+									</div>
 								</div>
 						
 					</div>
 					<div class="col-md-7 col-md-offset-1">
-						<div class="col-md-12 products-title">
-							<h2><spring:message code="uploadedProductsTitle"/></h2>
-							<div class="col-md-12 product-list">
 						<c:choose>
 							<c:when test="${products.isEmpty()}">
 								<div class="zrp" id="user-products-zrp">
 									<h2><spring:message code="userZRP.empty"/></h2>
-									<h3><spring:message code="userZRP.noProducts"/></h3>
+									<h3><spring:message code="userZRP.noProducts" arguments="${us.name}"/></h3>
 								</div>
 							</c:when>
 							<c:otherwise>
+							<h2><spring:message code="uploadedProductsTitle" arguments="${us.name}"/></h2>
+							<div class="col-md-12 product-list">
 								<c:forEach items="${products}" var="product">
 									<a href="<c:url value="/product/${product.id}"/>">
 										<div class="row product-list-item vertical-align">
@@ -82,11 +93,10 @@
 										</div>	
 									</a>			
 								</c:forEach>
+							</div>
 							</c:otherwise>
 					</c:choose>									
-					</div>
 					
-					</div>
 				</div>
 				
 			</div>

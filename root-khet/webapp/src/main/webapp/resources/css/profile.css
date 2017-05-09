@@ -1,10 +1,9 @@
 .profile-img {
 	height: 220px;
-    width: 220px;
-    margin-bottom: 40px;
-    margin-top: 40px;
-    border-radius: 100%;
-    
+	width: 220px;
+	margin-bottom: 40px;
+	margin-top: 40px;
+	border-radius: 100%;
 }
 
 .img-row {
@@ -13,9 +12,24 @@
 
 .profile-info-box {
 	background-color: white;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .04);
 }
 
-.activity-box {
-	background-color: white;
-	margin-left: 20px;
+.profile-username, .profile-mail {
+	text-align: center;
 }
+
+.profile-mail p, .profile-mail .glyphicon {
+	display: block;
+}
+
+.profile-mail p, .profile-username p {
+	font-size: 1.6em;
+	font-weight: 300;
+	margin-bottom: 1em;
+}
+
+.profile-mail p {
+	margin-bottom: 2em;
+}
+
