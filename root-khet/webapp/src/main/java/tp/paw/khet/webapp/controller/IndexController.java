@@ -73,8 +73,14 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/profile/{userId}")
-	public ModelAndView user(@PathVariable final int userId) {
+	public ModelAndView user(@PathVariable final int userId) throws ResourceNotFoundException {
 		ModelAndView mav = new ModelAndView("profile");
+		
+		User user = userService.getUserById(userId);
+		
+		if (user == null)
+			throw new ResourceNotFoundException();
+		
 		mav.addObject("us", userService.getUserById(userId));
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
 		return mav;
