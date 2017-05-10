@@ -27,19 +27,20 @@
     			<div class="row">
     				<c:url value="/login" var="loginPath"/>
     				<div class="col-md-12">
-    					<div class="row">
-							<div class="col-md-12 title">
-								<h2><spring:message code="loginLabel.title"/></h2>
-							</div>
-						</div>
+
 						<form action="${loginPath}" method="post" enctype="application/x-www-form-urlencoded" 
 								class="form-horizontal">
 						<div class="row">
 							<div class="col-md-12">
-							<div class="col-md-offset-3 col-md-6">		
+							<div class="col-md-offset-3 col-md-6">	
+								<div class="row">
+									<div class="col-md-12 title">
+										<h2><spring:message code="loginLabel.title"/></h2>
+									</div>
+								</div>
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<div class="col-md-3">
+										<div class="col-md-3 control-label">
 		        							<label for="j_username"><spring:message code="loginLabel.email"/></label>
 										</div>
 										<div class="col-md-9">
@@ -49,7 +50,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<div class="col-md-3">
+										<div class="col-md-3 control-label">
 	        								<label for="password"><spring:message code="loginLabel.password"/></label>
 	        							</div>
 	        							<div class="col-md-9">
@@ -59,7 +60,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<div class="col-md-3">
+										<div class="col-md-3 control-label">
 	        								<label for="j_rememberme"><spring:message code="loginLabel.rememberMe"/></label>
 	        							</div>
 	        							<div class="col-md-1">
@@ -78,10 +79,8 @@
 								</div>
 								
 								<div class="row">
-									<div class="col-md-12">
-										<div class="centered">
-											<input class="ps-btn-red btn submit-btn" type="submit" value="Sign In" />
-										</div>
+									<div class="col-md-12 centered">
+										<input class="ps-btn-red btn submit-btn" type="submit" value="Sign In" />
 									</div>
 								</div>
 							

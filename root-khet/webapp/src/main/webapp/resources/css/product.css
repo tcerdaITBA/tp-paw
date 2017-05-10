@@ -96,10 +96,9 @@
 }
 
 .creator-mail {
-	text-decoration: underline;
 	position: relative;
 	bottom: 12px;
-	font-size: 12px;
+	font-size:1.1em;
 }
 
 .creator-mail p {

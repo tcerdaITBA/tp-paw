@@ -107,7 +107,7 @@
 																	<c:out value="${creator.name}" />
 																</a>
 															</div>
-														<div class="row col-md-12 product-short-description">
+														<div class="row col-md-12">
 																<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
 																	<span class="glyphicon glyphicon-envelope"></span>
 																	<p><c:out value="${creator.email}"/></p>

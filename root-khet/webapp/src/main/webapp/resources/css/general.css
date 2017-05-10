@@ -57,6 +57,10 @@ footer p {
 	padding: 0 !important;
 }
 
+.navbar-btn {
+	margin-left: 15px;
+}
+
 .user-nav-img img {
    height: 35px;
    width: 35px;
