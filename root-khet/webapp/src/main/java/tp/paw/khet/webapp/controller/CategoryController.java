@@ -33,7 +33,7 @@ public class CategoryController {
 	}
 
 	//TODO: sacar
-    private static int PAGE_SIZE = 1; 
+	private static int PAGE_SIZE = 10; 
 	
 	@RequestMapping(value = "/category/{category}")
 	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 

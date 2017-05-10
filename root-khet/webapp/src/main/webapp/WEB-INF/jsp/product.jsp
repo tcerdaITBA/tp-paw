@@ -150,7 +150,7 @@
 															<c:out value="${loggedUser.name}" />
 														</a>
 													</div>
-													<div class="row col-md-12 product-short-description">
+													<div class="row col-md-12">
 														<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
 															<span class="glyphicon glyphicon-envelope"></span>
 															<p><c:out value="${loggedUser.email}"/></p>
@@ -199,7 +199,7 @@
 																<a class="profile-name" href="<c:url value="/profile/${commentFamily.parentComment.author.userId}"/>"> 
 																	<c:out value="${commentFamily.parentComment.author.name}" />
 																</a>															</div>
-															<div class="row col-md-12 product-short-description">
+															<div class="row col-md-12">
 																<a class="creator-mail" href="mailto:<c:out value="${commentFamily.parentComment.author.email}"/>">
 																	<span class="glyphicon glyphicon-envelope"></span>
 																	<p><c:out value="${commentFamily.parentComment.author.email}"/></p>
@@ -242,7 +242,7 @@
 																			<c:out value="${child.author.name}" />
 																		</a>
 																	</div>
-																	<div class="row col-md-12 product-short-description">
+																	<div class="row col-md-12">
 																		<a class="creator-mail" href="mailto:<c:out value="${child.author.email}"/>">
 																			<span class="glyphicon glyphicon-envelope"></span>
 																			<p><c:out value="${child.author.email}"/></p>
@@ -283,7 +283,7 @@
 																			<c:out value="${loggedUser.name}" />
 																		</a>
 																	</div>
-																	<div class="row col-md-12 product-short-description">
+																	<div class="row col-md-12">
 																		<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
 																			<span class="glyphicon glyphicon-envelope"></span>
 																			<p><c:out value="${loggedUser.email}"/></p>

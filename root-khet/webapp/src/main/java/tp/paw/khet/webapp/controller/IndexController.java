@@ -38,8 +38,8 @@ public class IndexController {
 		return securityUserService.getLoggedInUser();
 	}
 	
-    //TODO sacar
-    private static int PAGE_SIZE = 1; 
+	//TODO: sacar
+    private static int PAGE_SIZE = 10; 
     
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {

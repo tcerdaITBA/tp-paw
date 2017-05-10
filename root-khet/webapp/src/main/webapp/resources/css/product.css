@@ -228,7 +228,7 @@
 }
 
 .profile-name {
-	color: black;
+	color: #333;
 	font-weight: bold;
 	position: relative;
 	bottom: 4px;

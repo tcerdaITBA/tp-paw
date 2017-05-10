@@ -35,7 +35,7 @@
 							<div class="col-md-offset-3 col-md-6">	
 								<div class="row">
 									<div class="col-md-12 title">
-										<h2><spring:message code="loginLabel.title"/></h2>
+										<h2><spring:message code="signIn"/></h2>
 									</div>
 								</div>
 								<div class="row">
@@ -44,7 +44,7 @@
 		        							<label for="j_username"><spring:message code="loginLabel.email"/></label>
 										</div>
 										<div class="col-md-9">
-											<input type="text" name="j_username" id="j_username" class="form-control"/>
+											<input type="text" name="j_username" id="j_username" class="form-control" placeholder="<spring:message code="loginLabel.email"/>"/>
 										</div>
 									</div>
 								</div>
@@ -54,7 +54,7 @@
 	        								<label for="password"><spring:message code="loginLabel.password"/></label>
 	        							</div>
 	        							<div class="col-md-9">
-											<input type="password" name="j_password" id="j_password" class="form-control"/>
+											<input type="password" name="j_password" id="j_password" class="form-control" placeholder="<spring:message code="userFormLabel.passwordPlaceholder" />"/>
 										</div>
 									</div>
 								</div>
@@ -72,7 +72,7 @@
 									<div class="col-md-12">
 										<c:if test="${not empty param['error']}">
 											<div class="login-error">
-												<spring:message code="login.BadCredentials"></spring:message>
+												<spring:message code="login.BadCredentials" />
 											</div>
 										</c:if>
 									</div>
@@ -80,7 +80,7 @@
 								
 								<div class="row">
 									<div class="col-md-12 centered">
-										<input class="ps-btn-red btn submit-btn" type="submit" value="Sign In" />
+										<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="signIn" />" />
 									</div>
 								</div>
 							
