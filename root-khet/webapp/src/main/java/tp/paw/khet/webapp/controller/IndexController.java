@@ -109,7 +109,9 @@ public class IndexController {
 	
 		productService.deleteProductById(productId);
 		
-		return new ModelAndView("redirect:/");
+		User owner = product.getCreator();
+		
+		return new ModelAndView("redirect:/profile/" + owner.getUserId());
 	}
 	
 }
