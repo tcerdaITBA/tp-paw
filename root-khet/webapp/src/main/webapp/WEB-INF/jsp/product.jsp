@@ -145,7 +145,7 @@
 													<div class="row col-md-12 product-short-description">
 														<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
 															<span class="glyphicon glyphicon-envelope"></span>
-															<p><c:out value="${creator.email}"/></p>
+															<p><c:out value="${loggedUser.email}"/></p>
 														</a>
 													</div>										
 												</div>
@@ -181,17 +181,17 @@
 												<div class="comment-and-replies">
 												<div class="parent-comment">
 													<div class="row">
-														<div class="col-md-1">
-															<img class="profile-img-circle" src="<c:url value="/profile/${creator.userId}/profilePicture"/>">
+														<div class="col-md-1">									
+															<img class="profile-img-circle" src="<c:url value="/profile/${commentFamily.parentComment.author.userId}/profilePicture"/>">
 														</div>
 														<div class="col-md-10 parent-name-mail-holder">
 															<div class="row col-md-12">
-																<p class="profile-name"> <c:out value="${creator.name}" /> </p>
+																<p class="profile-name"> <c:out value="${commentFamily.parentComment.author.name}" /> </p>
 															</div>
 															<div class="row col-md-12 product-short-description">
-																<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+																<a class="creator-mail" href="mailto:<c:out value="${commentFamily.parentComment.author.email}"/>">
 																	<span class="glyphicon glyphicon-envelope"></span>
-																	<p><c:out value="${creator.email}"/></p>
+																	<p><c:out value="${commentFamily.parentComment.author.email}"/></p>
 																</a>
 															</div>										
 														</div>
@@ -221,16 +221,16 @@
 														<div class="col-md-10 col-md-offset-2">
 															<div class="row">
 																<div class="col-md-1">
-																	<img class="profile-img-circle" src="<c:url value="/profile/${creator.userId}/profilePicture"/>">
+																	<img class="profile-img-circle" src="<c:url value="/profile/${child.author.userId}/profilePicture"/>">
 																</div>
 																<div class="col-md-10 child-name-mail-holder">
 																	<div class="row col-md-12">
-																		<p class="profile-name"> <c:out value="${creator.name}" /> </p>
+																		<p class="profile-name"> <c:out value="${child.author.name}" /> </p>
 																	</div>
 																	<div class="row col-md-12 product-short-description">
-																		<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+																		<a class="creator-mail" href="mailto:<c:out value="${child.author.email}"/>">
 																			<span class="glyphicon glyphicon-envelope"></span>
-																			<p><c:out value="${creator.email}"/></p>
+																			<p><c:out value="${child.author.email}"/></p>
 																		</a>
 																	</div>										
 																</div>
@@ -267,7 +267,7 @@
 																	<div class="row col-md-12 product-short-description">
 																		<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
 																			<span class="glyphicon glyphicon-envelope"></span>
-																			<p><c:out value="${creator.email}"/></p>
+																			<p><c:out value="${loggedUser.email}"/></p>
 																		</a>
 																	</div>										
 																</div>
