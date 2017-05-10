@@ -229,9 +229,20 @@
 }
 
 .profile-name {
+	color: black;
 	font-weight: bold;
 	position: relative;
 	bottom: 4px;
+}
+
+.profile-name-holder {
+	margin-bottom: 10px;	
+}
+.profile-name:hover, .profile-name:focus {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .parent-name-mail-holder {
