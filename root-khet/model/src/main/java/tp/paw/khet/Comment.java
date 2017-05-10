@@ -7,7 +7,7 @@ public class Comment {
 	private static final int NO_PARENT_ID = -1;
 	
 	private final int id;
-	private final int  parentId;
+	private final int parentId;
 	private final String content;
 	private final LocalDateTime commentDate;
 	private final User author;

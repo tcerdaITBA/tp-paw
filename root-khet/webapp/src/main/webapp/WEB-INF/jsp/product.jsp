@@ -136,7 +136,7 @@
 									</p>
 									<sec:authorize access="isAuthenticated()">
 									<c:url value="/product/${product.id}/comment" var="postPath" />
-									<div class="row">
+									<div class="row" id="formparent">
 										<div class="col-md-7 highlighted parent-form-comment">	
 											<div class="row">
 												<div class="col-md-1">
@@ -161,7 +161,7 @@
 											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
 												<div class="form-group">
 													<form:textarea type="text" class="form-control" rows="3" path="parentForm.content" placeholder="${ContentPlaceholder}" maxlength="512"/>
-													<form:errors path="parentForm.content" element="p" />
+													<form:errors path="parentForm.content" element="p" cssClass="form-error"/>
 												</div>
 												<div class="btn-place">
 													<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
@@ -187,7 +187,7 @@
 											<c:forEach items="${parentcomments}" var="commentFamily" varStatus="status">
 												
 												<div class="comment-and-replies">
-												<div class="parent-comment">
+												<div class="parent-comment" id="comment${commentFamily.parentComment.id}">
 													<div class="row">
 														<div class="col-md-1">
 															<a href="<c:url value="/profile/${commentFamily.parentComment.author.userId}"/>">
@@ -228,7 +228,7 @@
 												</div>
 												
 												<c:forEach items="${commentFamily.childComments}" var="child">
-													<div class="row child-comment">
+													<div class="row child-comment" id="comment${child.id}">
 														<div class="col-md-10 col-md-offset-2">
 															<div class="row">
 																<div class="col-md-1">
@@ -266,7 +266,7 @@
 												<sec:authorize access="isAuthenticated()">
 												<div class="row">
 													<div class="col-md-10 col-md-offset-2">
-														<form:form modelAttribute="commentsForm" id="reply${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${commentFamily.parentComment.id}&index=${status.index}#reply${status.index}" method="post">
+														<form:form modelAttribute="commentsForm" id="form${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${commentFamily.parentComment.id}&index=${status.index}" method="post">
 															<p class="reply-to">
 																<span class="glyphicon glyphicon-share-alt"></span>
 																<spring:message code="productPage.replyTo" arguments="${commentFamily.parentComment.author.name}"/>
@@ -293,7 +293,7 @@
 															</div>	
 															<div class="form-group comment-form-fields">
 																<form:textarea type="text" class="form-control" rows="3" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"  maxlength="512"/>
-																<form:errors path="childForms[${status.index}].content" element="p" />
+																<form:errors path="childForms[${status.index}].content" element="p" cssClass="form-error"/>
 															</div>
 															<div class="btn-place">
 																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post"/>" />
