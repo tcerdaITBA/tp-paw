@@ -211,8 +211,8 @@
 	color: #39C6C6;
 }
 
-.form-error { /* errors */
-	color: #bc0f0f;
+.comment-form-fields p { /* errors */
+  	color: #bc0f0f;
 }
 
 .info-box-field {

@@ -55,7 +55,7 @@
 											</div>
 										</form:label>
 									</div>
-									<form:errors path="profilePicture" cssClass="" element="p" class="error-centered"/>
+									<form:errors path="profilePicture" element="p" cssClass="error-centered form-error"/>
 								</div>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 								<form:label path="name" class="col-sm-3 control-label"><spring:message code="userFormLabel.name" /></form:label>
 								<div class="col-sm-9">
 									<form:input type="text" path="name" class="form-control" placeholder="${NamePlaceholder}" maxlength="64"/>
-									<form:errors path="name" cssClass="" element="p"/>
+									<form:errors path="name" element="p" cssClass="form-error" />
 								</div>
 							</div>
 						</div>
@@ -73,7 +73,7 @@
 								<form:label path="email" class="col-sm-3 control-label"><spring:message code="userFormLabel.email" /></form:label>
 								<div class="col-sm-9">
 									<form:input type="text" path="email" class="form-control" placeholder="${EmailPlaceholder}" maxlength="64"/>
-									<form:errors path="email" cssClass="" element="p"/>
+									<form:errors path="email" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -82,7 +82,7 @@
 								<form:label path="name" class="col-sm-3 control-label"><spring:message code="userFormLabel.password" /></form:label>
 								<div class="col-sm-9">
 									<form:input type="password" path="password" class="form-control" placeholder="${PasswordPlaceholder}" maxlength="60"/>
-									<form:errors path="password" cssClass="" element="p"/>
+									<form:errors path="password" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -91,7 +91,7 @@
 								<form:label path="name" class="col-sm-3 control-label"><spring:message code="userFormLabel.passwordConfirm" /></form:label>
 								<div class="col-sm-9">
 									<form:input type="password" path="passwordConf" class="form-control" placeholder="${PasswordConfirmPlaceholder}" maxlength="60"/>
-									<form:errors path="passwordConf" cssClass="" element="p"/>
+									<form:errors path="passwordConf" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>

@@ -72,3 +72,7 @@ footer p {
 	color: #333 !important;
 	font-weight: 500;
 }
+
+.form-error { /* errors */
+	color: #bc0f0f;
+}
