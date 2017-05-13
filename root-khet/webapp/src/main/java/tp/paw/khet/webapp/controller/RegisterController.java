@@ -7,6 +7,9 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.webapp.form.FormUser;
@@ -49,15 +53,16 @@ public class RegisterController {
 		
 		if (errors.hasErrors())
 			return errorState(createUserForm, errors, attr);
-		
+		User user;
 		try {
-			securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), createUserForm.getPassword(), createUserForm.getProfilePicture().getBytes());
+			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), createUserForm.getPassword(), createUserForm.getProfilePicture().getBytes());
 		} catch (DuplicateEmailException e) {
 			LOGGER.warn("Duplicate email exception: {}", e.getMessage());
 			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}
-		
+		Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:/");
 	}
 	
