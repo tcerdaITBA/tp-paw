@@ -36,4 +36,6 @@ public interface UserService {
 	 * @return Byte array corresponding to the user's profile picture
 	 */
 	byte[] getProfilePictureByUserId(int userId);
+	
+	User changePassword(int userId, String password);
 }

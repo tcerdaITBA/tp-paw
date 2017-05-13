@@ -21,4 +21,6 @@ public interface SecurityUserService {
 	 * @throws DuplicateEmailException - if user with given email already exists
 	 */
 	public User registerUser(String name, String email, String password, byte[] profilePicture) throws DuplicateEmailException;
+	
+	public User changePassword(int userId, String password);
 }
