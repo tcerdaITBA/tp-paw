@@ -34,7 +34,7 @@
 							<div class="col-md-12 form-group">
 								<form:label path="password" class="col-sm-3 control-label"><spring:message code="userFormLabel.password"></spring:message></form:label>
 								<div class="col-sm-9">
-									<form:input type="text" path="password" class="form-control" maxlength="64"/>
+									<form:input type="password" path="password" class="form-control" maxlength="64"/>
 									<form:errors path="password" cssClass="form-error" element="p"/>
 								</div>
 							</div>
