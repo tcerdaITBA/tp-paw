@@ -38,5 +38,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.changePassword(userId, password);
 	}
 
+	@Override
+	public User changeProfilePicture(int userId, byte[] profilePicture) {
+		return userDao.changeProfilePicture(userId, profilePicture);
+	}
+
 
 }

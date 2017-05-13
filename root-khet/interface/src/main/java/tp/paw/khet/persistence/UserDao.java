@@ -37,5 +37,8 @@ public interface UserDao {
 	 */
 	public byte[] getProfilePictureByUserId(int userId);
 	
-	User changePassword(int userId, String password);
+	public User changePassword(int userId, String password);
+	
+	public User changeProfilePicture(int userId, byte[] profilePicture);
+	
 }

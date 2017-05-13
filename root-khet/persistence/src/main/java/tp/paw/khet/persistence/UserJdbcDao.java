@@ -91,4 +91,17 @@ public class UserJdbcDao implements UserDao {
 		
 		return  user.get(0);
 	}
+
+	@Override
+	public User changeProfilePicture(int userId, byte[] profilePicture) {
+		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", userRowMapper, userId);
+		
+		if(user.isEmpty())
+			return null;
+		
+		jdbcTemplate.update("UPDATE users SET profilePicture = ? WHERE userId = ?", profilePicture, userId);
+		
+		return user.get(0);
+		
+	}
 }

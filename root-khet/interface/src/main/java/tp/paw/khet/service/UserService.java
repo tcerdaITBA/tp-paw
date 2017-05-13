@@ -38,4 +38,6 @@ public interface UserService {
 	byte[] getProfilePictureByUserId(int userId);
 	
 	User changePassword(int userId, String password);
+	
+	User changeProfilePicture(int userId, byte[] profilePicture);
 }
