@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10">
-					<c:url value="/profile/{loggedUser.userId}/customize/password" var="postPath" />
+					<c:url value="/profile/customize/password" var="postPath" />
 					<form:form modelAttribute="changePasswordForm" action="${postPath}" method="post" enctype="multipart/form-data"
 								class="form-horizontal">
 					

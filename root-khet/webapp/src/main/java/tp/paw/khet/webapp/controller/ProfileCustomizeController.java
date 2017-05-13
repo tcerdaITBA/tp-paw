@@ -40,12 +40,12 @@ public class ProfileCustomizeController {
 			return new FormPassword();
 		}
 		
-		@RequestMapping(value = "/profile/{userId}/customize/password", method = {RequestMethod.GET})
-		public ModelAndView changePassword(@PathVariable final int userId){
+		@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.GET})
+		public ModelAndView changePassword(){
 			return new ModelAndView("changePassword");
 		}
 		
-		@RequestMapping(value = "/profile/{userId}/customize/password", method = {RequestMethod.POST})
+		@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
 		public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormPassword formPassword,
 				final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
 				RedirectAttributes attr){
@@ -63,7 +63,7 @@ public class ProfileCustomizeController {
 		private ModelAndView errorState(FormPassword formPassword, BindingResult errors, RedirectAttributes attr, User loggedUser) {
 			attr.addFlashAttribute("org.springframework.validation.BindingResult.changePasswordForm", errors);
 			attr.addFlashAttribute("changePasswordForm", formPassword);
-			return new ModelAndView("redirect:/profile/" + loggedUser.getUserId() + "/customize/password");	
+			return new ModelAndView("redirect:/profile/customize/password");	
 		}
 }
 
