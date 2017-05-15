@@ -1,5 +1,7 @@
 package tp.paw.khet.webapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -68,7 +70,9 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/login")
-	public ModelAndView login() {
+	public ModelAndView login(HttpServletRequest request) {
+		String referrer = request.getHeader("Referer");
+	    request.getSession().setAttribute("url_prior_login", referrer);
 		return new ModelAndView("login");
 	}
 	

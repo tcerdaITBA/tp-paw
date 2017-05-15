@@ -2,6 +2,7 @@ package tp.paw.khet.webapp.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.GET})
 	public ModelAndView register() {
-		return new ModelAndView("createUser");
+	    return new ModelAndView("createUser");
 	}
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
@@ -53,6 +54,7 @@ public class RegisterController {
 		
 		if (errors.hasErrors())
 			return errorState(createUserForm, errors, attr);
+		
 		User user;
 		try {
 			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), createUserForm.getPassword(), createUserForm.getProfilePicture().getBytes());
@@ -61,6 +63,7 @@ public class RegisterController {
 			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}
+		
 		Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:/");
