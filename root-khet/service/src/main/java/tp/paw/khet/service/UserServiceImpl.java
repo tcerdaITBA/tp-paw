@@ -42,6 +42,4 @@ public class UserServiceImpl implements UserService {
 	public User changeProfilePicture(int userId, byte[] profilePicture) {
 		return userDao.changeProfilePicture(userId, profilePicture);
 	}
-
-
 }

@@ -82,26 +82,22 @@ public class UserJdbcDao implements UserDao {
 
 	@Override
 	public User changePassword(int userId, String password) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", userRowMapper, userId);
+		User user = getUserById(userId);
 		
-		if(user.isEmpty())
-			return null;
+		if (user != null)
+			jdbcTemplate.update("UPDATE users SET password = ? WHERE userId = ?", password, userId);
 		
-		jdbcTemplate.update("UPDATE users SET password = ? WHERE userId = ?",password, userId);
-		
-		return  user.get(0);
+		return user;
 	}
 
 	@Override
 	public User changeProfilePicture(int userId, byte[] profilePicture) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", userRowMapper, userId);
+		User user = getUserById(userId);
 		
-		if(user.isEmpty())
-			return null;
+		if (user != null)
+			jdbcTemplate.update("UPDATE users SET profilePicture = ? WHERE userId = ?", profilePicture, userId);
 		
-		jdbcTemplate.update("UPDATE users SET profilePicture = ? WHERE userId = ?", profilePicture, userId);
-		
-		return user.get(0);
+		return user;
 		
 	}
 }

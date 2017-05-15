@@ -34,8 +34,6 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 
 	@Override
 	public User changePassword(int userId, String password) {
-		return  userService.changePassword(userId, passwordEncoder.encode(password));
+		return userService.changePassword(userId, passwordEncoder.encode(password));
 	}
-	
-	
 }
