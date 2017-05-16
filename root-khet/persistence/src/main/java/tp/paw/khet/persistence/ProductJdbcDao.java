@@ -139,5 +139,18 @@ public class ProductJdbcDao implements ProductDao {
 	@Override
 	public boolean deleteProductById(int productId) {
 		return jdbcTemplate.update("DELETE FROM products WHERE productId = ?", productId) == 1;
-	}    
+	}
+
+    @Override
+    public List<Product> getPlainProductsRangeAlphabetically(int offset, int length) {
+        return jdbcTemplate.query("SELECT productId, productName, shortDescription, category "
+                + "FROM products ORDER BY productName DESC LIMIT ? OFFSET ?", plainProductRowMapper, length, offset);
+    }
+
+    @Override
+    public List<Product> getPlainProductsRangeAlphabeticallyByCategory(String category, int offset,
+            int length) {
+        return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE category = ? "
+                + "ORDER BY productName DESC LIMIT ? OFFSET ?", plainProductRowMapper, category.toUpperCase(Locale.ENGLISH), length, offset);
+    }    
 }

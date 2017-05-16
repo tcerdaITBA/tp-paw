@@ -109,4 +109,15 @@ public class ProductServiceImpl implements ProductService {
     public boolean deleteProductById(int productId) {
     	return productDao.deleteProductById(productId);
     }
+
+    @Override
+    public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize) {
+        return productDao.getPlainProductsRangeAlphabetically((page - 1) * pageSize, pageSize);
+    }
+
+    @Override
+    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(Category category, int page,
+            int pageSize) {
+        return productDao.getPlainProductsRangeAlphabeticallyByCategory(category.name(), (page - 1) * pageSize, pageSize);
+    }
 }
