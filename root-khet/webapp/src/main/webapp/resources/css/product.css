@@ -1,51 +1,50 @@
 .carousel {
 	background-color: white;
 	height: 340px;
-	padding:0px;
+	padding: 0px;
 }
 
 .highlighted {
 	border-radius: 3px;
-	border: 1px solid rgba(0,0,0,.09);
-/*	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);*/
+	border: 1px solid rgba(0, 0, 0, .09);
+	/*	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);*/
 }
 
-.slick-next:before { 
-	color: grey; 
-	font-size:50px; 
-	position:relative;
+.slick-next:before {
+	color: grey;
+	font-size: 50px;
+	position: relative;
 	bottom: 12px;
 }
 
-.slick-prev:before { 
-	color: grey; 
-	font-size:50px;
+.slick-prev:before {
+	color: grey;
+	font-size: 50px;
 	position: relative;
 	right: 30px;
-	bottom:12px;
+	bottom: 12px;
 }
 
 .slick-dotes {
-	font-size:50px;
+	font-size: 50px;
 }
 
 .slick-list {
-	outline:none;
+	outline: none;
 }
 
 .slick-slide {
-	outline:none;
+	outline: none;
 }
 
-.slick-dots li button:before
-{
+.slick-dots li button:before {
 	font-size: 15px;
 }
 
 .image-holder {
 	margin-top: 17px;
-	margin-right:25px;
-	margin-left:25px;
+	margin-right: 25px;
+	margin-left: 25px;
 }
 
 .image-item {
@@ -62,8 +61,8 @@
 	padding: 0px;
 	height: 300px;
 	margin-top: 17px;
-	margin-right:25px;
-	margin-left:25px;
+	margin-right: 25px;
+	margin-left: 25px;
 }
 
 .product-item {
@@ -97,7 +96,9 @@
 }
 
 .creator-mail {
-	text-decoration: underline;
+	position: relative;
+	bottom: 12px;
+	font-size:1.1em;
 }
 
 .creator-mail p {
@@ -109,20 +110,23 @@
 }
 
 .comments-holder {
-	padding: 10px 30px;
+	padding: 0px;
 	margin-top: 20px;
 	background-color: #fff;
 }
 
 .product-category p {
-	color: #8c8c8c;
-	font-weight: 200;
+	font-weight: 500;
 	word-wrap: break-word;
 	font-size: small;
 }
 
+.product-category a {
+	color: #8c8c8c;
+}
+
 .website-btn-row {
-	text-align: center;
+	text-align: end;
 }
 
 .website-btn {
@@ -176,6 +180,7 @@
 }
 
 .comment-content p {
+	margin-left: 55px;
 	font-size: 1.1em;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -183,6 +188,8 @@
 }
 
 .reply-btn {
+	margin-top: 5px;
+	margin-left: 55px;
 	color: #39C6C6;
 }
 
@@ -192,8 +199,9 @@
 }
 
 .reply-to {
-	margin-bottom: -5px;
-	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-top: 0px;
+	padding-top: 20px
 }
 
 .join-discussion {
@@ -204,5 +212,81 @@
 }
 
 .comment-form-fields p { /* errors */
-	color: #bc0f0f;
+  	color: #bc0f0f;
+}
+
+.info-box-field {
+	padding-left: 0;
+}
+
+.profile-img-circle {
+	margin-right: 5px;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .8);
+}
+
+.profile-name {
+	color: #333;
+	font-weight: bold;
+	position: relative;
+	bottom: 4px;
+}
+
+.profile-name-holder {
+	margin-bottom: 10px;	
+}
+.profile-name:hover, .profile-name:focus {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.parent-name-mail-holder {
+	margin-left: 10px;
+}
+
+.child-name-mail-holder {
+	margin-left: 20px;
+}
+
+.comment-content {
+	position: relative;
+	bottom: 8px;
+	word-wrap: break-word;
+}
+
+.reply-button-holder {
+	position: relative;
+	bottom: 8px;
+}
+
+.parent-form-comment {
+	background-color: white;
+	padding-top: 20px;
+	padding-left: 30px;
+}
+
+.anonymous-holder {
+	background-color: white;
+	padding-top: 10px;
+}
+
+.child-text-anonymous {
+	margin-left: 130px;
+}
+
+.creator-name {
+	position: relative;
+	top: 5px;
+}
+
+.creator-first-row-holder {
+	margin-bottom: 10px;
+}
+
+.comment-and-replies {
+	padding: 10px 30px;
 }

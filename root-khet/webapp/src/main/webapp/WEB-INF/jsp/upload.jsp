@@ -20,8 +20,8 @@
 		
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
-		<link href="<c:url value="/resources/css/dropzone.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
 	</head>
 
 <body>
@@ -33,6 +33,7 @@
 <spring:message code="formLabel.creatorNamePlaceholder" var="CreatorNamePlaceholder"/>
 <spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>
 <spring:message code="formLabel.websitePlaceholder" var="WebsitePlaceholder"/>
+<spring:message code="formLabel.postButton" var="PostButtonMessage"/>
 
 
 <%@include file="includes/navbar.jsp" %>
@@ -64,7 +65,7 @@
 										<div class="remove-btn glyphicon glyphicon-remove"></div>
 									</div>
 								</form:label>
-								<form:errors path="logo" cssClass="" element="p"/>
+								<form:errors path="logo" cssClass="form-error" element="p"/>
 							</div>
 						</div>
 						<div class="row">
@@ -72,7 +73,7 @@
 								<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
 								<div class="col-sm-9">
 									<form:input type="text" path="name" class="form-control" placeholder="${NamePlaceholder}" maxlength="64"/>
-									<form:errors path="name" cssClass="" element="p"/>
+									<form:errors path="name" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -81,7 +82,7 @@
 								<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.tagline"/></form:label>
 								<div class="col-sm-9">
 									<form:textarea type="text" path="shortDescription" placeholder="${TaglinePlaceholder}" class="form-control" rows="1" maxlength="140"/>
-									<form:errors path="shortDescription" cssClass="" element="p"/>
+									<form:errors path="shortDescription" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -90,7 +91,7 @@
 								<form:label path="description" class="col-sm-3 control-label"><spring:message code="formLabel.description"/></form:label>
 								<div class="col-sm-9">
 									<form:textarea type="text" path="description" class="form-control" rows="4" placeholder="${DescriptionPlaceholder}"/>
-									<form:errors path="description" cssClass="" element="p"/>
+									<form:errors path="description" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -100,7 +101,7 @@
 								<form:label path="website" class="col-sm-3 control-label"><spring:message code="formLabel.productwebsite"/></form:label>
 								<div class="col-sm-9">
 									<form:textarea type="text" path="website" class="form-control" rows="1" placeholder="${WebsitePlaceholder}"/>
-									<form:errors path="website" cssClass="" element="p"/>
+									<form:errors path="website" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -114,7 +115,7 @@
 											<option value="${catOpt}" <c:if test="${catOpt eq 'OTHER'}">selected="true"</c:if>><spring:message code="category.${catOpt.lowerName}"/></option>
 										</c:forEach>
 									</form:select>									
-									<form:errors path="category" cssClass="" element="p"/>
+									<form:errors path="category" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -141,7 +142,7 @@
 													<div class="remove-btn glyphicon glyphicon-remove"></div>
 												</div>
 											</form:label>
-											<form:errors path="images[${status.index}].file" cssClass="" element="p"/>
+											<form:errors path="images[${status.index}].file" cssClass="form-error" element="p"/>
 										</div>
 									</c:forEach>
 								</div>
@@ -155,12 +156,12 @@
 									<div class="col-md-12 form-group video-form">
 										<form:label path="videos[${status.index}].url"><spring:message code="formLabel.video" /></form:label>
 										<form:input type="url" path="videos[${status.index}].url" class="form-control" placeholder="${LinkPlaceholder}"/>
-										<form:errors path="videos[${status.index}].url" cssClass="" element="p"/>
+										<form:errors path="videos[${status.index}].url" cssClass="form-error" class ="form-error" element="p"/>
 									</div>
 								</c:forEach>
 								<div class="col-md-12">
-									<form:errors path="videos" cssClass="" element="p"/>
-									<form:errors path="images" cssClass="" element="p"/>
+									<form:errors path="videos" cssClass="form-error" element="p"/>
+									<form:errors path="images" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
@@ -168,22 +169,23 @@
 						<div class="row creator-data-row">
 							<div class="col-sm-9 col-sm-offset-3">
 								<h3>
-									<span class="glyphicon glyphicon-user"></span>
-									<spring:message code="formLabel.creator" />
+									<spring:message code="formLabel.creator"/>
 								</h3>
-								<div class="col-md-12 form-group creator-name-form">
-									<p><spring:message code="formLabel.creatorName"/>: <c:out value="${loggedUser.name}" /></p>								
-								</div>
-								<div class="col-md-12 form-group email-form">
-									<p><spring:message code="formLabel.creatorEmail"/>: <c:out value="${loggedUser.email}" /></p>
-								</div>
+								<p> 
+									<span class="glyphicon glyphicon-user"></span>
+									<c:out value="${loggedUser.name}"/>								
+								</p>
+								<a href="mailto:${loggedUser.email}">
+									<span class="glyphicon glyphicon-envelope"></span>
+									<c:out value="${loggedUser.email}"/>
+								</a>
 							</div>
 						</div>
 
 						<div class="row row-centered">
 							<div class="col-md-12">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input class="ps-btn-red btn submit-btn" type="submit" value="Post 🎉" />
+									<input class="ps-btn-red btn submit-btn" type="submit" value="${PostButtonMessage}" />
 								</div>
 							</div>
 						</div>

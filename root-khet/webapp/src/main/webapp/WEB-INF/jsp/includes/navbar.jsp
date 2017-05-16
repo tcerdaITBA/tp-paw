@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
+	<sec:authentication var="user" property="principal" />
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 
@@ -24,14 +25,33 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
+				<sec:authorize access="isAnonymous()">
+					<li>
+						<a href="<c:url value="/register" />" class="navbar-link"><spring:message code="navBar.signupButton" /></a>
+					</li>	
+					<li>
+						<a href="<c:url value="/login" />" class="navbar-link"><spring:message code="navBar.loginButton" /></a>	
+					</li>
+				</sec:authorize>	
+				<sec:authorize access="isAuthenticated()">
+					<li>
+						<a class="user-nav-img" href="<c:url value="/profile/${loggedUser.userId}"/>">
+							<img src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+						</a>
+					</li>
+					<li>
+						<a class="user-nav-name" href="<c:url value="/profile/${loggedUser.userId}"/>">
+							<span><c:out value="${loggedUser.name}"/></span>
+						</a>
+					</li>
+					<li>
+						<a href="<c:url value="/logout"/>" class="navbar-link"><spring:message code="navBar.logoutButton" /></a>
+					</li>
+				</sec:authorize>
 				<li>
 					<p class="navbar-btn">
-					<sec:authorize access="isAnonymous()">
-						<a href="<c:url value="/login" />" class="ps-btn btn upload-btn"><spring:message code="navBar.loginButton" /></a>				
-					</sec:authorize>
-						<a href="<c:url value="/upload" />" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
+						<a href="<c:url value="/upload"/>" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
 					</p>
-				
 				</li>
 			</ul>
 		</div>

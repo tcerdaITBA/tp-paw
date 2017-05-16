@@ -21,6 +21,8 @@ import tp.paw.khet.persistence.ProductDao;
 @RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {
 	
+	private static final int LIST_SIZE = 20;
+	
 	@Mock
 	private ProductDao productDaoMock;
 
@@ -34,8 +36,8 @@ public class ProductServiceImplTest {
 	private ProductServiceImpl productService;
 	
 	@Test
-	public void testGetProducts() {
-		List<Product> expected = dummyProductList(20, 0);
+	public void getProductsTest() {
+		List<Product> expected = dummyProductList(LIST_SIZE, 0);
 		when(productDaoMock.getPlainProducts()).thenReturn(expected);
 		
 		List<Product> actual = productService.getPlainProducts();
@@ -49,7 +51,7 @@ public class ProductServiceImplTest {
 	}
 
 	@Test
-	public void getLogoByProductId() {
+	public void getLogoByProductIdTest() {
 		Product dummyProduct = dummyProduct(0);
 		byte[] expectedImage = logoFromProduct(dummyProduct);
 		when(productDaoMock.getLogoByProductId(0)).thenReturn(expectedImage);
@@ -59,6 +61,23 @@ public class ProductServiceImplTest {
 		assertArrayEquals(expectedImage, actualImage);
 		assertNull(productService.getLogoByProductId(1));
 		verify(productDaoMock, times(2)).getLogoByProductId(anyInt());		
+	}
+	
+	@Test
+	public void getPlainProductsByUserIdTest() {
+		List<Product> expected = dummyProductListWithUserId(LIST_SIZE, 0, 0);
+		when(productDaoMock.getPlainProductsByUserId(0)).thenReturn(expected);
+		
+		List<Product> actual = productService.getPlainProductsByUserId(0);
+		
+		assertEquals(expected.size(), actual.size());
+		
+		for (int i = 0; i < expected.size(); i++)
+			assertEqualsPlainProducts(expected.get(i), actual.get(i));
+		
+		assertTrue(productDaoMock.getPlainProductsByUserId(1).isEmpty());
+
+		verify(productDaoMock, times(2)).getPlainProductsByUserId(anyInt());
 	}
 	
 	@Test
@@ -74,6 +93,8 @@ public class ProductServiceImplTest {
 		assertEquals(2, actual.getVideos().size());
 		assertEquals(0, actual.getCommentFamilies().size());
 		verify(productDaoMock, times(1)).getFullProductById(anyInt());
+		
+		assertNull(productService.getFullProductById(1));
 	}
 	
 	@Test

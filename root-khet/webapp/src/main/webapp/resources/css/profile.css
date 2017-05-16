@@ -1,0 +1,98 @@
+.profile-img {
+	height: 220px;
+	width: 220px;
+	margin-bottom: 40px;
+	margin-top: 40px;
+	border-radius: 100%;
+}
+
+.img-row {
+	text-align: center;
+}
+
+.profile-info-box {
+	background-color: white;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .04);
+}
+
+.profile-username, .profile-mail {
+	text-align: center;
+}
+
+.profile-mail p, .profile-mail .glyphicon {
+	display: block;
+}
+
+.profile-mail p, .profile-username p {
+	font-size: 1.6em;
+	font-weight: 300;
+	margin-bottom: 1em;
+}
+
+.profile-mail p {
+	margin-bottom: 2em;
+}
+
+.activity-box {
+	background-color: white;
+	margin-left: 20px;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	border: 1px solid #888;
+}
+
+/* The Close Button */
+.close-modal {
+	color: #babdb6;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close-modal:hover, .close-modal:focus {
+	color: #888a85;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-text {
+	text-align: center;
+}
+
+.modal-buttons-holder {
+	margin-top: 5px;
+	padding-bottom: 5px;
+}
+
+.modal-left-button {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.delete-product-button {
+	font-size: 30px;
+	color: #888a85;
+}
+
+.delete-product-button:hover, .delete-product-button:focus {
+	color: #ef2929;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-product-name {
+	font-weight: bold;
+	text-transform: uppercase;	
+}

@@ -60,12 +60,12 @@
 												<div class="col-md-9 product-info-box">
 													<div class="row col-md-12">
 														<div class="row product-name">
-															<div class="col-md-12">
+															<div class="col-md-12 info-box-field">
 																<p><c:out value="${product.name}"/></p>
 															</div>
 														</div>
 														<div class="row product-short-description">
-															<div class="col-md-12">
+															<div class="col-md-12 info-box-field">
 																<p><c:out value="${product.shortDescription}"/></p>
 															</div>
 														</div>
@@ -74,38 +74,45 @@
 																<p><a href="<c:url value="/category/${product.category.lowerName}"/>"><spring:message code="category.${product.category.lowerName}"/></a></p>
 															</div>
 														</div>
+															<c:if test="${not empty product.website}">
+																<div class="website-btn-row">
+																	<a href="${product.website}" class="ps-btn btn website-btn" target="_blank">
+																		<span class="glyphicon glyphicon-globe"></span>
+																		<spring:message code="productPage.visitWebsite"/>
+																	</a>
+																</div>
+															</c:if>
 													</div>
 												</div>
 											</div>
-											<c:if test="${not empty product.website}">
-												<div class="row col-md-12 website-btn-row">
-													<a href="${product.website}" class="ps-btn btn website-btn">
-														<span class="glyphicon glyphicon-globe"></span>
-														<spring:message code="productPage.visitWebsite"/>
-													</a>
-												</div>
-											</c:if>
 										</div>
 										
 										<div class="col-md-4 col-md-offset-1 creator-item highlighted">
 											<div class="row">
 												<div class="col-md-12">
-													<div class="row product-name">
-														<div class="col-md-12">
+													<div class="row creator-first-row-holder">
+														<div class="col-md-5 product-name creator-name">
 															<p><spring:message code="productPage.creator" /></p>
 														</div>
 													</div>
-													<div class="row product-short-description">
-														<div class="col-md-12">
-															<p><span class="glyphicon glyphicon-user"></span><c:out value="${user.name}"/></p>
-														</div>
-													</div>
-													<div class="row product-short-description">
-														<div class="col-md-12">
-															<a class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
-																<span class="glyphicon glyphicon-envelope"></span>
-																<p><c:out value="${user.email}"/></p>
+													<div class="row">
+														<div class="col-md-2">
+															<a href="<c:url value="/profile/${creator.userId}"/>">
+																<img class="profile-img-circle" src="<c:url value="/profile/${creator.userId}/profilePicture"/>">
 															</a>
+														</div>
+														<div class="col-md-10">
+															<div class="row col-md-12 profile-name-holder">
+																<a class="profile-name" href="<c:url value="/profile/${creator.userId}"/>"> 
+																	<c:out value="${creator.name}" />
+																</a>
+															</div>
+														<div class="row col-md-12">
+																<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+																	<span class="glyphicon glyphicon-envelope"></span>
+																	<p><c:out value="${creator.email}"/></p>
+																</a>
+															</div>										
 														</div>
 													</div>
 												</div>
@@ -127,15 +134,34 @@
 									<p class="join-discussion" >
 										<spring:message code="productPage.joinDiscussion"/>
 									</p>
-									
+									<sec:authorize access="isAuthenticated()">
 									<c:url value="/product/${product.id}/comment" var="postPath" />
-									<div class="row">
-										<div class="col-md-10 highlighted">	
-											<p><c:out value="${loggedUser.name}" /></p>
+									<div class="row" id="formparent">
+										<div class="col-md-7 highlighted parent-form-comment">	
+											<div class="row">
+												<div class="col-md-1">
+													<a href="<c:url value="/profile/${loggedUser.userId}"/>">
+														<img class="profile-img-circle" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+													</a>
+												</div>
+												<div class="col-md-10 parent-name-mail-holder">
+													<div class="row col-md-12 profile-name-holder">
+														<a class="profile-name" href="<c:url value="/profile/${loggedUser.userId}"/>"> 
+															<c:out value="${loggedUser.name}" />
+														</a>
+													</div>
+													<div class="row col-md-12">
+														<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
+															<span class="glyphicon glyphicon-envelope"></span>
+															<p><c:out value="${loggedUser.email}"/></p>
+														</a>
+													</div>										
+												</div>
+											</div>											
 											<form:form modelAttribute="commentsForm" class="comment-form" action="${postPath}" method="post">
 												<div class="form-group">
-													<form:textarea type="text" class="form-control" rows="1" path="parentForm.content" placeholder="${ContentPlaceholder}"/>
-													<form:errors path="parentForm.content" element="p" />
+													<form:textarea type="text" class="form-control" rows="3" path="parentForm.content" placeholder="${ContentPlaceholder}" maxlength="512"/>
+													<form:errors path="parentForm.content" element="p" cssClass="form-error"/>
 												</div>
 												<div class="btn-place">
 													<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post" />" />
@@ -143,35 +169,52 @@
 											</form:form>
 										</div>
 									</div>
-									
+									</sec:authorize>
+									<sec:authorize access="isAnonymous()">
+									<div class="row">
+										<div class="col-md-7 highlighted anonymous-holder">
+											<p> <spring:message code="productPage.anonymousComment1"/> 
+											<a href="<c:url value="/login"/>"><spring:message code="productPage.anonymousComment2"/> </a>
+											<spring:message code="productPage.anonymousComment3"/>
+											<a href="<c:url value="/register"/>"><spring:message code="productPage.anonymousComment4"/></a>
+											</p>
+										</div>
+									</div>
+									</sec:authorize>
 									
 								    <div class="row">
 										<div class="col-md-7 comments-holder highlighted">
 											<c:forEach items="${parentcomments}" var="commentFamily" varStatus="status">
 												
 												<div class="comment-and-replies">
-												<div class="parent-comment">
-													<div class="row comment-user-info">
-														<div class="col-md-12">
-															<p>
-																<span class="glyphicon glyphicon-user"></span>
-																<c:out value="${commentFamily.parentComment.author.name}" />
-															</p>
-															<p>
-																<span class="glyphicon glyphicon-envelope"></span>
-																<c:out value="${commentFamily.parentComment.author.email}"/>
-															</p>
+												<div class="parent-comment" id="comment${commentFamily.parentComment.id}">
+													<div class="row">
+														<div class="col-md-1">
+															<a href="<c:url value="/profile/${commentFamily.parentComment.author.userId}"/>">
+																<img class="profile-img-circle" src="<c:url value="/profile/${commentFamily.parentComment.author.userId}/profilePicture"/>">
+															</a>
+														</div>
+														<div class="col-md-10 parent-name-mail-holder">
+															<div class="row col-md-12 profile-name-holder">
+																<a class="profile-name" href="<c:url value="/profile/${commentFamily.parentComment.author.userId}"/>"> 
+																	<c:out value="${commentFamily.parentComment.author.name}" />
+																</a>															</div>
+															<div class="row col-md-12">
+																<a class="creator-mail" href="mailto:<c:out value="${commentFamily.parentComment.author.email}"/>">
+																	<span class="glyphicon glyphicon-envelope"></span>
+																	<p><c:out value="${commentFamily.parentComment.author.email}"/></p>
+																</a>
+															</div>										
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-12 comment-content">
 															<p>
-																<span class="glyphicon glyphicon-bullhorn"></span>
 																<c:out value="${commentFamily.parentComment.content}" />
 															</p>
 														</div>
 													</div>
-													<div class="row">
+													<div class="row reply-button-holder">
 														<div class="col-md-4">
 															<p class="reply-btn">
 																<span class="glyphicon glyphicon-share-alt"></span>
@@ -185,24 +228,31 @@
 												</div>
 												
 												<c:forEach items="${commentFamily.childComments}" var="child">
-													<div class="row child-comment">
+													<div class="row child-comment" id="comment${child.id}">
 														<div class="col-md-10 col-md-offset-2">
-															<div class="row comment-user-info">
-																<div class="col-md-12">
-																	<p>
-																		<span class="glyphicon glyphicon-user"></span>
-																		<c:out value="${child.author.name}" />
-																	</p>
-																	<p>
-																		<span class="glyphicon glyphicon-envelope"></span>
-																		<c:out value="${child.author.email}" />
-																	</p>
+															<div class="row">
+																<div class="col-md-1">
+																	<a href="<c:url value="/profile/${child.author.userId}"/>">
+																		<img class="profile-img-circle" src="<c:url value="/profile/${child.author.userId}/profilePicture"/>">
+																	</a>
+																</div>
+																<div class="col-md-10 child-name-mail-holder">
+																	<div class="row col-md-12 profile-name-holder">
+																		<a class="profile-name" href="<c:url value="/profile/${child.author.userId}"/>"> 
+																			<c:out value="${child.author.name}" />
+																		</a>
+																	</div>
+																	<div class="row col-md-12">
+																		<a class="creator-mail" href="mailto:<c:out value="${child.author.email}"/>">
+																			<span class="glyphicon glyphicon-envelope"></span>
+																			<p><c:out value="${child.author.email}"/></p>
+																		</a>
+																	</div>										
 																</div>
 															</div>
 															<div class="row">
 																<div class="col-md-12 comment-content">
 																	<p>
-																		<span class="glyphicon glyphicon-bullhorn"></span>
 																		<c:out value="${child.content}" />
 																	</p>
 																</div>
@@ -213,17 +263,37 @@
 														</div>
 													</div>	
 												</c:forEach>												
+												<sec:authorize access="isAuthenticated()">
 												<div class="row">
 													<div class="col-md-10 col-md-offset-2">
-														<form:form modelAttribute="commentsForm" id="reply${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${commentFamily.parentComment.id}&index=${status.index}#reply${status.index}" method="post">
+														<form:form modelAttribute="commentsForm" id="form${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${commentFamily.parentComment.id}&index=${status.index}" method="post">
 															<p class="reply-to">
 																<span class="glyphicon glyphicon-share-alt"></span>
 																<spring:message code="productPage.replyTo" arguments="${commentFamily.parentComment.author.name}"/>
 															</p>
-															<p><c:out value="${loggedUser.name}" /></p>
+															<div class="row">
+																<div class="col-md-1">
+																	<a href="<c:url value="/profile/${loggedUser.userId}"/>">
+																		<img class="profile-img-circle" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+																	</a>
+																</div>
+																<div class="col-md-10 child-name-mail-holder">
+																	<div class="row col-md-12 profile-name-holder">
+																		<a class="profile-name" href="<c:url value="/profile/${loggedUser.userId}"/>"> 
+																			<c:out value="${loggedUser.name}" />
+																		</a>
+																	</div>
+																	<div class="row col-md-12">
+																		<a class="creator-mail" href="mailto:<c:out value="${loggedUser.email}"/>">
+																			<span class="glyphicon glyphicon-envelope"></span>
+																			<p><c:out value="${loggedUser.email}"/></p>
+																		</a>
+																	</div>										
+																</div>
+															</div>	
 															<div class="form-group comment-form-fields">
-																<form:textarea type="text" class="form-control" rows="1" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"/>
-																<form:errors path="childForms[${status.index}].content" element="p" />
+																<form:textarea type="text" class="form-control" rows="3" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"  maxlength="512"/>
+																<form:errors path="childForms[${status.index}].content" element="p" cssClass="form-error"/>
 															</div>
 															<div class="btn-place">
 																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post"/>" />
@@ -234,6 +304,22 @@
 														</form:form>
 													</div>
 												</div>
+												</sec:authorize>
+												<sec:authorize access="isAnonymous()">
+												<div class="row reply-comment">
+													<div class="col-md-12 anonymous-holder">
+														<p class="child-text-anonymous"> <spring:message code="productPage.anonymousComment1"/> 
+														<a href="<c:url value="/login"/>"><spring:message code="productPage.anonymousComment2"/> </a>
+														<spring:message code="productPage.anonymousComment3"/>
+														<a href="<c:url value="/register"/>"><spring:message code="productPage.anonymousComment4"/></a>
+														</p>
+													
+														<div class="row comment-divider">
+															<div class="col-md-12"></div>
+														</div>
+													</div>
+												</div>
+												</sec:authorize>
 												</div>
 											</c:forEach>
 										</div>
@@ -242,6 +328,7 @@
 								</div>
 							</div>
 						</div>
+				
 						<%@include file="includes/footer.jsp"%>
 
 							<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

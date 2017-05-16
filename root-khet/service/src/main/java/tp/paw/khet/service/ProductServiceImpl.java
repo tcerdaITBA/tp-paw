@@ -32,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
 	public Product getFullProductById(int productId) {
 		Product.ProductBuilder productBuilder = productDao.getFullProductById(productId);
 		
+		if (productBuilder == null)
+			return null;
+		
 		productBuilder.commentFamilies(commentService.getCommentsByProductId(productId))
 					  .videos(videoService.getVideosByProductId(productId));
 		
@@ -48,6 +51,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getPlainProducts();
 	}
 
+	@Override
+	public List<Product> getPlainProductsByUserId(int userId) {
+		return productDao.getPlainProductsByUserId(userId);
+	}
+	
 	@Override
 	public List<Product> getPlainProductsByCategory(Category category) {
 		return productDao.getPlainProductsByCategory(category.name());
@@ -96,5 +104,9 @@ public class ProductServiceImpl implements ProductService {
         int total = productDao.getTotalProductsInCategory(category);
         return (int) Math.ceil((float) total / pageSize);
     }
-
+    
+    @Override
+    public boolean deleteProductById(int productId) {
+    	return productDao.deleteProductById(productId);
+    }
 }
