@@ -5,7 +5,9 @@ import javax.validation.constraints.Size;
 public class FormPassword {
 
 	@Size(min=6, max=60)
-	String password;
+	private String password;
+	
+	private String passwordConf;
 
 	public String getPassword() {
 		return password;
@@ -15,4 +17,11 @@ public class FormPassword {
 		this.password = password;
 	}
 	
+	public String getPasswordConf() {
+		return passwordConf;
+	}
+
+	public void setPasswordConf(String passwordConf) {
+		this.passwordConf = passwordConf;
+	}
 }

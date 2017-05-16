@@ -31,14 +31,34 @@
 								class="form-horizontal">
 					
 					<div class="row">
-							<div class="col-md-12 form-group">
-								<form:label path="password" class="col-sm-3 control-label"><spring:message code="userFormLabel.password"></spring:message></form:label>
-								<div class="col-sm-9">
-									<form:input type="password" path="password" class="form-control" maxlength="64"/>
-									<form:errors path="password" cssClass="form-error" element="p"/>
-								</div>
+						<div class="col-md-12 form-group">
+							<form:label path="previousPassword" class="col-sm-3 control-label"><spring:message code="changePassword.previousPassword"></spring:message></form:label>
+							<div class="col-sm-9">
+								<form:input type="password" path="previousPassword" class="form-control" maxlength="64"/>
+								<form:errors path="previousPassword" cssClass="form-error" element="p"/>
 							</div>
 						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 form-group">
+							<form:label path="passwordForm.password" class="col-sm-3 control-label"><spring:message code="userFormLabel.password"></spring:message></form:label>
+							<div class="col-sm-9">
+								<form:input type="password" path="passwordForm.password" class="form-control" maxlength="64"/>
+								<form:errors path="passwordForm.password" cssClass="form-error" element="p"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12 form-group">
+							<form:label path="passwordForm.passwordConf" class="col-sm-3 control-label"><spring:message code="userFormLabel.passwordConfirm"></spring:message></form:label>
+							<div class="col-sm-9">
+								<form:input type="password" path="passwordForm.passwordConf" class="form-control" maxlength="64"/>
+								<form:errors path="passwordForm.passwordConf" cssClass="form-error" element="p"/>
+							</div>
+						</div>
+					</div>
 						
 						<div class="row row-centered">
 							<div class="col-md-12">

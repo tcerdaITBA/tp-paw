@@ -13,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
+import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormPassword;
+import tp.paw.khet.webapp.validators.PasswordConfirmValidator;
 
 @Controller
 public class ProfileCustomizeController {
@@ -21,6 +23,8 @@ public class ProfileCustomizeController {
 	@Autowired
 	private SecurityUserService securityUserService;
 
+	@Autowired
+	private PasswordConfirmValidator passwordConfirmValidator;
 	    
 	@ModelAttribute("loggedUser")
 	public User loggedUser() {
@@ -28,31 +32,37 @@ public class ProfileCustomizeController {
 	}
 		
 	@ModelAttribute("changePasswordForm")
-	public FormPassword passwordForm(){
-		return new FormPassword();
+	public FormChangePassword passwordForm(){
+		return new FormChangePassword();
 	}
 		
 	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.GET})
-	public ModelAndView changePassword(){
+	public ModelAndView changePassword() {
 		return new ModelAndView("changePassword");
 	}
 	
 	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
-	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormPassword formPassword,
+	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
-			RedirectAttributes attr){
+			RedirectAttributes attr) {
+		
+		FormPassword passwordForm = changePasswordForm.getPasswordForm();
+		
+		errors.pushNestedPath("passwordForm");
+		passwordConfirmValidator.validate(passwordForm, errors);
+		errors.popNestedPath();
 		
 		if (errors.hasErrors())
-			return errorState(formPassword, errors, attr, loggedUser);
+			return errorState(changePasswordForm, errors, attr, loggedUser);
 		
-		securityUserService.changePassword(loggedUser.getUserId(), formPassword.getPassword());
+		securityUserService.changePassword(loggedUser.getUserId(), passwordForm.getPassword());
 		
 		return new ModelAndView("redirect:/profile/" + loggedUser.getUserId());	
 	}
 
-	private ModelAndView errorState(FormPassword formPassword, BindingResult errors, RedirectAttributes attr, User loggedUser) {
+	private ModelAndView errorState(FormChangePassword changePasswordForm, BindingResult errors, RedirectAttributes attr, User loggedUser) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.changePasswordForm", errors);
-		attr.addFlashAttribute("changePasswordForm", formPassword);
+		attr.addFlashAttribute("changePasswordForm", changePasswordForm);
 		return new ModelAndView("redirect:/profile/customize/password");	
 	}
 }
