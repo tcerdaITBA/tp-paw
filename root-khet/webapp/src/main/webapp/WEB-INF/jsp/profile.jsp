@@ -45,8 +45,7 @@
 											    	data-toggle="modal" data-target="#changePictureModal">
 														<spring:message code="Profile.settings.changePicture"/>
 													</a></li>
-											    <li><a data-toggle="modal" data-target="#changePassModal"
-											    		href="<c:url value="/profile/customize/password"/>">
+											    <li><a data-toggle="modal" data-target="#changePassModal">
 											    	<spring:message code="Profile.settings.changePassword"/>
 											    	</a></li>
 											  </ul>
@@ -175,7 +174,7 @@
 			</div>				
 		</div>
 			<%@include file="includes/changePictureModal.jsp"%>
-			<%@include file="includes/changePassModal.jsp"%>
+			<%@include file="changePassword.jsp"%>
 			<%@include file="includes/footer.jsp"%>
 			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 			<script
