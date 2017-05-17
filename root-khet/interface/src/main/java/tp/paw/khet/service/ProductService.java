@@ -49,6 +49,17 @@ public interface ProductService {
 	public List<Product> getPlainProductsPaged(int page, int pageSize);
 	
 	/**
+     * Lists a range of existing {@link Product} as a plain product: ID, name, short description and category.
+     * Products are ordered alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize].
+     * First page is number 1.
+     * @param page - index of the page to be retrieved
+     * @param pageSize - amount of products per page
+     * @return {@link List} of the products in the given range. 
+     */
+    public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
+    
+	
+	/**
 	 * Lists plain products belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
 	 * @return {@link List} of the products belonging to the category. 
@@ -67,6 +78,18 @@ public interface ProductService {
      *         Could be empty if there are no products registered in given category.
 	 */
 	public List<Product> getPlainProductsByCategoryPaged(Category category, int page, int pageSize);
+	
+	   /**
+     * Lists a range of plain products belonging to certain {@link Category}.
+     * Products are ordered alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize] 
+     * First page is number 1.
+     * @param category Category the products belong to
+     * @param page - index of the page to be retrieved
+     * @param pageSize - amount of products per page
+     * @return {@link List} of the products belonging to the category. 
+     *         Could be empty if there are no products registered in given category.
+     */
+    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(Category category, int page, int pageSize);
  	
 	/**
 	 * Returns the amount of pages available for a given page size.

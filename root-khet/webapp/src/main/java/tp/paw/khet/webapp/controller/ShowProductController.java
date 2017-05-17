@@ -104,6 +104,12 @@ public class ShowProductController {
 		return productImageService.getImageByIds(imageId, productId).getData();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/product/{productId}/logo", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+	public byte[] deliverLogo(@PathVariable(value = "productId") int productId) {
+		return productService.getLogoByProductId(productId);
+	}
+	
 	private ModelAndView errorState(int productId, FormComments form, final BindingResult errors, RedirectAttributes attr, String errorForm) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.commentsForm", errors);
 		attr.addFlashAttribute("commentsForm", form);
