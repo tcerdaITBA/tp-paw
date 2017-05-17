@@ -29,7 +29,29 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3 profile-info-box">
-					
+							<sec:authorize access="isAuthenticated()">
+								<c:if test="${loggedUser.userId == profileUser.userId}">
+									<div class="row settings-row">
+										<div class="col-md-offset-10">
+											<div class="dropdown">
+											  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+											    <span class="glyphicon glyphicon-cog"></span>
+											    <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+											    <li><a data-toggle="modal" href="#changePassModal">
+														<spring:message code="Profile.settings.changePicture"/>
+													</a></li>
+											    <li><a data-toggle="modal" href="#changePassModal">
+											    	<spring:message code="Profile.settings.changePassword"/>
+											    	</a></li>
+											  </ul>
+											</div>
+										</div>
+										</div>
+									</c:if>						
+							</sec:authorize>
+							
 								<div class="row img-row">
 									<div class="col-md-12">
 										<img class="profile-img" src="<c:url value="/profile/${us.userId}/profilePicture"/>">
@@ -148,7 +170,8 @@
 				</div>
 			</div>				
 		</div>
-
+			<%@include file="includes/changePictureModal.jsp"%>
+			<%@include file="includes/changePassModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
 			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 			<script
