@@ -38,6 +38,7 @@ public class ProfileCustomizeController {
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
 			RedirectAttributes attr) {
 		
+		changePasswordForm.setCurrentPassword(loggedUser.getPassword());
 		passwordChangeValidator.validate(changePasswordForm, errors);
 		
 		if (errors.hasErrors())

@@ -78,5 +78,9 @@ footer p {
 }
 
  .modal-backdrop.in { 
- z-index: auto !important;
+ 	z-index: auto !important;
+ }
+
+ .modal {
+ 	z-index: 9999 !important;
  }

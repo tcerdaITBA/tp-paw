@@ -4,19 +4,22 @@ import javax.validation.Valid;
 
 public class FormChangePassword {
 
-	private final String currentPassword;
+	private String currentPassword;
 	private String currentPasswordConf;
 	
 	@Valid
 	private FormPassword passwordForm;
 	
-	public FormChangePassword(String currentPassword) {
+	public FormChangePassword() {
 		this.passwordForm = new FormPassword();
-		this.currentPassword = currentPassword;
 	}
 
 	public String getCurrentPassword() {
 		return currentPassword;
+	}
+	
+	public void setCurrentPassword(String currentPassword) {
+		this.currentPassword = currentPassword;
 	}
 	
 	public String getCurrentPasswordConf() {
