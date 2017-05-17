@@ -125,6 +125,7 @@
 				<%@include file="includes/pagination.jsp"%></%@include>
 		</div>
 			
+		<%@include file="includes/search-suggestions.jsp"%>
 	</div>
 	<%@include file="includes/footer.jsp"%>
 	</div>
@@ -138,5 +139,6 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
+	<script src="<c:url value="/resources/js/search.js" />"></script>	
 </body>
 </html>
