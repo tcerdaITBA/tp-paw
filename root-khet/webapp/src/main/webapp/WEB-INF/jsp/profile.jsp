@@ -20,6 +20,8 @@
 			<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/profile.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/customizeUser.css"/>" rel="stylesheet">
+			
 			
 			<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 
@@ -39,10 +41,12 @@
 											    <span class="caret"></span>
 											  </button>
 											  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-											    <li><a data-toggle="modal" href="#changePassModal">
+											    <li><a
+											    	data-toggle="modal" data-target="#changePictureModal">
 														<spring:message code="Profile.settings.changePicture"/>
 													</a></li>
-											    <li><a data-toggle="modal" href="#changePassModal">
+											    <li><a data-toggle="modal" data-target="#changePassModal"
+											    		href="<c:url value="/profile/customize/password"/>">
 											    	<spring:message code="Profile.settings.changePassword"/>
 											    	</a></li>
 											  </ul>
