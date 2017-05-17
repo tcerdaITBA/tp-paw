@@ -9,12 +9,36 @@ function getParameterByName(name) {
 	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+//http://stackoverflow.com/questions/1634748/how-can-i-delete-a-query-string-parameter-in-javascript
+function removeURLParameter(parameter) {
+	var url = window.location.href;
+    var urlparts= url.split('?');
+    
+    if (urlparts.length>=2) {
+
+        var prefix= encodeURIComponent(parameter)+'=';
+        var pars= urlparts[1].split(/[&;]/g);
+
+        for (var i= pars.length; i-- > 0;) {    
+            if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
+                pars.splice(i, 1);
+            }
+        }
+
+        url= urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : "");
+        return url;
+    } else {
+        return url;
+    }
+}
+
 $(document).ready(function(){
 	
 	var query = getParameterByName("passwordError");
 	
 	if(query != null) {
 		$("#changePassModal").modal("show");
+		window.history.replaceState("", "", removeURLParameter("passwordError"));
 	}
 	
 	var currentModal = null;

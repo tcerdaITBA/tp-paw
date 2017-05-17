@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
@@ -49,7 +50,7 @@ public class ProfileController {
 		ModelAndView mav = new ModelAndView("profile");
 		
 		User user = userService.getUserById(userId);
-		
+				
 		if (user == null)
 			throw new ResourceNotFoundException();
 		
