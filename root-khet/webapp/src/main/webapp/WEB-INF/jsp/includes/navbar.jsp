@@ -24,9 +24,6 @@
 			<div class="form-group">
 				<input id="search-box" type="text" class="form-control" placeholder="Search"/>
 			</div>
-			<div class="search-results">
-				<%@include file="search-suggestions.jsp"%>
-			</div>
 		</form>
 			
 		<!-- Collect the nav links, forms, and other content for toggling -->
