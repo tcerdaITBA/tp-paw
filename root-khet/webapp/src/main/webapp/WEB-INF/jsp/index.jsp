@@ -124,8 +124,6 @@
 				</c:choose>									
 				<%@include file="includes/pagination.jsp"%></%@include>
 		</div>
-			
-		<%@include file="includes/search-suggestions.jsp"%>
 	</div>
 	<%@include file="includes/footer.jsp"%>
 	</div>

@@ -1,31 +1,24 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-
-<!--foreach-->
 <div class="row search-product-list-item vertical-align">
 	<div class="col-md-3 search-product-logo">
 	</div>
 	<div class="col-md-9 search-product-info-box">
-		<div class="row col-md-12">
-			<div class="row search-product-name">
-				<div class="col-md-12">
-				</div>
+		<div class="row search-product-name">
+			<div class="col-md-12">
 			</div>
-			<div class="row search-product-short-description">
-				<div class="col-md-12">
-				</div>
+		</div>
+		<div class="row search-product-short-description">
+			<div class="col-md-12">
 			</div>
-			<div class="row search-product-category">
-				<div class="col-md-4">
-					<div class="search-categoryTag">
-					</div>
+		</div>
+		<div class="row search-product-category">
+			<div class="col-md-4">
+				<div class="search-categoryTag">
 				</div>
 			</div>
 		</div>
 	</div>
 </div>	
-<div class="divide-line" />
-<!--foreach-->
+<div class="divide-line"></div>
 <div class="row user-list-item vertical-align">
 	<div class="col-md-3 search-user-img">
 	</div>

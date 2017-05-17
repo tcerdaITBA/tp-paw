@@ -16,13 +16,16 @@
 			</button>
 			
 			<a class="navbar-brand" href="<c:url value="/"/>">
-				<img src="<c:url value="/resources/img/logo-wide.svg"/>" />
+				<img src="<c:url value="/resources/img/logo-wide.svg"/>"/>
 			</a>
 		</div>
 
-		<form class="navbar-form navbar-left">
+		<form class="navbar-form navbar-left navbar-search">
 			<div class="form-group">
-				<input id="search-box" type="text" class="form-control" placeholder="Search">
+				<input id="search-box" type="text" class="form-control" placeholder="Search"/>
+			</div>
+			<div class="search-results">
+				<%@include file="search-suggestions.jsp"%>
 			</div>
 		</form>
 			

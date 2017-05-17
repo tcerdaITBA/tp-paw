@@ -39,6 +39,17 @@ nav img {
 	padding: 8px 0;
 }
 
+.navbar-search {
+	position: relative;
+}
+
+.search-results {
+  position: absolute;
+	width: 100%;
+  top: 3em;
+	background-color: green;
+}
+
 textarea {
 	resize: none;
 }
@@ -76,3 +87,5 @@ footer p {
 .form-error { /* errors */
 	color: #bc0f0f;
 }
+
+
