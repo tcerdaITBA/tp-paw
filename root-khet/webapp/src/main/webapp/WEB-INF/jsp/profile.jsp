@@ -21,6 +21,7 @@
 			<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/profile.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/customizeUser.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
 			
 			
 			<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
@@ -174,7 +175,7 @@
 			</div>				
 		</div>
 			<%@include file="includes/changePictureModal.jsp"%>
-			<%@include file="changePassword.jsp"%>
+			<%@include file="includes/changePasswordModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
 			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 			<script
@@ -186,6 +187,7 @@
 							crossorigin="anonymous"></script>
 			<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		
+			<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
 		</body>
 		
 	</html>

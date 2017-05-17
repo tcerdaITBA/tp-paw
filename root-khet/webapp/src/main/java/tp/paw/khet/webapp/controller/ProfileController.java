@@ -21,9 +21,10 @@ import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormChangePassword;
+import tp.paw.khet.webapp.form.FormChangePicture;
 
 @Controller
-@SessionAttributes("changePasswordForm")
+@SessionAttributes(value={"changePasswordForm","changeProfilePictureForm"})
 public class ProfileController {
 	
     @Autowired 
@@ -43,6 +44,11 @@ public class ProfileController {
 	@ModelAttribute("changePasswordForm")
 	public FormChangePassword passwordForm(@ModelAttribute("loggedUser") User loggedUser){
 		return new FormChangePassword();
+	}
+	
+	@ModelAttribute("changeProfilePictureForm")
+	public FormChangePicture pictureForm(@ModelAttribute("loggedUser") User loggedUser){
+		return new FormChangePicture();
 	}
 	
 	@RequestMapping("/profile/{userId}")
