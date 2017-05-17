@@ -4,9 +4,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 	<sec:authentication var="user" property="principal" />
-		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-
 			<!--	Nav colapsado	-->
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -16,14 +14,20 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-
-			<a class="navbar-brand" href="<c:url value="/"/>"><img
-				src="<c:url value="/resources/img/logo-wide.svg"/>" /></a>
+			
+			<a class="navbar-brand" href="<c:url value="/"/>">
+				<img src="<c:url value="/resources/img/logo-wide.svg"/>" />
+			</a>
 		</div>
 
+		<form class="navbar-form navbar-left">
+			<div class="form-group">
+				<input id="search-box" type="text" class="form-control" placeholder="Search">
+			</div>
+		</form>
+			
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
+		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="isAnonymous()">
 					<li>
