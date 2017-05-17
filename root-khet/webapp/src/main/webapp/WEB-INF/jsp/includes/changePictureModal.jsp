@@ -19,9 +19,17 @@
 					<form:form modelAttribute="changeProfilePictureForm" action="${postPath}" method="post" enctype="multipart/form-data"
 								class="form-horizontal">
 						<div class="row row-centered">
-							<div class="col-md-12 form-group">
-								<div class="col-sm-12">
-									<h2 class="create-title"><spring:message code="Profile.settings.changePicture"/></h2>
+							<div class="col-md-12">
+								<div class="form-group">
+							
+								<div class="row">
+									<div class="col-md-12">
+										<h2 class="create-title"><spring:message code="Profile.settings.changePicture"/></h2>								
+									</div>
+								</div>
+								<div class="row">
+								<div class="col-md-6 col-md-offset-3">
+							
 									<div class="profile-img-input">
 										<form:input class="image-input" type="file" path="profilePicture" accept="image/*"/>
 										<form:label id="profilePicture-label" path="profilePicture">
@@ -35,9 +43,12 @@
 											</div>
 										</form:label>
 									</div>
+									</div>
+								</div>
 									<form:errors path="profilePicture" element="p" cssClass="error-centered form-error"/>
 								</div>
-							</div>
+								</div>
+							
 						</div>
 						<div class="row row-centered">
 								<div class="col-md-12">
