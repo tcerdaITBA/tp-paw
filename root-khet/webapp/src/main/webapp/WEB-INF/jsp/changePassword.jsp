@@ -32,10 +32,10 @@
 					
 					<div class="row">
 						<div class="col-md-12 form-group">
-							<form:label path="previousPassword" class="col-sm-3 control-label"><spring:message code="changePassword.previousPassword"></spring:message></form:label>
+							<form:label path="currentPasswordConf" class="col-sm-3 control-label"><spring:message code="changePassword.currentPasswordConf"></spring:message></form:label>
 							<div class="col-sm-9">
-								<form:input type="password" path="previousPassword" class="form-control" maxlength="64"/>
-								<form:errors path="previousPassword" cssClass="form-error" element="p"/>
+								<form:input type="password" path="currentPasswordConf" class="form-control" maxlength="64"/>
+								<form:errors path="currentPasswordConf" cssClass="form-error" element="p"/>
 							</div>
 						</div>
 					</div>

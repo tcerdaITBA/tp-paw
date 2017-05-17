@@ -2,6 +2,9 @@ package tp.paw.khet.webapp.form;
 
 import javax.validation.constraints.Size;
 
+import tp.paw.khet.webapp.form.constraints.FieldMatch;
+
+@FieldMatch(first = "password", second = "passwordConf")
 public class FormPassword {
 
 	@Size(min=6, max=60)
