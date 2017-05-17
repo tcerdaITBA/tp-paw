@@ -12,7 +12,7 @@ public interface SecurityUserService {
 	public User getLoggedInUser();
 	
 	/**
-	 * Registers a {@link User} encrypting it's password
+	 * Registers an {@link User} encrypting it's password
 	 * @param name - User's name
 	 * @param email - User's email
 	 * @param password - User's raw password
@@ -22,5 +22,11 @@ public interface SecurityUserService {
 	 */
 	public User registerUser(String name, String email, String password, byte[] profilePicture) throws DuplicateEmailException;
 	
-	public User changePassword(int userId, String password);
+	/**
+	 * Changes an {@link User} current password
+	 * @param userId - ID of the user
+	 * @param newPassword - New user's password
+	 * @return The user with the new password
+	 */
+	public User changePassword(int userId, String newPassword);
 }

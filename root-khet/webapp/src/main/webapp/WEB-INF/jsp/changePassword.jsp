@@ -9,7 +9,6 @@
 		       <div class="modal-header">
 		           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		            <h4 class="modal-title"><spring:message code="Profile.settings.changePassword"/></h4>
-		
 		       </div>
 		       <div class="modal-body">
 		       		
@@ -18,15 +17,14 @@
 					<div class="row">
 						<div class="col-md-12">
 							<c:url value="/profile/customize/password" var="postPath" />
-						<form:form modelAttribute="changePasswordForm" action="${postPath}" method="post" enctype="multipart/form-data"
-									class="form-horizontal">
+						<form:form modelAttribute="changePasswordForm" action="${postPath}" method="post" class="form-horizontal">
 						
 						<div class="row">
 							<div class="col-md-12 form-group">
-								<form:label path="previousPassword" class="col-sm-3 control-label"><spring:message code="changePassword.previousPassword"></spring:message></form:label>
+								<form:label path="currentPasswordConf" class="col-sm-3 control-label"><spring:message code="changePassword.currentPasswordConf"></spring:message></form:label>
 								<div class="col-sm-9">
-									<form:input type="password" path="previousPassword" class="form-control" maxlength="64"/>
-									<form:errors path="previousPassword" cssClass="form-error" element="p"/>
+									<form:input type="password" path="currentPasswordConf" class="form-control" maxlength="64"/>
+									<form:errors path="currentPasswordConf" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>

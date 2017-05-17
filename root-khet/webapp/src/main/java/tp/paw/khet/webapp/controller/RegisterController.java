@@ -23,7 +23,6 @@ import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.webapp.form.FormPassword;
 import tp.paw.khet.webapp.form.FormUser;
-import tp.paw.khet.webapp.validators.PasswordConfirmValidator;
 
 @Controller
 public class RegisterController {
@@ -32,9 +31,6 @@ public class RegisterController {
 	
 	@Autowired
 	private SecurityUserService securityUserService;
-	
-	@Autowired
-	private PasswordConfirmValidator passwordConfirmValidator;
 	
 	@ModelAttribute("createUserForm")
 	public FormUser createUserForm() {
@@ -51,10 +47,6 @@ public class RegisterController {
 			final BindingResult errors, RedirectAttributes attr) throws IOException {
 
 		FormPassword passwordForm = createUserForm.getPasswordForm();
-		
-		errors.pushNestedPath("passwordForm");
-		passwordConfirmValidator.validate(passwordForm, errors);
-		errors.popNestedPath();
 		
 		if (errors.hasErrors())
 			return errorState(createUserForm, errors, attr);

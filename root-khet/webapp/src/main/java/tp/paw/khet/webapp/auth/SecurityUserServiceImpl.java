@@ -13,7 +13,7 @@ import tp.paw.khet.service.UserService;
 
 @Service
 public class SecurityUserServiceImpl implements SecurityUserService {
-	
+		
 	@Autowired
 	private UserService userService;
 	

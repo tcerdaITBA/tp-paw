@@ -13,7 +13,7 @@ import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
  *
  */
 @Component
-public class ImageOrVideoValidator implements Validator{
+public class ImageOrVideoValidator implements Validator {
 
 	public boolean supports(Class<?> clazz) {
 		return FormProduct.class.equals(clazz);
