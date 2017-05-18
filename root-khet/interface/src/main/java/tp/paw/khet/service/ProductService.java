@@ -58,7 +58,6 @@ public interface ProductService {
      */
     public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
     
-	
 	/**
 	 * Lists plain products belonging to certain {@link Category}.
 	 * @param category - Category the products belong to

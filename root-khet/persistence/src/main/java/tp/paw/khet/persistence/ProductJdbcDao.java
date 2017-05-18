@@ -29,7 +29,7 @@ public class ProductJdbcDao implements ProductDao {
 	@Autowired
 	private PlainProductRowMapper plainProductRowMapper;
 	
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
 
 	@Autowired
@@ -152,5 +152,17 @@ public class ProductJdbcDao implements ProductDao {
             int length) {
         return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE category = ? "
                 + "ORDER BY productName DESC LIMIT ? OFFSET ?", plainProductRowMapper, category.toUpperCase(Locale.ENGLISH), length, offset);
-    }    
+    }
+
+	@Override
+	public List<Product> getPlainProductsByKeyword(String keyword) {
+		String firstWordKeyword = keyword+"%";
+		String otherWordsKeyword = "% "+keyword+"%";
+		
+		String sql = "SELECT productId, productName, shortDescription, category FROM products WHERE "
+				+ "lower(productName) LIKE lower(?) OR lower(productName) LIKE lower(?) OR "
+				+ "lower(shortDescription) LIKE lower(?) OR lower(shortDescription) LIKE lower(?)";
+		
+		return jdbcTemplate.query(sql, plainProductRowMapper, firstWordKeyword, otherWordsKeyword, firstWordKeyword, otherWordsKeyword);
+	}    
 }

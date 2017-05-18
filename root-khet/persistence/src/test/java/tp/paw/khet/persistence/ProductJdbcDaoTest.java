@@ -125,6 +125,17 @@ public class ProductJdbcDaoTest {
 		assertEquals(0, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
 	
+	@Test
+	public void getPlainProductsByKeyword() {
+		Product expected = dummyProduct(0);
+		insertProduct(expected);
+		String keyword = expected.getName().substring(0, 3);
+		
+		List<Product> actual = productDao.getPlainProductsByKeyword(keyword);
+		
+		assertEqualsPlainProducts(expected, actual.get(0));
+	}
+	
 	private void insertDummyUser() throws DuplicateEmailException {
 		List<User> list = dummyUserList(LIST_SIZE, 0);
 		for (User dummy : list)
