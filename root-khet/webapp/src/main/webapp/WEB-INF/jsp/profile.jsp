@@ -186,6 +186,10 @@
 							integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 							crossorigin="anonymous"></script>
 			<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+			<script>
+				var passError = "${passError}";
+				var imgError = "${imgError}";
+			</script>
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		
 			<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
 		</body>

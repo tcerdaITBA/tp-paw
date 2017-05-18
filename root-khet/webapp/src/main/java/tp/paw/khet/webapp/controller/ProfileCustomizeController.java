@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,8 @@ import tp.paw.khet.webapp.validators.PasswordChangeValidator;
 @SessionAttributes(value={"changePasswordForm","changeProfilePictureForm"})
 public class ProfileCustomizeController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProfileCustomizeController.class);
+	
 	@Autowired
 	private SecurityUserService securityUserService;
 
@@ -47,20 +51,23 @@ public class ProfileCustomizeController {
 		
 		changePasswordForm.setCurrentPassword(loggedUser.getPassword());
 		passwordChangeValidator.validate(changePasswordForm, errors);
+		ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
 		
-		if (errors.hasErrors())
-			return errorState(changePasswordForm, errors, attr, loggedUser);
+		if (errors.hasErrors()) {
+			setErrorState(changePasswordForm, errors, attr, loggedUser);
+			return mav;
+		}
 		
 		FormPassword passwordForm = changePasswordForm.getPasswordForm();
 		securityUserService.changePassword(loggedUser.getUserId(), passwordForm.getPassword());
 		
-		return new ModelAndView("redirect:/profile/" + loggedUser.getUserId());	
+		return mav;	
 	}
 
-	private ModelAndView errorState(FormChangePassword changePasswordForm, BindingResult errors, RedirectAttributes attr, User loggedUser) {
+	private void setErrorState(FormChangePassword changePasswordForm, BindingResult errors, RedirectAttributes attr, User loggedUser) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.changePasswordForm", errors);
 		attr.addFlashAttribute("changePasswordForm", changePasswordForm);
-		return new ModelAndView("redirect:/profile/" + loggedUser.getUserId() + "?passwordError=1");	
+		attr.addFlashAttribute("passError", true);
 	}
 	
 	@RequestMapping(value="/profile/customize/profilePicture", method = {RequestMethod.POST})
@@ -68,22 +75,27 @@ public class ProfileCustomizeController {
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
 			RedirectAttributes attr) {
 		
-		if (errors.hasErrors())
-			return errorState(changeProfilePictureForm, errors, attr, loggedUser);
+		ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		
+		if (errors.hasErrors()) {
+			setErrorState(changeProfilePictureForm, errors, attr, loggedUser);
+			return mav;
+		}
 		
 		try {
 			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePicture().getBytes());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			LOGGER.error("Failed to load profile picture: {}", e.getMessage());
 			e.printStackTrace();
 		}
-		return new ModelAndView("redirect:/profile/" + loggedUser.getUserId());	
+		
+		return mav;	
 	}
 
-	private ModelAndView errorState(FormChangePicture changeProfilePictureForm, BindingResult errors, RedirectAttributes attr, User loggedUser) {
+	private void setErrorState(FormChangePicture changeProfilePictureForm, BindingResult errors, RedirectAttributes attr, User loggedUser) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.changeProfilePictureForm", errors);
 		attr.addFlashAttribute("changeProfilePictureForm", changeProfilePictureForm);
-		return new ModelAndView("redirect:/profile/" + loggedUser.getUserId() + "?imgError=1");	
+		attr.addFlashAttribute("imgError", true);
 	}
 }
 
