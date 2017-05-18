@@ -7,7 +7,6 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 		       <div class="modal-header">
-		           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		            <h4 class="modal-title"><spring:message code="Profile.settings.changePassword"/></h4>
 		       </div>
 		       <div class="modal-body">
@@ -53,6 +52,7 @@
 								<div class="col-md-12">
 									<div class="col-sm-12">
 										<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="changePassword"></spring:message>" />
+										<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
 									</div>
 								</div>
 							</div>
@@ -61,8 +61,8 @@
 				</div>
 			</div>
 			
-			
 			</div>
+
 		</div>
 	</div>
 </div>

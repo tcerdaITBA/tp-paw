@@ -34,11 +34,18 @@ function removeURLParameter(parameter) {
 
 $(document).ready(function(){
 	
-	var query = getParameterByName("passwordError");
+	var queryPass = getParameterByName("passwordError");
 	
-	if(query != null) {
+	if(queryPass != null) {
 		$("#changePassModal").modal("show");
 		window.history.replaceState("", "", removeURLParameter("passwordError"));
+	}
+	
+	var queryImg = getParameterByName("imgError");
+	
+	if(queryImg != null) {
+		$("#changePictureModal").modal("show");
+		window.history.replaceState("", "", removeURLParameter("imgError"));
 	}
 	
 	var currentModal = null;
