@@ -97,3 +97,10 @@
 	font-weight: bold;
 	text-transform: uppercase;	
 }
+
+.settings-row {
+	padding-top: 10px;
+    padding-right: 10px;
+    font-size: x-large;
+    color: #b7b7b7;
+}

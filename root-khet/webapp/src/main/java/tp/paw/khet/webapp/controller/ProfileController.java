@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
@@ -18,8 +20,10 @@ import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.exception.UnauthorizedException;
+import tp.paw.khet.webapp.form.FormChangePassword;
 
 @Controller
+@SessionAttributes("changePasswordForm")
 public class ProfileController {
 	
     @Autowired 
@@ -30,18 +34,23 @@ public class ProfileController {
 
 	@Autowired
 	private SecurityUserService securityUserService;
-    
+	
 	@ModelAttribute("loggedUser")
 	public User loggedUser() {
 		return securityUserService.getLoggedInUser();
 	}
 
+	@ModelAttribute("changePasswordForm")
+	public FormChangePassword passwordForm(@ModelAttribute("loggedUser") User loggedUser){
+		return new FormChangePassword();
+	}
+	
 	@RequestMapping("/profile/{userId}")
 	public ModelAndView user(@PathVariable final int userId) throws ResourceNotFoundException {
 		ModelAndView mav = new ModelAndView("profile");
 		
 		User user = userService.getUserById(userId);
-		
+				
 		if (user == null)
 			throw new ResourceNotFoundException();
 		

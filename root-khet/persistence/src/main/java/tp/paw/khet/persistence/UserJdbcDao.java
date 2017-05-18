@@ -79,4 +79,25 @@ public class UserJdbcDao implements UserDao {
 		
 		return profilePicture;
 	}
+
+	@Override
+	public User changePassword(int userId, String password) {
+		User user = getUserById(userId);
+		
+		if (user != null)
+			jdbcTemplate.update("UPDATE users SET password = ? WHERE userId = ?", password, userId);
+		
+		return user;
+	}
+
+	@Override
+	public User changeProfilePicture(int userId, byte[] profilePicture) {
+		User user = getUserById(userId);
+		
+		if (user != null)
+			jdbcTemplate.update("UPDATE users SET profilePicture = ? WHERE userId = ?", profilePicture, userId);
+		
+		return user;
+		
+	}
 }

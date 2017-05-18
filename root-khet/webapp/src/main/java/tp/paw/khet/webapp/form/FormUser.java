@@ -1,5 +1,6 @@
 package tp.paw.khet.webapp.form;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -23,11 +24,9 @@ public class FormUser {
 	@NotEmpty
 	private String email;
 
-	@Size(min=6, max=60)
-	private String password;
+	@Valid
+	private FormPassword passwordForm = new FormPassword();
 	
-	private String passwordConf;
-		
 	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
 	@FileSize(min = 1)
 	private MultipartFile profilePicture;
@@ -48,27 +47,16 @@ public class FormUser {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public FormPassword getPasswordForm() {
+		return passwordForm;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	
 	public MultipartFile getProfilePicture() {
 		return profilePicture;
 	}
-
+	
 	public void setProfilePicture(MultipartFile profilePicture) {
 		this.profilePicture = profilePicture;
 	}
 
-	public String getPasswordConf() {
-		return passwordConf;
-	}
-
-	public void setPasswordConf(String passwordConf) {
-		this.passwordConf = passwordConf;
-	}
 }

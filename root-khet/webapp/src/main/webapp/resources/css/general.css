@@ -76,3 +76,11 @@ footer p {
 .form-error { /* errors */
 	color: #bc0f0f;
 }
+
+ .modal-backdrop.in { 
+ 	z-index: auto !important;
+ }
+
+ .modal {
+ 	z-index: 9999 !important;
+ }

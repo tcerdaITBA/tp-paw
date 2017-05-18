@@ -13,22 +13,23 @@ import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 
+
 @Controller
 public class IndexController {
 		
     @Autowired
     private ProductService productService;
     
-	@Autowired
+ 	@Autowired
 	private SecurityUserService securityUserService;
-    
+	    
 	@ModelAttribute("loggedUser")
 	public User loggedUser() {
 		return securityUserService.getLoggedInUser();
 	}
 	
 	//TODO: sacar
-    private static int PAGE_SIZE = 10; 
+    private static final int PAGE_SIZE = 10; 
     
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -48,4 +49,5 @@ public class IndexController {
 	public ModelAndView login() {
 		return new ModelAndView("login");
 	}
+	
 }

@@ -79,19 +79,19 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 form-group">
-								<form:label path="name" class="col-sm-3 control-label"><spring:message code="userFormLabel.password" /></form:label>
+								<form:label path="passwordForm.password" class="col-sm-3 control-label"><spring:message code="userFormLabel.password" /></form:label>
 								<div class="col-sm-9">
-									<form:input type="password" path="password" class="form-control" placeholder="${PasswordPlaceholder}" maxlength="60"/>
-									<form:errors path="password" cssClass="form-error" element="p"/>
+									<form:input type="password" path="passwordForm.password" class="form-control" placeholder="${PasswordPlaceholder}" maxlength="60"/>
+									<form:errors path="passwordForm.password" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12 form-group">
-								<form:label path="name" class="col-sm-3 control-label"><spring:message code="userFormLabel.passwordConfirm" /></form:label>
+								<form:label path="passwordForm.passwordConf" class="col-sm-3 control-label"><spring:message code="userFormLabel.passwordConfirm" /></form:label>
 								<div class="col-sm-9">
-									<form:input type="password" path="passwordConf" class="form-control" placeholder="${PasswordConfirmPlaceholder}" maxlength="60"/>
-									<form:errors path="passwordConf" cssClass="form-error" element="p"/>
+									<form:input type="password" path="passwordForm.passwordConf" class="form-control" placeholder="${PasswordConfirmPlaceholder}" maxlength="60"/>
+									<form:errors path="passwordForm.passwordConf" cssClass="form-error" element="p"/>
 								</div>
 							</div>
 						</div>
