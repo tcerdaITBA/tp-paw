@@ -9,7 +9,11 @@ function getParameterByName(name) {
 	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-$(document).ready(function(){	
+$(document).ready(function(){
+	console.log(gotoComment);
+	console.log(showForm);
+
+	
 	$.fn.goTo = function() {
 		var offset = 100;
         $('html, body').animate({
@@ -24,13 +28,11 @@ $(document).ready(function(){
 		  slidesToScroll : 1,
 		  slidesToShow: 1,
 	});
-	
-	var gotoComment = getParameterByName('comment');
-	if (gotoComment != null)
+		
+	if (gotoComment)
 		$('#comment' + gotoComment).goTo();
 	
-	var showForm = getParameterByName('form');
-	if (showForm != null) {
+	if (showForm) {
 		var form = $('#form' + showForm);
 		form.show();
 		form.goTo();

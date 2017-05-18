@@ -83,10 +83,12 @@ public class ShowProductController {
 							   RedirectAttributes attr) {
 		
 		FormComment postedForm = index.isPresent() ? form.getChildForm(index.get()) : form.getParentForm();
+		ModelAndView mav = new ModelAndView("redirect:/product/" + productId);
 		
 		if (errors.hasErrors()) {
 			String errorForm = index.isPresent() ? index.get().toString() : "parent";
-			return errorState(productId, form, errors, attr, errorForm);
+			setErrorState(productId, form, errors, attr, errorForm);
+			return mav;
 		}
 		
 		Comment comment;
@@ -95,7 +97,8 @@ public class ShowProductController {
 		else
 			comment = commentService.createParentComment(postedForm.getContent(), productId, loggedUser.getUserId());
 		
-		return new ModelAndView("redirect:/product/" + productId + "?comment=" + comment.getId());
+		attr.addFlashAttribute("comment", comment.getId());
+		return mav;
 	}
 	
 	@ResponseBody
@@ -110,10 +113,9 @@ public class ShowProductController {
 		return productService.getLogoByProductId(productId);
 	}
 	
-	private ModelAndView errorState(int productId, FormComments form, final BindingResult errors, RedirectAttributes attr, String errorForm) {
-		attr.addFlashAttribute("org.springframework.validation.BindingResult.commentsForm", errors);
-		attr.addFlashAttribute("commentsForm", form);
-		return new ModelAndView("redirect:/product/" + productId + "?form=" + errorForm);		
+	private void setErrorState(int productId, FormComments form, final BindingResult errors, RedirectAttributes attr, String errorForm) {
+		attr.addFlashAttribute("org.springframework.validation.BindingResult.commentsForm", errors)
+			.addFlashAttribute("commentsForm", form)
+			.addFlashAttribute("form", errorForm);
 	}
-
 }
