@@ -132,4 +132,12 @@ public interface ProductService {
 	 * @return true if a product was deleted
 	 */
 	boolean deleteProductById(int productId);
+	
+	/**
+	 * Retrieves a {@link List} of plain products given a keyword.
+	 * The keyword should match the product's name or short description.
+	 * @param keyword - The keyword which should be matched
+	 * @return The list of plain products that match wuth the keyword.
+	 */
+	public List<Product> getPlainProductsByKeyword(String keyword);
 }
