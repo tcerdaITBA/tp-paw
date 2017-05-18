@@ -1,5 +1,7 @@
 package tp.paw.khet.service;
 
+import java.util.List;
+
 import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
 
@@ -30,6 +32,14 @@ public interface UserService {
 	 */
 	public User getUserById(int userId);
 
+	/**
+	 * Retrieves a {@link List} of {@User} given a keyword.
+	 * The keyword should match the user's name.
+	 * @param keyword - The keyword which should be matched
+	 * @return The list of plain products that match with the keyword.
+	 */
+	public List<User> getUsersByKeyword(String keyword);
+	
 	/**
 	 * Retrieves an {@link User} profile picture.
 	 * @param userId - ID of the user's profile picture to retrieve

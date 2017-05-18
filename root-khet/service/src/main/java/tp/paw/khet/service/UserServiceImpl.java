@@ -1,5 +1,7 @@
 package tp.paw.khet.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserById(int userId) {
 		return userDao.getUserById(userId);
+	}
+	
+	@Override
+	public List<User> getUsersByKeyword(String keyword) {
+		return userDao.getUsersByKeyword(keyword);
 	}
 	
 	@Override

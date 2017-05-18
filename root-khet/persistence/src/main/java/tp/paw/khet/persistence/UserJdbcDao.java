@@ -22,7 +22,7 @@ public class UserJdbcDao implements UserDao {
 	@Autowired
 	private UserRowMapper userRowMapper;
 	
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
 
 	@Autowired
@@ -52,7 +52,7 @@ public class UserJdbcDao implements UserDao {
 	
 	@Override
 	public User getUserByEmail(String email) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE email = ?", userRowMapper, email);
+		List<User> user = jdbcTemplate.query("SELECT userId, userName, email, password FROM users WHERE email = ?", userRowMapper, email);
 		
 		if (user.isEmpty())
 			return null;
@@ -62,7 +62,7 @@ public class UserJdbcDao implements UserDao {
 
 	@Override
 	public User getUserById(int userId) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", userRowMapper, userId);
+		List<User> user = jdbcTemplate.query("SELECT userId, userName, email, password FROM users WHERE userid = ?", userRowMapper, userId);
 		
 		if (user.isEmpty())
 			return null;
@@ -78,5 +78,15 @@ public class UserJdbcDao implements UserDao {
 			return new byte[0];
 		
 		return profilePicture;
+	}
+
+	@Override
+	public List<User> getUsersByKeyword(String keyword) {
+		String firstWordKeyword = keyword+"%";
+		String otherWordsKeyword = "% "+keyword+"%";
+		String sql = "SELECT userId, userName, email, password FROM users WHERE " +
+					 "lower(userName) LIKE lower(?) OR lower(userName) LIKE lower(?)";
+
+		return jdbcTemplate.query(sql, userRowMapper, firstWordKeyword, otherWordsKeyword);
 	}
 }

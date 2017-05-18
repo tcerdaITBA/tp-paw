@@ -20,7 +20,7 @@ public class VideoJdbcDao implements VideoDao {
 	@Autowired
 	private VideoRowMapper videoRowMapper;
 	
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
 
 	@Autowired

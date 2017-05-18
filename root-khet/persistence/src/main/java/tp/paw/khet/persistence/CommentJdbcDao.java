@@ -24,7 +24,7 @@ public class CommentJdbcDao implements CommentDao {
 	@Autowired 
 	private UserDao userDao;
 	
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
 	
 	@Autowired

@@ -122,5 +122,4 @@ public class ProductServiceImplTest {
 		for (int i = 0; i < expected.size(); i++)
 			assertEqualsPlainProducts(expected.get(0), actual.get(0));
 	}
-
 }

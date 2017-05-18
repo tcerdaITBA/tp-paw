@@ -26,8 +26,8 @@ public class ProductImageJdbcDao implements ProductImageDao {
 		}
 	};
 	
-	private JdbcTemplate jdbcTemplate;
-	private SimpleJdbcInsert jdbcInsert;
+	private final JdbcTemplate jdbcTemplate;
+	private final SimpleJdbcInsert jdbcInsert;
 	
 	@Autowired
 	public ProductImageJdbcDao(final DataSource ds) {
