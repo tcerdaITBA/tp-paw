@@ -1,4 +1,4 @@
-.result-for-products {
+.result-for-products, .result-for-users {
 	margin-top: 2em;
 }
 
@@ -9,4 +9,33 @@
 	color: #737373;
 	font-weight: 300;
 	margin-top: 10px;
+}
+
+.profile-img-circle {
+	width: 8em;
+	height: 8em;
+	border-radius: 50%;
+}
+
+.user-info-box {
+	border: 1px solid #f3f3f3;
+	background-color: white;
+	padding: 15px 10px;	
+}
+
+.product-list-item:hover {
+	border-color: #33bb9c;
+}
+
+.creator-mail p {
+	display: inline;
+}
+
+.profile-name {
+	font-size: 1.4em;
+	color: #333;
+}
+
+.creator-mail {
+	font-size: 1.2em;
 }

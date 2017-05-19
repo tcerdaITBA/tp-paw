@@ -76,8 +76,34 @@
 						</div>
 					</div>
 					<div id="users-pane" class="tab-pane fade row result-for-users">
-						<div class="col-md-6">
+						<div class="col-md-6 col-md-offset-3">
 							<c:forEach items="${users}" var="user">
+								<div class="row user-info-box">
+									<div class="col-md-3">
+										<a href="<c:url value="/profile/${user.userId}"/>">
+											<img class="profile-img-circle" src="<c:url value="/profile/${user.userId}/profilePicture"/>">
+										</a>
+									</div>
+									<div class="col-md-9">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="profile-name-holder">
+													<a class="profile-name" href="<c:url value="/profile/${user.userId}"/>"> 
+														<c:out value="${user.name}" />
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<a class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
+													<span class="glyphicon glyphicon-envelope"></span>
+													<p><c:out value="${user.email}"/></p>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
 							</c:forEach>
 						</div>
 					</div>

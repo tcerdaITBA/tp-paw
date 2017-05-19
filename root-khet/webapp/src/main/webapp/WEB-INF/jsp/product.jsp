@@ -123,11 +123,6 @@
 									<div class="row long-description">
 										<div class="col-md-12">
 											<p><c:out value="${product.description}" /></p>
-<!--
-											<div class="back-to-products">
-												<a href="<c:url value="/"/>"><spring:message code="productPage.backToProducts" /></a>
-											</div>
--->
 										</div>
 									</div>
 									
