@@ -1,14 +1,16 @@
 package tp.paw.khet;
 
+import static org.apache.commons.lang3.Validate.notBlank;
+import static org.apache.commons.lang3.Validate.isTrue;
+
 public class Video {
 	private final String videoId;
 	private final int productId;
 	
 	public Video(String videoId, int productId) {
-		if (videoId == null)
-			throw new IllegalArgumentException("videoId may not be null");
+		isTrue(productId >= 0, "Product ID must be non negative");
 		
-		this.videoId = videoId;
+		this.videoId = notBlank(videoId, "Video ID must have at least one non blank character");
 		this.productId = productId;
 	}
 	
