@@ -10,6 +10,10 @@ body {
 	background-image: none;
 }
 
+.img-contain {
+	object-fit: contain;
+}
+
 .navbar-default .navbar-nav>.active>a:hover {
 	background-color: #fff;
 }
