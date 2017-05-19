@@ -7,6 +7,11 @@
 	object-fit: contain;
 }
 
+.profile-img-input {
+	height: 20em;
+	margin-bottom: 1em;
+}
+
 .img-row {
 	text-align: center;
 }

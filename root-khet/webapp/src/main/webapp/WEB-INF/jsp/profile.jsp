@@ -42,11 +42,11 @@
 											    <span class="caret"></span>
 											  </button>
 											  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-											    <li><a
+											    <li class="pointer-cursor"><a
 											    	data-toggle="modal" data-target="#changePictureModal">
 														<spring:message code="Profile.settings.changePicture"/>
 													</a></li>
-											    <li><a data-toggle="modal" data-target="#changePassModal">
+											    <li class="pointer-cursor"><a data-toggle="modal" data-target="#changePassModal">
 											    	<spring:message code="Profile.settings.changePassword"/>
 											    	</a></li>
 											  </ul>

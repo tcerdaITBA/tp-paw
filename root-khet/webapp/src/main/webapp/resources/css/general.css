@@ -1,4 +1,3 @@
-
 body {
 	background-color: #f9f9f9;
 	padding-top: 70px;
@@ -75,6 +74,14 @@ footer p {
 
 .form-error { /* errors */
 	color: #bc0f0f;
+}
+
+.error-centered {
+	text-align: center;
+}
+
+.pointer-cursor {
+	cursor: pointer;
 }
 
  .modal-backdrop.in { 

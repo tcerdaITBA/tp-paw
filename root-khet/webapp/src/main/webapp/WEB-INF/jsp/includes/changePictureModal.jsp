@@ -29,7 +29,6 @@
 								</div>
 								<div class="row">
 								<div class="col-md-6 col-md-offset-3">
-							
 									<div class="profile-img-input">
 										<form:input class="image-input" type="file" path="profilePicture" accept="image/*"/>
 										<form:label id="profilePicture-label" path="profilePicture">
@@ -43,11 +42,11 @@
 											</div>
 										</form:label>
 									</div>
-									</div>
+								</div>
 								</div>
 									<form:errors path="profilePicture" element="p" cssClass="error-centered form-error"/>
 								</div>
-								</div>
+							</div>
 							
 						</div>
 						<div class="row row-centered">
