@@ -109,3 +109,7 @@
     font-size: x-large;
     color: #b7b7b7;
 }
+
+.row-centered {
+	text-align: center;
+}

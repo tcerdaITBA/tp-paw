@@ -91,7 +91,7 @@
 							<h2><spring:message code="uploadedProductsTitle" arguments="${us.name}"/></h2>
 							<div class="col-md-12 product-list">
 								<c:forEach items="${products}" var="product">
-									<a href="<c:url value="/product/${product.id}"/>">
+									<a href="<c:url value="/product/${product.id}" />">
 										<div class="row product-list-item vertical-align">
 											<div class="col-md-3 product-logo">
 												<img src="<c:url value="/product/${product.id}/logo"/>">
@@ -105,8 +105,13 @@
 																	<div class="col-md-10">
 																		<p><c:out value="${product.name}"/></p>
 																	</div>
+																	
 																	<div class="col-md-1 col-md-offset-1">
-																		<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+																		<button type="button delete-button" class="deleteButton" data-toggle="modal" data-target="#deleteModal">
+																			<span class="glyphicon glyphicon-trash delete-product-button"></span>
+																		</button>
+
+																		
 																	</div>
 																</c:when>
 																<c:otherwise>
@@ -117,6 +122,7 @@
 															</c:choose>
 														</sec:authorize>
 														<sec:authorize access="isAnonymous()">
+													
 															<div class="col-md-12">
 																		<p><c:out value="${product.name}"/></p>
 															</div>
@@ -138,35 +144,41 @@
 											</div>
 										</div>	
 									</a>
+									
 									<!-- The Modal -->
-									<sec:authorize access="isAuthenticated()">
-										<c:if test="${loggedUser.userId == profileUser.userId}">
-											<div id="modal${product.id}" class="row modal">
-											  <!-- Modal content -->
-												  <div class="col-md-4 col-md-offset-4 modal-content">
-												    <span id ="closeModal${product.id}" class="close-modal">&times;</span>
-												    <div class="row">
-												    	<div class="col-md-12">
-												    		<p class="modal-text"><spring:message code="Profile.modal.textBeginning" />
-												    		<span class="modal-product-name"><c:out value="${product.name}" /></span>
-												    		<spring:message code="Profile.modal.textEnd" /></p>
-												  		</div>
-												  	</div>
-												  	<div class="row modal-buttons-holder">
-												  		<div class="col-md-1 col-md-offset-4">
-															<c:url value="/delete/product/${product.id}" var="deletePath" />
-															<form:form action="${deletePath}" method="post">
-																<input type="submit" class="ps-btn btn" value="<spring:message code="Profile.modal.leftButton"/>" />
-												  			</form:form>
-												  		</div>
-												  		<div class="col-md-1 col-md-offset-1">
-															<p id="leftModalButton${product.id}" class="ps-btn btn modal-left-button"><spring:message code="Profile.modal.rightButton" /></p>
-												  		</div>
-												  	</div>
-												  </div>
-											</div>
-										</c:if>
-									</sec:authorize>		
+									<div id="deleteModal" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+										            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										            <h4 class="modal-title"><spring:message code="Profile.modal.deleteProduct"/></h4>	
+										        </div>
+											    <div class="modal-body">
+												
+											    <div class="row">
+											    	<div class="col-md-12">
+											    		<p class="modal-text"><spring:message code="Profile.modal.textBeginning" />
+											    		<span class="modal-product-name"><c:out value="${product.name}" /></span>
+											    		<spring:message code="Profile.modal.textEnd" /></p>
+											  		</div>
+											  	</div>
+											  	<div class="row row-centered">
+													<div class="col-md-12">
+														<div class="col-sm-12">
+														<c:url value="/delete/product/${product.id}" var="deletePath" />
+														<form:form action="${deletePath}" method="post">
+															<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
+															<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
+														</form:form>
+														</div>
+													</div>
+												</div>
+																
+											  </div>	
+													
+												</div>
+											</div>	
+										</div>
 								</c:forEach>
 							</div>
 						</c:otherwise>
