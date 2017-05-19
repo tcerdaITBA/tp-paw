@@ -155,14 +155,15 @@ public class ProductJdbcDao implements ProductDao {
     }
 
 	@Override
-	public List<Product> getPlainProductsByKeyword(String keyword) {
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
 		String firstWordKeyword = keyword+"%";
 		String otherWordsKeyword = "% "+keyword+"%";
 		
 		String sql = "SELECT productId, productName, shortDescription, category FROM products WHERE "
 				+ "lower(productName) LIKE lower(?) OR lower(productName) LIKE lower(?) OR "
-				+ "lower(shortDescription) LIKE lower(?) OR lower(shortDescription) LIKE lower(?)";
+				+ "lower(shortDescription) LIKE lower(?) OR lower(shortDescription) LIKE lower(?) "
+				+ "ORDER BY productName LIMIT ?";
 		
-		return jdbcTemplate.query(sql, plainProductRowMapper, firstWordKeyword, otherWordsKeyword, firstWordKeyword, otherWordsKeyword);
+		return jdbcTemplate.query(sql, plainProductRowMapper, firstWordKeyword, otherWordsKeyword, firstWordKeyword, otherWordsKeyword, maxLength);
 	}    
 }

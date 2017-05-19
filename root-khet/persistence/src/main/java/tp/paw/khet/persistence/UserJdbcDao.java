@@ -81,12 +81,13 @@ public class UserJdbcDao implements UserDao {
 	}
 
 	@Override
-	public List<User> getUsersByKeyword(String keyword) {
+	public List<User> getUsersByKeyword(String keyword, int maxLength) {
 		String firstWordKeyword = keyword+"%";
 		String otherWordsKeyword = "% "+keyword+"%";
-		String sql = "SELECT userId, userName, email, password FROM users WHERE " +
-					 "lower(userName) LIKE lower(?) OR lower(userName) LIKE lower(?)";
+		String sql = "SELECT userId, userName, email, password FROM users WHERE "
+					 + "lower(userName) LIKE lower(?) OR lower(userName) LIKE lower(?) "
+					 + "ORDER BY userName LIMIT ?";
 
-		return jdbcTemplate.query(sql, userRowMapper, firstWordKeyword, otherWordsKeyword);
+		return jdbcTemplate.query(sql, userRowMapper, firstWordKeyword, otherWordsKeyword, maxLength);
 	}
 }

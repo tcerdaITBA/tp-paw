@@ -96,17 +96,22 @@ public class UserJdbcDaoTest {
 		insertUsers(expected);
 		String keyword = expected.get(0).getName().substring(0, 3);
 
-		List<User> actual = userDao.getUsersByKeyword(keyword);
+		List<User> actual = userDao.getUsersByKeyword(keyword, LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		
-		actual = userDao.getUsersByKeyword("cerd");
+		actual = userDao.getUsersByKeyword("cerd", LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
-
-		assertTrue(userDao.getUsersByKeyword("sucutrule").isEmpty());
 		
-		assertEqualsUsers(dummyUser(0), userDao.getUsersByKeyword("0").get(0));
+		expected = actual.subList(0, 5);
+		actual = userDao.getUsersByKeyword(keyword, 5);
+		assertTrue(expected.containsAll(actual));
+		assertTrue(actual.containsAll(expected));		
+		
+		assertTrue(userDao.getUsersByKeyword("sucutrule", LIST_SIZE).isEmpty());
+		
+		assertEqualsUsers(dummyUser(0), userDao.getUsersByKeyword("0", LIST_SIZE).get(0));
 	}
 	
 	private void insertUser(User user) throws DuplicateEmailException {

@@ -143,21 +143,27 @@ public class ProductJdbcDaoTest {
 		String noMatchKeyword = expected.get(0).getShortDescription().substring(1, 3);
 
 		assertSearch(keyword, noMatchKeyword, expected);
-		List<Product> actual = productDao.getPlainProductsByKeyword("desc");
+		List<Product> actual = productDao.getPlainProductsByKeyword("desc", LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 	}
 	
 	private void assertSearch(String keyword, String noMatchKeyword, List<Product> expected) {
-		List<Product> actual = productDao.getPlainProductsByKeyword(keyword);
+		List<Product> actual = productDao.getPlainProductsByKeyword(keyword, LIST_SIZE);
 		
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		
-		assertTrue(productDao.getPlainProductsByKeyword("sucutrule").isEmpty());
+		expected = actual.subList(0, 5);
+		actual = productDao.getPlainProductsByKeyword(keyword, 5);
 				
-		assertTrue(productDao.getPlainProductsByKeyword(noMatchKeyword).isEmpty());
-		assertEqualsPlainProducts(dummyProduct(0), productDao.getPlainProductsByKeyword("0").get(0));
+		assertTrue(expected.containsAll(actual));
+		assertTrue(actual.containsAll(expected));
+		
+		assertTrue(productDao.getPlainProductsByKeyword("sucutrule", LIST_SIZE).isEmpty());
+				
+		assertTrue(productDao.getPlainProductsByKeyword(noMatchKeyword, LIST_SIZE).isEmpty());
+		assertEqualsPlainProducts(dummyProduct(0), productDao.getPlainProductsByKeyword("0", LIST_SIZE).get(0));
 	}
 	
 	private void insertDummyUser() throws DuplicateEmailException {

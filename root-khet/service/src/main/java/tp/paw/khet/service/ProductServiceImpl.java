@@ -122,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
 	@Override
-	public List<Product> getPlainProductsByKeyword(String keyword) {
-		return productDao.getPlainProductsByKeyword(keyword);
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
+		return productDao.getPlainProductsByKeyword(keyword, maxLength);
 	}
 }

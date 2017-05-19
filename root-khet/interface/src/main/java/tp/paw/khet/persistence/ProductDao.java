@@ -141,7 +141,8 @@ public interface ProductDao {
 	 * Retrieves a {@link List} of plain products given a keyword.
 	 * The keyword should match the product's name or short description.
 	 * @param keyword - The keyword which should be matched
+	 * @param maxLength - The maximum length of the returned list
 	 * @return The list of plain products that match with the keyword.
 	 */
-	public List<Product> getPlainProductsByKeyword(String keyword);
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength);
 }

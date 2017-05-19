@@ -36,9 +36,10 @@ public interface UserService {
 	 * Retrieves a {@link List} of {@User} given a keyword.
 	 * The keyword should match the user's name.
 	 * @param keyword - The keyword which should be matched
+	 * @param maxLength - The maximum length of the returned list
 	 * @return The list of plain products that match with the keyword.
 	 */
-	public List<User> getUsersByKeyword(String keyword);
+	public List<User> getUsersByKeyword(String keyword, int maxLength);
 	
 	/**
 	 * Retrieves an {@link User} profile picture.
