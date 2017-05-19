@@ -3,7 +3,9 @@ package tp.paw.khet.webapp.form;
 import javax.validation.constraints.Size;
 
 import javax.validation.Valid;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,21 +18,18 @@ import tp.paw.khet.webapp.form.constraints.NoDuplicateVideos;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
 
-
 public class FormProduct {
 	private static final int MAX_IMAGES = 4;
 	private static final int MAX_VIDEOS = 2;
 	
-	private int id;
-	
 	@Size(max = 64, min=4)
 	private String name;
 	
-	@NotEmpty
+	@NotBlank
 	@Size(max = 8000)
 	private String description;
 	
-	@NotEmpty
+	@NotBlank
 	@Size(max = 140)
 	private String shortDescription;
 	
@@ -56,10 +55,6 @@ public class FormProduct {
 		videos = new VideoStringWrapper[MAX_VIDEOS];
 	}
 	
-	public int getId() {
-		return id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -77,19 +72,19 @@ public class FormProduct {
 	}
 		
 	public void setName(String name) {
-		this.name = name;
+		this.name = StringUtils.strip(name);
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.description = StringUtils.strip(description);
 	}
 
 	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+		this.shortDescription = StringUtils.strip(shortDescription);
 	}
 	
 	public void setWebsite(String url) {
-	    this.website = url;
+	    this.website = StringUtils.strip(url);
 	}
 
 	public MultipartFile getLogo() {
@@ -122,24 +117,5 @@ public class FormProduct {
 	
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (obj == null)
-			return false;
-		if (!this.getClass().equals(obj.getClass()))
-			return false;
-		
-		FormProduct other = (FormProduct) obj;
-		
-		return id == other.id;
-	}
-	
-	@Override
-	public int hashCode() {
-		return id;
 	}
 }

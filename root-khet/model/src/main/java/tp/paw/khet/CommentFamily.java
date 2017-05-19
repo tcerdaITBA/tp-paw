@@ -1,5 +1,8 @@
 package tp.paw.khet;
 
+import static org.apache.commons.lang3.Validate.notNull;
+import static org.apache.commons.lang3.Validate.isTrue;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +14,8 @@ public class CommentFamily {
 	private final int parentId;
 	
 	public CommentFamily(Comment parentComment) {
+		notNull(parentComment, "Parent comment cannot be null");
+		
 		this.parentNode = new ParentNode<Comment>(parentComment);
 		this.parentId = parentComment.getId();
 	}
@@ -24,8 +29,7 @@ public class CommentFamily {
 	}
 	
 	public void addChildComment(Comment child) {
-		if (child.getParentId() != parentId)
-			throw new IllegalArgumentException("Child's ID: " + child.getId() + " should be equals to parent's ID: " + parentId);
+		isTrue(child.getParentId() == parentId, "Child's ID: %d should be equals to parent's ID: %d", child.getId(), parentId);
 		parentNode.addChild(child);
 	}
 	

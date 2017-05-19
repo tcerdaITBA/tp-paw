@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 
 import javax.validation.constraints.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class VideoStringWrapper {
 
 	private static final String YOUTUBE_REGEX = "(?:https:\\/\\/(?:www\\.)?)?(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?"
@@ -19,7 +21,7 @@ public class VideoStringWrapper {
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
+		this.url = StringUtils.strip(url);
 	}
 	
 	public boolean hasUrl() {
