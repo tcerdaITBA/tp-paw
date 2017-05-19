@@ -20,9 +20,9 @@
 			</a>
 		</div>
 
-		<form class="navbar-form navbar-left navbar-search">
+		<form action="<c:url value="/search"/>" method="get" class="navbar-form navbar-left navbar-search">
 			<div class="form-group">
-				<input id="search-box" type="text" class="form-control" placeholder="Search"/>
+				<input id="search-box" name="query" type="text" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>"</input>
 			</div>
 		</form>
 			
