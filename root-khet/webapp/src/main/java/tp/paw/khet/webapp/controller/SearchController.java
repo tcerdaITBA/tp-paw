@@ -28,6 +28,7 @@ public class SearchController {
         ModelAndView mav = new ModelAndView("search-results");
         mav.addObject("products", productService.getPlainProductsByKeyword(query, MAX_RESULTS));
         mav.addObject("users", userService.getUsersByKeyword(query, MAX_RESULTS));
+        mav.addObject("queryText", query);
         return mav;
     }
 

@@ -17,6 +17,7 @@
 <link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/search.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
@@ -24,14 +25,25 @@
 <body>
 	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
-		<div class="col-md-12">
-			<ul class="nav nav-pills">
-				<li role="presentation" class="active"><a href="#">Products</a></li>
-				<li role="presentation"><a href="#">Users</a></li>
-			</ul>
-			<div class="row result-for-products">
-				<div class="col-md-6">
-					<c:forEach items="${products}" var="product">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<h3 class="search-title">Search results for 'hola'</h3>
+					</div>
+				</div>
+				<div class="row tabs-row">
+					<div class="col-md-6 col-md-offset-3">
+						<ul class="nav nav-pills nav-justified">
+							<li role="presentation" class="active"><a href="#products-pane" data-toggle="tab">Products</a></li>
+							<li role="presentation"><a href="#users-pane" data-toggle="tab">Users</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div id="products-pane" class="tab-pane fade in active row result-for-products">
+						<div class="col-md-6 col-md-offset-3">
+							<c:forEach items="${products}" var="product">
 								<a href="<c:url value="/product/${product.id}"/>">
 									<div class="row product-list-item vertical-align">
 										<div class="col-md-3 product-logo">
@@ -61,17 +73,19 @@
 									</div>	
 								</a>				
 							</c:forEach>
+						</div>
+					</div>
+					<div id="users-pane" class="tab-pane fade row result-for-users">
+						<div class="col-md-6">
+							<c:forEach items="${users}" var="user">
+							</c:forEach>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="row result-for-users">
-				<div class="col-md-6">
-					<c:forEach items="${users}" var="user">
-					</c:forEach>
-				</div>
+				<%@include file="includes/footer.jsp"%>
 			</div>
 		</div>
 	</div>
-	<%@include file="includes/footer.jsp"%>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
