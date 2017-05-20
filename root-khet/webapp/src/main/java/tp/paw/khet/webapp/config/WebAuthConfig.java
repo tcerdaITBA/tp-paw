@@ -17,8 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
 import tp.paw.khet.webapp.auth.RefererLoginSuccessHandler;
 
@@ -52,7 +50,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 				.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
 			.and().logout()
 				.logoutUrl("/logout")
-				.logoutSuccessHandler(logoutSuccessHandler())
+				.logoutSuccessUrl("/")
 			.and().exceptionHandling()
 				.accessDeniedPage("/403")
 			.and().csrf().disable();
@@ -86,13 +84,6 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 		RefererLoginSuccessHandler handler = new RefererLoginSuccessHandler();
 		handler.setAlwaysUseDefaultTargetUrl(false);
 		handler.setDefaultTargetUrl("/");
-		return handler;
-	}
-	
-	@Bean
-	public LogoutSuccessHandler logoutSuccessHandler() {
-		SimpleUrlLogoutSuccessHandler handler = new SimpleUrlLogoutSuccessHandler();
-		handler.setUseReferer(true);
 		return handler;
 	}
 }
