@@ -122,4 +122,28 @@ public class UserJdbcDaoTest {
 		for (User user : users)
 			insertUser(user);
 	}
+		
+	public void changePasswordTest() throws DuplicateEmailException {
+		User dummyUser = dummyUser(0);
+		String expectedPassword = "sucutrule";
+		User expected = new User(0, dummyUser.getName(), dummyUser.getEmail(), expectedPassword);
+		userDao.createUser(dummyUser.getName(), dummyUser.getEmail(), dummyUser.getPassword(), profilePictureFromUser(dummyUser));
+		
+		User actual = userDao.changePassword(0, expectedPassword);
+		
+		assertEqualsUsers(expected, actual);
+		assertEquals(expectedPassword, expected.getPassword());
+	}
+	
+	@Test
+	public void changeProfilePictureTest() throws DuplicateEmailException {
+		User dummyUser = dummyUser(0);
+		byte[] expected = "Modified image".getBytes();
+		userDao.createUser(dummyUser.getName(), dummyUser.getEmail(), dummyUser.getPassword(), profilePictureFromUser(dummyUser));
+		
+		userDao.changeProfilePicture(0, expected);
+		byte[] actual = userDao.getProfilePictureByUserId(0);
+		
+		assertArrayEquals(expected, actual);
+	}
 }

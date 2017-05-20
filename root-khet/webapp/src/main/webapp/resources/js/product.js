@@ -1,15 +1,11 @@
-// Fuente: stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-function getParameterByName(name) {
-	var url = window.location.href;
-	name = name.replace(/[\[\]]/g, "\\$&");
-	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-$(document).ready(function(){	
+$(document).ready(function(){
+//	var currentHash = window.location.hash.substr(1);
+//	
+//	if (!currentHash)
+//		location.hash = "goBack";
+//	else if (currentHash === "goBack")
+//		history.back();
+	
 	$.fn.goTo = function() {
 		var offset = 100;
         $('html, body').animate({
@@ -24,13 +20,11 @@ $(document).ready(function(){
 		  slidesToScroll : 1,
 		  slidesToShow: 1,
 	});
-	
-	var gotoComment = getParameterByName('comment');
-	if (gotoComment != null)
+		
+	if (gotoComment)
 		$('#comment' + gotoComment).goTo();
 	
-	var showForm = getParameterByName('form');
-	if (showForm != null) {
+	if (showForm) {
 		var form = $('#form' + showForm);
 		form.show();
 		form.goTo();

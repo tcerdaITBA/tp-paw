@@ -20,6 +20,9 @@
 			<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/profile.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/customizeUser.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
+			
 			
 			<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 
@@ -29,7 +32,30 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3 profile-info-box">
-					
+							<sec:authorize access="isAuthenticated()">
+								<c:if test="${loggedUser.userId == profileUser.userId}">
+									<div class="row settings-row">
+										<div class="col-md-offset-10">
+											<div class="dropdown">
+											  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+											    <span class="glyphicon glyphicon-cog"></span>
+											    <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+											    <li class="pointer-cursor"><a
+											    	data-toggle="modal" data-target="#changePictureModal">
+														<spring:message code="Profile.settings.changePicture"/>
+													</a></li>
+											    <li class="pointer-cursor"><a data-toggle="modal" data-target="#changePassModal">
+											    	<spring:message code="Profile.settings.changePassword"/>
+											    	</a></li>
+											  </ul>
+											</div>
+										</div>
+										</div>
+									</c:if>						
+							</sec:authorize>
+							
 								<div class="row img-row">
 									<div class="col-md-12">
 										<img class="profile-img" src="<c:url value="/profile/${us.userId}/profilePicture"/>">
@@ -65,53 +91,37 @@
 							<h2><spring:message code="uploadedProductsTitle" arguments="${us.name}"/></h2>
 							<div class="col-md-12 product-list">
 								<c:forEach items="${products}" var="product">
+									
 									<a href="<c:url value="/product/${product.id}"/>">
-										<div class="row product-list-item vertical-align">
+										<div class="row product-list-item">
+											<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
 											<div class="col-md-3 product-logo">
 												<img src="<c:url value="/product/${product.id}/logo"/>">
 											</div>
 											<div class="col-md-9 product-info-box">
-												<div class="row col-md-12">
-													<div class="row product-name">
-														<sec:authorize access="isAuthenticated()">
-															<c:choose>
-																<c:when test="${loggedUser.userId == profileUser.userId}">
-																	<div class="col-md-10">
-																		<p><c:out value="${product.name}"/></p>
-																	</div>
-																	<div class="col-md-1 col-md-offset-1">
-																		<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-																	</div>
-																</c:when>
-																<c:otherwise>
-																	<div class="col-md-12">
-																		<p><c:out value="${product.name}"/></p>
-																	</div>
-																</c:otherwise>
-															</c:choose>
-														</sec:authorize>
-														<sec:authorize access="isAnonymous()">
-															<div class="col-md-12">
-																		<p><c:out value="${product.name}"/></p>
-															</div>
-														</sec:authorize>
+												<div class="row product-name">
+													<div class="col-md-12">
+														<p><c:out value="${product.name}"/></p>
 													</div>
-													<div class="row product-short-description">
-														<div class="col-md-12">
-															<p><c:out value="${product.shortDescription}"/></p>
-														</div>
+												</div>
+												<div class="row product-short-description">
+													<div class="col-md-12">
+														<p><c:out value="${product.shortDescription}"/></p>
 													</div>
-													<div class="row product-category">
+												</div>
+												<div class="row">
+													<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
 														<div class="col-md-3">
 															<div class="categoryTag">
 																<p><spring:message code="category.${product.category.lowerName}"/></p>
 															</div>
 														</div>
-													</div>
+													</a>
 												</div>
 											</div>
 										</div>	
 									</a>
+									
 									<!-- The Modal -->
 									<sec:authorize access="isAuthenticated()">
 										<c:if test="${loggedUser.userId == profileUser.userId}">
@@ -148,7 +158,8 @@
 				</div>
 			</div>				
 		</div>
-
+			<%@include file="includes/changePictureModal.jsp"%>
+			<%@include file="includes/changePasswordModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
 			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 			<script
@@ -159,7 +170,12 @@
 							integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 							crossorigin="anonymous"></script>
 			<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+			<script>
+				var passError = "${passError}";
+				var imgError = "${imgError}";
+			</script>
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		
+			<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
 		</body>
 		
 	</html>

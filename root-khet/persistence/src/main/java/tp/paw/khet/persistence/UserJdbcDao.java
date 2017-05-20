@@ -90,4 +90,22 @@ public class UserJdbcDao implements UserDao {
 
 		return jdbcTemplate.query(sql, userRowMapper, firstWordKeyword, otherWordsKeyword, maxLength);
 	}
+	
+	public User changePassword(int userId, String password) {
+		User user = getUserById(userId);
+		
+		if (user != null)
+			jdbcTemplate.update("UPDATE users SET password = ? WHERE userId = ?", password, userId);
+		
+		return user;
+	}
+
+	public User changeProfilePicture(int userId, byte[] profilePicture) {
+		User user = getUserById(userId);
+		
+		if (user != null)
+			jdbcTemplate.update("UPDATE users SET profilePicture = ? WHERE userId = ?", profilePicture, userId);
+		
+		return user;
+	}
 }

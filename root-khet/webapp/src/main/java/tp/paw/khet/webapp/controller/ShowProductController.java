@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,8 @@ import tp.paw.khet.webapp.form.FormComments;
 @Controller
 public class ShowProductController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShowProductController.class);
+	
 	@Autowired
 	private ProductService productService;
 	
@@ -57,10 +61,14 @@ public class ShowProductController {
 	public ModelAndView getProduct(@PathVariable final int productId) 
 	throws ResourceNotFoundException {
 		
+		LOGGER.debug("Accessed product with id {}", productId);
+		
 		Product product = productService.getFullProductById(productId);
 		
-		if (product == null)
+		if (product == null) {
+			LOGGER.warn("Failed to show product with id {}: product not found", productId);
 			throw new ResourceNotFoundException();
+		}
 		
 		ModelAndView mav = new ModelAndView("product");
 		
@@ -76,26 +84,47 @@ public class ShowProductController {
 	@RequestMapping(value = "/product/{productId}/comment", method = RequestMethod.POST)
 	public ModelAndView postComment (@PathVariable final int productId,
 							   @ModelAttribute("loggedUser") final User loggedUser,
-							   @RequestParam(value = "parentid", required = false) Optional<Integer> parentId,
-							   @RequestParam(value = "index", required = false) Optional<Integer> index,
-							   @Valid @ModelAttribute("commentsForm") FormComments form, 
-							   BindingResult errors,
-							   RedirectAttributes attr) {
+							   @RequestParam(value = "parentid", required = false) final Optional<Integer> parentId,
+							   @RequestParam(value = "index", required = false) final Optional<Integer> replyCommentIndex,
+							   @Valid @ModelAttribute("commentsForm") final FormComments form, 
+							   final BindingResult errors,
+							   final RedirectAttributes attr) {
 		
-		FormComment postedForm = index.isPresent() ? form.getChildForm(index.get()) : form.getParentForm();
+		LOGGER.debug("User with id {} accessed comment POST for product with id {}", loggedUser.getUserId(), productId);
+		
+		FormComment postedForm;
+		
+		if (replyCommentIndex.isPresent()) {
+			LOGGER.debug("User with id {} attempting to post comment replying to comment with id {} in position {}", 
+					loggedUser.getUserId(), parentId.get(), replyCommentIndex.get());
+			postedForm = form.getChildForm(replyCommentIndex.get());
+		}
+		else {
+			LOGGER.debug("User with id {} attempting to post parent comment");
+			postedForm = form.getParentForm();
+		}
+		
+		ModelAndView mav = new ModelAndView("redirect:/product/" + productId);		
 		
 		if (errors.hasErrors()) {
-			String errorForm = index.isPresent() ? index.get().toString() : "parent";
-			return errorState(productId, form, errors, attr, errorForm);
+			LOGGER.warn("User {} failed to post comment: form has errors: {}", loggedUser.getUserId(), errors.getAllErrors());
+			String errorForm = replyCommentIndex.isPresent() ? replyCommentIndex.get().toString() : "parent";
+			setErrorState(productId, form, errors, attr, errorForm);
+			return mav;
 		}
 		
 		Comment comment;
-		if (parentId.isPresent())
+		if (parentId.isPresent()) {
 			comment = commentService.createComment(postedForm.getContent(), parentId.get(), productId, loggedUser.getUserId());
-		else
+			LOGGER.info("User with id {} posted comment with id {} in reply to comment with id {}", loggedUser.getUserId(), comment.getId(), parentId.get());
+		}
+		else {
 			comment = commentService.createParentComment(postedForm.getContent(), productId, loggedUser.getUserId());
+			LOGGER.info("User with id {} posted parent comment with id {}", loggedUser.getUserId(), comment.getId());
+		}
 		
-		return new ModelAndView("redirect:/product/" + productId + "?comment=" + comment.getId());
+		attr.addFlashAttribute("comment", comment.getId());
+		return mav;
 	}
 	
 	@ResponseBody
@@ -110,10 +139,9 @@ public class ShowProductController {
 		return productService.getLogoByProductId(productId);
 	}
 	
-	private ModelAndView errorState(int productId, FormComments form, final BindingResult errors, RedirectAttributes attr, String errorForm) {
-		attr.addFlashAttribute("org.springframework.validation.BindingResult.commentsForm", errors);
-		attr.addFlashAttribute("commentsForm", form);
-		return new ModelAndView("redirect:/product/" + productId + "?form=" + errorForm);		
+	private void setErrorState(int productId, FormComments form, final BindingResult errors, RedirectAttributes attr, String errorForm) {
+		attr.addFlashAttribute("org.springframework.validation.BindingResult.commentsForm", errors)
+			.addFlashAttribute("commentsForm", form)
+			.addFlashAttribute("form", errorForm);
 	}
-
 }

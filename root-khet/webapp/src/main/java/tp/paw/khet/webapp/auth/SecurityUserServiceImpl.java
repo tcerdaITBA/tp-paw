@@ -13,7 +13,7 @@ import tp.paw.khet.service.UserService;
 
 @Service
 public class SecurityUserServiceImpl implements SecurityUserService {
-	
+		
 	@Autowired
 	private UserService userService;
 	
@@ -32,4 +32,8 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 		return userService.createUser(name, email, passwordEncoder.encode(password), profilePicture);
 	}
 
+	@Override
+	public User changePassword(int userId, String password) {
+		return userService.changePassword(userId, passwordEncoder.encode(password));
+	}
 }

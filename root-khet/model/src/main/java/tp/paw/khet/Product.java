@@ -1,5 +1,7 @@
 package tp.paw.khet;
 
+import static org.apache.commons.lang3.Validate.*;
+
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -18,8 +20,10 @@ public final class Product {
 	private final List<Video> videos;
 
 	public static ProductBuilder getBuilder(int id, String name, String shortDescription) {
-		if (id < 0 || name == null || name.length() == 0 || shortDescription == null || shortDescription.length() == 0)
-			throw new IllegalArgumentException();
+		isTrue(id >= 0, "Product ID must be non negative: %d", id);
+		notBlank(name, "Product name must contain at least one non blank character");
+		notBlank(shortDescription, "Product short description must contain at least one non blank character");
+
 		return new ProductBuilder(id, name, shortDescription);
 	}
 	
@@ -99,10 +103,10 @@ public final class Product {
 	}
 	
 	public static class ProductBuilder {
-		private int id = -1;
-		private String name;
+		private final int id;
+		private final String name;
+		private final String shortDescription;
 		private String description;
-		private String shortDescription;
 		private String website;
 		private Category category = Category.OTHER;
 		private LocalDateTime uploadDate = LocalDateTime.now();

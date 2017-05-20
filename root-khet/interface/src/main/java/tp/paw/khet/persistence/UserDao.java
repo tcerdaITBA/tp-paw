@@ -47,4 +47,21 @@ public interface UserDao {
 	 * @return Byte array corresponding to the user's profile picture
 	 */
 	public byte[] getProfilePictureByUserId(int userId);
+	
+	/**
+	 * Changes an [@link User] password
+	 * @param userId - ID of the user
+	 * @param password - New user's password
+	 * @return The user with the modified password or null if user doesn't exist
+	 */
+	public User changePassword(int userId, String password);
+	
+	/**
+	 * Changes an {@link User} profile picture
+	 * @param userId - ID of the user
+	 * @param profilePicture - Byte array with the new profile picture
+	 * @return The user with the given ID
+	 */
+	public User changeProfilePicture(int userId, byte[] profilePicture);
+	
 }

@@ -21,8 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.webapp.form.FormPassword;
 import tp.paw.khet.webapp.form.FormUser;
-import tp.paw.khet.webapp.validators.PasswordConfirmValidator;
 
 @Controller
 public class RegisterController {
@@ -32,9 +32,6 @@ public class RegisterController {
 	@Autowired
 	private SecurityUserService securityUserService;
 	
-	@Autowired
-	private PasswordConfirmValidator PasswordConfirmValidator;
-	
 	@ModelAttribute("createUserForm")
 	public FormUser createUserForm() {
 		return new FormUser();
@@ -42,31 +39,39 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.GET})
 	public ModelAndView register() {
+		LOGGER.debug("Accessed register");
 		return new ModelAndView("createUser");
 	}
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
-	public ModelAndView register(@ModelAttribute("createUserForm") @Valid FormUser createUserForm, 
-			final BindingResult errors, RedirectAttributes attr) throws IOException {
+	public ModelAndView register(@ModelAttribute("createUserForm") @Valid final FormUser createUserForm, 
+			final BindingResult errors, final RedirectAttributes attr) throws IOException {
 
-		PasswordConfirmValidator.validate(createUserForm, errors);
+		LOGGER.debug("Accessed register POST");
+		
+		FormPassword passwordForm = createUserForm.getPasswordForm();
 		
 		if (errors.hasErrors())
 			return errorState(createUserForm, errors, attr);
+		
 		User user;
+		
 		try {
-			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), createUserForm.getPassword(), createUserForm.getProfilePicture().getBytes());
+			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), passwordForm.getPassword(), createUserForm.getProfilePicture().getBytes());
 		} catch (DuplicateEmailException e) {
 			LOGGER.warn("Duplicate email exception: {}", e.getMessage());
 			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}
+		
+		LOGGER.info("New user with id {} registered", user.getUserId());
+		
 		Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:/");
 	}
 	
-	private ModelAndView errorState(FormUser createUserForm, final BindingResult errors, RedirectAttributes attr) {
+	private ModelAndView errorState(final FormUser createUserForm, final BindingResult errors, final RedirectAttributes attr) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.createUserForm", errors);
 		attr.addFlashAttribute("createUserForm", createUserForm);
 		return new ModelAndView("redirect:/register");		
