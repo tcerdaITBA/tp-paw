@@ -34,7 +34,7 @@
 				</div>
 				<div class="row tabs-row">
 					<div class="col-md-6 col-md-offset-3">
-						<ul class="nav nav-pills nav-justified">
+						<ul class="nav nav-pills nav-justified search-tabs">
 							<li role="presentation" class="active"><a href="#products-pane" data-toggle="tab">Products</a></li>
 							<li role="presentation"><a href="#users-pane" data-toggle="tab">Users</a></li>
 						</ul>
