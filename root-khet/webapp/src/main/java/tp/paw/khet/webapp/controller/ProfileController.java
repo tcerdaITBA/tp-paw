@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
-import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.ForbiddenException;
@@ -37,17 +36,9 @@ public class ProfileController {
     @Autowired
     private ProductService productService;
 
-	@Autowired
-	private SecurityUserService securityUserService;
-	
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ModelAndView userNotFound() {
 		return new ModelAndView("404user");
-	}
-	
-	@ModelAttribute("loggedUser")
-	public User loggedUser() {
-		return securityUserService.getLoggedInUser();
 	}
 
 	@ModelAttribute("changePasswordForm")

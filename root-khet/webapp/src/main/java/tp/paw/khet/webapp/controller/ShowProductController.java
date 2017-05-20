@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tp.paw.khet.Comment;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
-import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
@@ -45,19 +44,11 @@ public class ShowProductController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Autowired
-	private SecurityUserService securityUserService;
-
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ModelAndView productNotFound() {
 		return new ModelAndView("404product");
 	}
-	
-	@ModelAttribute("loggedUser")
-	public User loggedUser() {
-		return securityUserService.getLoggedInUser();
-	}
-	
+		
 	@ModelAttribute("commentsForm")
 	public FormComments formComments() {
 		return new FormComments();
