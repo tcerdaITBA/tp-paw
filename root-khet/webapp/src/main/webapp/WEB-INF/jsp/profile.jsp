@@ -107,7 +107,7 @@
 																	</div>
 																	
 																	<div class="col-md-1 col-md-offset-1">
-																		<button type="button delete-button" class="deleteButton" data-toggle="modal" data-target="#deleteModal">
+																		<button type="button delete-button" class="deleteButton">
 																			<span class="glyphicon glyphicon-trash delete-product-button"></span>
 																		</button>
 
@@ -164,13 +164,11 @@
 											  	</div>
 											  	<div class="row row-centered">
 													<div class="col-md-12">
-														<div class="col-sm-12">
 														<c:url value="/delete/product/${product.id}" var="deletePath" />
 														<form:form action="${deletePath}" method="post">
 															<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
 															<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
 														</form:form>
-														</div>
 													</div>
 												</div>
 																

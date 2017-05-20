@@ -17,16 +17,8 @@ $(document).ready(function() {
 	// to avoid propagation return false
 	$('.glyphicon-trash').on('click', function() {
 	    
-		var trashiconId = this.id;
-	    
-		var productId = trashiconId.replace("delete", "");
-	    
-		var modal = document.getElementById('modal' + productId);
-		
-		modal.style.display = "block";
-		
-		currentModal = modal;
-		
+        $("#deleteModal").modal("show");
+        
 		return false;
 	});
 	
