@@ -115,18 +115,12 @@
 	background-color: #fff;
 }
 
-.product-category p {
-	font-weight: 500;
-	word-wrap: break-word;
-	font-size: small;
-}
-
 .product-category a {
 	color: #8c8c8c;
 }
 
-.website-btn-row {
-	text-align: end;
+.website-btn-col {
+	padding-left: 0;
 }
 
 .website-btn {
@@ -215,10 +209,6 @@
   	color: #bc0f0f;
 }
 
-.info-box-field {
-	padding-left: 0;
-}
-
 .profile-img-circle {
 	margin-right: 5px;
 	width: 35px;
@@ -251,6 +241,10 @@
 
 .child-name-mail-holder {
 	margin-left: 20px;
+}
+
+.child-comment-row {
+	margin-top: 1em;
 }
 
 .comment-content {
