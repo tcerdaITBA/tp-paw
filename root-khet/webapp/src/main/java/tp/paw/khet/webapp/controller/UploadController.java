@@ -52,7 +52,9 @@ public class UploadController {
 	}
 	
 	@RequestMapping("/upload")
-	public ModelAndView formCompletion(){
+	public ModelAndView formCompletion(@ModelAttribute("loggedUser") final User loggedUser) {
+		LOGGER.debug("User with id {} accessed upload", loggedUser.getUserId());
+		
 		ModelAndView mav = new ModelAndView("upload");
 		mav.addObject("categories", Category.values());
 		return mav;
@@ -63,10 +65,14 @@ public class UploadController {
 							   @ModelAttribute("loggedUser") final User loggedUser,
 							   RedirectAttributes attr) throws IOException {
 		
+		LOGGER.debug("User with id {} accessed upload POST", loggedUser.getUserId());
+		
 		imageOrVideoValidator.validate(formProduct, errors);
 		
-		if (errors.hasErrors())
+		if (errors.hasErrors()) {
+			LOGGER.warn("User with id {} failed to post product: form has errors: {}", loggedUser.getUserId(), errors.getAllErrors());
 			return errorState(formProduct, errors, attr);
+		}
 		
 		final Product product =  productService.createProduct(formProduct.getName(), 
 												formProduct.getDescription(), formProduct.getShortDescription(),
@@ -77,10 +83,12 @@ public class UploadController {
 												imageByteList(formProduct.getImages()),
 												videoIdList(formProduct.getVideos()));
 		
+		LOGGER.info("User with id {} posted product with id {}", loggedUser.getUserId(), product.getId());
+		
 		return new ModelAndView("redirect:/product/" + product.getId());
 	}
 		
-	private List<String> videoIdList(VideoStringWrapper[] videos) {
+	private List<String> videoIdList(final VideoStringWrapper[] videos) {
 		List<String> videoIdList = new ArrayList<>();
 		for (VideoStringWrapper video : videos)
 			if (video.hasUrl())
@@ -88,7 +96,7 @@ public class UploadController {
 		return videoIdList;
 	}
 
-	private List<byte[]> imageByteList(MultipartFileImageWrapper[] images) {
+	private List<byte[]> imageByteList(final MultipartFileImageWrapper[] images) {
 		List<byte[]> byteList = new ArrayList<>();
 		
 		for (MultipartFileImageWrapper image : images) {

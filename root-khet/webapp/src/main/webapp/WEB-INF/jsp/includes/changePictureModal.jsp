@@ -24,7 +24,7 @@
 							
 								<div class="row">
 									<div class="col-md-12">
-										<h2 class="create-title"><spring:message code="Profile.settings.changePicture"/></h2>								
+										<h2 class="change-title"><spring:message code="Profile.settings.changePicture"/></h2>								
 									</div>
 								</div>
 								<div class="row">
