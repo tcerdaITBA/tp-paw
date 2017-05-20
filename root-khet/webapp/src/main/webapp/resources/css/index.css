@@ -21,17 +21,17 @@
 	object-fit: cover;
 }
 
-.vertical-align {
+/* magia para que quede alineado abajo */
+.title-row {
 	display: flex;
-	flex-direction: row;
+  align-items: flex-end;
+	height: 5em;
+	margin-bottom: 1em;
 }
 
-.vertical-align > [class^="col-"],
-.vertical-align > [class*=" col-"] {
-	display: flex;
-	align-items: center;     /* Align the flex-items vertically */
-	justify-content: center; /* Optional, to align inner flex-items
-	horizontally within the column  */
+.title-row h2 {
+	margin-top: 0;
+	margin-bottom: 5px;
 }
 
 .product-info-box {
@@ -111,7 +111,7 @@ h2 {
 }
 
 .categoryDescription {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	font-family: inherit;
 	color: #737373;
 	text-align: center;
@@ -126,10 +126,6 @@ h2 {
 
 .categoryBoxTag {
 	padding-left: 30px;
-}
-
-.title-row {
-	height: 120px;
 }
 
 .page-numbers {

@@ -25,20 +25,16 @@
 	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 	<div class="row title-row">
-		<div class="col-md-8 col-md-offset-3">
-			<div class="row content-title">
-				<div class="col-md-12">
-					<div>
-						<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
-						<c:choose>
-						 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
-						 <c:otherwise>
-						 <h2><spring:message code="category.${activeURL}"/></h2>
-						 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
-						 </c:otherwise>
-						 </c:choose>					
-					</div>
-				</div>
+		<div class="col-md-8 col-md-offset-3 title-col">
+			<div class="content-title">
+				<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
+				<c:choose>
+				 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
+				 <c:otherwise>
+				 <h2><spring:message code="category.${activeURL}"/></h2>
+				 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
+				 </c:otherwise>
+				 </c:choose>					
 			</div>
 		</div>
 	</div>
