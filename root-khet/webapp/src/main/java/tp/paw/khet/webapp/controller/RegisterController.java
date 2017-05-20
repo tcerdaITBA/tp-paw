@@ -39,13 +39,16 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.GET})
 	public ModelAndView register() {
+		LOGGER.debug("Accessed register");
 		return new ModelAndView("createUser");
 	}
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
-	public ModelAndView register(@ModelAttribute("createUserForm") @Valid FormUser createUserForm, 
-			final BindingResult errors, RedirectAttributes attr) throws IOException {
+	public ModelAndView register(@ModelAttribute("createUserForm") @Valid final FormUser createUserForm, 
+			final BindingResult errors, final RedirectAttributes attr) throws IOException {
 
+		LOGGER.debug("Accessed register POST");
+		
 		FormPassword passwordForm = createUserForm.getPasswordForm();
 		
 		if (errors.hasErrors())
@@ -61,12 +64,14 @@ public class RegisterController {
 			return errorState(createUserForm, errors, attr);
 		}
 		
+		LOGGER.info("New user with id {} registered", user.getUserId());
+		
 		Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:/");
 	}
 	
-	private ModelAndView errorState(FormUser createUserForm, final BindingResult errors, RedirectAttributes attr) {
+	private ModelAndView errorState(final FormUser createUserForm, final BindingResult errors, final RedirectAttributes attr) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.createUserForm", errors);
 		attr.addFlashAttribute("createUserForm", createUserForm);
 		return new ModelAndView("redirect:/register");		

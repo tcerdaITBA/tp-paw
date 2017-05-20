@@ -25,20 +25,16 @@
 	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 	<div class="row title-row">
-		<div class="col-md-8 col-md-offset-3">
-			<div class="row content-title">
-				<div class="col-md-12">
-					<div>
-						<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
-						<c:choose>
-						 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
-						 <c:otherwise>
-						 <h2><spring:message code="category.${activeURL}"/></h2>
-						 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
-						 </c:otherwise>
-						 </c:choose>					
-					</div>
-				</div>
+		<div class="col-md-8 col-md-offset-3 title-col">
+			<div class="content-title">
+				<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
+				<c:choose>
+				 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
+				 <c:otherwise>
+				 <h2><spring:message code="category.${activeURL}"/></h2>
+				 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
+				 </c:otherwise>
+				 </c:choose>					
 			</div>
 		</div>
 	</div>
@@ -90,34 +86,37 @@
 						<c:otherwise>
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
+								
 								<a href="<c:url value="/product/${product.id}"/>">
-									<div class="row product-list-item vertical-align">
+									<div class="row product-list-item">
 										<div class="col-md-3 product-logo">
 											<img src="<c:url value="/product/${product.id}/logo"/>">
 										</div>
 										<div class="col-md-9 product-info-box">
-											<div class="row col-md-12">
-												<div class="row product-name">
-													<div class="col-md-12">
-														<p><c:out value="${product.name}"/></p>
-													</div>
+											<div class="row product-name">
+												<div class="col-md-12">
+													<p><c:out value="${product.name}"/></p>
 												</div>
-												<div class="row product-short-description">
-													<div class="col-md-12">
-														<p><c:out value="${product.shortDescription}"/></p>
-													</div>
+											</div>
+											<div class="row product-short-description">
+												<div class="col-md-12">
+													<p><c:out value="${product.shortDescription}"/></p>
 												</div>
-												<div class="row product-category">
-													<div class="col-md-4">
+											</div>
+											<div class="row">
+												<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
+													<div class="col-md-3">
 														<div class="categoryTag">
 															<p><spring:message code="category.${product.category.lowerName}"/></p>
 														</div>
 													</div>
-												</div>
+												</a>
 											</div>
 										</div>
 									</div>	
-								</a>				
+								</a>
+								
+								
 							</c:forEach>
 							</div>
 						</c:otherwise>

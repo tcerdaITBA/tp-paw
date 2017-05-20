@@ -36,7 +36,7 @@
 				<sec:authorize access="isAuthenticated()">
 					<li>
 						<a class="user-nav-img" href="<c:url value="/profile/${loggedUser.userId}"/>">
-							<img src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
+							<img class="img-contain" src="<c:url value="/profile/${loggedUser.userId}/profilePicture"/>">
 						</a>
 					</li>
 					<li>

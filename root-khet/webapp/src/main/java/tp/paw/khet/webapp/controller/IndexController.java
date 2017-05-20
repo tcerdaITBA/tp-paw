@@ -1,5 +1,7 @@
 package tp.paw.khet.webapp.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,10 +15,11 @@ import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 
-
 @Controller
 public class IndexController {
-		
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+	
     @Autowired
     private ProductService productService;
     
@@ -33,9 +36,14 @@ public class IndexController {
     
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		LOGGER.debug("Accessed index with page {}", page);
+		
 	    int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);
-	    if (page < 1 || page > maxPage && maxPage > 0)
+	    
+	    if (page < 1 || page > maxPage && maxPage > 0) {
+	    	LOGGER.warn("Index page out of bounds: {}", page);
 	        throw new ResourceNotFoundException();
+	    }
 	    
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
@@ -47,6 +55,7 @@ public class IndexController {
 		
 	@RequestMapping("/login")
 	public ModelAndView login() {
+		LOGGER.debug("Accessed login");
 		return new ModelAndView("login");
 	}
 	
