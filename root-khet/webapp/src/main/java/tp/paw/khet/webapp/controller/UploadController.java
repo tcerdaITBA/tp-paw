@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
-import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.form.FormProduct;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
@@ -36,15 +35,7 @@ public class UploadController {
 	private ProductService productService;
 	
 	@Autowired
-	private SecurityUserService securityUserService;
-	
-	@Autowired
 	private ImageOrVideoValidator imageOrVideoValidator;
-	
-	@ModelAttribute("loggedUser")
-	public User loggedUser() {
-		return securityUserService.getLoggedInUser();
-	}
 	
 	@ModelAttribute("uploadForm")
 	public FormProduct uploadForm() {
