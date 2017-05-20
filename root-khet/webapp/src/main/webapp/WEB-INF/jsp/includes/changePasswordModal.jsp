@@ -39,7 +39,7 @@
                 </div>
                     
                 <div class="form-group row-centered">
-                    <div class="col-sm-offset-4 form-input-buttons">
+                    <div class="form-input-buttons">
                         <input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="changePassword"></spring:message>" />
                         <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
                     </div>
