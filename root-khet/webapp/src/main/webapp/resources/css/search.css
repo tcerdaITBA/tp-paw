@@ -21,6 +21,8 @@
 	border: 1px solid #f3f3f3;
 	background-color: white;
 	padding: 15px 10px;	
+	display: flex;
+	align-items: center;
 }
 
 .product-list-item:hover {
@@ -31,8 +33,8 @@
 	display: inline;
 }
 
-.profile-name {
-	font-size: 1.4em;
+.profile-name-holder, .profile-name-holder a {
+	font-size: 1.3em;
 	color: #333;
 }
 

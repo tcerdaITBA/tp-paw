@@ -118,3 +118,15 @@ footer p {
     text-align: left;
     margin-right: -4px;
 }
+
+#search-box {
+	width: 20em;
+	border: 1px solid #e3e3e3;
+	border-radius: 3px;
+}
+
+.search-icn {
+	line-height: 20px;
+	color: #e3e3e3;
+	padding-left: 5px;
+}

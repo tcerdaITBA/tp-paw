@@ -29,14 +29,14 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
-						<h3 class="search-title">Search results for 'hola'</h3>
+						<h3 class="search-title"><spring:message code="searchResults.resultsFor" arguments="${queryText}"/></h3>
 					</div>
 				</div>
 				<div class="row tabs-row">
 					<div class="col-md-6 col-md-offset-3">
 						<ul class="nav nav-pills nav-justified search-tabs">
-							<li role="presentation" class="active"><a href="#products-pane" data-toggle="tab">Products</a></li>
-							<li role="presentation"><a href="#users-pane" data-toggle="tab">Users</a></li>
+							<li role="presentation" class="active"><a href="#products-pane" data-toggle="tab"><spring:message code="searchResults.products"/></a></li>
+							<li role="presentation"><a href="#users-pane" data-toggle="tab"><spring:message code="searchResults.users"/></a></li>
 						</ul>
 					</div>
 				</div>
@@ -78,32 +78,31 @@
 					<div id="users-pane" class="tab-pane fade row result-for-users">
 						<div class="col-md-6 col-md-offset-3">
 							<c:forEach items="${users}" var="user">
-								<div class="row user-info-box">
-									<div class="col-md-3">
-										<a href="<c:url value="/profile/${user.userId}"/>">
+								<a href="<c:url value="/profile/${user.userId}"/>">
+									<div class="row user-info-box">
+										<div class="col-md-3">
 											<img class="profile-img-circle" src="<c:url value="/profile/${user.userId}/profilePicture"/>">
-										</a>
-									</div>
-									<div class="col-md-9">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="profile-name-holder">
-													<a class="profile-name" href="<c:url value="/profile/${user.userId}"/>"> 
-														<c:out value="${user.name}" />
+										</div>
+										<div class="col-md-9">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="profile-name-holder">
+														<span class="glyphicon glyphicon-user"></span>
+														<span class="profile-name"><c:out value="${user.name}"/></span>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<a class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
+														<span class="glyphicon glyphicon-envelope"></span>
+														<p><c:out value="${user.email}"/></p>
 													</a>
 												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-md-12">
-												<a class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
-													<span class="glyphicon glyphicon-envelope"></span>
-													<p><c:out value="${user.email}"/></p>
-												</a>
-											</div>
-										</div>
 									</div>
-								</div>
+								</a>
 							</c:forEach>
 						</div>
 					</div>
