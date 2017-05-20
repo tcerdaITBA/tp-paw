@@ -30,6 +30,10 @@
 	align-items: center;
 }
 
+.user-info-box:hover {
+	border-color: #33bb9c;
+}
+
 .product-list-item:hover {
 	border-color: #33bb9c;
 }
