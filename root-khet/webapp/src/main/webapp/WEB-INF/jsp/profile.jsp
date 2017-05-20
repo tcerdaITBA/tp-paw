@@ -2,13 +2,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+    <c:set var="capitalizedUserName" value="${fn:toUpperCase(fn:substring(profileUser.name, 0, 1))}${fn:substring(profileUser.name, 1,fn:length(profileUser.name))}" />
+    
 	<html>
 		<head>
 			<meta charset="utf-8">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-			<title><spring:message code="default.title" /></title>
+			<title><spring:message code="Profile.title" arguments="${capitalizedUserName}"/></title>
 			<link
 						href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 						rel="stylesheet"
@@ -58,22 +60,22 @@
 							
 								<div class="row img-row">
 									<div class="col-md-12">
-										<img class="profile-img" src="<c:url value="/profile/${us.userId}/profilePicture"/>">
+										<img class="profile-img" src="<c:url value="/profile/${profileUser.userId}/profilePicture"/>">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="profile-username">
 											<span class="glyphicon glyphicon-user"></span>
-											<p><c:out value="${us.name}"></c:out></p>
+											<p><c:out value="${capitalizedUserName}"></c:out></p>
 										</div>	
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<a class="profile-mail" href="mailto:<c:out value="${us.email}"/>">
+										<a class="profile-mail" href="mailto:<c:out value="${profileUser.email}"/>">
 											<span class="glyphicon glyphicon-envelope"></span>
-											<p><c:out value="${us.email}"></c:out></p>
+											<p><c:out value="${profileUser.email}"></c:out></p>
 										</a>	
 									</div>
 								</div>
@@ -84,11 +86,11 @@
 							<c:when test="${products.isEmpty()}">
 								<div class="zrp" id="user-products-zrp">
 									<h2><spring:message code="userZRP.empty"/></h2>
-									<h3><spring:message code="userZRP.noProducts" arguments="${us.name}"/></h3>
+									<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
 								</div>
 							</c:when>
 							<c:otherwise>
-							<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${us.name}"/></h2>
+							<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${capitalizedUserName}"/></h2>
 							<div class="col-md-12 product-list">
 								<c:forEach items="${products}" var="product">									
 									<a href="<c:url value="/product/${product.id}"/>">
