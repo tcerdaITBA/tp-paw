@@ -52,7 +52,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/")
 			.and().exceptionHandling()
-				.accessDeniedPage("/403")
+				.accessDeniedPage("/errors/403")
 			.and().csrf().disable();
 	}
 	
