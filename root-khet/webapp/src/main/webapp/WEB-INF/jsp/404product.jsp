@@ -6,12 +6,11 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title><spring:message code="error.title.404product"/></title>
         
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		
-        <title><spring:message code="error.title.404"/></title>
-        
-        <!-- Latest compiled and minified CSS -->
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		
 		<!-- Optional theme -->
@@ -27,7 +26,7 @@
 	<%@include file="includes/navbar.jsp" %>
 	<div class="container">
 		<h1>
-			<spring:message code="error.404"/>
+			<spring:message code="error.404product"/>
 		</h1>
 	
 	</div>
