@@ -1,5 +1,6 @@
 package tp.paw.khet.webapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,11 @@ public class IndexController {
 	}
 		
 	@RequestMapping("/login")
-	public ModelAndView login() {
+	public ModelAndView login(HttpServletRequest request) {
 		LOGGER.debug("Accessed login");
-		return new ModelAndView("login");
+		
+		String referrer = request.getHeader("Referer");
+	    request.getSession().setAttribute("url_prior_login", referrer);
+	    return new ModelAndView("login");
 	}
-	
 }

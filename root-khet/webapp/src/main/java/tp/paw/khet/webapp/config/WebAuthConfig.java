@@ -16,6 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import tp.paw.khet.webapp.auth.RefererLoginSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -37,7 +40,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/**").permitAll()
 			.and().formLogin()
 				.usernameParameter("j_username").passwordParameter("j_password")
-				.defaultSuccessUrl("/", false).loginPage("/login")
+				.successHandler(successHandler())
+				.loginPage("/login")
 				.failureUrl("/login?error=1")
 			.and().rememberMe()
 				.userDetailsService(userDetailsService)
@@ -45,7 +49,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 				.key("mysupersecretkeythatnobodyknowsabout")
 				.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
 			.and().logout()
-				.logoutUrl("/logout").logoutSuccessUrl("/")
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
 			.and().exceptionHandling()
 				.accessDeniedPage("/403")
 			.and().csrf().disable();
@@ -72,5 +77,13 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public AuthenticationSuccessHandler successHandler() {
+		RefererLoginSuccessHandler handler = new RefererLoginSuccessHandler();
+		handler.setAlwaysUseDefaultTargetUrl(false);
+		handler.setDefaultTargetUrl("/");
+		return handler;
 	}
 }

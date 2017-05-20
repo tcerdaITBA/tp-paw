@@ -40,7 +40,7 @@ public class RegisterController {
 	@RequestMapping(value = "/register", method = {RequestMethod.GET})
 	public ModelAndView register() {
 		LOGGER.debug("Accessed register");
-		return new ModelAndView("createUser");
+	    return new ModelAndView("createUser");
 	}
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
