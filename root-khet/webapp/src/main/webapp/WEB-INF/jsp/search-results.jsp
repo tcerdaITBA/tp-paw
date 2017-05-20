@@ -80,7 +80,7 @@
 							<c:forEach items="${users}" var="user">
 								<a href="<c:url value="/profile/${user.userId}"/>">
 									<div class="row user-info-box">
-										<div class="col-md-3">
+										<div class="col-md-3 img-col">
 											<img class="profile-img-circle" src="<c:url value="/profile/${user.userId}/profilePicture"/>">
 										</div>
 										<div class="col-md-9">
@@ -94,10 +94,10 @@
 											</div>
 											<div class="row">
 												<div class="col-md-12">
-													<a class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
+													<div class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
 														<span class="glyphicon glyphicon-envelope"></span>
 														<p><c:out value="${user.email}"/></p>
-													</a>
+													</div>
 												</div>
 											</div>
 										</div>

@@ -12,9 +12,13 @@
 }
 
 .profile-img-circle {
-	width: 8em;
-	height: 8em;
+	width: 6em;
+	height: 6em;
 	border-radius: 50%;
+}
+
+.img-col {
+	text-align: center;
 }
 
 .user-info-box {
@@ -33,8 +37,8 @@
 	display: inline;
 }
 
-.profile-name-holder, .profile-name-holder a {
-	font-size: 1.3em;
+.profile-name-holder {
+	font-size: 1.5em;
 	color: #333;
 }
 
