@@ -253,6 +253,10 @@
 	margin-left: 20px;
 }
 
+.child-comment-row {
+	margin-top: 1em;
+}
+
 .comment-content {
 	position: relative;
 	bottom: 8px;

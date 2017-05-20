@@ -268,13 +268,9 @@
 													</div>	
 												</c:forEach>												
 												<sec:authorize access="isAuthenticated()">
-												<div class="row">
+												<div class="row child-comment-row">
 													<div class="col-md-10 col-md-offset-2">
 														<form:form modelAttribute="commentsForm" id="form${status.index}" class="comment-form reply-comment" action="${postPath}?parentid=${commentFamily.parentComment.id}&index=${status.index}" method="post">
-															<p class="reply-to">
-																<span class="glyphicon glyphicon-share-alt"></span>
-																<spring:message code="productPage.replyTo" arguments="${commentFamily.parentComment.author.name}"/>
-															</p>
 															<div class="row">
 																<div class="col-md-1">
 																	<a href="<c:url value="/profile/${loggedUser.userId}"/>">
@@ -296,11 +292,12 @@
 																</div>
 															</div>	
 															<div class="form-group comment-form-fields">
-																<form:textarea type="text" class="form-control" rows="3" path="childForms[${status.index}].content" placeholder="${ContentPlaceholder}"  maxlength="512"/>
+																<spring:message code="productPage.replyTo" arguments="${commentFamily.parentComment.author.name}" var="replyPlaceholder"/>
+																<form:textarea type="text" class="form-control" rows="3" path="childForms[${status.index}].content" placeholder="${replyPlaceholder}"  maxlength="512"/>
 																<form:errors path="childForms[${status.index}].content" element="p" cssClass="form-error"/>
 															</div>
 															<div class="btn-place">
-																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.comment.post"/>" />
+																<input type="submit" class="btn btn-default post-comment-btn" value="<spring:message code="productPage.reply"/>" />
 															</div>
 															<div class="row comment-divider">
 																<div class="col-md-12"></div>
