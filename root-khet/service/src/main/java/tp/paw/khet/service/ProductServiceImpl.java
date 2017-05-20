@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 	private UserService userService;
 	
 	@Override
-	public Product getFullProductById(int productId) {
+	public Product getFullProductById(final int productId) {
 		Product.ProductBuilder productBuilder = productDao.getFullProductById(productId);
 		
 		if (productBuilder == null)
@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product getPlainProductById(int productId) {
+	public Product getPlainProductById(final int productId) {
 		return productDao.getPlainProductById(productId);
 	}
 	
@@ -52,17 +52,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getPlainProductsByUserId(int userId) {
+	public List<Product> getPlainProductsByUserId(final int userId) {
 		return productDao.getPlainProductsByUserId(userId);
 	}
 	
 	@Override
-	public List<Product> getPlainProductsByCategory(Category category) {
+	public List<Product> getPlainProductsByCategory(final Category category) {
 		return productDao.getPlainProductsByCategory(category.name());
 	}
 	
 	@Override
-	public Product createProduct(String name, String description, String shortDescription, String website,
+	public Product createProduct(final String name, final String description, final String shortDescription, final String website,
 			Category category, byte[] logo, int creatorId, List<byte[]> imageBytes, List<String> videoIds) {
 		
 		Product.ProductBuilder productBuilder = productDao.createProduct(name, description, shortDescription, 
@@ -78,46 +78,46 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public byte[] getLogoByProductId(int productId) {
+	public byte[] getLogoByProductId(final int productId) {
 		return productDao.getLogoByProductId(productId);
 	}
 
     @Override
-    public List<Product> getPlainProductsPaged(int page, int pageSize) {
+    public List<Product> getPlainProductsPaged(final int page, final int pageSize) {
         return productDao.getPlainProductsRange((page - 1) * pageSize, pageSize);
     }
 
     @Override
-    public List<Product> getPlainProductsByCategoryPaged(Category category, int page,
-            int pageSize) {
+    public List<Product> getPlainProductsByCategoryPaged(final Category category, final int page,
+    		final int pageSize) {
         return productDao.getPlainProductsRangeByCategory(category.name(), (page - 1) * pageSize, pageSize);
     }
 
     @Override
-    public int getMaxProductPageWithSize(int pageSize) {
+    public int getMaxProductPageWithSize(final int pageSize) {
         int total = productDao.getTotalProducts();
         return (int) Math.ceil((float) total / pageSize);
     }
 
     @Override
-    public int getMaxProductPageInCategoryWithSize(Category category, int pageSize) {
+    public int getMaxProductPageInCategoryWithSize(final Category category, final int pageSize) {
         int total = productDao.getTotalProductsInCategory(category);
         return (int) Math.ceil((float) total / pageSize);
     }
     
     @Override
-    public boolean deleteProductById(int productId) {
+    public boolean deleteProductById(final int productId) {
     	return productDao.deleteProductById(productId);
     }
 
     @Override
-    public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize) {
+    public List<Product> getPlainProductsAlphabeticallyPaged(final int page, final int pageSize) {
         return productDao.getPlainProductsRangeAlphabetically((page - 1) * pageSize, pageSize);
     }
 
     @Override
-    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(Category category, int page,
-            int pageSize) {
+    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(final Category category, final int page,
+    		final int pageSize) {
         return productDao.getPlainProductsRangeAlphabeticallyByCategory(category.name(), (page - 1) * pageSize, pageSize);
     }
 }

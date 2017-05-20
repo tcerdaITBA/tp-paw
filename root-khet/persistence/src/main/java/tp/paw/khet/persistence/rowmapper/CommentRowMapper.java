@@ -16,10 +16,10 @@ public class CommentRowMapper implements RowMapper<Comment> {
 	@Autowired
 	private UserRowMapper userRowMapper;
 	
-	public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {		
-		User user = userRowMapper.mapRow(rs, rowNum);
+	public Comment mapRow(final ResultSet rs, final int rowNum) throws SQLException {		
+		final User user = userRowMapper.mapRow(rs, rowNum);
 		
-		Integer parentId = rs.getInt("parentId");
+		final Integer parentId = rs.getInt("parentId");
 		if (rs.wasNull())
 			return new Comment(rs.getInt("commentId"), user, rs.getString("commentContent"), rs.getTimestamp("commentDate").toLocalDateTime());		
 		

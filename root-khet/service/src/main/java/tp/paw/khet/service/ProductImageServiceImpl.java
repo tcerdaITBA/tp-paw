@@ -16,12 +16,12 @@ public class ProductImageServiceImpl implements ProductImageService {
 	private ProductImageDao productImageDao;
 	
 	@Override
-	public ProductImage createProductImage(int imageId, int productId, byte[] data) {
+	public ProductImage createProductImage(final int imageId, final int productId, final byte[] data) {
 		return productImageDao.createProductImage(imageId, productId, data);
 	}
 	
 	@Override
-	public List<ProductImage> createProductImages(List<byte[]> imageBytes, int productId) {
+	public List<ProductImage> createProductImages(final List<byte[]> imageBytes, final int productId) {
 		List<ProductImage> productImages = new ArrayList<>();
 		for (int i = 0; i < imageBytes.size(); i++)
 			productImages.add(createProductImage(i, productId, imageBytes.get(i)));
@@ -30,12 +30,12 @@ public class ProductImageServiceImpl implements ProductImageService {
 	}
 
 	@Override
-	public List<Integer> getImagesIdByProductId(int productId) {
+	public List<Integer> getImagesIdByProductId(final int productId) {
 		return productImageDao.getImagesIdByProductId(productId);
 	}
 
 	@Override
-	public ProductImage getImageByIds(int imageId, int productId) {
+	public ProductImage getImageByIds(final int imageId, final int productId) {
 		return productImageDao.getImageByIds(imageId, productId);
 	}
 

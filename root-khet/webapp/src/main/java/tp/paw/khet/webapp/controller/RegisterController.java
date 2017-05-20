@@ -51,15 +51,17 @@ public class RegisterController {
 		
 		FormPassword passwordForm = createUserForm.getPasswordForm();
 		
-		if (errors.hasErrors())
+		if (errors.hasErrors()) {
+			LOGGER.warn("Failed to register user: form has error: {}", errors.getAllErrors());
 			return errorState(createUserForm, errors, attr);
+		}
 		
 		User user;
 		
 		try {
 			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), passwordForm.getPassword(), createUserForm.getProfilePicture().getBytes());
 		} catch (DuplicateEmailException e) {
-			LOGGER.warn("Duplicate email exception: {}", e.getMessage());
+			LOGGER.warn("Failed to register user: duplicate email {}", e.getMessage());
 			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}
