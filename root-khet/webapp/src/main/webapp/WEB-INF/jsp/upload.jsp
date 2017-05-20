@@ -166,22 +166,6 @@
 							</div>
 						</div>
 
-						<div class="row creator-data-row">
-							<div class="col-sm-9 col-sm-offset-3">
-								<h3>
-									<spring:message code="formLabel.creator"/>
-								</h3>
-								<p> 
-									<span class="glyphicon glyphicon-user"></span>
-									<c:out value="${loggedUser.name}"/>								
-								</p>
-								<a href="mailto:${loggedUser.email}">
-									<span class="glyphicon glyphicon-envelope"></span>
-									<c:out value="${loggedUser.email}"/>
-								</a>
-							</div>
-						</div>
-
 						<div class="row row-centered">
 							<div class="col-md-12">
 								<div class="col-sm-9 col-sm-offset-3">

@@ -74,15 +74,19 @@
 																<p><a href="<c:url value="/category/${product.category.lowerName}"/>"><spring:message code="category.${product.category.lowerName}"/></a></p>
 															</div>
 														</div>
-															<c:if test="${not empty product.website}">
-																<div class="website-btn-row">
-																	<a href="${product.website}" class="ps-btn btn website-btn" target="_blank">
-																		<span class="glyphicon glyphicon-globe"></span>
-																		<spring:message code="productPage.visitWebsite"/>
-																	</a>
-																</div>
-															</c:if>
 													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-4 website-btn-col">
+													<c:if test="${not empty product.website}">
+														<div class="website-btn-row">
+															<a href="${product.website}" class="ps-btn btn website-btn" target="_blank">
+																<span class="glyphicon glyphicon-globe"></span>
+																<spring:message code="productPage.visitWebsite"/>
+															</a>
+														</div>
+													</c:if>
 												</div>
 											</div>
 										</div>
