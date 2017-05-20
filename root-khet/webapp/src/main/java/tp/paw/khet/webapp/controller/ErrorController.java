@@ -14,7 +14,7 @@ public class ErrorController {
 	@RequestMapping("/errors/403")
 	public ModelAndView forbidden() {
 		LOGGER.warn("Forbidden");
-		return new ModelAndView("403");
+		return new ModelAndView("redirect:/");
 	}
 	
 	@RequestMapping("/errors/404")
