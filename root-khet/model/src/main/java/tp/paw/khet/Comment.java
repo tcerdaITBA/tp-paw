@@ -1,5 +1,9 @@
 package tp.paw.khet;
 
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notNull;
+import static org.apache.commons.lang3.Validate.notBlank;
+
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
@@ -13,15 +17,22 @@ public class Comment {
 	private final User author;
 	
 	public Comment(int id, User author, String content, LocalDateTime date) {
-		this(id, NO_PARENT_ID, author, content, date);
+		this(id, NO_PARENT_ID, author, content, date, true);
 	}
 	
 	public Comment(int id, int parentId, User author, String content, LocalDateTime date) {
+		this(id, parentId, author, content, date, false);
+	}
+	
+	private Comment(int id, int parentId, User author, String content, LocalDateTime date, boolean isParentId) {
+		isTrue(id >= 0, "Comment ID must be non negative: %d", id);
+		isTrue(parentId >= 0 || (parentId == NO_PARENT_ID && isParentId), "Parent comment ID must be non negative: %d", parentId);
+		
 		this.id = id;
 		this.parentId = parentId;
-		this.author = author;
-		this.content = content;
-		this.commentDate = date;
+		this.author = notNull(author, "Author of the comment cannot be null");
+		this.content = notBlank(content, "Content must have at least one non blank character");
+		this.commentDate = notNull(date, "Comment date cannot be null");		
 	}
 	
 	public int getId() {

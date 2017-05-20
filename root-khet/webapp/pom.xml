@@ -39,6 +39,10 @@
     	<artifactId>spring-webmvc</artifactId>
     </dependency>
     <dependency>
+    	<groupId>org.apache.commons</groupId>
+    	<artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>servlet-api</artifactId>
     </dependency>
@@ -95,12 +99,13 @@
 		<artifactId>spring-security-config</artifactId>
 	</dependency>
 	<dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-taglibs</artifactId>
-    <version>3.1.0.RELEASE</version>
-    <type>jar</type>
-    <scope>compile</scope>
-</dependency>
+	    <groupId>commons-beanutils</groupId>
+	    <artifactId>commons-beanutils</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-taglibs</artifactId>
+	</dependency>
   </dependencies>
   
   <build>

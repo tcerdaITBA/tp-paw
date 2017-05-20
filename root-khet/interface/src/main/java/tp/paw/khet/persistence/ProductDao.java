@@ -49,6 +49,17 @@ public interface ProductDao {
      *         The amount of products retrieved could be smaller than the length given.
      */
     public List<Product> getPlainProductsRange(int offset, int length);
+    
+    /**
+    * Lists a range of plain products.
+    * Products are ordered alphabetically by product name.
+    * @param offset - Offset in the list of all products.
+    * @param length - Length of the range to be retrieved
+    * @return {@link List} of the products in the given range. 
+    *         Could be empty if offset is greater than the total number of products available.
+    *         The amount of products retrieved could be smaller than the length given.
+    */
+   public List<Product> getPlainProductsRangeAlphabetically(int offset, int length);
 	
 	/**
 	 * Lists plain products belonging to certain {@link Category}.
@@ -70,6 +81,19 @@ public interface ProductDao {
      *         The amount of products retrieved could be smaller than the length given.
      */
     public List<Product> getPlainProductsRangeByCategory(String category, int offset, int length);
+    
+    /**
+    * Lists a range of plain products belonging to certain {@link Category}.
+    * Products are ordered alphabetically by product name.
+    * @param offset - Offset in the list of all products.
+    * @param category - Category the products belong to
+    * @param length - Length of the range to be retrieved
+    * @return {@link List} of the products in the given range. 
+    *         Could be empty if offset is greater than the total number of products belonging
+    *         to the given {@link Category}.
+    *         The amount of products retrieved could be smaller than the length given.
+    */
+   public List<Product> getPlainProductsRangeAlphabeticallyByCategory(String category, int offset, int length);
 
     /**
      * Retrieves the total amount of products registered.

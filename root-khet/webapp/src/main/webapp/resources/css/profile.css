@@ -4,6 +4,12 @@
 	margin-bottom: 40px;
 	margin-top: 40px;
 	border-radius: 100%;
+	object-fit: contain;
+}
+
+.profile-img-input {
+	height: 20em;
+	margin-bottom: 1em;
 }
 
 .img-row {
@@ -82,8 +88,12 @@
 }
 
 .delete-product-button {
-	font-size: 30px;
+	font-size: 1.4em;
 	color: #888a85;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	z-index: 5;
 }
 
 .delete-product-button:hover, .delete-product-button:focus {
@@ -95,4 +105,15 @@
 .modal-product-name {
 	font-weight: bold;
 	text-transform: uppercase;	
+}
+
+.settings-row {
+	padding-top: 10px;
+    padding-right: 10px;
+    font-size: x-large;
+    color: #b7b7b7;
+}
+
+.row-centered {
+	text-align: center;
 }
