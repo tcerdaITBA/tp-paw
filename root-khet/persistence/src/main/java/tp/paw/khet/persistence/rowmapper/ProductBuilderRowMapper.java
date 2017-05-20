@@ -15,7 +15,7 @@ public class ProductBuilderRowMapper implements RowMapper<Product.ProductBuilder
 	@Autowired
 	private UserRowMapper userRowMapper;
 	
-	public Product.ProductBuilder mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public Product.ProductBuilder mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		return Product.getBuilder(rs.getInt("productId"), rs.getString("productName"), rs.getString("shortDescription"))
 				.description(rs.getString("description"))
 				.website(rs.getString("website"))

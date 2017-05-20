@@ -16,17 +16,17 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	public User createUser(String userName, String email, String password, byte[] profilePicture) throws DuplicateEmailException {
+	public User createUser(final String userName, final String email, final String password, final byte[] profilePicture) throws DuplicateEmailException {
 		return userDao.createUser(userName, email.toLowerCase(), password, profilePicture);
 	}
 
 	@Override
-	public User getUserByEmail(String email) {
+	public User getUserByEmail(final String email) {
 		return userDao.getUserByEmail(email);
 	}
 	
 	@Override
-	public User getUserById(int userId) {
+	public User getUserById(final int userId) {
 		return userDao.getUserById(userId);
 	}
 	
@@ -36,17 +36,17 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public byte[] getProfilePictureByUserId(int userId) {
+	public byte[] getProfilePictureByUserId(final int userId) {
 		return userDao.getProfilePictureByUserId(userId);
 	}
 
 	@Override
-	public User changePassword(int userId, String password) {
+	public User changePassword(final int userId, final String password) {
 		return userDao.changePassword(userId, password);
 	}
 
 	@Override
-	public User changeProfilePicture(int userId, byte[] profilePicture) {
+	public User changeProfilePicture(final int userId, final byte[] profilePicture) {
 		return userDao.changeProfilePicture(userId, profilePicture);
 	}
 }

@@ -223,6 +223,7 @@
 	font-weight: bold;
 	position: relative;
 	bottom: 4px;
+    text-transform: capitalize;
 }
 
 .profile-name-holder {

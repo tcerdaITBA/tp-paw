@@ -29,7 +29,6 @@
                         <form:errors path="passwordForm.password" cssClass="form-error" element="p"/>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <form:label path="passwordForm.passwordConf" class="col-sm-4 control-label"><spring:message code="userFormLabel.passwordConfirm"></spring:message></form:label>
                     <div class="col-sm-7">

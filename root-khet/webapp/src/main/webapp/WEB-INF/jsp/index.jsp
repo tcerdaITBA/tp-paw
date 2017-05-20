@@ -2,13 +2,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<html>
+<html>    
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title><spring:message code="default.title" /></title>
+
+<c:choose>
+    <c:when test="${empty currentCategory}"><c:set var="pageTitle" value="default.title"/></c:when>
+    <c:otherwise><c:set var="pageTitle" value="default.title.${currentCategory.lowerName}"/></c:otherwise>
+</c:choose>
+    
+<title><spring:message code="${pageTitle}" /></title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,7 +25,7 @@
 <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
-						<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
 <body>
@@ -27,12 +34,11 @@
 	<div class="row title-row">
 		<div class="col-md-8 col-md-offset-3 title-col">
 			<div class="content-title">
-				<c:set var="activeURL" value="${fn:substringAfter(fn:substringAfter(requestScope['javax.servlet.forward.servlet_path'], '/'),'/')}"/>
 				<c:choose>
-				 <c:when test="${activeURL == ''}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
+				 <c:when test="${empty currentCategory}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
 				 <c:otherwise>
-				 <h2><spring:message code="category.${activeURL}"/></h2>
-				 <div class="categoryDescription"><spring:message code="category.description.${activeURL}"/></div>
+				 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
+				 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
 				 </c:otherwise>
 				 </c:choose>					
 			</div>
@@ -44,14 +50,14 @@
 					<div class="col-md-9">
 						<div class="row">
 							<ul class="nav nav-pills nav-stacked categoryBox">
-								<c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],'/')}"/>
+								<c:set var="active" value="${empty currentCategory}"/>
 								<li role="presentation" class="${active ? 'active' : 'none'}">
 										<a href="<c:url value="/"/>">
 										<div class="col-md-5"></div>
 										<spring:message code="category.all"/></a>
 								</li>
 							<c:forEach items="${categories}" var="category">
-						     <c:set var="active" value="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'],category.toString())}"/>
+						     <c:set var="active" value="${category eq currentCategory}"/>
 								<li role="presentation" class="${active ? 'active' : 'none'}">					
 									<a href="<c:url value="/category/${category.lowerName}"/>">
 									<div class="col-md-5">

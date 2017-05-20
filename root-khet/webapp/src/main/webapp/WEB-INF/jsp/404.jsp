@@ -17,13 +17,13 @@
 		
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
-
+ 
 	</head>
 	<body>
 	<%@include file="includes/navbar.jsp" %>
 	<div class="container">
 		<h1>
-			<spring:message code="error.403"/>
+			<spring:message code="error.404"/>
 		</h1>
 	
 	</div>

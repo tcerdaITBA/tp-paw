@@ -10,7 +10,7 @@ import tp.paw.khet.Video;
 
 @Component
 public class VideoRowMapper implements RowMapper<Video> {
-	public Video mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public Video mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		return new Video(rs.getString("videoId"), rs.getInt("productId"));
 	}
 }

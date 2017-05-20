@@ -40,7 +40,7 @@ public class RegisterController {
 	@RequestMapping(value = "/register", method = {RequestMethod.GET})
 	public ModelAndView register() {
 		LOGGER.debug("Accessed register");
-		return new ModelAndView("createUser");
+	    return new ModelAndView("createUser");
 	}
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
@@ -51,15 +51,17 @@ public class RegisterController {
 		
 		FormPassword passwordForm = createUserForm.getPasswordForm();
 		
-		if (errors.hasErrors())
+		if (errors.hasErrors()) {
+			LOGGER.warn("Failed to register user: form has error: {}", errors.getAllErrors());
 			return errorState(createUserForm, errors, attr);
+		}
 		
 		User user;
 		
 		try {
 			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), passwordForm.getPassword(), createUserForm.getProfilePicture().getBytes());
 		} catch (DuplicateEmailException e) {
-			LOGGER.warn("Duplicate email exception: {}", e.getMessage());
+			LOGGER.warn("Failed to register user: duplicate email {}", e.getMessage());
 			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}

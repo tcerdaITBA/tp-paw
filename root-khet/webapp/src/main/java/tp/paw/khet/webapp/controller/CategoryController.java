@@ -47,10 +47,11 @@ public class CategoryController {
 	     
         if (page < 1 || page > maxPage && maxPage > 0) {
         	LOGGER.warn("Category page out of bounds: {}", page);
-           throw new ResourceNotFoundException();
+        	throw new ResourceNotFoundException();
         }
 	    
 		ModelAndView mav = new ModelAndView("index");
+		mav.addObject("currentCategory", category);
 		mav.addObject("categories", Category.values());
 	    mav.addObject("products", productService.getPlainProductsByCategoryPaged(category, page, PAGE_SIZE));
 	    mav.addObject("currentPage", page);
