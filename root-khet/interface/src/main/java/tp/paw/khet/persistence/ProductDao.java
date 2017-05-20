@@ -93,7 +93,7 @@ public interface ProductDao {
     *         to the given {@link Category}.
     *         The amount of products retrieved could be smaller than the length given.
     */
-   public List<Product> getPlainProductsRangeAlphabeticallyByCategory(String category, int offset, int length);
+    public List<Product> getPlainProductsRangeAlphabeticallyByCategory(String category, int offset, int length);
 
     /**
      * Retrieves the total amount of products registered.
@@ -131,10 +131,18 @@ public interface ProductDao {
 	public byte[] getLogoByProductId(int productId);
 
 	/**
-	 * Deletes a {@link Product} from the database
+	 * Deletes a {@link Product} from the database.
 	 * @param productId - ID of the product to delete
 	 * @return true if a product was deleted
 	 */
 	public boolean deleteProductById(int productId);
 
+	/**
+	 * Retrieves a {@link List} of plain products given a keyword.
+	 * The keyword should match the product's name or short description.
+	 * @param keyword - The keyword which should be matched
+	 * @param maxLength - The maximum length of the returned list
+	 * @return The list of plain products that match with the keyword.
+	 */
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength);
 }

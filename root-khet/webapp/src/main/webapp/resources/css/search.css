@@ -1,0 +1,62 @@
+.result-for-products, .result-for-users {
+	margin-top: 2em;
+}
+
+.search-title {
+	text-align: center;
+	margin-bottom: 1em;
+	font-size: 25px;
+	color: #737373;
+	font-weight: 300;
+	margin-top: 10px;
+}
+
+.profile-img-circle {
+	width: 6em;
+	height: 6em;
+	border-radius: 50%;
+    object-fit: contain;
+}
+
+.img-col {
+	text-align: center;
+}
+
+.user-info-box {
+	border: 1px solid #f3f3f3;
+	background-color: white;
+	padding: 15px 10px;	
+	display: flex;
+	align-items: center;
+}
+
+.product-list-item:hover {
+	border-color: #33bb9c;
+}
+
+.creator-mail p {
+	display: inline;
+}
+
+.profile-name-holder {
+	font-size: 1.5em;
+	color: #333;
+}
+
+.creator-mail {
+	font-size: 1.2em;
+}
+
+.search-tabs {
+	font-size: 1.2em;
+	font-weight: 500;
+}
+
+.search-tabs a {
+	color: #39c6a6;
+	border: 2px solid #eee;
+}
+
+.search-tabs .active a {
+	border: 2px solid #39c6a6;
+}

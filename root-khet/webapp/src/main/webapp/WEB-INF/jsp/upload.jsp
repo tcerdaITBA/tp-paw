@@ -109,8 +109,8 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<form:label path="category" class="col-sm-3 control-label"><spring:message code="formLabel.category"/></form:label>
-								<div class="col-sm-5">
-									<form:select path="category" class="form-control">
+								<div class="col-sm-9">
+									<form:select path="category" class="form-control category-select">
 										<c:forEach var="catOpt" items="${categories}">
 											<option value="${catOpt}" <c:if test="${catOpt eq 'OTHER'}">selected="true"</c:if>><spring:message code="category.${catOpt.lowerName}"/></option>
 										</c:forEach>
@@ -165,7 +165,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row row-centered">
 							<div class="col-md-12">
 								<div class="col-sm-9 col-sm-offset-3">

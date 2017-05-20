@@ -2,13 +2,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+    <c:set var="capitalizedUserName" value="${fn:toUpperCase(fn:substring(profileUser.name, 0, 1))}${fn:substring(profileUser.name, 1,fn:length(profileUser.name))}" />
+    
 	<html>
 		<head>
 			<meta charset="utf-8">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-			<title><spring:message code="default.title" /></title>
+			<title><spring:message code="Profile.title" arguments="${capitalizedUserName}"/></title>
 			<link
 						href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 						rel="stylesheet"
@@ -58,22 +60,22 @@
 							
 								<div class="row img-row">
 									<div class="col-md-12">
-										<img class="profile-img" src="<c:url value="/profile/${us.userId}/profilePicture"/>">
+										<img class="profile-img" src="<c:url value="/profile/${profileUser.userId}/profilePicture"/>">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="profile-username">
 											<span class="glyphicon glyphicon-user"></span>
-											<p><c:out value="${us.name}"></c:out></p>
+											<p><c:out value="${capitalizedUserName}"></c:out></p>
 										</div>	
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<a class="profile-mail" href="mailto:<c:out value="${us.email}"/>">
+										<a class="profile-mail" href="mailto:<c:out value="${profileUser.email}"/>">
 											<span class="glyphicon glyphicon-envelope"></span>
-											<p><c:out value="${us.email}"></c:out></p>
+											<p><c:out value="${profileUser.email}"></c:out></p>
 										</a>	
 									</div>
 								</div>
@@ -84,18 +86,21 @@
 							<c:when test="${products.isEmpty()}">
 								<div class="zrp" id="user-products-zrp">
 									<h2><spring:message code="userZRP.empty"/></h2>
-									<h3><spring:message code="userZRP.noProducts" arguments="${us.name}"/></h3>
+									<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
 								</div>
 							</c:when>
 							<c:otherwise>
-							<h2><spring:message code="uploadedProductsTitle" arguments="${us.name}"/></h2>
+							<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${capitalizedUserName}"/></h2>
 							<div class="col-md-12 product-list">
-								<c:forEach items="${products}" var="product">
-									
+								<c:forEach items="${products}" var="product">									
 									<a href="<c:url value="/product/${product.id}"/>">
 										<div class="row product-list-item">
-											<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-											<div class="col-md-3 product-logo">
+                                            <sec:authorize access="isAuthenticated()">
+                                                <c:if test="${loggedUser.userId == profileUser.userId}">
+                                                    <span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+                                                </c:if>
+                                            </sec:authorize>
+                                            <div class="col-md-3 product-logo">
 												<img src="<c:url value="/product/${product.id}/logo"/>">
 											</div>
 											<div class="col-md-9 product-info-box">
@@ -123,34 +128,40 @@
 									</a>
 									
 									<!-- The Modal -->
-									<sec:authorize access="isAuthenticated()">
-										<c:if test="${loggedUser.userId == profileUser.userId}">
-											<div id="modal${product.id}" class="row modal">
-											  <!-- Modal content -->
-												  <div class="col-md-4 col-md-offset-4 modal-content">
-												    <span id ="closeModal${product.id}" class="close-modal">&times;</span>
-												    <div class="row">
-												    	<div class="col-md-12">
-												    		<p class="modal-text"><spring:message code="Profile.modal.textBeginning" />
-												    		<span class="modal-product-name"><c:out value="${product.name}" /></span>
-												    		<spring:message code="Profile.modal.textEnd" /></p>
-												  		</div>
-												  	</div>
-												  	<div class="row modal-buttons-holder">
-												  		<div class="col-md-1 col-md-offset-4">
-															<c:url value="/delete/product/${product.id}" var="deletePath" />
-															<form:form action="${deletePath}" method="post">
-																<input type="submit" class="ps-btn btn" value="<spring:message code="Profile.modal.leftButton"/>" />
-												  			</form:form>
-												  		</div>
-												  		<div class="col-md-1 col-md-offset-1">
-															<p id="leftModalButton${product.id}" class="ps-btn btn modal-left-button"><spring:message code="Profile.modal.rightButton" /></p>
-												  		</div>
-												  	</div>
-												  </div>
-											</div>
-										</c:if>
-									</sec:authorize>		
+									<div id="deleteModal" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+										            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										            <h4 class="modal-title">
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<spring:message code="Profile.modal.deleteProduct"/>
+																</h4>	
+										        </div>
+											    <div class="modal-body">
+												
+											    <div class="row">
+											    	<div class="col-md-12">
+											    		<p class="modal-text"><spring:message code="Profile.modal.textBeginning" />
+											    		<span class="modal-product-name"><c:out value="${product.name}" /></span>
+											    		<spring:message code="Profile.modal.textEnd" /></p>
+											  		</div>
+											  	</div>
+											  	<div class="row row-centered">
+													<div class="col-md-12">
+														<c:url value="/delete/product/${product.id}" var="deletePath" />
+														<form:form action="${deletePath}" method="post">
+															<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
+															<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
+														</form:form>
+													</div>
+												</div>
+																
+											  </div>	
+													
+												</div>
+											</div>	
+										</div>
 								</c:forEach>
 							</div>
 						</c:otherwise>

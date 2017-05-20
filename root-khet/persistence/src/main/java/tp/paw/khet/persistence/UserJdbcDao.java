@@ -22,7 +22,7 @@ public class UserJdbcDao implements UserDao {
 	@Autowired
 	private UserRowMapper userRowMapper;
 	
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert jdbcInsert;
 
 	@Autowired
@@ -52,7 +52,7 @@ public class UserJdbcDao implements UserDao {
 	
 	@Override
 	public User getUserByEmail(String email) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE email = ?", userRowMapper, email);
+		List<User> user = jdbcTemplate.query("SELECT userId, userName, email, password FROM users WHERE email = ?", userRowMapper, email);
 		
 		if (user.isEmpty())
 			return null;
@@ -62,7 +62,7 @@ public class UserJdbcDao implements UserDao {
 
 	@Override
 	public User getUserById(int userId) {
-		List<User> user = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", userRowMapper, userId);
+		List<User> user = jdbcTemplate.query("SELECT userId, userName, email, password FROM users WHERE userid = ?", userRowMapper, userId);
 		
 		if (user.isEmpty())
 			return null;
@@ -81,6 +81,16 @@ public class UserJdbcDao implements UserDao {
 	}
 
 	@Override
+	public List<User> getUsersByKeyword(String keyword, int maxLength) {
+		String firstWordKeyword = keyword+"%";
+		String otherWordsKeyword = "% "+keyword+"%";
+		String sql = "SELECT userId, userName, email, password FROM users WHERE "
+					 + "lower(userName) LIKE lower(?) OR lower(userName) LIKE lower(?) "
+					 + "ORDER BY userName LIMIT ?";
+
+		return jdbcTemplate.query(sql, userRowMapper, firstWordKeyword, otherWordsKeyword, maxLength);
+	}
+	
 	public User changePassword(int userId, String password) {
 		User user = getUserById(userId);
 		
@@ -90,7 +100,6 @@ public class UserJdbcDao implements UserDao {
 		return user;
 	}
 
-	@Override
 	public User changeProfilePicture(int userId, byte[] profilePicture) {
 		User user = getUserById(userId);
 		
@@ -98,6 +107,5 @@ public class UserJdbcDao implements UserDao {
 			jdbcTemplate.update("UPDATE users SET profilePicture = ? WHERE userId = ?", profilePicture, userId);
 		
 		return user;
-		
 	}
 }

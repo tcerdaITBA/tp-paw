@@ -58,7 +58,6 @@ public interface ProductService {
      */
     public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
     
-	
 	/**
 	 * Lists plain products belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
@@ -133,4 +132,13 @@ public interface ProductService {
 	 * @return true if a product was deleted
 	 */
 	boolean deleteProductById(int productId);
+	
+	/**
+	 * Retrieves a {@link List} of plain products given a keyword.
+	 * The keyword should match the product's name or short description.
+	 * @param keyword - The keyword which should be matched
+	 * @param maxLength - The maximum length of the returned list
+	 * @return The list of plain products that match with the keyword.
+	 */
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength);
 }

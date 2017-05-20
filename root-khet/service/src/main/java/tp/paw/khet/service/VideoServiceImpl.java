@@ -16,17 +16,17 @@ public class VideoServiceImpl implements VideoService {
 	private VideoDao videoDao;
 	
 	@Override
-	public List<Video> getVideosByProductId(int id) {
+	public List<Video> getVideosByProductId(final int id) {
 		return videoDao.getVideosByProductId(id);
 	}
 	
 	@Override
-	public Video createVideo(String videoId, int productId) {
+	public Video createVideo(final String videoId, final int productId) {
 		return videoDao.createVideo(videoId, productId);
 	}
 
 	@Override
-	public List<Video> createVideos(List<String> videoIds, int productId) {
+	public List<Video> createVideos(final List<String> videoIds, final int productId) {
 		List<Video> videos = new ArrayList<>();
 		
 		for (String videoId : videoIds)

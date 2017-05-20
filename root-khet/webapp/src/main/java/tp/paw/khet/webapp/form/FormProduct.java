@@ -1,15 +1,13 @@
 package tp.paw.khet.webapp.form;
 
-import javax.validation.constraints.Size;
-
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
-import org.springframework.web.multipart.MultipartFile;
-
 import org.springframework.http.MediaType;
+import org.springframework.web.multipart.MultipartFile;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
@@ -37,8 +35,8 @@ public class FormProduct {
 	@FileSize(min = 1)
 	private MultipartFile logo;
 	
-	@URL //TODO: no valida sin http://
-	@Size(max = 1000)
+	@URL
+	@Size(max = 512)
 	private String website;
 	
 	@Valid
@@ -84,7 +82,12 @@ public class FormProduct {
 	}
 	
 	public void setWebsite(String url) {
-	    this.website = StringUtils.strip(url);
+		url = StringUtils.strip(url);
+		
+		if (url.length() > 0)
+			url = StringUtils.prependIfMissingIgnoreCase(url, "http://", "https://");
+		
+	    this.website = url;
 	}
 
 	public MultipartFile getLogo() {

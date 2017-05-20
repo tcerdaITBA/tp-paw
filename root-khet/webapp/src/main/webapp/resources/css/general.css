@@ -12,6 +12,7 @@ body {
 
 .img-contain {
 	object-fit: contain;
+    margin-right: 0.6em;
 }
 
 .navbar-default .navbar-nav>.active>a:hover {
@@ -40,6 +41,17 @@ nav img {
 .navbar-brand {
 	margin-left: 0;
 	padding: 8px 0;
+}
+
+.navbar-search {
+	position: relative;
+}
+
+.search-results {
+  position: absolute;
+	width: 100%;
+  top: 3em;
+	background-color: green;
 }
 
 textarea {
@@ -95,3 +107,26 @@ footer p {
  .modal {
  	z-index: 9999 !important;
  }
+
+.row-centered {
+    text-align: center;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    text-align: left;
+    margin-right: -4px;
+}
+
+#search-box {
+	width: 20em;
+	border: 1px solid #e3e3e3;
+	border-radius: 3px;
+}
+
+.search-icn {
+	line-height: 20px;
+	color: #e3e3e3;
+	padding-left: 5px;
+}

@@ -87,6 +87,10 @@
 	padding-right: 15px;
 }
 
+.uploaded-products-title {
+    margin-bottom: 0.6em;
+}
+
 .delete-product-button {
 	font-size: 1.4em;
 	color: #888a85;
@@ -112,4 +116,8 @@
     padding-right: 10px;
     font-size: x-large;
     color: #b7b7b7;
+}
+
+.row-centered {
+	text-align: center;
 }

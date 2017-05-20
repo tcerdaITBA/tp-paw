@@ -18,7 +18,7 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 
 	@Override
-	public List<CommentFamily> getCommentsByProductId(int id) {
+	public List<CommentFamily> getCommentsByProductId(final int id) {
 		List<Comment> comments = commentDao.getCommentsByProductId(id);
 		List<CommentFamily> parents = new ArrayList<>();
 		int parentIndex = 0;
@@ -44,12 +44,12 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
-	public Comment createComment(String content, int parentId, int productId, int userId) {
+	public Comment createComment(final String content, final int parentId, final int productId, final int userId) {
 		return commentDao.createComment(content, LocalDateTime.now(), parentId, productId, userId);
 	}
 
 	@Override
-	public Comment createParentComment(String content, int productId, int userId) {
+	public Comment createParentComment(final String content, final int productId, final int userId) {
 		return commentDao.createParentComment(content, LocalDateTime.now(), productId, userId);
 	}
 
