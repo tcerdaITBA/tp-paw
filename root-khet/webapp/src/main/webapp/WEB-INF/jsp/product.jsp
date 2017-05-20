@@ -51,7 +51,6 @@
 							<div class="row">
 								<div class="col-md-10 col-md-offset-1">
 									<div class="row">
-										
 										<div class="col-md-7">
 											<div class="row product-item vertical-align highlighted">
 												<div class="col-md-3 product-logo">
@@ -69,10 +68,12 @@
 																<p><c:out value="${product.shortDescription}"/></p>
 															</div>
 														</div>
-														<div class="row product-category">
-															<div class="col-md-3 categoryTag">
-																<p><a href="<c:url value="/category/${product.category.lowerName}"/>"><spring:message code="category.${product.category.lowerName}"/></a></p>
-															</div>
+														<div class="row">
+															<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
+																<div class="col-md-3 categoryTag">
+																	<p><spring:message code="category.${product.category.lowerName}"/></p>
+																</div>
+															</a>
 														</div>
 													</div>
 												</div>

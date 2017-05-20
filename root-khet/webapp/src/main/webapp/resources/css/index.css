@@ -8,19 +8,16 @@
 	border: 1px solid #f3f3f3;
 	background-color: white;
 	padding: 15px 10px;
+	position: relative;
 }
 
 .product-list-item:hover {
 	border-color: #33bb9c;
 }
 
-.product-logo {
-	max-height: inherit;
-}
-
 .product-logo img {
-	max-height: 100px;
-	max-width: 100px;
+	height: 100px;
+	width: 100px;
 	object-fit: cover;
 }
 
@@ -94,6 +91,15 @@ h2 {
 	border-radius: 4px;
 	padding: 5px 5px;
 	word-wrap: break-word;
+}
+
+.categoryTag:hover {
+	background-color: #c4c4c4;
+	transition: 0.2s;
+}
+
+.categoryTag:hover p {
+	color: #fff;
 }
 
 .categoryTag p {

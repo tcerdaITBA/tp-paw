@@ -90,34 +90,37 @@
 						<c:otherwise>
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
+								
 								<a href="<c:url value="/product/${product.id}"/>">
-									<div class="row product-list-item vertical-align">
+									<div class="row product-list-item">
 										<div class="col-md-3 product-logo">
 											<img src="<c:url value="/product/${product.id}/logo"/>">
 										</div>
 										<div class="col-md-9 product-info-box">
-											<div class="row col-md-12">
-												<div class="row product-name">
-													<div class="col-md-12">
-														<p><c:out value="${product.name}"/></p>
-													</div>
+											<div class="row product-name">
+												<div class="col-md-12">
+													<p><c:out value="${product.name}"/></p>
 												</div>
-												<div class="row product-short-description">
-													<div class="col-md-12">
-														<p><c:out value="${product.shortDescription}"/></p>
-													</div>
+											</div>
+											<div class="row product-short-description">
+												<div class="col-md-12">
+													<p><c:out value="${product.shortDescription}"/></p>
 												</div>
-												<div class="row product-category">
-													<div class="col-md-4">
+											</div>
+											<div class="row">
+												<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
+													<div class="col-md-3">
 														<div class="categoryTag">
 															<p><spring:message code="category.${product.category.lowerName}"/></p>
 														</div>
 													</div>
-												</div>
+												</a>
 											</div>
 										</div>
 									</div>	
-								</a>				
+								</a>
+								
+								
 							</c:forEach>
 							</div>
 						</c:otherwise>
