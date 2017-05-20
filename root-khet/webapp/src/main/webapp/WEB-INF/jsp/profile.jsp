@@ -88,13 +88,17 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-							<h2><spring:message code="uploadedProductsTitle" arguments="${us.name}"/></h2>
+							<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${us.name}"/></h2>
 							<div class="col-md-12 product-list">
 								<c:forEach items="${products}" var="product">									
 									<a href="<c:url value="/product/${product.id}"/>">
 										<div class="row product-list-item">
-											<span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-											<div class="col-md-3 product-logo">
+                                            <sec:authorize access="isAuthenticated()">
+                                                <c:if test="${loggedUser.userId == profileUser.userId}">
+                                                    <span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+                                                </c:if>
+                                            </sec:authorize>
+                                            <div class="col-md-3 product-logo">
 												<img src="<c:url value="/product/${product.id}/logo"/>">
 											</div>
 											<div class="col-md-9 product-info-box">
