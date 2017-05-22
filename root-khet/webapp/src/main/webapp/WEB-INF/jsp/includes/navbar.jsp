@@ -59,7 +59,8 @@
 							<a href="<c:url value="/upload"/>" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
 						</sec:authorize>
 						<sec:authorize access="isAnonymous()">
-							<a tabindex="0" class="ps-btn btn upload-btn" role="button" data-toggle="popover" data-trigger="focus" data-content="Sign in First!" id="upload-popover"><spring:message code="navBar.postButton" /></a>
+							<a tabindex="0" class="ps-btn btn upload-btn" role="button" data-toggle="popover" data-trigger="focus" 
+								 data-content="<p class='popover-msg'><span><spring:message code="navBar.toPost"/></span><a href='<c:url value="/login"/>'> <span> sign in.</span></a></p>" id="upload-popover"><spring:message code="navBar.postButton" /></a>
 						</sec:authorize>
 					</p>
 				</li>

@@ -1,7 +1,8 @@
 $(document).ready(function(){
 	$('#upload-popover').popover({
 		trigger: 'focus',
-		placement: 'bottom'
+		placement: 'bottom',
+		html: true,
 	});
 });
 
