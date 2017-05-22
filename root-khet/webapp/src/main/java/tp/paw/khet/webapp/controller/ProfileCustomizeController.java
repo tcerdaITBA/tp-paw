@@ -59,6 +59,8 @@ public class ProfileCustomizeController {
 		
 		FormPassword passwordForm = changePasswordForm.getPasswordForm();
 		securityUserService.changePassword(loggedUser.getUserId(), passwordForm.getPassword());
+		attr.addFlashAttribute("passFeedback", true);
+		attr.addFlashAttribute("changePasswordForm", new FormChangePassword());
 		
 		LOGGER.info("User with id {} successfully changed his password", loggedUser.getUserId());
 		

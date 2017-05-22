@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title><spring:message code="default.title" /></title>
+<title><spring:message code="searchResults.title" /></title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -42,9 +42,25 @@
 				</div>
 				<div class="tab-content">
 					<div id="products-pane" class="tab-pane fade in active row result-for-products">
-						<div class="col-md-6 col-md-offset-3">
+						<div class="col-md-3">
+							<div class="panel filter-panel">
+								<div class="panel-body">
+									<h4 class="filter-title">Filter by category</h4>
+									<c:forEach items="${categories}" var="category">
+										<div class="filter-item">
+											<label class="filter-checkbox" id="filter-${category.lowerName}" >
+												<input type="checkbox" name="category" value="${category.lowerName}">
+												<spring:message code="category.${category.lowerName}"/>
+											</label>
+										</div>
+									</c:forEach>
+									<a href="#" id="reset-filters-btn">Reset filters</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
 							<c:forEach items="${products}" var="product">
-								<a href="<c:url value="/product/${product.id}"/>">
+								<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
 									<div class="row product-list-item vertical-align">
 										<div class="col-md-3 product-logo">
 											<img src="<c:url value="/product/${product.id}/logo"/>">
@@ -112,14 +128,7 @@
 		</div>
 	</div>
 
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
+	<%@include file="includes/scripts.jsp"%>
+	<script src="<c:url value="/resources/js/search-results.js"/>"></script>
 </body>
 </html>

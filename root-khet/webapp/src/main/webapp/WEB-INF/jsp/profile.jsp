@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
     <c:set var="capitalizedUserName" value="${fn:toUpperCase(fn:substring(profileUser.name, 0, 1))}${fn:substring(profileUser.name, 1,fn:length(profileUser.name))}" />
     
@@ -151,8 +152,8 @@
 													<div class="col-md-12">
 														<c:url value="/delete/product/${product.id}" var="deletePath" />
 														<form:form action="${deletePath}" method="post">
-															<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
-															<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
+															<input class="ps-btn-red btn submit-btn modal-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
+															<button type="button" class="btn btn-default modal-btn" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
 														</form:form>
 													</div>
 												</div>
@@ -172,17 +173,10 @@
 			<%@include file="includes/changePictureModal.jsp"%>
 			<%@include file="includes/changePasswordModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
-			<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-			<script
-							src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-			<!-- 	Include all compiled plugins (below), or include individual files as needed -->
-			<script
-							src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-							integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-							crossorigin="anonymous"></script>
-			<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+            <%@include file="includes/scripts.jsp"%>
 			<script>
 				var passError = "${passError}";
+                var passFeedback = "${passFeedback}";
 				var imgError = "${imgError}";
 			</script>
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		

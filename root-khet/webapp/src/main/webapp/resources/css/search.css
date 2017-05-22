@@ -30,6 +30,10 @@
 	align-items: center;
 }
 
+.user-info-box:hover {
+	border-color: #33bb9c;
+}
+
 .product-list-item:hover {
 	border-color: #33bb9c;
 }
@@ -60,3 +64,26 @@
 .search-tabs .active a {
 	border: 2px solid #39c6a6;
 }
+
+
+.filter-checkbox {
+	display: none;
+	color: #333;
+	font-weight: 400;
+}
+
+.filter-panel {
+	border: 1px solid #f3f3f3;
+}
+
+
+.filter-title {
+	margin-top: 0;
+	font-weight: 300;
+	color: #333;
+}
+
+.filter-checkbox input {
+	margin-right: 5px;
+}
+

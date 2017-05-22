@@ -132,3 +132,18 @@ footer p {
 	color: #e3e3e3;
 	padding-left: 5px;
 }
+
+.search-button {
+	background: rgba(255, 255, 255, 0);
+    border: transparent;
+}
+
+.search-icn:hover {
+	color: #33bb9c;
+	transition: all .1s ease-in;
+}
+
+.modal-btn {
+	margin-left: 0.5em;
+    margin-right: 0.5em;
+}
