@@ -338,6 +338,7 @@
         var gotoComment = "${comment}";
         var showForm = "${form}";
     </script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
     <script src="<c:url value="/resources/js/product.js" />"></script>	
 </body>
 </html>
