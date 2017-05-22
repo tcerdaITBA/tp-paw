@@ -30,6 +30,9 @@ input[type=checkbox] {
 	padding-top: 0;
 }
 
+.upload-btn {
+    visibility: hidden;
+}
 .title-align {
     margin-left: 5px !important;
 }
