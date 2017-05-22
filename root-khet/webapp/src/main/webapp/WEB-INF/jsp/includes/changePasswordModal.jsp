@@ -65,7 +65,7 @@
                 </div>
                 <div class="row row-centered">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.settings.close"/></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.settings.ok"/></button>
                     </div>
                 </div>
             </div>
