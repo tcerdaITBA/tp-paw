@@ -22,7 +22,7 @@
 
 		<form action="<c:url value="/search"/>" method="get" class="navbar-form navbar-left">
 			<div class="form-group">
-				<input id="search-box" value="${queryText}" name="query" type="text" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>"</input>
+				<input id="search-box" pattern=".{3,}" maxlength="64" required oninvalid="this.setCustomValidity('<spring:message code="navBar.search.minimum3"/>')" onchange="try{setCustomValidity('')}catch(e){}" value="${queryText}" name="query" type="text" class="form-control" placeholder="<spring:message code="navBar.search.placeholder" />"</input>
 				<span class="glyphicon glyphicon-search search-icn"></span>
 			</div>
 		</form>
