@@ -47,11 +47,13 @@ nav img {
 	position: relative;
 }
 
-.search-results {
-  position: absolute;
-	width: 100%;
-  top: 3em;
-	background-color: green;
+.popover {
+	width: 150% !important;
+	text-align: center;
+}
+
+.popover-msg {
+	margin: 0;
 }
 
 textarea {
