@@ -52,8 +52,8 @@
 						<div class="row row-centered">
 								<div class="col-md-12">
 									<div class="col-sm-12">
-										<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="Profile.settings.changePicture"></spring:message>" />
-										<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
+										<input class="ps-btn-red btn submit-btn modal-btn" type="submit" value="<spring:message code="Profile.settings.changePicture"></spring:message>" />
+										<button type="button" class="btn btn-default modal-btn" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
 									</div>
 								</div>
 							</div>

@@ -39,8 +39,8 @@
                     
                 <div class="form-group row-centered">
                     <div class="form-input-buttons">
-                        <input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="changePassword" />" />
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
+                        <input class="ps-btn-red btn submit-btn modal-btn" type="submit" value="<spring:message code="changePassword" />" />
+                        <button type="button" class="btn btn-default modal-btn" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
                     </div>
                 </div>
                     
@@ -65,7 +65,7 @@
                 </div>
                 <div class="row row-centered">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.settings.close"/></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.settings.ok"/></button>
                     </div>
                 </div>
             </div>
