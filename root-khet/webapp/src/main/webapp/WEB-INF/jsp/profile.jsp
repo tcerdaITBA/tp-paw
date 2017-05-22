@@ -152,8 +152,8 @@
 													<div class="col-md-12">
 														<c:url value="/delete/product/${product.id}" var="deletePath" />
 														<form:form action="${deletePath}" method="post">
-															<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
-															<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
+															<input class="ps-btn-red btn submit-btn modal-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
+															<button type="button" class="btn btn-default modal-btn" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
 														</form:form>
 													</div>
 												</div>

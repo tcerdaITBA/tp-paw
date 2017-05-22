@@ -142,3 +142,8 @@ footer p {
 	color: #33bb9c;
 	transition: all .1s ease-in;
 }
+
+.modal-btn {
+	margin-left: 0.5em;
+    margin-right: 0.5em;
+}
