@@ -59,32 +59,13 @@
 	border: 1px solid #888;
 }
 
-/* The Close Button */
-.close-modal {
-	color: #babdb6;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close-modal:hover, .close-modal:focus {
-	color: #888a85;
-	text-decoration: none;
-	cursor: pointer;
-}
-
 .modal-text {
 	text-align: center;
 }
 
-.modal-buttons-holder {
-	margin-top: 5px;
-	padding-bottom: 5px;
-}
-
-.modal-left-button {
-	padding-left: 15px;
-	padding-right: 15px;
+.modal-product-name {
+	font-weight: bold;
+	text-transform: uppercase;	
 }
 
 .uploaded-products-title {
@@ -104,11 +85,6 @@
 	color: #ef2929;
 	text-decoration: none;
 	cursor: pointer;
-}
-
-.modal-product-name {
-	font-weight: bold;
-	text-transform: uppercase;	
 }
 
 .settings-row {

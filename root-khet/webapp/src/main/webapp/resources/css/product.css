@@ -105,7 +105,7 @@
 	display: inline;
 }
 
-.glyphicon {
+.glyphicon-envelope{
 	padding-right: 5px;
 }
 
@@ -285,4 +285,43 @@
 
 .comment-and-replies {
 	padding: 10px 30px;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	border: 1px solid #888;
+}
+
+.modal-text {
+	text-align: center;
+}
+
+.delete-product-button {
+	font-size: 1.4em;
+	color: #888a85;
+	position: absolute;
+	right: 15px;
+	top: 35px;
+	z-index: 5;
+}
+
+.delete-product-button:hover, .delete-product-button:focus {
+	color: #ef2929;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-product-name {
+	font-weight: bold;
+	text-transform: uppercase;	
 }

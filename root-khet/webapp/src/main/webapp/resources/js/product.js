@@ -35,6 +35,10 @@ $(document).ready(function(){
 		$('#' + replyId).show();
 	}
 	
+	$('.glyphicon-trash').on('click', function() {
+        $("#deleteModal").modal("show");
+	});	
+	
 	$('.reply-btn').on('click', function() {
 		// Hide all other open comment forms.
 		$('.reply-comment').hide();
