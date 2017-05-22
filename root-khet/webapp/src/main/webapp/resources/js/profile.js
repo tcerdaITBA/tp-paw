@@ -8,6 +8,9 @@ $(document).ready(function() {
 	
 	if(passError)
 		$("#changePassModal").modal("show");
+    
+    if(passFeedback)
+        $("#feedbackChangePassModal").modal("show");
 		
 	if(imgError)
 		$("#changePictureModal").modal("show");

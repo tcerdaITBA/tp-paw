@@ -175,6 +175,7 @@
             <%@include file="includes/scripts.jsp"%>
 			<script>
 				var passError = "${passError}";
+                var passFeedback = "${passFeedback}";
 				var imgError = "${imgError}";
 			</script>
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		
