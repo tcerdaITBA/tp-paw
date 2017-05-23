@@ -115,14 +115,12 @@
 														<p><c:out value="${product.shortDescription}"/></p>
 													</div>
 												</div>
-												<div class="row">
-													<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
-														<div class="col-md-3">
-															<div class="categoryTag">
-																<p><spring:message code="category.${product.category.lowerName}"/></p>
-															</div>
+												<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="row product-category-btn product-category">
+													<div class="col-md-4">
+														<div class="categoryTag">
+															<p><spring:message code="category.${product.category.lowerName}"/></p>
 														</div>
-													</a>
+													</div>
 												</div>
 											</div>
 										</div>	
@@ -173,7 +171,6 @@
 			<%@include file="includes/changePictureModal.jsp"%>
 			<%@include file="includes/changePasswordModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
-            <%@include file="includes/scripts.jsp"%>
 			<script>
 				var passError = "${passError}";
                 var passFeedback = "${passFeedback}";
@@ -181,6 +178,7 @@
 			</script>
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		
 			<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
+      <%@include file="includes/scripts.jsp"%>
 		</body>
 		
 	</html>
