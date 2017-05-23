@@ -109,4 +109,9 @@ $(document).ready(function(){
 	$('.result-text').html(function() {
 		return $(this).text().replace(regex, replacement);
 	});
+	
+	$('.creator-mail').on('click', function() {
+		location.href = $(this).data('href');
+		return false;
+	});
 });

@@ -49,7 +49,9 @@
 
 .creator-mail {
 	font-size: 1.2em;
+	display: inline-block;
 }
+
 
 .search-tabs {
 	font-size: 1.2em;
@@ -109,5 +111,11 @@
 	color: #737373;
 }
 
+.creator-mail:hover {
+	text-decoration: underline;
+}
 
 
+.user-ref:hover .creator-mail {
+	color: #337ab7;
+}

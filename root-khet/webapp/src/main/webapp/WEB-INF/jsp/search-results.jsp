@@ -118,7 +118,7 @@
 							<c:otherwise>
 								<div class="col-md-6 col-md-offset-3">
 									<c:forEach items="${users}" var="user">
-										<a href="<c:url value="/profile/${user.userId}"/>">
+										<a class="user-ref" href="<c:url value="/profile/${user.userId}"/>">
 											<div class="row user-info-box">
 												<div class="col-md-3 img-col">
 													<img class="profile-img-circle" src="<c:url value="/profile/${user.userId}/profilePicture"/>">
@@ -134,7 +134,7 @@
 													</div>
 													<div class="row">
 														<div class="col-md-12">
-															<div class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
+															<div class="creator-mail" data-href="mailto:<c:out value="${user.email}"/>">
 																<span class="glyphicon glyphicon-envelope"></span>
 																<p><c:out value="${user.email}"/></p>
 															</div>
