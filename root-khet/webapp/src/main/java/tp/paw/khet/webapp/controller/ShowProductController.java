@@ -58,14 +58,14 @@ public class ShowProductController {
 		
 		LOGGER.debug("Accessed product with id {}", productId);
 		
-		Product product = productService.getFullProductById(productId);
+		final Product product = productService.getFullProductById(productId);
 		
 		if (product == null) {
 			LOGGER.warn("Failed to render product with id {}: product not found", productId);
 			throw new ProductNotFoundException();
 		}
 		
-		ModelAndView mav = new ModelAndView("product");
+		final ModelAndView mav = new ModelAndView("product");
 		
 		mav.addObject("product", product);
 		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
@@ -102,7 +102,7 @@ public class ShowProductController {
 			postedForm = form.getChildForm(replyCommentIndex.get());
 		}
 		else {
-			LOGGER.debug("User with id {} attempting to post parent comment");
+			LOGGER.debug("User with id {} attempting to post parent comment", loggedUser.getUserId());
 			postedForm = form.getParentForm();
 		}
 		
