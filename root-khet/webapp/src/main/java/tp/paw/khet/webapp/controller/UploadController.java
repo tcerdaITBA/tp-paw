@@ -9,18 +9,23 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormProduct;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
@@ -36,6 +41,17 @@ public class UploadController {
 	
 	@Autowired
 	private ImageOrVideoValidator imageOrVideoValidator;
+	
+    @Autowired
+    private SecurityUserService securityUserService;
+	
+	@ExceptionHandler(UnauthorizedException.class)
+	@ResponseStatus(value=HttpStatus.UNAUTHORIZED)
+	public ModelAndView Unauthorized() {
+		ModelAndView mav = new ModelAndView("401");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
+	}
 	
 	@ModelAttribute("uploadForm")
 	public FormProduct uploadForm() {
@@ -54,7 +70,12 @@ public class UploadController {
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct, final BindingResult errors,
 							   @ModelAttribute("loggedUser") final User loggedUser,
-							   RedirectAttributes attr) throws IOException {
+							   RedirectAttributes attr) throws IOException, UnauthorizedException {
+		
+		if (loggedUser == null) {
+			LOGGER.warn("Failed to upload, no user logged");
+			throw new UnauthorizedException();
+		}
 		
 		LOGGER.debug("User with id {} accessed upload POST", loggedUser.getUserId());
 		

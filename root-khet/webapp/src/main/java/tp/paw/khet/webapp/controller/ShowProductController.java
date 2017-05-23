@@ -30,6 +30,7 @@ import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.exception.ProductNotFoundException;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormComment;
 import tp.paw.khet.webapp.form.FormComments;
 
@@ -49,6 +50,14 @@ public class ShowProductController {
 	
 	@Autowired
 	private SecurityUserService securityUserService;
+	
+	@ExceptionHandler(UnauthorizedException.class)
+	@ResponseStatus(value=HttpStatus.UNAUTHORIZED)
+	public ModelAndView Unauthorized() {
+		ModelAndView mav = new ModelAndView("401");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
+	}
 	
 	@ExceptionHandler(ProductNotFoundException.class)
 	@ResponseStatus(value=HttpStatus.NOT_FOUND)
@@ -95,6 +104,11 @@ public class ShowProductController {
 							   @Valid @ModelAttribute("commentsForm") final FormComments form, 
 							   final BindingResult errors,
 							   final RedirectAttributes attr) {
+		
+		if (loggedUser == null) {
+			LOGGER.warn("Failed to comment product with id {}: no user logged", productId);
+			throw new UnauthorizedException();
+		}
 		
 		LOGGER.debug("User with id {} accessed comment POST for product with id {}", loggedUser.getUserId(), productId);
 		
