@@ -3,6 +3,7 @@ package tp.paw.khet.webapp.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.ForbiddenException;
@@ -36,10 +39,16 @@ public class ProfileController {
 
     @Autowired
     private ProductService productService;
+    
+    @Autowired
+    private SecurityUserService securityUserService;
 
 	@ExceptionHandler(ResourceNotFoundException.class)
+	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	public ModelAndView userNotFound() {
-		return new ModelAndView("404user");
+		ModelAndView mav = new ModelAndView("404user");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
 	}
 
 	@ModelAttribute("changePasswordForm")

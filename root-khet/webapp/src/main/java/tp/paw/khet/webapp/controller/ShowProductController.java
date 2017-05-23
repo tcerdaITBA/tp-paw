@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Comment;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
@@ -44,9 +47,15 @@ public class ShowProductController {
 	@Autowired
 	private CommentService commentService;
 	
+	@Autowired
+	private SecurityUserService securityUserService;
+	
 	@ExceptionHandler(ResourceNotFoundException.class)
+	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	public ModelAndView productNotFound() {
-		return new ModelAndView("404product");
+		ModelAndView mav = new ModelAndView("404product");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
 	}
 		
 	@ModelAttribute("commentsForm")
