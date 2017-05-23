@@ -19,6 +19,7 @@
 		<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 		
+		<link href="<c:url value="/resources/css/errorcodes.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 
@@ -29,6 +30,14 @@
 		<h1>
 			<spring:message code="error.401"/>
 		</h1>
+		
+		<div class="row col-md-8 col-md-offset-2">
+			<div class="errorDescription">
+				<h2><spring:message code="error.tear"/></h2>
+				<h3><spring:message code="error.unAuthorized"/></h3>
+				<p><spring:message code="error.unAuthorizedDesc"/></p>
+			</div>
+		</div>
 	
 	</div>
 	<%@include file="includes/footer.jsp"%>
