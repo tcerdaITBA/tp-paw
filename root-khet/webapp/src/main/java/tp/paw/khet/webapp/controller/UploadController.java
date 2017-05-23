@@ -21,6 +21,7 @@ import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.User;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormProduct;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
@@ -36,7 +37,7 @@ public class UploadController {
 	
 	@Autowired
 	private ImageOrVideoValidator imageOrVideoValidator;
-	
+
 	@ModelAttribute("uploadForm")
 	public FormProduct uploadForm() {
 		return new FormProduct();
@@ -46,7 +47,7 @@ public class UploadController {
 	public ModelAndView formCompletion(@ModelAttribute("loggedUser") final User loggedUser) {
 		LOGGER.debug("User with id {} accessed upload", loggedUser.getUserId());
 		
-		ModelAndView mav = new ModelAndView("upload");
+		final ModelAndView mav = new ModelAndView("upload");
 		mav.addObject("categories", Category.values());
 		return mav;
 	}
@@ -54,7 +55,7 @@ public class UploadController {
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct, final BindingResult errors,
 							   @ModelAttribute("loggedUser") final User loggedUser,
-							   RedirectAttributes attr) throws IOException {
+							   RedirectAttributes attr) throws IOException, UnauthorizedException {
 		
 		LOGGER.debug("User with id {} accessed upload POST", loggedUser.getUserId());
 		

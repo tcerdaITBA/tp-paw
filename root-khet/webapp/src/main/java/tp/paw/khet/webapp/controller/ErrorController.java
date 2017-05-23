@@ -22,4 +22,10 @@ public class ErrorController {
 		LOGGER.warn("Page not found");
 		return new ModelAndView("404");
 	}
+	
+	@RequestMapping("/errors/401")
+	public ModelAndView unauthorized() {
+		LOGGER.warn("Unauthorized");
+		return new ModelAndView("401");
+	}
 }

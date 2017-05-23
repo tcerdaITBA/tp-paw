@@ -23,11 +23,10 @@ public class CategoryController {
 	
 	@Autowired
     private ProductService productService;
-
 	
 	@RequestMapping(value = "/category/{category}")
 	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
-	        @PathVariable(value = "category") Category category) {
+	        @PathVariable(value = "category") Category category) throws ResourceNotFoundException {
 		
 		LOGGER.debug("Accessed category {} with page {}", category, page);
 		
