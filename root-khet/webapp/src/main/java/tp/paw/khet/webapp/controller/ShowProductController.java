@@ -24,11 +24,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tp.paw.khet.Comment;
 import tp.paw.khet.Product;
+import tp.paw.khet.ProductImage;
 import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.exception.ImageNotFoundException;
 import tp.paw.khet.webapp.exception.ProductNotFoundException;
 import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormComment;
@@ -63,6 +65,14 @@ public class ShowProductController {
 	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	public ModelAndView productNotFound() {
 		ModelAndView mav = new ModelAndView("404product");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
+	}
+	
+	@ExceptionHandler(ImageNotFoundException.class)
+	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	public ModelAndView imageNotFound() {
+		ModelAndView mav = new ModelAndView("404image");
 		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
 		return mav;
 	}
@@ -157,7 +167,22 @@ public class ShowProductController {
 	@ResponseBody
 	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) {
-		return productImageService.getImageByIds(imageId, productId).getData();
+		
+		Product product = productService.getPlainProductById(productId);
+		
+		if (product == null) {
+			LOGGER.warn("Failed to show product with id {}: product not found", productId);
+			throw new ProductNotFoundException();
+		}
+		
+		ProductImage image =  productImageService.getImageByIds(imageId, productId);
+		
+		if (image == null) {
+			LOGGER.warn("Failed to show image with id {}: image not found", imageId);
+			throw new ImageNotFoundException();
+		}
+		
+		return image.getData();
 	}
 	
 	@ResponseBody
