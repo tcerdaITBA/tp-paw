@@ -21,6 +21,11 @@
 	object-fit: contain;
 }
 
+.modal-product-name {
+	font-weight: bold;
+	text-transform: uppercase;	
+}
+
 /* magia para que quede alineado abajo */
 .title-row {
 	display: flex;

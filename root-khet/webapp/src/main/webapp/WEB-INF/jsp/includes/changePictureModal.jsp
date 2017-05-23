@@ -8,7 +8,10 @@
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	             <h4 class="modal-title"><spring:message code="Profile.settings.changePicture"/></h4>
+	             <h4 class="modal-title">
+                     <span class="glyphicon glyphicon-cog"></span>
+                     <spring:message code="Profile.settings.changePicture"/>
+                 </h4>
 	
 	        </div>
 	        <div class="modal-body">

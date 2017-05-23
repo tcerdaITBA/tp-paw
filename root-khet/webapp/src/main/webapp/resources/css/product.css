@@ -105,7 +105,7 @@
 	display: inline;
 }
 
-.glyphicon {
+.glyphicon-envelope{
 	padding-right: 5px;
 }
 
@@ -285,4 +285,19 @@
 
 .comment-and-replies {
 	padding: 10px 30px;
+}
+
+.delete-product-button {
+	font-size: 1.4em;
+	color: #888a85;
+	position: absolute;
+	right: 15px;
+	top: 35px;
+	z-index: 5;
+}
+
+.delete-product-button:hover, .delete-product-button:focus {
+	color: #ef2929;
+	text-decoration: none;
+	cursor: pointer;
 }

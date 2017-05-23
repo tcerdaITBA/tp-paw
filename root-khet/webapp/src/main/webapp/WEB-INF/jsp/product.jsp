@@ -22,6 +22,7 @@
     <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/product.css" />" rel="stylesheet" />
     <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
+    <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
 
 </head>
 <body>
@@ -52,6 +53,13 @@
                 <div class="row">
                     <div class="col-md-7">
                         <div class="row product-item vertical-align highlighted">
+                            <sec:authorize access="isAuthenticated()">
+                              <c:if test="${loggedUser.userId == creator.userId}">
+                                  <span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+	                               <!-- The Modal -->
+                                  <%@include file="includes/deleteModal.jsp"%>
+                              </c:if>
+                            </sec:authorize>
                             <div class="col-md-3 product-logo">
                                 <img src="<c:url value="/product/${product.id}/logo"/>">
                             </div>
@@ -339,6 +347,7 @@
         var showForm = "${form}";
     </script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
-    <script src="<c:url value="/resources/js/product.js" />"></script>	
+    <script src="<c:url value="/resources/js/product.js" />"></script>
+    
 </body>
 </html>
