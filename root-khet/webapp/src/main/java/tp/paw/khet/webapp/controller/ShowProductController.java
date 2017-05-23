@@ -188,6 +188,14 @@ public class ShowProductController {
 	@ResponseBody
 	@RequestMapping(value = "/product/{productId}/logo", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] deliverLogo(@PathVariable(value = "productId") int productId) {
+		
+		Product product = productService.getPlainProductById(productId);
+		
+		if (product == null) {
+			LOGGER.warn("Failed to show logo of product with id {}: product not found", productId);
+			throw new ProductNotFoundException();
+		}
+		
 		return productService.getLogoByProductId(productId);
 	}
 	
