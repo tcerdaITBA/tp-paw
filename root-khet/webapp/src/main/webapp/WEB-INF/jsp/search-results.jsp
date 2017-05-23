@@ -29,7 +29,7 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
-						<h3 class="search-title"><spring:message code="searchResults.resultsFor" arguments="${queryText}"/></h3>
+						<h3 class="search-title result-text"><spring:message code="searchResults.resultsFor" arguments="${queryText}"/></h3>
 					</div>
 				</div>
 				<div class="row tabs-row">
@@ -45,7 +45,7 @@
 						<div class="col-md-3">
 							<div class="panel filter-panel">
 								<div class="panel-body">
-									<h4 class="filter-title">Filter by category</h4>
+									<h4 class="filter-title"><spring:message code="searchResults.filterByCategory"/></h4>
 									<c:forEach items="${categories}" var="category">
 										<div class="filter-item">
 											<label class="filter-checkbox" id="filter-${category.lowerName}" >
@@ -54,7 +54,7 @@
 											</label>
 										</div>
 									</c:forEach>
-									<a href="#" id="reset-filters-btn">Reset filters</a>
+									<a href="#" id="reset-filters-btn"><spring:message code="searchResults.resetFilters"/></a>
 								</div>
 							</div>
 						</div>
@@ -69,12 +69,12 @@
 											<div class="row col-md-12">
 												<div class="row product-name">
 													<div class="col-md-12">
-														<p><c:out value="${product.name}"/></p>
+														<p class="result-text"><c:out value="${product.name}"/></p>
 													</div>
 												</div>
 												<div class="row product-short-description">
 													<div class="col-md-12">
-														<p><c:out value="${product.shortDescription}"/></p>
+														<p class="result-text"><c:out value="${product.shortDescription}"/></p>
 													</div>
 												</div>
 												<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="row product-category-btn product-category">
@@ -104,7 +104,7 @@
 												<div class="col-md-12">
 													<div class="profile-name-holder">
 														<span class="glyphicon glyphicon-user"></span>
-														<span class="profile-name"><c:out value="${user.name}"/></span>
+														<span class="profile-name result-text"><c:out value="${user.name}"/></span>
 													</div>
 												</div>
 											</div>
