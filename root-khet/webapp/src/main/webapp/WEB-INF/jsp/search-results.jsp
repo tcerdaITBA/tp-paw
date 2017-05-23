@@ -42,85 +42,99 @@
 				</div>
 				<div class="tab-content">
 					<div id="products-pane" class="tab-pane fade in active row result-for-products">
-						<div class="col-md-3">
-							<div class="panel filter-panel">
-								<div class="panel-body">
-									<h4 class="filter-title"><spring:message code="searchResults.filterByCategory"/></h4>
-									<c:forEach items="${categories}" var="category">
-										<div class="filter-item">
-											<label class="filter-checkbox" id="filter-${category.lowerName}" >
-												<input type="checkbox" name="category" value="${category.lowerName}">
-												<spring:message code="category.${category.lowerName}"/>
-											</label>
+						<c:choose>
+							<c:when test="${products.isEmpty()}">
+								<h1>ZRP PRODUCTS</h1>
+							</c:when>
+							<c:otherwise>
+								<div class="col-md-3">
+									<div class="panel filter-panel">
+										<div class="panel-body">
+											<h4 class="filter-title"><spring:message code="searchResults.filterByCategory"/></h4>
+											<c:forEach items="${categories}" var="category">
+												<div class="filter-item">
+													<label class="filter-checkbox" id="filter-${category.lowerName}" >
+														<input type="checkbox" name="category" value="${category.lowerName}">
+														<spring:message code="category.${category.lowerName}"/>
+													</label>
+												</div>
+											</c:forEach>
+											<a href="#" id="reset-filters-btn"><spring:message code="searchResults.resetFilters"/></a>
 										</div>
-									</c:forEach>
-									<a href="#" id="reset-filters-btn"><spring:message code="searchResults.resetFilters"/></a>
+									</div>
 								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<c:forEach items="${products}" var="product">
-								<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
-									<div class="row product-list-item vertical-align">
-										<div class="col-md-3 product-logo">
-											<img src="<c:url value="/product/${product.id}/logo"/>">
-										</div>
-										<div class="col-md-9 product-info-box">
-											<div class="row col-md-12">
-												<div class="row product-name">
-													<div class="col-md-12">
-														<p class="result-text"><c:out value="${product.name}"/></p>
+								<div class="col-md-6">
+									<c:forEach items="${products}" var="product">
+										<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
+											<div class="row product-list-item vertical-align">
+												<div class="col-md-3 product-logo">
+													<img src="<c:url value="/product/${product.id}/logo"/>">
+												</div>
+												<div class="col-md-9 product-info-box">
+													<div class="row col-md-12">
+														<div class="row product-name">
+															<div class="col-md-12">
+																<p class="result-text"><c:out value="${product.name}"/></p>
+															</div>
+														</div>
+														<div class="row product-short-description">
+															<div class="col-md-12">
+																<p class="result-text"><c:out value="${product.shortDescription}"/></p>
+															</div>
+														</div>
+														<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="row product-category-btn product-category">
+															<div class="col-md-4">
+																<div class="categoryTag">
+																	<p><spring:message code="category.${product.category.lowerName}"/></p>
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
-												<div class="row product-short-description">
-													<div class="col-md-12">
-														<p class="result-text"><c:out value="${product.shortDescription}"/></p>
-													</div>
+											</div>	
+										</a>				
+									</c:forEach>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div id="users-pane" class="tab-pane fade row result-for-users">
+						<c:choose>
+							<c:when test="${users.isEmpty()}">
+								<h1>ZRP USERS</h1>
+							</c:when>
+							<c:otherwise>
+								<div class="col-md-6 col-md-offset-3">
+									<c:forEach items="${users}" var="user">
+										<a href="<c:url value="/profile/${user.userId}"/>">
+											<div class="row user-info-box">
+												<div class="col-md-3 img-col">
+													<img class="profile-img-circle" src="<c:url value="/profile/${user.userId}/profilePicture"/>">
 												</div>
-												<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="row product-category-btn product-category">
-													<div class="col-md-4">
-														<div class="categoryTag">
-															<p><spring:message code="category.${product.category.lowerName}"/></p>
+												<div class="col-md-9">
+													<div class="row">
+														<div class="col-md-12">
+															<div class="profile-name-holder">
+																<span class="glyphicon glyphicon-user"></span>
+																<span class="profile-name result-text"><c:out value="${user.name}"/></span>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<div class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
+																<span class="glyphicon glyphicon-envelope"></span>
+																<p><c:out value="${user.email}"/></p>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>	
-								</a>				
-							</c:forEach>
-						</div>
-					</div>
-					<div id="users-pane" class="tab-pane fade row result-for-users">
-						<div class="col-md-6 col-md-offset-3">
-							<c:forEach items="${users}" var="user">
-								<a href="<c:url value="/profile/${user.userId}"/>">
-									<div class="row user-info-box">
-										<div class="col-md-3 img-col">
-											<img class="profile-img-circle" src="<c:url value="/profile/${user.userId}/profilePicture"/>">
-										</div>
-										<div class="col-md-9">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="profile-name-holder">
-														<span class="glyphicon glyphicon-user"></span>
-														<span class="profile-name result-text"><c:out value="${user.name}"/></span>
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<div class="creator-mail" href="mailto:<c:out value="${user.email}"/>">
-														<span class="glyphicon glyphicon-envelope"></span>
-														<p><c:out value="${user.email}"/></p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</a>
-							</c:forEach>
-						</div>
+										</a>
+									</c:forEach>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<%@include file="includes/footer.jsp"%>
