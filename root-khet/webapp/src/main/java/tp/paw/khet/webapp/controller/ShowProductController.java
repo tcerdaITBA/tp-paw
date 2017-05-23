@@ -105,6 +105,13 @@ public class ShowProductController {
 							   final BindingResult errors,
 							   final RedirectAttributes attr) {
 		
+		Product product = productService.getPlainProductById(productId);
+		
+		if (product == null) {
+			LOGGER.warn("Failed to comment product with id {}: product doesn´t existS", productId);
+			throw new ProductNotFoundException();
+		}
+		
 		if (loggedUser == null) {
 			LOGGER.warn("Failed to comment product with id {}: no user logged", productId);
 			throw new UnauthorizedException();
