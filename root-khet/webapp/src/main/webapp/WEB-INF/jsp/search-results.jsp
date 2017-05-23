@@ -45,7 +45,7 @@
 						<c:choose>
 							<c:when test="${products.isEmpty()}">
 								<div class="col-md-6 col-md-offset-3">
-									<div id="product-search-zrp">
+									<div id="product-search-zrp" class="zrp">
 										<h2><spring:message code="searchZRP.notFound"/></h2>
 										<h3 class="result-text"><spring:message code="searchZRP.noProducts" arguments="${queryText}"/></h3>
 										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>	
@@ -108,7 +108,7 @@
 						<c:choose>
 							<c:when test="${users.isEmpty()}">
 								<div class="col-md-6 col-md-offset-3">
-									<div id="user-search-zrp">
+									<div id="user-search-zrp" class="zrp">
 										<h2><spring:message code="searchZRP.notFound"/></h2>
 										<h3 class="result-text"><spring:message code="searchZRP.noUsers" arguments="${queryText}"/></h3>
 										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>
