@@ -91,7 +91,7 @@ public class ShowProductController {
 		Product product = productService.getFullProductById(productId);
 		
 		if (product == null) {
-			LOGGER.warn("Failed to show product with id {}: product not found", productId);
+			LOGGER.warn("Failed to render product with id {}: product not found", productId);
 			throw new ProductNotFoundException();
 		}
 		
@@ -171,14 +171,14 @@ public class ShowProductController {
 		Product product = productService.getPlainProductById(productId);
 		
 		if (product == null) {
-			LOGGER.warn("Failed to show product with id {}: product not found", productId);
+			LOGGER.warn("Failed to render product with id {}: product not found", productId);
 			throw new ProductNotFoundException();
 		}
 		
 		ProductImage image =  productImageService.getImageByIds(imageId, productId);
 		
 		if (image == null) {
-			LOGGER.warn("Failed to show image with id {}: image not found", imageId);
+			LOGGER.warn("Failed to render image with id {}: image not found", imageId);
 			throw new ImageNotFoundException();
 		}
 		
@@ -192,7 +192,7 @@ public class ShowProductController {
 		Product product = productService.getPlainProductById(productId);
 		
 		if (product == null) {
-			LOGGER.warn("Failed to show logo of product with id {}: product not found", productId);
+			LOGGER.warn("Failed to render logo of product with id {}: product not found", productId);
 			throw new ProductNotFoundException();
 		}
 		
