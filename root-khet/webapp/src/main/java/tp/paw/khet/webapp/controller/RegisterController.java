@@ -49,14 +49,14 @@ public class RegisterController {
 
 		LOGGER.debug("Accessed register POST");
 		
-		FormPassword passwordForm = createUserForm.getPasswordForm();
+		final FormPassword passwordForm = createUserForm.getPasswordForm();
 		
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to register user: form has error: {}", errors.getAllErrors());
 			return errorState(createUserForm, errors, attr);
 		}
 		
-		User user;
+		final User user;
 		
 		try {
 			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), passwordForm.getPassword(), createUserForm.getProfilePicture().getBytes());
@@ -68,7 +68,7 @@ public class RegisterController {
 		
 		LOGGER.info("New user with id {} registered", user.getUserId());
 		
-		Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+		final Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:/");
 	}
