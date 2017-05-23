@@ -24,7 +24,7 @@
 			<link href="<c:url value="/resources/css/profile.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/customizeUser.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
-			
+            <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
 			
 			<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 
@@ -92,12 +92,15 @@
 							<c:otherwise>
 							<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${capitalizedUserName}"/></h2>
 							<div class="col-md-12 product-list">
-								<c:forEach items="${products}" var="product">									
+								<c:forEach items="${products}" var="product">
+                                    <!-- The Modal -->
+                                    <%@include file="includes/deleteModal.jsp"%>
+
 									<a href="<c:url value="/product/${product.id}"/>">
 										<div class="row product-list-item">
                                             <sec:authorize access="isAuthenticated()">
                                                 <c:if test="${loggedUser.userId == profileUser.userId}">
-                                                    <span id="delete${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+                                                    <span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
                                                 </c:if>
                                             </sec:authorize>
                                             <div class="col-md-3 product-logo">
@@ -126,58 +129,17 @@
 											</div>
 										</div>	
 									</a>
-									
-									<!-- The Modal -->
-									<div id="deleteModal" class="modal fade">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-										            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										            <h4 class="modal-title">
-														<span class="glyphicon glyphicon-trash"></span>
-														<spring:message code="Profile.modal.deleteProduct"/>
-													</h4>	
-										        </div>
-											    <div class="modal-body">
-												
-											    <div class="row">
-											    	<div class="col-md-12">
-											    		<p class="modal-text"><spring:message code="Profile.modal.textBeginning" />
-											    		<span class="modal-product-name"><c:out value="${product.name}" /></span>
-											    		<spring:message code="Profile.modal.textEnd" /></p>
-											  		</div>
-											  	</div>
-											  	<div class="row row-centered">
-													<div class="col-md-12">
-														<c:url value="/delete/product/${product.id}" var="deletePath" />
-														<form:form action="${deletePath}" method="post">
-															<input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
-															<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
-														</form:form>
-													</div>
-												</div>
-																
-											  </div>	
-													
-												</div>
-											</div>	
-										</div>
 								</c:forEach>
 							</div>
 						</c:otherwise>
 					</c:choose>									
 				</div>
-			</div>				
+			</div>
 		</div>
 			<%@include file="includes/changePictureModal.jsp"%>
 			<%@include file="includes/changePasswordModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
             <%@include file="includes/scripts.jsp"%>
-			<script>
-				var passError = "${passError}";
-                var passFeedback = "${passFeedback}";
-				var imgError = "${imgError}";
-			</script>
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		
 			<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
 		</body>
