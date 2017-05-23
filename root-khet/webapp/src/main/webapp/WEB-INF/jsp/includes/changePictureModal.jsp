@@ -23,13 +23,14 @@
 								class="form-horizontal">
 						<div class="row row-centered">
 							<div class="col-md-12">
-								<div class="form-group">
-							
+								<div class="form-group">							
+<!--
 								<div class="row">
 									<div class="col-md-12">
 										<h2 class="change-title"><spring:message code="Profile.settings.changePicture"/></h2>								
 									</div>
 								</div>
+-->
 								<div class="row">
 								<div class="col-md-6 col-md-offset-3">
 									<div class="profile-img-input">
@@ -39,7 +40,7 @@
 												<img src="#" class="preview-image">
 												<span class="add-img-text">
 													<span class="glyphicon glyphicon-plus"></span>
-													<spring:message code="userFormLabel.profilePicture"/>
+													<spring:message code="userFormLabel.newProfilePicture"/>
 												</span>
 												<div class="remove-btn glyphicon glyphicon-remove"></div>
 											</div>

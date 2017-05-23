@@ -176,8 +176,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<%@include file="includes/footer.jsp"%>
+	</div>
 	<%@include file="includes/scripts.jsp"%>
 	<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
 	</body>
