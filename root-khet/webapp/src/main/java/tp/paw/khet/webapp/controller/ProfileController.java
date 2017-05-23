@@ -25,6 +25,7 @@ import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
 
@@ -94,6 +95,11 @@ public class ProfileController {
 		}
 		
 		final User productCreator = product.getCreator();
+		
+		if (loggedUser == null) {
+			LOGGER.warn("Failed to delete product with id {}: no user logged", productId);
+			throw new UnauthorizedException();
+		}
 		
 		if (!loggedUser.equals(productCreator)) {
 			LOGGER.warn("Failed to delete product with id {}: logged user with id {} is not product creator with id {}", 
