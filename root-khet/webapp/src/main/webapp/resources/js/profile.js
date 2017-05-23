@@ -2,7 +2,7 @@ function glowObject(object) {
 	object.addClass('glow-active');
 	setTimeout(function() {
 		object.addClass('glow-remove');
-	}, 3000);
+	}, 600);
 }
 
 $(document).ready(function() {

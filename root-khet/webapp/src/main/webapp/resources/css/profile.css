@@ -13,12 +13,12 @@
 }
 
 .glow-active {
-	box-shadow: 0 0 2em blue;
-	transition: box-shadow 1s linear;
+	box-shadow: 0 0 1.5em #33bb9c;
+	transition: box-shadow 0.4s linear;
 }
 
 .glow-remove {
-	transition: box-shadow 5s linear;
+	transition: box-shadow 1s linear;
 	box-shadow: none;
 }
 
