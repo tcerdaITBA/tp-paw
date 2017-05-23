@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         
-        <title><spring:message code="error.title.403"/></title>
+        <title><spring:message code="error.title.401"/></title>
         
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<!-- Latest compiled and minified CSS -->

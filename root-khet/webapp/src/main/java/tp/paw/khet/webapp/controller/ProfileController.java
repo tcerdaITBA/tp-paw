@@ -77,7 +77,6 @@ public class ProfileController {
 		return mav;
 	}
 	
-
 	@ModelAttribute("changePasswordForm")
 	public FormChangePassword passwordForm(@ModelAttribute("loggedUser") final User loggedUser){
 		return new FormChangePassword();
@@ -117,7 +116,7 @@ public class ProfileController {
 		
 		if (product == null) {
 			LOGGER.warn("Failed to delete product with id {}: product not found", productId);
-			throw new UserNotFoundException();
+			throw new ProductNotFoundException();
 		}
 		
 		final User productCreator = product.getCreator();
