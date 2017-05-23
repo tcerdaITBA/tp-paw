@@ -93,16 +93,15 @@
 							<div class="col-md-12 product-list">
 								<c:forEach items="${products}" var="product">
                                     <!-- The Modal -->
-                                    <%@include file="includes/deleteModal.jsp"%>
-
+									<%@include file="includes/deleteModal.jsp"%></%@include>
 									<a href="<c:url value="/product/${product.id}"/>">
 										<div class="row product-list-item">
-                                            <sec:authorize access="isAuthenticated()">
-                                                <c:if test="${loggedUser.userId == profileUser.userId}">
-                                                    <span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-                                                </c:if>
-                                            </sec:authorize>
-                                            <div class="col-md-3 product-logo">
+											<sec:authorize access="isAuthenticated()">
+													<c:if test="${loggedUser.userId == profileUser.userId}">
+															<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+													</c:if>
+											</sec:authorize>
+											<div class="col-md-3 product-logo">
 												<img src="<c:url value="/product/${product.id}/logo"/>">
 											</div>
 											<div class="col-md-9 product-info-box">
@@ -132,14 +131,13 @@
 					</c:choose>									
 				</div>
 			</div>
-		</div>
-			<%@include file="includes/changePictureModal.jsp"%>
-			<%@include file="includes/changePasswordModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
-            <%@include file="includes/scripts.jsp"%>
-
-			<script src="<c:url value="/resources/js/profile.js" />"></script>		
-			<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
+		</div>
 		</body>
-		
+		<%@include file="includes/changePictureModal.jsp"%>
+		<%@include file="includes/changePasswordModal.jsp"%>
+		<%@include file="includes/scripts.jsp"%>
+
+		<script src="<c:url value="/resources/js/profile.js" />"></script>		
+		<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
 	</html>

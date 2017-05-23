@@ -89,6 +89,8 @@ public class ProfileCustomizeController {
 			return mav;
 		}
 		
+		attr.addFlashAttribute("imgFeedback", true);
+		
 		try {
 			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePicture().getBytes());
 		} catch (IOException e) {

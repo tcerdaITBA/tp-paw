@@ -11,7 +11,8 @@
     var passError = "${passError}";
     var passFeedback = "${passFeedback}";
     var imgError = "${imgError}";
+		var imgFeedback = "${imgFeedback}";
     var productDeleted = "${productDeleted}";    
 </script>
-<script src="<c:url value="/resources/js/modalsShow.js"/>"></script>
+<script src="<c:url value="/resources/js/profile.js"/>"></script>
 <script src="<c:url value="/resources/js/product-list.js"/>"></script>
