@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.UserService;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
 import tp.paw.khet.webapp.form.FormPassword;
@@ -42,7 +43,13 @@ public class ProfileCustomizeController {
 	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
 	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
-			RedirectAttributes attr) {
+			RedirectAttributes attr) throws UnauthorizedException {
+		
+		if (loggedUser == null) {
+			LOGGER.warn("Failed to change password: no user logged");
+			throw new UnauthorizedException();
+		}
+			
 		
 		LOGGER.debug("User with id {} accessed change password POST", loggedUser.getUserId());
 		

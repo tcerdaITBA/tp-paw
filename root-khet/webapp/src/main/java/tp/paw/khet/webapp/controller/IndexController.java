@@ -40,7 +40,7 @@ public class IndexController {
 	}
     
 	@RequestMapping("/")
-	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws ResourceNotFoundException {
 		LOGGER.debug("Accessed index with page {}", page);
 		
 	    int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);

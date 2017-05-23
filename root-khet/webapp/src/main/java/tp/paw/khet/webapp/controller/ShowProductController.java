@@ -113,7 +113,7 @@ public class ShowProductController {
 							   @RequestParam(value = "index", required = false) final Optional<Integer> replyCommentIndex,
 							   @Valid @ModelAttribute("commentsForm") final FormComments form, 
 							   final BindingResult errors,
-							   final RedirectAttributes attr) {
+							   final RedirectAttributes attr) throws ProductNotFoundException, UnauthorizedException {
 		
 		Product product = productService.getPlainProductById(productId);
 		
@@ -166,7 +166,7 @@ public class ShowProductController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
-	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) {
+	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) throws ProductNotFoundException {
 		
 		Product product = productService.getPlainProductById(productId);
 		
@@ -187,7 +187,7 @@ public class ShowProductController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/product/{productId}/logo", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
-	public byte[] deliverLogo(@PathVariable(value = "productId") int productId) {
+	public byte[] deliverLogo(@PathVariable(value = "productId") int productId) throws ProductNotFoundException {
 		
 		Product product = productService.getPlainProductById(productId);
 		
