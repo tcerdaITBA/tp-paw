@@ -35,7 +35,7 @@ public class SearchController {
             throw new InvalidQueryException();
         }
         
-        ModelAndView mav = new ModelAndView("search-results");
+        final ModelAndView mav = new ModelAndView("search-results");
         mav.addObject("products", productService.getPlainProductsByKeyword(query, MAX_RESULTS));
         mav.addObject("categories", Category.values());
         mav.addObject("users", userService.getUsersByKeyword(query, MAX_RESULTS));

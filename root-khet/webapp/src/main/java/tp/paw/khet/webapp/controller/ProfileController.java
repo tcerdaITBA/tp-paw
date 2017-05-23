@@ -52,8 +52,8 @@ public class ProfileController {
 	public ModelAndView user(@PathVariable final int userId) throws UserNotFoundException {
 		LOGGER.debug("Accessed user profile with ID: {}", userId);
 		
-		ModelAndView mav = new ModelAndView("profile");
-		User user = userService.getUserById(userId);
+		final ModelAndView mav = new ModelAndView("profile");
+		final User user = userService.getUserById(userId);
 				
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile: user ID not found: {}", userId);

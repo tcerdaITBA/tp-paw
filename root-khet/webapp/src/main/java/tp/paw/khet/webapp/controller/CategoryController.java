@@ -30,7 +30,7 @@ public class CategoryController {
 		
 		LOGGER.debug("Accessed category {} with page {}", category, page);
 		
-		int maxPage = productService.getMaxProductPageInCategoryWithSize(category, PAGE_SIZE);
+		final int maxPage = productService.getMaxProductPageInCategoryWithSize(category, PAGE_SIZE);
 	     
         if (page < 1 || page > maxPage && maxPage > 0) {
         	LOGGER.warn("Category page out of bounds: {}", page);

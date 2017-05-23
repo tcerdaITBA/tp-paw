@@ -26,7 +26,7 @@ public class IndexController {
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws ResourceNotFoundException {
 		LOGGER.debug("Accessed index with page {}", page);
 		
-	    int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);
+	    final int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);
 	    
 	    if (page < 1 || page > maxPage && maxPage > 0) {
 	    	LOGGER.warn("Index page out of bounds: {}", page);
