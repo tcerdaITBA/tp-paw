@@ -29,7 +29,7 @@ import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
-import tp.paw.khet.webapp.exception.ResourceNotFoundException;
+import tp.paw.khet.webapp.exception.ProductNotFoundException;
 import tp.paw.khet.webapp.form.FormComment;
 import tp.paw.khet.webapp.form.FormComments;
 
@@ -50,7 +50,7 @@ public class ShowProductController {
 	@Autowired
 	private SecurityUserService securityUserService;
 	
-	@ExceptionHandler(ResourceNotFoundException.class)
+	@ExceptionHandler(ProductNotFoundException.class)
 	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	public ModelAndView productNotFound() {
 		ModelAndView mav = new ModelAndView("404product");
@@ -65,7 +65,7 @@ public class ShowProductController {
 	
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
 	public ModelAndView getProduct(@PathVariable final int productId) 
-	throws ResourceNotFoundException {
+	throws ProductNotFoundException {
 		
 		LOGGER.debug("Accessed product with id {}", productId);
 		
@@ -73,7 +73,7 @@ public class ShowProductController {
 		
 		if (product == null) {
 			LOGGER.warn("Failed to show product with id {}: product not found", productId);
-			throw new ResourceNotFoundException();
+			throw new ProductNotFoundException();
 		}
 		
 		ModelAndView mav = new ModelAndView("product");

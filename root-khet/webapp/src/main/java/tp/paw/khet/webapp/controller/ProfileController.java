@@ -23,9 +23,10 @@ import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
-import tp.paw.khet.webapp.exception.ForbiddenException;
-import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 import tp.paw.khet.webapp.exception.UnauthorizedException;
+import tp.paw.khet.webapp.exception.ForbiddenException;
+import tp.paw.khet.webapp.exception.ProductNotFoundException;
+import tp.paw.khet.webapp.exception.UserNotFoundException;
 import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
 
@@ -44,13 +45,38 @@ public class ProfileController {
     @Autowired
     private SecurityUserService securityUserService;
 
-	@ExceptionHandler(ResourceNotFoundException.class)
+	@ExceptionHandler(UserNotFoundException.class)
 	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	public ModelAndView userNotFound() {
 		ModelAndView mav = new ModelAndView("404user");
 		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
 		return mav;
 	}
+	
+	@ExceptionHandler(ProductNotFoundException.class)
+	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	public ModelAndView productNotFound() {
+		ModelAndView mav = new ModelAndView("404product");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
+	}
+	
+	@ExceptionHandler(ForbiddenException.class)
+	@ResponseStatus(value=HttpStatus.FORBIDDEN)
+	public ModelAndView Forbidden() {
+		ModelAndView mav = new ModelAndView("403");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
+	}
+	
+	@ExceptionHandler(UnauthorizedException.class)
+	@ResponseStatus(value=HttpStatus.UNAUTHORIZED)
+	public ModelAndView Unauthorized() {
+		ModelAndView mav = new ModelAndView("401");
+		mav.addObject("loggedUser", securityUserService.getLoggedInUser());
+		return mav;
+	}
+	
 
 	@ModelAttribute("changePasswordForm")
 	public FormChangePassword passwordForm(@ModelAttribute("loggedUser") final User loggedUser){
@@ -63,7 +89,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping("/profile/{userId}")
-	public ModelAndView user(@PathVariable final int userId) throws ResourceNotFoundException {
+	public ModelAndView user(@PathVariable final int userId) throws UserNotFoundException {
 		LOGGER.debug("Accessed user profile with ID: {}", userId);
 		
 		ModelAndView mav = new ModelAndView("profile");
@@ -71,7 +97,7 @@ public class ProfileController {
 				
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile: user ID not found: {}", userId);
-			throw new ResourceNotFoundException();
+			throw new UserNotFoundException();
 		}
 				
 		mav.addObject("profileUser", user);
@@ -83,7 +109,7 @@ public class ProfileController {
 	public ModelAndView deleteProduct(@PathVariable final int productId, @ModelAttribute("loggedUser") final User loggedUser, 
 			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
 			final RedirectAttributes attr)
-	throws ResourceNotFoundException, ForbiddenException {
+	throws ProductNotFoundException, ForbiddenException, UnauthorizedException {
 		
 		LOGGER.debug("Accessed delete product POST for product with id: {} from {}", productId, referrer);
 		
@@ -91,7 +117,7 @@ public class ProfileController {
 		
 		if (product == null) {
 			LOGGER.warn("Failed to delete product with id {}: product not found", productId);
-			throw new ResourceNotFoundException();
+			throw new UserNotFoundException();
 		}
 		
 		final User productCreator = product.getCreator();
