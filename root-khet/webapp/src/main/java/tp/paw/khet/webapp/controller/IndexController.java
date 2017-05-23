@@ -19,11 +19,11 @@ public class IndexController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 	private static final int PAGE_SIZE = 10; 
 	
-    @Autowired
+	@Autowired
     private ProductService productService;
-        
+
 	@RequestMapping("/")
-	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws ResourceNotFoundException {
 		LOGGER.debug("Accessed index with page {}", page);
 		
 	    int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);

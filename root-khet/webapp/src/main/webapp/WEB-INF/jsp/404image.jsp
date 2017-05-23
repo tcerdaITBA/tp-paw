@@ -5,9 +5,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title><spring:message code="error.title.404user"/></title>
+        <title><spring:message code="error.title.404image"/></title>
         
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<!-- Latest compiled and minified CSS -->
@@ -27,14 +27,14 @@
 	<%@include file="includes/navbar.jsp" %>
 	<div class="container">
 		<h1>
-			<spring:message code="error.404user"/>
+			<spring:message code="error.404image"/>
 		</h1>
 		
 		<div class="row col-md-8 col-md-offset-2">
 			<div class="errorDescription">
 				<h2><spring:message code="error.tear"/></h2>
-				<h3><spring:message code="error.userNotFound"/></h3>
-				<p><spring:message code="error.userNotFoundDesc"/></p>
+				<h3><spring:message code="error.imageNotFound"/></h3>
+				<p><spring:message code="error.imageNotFoundDesc"/></p>
 			</div>
 		</div>
 	

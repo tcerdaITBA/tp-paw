@@ -6,8 +6,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title><spring:message code="error.title.404user"/></title>
+        
+        
+        <title><spring:message code="error.title.401"/></title>
         
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<!-- Latest compiled and minified CSS -->
@@ -21,26 +22,26 @@
 		<link href="<c:url value="/resources/css/errorcodes.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
- 
+
 	</head>
 	<body>
 	<%@include file="includes/navbar.jsp" %>
 	<div class="container">
 		<h1>
-			<spring:message code="error.404user"/>
+			<spring:message code="error.401"/>
 		</h1>
 		
 		<div class="row col-md-8 col-md-offset-2">
 			<div class="errorDescription">
 				<h2><spring:message code="error.tear"/></h2>
-				<h3><spring:message code="error.userNotFound"/></h3>
-				<p><spring:message code="error.userNotFoundDesc"/></p>
+				<h3><spring:message code="error.unAuthorized"/></h3>
+				<p><spring:message code="error.unAuthorizedDesc"/></p>
 			</div>
 		</div>
 	
 	</div>
 	<%@include file="includes/footer.jsp"%>
-	<%@include file="includes/scripts.jsp"%>	
+    <%@include file="includes/scripts.jsp"%>
 	</body>
 
 </html>
