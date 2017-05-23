@@ -3,7 +3,14 @@
     <!-- Generator: Sketch 3.8.1 (29687) - http://www.bohemiancoding.com/sketch -->
     <title>Logo wide</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+			<style type="text/css">
+				@font-face {
+					font-family: Delicious;
+					src: url('https://fonts.googleapis.com/css?family=Montserrat');
+				}
+  		</style>
+		</defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Artboard-2" transform="translate(-358.000000, -311.000000)" fill="#F64763">
             <g id="Logo-wide" transform="translate(358.000000, 311.000000)">
