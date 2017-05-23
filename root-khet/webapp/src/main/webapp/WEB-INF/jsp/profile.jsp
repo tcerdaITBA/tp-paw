@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
     <c:set var="capitalizedUserName" value="${fn:toUpperCase(fn:substring(profileUser.name, 0, 1))}${fn:substring(profileUser.name, 1,fn:length(profileUser.name))}" />
     
@@ -16,8 +17,6 @@
 						rel="stylesheet"
 						integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 						crossorigin="anonymous">
-			<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
-			<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
 			<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
@@ -117,14 +116,12 @@
 														<p><c:out value="${product.shortDescription}"/></p>
 													</div>
 												</div>
-												<div class="row">
-													<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
-														<div class="col-md-3">
-															<div class="categoryTag">
-																<p><spring:message code="category.${product.category.lowerName}"/></p>
-															</div>
+												<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="row product-category-btn product-category">
+													<div class="col-md-4">
+														<div class="categoryTag">
+															<p><spring:message code="category.${product.category.lowerName}"/></p>
 														</div>
-													</a>
+													</div>
 												</div>
 											</div>
 										</div>	
@@ -140,6 +137,7 @@
 			<%@include file="includes/changePasswordModal.jsp"%>
 			<%@include file="includes/footer.jsp"%>
             <%@include file="includes/scripts.jsp"%>
+
 			<script src="<c:url value="/resources/js/profile.js" />"></script>		
 			<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
 		</body>

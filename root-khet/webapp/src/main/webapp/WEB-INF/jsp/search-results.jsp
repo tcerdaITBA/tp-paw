@@ -42,9 +42,25 @@
 				</div>
 				<div class="tab-content">
 					<div id="products-pane" class="tab-pane fade in active row result-for-products">
-						<div class="col-md-6 col-md-offset-3">
+						<div class="col-md-3">
+							<div class="panel filter-panel">
+								<div class="panel-body">
+									<h4 class="filter-title">Filter by category</h4>
+									<c:forEach items="${categories}" var="category">
+										<div class="filter-item">
+											<label class="filter-checkbox" id="filter-${category.lowerName}" >
+												<input type="checkbox" name="category" value="${category.lowerName}">
+												<spring:message code="category.${category.lowerName}"/>
+											</label>
+										</div>
+									</c:forEach>
+									<a href="#" id="reset-filters-btn">Reset filters</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
 							<c:forEach items="${products}" var="product">
-								<a href="<c:url value="/product/${product.id}"/>">
+								<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
 									<div class="row product-list-item vertical-align">
 										<div class="col-md-3 product-logo">
 											<img src="<c:url value="/product/${product.id}/logo"/>">
@@ -61,7 +77,7 @@
 														<p><c:out value="${product.shortDescription}"/></p>
 													</div>
 												</div>
-												<div class="row product-category">
+												<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="row product-category-btn product-category">
 													<div class="col-md-4">
 														<div class="categoryTag">
 															<p><spring:message code="category.${product.category.lowerName}"/></p>
@@ -112,7 +128,7 @@
 		</div>
 	</div>
 
-
 	<%@include file="includes/scripts.jsp"%>
+	<script src="<c:url value="/resources/js/search-results.js"/>"></script>
 </body>
 </html>
