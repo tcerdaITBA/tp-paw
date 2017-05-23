@@ -94,6 +94,7 @@
 					<div id="users-pane" class="tab-pane fade row result-for-users">
 						<div class="col-md-6 col-md-offset-3">
 							<c:forEach items="${users}" var="user">
+                                <c:set var="capitalizedUserName" value="${fn:toUpperCase(fn:substring(user.name, 0, 1))}${fn:substring(user.name, 1,fn:length(user.name))}" />
 								<a href="<c:url value="/profile/${user.userId}"/>">
 									<div class="row user-info-box">
 										<div class="col-md-3 img-col">
@@ -104,7 +105,7 @@
 												<div class="col-md-12">
 													<div class="profile-name-holder">
 														<span class="glyphicon glyphicon-user"></span>
-														<span class="profile-name"><c:out value="${user.name}"/></span>
+														<span class="profile-name"><c:out value="${capitalizedUserName}"/></span>
 													</div>
 												</div>
 											</div>

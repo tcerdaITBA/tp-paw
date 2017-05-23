@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
 import tp.paw.khet.Product.ProductBuilder;
+import tp.paw.khet.interfaces.PlainProduct;
 import tp.paw.khet.persistence.rowmapper.PlainProductRowMapper;
 import tp.paw.khet.persistence.rowmapper.ProductBuilderRowMapper;
 
@@ -41,13 +42,13 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public List<Product> getPlainProducts() {
+	public List<PlainProduct> getPlainProducts() {
 		return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products ORDER BY uploadDate DESC", 
 				plainProductRowMapper);
 	}
 
 	@Override
-	public List<Product> getPlainProductsByCategory(String category) {
+	public List<PlainProduct> getPlainProductsByCategory(String category) {
 		return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE category = ? ORDER BY uploadDate DESC", 
 				plainProductRowMapper, category.toUpperCase(Locale.ENGLISH));
 	}
@@ -63,8 +64,8 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public Product getPlainProductById(int productId) {
-		List<Product> product = jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE productId = ?", 
+	public PlainProduct getPlainProductById(int productId) {
+		List<PlainProduct> product = jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE productId = ?", 
 				plainProductRowMapper, productId);
 		
 		if (product.isEmpty())
@@ -74,7 +75,7 @@ public class ProductJdbcDao implements ProductDao {
 	}
 	
 	@Override
-	public List<Product> getPlainProductsByUserId(int userId) {
+	public List<PlainProduct> getPlainProductsByUserId(int userId) {
 		return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE userId = ? ORDER BY uploadDate DESC", 
 				plainProductRowMapper, userId);
 	}
@@ -113,13 +114,13 @@ public class ProductJdbcDao implements ProductDao {
 	}
 
     @Override
-    public List<Product> getPlainProductsRange(int offset, int length) {
+    public List<PlainProduct> getPlainProductsRange(int offset, int length) {
         return jdbcTemplate.query("SELECT productId, productName, shortDescription, category "
                 + "FROM products ORDER BY uploadDate DESC LIMIT ? OFFSET ?", plainProductRowMapper, length, offset);
     }
 
     @Override
-    public List<Product> getPlainProductsRangeByCategory(String category, int offset, int length) {
+    public List<PlainProduct> getPlainProductsRangeByCategory(String category, int offset, int length) {
         return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE category = ? "
                 + "ORDER BY uploadDate DESC LIMIT ? OFFSET ?", plainProductRowMapper, category.toUpperCase(Locale.ENGLISH), length, offset);
     }
@@ -142,27 +143,27 @@ public class ProductJdbcDao implements ProductDao {
 	}
 
     @Override
-    public List<Product> getPlainProductsRangeAlphabetically(int offset, int length) {
+    public List<PlainProduct> getPlainProductsRangeAlphabetically(int offset, int length) {
         return jdbcTemplate.query("SELECT productId, productName, shortDescription, category "
-                + "FROM products ORDER BY productName DESC LIMIT ? OFFSET ?", plainProductRowMapper, length, offset);
+                + "FROM products ORDER BY lower(productName) LIMIT ? OFFSET ?", plainProductRowMapper, length, offset);
     }
 
     @Override
-    public List<Product> getPlainProductsRangeAlphabeticallyByCategory(String category, int offset,
+    public List<PlainProduct> getPlainProductsRangeAlphabeticallyByCategory(String category, int offset,
             int length) {
         return jdbcTemplate.query("SELECT productId, productName, shortDescription, category FROM products WHERE category = ? "
-                + "ORDER BY productName DESC LIMIT ? OFFSET ?", plainProductRowMapper, category.toUpperCase(Locale.ENGLISH), length, offset);
+                + "ORDER BY lower(productName) LIMIT ? OFFSET ?", plainProductRowMapper, category.toUpperCase(Locale.ENGLISH), length, offset);
     }
 
 	@Override
-	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
+	public List<PlainProduct> getPlainProductsByKeyword(String keyword, int maxLength) {
 		String firstWordKeyword = keyword+"%";
 		String otherWordsKeyword = "% "+keyword+"%";
 		
 		String sql = "SELECT productId, productName, shortDescription, category FROM products WHERE "
 				+ "lower(productName) LIKE lower(?) OR lower(productName) LIKE lower(?) OR "
 				+ "lower(shortDescription) LIKE lower(?) OR lower(shortDescription) LIKE lower(?) "
-				+ "ORDER BY productName LIMIT ?";
+				+ "ORDER BY lower(productName) LIMIT ?";
 		
 		return jdbcTemplate.query(sql, plainProductRowMapper, firstWordKeyword, otherWordsKeyword, firstWordKeyword, otherWordsKeyword, maxLength);
 	}    

@@ -19,12 +19,11 @@ import tp.paw.khet.webapp.utils.CaseInsensitiveConverter;
 public class CategoryController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+	private static final int PAGE_SIZE = 10; 
 	
 	@Autowired
     private ProductService productService;
 
-	//TODO: sacar
-	private static int PAGE_SIZE = 10; 
 	
 	@RequestMapping(value = "/category/{category}")
 	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 

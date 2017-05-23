@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import tp.paw.khet.Category;
 import tp.paw.khet.Product;
+import tp.paw.khet.interfaces.PlainProduct;
 import tp.paw.khet.persistence.ProductDao;
 
 @Service
@@ -42,22 +43,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product getPlainProductById(final int productId) {
+	public PlainProduct getPlainProductById(final int productId) {
 		return productDao.getPlainProductById(productId);
 	}
 	
 	@Override
-	public List<Product> getPlainProducts() {
+	public List<PlainProduct> getPlainProducts() {
 		return productDao.getPlainProducts();
 	}
 
 	@Override
-	public List<Product> getPlainProductsByUserId(final int userId) {
+	public List<PlainProduct> getPlainProductsByUserId(final int userId) {
 		return productDao.getPlainProductsByUserId(userId);
 	}
 	
 	@Override
-	public List<Product> getPlainProductsByCategory(final Category category) {
+	public List<PlainProduct> getPlainProductsByCategory(final Category category) {
 		return productDao.getPlainProductsByCategory(category.name());
 	}
 	
@@ -83,12 +84,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
     @Override
-    public List<Product> getPlainProductsPaged(final int page, final int pageSize) {
+    public List<PlainProduct> getPlainProductsPaged(final int page, final int pageSize) {
         return productDao.getPlainProductsRange((page - 1) * pageSize, pageSize);
     }
 
     @Override
-    public List<Product> getPlainProductsByCategoryPaged(final Category category, final int page,
+    public List<PlainProduct> getPlainProductsByCategoryPaged(final Category category, final int page,
     		final int pageSize) {
         return productDao.getPlainProductsRangeByCategory(category.name(), (page - 1) * pageSize, pageSize);
     }
@@ -111,18 +112,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getPlainProductsAlphabeticallyPaged(final int page, final int pageSize) {
+    public List<PlainProduct> getPlainProductsAlphabeticallyPaged(final int page, final int pageSize) {
         return productDao.getPlainProductsRangeAlphabetically((page - 1) * pageSize, pageSize);
     }
 
     @Override
-    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(final Category category, final int page,
+    public List<PlainProduct> getPlainProductsAlphabeticallyByCategoryPaged(final Category category, final int page,
     		final int pageSize) {
         return productDao.getPlainProductsRangeAlphabeticallyByCategory(category.name(), (page - 1) * pageSize, pageSize);
     }
 
 	@Override
-	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
+	public List<PlainProduct> getPlainProductsByKeyword(String keyword, int maxLength) {
 		return productDao.getPlainProductsByKeyword(keyword, maxLength);
 	}
 }

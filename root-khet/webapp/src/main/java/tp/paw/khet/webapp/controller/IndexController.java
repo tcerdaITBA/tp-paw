@@ -17,13 +17,11 @@ import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 public class IndexController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+	private static final int PAGE_SIZE = 10; 
 	
     @Autowired
     private ProductService productService;
-    
-	//TODO: sacar
-    private static final int PAGE_SIZE = 10; 
-    
+        
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		LOGGER.debug("Accessed index with page {}", page);
