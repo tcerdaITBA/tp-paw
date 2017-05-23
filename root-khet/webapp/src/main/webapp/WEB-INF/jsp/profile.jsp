@@ -115,9 +115,9 @@
 														<p><c:out value="${product.shortDescription}"/></p>
 													</div>
 												</div>
-												<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="row product-category-btn product-category">
+												<div class="row product-category">
 													<div class="col-md-4">
-														<div class="categoryTag">
+														<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
 															<p><spring:message code="category.${product.category.lowerName}"/></p>
 														</div>
 													</div>
