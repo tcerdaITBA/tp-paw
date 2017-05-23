@@ -44,7 +44,13 @@
 					<div id="products-pane" class="tab-pane fade in active row result-for-products">
 						<c:choose>
 							<c:when test="${products.isEmpty()}">
-								<h1>ZRP PRODUCTS</h1>
+								<div class="col-md-6 col-md-offset-3">
+									<div id="product-search-zrp">
+										<h2><spring:message code="searchZRP.notFound"/></h2>
+										<h3 class="result-text"><spring:message code="searchZRP.noProducts" arguments="${queryText}"/></h3>
+										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>	
+									</div>
+								</div>
 							</c:when>
 							<c:otherwise>
 								<div class="col-md-3">
@@ -101,7 +107,13 @@
 					<div id="users-pane" class="tab-pane fade row result-for-users">
 						<c:choose>
 							<c:when test="${users.isEmpty()}">
-								<h1>ZRP USERS</h1>
+								<div class="col-md-6 col-md-offset-3">
+									<div id="user-search-zrp">
+										<h2><spring:message code="searchZRP.notFound"/></h2>
+										<h3 class="result-text"><spring:message code="searchZRP.noUsers" arguments="${queryText}"/></h3>
+										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>
+									</div>
+								</div>
 							</c:when>
 							<c:otherwise>
 								<div class="col-md-6 col-md-offset-3">
