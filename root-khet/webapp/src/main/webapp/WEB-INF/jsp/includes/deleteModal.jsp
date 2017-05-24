@@ -51,7 +51,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <p>
-                                <spring:message code="Profile.modal.body.feedbackDeleteModal.textBeginning" />
                                 <span class="modal-product-name"><c:out value="${productDeleted}" /></span>
                                 <spring:message code="Profile.modal.body.feedbackDeleteModal.textEnd" />
                             </p>
