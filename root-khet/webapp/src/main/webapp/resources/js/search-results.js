@@ -34,10 +34,6 @@ function showAllProducts() {
 
 function hideProductsWithCategory(category) {
 	forEachProduct(function() {
-		console.log("HIDING WITH CATEGORY");
-		console.log($(this).data('category'));
-		console.log(category);
-		
 		if($(this).data('category') === category)
 			$(this).hide();
 	});	
@@ -100,12 +96,6 @@ $(document).ready(function(){
 				hideProductsWithCategory(category);
 		}
 	});
-	
-//	var regex = RegExp(getParameterByName('query'), 'gi');
-//	var replacement = '<strong class="no-cap-strong">$&</strong>';
-//	$('.result-text').html(function() {
-//		return $(this).text().replace(regex, replacement);
-//	});
 	
 	$('.creator-mail').on('click', function() {
 		location.href = $(this).data('href');

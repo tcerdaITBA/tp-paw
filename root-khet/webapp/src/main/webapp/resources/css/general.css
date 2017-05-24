@@ -3,6 +3,10 @@ body {
 	padding-top: 70px;
 }
 
+p {
+	word-wrap: break-word;
+}
+
 .navbar-default {
 	background-color: #fff !important;
 	border-radius: 0;

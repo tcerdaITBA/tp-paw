@@ -92,7 +92,7 @@
                             <div class="col-md-4 website-btn-col">
                                 <c:if test="${not empty product.website}">
                                     <div class="website-btn-row">
-                                        <a href="${product.website}" class="ps-btn btn website-btn" target="_blank">
+                                        <a href="<c:out value="${product.website}">" class="ps-btn btn website-btn" target="_blank">
                                             <span class="glyphicon glyphicon-globe"></span>
                                             <spring:message code="productPage.visitWebsite"/>
                                         </a>
