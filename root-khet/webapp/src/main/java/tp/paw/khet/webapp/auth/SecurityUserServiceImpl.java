@@ -22,8 +22,12 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 	
 	@Override
 	public User getLoggedInUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
+		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (auth == null)
+			return null;
+		
+		final String email = auth.getName();
 		return userService.getUserByEmail(email);
 	}
 

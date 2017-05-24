@@ -33,6 +33,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 		http.userDetailsService(userDetailsService).sessionManagement()
 				  .invalidSessionUrl("/")
 			.and().authorizeRequests()
+				.antMatchers("/errors/**").permitAll()
 				.antMatchers("/upload").authenticated()
 				.antMatchers("/login").anonymous()
 				.antMatchers("/register").anonymous()

@@ -76,6 +76,7 @@
 	padding: 10px 20px;
 	margin-top: 20px;
 	border-color: #337ab7;
+	word-wrap: break-word;
 }
 
 .long-description p {
@@ -171,6 +172,7 @@
 
 .parent-comment, .child-comment {
 	margin-top: 1em;
+	word-wrap: break-word;
 }
 
 .comment-content p {
@@ -246,6 +248,7 @@
 
 .child-comment-row {
 	margin-top: 1em;
+	word-wrap: break-word;
 }
 
 .comment-content {
@@ -263,6 +266,7 @@
 	background-color: white;
 	padding-top: 20px;
 	padding-left: 30px;
+	word-wrap: break-word;
 }
 
 .anonymous-holder {
