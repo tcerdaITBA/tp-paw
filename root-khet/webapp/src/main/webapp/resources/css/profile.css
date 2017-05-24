@@ -33,6 +33,7 @@
 
 .profile-username, .profile-mail {
 	text-align: center;
+	word-wrap: break-word;
 }
 
 .profile-mail p, .profile-mail .glyphicon {
