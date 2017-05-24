@@ -52,12 +52,19 @@ nav img {
 }
 
 .popover {
-	width: 150% !important;
+	width: 15em !important;
 	text-align: center;
 }
 
 .popover-msg {
-	margin: 0;
+	margin: 0 !important;
+	font-size: 1em !important;
+	color: #000 !important;
+	font-weight: 400 !important;
+}
+
+.popover-msg a {
+	color: #337ab7;
 }
 
 textarea {
@@ -153,5 +160,5 @@ footer p {
 
 .modal-btn {
 	margin-left: 0.5em;
-    margin-right: 0.5em;
+  margin-right: 0.5em;
 }

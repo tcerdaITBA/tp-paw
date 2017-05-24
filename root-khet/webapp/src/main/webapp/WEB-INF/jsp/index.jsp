@@ -84,7 +84,14 @@
 									<p>
 										<span><spring:message code="categoryZRP.checkOther"/></span>
 										<span>
-											<a href="<c:url value="/upload"/>"><spring:message code="categoryZRP.postYourOwn"/></a>
+											<sec:authorize access="isAuthenticated()">
+												<a href="<c:url value="/upload"/>"><spring:message code="categoryZRP.postYourOwn"/></a>
+											</sec:authorize>
+											<sec:authorize access="isAnonymous()">
+												<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" 
+								 data-content="<p class='popover-msg'><span><spring:message code="navBar.toPost"/></span><a href='<c:url value="/login"/>'> <span> <spring:message code="navBar.signIn"/></span></a></p>" id="upload-popover">
+													<spring:message code="categoryZRP.postYourOwn"/></a>
+											</sec:authorize>
 										</span>
 									</p>
 								</div>
