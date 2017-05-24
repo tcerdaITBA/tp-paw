@@ -11,6 +11,18 @@ public class ErrorController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ErrorController.class);
 	
+	@RequestMapping("/errors/400")
+	public ModelAndView badRequest() {
+		LOGGER.warn("Bad Request");
+		return new ModelAndView("400");
+	}
+	
+	@RequestMapping("/errors/401")
+	public ModelAndView unauthorized() {
+		LOGGER.warn("Unauthorized");
+		return new ModelAndView("401");
+	}
+	
 	@RequestMapping("/errors/403")
 	public ModelAndView forbidden() {
 		LOGGER.warn("Forbidden");
@@ -23,9 +35,5 @@ public class ErrorController {
 		return new ModelAndView("404");
 	}
 	
-	@RequestMapping("/errors/401")
-	public ModelAndView unauthorized() {
-		LOGGER.warn("Unauthorized");
-		return new ModelAndView("401");
-	}
+	
 }

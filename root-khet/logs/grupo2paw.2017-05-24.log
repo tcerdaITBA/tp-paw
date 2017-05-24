@@ -1,0 +1,9 @@
+02:58:49.597 [http-bio-8080-exec-3] WARN  t.p.k.w.controller.ErrorController - Page not found
+02:58:54.919 [http-bio-8080-exec-3] WARN  t.p.k.w.controller.ErrorController - Bad Request
+02:59:13.417 [http-bio-8080-exec-7] WARN  t.p.k.w.controller.ProfileController - Cannot render user profile: user ID not found: 120
+02:59:17.058 [http-bio-8080-exec-3] WARN  t.p.k.w.controller.ErrorController - Bad Request
+02:59:41.943 [http-bio-8080-exec-3] INFO  t.p.k.w.c.RegisterController - New user with id 113 registered
+03:00:08.424 [http-bio-8080-exec-5] INFO  t.p.k.w.controller.UploadController - User with id 113 posted product with id 47
+03:00:15.890 [http-bio-8080-exec-8] INFO  t.p.k.w.controller.ProfileController - Product with id 47 deleted by user with id 113
+03:00:47.324 [http-bio-8080-exec-4] INFO  t.p.k.w.controller.UploadController - User with id 113 posted product with id 48
+03:01:12.437 [http-bio-8080-exec-7] WARN  t.p.k.w.controller.SearchController - Invalid query: too short
