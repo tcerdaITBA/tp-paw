@@ -94,8 +94,9 @@ h2 {
 	text-align: center;
 	border: 2px solid #c4c4c4;
 	border-radius: 4px;
-	padding: 5px 5px;
+	padding: 5px 1em;
 	word-wrap: break-word;
+	display: inline-block;
 }
 
 .categoryTag:hover {
