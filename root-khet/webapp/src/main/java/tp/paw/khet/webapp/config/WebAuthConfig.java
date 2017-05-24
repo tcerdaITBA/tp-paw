@@ -49,7 +49,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 			.and().rememberMe()
 				.userDetailsService(userDetailsService)
 				.rememberMeParameter("j_rememberme")
-				.key("mysupersecretkeythatnobodyknowsabout")
+				.key("037066dfb06356184e35a9eefa80b64c")
 				.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
 			.and().logout()
 				.logoutUrl("/logout")
