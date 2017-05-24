@@ -16,7 +16,7 @@ import tp.paw.khet.webapp.form.constraints.FileSize;
 public class FormUser {
 		
 	@Size(max=30, min=4)
-	@Pattern(regexp = "[A-Za-z0-9_\\s\\-.]+")
+	@Pattern(regexp = "[\\p{L}0-9_\\s\\-.]+")
 	private String name;
 	
 	@Email
