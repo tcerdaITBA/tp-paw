@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('#upload-popover').popover({
+	$('[data-toggle="popover"]').popover({
 		trigger: 'focus',
 		placement: 'bottom',
 		html: true,

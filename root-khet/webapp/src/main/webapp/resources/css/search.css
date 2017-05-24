@@ -121,3 +121,7 @@
 .user-ref:hover .creator-mail {
 	color: #337ab7;
 }
+
+.result-text {
+	word-wrap: break-word;
+}
