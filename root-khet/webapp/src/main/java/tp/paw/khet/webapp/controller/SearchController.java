@@ -17,6 +17,8 @@ import tp.paw.khet.webapp.exception.InvalidQueryException;
 public class SearchController {
     
 	private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
+	private static final int MIN_QUERY = 3;
+	private static final int MAX_QUERY = 64;
 	
     @Autowired
     private UserService userService;
@@ -30,9 +32,13 @@ public class SearchController {
     public ModelAndView searchResults(@RequestParam(value = "query") String query) throws InvalidQueryException {
 		LOGGER.debug("Accessed search with query {}", query);
     	
-        if (query == null || query.length() < 3) {
+        if (query == null || query.length() < MIN_QUERY) {
         	LOGGER.warn("Invalid query: too short");
             throw new InvalidQueryException();
+        }
+        else if (query.length() > MAX_QUERY) {
+        	LOGGER.warn("Invalid query: too long");
+            throw new InvalidQueryException();      	
         }
         
         final ModelAndView mav = new ModelAndView("search-results");
