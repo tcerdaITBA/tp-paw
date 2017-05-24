@@ -3,7 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-    <c:set var="capitalizedUserName" value="${fn:toUpperCase(fn:substring(profileUser.name, 0, 1))}${fn:substring(profileUser.name, 1,fn:length(profileUser.name))}" />
+    <c:set var="capitalizedUserNameNoEscape" value="${fn:toUpperCase(fn:substring(profileUser.name, 0, 1))}${fn:substring(profileUser.name, 1,fn:length(profileUser.name))}" />
+
+    <c:set var="capitalizedUserName" value="${fn:escapeXml(capitalizedUserNameNoEscape)}" />
     
 	<html>
 		<head>
@@ -11,7 +13,7 @@
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-			<title><spring:message code="Profile.title" arguments="${fn:escapeXml(capitalizedUserName)}"/></title>
+			<title><spring:message code="Profile.title" arguments="${capitalizedUserName}"/></title>
 			<link
 						href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 						rel="stylesheet"
