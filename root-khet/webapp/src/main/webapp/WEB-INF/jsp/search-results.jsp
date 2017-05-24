@@ -78,14 +78,14 @@
 												</div>
 												<div class="col-md-9 product-info-box">
 													<div class="row col-md-12">
-														<div class="row product-name">
+														<div class="row">
 															<div class="col-md-12">
-																<p class="result-text"><c:out value="${product.name}"/></p>
+																<p class="product-name result-text"><c:out value="${product.name}"/></p>
 															</div>
 														</div>
 														<div class="row product-short-description">
 															<div class="col-md-12">
-																<p class="result-text"><c:out value="${product.shortDescription}"/></p>
+																<p class="capitalize result-text"><c:out value="${product.shortDescription}"/></p>
 															</div>
 														</div>
 														<div class="row product-category">
@@ -127,8 +127,7 @@
 													<div class="row">
 														<div class="col-md-12">
 															<div class="profile-name-holder">
-																<span class="glyphicon glyphicon-user"></span>
-																<span class="profile-name result-text"><c:out value="${user.name}"/></span>
+																<span class="capitalize profile-name result-text"><c:out value="${user.name}"/></span>
 															</div>
 														</div>
 													</div>

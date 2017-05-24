@@ -38,6 +38,10 @@
 	border-color: #33bb9c;
 }
 
+.no-cap-strong {
+    text-transform: inherit;
+}
+
 .creator-mail p {
 	display: inline;
 }

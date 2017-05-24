@@ -73,8 +73,6 @@ $(document).ready(function(){
 	
 	productItems.each(function() {
 		var category = $(this).data('category');
-		console.log(category);
-		console.log('#filter-' + category);
 		$('#filter-' + category).show();
 	});
 	
@@ -96,7 +94,6 @@ $(document).ready(function(){
 		}
 		else {
 			noChecks = hasNoChecks();
-			console.log("No checks: " + noChecks);
 			if (noChecks)
 				showAllProducts();
 			else
@@ -104,11 +101,11 @@ $(document).ready(function(){
 		}
 	});
 	
-	var regex = RegExp(getParameterByName('query'), 'gi');
-	var replacement = '<strong>$&</strong>';
-	$('.result-text').html(function() {
-		return $(this).text().replace(regex, replacement);
-	});
+//	var regex = RegExp(getParameterByName('query'), 'gi');
+//	var replacement = '<strong class="no-cap-strong">$&</strong>';
+//	$('.result-text').html(function() {
+//		return $(this).text().replace(regex, replacement);
+//	});
 	
 	$('.creator-mail').on('click', function() {
 		location.href = $(this).data('href');

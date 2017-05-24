@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="row product-short-description">
                                         <div class="col-md-12 info-box-field">
-                                            <p><c:out value="${product.shortDescription}"/></p>
+                                            <p class="capitalize"><c:out value="${product.shortDescription}"/></p>
                                         </div>
                                     </div>
                                     <div class="row">

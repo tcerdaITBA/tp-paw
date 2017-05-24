@@ -112,7 +112,7 @@
 												</div>
 												<div class="row product-short-description">
 													<div class="col-md-12">
-														<p><c:out value="${product.shortDescription}"/></p>
+														<p class="capitalize"><c:out value="${product.shortDescription}"/></p>
 													</div>
 												</div>
 												<div class="row product-category">

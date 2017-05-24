@@ -121,6 +121,10 @@ footer p {
     margin-right: -4px;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 #search-box {
 	width: 20em;
 	border: 1px solid #e3e3e3;
