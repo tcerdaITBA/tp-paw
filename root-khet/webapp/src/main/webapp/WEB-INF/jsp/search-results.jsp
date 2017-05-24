@@ -29,7 +29,7 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
-						<h3 class="search-title result-text"><spring:message code="searchResults.resultsFor" arguments="${queryText}"/></h3>
+						<h3 class="search-title result-text"><spring:message code="searchResults.resultsFor" arguments="${fn:escapeXml(queryText)}"/></h3>
 					</div>
 				</div>
 				<div class="row tabs-row">
@@ -47,7 +47,7 @@
 								<div class="col-md-6 col-md-offset-3">
 									<div id="product-search-zrp" class="zrp">
 										<h2><spring:message code="searchZRP.notFound"/></h2>
-										<h3 class="result-text"><spring:message code="searchZRP.noProducts" arguments="${queryText}"/></h3>
+										<h3 class="result-text"><spring:message code="searchZRP.noProducts" arguments="${fn:escapeXml(queryText)}"/></h3>
 										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>	
 									</div>
 								</div>
@@ -110,7 +110,7 @@
 								<div class="col-md-6 col-md-offset-3">
 									<div id="user-search-zrp" class="zrp">
 										<h2><spring:message code="searchZRP.notFound"/></h2>
-										<h3 class="result-text"><spring:message code="searchZRP.noUsers" arguments="${queryText}"/></h3>
+										<h3 class="result-text"><spring:message code="searchZRP.noUsers" arguments="${fn:escapeXml(queryText)}"/></h3>
 										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>
 									</div>
 								</div>
