@@ -138,6 +138,7 @@
 		</body>
 		<%@include file="includes/changePictureModal.jsp"%>
 		<%@include file="includes/changePasswordModal.jsp"%>
+        <%@include file="includes/deleteModal.jsp"%>
 		<%@include file="includes/scripts.jsp"%>
 
 		<script src="<c:url value="/resources/js/profile.js" />"></script>		

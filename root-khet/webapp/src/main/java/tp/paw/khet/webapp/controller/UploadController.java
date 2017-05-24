@@ -55,7 +55,7 @@ public class UploadController {
 	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
 	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct, final BindingResult errors,
 							   @ModelAttribute("loggedUser") final User loggedUser,
-							   RedirectAttributes attr) throws IOException, UnauthorizedException {
+							   final RedirectAttributes attr) throws IOException, UnauthorizedException {
 		
 		LOGGER.debug("User with id {} accessed upload POST", loggedUser.getUserId());
 		
