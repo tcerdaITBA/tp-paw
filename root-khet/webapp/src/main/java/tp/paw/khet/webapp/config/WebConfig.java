@@ -2,9 +2,12 @@ package tp.paw.khet.webapp.config;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -12,11 +15,15 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import org.springframework.jdbc.datasource.init.DataSourceInitializer;
-import org.springframework.jdbc.datasource.init.DatabasePopulator;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -27,6 +34,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
+@EnableTransactionManagement
 @ComponentScan({"tp.paw.khet.webapp.controller", "tp.paw.khet.webapp.validators", "tp.paw.khet.persistence", "tp.paw.khet.service"})
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
@@ -34,18 +42,29 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Value("classpath:schema.sql")
 	private Resource schemaSql;
 	
+	@Autowired
+	private Environment env;
+
 	@Bean
-	public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
-		final DataSourceInitializer dsi = new DataSourceInitializer();
-		dsi.setDataSource(ds);
-		dsi.setDatabasePopulator(databasePopulator());
-		return dsi;
-	}
-	
-	private DatabasePopulator databasePopulator() {
-		final ResourceDatabasePopulator dbp = new ResourceDatabasePopulator();
-		dbp.addScript(schemaSql);
-		return dbp;
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+		factoryBean.setPackagesToScan("tp.paw.khet.model");
+		factoryBean.setDataSource(dataSource());
+		
+		final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		factoryBean.setJpaVendorAdapter(vendorAdapter);
+		
+		final Properties properties = new Properties();
+		properties.setProperty("hibernate.hbm2ddl.auto", "update");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
+		
+		if (env.acceptsProfiles("!live")) {
+			properties.setProperty("hibernate.show_sql", "true");
+			properties.setProperty("format_sql", "true");
+		}
+		
+		factoryBean.setJpaProperties(properties);
+		return factoryBean;
 	}
 	
 	@Bean
@@ -91,6 +110,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public MultipartResolver multipartResolver() throws IOException {
 		return new CommonsMultipartResolver();
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
+		return new JpaTransactionManager(emf);
 	}
 	
 	@Override
