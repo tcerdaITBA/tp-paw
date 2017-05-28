@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<User> getUsersByKeyword(String keyword, int maxLength) {
+	public List<User> getUsersByKeyword(final String keyword, final int maxLength) {
 		return userDao.getUsersByKeyword(keyword, maxLength);
 	}
 	
