@@ -14,10 +14,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.Product.ProductBuilder;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.Product.ProductBuilder;
+import tp.paw.khet.model.interfaces.PlainProduct;
 import tp.paw.khet.persistence.rowmapper.PlainProductRowMapper;
 import tp.paw.khet.persistence.rowmapper.ProductBuilderRowMapper;
 

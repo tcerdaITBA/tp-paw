@@ -8,11 +8,11 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static tp.paw.khet.testutils.CommentTestUtils.assertEqualsComments;
-import static tp.paw.khet.testutils.CommentTestUtils.dummyComment;
-import static tp.paw.khet.testutils.CommentTestUtils.dummyCommentList;
-import static tp.paw.khet.testutils.CommentTestUtils.dummyParentComment;
-import static tp.paw.khet.testutils.CommentTestUtils.dummyParentCommentList;
+import static tp.paw.khet.model.CommentTestUtils.assertEqualsComments;
+import static tp.paw.khet.model.CommentTestUtils.dummyComment;
+import static tp.paw.khet.model.CommentTestUtils.dummyCommentList;
+import static tp.paw.khet.model.CommentTestUtils.dummyParentComment;
+import static tp.paw.khet.model.CommentTestUtils.dummyParentCommentList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.CommentFamily;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.CommentFamily;
 import tp.paw.khet.persistence.CommentDao;
 
 @RunWith(MockitoJUnitRunner.class)

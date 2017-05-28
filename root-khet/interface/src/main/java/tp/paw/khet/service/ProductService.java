@@ -2,10 +2,10 @@ package tp.paw.khet.service;
 
 import java.util.List;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.User;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
+import tp.paw.khet.model.interfaces.PlainProduct;
 
 public interface ProductService {
 	

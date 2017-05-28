@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.Product;
-import tp.paw.khet.ProductImage;
-import tp.paw.khet.User;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.ProductImage;
+import tp.paw.khet.model.User;
+import tp.paw.khet.model.interfaces.PlainProduct;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;

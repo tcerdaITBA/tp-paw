@@ -1,11 +1,11 @@
-package tp.paw.khet.testutils;
+package tp.paw.khet.model;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.paw.khet.User;
+import tp.paw.khet.model.User;
 
 public final class UserTestUtils {
 
@@ -13,7 +13,8 @@ public final class UserTestUtils {
 	}
 	
 	public static User dummyUser(int id) {
-		return new User(id, "Tomas Cerda " + id, "tcerda" + id + "@itba.edu.ar", "secreto" + id);
+		String email = "tcerda" + id + "@itba.edu.ar";
+		return new User(id, "Tomas Cerda " + id, email, "secreto" + id, profilePictureFromEmail(email));
 	}
 	
 	public static List<User> dummyUserList(int size, int initialId) {
@@ -30,9 +31,15 @@ public final class UserTestUtils {
 		assertEquals(expected.getUserId(), actual.getUserId());
 		assertEquals(expected.getName(), actual.getName());
 		assertEquals(expected.getEmail(), actual.getEmail());
+		assertEquals(expected.getPassword(), actual.getPassword());
+		assertArrayEquals(expected.getProfilePicture(), actual.getProfilePicture());
 	}
 	
 	public static byte[] profilePictureFromUser(User dummyUser) {
 		return dummyUser.getEmail().getBytes();
+	}
+	
+	public static byte[] profilePictureFromEmail(String email) {
+		return email.getBytes();
 	}
 }

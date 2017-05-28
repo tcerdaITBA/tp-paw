@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tp.paw.khet.ProductImage;
+import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.persistence.ProductImageDao;
 
 @Service

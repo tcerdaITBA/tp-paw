@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.User;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.User;
 
 @Component
 public class CommentRowMapper implements RowMapper<Comment> {

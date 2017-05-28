@@ -1,13 +1,13 @@
-package tp.paw.khet.testutils;
+package tp.paw.khet.model;
 
 import static org.junit.Assert.assertEquals;
-import static tp.paw.khet.testutils.UserTestUtils.*;
+import static tp.paw.khet.model.UserTestUtils.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.paw.khet.Comment;
+import tp.paw.khet.model.Comment;
 
 public final class CommentTestUtils {
 

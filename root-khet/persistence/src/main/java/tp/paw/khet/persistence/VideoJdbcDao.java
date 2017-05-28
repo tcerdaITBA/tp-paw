@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import tp.paw.khet.Video;
+import tp.paw.khet.model.Video;
 import tp.paw.khet.persistence.rowmapper.VideoRowMapper;
 
 @Repository

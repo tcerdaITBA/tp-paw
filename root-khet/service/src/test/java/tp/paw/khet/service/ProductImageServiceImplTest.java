@@ -2,7 +2,7 @@ package tp.paw.khet.service;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static tp.paw.khet.testutils.ProductImageTestUtils.*;
+import static tp.paw.khet.model.ProductImageTestUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import tp.paw.khet.ProductImage;
+import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.persistence.ProductImageDao;
 
 @RunWith(MockitoJUnitRunner.class)

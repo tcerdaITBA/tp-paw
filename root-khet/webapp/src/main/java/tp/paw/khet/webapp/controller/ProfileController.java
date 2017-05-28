@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import tp.paw.khet.Product;
-import tp.paw.khet.User;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.UnauthorizedException;

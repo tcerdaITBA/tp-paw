@@ -1,15 +1,15 @@
-package tp.paw.khet.testutils;
+package tp.paw.khet.model;
 
 import static org.junit.Assert.assertEquals;
-import static tp.paw.khet.testutils.UserTestUtils.dummyUser;
+import static tp.paw.khet.model.UserTestUtils.dummyUser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.interfaces.PlainProduct;
 
 public final class ProductTestUtils {
 	

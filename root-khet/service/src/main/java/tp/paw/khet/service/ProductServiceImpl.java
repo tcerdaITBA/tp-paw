@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.interfaces.PlainProduct;
 import tp.paw.khet.persistence.ProductDao;
 
 @Service

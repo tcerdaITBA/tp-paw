@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static tp.paw.khet.testutils.ProductTestUtils.*;
-import static tp.paw.khet.testutils.UserTestUtils.dummyUserList;
-import static tp.paw.khet.testutils.UserTestUtils.profilePictureFromUser;
+import static tp.paw.khet.model.ProductTestUtils.*;
+import static tp.paw.khet.model.UserTestUtils.dummyUserList;
+import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
+import tp.paw.khet.model.interfaces.PlainProduct;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)

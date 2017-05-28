@@ -10,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
 
-import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.User;
 import tp.paw.khet.persistence.rowmapper.UserRowMapper;
 
-@Repository
 public class UserJdbcDao implements UserDao {
 		
 	@Autowired
@@ -43,7 +41,7 @@ public class UserJdbcDao implements UserDao {
 
 		try {
 			final Number userId = jdbcInsert.executeAndReturnKey(args);
-			return new User(userId.intValue(), userName, email, password);
+			return new User(userName, email, password, profilePicture);
 		} 
 		catch (DuplicateKeyException e) {
 			throw new DuplicateEmailException("There already exists an user with email: " + email);

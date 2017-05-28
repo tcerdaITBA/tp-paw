@@ -9,9 +9,8 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static tp.paw.khet.testutils.ProductTestUtils.*;
-
-import static tp.paw.khet.testutils.VideoTestUtils.dummyVideoList;
+import static tp.paw.khet.model.ProductTestUtils.*;
+import static tp.paw.khet.model.VideoTestUtils.dummyVideoList;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,9 +21,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.interfaces.PlainProduct;
 import tp.paw.khet.persistence.ProductDao;
 
 @RunWith(MockitoJUnitRunner.class)

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import tp.paw.khet.Product;
+import tp.paw.khet.model.Product;
 
 @Component
 public class ProductBuilderRowMapper implements RowMapper<Product.ProductBuilder> {

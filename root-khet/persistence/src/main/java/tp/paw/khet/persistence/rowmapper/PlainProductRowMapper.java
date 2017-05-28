@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import tp.paw.khet.Product;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.interfaces.PlainProduct;
 
 @Component
 public class PlainProductRowMapper implements RowMapper<PlainProduct> {

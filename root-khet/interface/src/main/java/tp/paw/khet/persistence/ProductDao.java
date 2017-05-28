@@ -3,11 +3,11 @@ package tp.paw.khet.persistence;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.Product.ProductBuilder;
-import tp.paw.khet.User;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
+import tp.paw.khet.model.Product.ProductBuilder;
+import tp.paw.khet.model.interfaces.PlainProduct;
 
 public interface ProductDao {
 	

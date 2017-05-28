@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import tp.paw.khet.Video;
+import tp.paw.khet.model.Video;
 
 @Component
 public class VideoRowMapper implements RowMapper<Video> {

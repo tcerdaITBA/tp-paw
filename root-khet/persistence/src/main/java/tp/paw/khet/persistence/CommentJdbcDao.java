@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import tp.paw.khet.Comment;
+import tp.paw.khet.model.Comment;
 import tp.paw.khet.persistence.rowmapper.CommentRowMapper;
 
 @Repository

@@ -1,6 +1,6 @@
-package tp.paw.khet.interfaces;
+package tp.paw.khet.model.interfaces;
 
-import tp.paw.khet.Category;
+import tp.paw.khet.model.Category;
 
 /**
  * Represents a product with only essential information: id, name, category and short description.

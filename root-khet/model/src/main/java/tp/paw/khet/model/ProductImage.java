@@ -1,4 +1,4 @@
-package tp.paw.khet;
+package tp.paw.khet.model;
 
 import static org.apache.commons.lang3.Validate.isTrue;
 

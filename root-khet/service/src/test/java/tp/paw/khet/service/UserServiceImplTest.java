@@ -5,7 +5,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static tp.paw.khet.testutils.UserTestUtils.*;
+import static tp.paw.khet.model.UserTestUtils.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -14,8 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.User;
 import tp.paw.khet.persistence.UserDao;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -83,7 +83,7 @@ public class UserServiceImplTest {
 	public void changePasswordTest() {
 		User dummyUser = dummyUser(0);
 		String expectedPassword = "sucutrule";
-		User expected = new User(0, dummyUser.getName(), dummyUser.getEmail(), expectedPassword);
+		User expected = new User(dummyUser.getName(), dummyUser.getEmail(), expectedPassword, profilePictureFromEmail(dummyUser.getEmail()));
 		when(userDaoMock.changePassword(0, expectedPassword)).thenReturn(expected);
 		
 		User actual = userService.changePassword(0, expectedPassword);

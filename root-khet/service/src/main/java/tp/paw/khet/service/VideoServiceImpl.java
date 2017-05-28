@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tp.paw.khet.Video;
+import tp.paw.khet.model.Video;
 import tp.paw.khet.persistence.VideoDao;
 
 @Service

@@ -1,14 +1,13 @@
 package tp.paw.khet.persistence;
 
 import static org.junit.Assert.*;
-import static tp.paw.khet.testutils.ProductTestUtils.dummyProduct;
-import static tp.paw.khet.testutils.ProductTestUtils.logoFromProduct;
-import static tp.paw.khet.testutils.UserTestUtils.*;
+import static tp.paw.khet.model.CommentTestUtils.*;
+import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
+import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
+import static tp.paw.khet.model.UserTestUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static tp.paw.khet.testutils.CommentTestUtils.*;
 
 import javax.sql.DataSource;
 
@@ -22,10 +21,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.Product;
-import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)

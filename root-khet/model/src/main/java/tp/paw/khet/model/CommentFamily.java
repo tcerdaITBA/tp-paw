@@ -1,4 +1,4 @@
-package tp.paw.khet;
+package tp.paw.khet.model;
 
 import static org.apache.commons.lang3.Validate.notNull;
 import static org.apache.commons.lang3.Validate.isTrue;
@@ -6,7 +6,7 @@ import static org.apache.commons.lang3.Validate.isTrue;
 import java.util.Collections;
 import java.util.List;
 
-import tp.paw.khet.structures.ParentNode;
+import tp.paw.khet.model.structures.ParentNode;
 
 public class CommentFamily {
 

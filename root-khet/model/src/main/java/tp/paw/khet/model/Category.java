@@ -1,4 +1,4 @@
-package tp.paw.khet;
+package tp.paw.khet.model;
 
 public enum Category {
 	APP ("app"),

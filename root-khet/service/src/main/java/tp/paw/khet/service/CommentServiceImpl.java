@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.CommentFamily;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.CommentFamily;
 import tp.paw.khet.persistence.CommentDao;
 
 @Service

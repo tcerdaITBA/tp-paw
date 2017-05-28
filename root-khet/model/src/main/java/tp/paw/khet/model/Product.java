@@ -1,4 +1,4 @@
-package tp.paw.khet;
+package tp.paw.khet.model;
 
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notBlank;
@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.interfaces.PlainProduct;
 
 public final class Product implements PlainProduct {
 	private final int id;

@@ -1,11 +1,11 @@
-package tp.paw.khet.testutils;
+package tp.paw.khet.model;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.paw.khet.ProductImage;
+import tp.paw.khet.model.ProductImage;
 
 public final class ProductImageTestUtils {
 

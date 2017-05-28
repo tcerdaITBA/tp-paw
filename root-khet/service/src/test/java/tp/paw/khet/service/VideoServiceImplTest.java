@@ -2,7 +2,7 @@ package tp.paw.khet.service;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static tp.paw.khet.testutils.VideoTestUtils.*;
+import static tp.paw.khet.model.VideoTestUtils.*;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import tp.paw.khet.Video;
+import tp.paw.khet.model.Video;
 import tp.paw.khet.persistence.VideoDao;
 
 @RunWith(MockitoJUnitRunner.class)

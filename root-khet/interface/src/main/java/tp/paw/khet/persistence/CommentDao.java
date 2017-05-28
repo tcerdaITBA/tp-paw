@@ -3,9 +3,9 @@ package tp.paw.khet.persistence;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.Product;
-import tp.paw.khet.User;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
 
 public interface CommentDao {
 	/**
