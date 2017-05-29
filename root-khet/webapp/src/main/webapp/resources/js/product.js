@@ -35,7 +35,7 @@ $(document).ready(function(){
 		$('#' + replyId).show();
 	}
 	
-	$('.reply-btn').on('click', function() {
+	$('.reply-btn-fn').on('click', function() {
 		// Hide all other open comment forms.
 		$('.reply-comment').hide();
 		
@@ -44,4 +44,10 @@ $(document).ready(function(){
 		
 		replyform.goTo();
 	});	
+	
+	$('[data-toggle="popover"]').popover({
+		trigger: 'focus',
+		placement: 'bottom',
+		html: true,
+	});
 });

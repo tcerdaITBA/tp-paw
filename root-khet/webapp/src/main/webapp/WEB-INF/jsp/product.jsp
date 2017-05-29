@@ -226,12 +226,30 @@
                                 </div>
                                 <div class="row reply-button-holder">
                                     <div class="col-md-4">
-                                        <p class="reply-btn">
-                                            <span class="glyphicon glyphicon-share-alt"></span>
-                                            <spring:message code="productPage.reply"/>
-                                        </p>
+                                        	<sec:authorize access="isAnonymous()">
+                                        		<a tabindex="0" class="reply-btn" role="button" data-toggle="popover" data-trigger="focus" 
+												 data-content="<p class='popover-msg'>
+												 <span><spring:message code="productPage.anonymousComment1"/></span>
+												 <a href='<c:url value="/login"/>'>
+												 <span> <spring:message code="productPage.anonymousComment2"/></span>
+								 				</a>
+								 				<span><spring:message code="productPage.anonymousComment3"/></span>
+												 <a href='<c:url value="/register"/>'>
+												 <span> <spring:message code="productPage.anonymousComment4"/></span>
+								 				</a>
+								 				</p>" id="reply-popover">
+												 <span class="glyphicon glyphicon-share-alt"></span>
+						                         <spring:message code="productPage.reply"/>
+								 				</a>
+                                        	</sec:authorize>
+                                        	<sec:authorize access="isAuthenticated()">
+		                                        <p class="reply-btn reply-btn-fn">
+	                                        		<span class="glyphicon glyphicon-share-alt"></span>
+		                                            <spring:message code="productPage.reply"/>
+		                                        </p>
+                                        	</sec:authorize>    	
                                     </div>
-                                </div>
+                                </div>       
                                 <div class="row comment-divider">
                                     <div class="col-md-12"></div>
                                 </div>
