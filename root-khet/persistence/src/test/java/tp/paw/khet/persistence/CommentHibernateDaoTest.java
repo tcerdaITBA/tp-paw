@@ -1,10 +1,16 @@
 package tp.paw.khet.persistence;
 
-import static org.junit.Assert.*;
-import static tp.paw.khet.model.CommentTestUtils.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static tp.paw.khet.model.CommentTestUtils.assertEqualsComments;
+import static tp.paw.khet.model.CommentTestUtils.dummyComment;
+import static tp.paw.khet.model.CommentTestUtils.dummyCommentList;
+import static tp.paw.khet.model.CommentTestUtils.dummyParentComment;
+import static tp.paw.khet.model.CommentTestUtils.dummyParentCommentList;
 import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
-import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
-import static tp.paw.khet.model.UserTestUtils.*;
+import static tp.paw.khet.model.UserTestUtils.dummyUser;
+import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +25,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.model.Comment;
@@ -28,11 +34,12 @@ import tp.paw.khet.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Transactional
 @Sql("classpath:schema.sql")
-public class CommentJdbcDaoTest {
+public class CommentHibernateDaoTest {
 
 	@Autowired
-	private CommentJdbcDao commentDao;
+	private CommentHibernateDao commentDao;
 	
 	@Autowired
 	private UserDao userDao;
@@ -56,32 +63,36 @@ public class CommentJdbcDaoTest {
 
 	@Test
 	public void createParentCommentTest() {
-		Comment expected = dummyParentComment(0, 0);
-		Comment actual = insertComment(expected, 0);
+		Comment expected = dummyParentComment(1, 1, 1);
+		Comment actual = insertComment(expected);
 		
 		assertEqualsComments(expected, actual);
 		assertFalse(actual.hasParent());
-		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
+		assertEqualsComments(actual, commentDao.getCommentById(actual.getId()));
 	}
 	
 	@Test
 	public void createChildCommentTest() {
-		insertComment(dummyParentComment(0, 0), 0).getId();
-		Comment expected = dummyComment(1, 0, 0);
-		Comment actual = insertComment(expected, 0);
+		Comment dummyParent = dummyParentComment(1, 1, 1);
+		insertComment(dummyParent).getId();
+		Comment expected = dummyComment(2, dummyParent, 1, 1);
+		Comment actual = insertComment(expected);
 
 		assertEqualsComments(expected, actual);
-		assertEquals(2, JdbcTestUtils.countRowsInTable(jdbcTemplate, "comments"));
+		assertTrue(actual.hasParent());
+		assertEqualsComments(dummyParent, actual.getParent());
+		assertEqualsComments(actual, commentDao.getCommentById(actual.getId()));
 	}
 	
 	@Test
 	public void getCommentsByProductIdTest() {
-		insertCommentList(dummyParentCommentList(7, 0, 0), 0);
+		List<Comment> parentCommentList = dummyParentCommentList(7, 1, 1, 1);
+		insertCommentList(parentCommentList, 1);
 		
 		for (int i = 0; i < 7; i++)
-			insertCommentList(dummyCommentList(5, 7 + i * 5, i, 0), 0);
+			insertCommentList(dummyCommentList(5, 7 + i * 5, parentCommentList.get(i), 1, 1), 1);
 		
-		List<Comment> actual = commentDao.getCommentsByProductId(0);
+		List<Comment> actual = commentDao.getCommentsByProductId(1);
 		List<Comment> comments = new ArrayList<>(actual.size());
 		for (Comment comment : actual)
 			comments.add(comment);
@@ -91,7 +102,7 @@ public class CommentJdbcDaoTest {
 	
 	private void insertCommentList(List<Comment> comments, int productId) {
 		for (Comment comment : comments)
-			insertComment(comment, productId);
+			insertComment(comment);
 	}
 
 	// Asserts that a block of parent comments come first, then a block of child comments with parentId of the first parent comment and so on
@@ -104,12 +115,12 @@ public class CommentJdbcDaoTest {
 			
 			assertFalse(parent.hasParent());
 			
-			if (child.getParentId() > parent.getId()) {
+			if (child.getParent().getId() > parent.getId()) {
 				i++;
 			}
 			else {
-				assertEquals(parent.getId(), child.getParentId());
-				if (j < comments.size() - 1 && child.getParentId() == comments.get(j+1).getParentId())
+				assertEquals(parent.getId(), child.getParent().getId());
+				if (j < comments.size() - 1 && child.getParent().getId() == comments.get(j+1).getParent().getId())
 					assertTrue(child.getCommentDate().compareTo(comments.get(j+1).getCommentDate()) < 0); // Oldest comments first
 			}
 		}
@@ -127,20 +138,20 @@ public class CommentJdbcDaoTest {
 		return comments.size();
 	}
 	
-	private Comment insertComment(Comment comment, int productId) {
+	private Comment insertComment(Comment comment) {
 		if (comment.hasParent())
-			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParentId(), productId, comment.getAuthor().getUserId());
-		return commentDao.createParentComment(comment.getContent(), comment.getCommentDate(), productId, comment.getAuthor().getUserId());
+			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParent(), comment.getCommentedProduct(), comment.getAuthor());
+		return commentDao.createParentComment(comment.getContent(), comment.getCommentDate(), comment.getCommentedProduct(), comment.getAuthor());
 	}
 
 	private void insertDummyProduct() {
-		Product dummy = dummyProduct(0);
+		Product dummy = dummyProduct(1);
 		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), 
-				dummy.getWebsite(), dummy.getCategory().name(), dummy.getUploadDate(), logoFromProduct(dummy), 0);
+				dummy.getWebsite(), dummy.getCategory(), dummy.getUploadDate(), dummy.getLogo(), dummy.getCreator());
 	}
 
 	private void insertDummyUser() throws DuplicateEmailException {
-		User dummy = dummyUser(0);
+		User dummy = dummyUser(1);
 		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
 	}
 }

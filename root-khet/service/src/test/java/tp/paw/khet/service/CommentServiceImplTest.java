@@ -13,11 +13,14 @@ import static tp.paw.khet.model.CommentTestUtils.dummyComment;
 import static tp.paw.khet.model.CommentTestUtils.dummyCommentList;
 import static tp.paw.khet.model.CommentTestUtils.dummyParentComment;
 import static tp.paw.khet.model.CommentTestUtils.dummyParentCommentList;
+import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
+import static tp.paw.khet.model.UserTestUtils.dummyUser;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -34,29 +37,43 @@ public class CommentServiceImplTest {
 	@Mock
 	private CommentDao commentDaoMock;
 	
+	@Mock
+	private UserService userServiceMock;
+	
+	@Mock
+	private ProductService productServiceMock;
+	
 	@InjectMocks
 	private CommentServiceImpl commentServiceImpl;
 
+	@Before
+	public void setUp() {
+		when(userServiceMock.getUserById(0)).thenReturn(dummyUser(0));
+		when(productServiceMock.getPlainProductById(0)).thenReturn(dummyProduct(0));
+	}
+	
 	@Test
 	public void createComment() {
-		Comment expected = dummyComment(0, 0, 0);
-		when(commentDaoMock.createComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0), eq(0))).thenReturn(expected);
+		Comment parent = dummyParentComment(0, 0, 0);
+		Comment expected = dummyComment(0, parent, 0, 0);
+		when(commentDaoMock.createComment(eq(expected.getContent()), any(Date.class), eq(parent), eq(dummyProduct(0)), eq(dummyUser(0)))).thenReturn(expected);
+		when(commentDaoMock.getCommentById(0)).thenReturn(parent);
 		
 		Comment actual = commentServiceImpl.createComment(expected.getContent(), 0, 0, 0);
 		
 		assertEqualsComments(expected, actual);
-		verify(commentDaoMock, times(1)).createComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0), eq(0));		
+		verify(commentDaoMock, times(1)).createComment(eq(expected.getContent()), any(Date.class), eq(parent), eq(dummyProduct(0)), eq(dummyUser(0)));		
 	}
 	
 	@Test
 	public void createParentComment() {
-		Comment expected = dummyParentComment(0, 0);
-		when(commentDaoMock.createParentComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0))).thenReturn(expected);
+		Comment expected = dummyParentComment(0, 0, 0);
+		when(commentDaoMock.createParentComment(eq(expected.getContent()), any(Date.class), eq(dummyProduct(0)), eq(dummyUser(0)))).thenReturn(expected);
 		
 		Comment actual = commentServiceImpl.createParentComment(expected.getContent(), 0, 0);
 		
 		assertEqualsComments(expected, actual);
-		verify(commentDaoMock, times(1)).createParentComment(eq(expected.getContent()), any(LocalDateTime.class), eq(0), eq(0));
+		verify(commentDaoMock, times(1)).createParentComment(eq(expected.getContent()), any(Date.class), eq(dummyProduct(0)), eq(dummyUser(0)));
 	}
 	
 	@Test
@@ -82,10 +99,10 @@ public class CommentServiceImplTest {
 		List<List<Comment>> list = new ArrayList<>(10);
 		
 		for (int i = 0; i < 3; i++)
-			list.add(dummyParentCommentList(20, i * 20, i));
+			list.add(dummyParentCommentList(20, i * 20, i, i));
 
 		for (int i = 3; i < 10; i++)
-			list.add(dummyCommentList(20, i * 20, i, i));
+			list.add(dummyCommentList(20, i * 20, list.get(0).get(i), i, i));
 		
 		return list;
 	}
@@ -98,7 +115,7 @@ public class CommentServiceImplTest {
 			if (prev != null)
 				assertTrue(child.getCommentDate().compareTo(prev.getCommentDate()) > 0);
 			
-			assertEquals(child.getParentId(), parentComment.getId());
+			assertEquals(child.getParent(), parentComment);
 			prev = child;
 		}
 	}

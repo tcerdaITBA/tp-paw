@@ -1,11 +1,31 @@
 package tp.paw.khet.model;
 
 import static org.apache.commons.lang3.Validate.isTrue;
+import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+import tp.paw.khet.model.ProductImage.ProductImagePrimaryKeyIds;
+
+@Entity
+@IdClass(ProductImagePrimaryKeyIds.class)
+@Table(name = "productimages")
 public class ProductImage {
-	private final int productImageId;
-	private final int productId;
-	private final byte[] data;
+	
+	@Id
+	private int productImageId;
+	
+	@Id
+	private int productId;
+	
+	@Column(nullable = false, columnDefinition = "bytea")
+	private byte[] data;
 	
 	public ProductImage(int productImageId, int productId, byte[] data) {
 		isTrue(productImageId >= 0, "Product image ID must be non negative: %d", productImageId);
@@ -13,7 +33,11 @@ public class ProductImage {
 		
 		this.productImageId = productImageId;
 		this.productId = productId;
-		this.data = notEmptyData(data);
+		this.data = notEmptyByteArray(data, "Image data array cannot be null", "Image data array cannot be empty");
+	}
+	
+	// Hibernate
+	ProductImage() {
 	}
 
 	public int getProductImageId() {
@@ -56,11 +80,50 @@ public class ProductImage {
 		return "Image " + productImageId + " from product " + productId;
 	}
 	
-	private byte[] notEmptyData(byte[] data) {
-		if (data == null)
-			throw new NullPointerException("Data array cannot be null");
-		if (data.length == 0)
-			throw new IllegalArgumentException("Data array cannot be empty");
-		return data;
+	// For Hibernate Composite keys
+	@SuppressWarnings("serial")
+	public static class ProductImagePrimaryKeyIds implements Serializable {		
+		private int productImageId;
+		private int productId;
+		
+		public ProductImagePrimaryKeyIds(int productImageId, int productId) {
+			this.productImageId = productImageId;
+			this.productId = productId;
+		}
+		
+		// Hibernate
+		public ProductImagePrimaryKeyIds() {
+		}
+		
+		public int getProductImageId() {
+			return productImageId;
+		}
+		
+		public int getProductId() {
+			return productId;
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this)
+				return true;
+			if (!(obj instanceof ProductImagePrimaryKeyIds))
+				return false;
+			
+			ProductImagePrimaryKeyIds other = (ProductImagePrimaryKeyIds) obj;
+			
+			return productId == other.productId && productImageId == other.productImageId;
+		}
+		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 17;
+			
+			result = result * prime + productImageId;
+			result = result * prime + productId;
+			
+			return result;
+		}
 	}
 }

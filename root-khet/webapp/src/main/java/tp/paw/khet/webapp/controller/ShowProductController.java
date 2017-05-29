@@ -23,7 +23,6 @@ import tp.paw.khet.model.Comment;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.model.User;
-import tp.paw.khet.model.interfaces.PlainProduct;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
@@ -66,11 +65,11 @@ public class ShowProductController {
 		}
 		
 		final ModelAndView mav = new ModelAndView("product");
-		
+				
 		mav.addObject("product", product);
-		mav.addObject("images", productImageService.getImagesIdByProductId(product.getId()));
-		mav.addObject("videos", product.getVideos());
 		mav.addObject("creator", product.getCreator());
+		mav.addObject("videos", product.getVideos());
+		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
 		mav.addObject("parentcomments", product.getCommentFamilies());
 		
 		return mav;
@@ -85,7 +84,7 @@ public class ShowProductController {
 							   final BindingResult errors,
 							   final RedirectAttributes attr) throws ProductNotFoundException, UnauthorizedException {
 		
-		final PlainProduct product = productService.getPlainProductById(productId);
+		final Product product = productService.getPlainProductById(productId);
 		
 		if (product == null) {
 			LOGGER.warn("Failed to comment product with id {}: product doesn´t exists", productId);
@@ -133,7 +132,7 @@ public class ShowProductController {
 	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId) throws ProductNotFoundException {
 		
-		final PlainProduct product = productService.getPlainProductById(productId);
+		final Product product = productService.getPlainProductById(productId);
 		
 		if (product == null) {
 			LOGGER.warn("Failed to render product with id {}: product not found", productId);
@@ -154,7 +153,7 @@ public class ShowProductController {
 	@RequestMapping(value = "/product/{productId}/logo", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] deliverLogo(@PathVariable(value = "productId") int productId) throws ProductNotFoundException {
 		
-		final PlainProduct product = productService.getPlainProductById(productId);
+		final Product product = productService.getPlainProductById(productId);
 		
 		if (product == null) {
 			LOGGER.warn("Failed to render logo of product with id {}: product not found", productId);

@@ -48,7 +48,7 @@ public class UserHibernateDao implements UserDao {
 
 	@Override
 	public byte[] getProfilePictureByUserId(final int userId) {
-		final User user = em.find(User.class, userId);
+		final User user = getUserById(userId);
 		
 		return user == null ? new byte[0] : user.getProfilePicture();
 	}

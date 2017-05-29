@@ -5,7 +5,6 @@ import java.util.List;
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
-import tp.paw.khet.model.interfaces.PlainProduct;
 
 public interface ProductService {
 	
@@ -27,48 +26,48 @@ public interface ProductService {
 			Category category, byte[] logo, int creatorId, List<byte[]> imageBytes, List<String> videoIds);
 	
 	/**
-	 * Lists every existing {@link Product} as a {@link PlainProduct}.
+	 * Lists every existing {@link Product} as a {@link Product}.
 	 * @return {@link List} of the existing products
 	 */
-	public List<PlainProduct> getPlainProducts();
+	public List<Product> getPlainProducts();
 	
 	/**
-	 * Lists products created by {@link User} as a {@link PlainProduct} with the given userId.
+	 * Lists products created by {@link User} as a {@link Product} with the given userId.
 	 * @param userId - ID of the creator
 	 * @return List of products. Empty in case the user did not create any product
 	 */
-	public List<PlainProduct> getPlainProductsByUserId(int userId);
+	public List<Product> getPlainProductsByUserId(int userId);
 	
 	/**
-     * Lists a range of existing {@link Product} as a {@link PlainProduct}.
+     * Lists a range of existing {@link Product} as a {@link Product}.
      * Products are ordered by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize].
      * First page is number 1.
      * @param page - index of the page to be retrieved
      * @param pageSize - amount of products per page
      * @return {@link List} of the products in the given range. 
      */
-	public List<PlainProduct> getPlainProductsPaged(int page, int pageSize);
+	public List<Product> getPlainProductsPaged(int page, int pageSize);
 	
 	/**
-     * Lists a range of existing {@link Product} as a {@link PlainProduct}.
+     * Lists a range of existing {@link Product} as a {@link Product}.
      * Products are ordered alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize].
      * First page is number 1.
      * @param page - index of the page to be retrieved
      * @param pageSize - amount of products per page
      * @return {@link List} of the products in the given range. 
      */
-    public List<PlainProduct> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
+    public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
     
 	/**
-	 * Lists {@link PlainProduct} belonging to certain {@link Category}.
+	 * Lists {@link Product} belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
 	 * @return {@link List} of the products belonging to the category. 
 	 * 		   Could be empty if there are no products registered in given category.
 	 */
-	public List<PlainProduct> getPlainProductsByCategory(Category category);
+	public List<Product> getPlainProductsByCategory(Category category);
 	
 	/**
-	 * Lists a range of {@link PlainProduct} belonging to certain {@link Category}.
+	 * Lists a range of {@link Product} belonging to certain {@link Category}.
 	 * Products are ordered by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize] 
 	 * First page is number 1.
 	 * @param category Category the products belong to
@@ -77,10 +76,10 @@ public interface ProductService {
 	 * @return {@link List} of the products belonging to the category. 
      *         Could be empty if there are no products registered in given category.
 	 */
-	public List<PlainProduct> getPlainProductsByCategoryPaged(Category category, int page, int pageSize);
+	public List<Product> getPlainProductsByCategoryPaged(Category category, int page, int pageSize);
 	
 	   /**
-     * Lists a range of {@link PlainProduct} belonging to certain {@link Category}.
+     * Lists a range of {@link Product} belonging to certain {@link Category}.
      * Products are ordered alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize] 
      * First page is number 1.
      * @param category Category the products belong to
@@ -89,7 +88,7 @@ public interface ProductService {
      * @return {@link List} of the products belonging to the category. 
      *         Could be empty if there are no products registered in given category.
      */
-    public List<PlainProduct> getPlainProductsAlphabeticallyByCategoryPaged(Category category, int page, int pageSize);
+    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(Category category, int page, int pageSize);
  	
 	/**
 	 * Returns the amount of pages available for a given page size.
@@ -114,11 +113,11 @@ public interface ProductService {
 	public Product getFullProductById(int productId);
 		
 	/**
-	 * Retrieves a {@link Product} as a {@link PlainProduct} given it's ID.
+	 * Retrieves a {@link Product} as a {@link Product} given it's ID.
 	 * @param productId - ID of the product
 	 * @return Plain Product with the associated ID or null if it doesn't exist
 	 */
-	public PlainProduct getPlainProductById(int productId);
+	public Product getPlainProductById(int productId);
 		
 	/**
 	 * Retrieves the logo of a {@link Product}.
@@ -135,11 +134,11 @@ public interface ProductService {
 	boolean deleteProductById(int productId);
 	
 	/**
-	 * Retrieves a {@link List} of {@link PlainProduct} given a keyword.
+	 * Retrieves a {@link List} of {@link Product} given a keyword.
 	 * The keyword should match the product's name or short description.
 	 * @param keyword - The keyword which should be matched
 	 * @param maxLength - The maximum length of the returned list
 	 * @return The list of plain products that match with the keyword.
 	 */
-	public List<PlainProduct> getPlainProductsByKeyword(String keyword, int maxLength);
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength);
 }

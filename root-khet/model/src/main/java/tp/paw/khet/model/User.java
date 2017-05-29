@@ -3,6 +3,7 @@ package tp.paw.khet.model;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notEmpty;
+import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -78,8 +79,7 @@ public class User {
 	}
 	
 	public void setProfilePicture(final byte[] profilePicture) {
-		isTrue(profilePicture != null && profilePicture.length > 0, "Profile picture array must be not null and not empty");
-		this.profilePicture = profilePicture;		
+		this.profilePicture = notEmptyByteArray(profilePicture, "Profile picture array cannot be null", "Profile picture array cannot be empty");		
 	}
 	
 	@Override

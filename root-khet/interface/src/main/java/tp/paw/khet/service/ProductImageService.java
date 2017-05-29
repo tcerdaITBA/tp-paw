@@ -32,6 +32,13 @@ public interface ProductImageService {
 	public List<Integer> getImagesIdByProductId(int productId);
 	
 	/**
+	 * Lists the IDs of the images corresponding to the given {@link Product}
+	 * @param product - Product whose image IDs list
+	 * @return
+	 */
+	public List<Integer> getImagesIdsFromProduct(Product product);
+	
+	/**
 	 * Retrieves a {@link ProductImage} associated with a {@link Product}.
 	 * @param imageId - ID of the image
 	 * @param productId - ID of the product the image belongs to

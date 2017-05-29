@@ -5,7 +5,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static tp.paw.khet.model.ProductTestUtils.*;
+import static tp.paw.khet.model.ProductTestUtils.assertEqualsFullProducts;
+import static tp.paw.khet.model.ProductTestUtils.assertEqualsPlainProducts;
+import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
+import static tp.paw.khet.model.ProductTestUtils.dummyProductList;
+import static tp.paw.khet.model.ProductTestUtils.dummyProductListWithUserId;
+import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.model.UserTestUtils.dummyUserList;
 import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 
@@ -22,22 +27,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
-import tp.paw.khet.model.interfaces.PlainProduct;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Transactional
 @Sql("classpath:schema.sql")
-public class ProductJdbcDaoTest {
+public class ProductHibernateDaoTest {
 
 	private static final int LIST_SIZE = Category.values().length * 5;
 	
 	@Autowired
-	private ProductJdbcDao productDao;
+	private ProductHibernateDao productDao;
 	
 	@Autowired
 	private UserDao userDao;
@@ -56,10 +62,10 @@ public class ProductJdbcDaoTest {
 
 	@Test
 	public void getProductsTest() {
-		List<Product> expected = dummyProductList(LIST_SIZE, 0);
+		List<Product> expected = dummyProductList(LIST_SIZE, 1);
 		insertProducts(expected);
 		
-		List<PlainProduct> actual = productDao.getPlainProducts();
+		List<Product> actual = productDao.getPlainProducts();
 		
 		assertEqualsReversedSortedList(expected, actual);
 		
@@ -69,7 +75,7 @@ public class ProductJdbcDaoTest {
 	@Test
 	public void getProductsByCategoryTest() {
 		Category[] categories = Category.values();
-		List<Product> productList = dummyProductList(LIST_SIZE, 0);
+		List<Product> productList = dummyProductList(LIST_SIZE, 1);
 		insertProducts(productList);
 		
 		for (int i = 0; i < categories.length; i++)
@@ -80,60 +86,58 @@ public class ProductJdbcDaoTest {
 
 	@Test
 	public void createProductTest() {
-		Product expected = dummyProduct(0);
+		Product expected = dummyProduct(1);
 		Product actual = insertProduct(expected);
-		
+
 		assertEqualsFullProducts(expected, actual);
-		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
 	
 	@Test
 	public void getProductByProductIdTest() {
-		Product expected = dummyProduct(0);
+		Product expected = dummyProduct(1);
 		insertProduct(expected);
 		
-		Product actual = productDao.getFullProductById(0).build();
+		Product actual = productDao.getFullProductById(1).build();
 		
 		assertEqualsFullProducts(expected, actual);
-		assertNull(productDao.getFullProductById(1));
+		assertNull(productDao.getFullProductById(2));
+		
+		assertEqualsPlainProducts(expected, productDao.getPlainProductById(1));
 	}
 	
 	@Test
-	public void getPlainProductByUserIdTest() {
-		List<Product> expected = dummyProductListWithUserId(LIST_SIZE, 0, 0);
+	public void getPlainProductsByUserIdTest() {
+		List<Product> expected = dummyProductListWithUserId(LIST_SIZE, 1, 1);
 		insertProducts(expected);
 		
-		List<PlainProduct> actual = productDao.getPlainProductsByUserId(0);
+		List<Product> actual = productDao.getPlainProductsByUserId(1);
 		
-		assertEqualsReversedSortedList(expected, actual);
-		
-		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+		assertEqualsReversedSortedList(expected, actual);		
 	}
 
 	@Test
 	public void getLogoByProductIdTest() {
-		Product dummyProduct = dummyProduct(0);
+		Product dummyProduct = dummyProduct(1);
 		insertProduct(dummyProduct);
 		
-		byte[] logo = productDao.getLogoByProductId(0);
+		byte[] logo = productDao.getLogoByProductId(1);
 		
 		assertArrayEquals(logo, logoFromProduct(dummyProduct));
 	}
 	
 	@Test
 	public void deleteProductByUserId() {
-		Product dummyProduct = dummyProduct(0);
+		Product dummyProduct = dummyProduct(1);
 		insertProduct(dummyProduct);
 
-		assertTrue(productDao.deleteProductById(0));
-		assertFalse(productDao.deleteProductById(0));
+		assertTrue(productDao.deleteProductById(1));
+		assertFalse(productDao.deleteProductById(1));
 		
-		assertEquals(0, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
 	}
 	
 	@Test
 	public void getPlainProductsByKeywordMatchNameTest() {
-		List<Product> expected = dummyProductList(LIST_SIZE, 0);
+		List<Product> expected = dummyProductList(LIST_SIZE, 1);
 		insertProducts(expected);
 		String keyword = expected.get(0).getName().substring(0, 3);
 		String noMatchKeyword = expected.get(0).getName().substring(1, 3);
@@ -143,19 +147,19 @@ public class ProductJdbcDaoTest {
 	
 	@Test
 	public void getPlainProductsByKeywordMatchTaglineTest() {
-		List<Product> expected = dummyProductList(LIST_SIZE, 0);
+		List<Product> expected = dummyProductList(LIST_SIZE, 1);
 		insertProducts(expected);
 		String keyword = expected.get(0).getShortDescription().substring(0, 3);
 		String noMatchKeyword = expected.get(0).getShortDescription().substring(1, 3);
 
 		assertSearch(keyword, noMatchKeyword, expected);
-		List<PlainProduct> actual = productDao.getPlainProductsByKeyword("desc", LIST_SIZE);
+		List<Product> actual = productDao.getPlainProductsByKeyword("desc", LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 	}
 	
-	private void assertSearch(String keyword, String noMatchKeyword, List<? extends PlainProduct> expected) {
-		List<PlainProduct> actual = productDao.getPlainProductsByKeyword(keyword, LIST_SIZE);
+	private void assertSearch(String keyword, String noMatchKeyword, List<? extends Product> expected) {
+		List<Product> actual = productDao.getPlainProductsByKeyword(keyword, LIST_SIZE);
 		
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
@@ -171,10 +175,10 @@ public class ProductJdbcDaoTest {
 		assertTrue(productDao.getPlainProductsByKeyword("sucutrule", LIST_SIZE).isEmpty());
 				
 		assertTrue(productDao.getPlainProductsByKeyword(noMatchKeyword, LIST_SIZE).isEmpty());
-		assertEqualsPlainProducts(dummyProduct(0), productDao.getPlainProductsByKeyword("0", LIST_SIZE).get(0));
+		assertEqualsPlainProducts(dummyProduct(1), productDao.getPlainProductsByKeyword("1", LIST_SIZE).get(0));
 	}
 	
-	private void assertSortedByName(List<? extends PlainProduct> actual) {
+	private void assertSortedByName(List<? extends Product> actual) {
 		for (int i = 1; i < actual.size(); i++) {
 			String shouldBeLower = actual.get(i-1).getName();
 			String shouldBeHiger = actual.get(i).getName();
@@ -183,14 +187,14 @@ public class ProductJdbcDaoTest {
 	}
 
 	private void insertDummyUser() throws DuplicateEmailException {
-		List<User> list = dummyUserList(LIST_SIZE, 0);
+		List<User> list = dummyUserList(LIST_SIZE, 1);
 		for (User dummy : list)
 			userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
 	}
 	
 	private Product insertProduct(Product product) {
 		return productDao.createProduct(product.getName(), product.getDescription(), product.getShortDescription(), product.getWebsite(),
-				product.getCategory().name(), product.getUploadDate(), logoFromProduct(product), product.getCreator().getUserId()).build();
+				product.getCategory(), product.getUploadDate(), product.getLogo(), product.getCreator());
 	}
 		
 	private void insertProducts(List<Product> products) {
@@ -198,22 +202,22 @@ public class ProductJdbcDaoTest {
 			insertProduct(product);
 	}
 
-	private void assertEqualsReversedSortedList(List<? extends PlainProduct> expected, List<? extends PlainProduct> actual) {
+	private void assertEqualsReversedSortedList(List<Product> expected, List<Product> actual) {
 		assertEquals(expected.size(), actual.size());
 		
 		for (int i = 0; i < expected.size(); i++) {
-			PlainProduct expectedProduct = expected.get(expected.size()-i-1);
-			PlainProduct actualProduct = actual.get(i);
-			assertEquals(expectedProduct, actualProduct);
+			Product expectedProduct = expected.get(expected.size()-i-1);
+			Product actualProduct = actual.get(i);
+			assertEqualsFullProducts(expectedProduct, actualProduct);
 			if (i > 0)
 				assertTrue(actualProduct.getId() < actual.get(i-1).getId());
 		}		
 	}
 
-	private void assertRetrievedCategory(Category category, List<? extends PlainProduct> productList) {
-		List<PlainProduct> productsByCategory = productDao.getPlainProductsByCategory(category.name());
+	private void assertRetrievedCategory(Category category, List<Product> productList) {
+		List<Product> productsByCategory = productDao.getPlainProductsByCategory(category);
 		
-		for (PlainProduct product : productsByCategory) {
+		for (Product product : productsByCategory) {
 			assertTrue(productList.contains(product));
 			assertEquals(category, product.getCategory());
 		}

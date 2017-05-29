@@ -18,12 +18,12 @@ public enum Category {
 		this.name = name;
 	}
 	
-	@Override
-	public String toString() {
+	public String getLowerName() {
 		return name;
 	}
-
-	public String getLowerName() {
+	
+	@Override
+	public String toString() {
 		return name;
 	}
 }

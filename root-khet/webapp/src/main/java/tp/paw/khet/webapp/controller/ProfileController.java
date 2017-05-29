@@ -112,6 +112,6 @@ public class ProfileController {
 			throw new UserNotFoundException();
 		}
 		
-		return userService.getProfilePictureByUserId(userId);
+		return user.getProfilePicture();
 	}
 }
