@@ -201,10 +201,10 @@
 }
 
 .join-discussion {
-	font-size: 1.2em;
+	font-size: 1.4em;
 	font-weight: 500;
 	margin-bottom: 5px;
-	color: #39C6C6;
+	margin-top: 1em;
 }
 
 .comment-form-fields p { /* errors */
