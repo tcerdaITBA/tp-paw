@@ -125,3 +125,9 @@
 .result-text {
 	word-wrap: break-word;
 }
+
+.badge{
+	background: white;
+    margin-left: 10px !important;
+    color: #737373 !important;
+}

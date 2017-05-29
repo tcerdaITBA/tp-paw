@@ -35,8 +35,20 @@
 				<div class="row tabs-row">
 					<div class="col-md-6 col-md-offset-3">
 						<ul class="nav nav-pills nav-justified search-tabs">
-							<li role="presentation" class="active"><a href="#products-pane" data-toggle="tab"><spring:message code="searchResults.products"/></a></li>
-							<li role="presentation"><a href="#users-pane" data-toggle="tab"><spring:message code="searchResults.users"/></a></li>
+						<c:choose>
+							<c:when test="${products.size() == 0}">
+								<c:set var="activeTab" value="usersTabActive"></c:set>
+							</c:when>
+							<c:when test="${users.size() == 0}">
+								<c:set var="activeTab" value="productsTabActive"></c:set>
+							</c:when>
+							<c:otherwise>
+								<c:set var="activeTab" value="${productsTabActive}"></c:set>
+							</c:otherwise>
+						</c:choose>
+			
+							<li role="presentation" class="active"><a href="#products-pane" data-toggle="tab"><spring:message code="searchResults.products"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
+							<li role="presentation"><a href="#users-pane" data-toggle="tab"><spring:message code="searchResults.users"/><span class="badge tab-badge"><c:out value="${users.size()}"/></span></a></li>
 						</ul>
 					</div>
 				</div>
