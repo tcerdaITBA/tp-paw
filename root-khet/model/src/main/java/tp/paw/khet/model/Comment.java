@@ -25,8 +25,8 @@ import javax.persistence.TemporalType;
 public class Comment {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comments_productid_seq")
-	@SequenceGenerator(sequenceName = "comments_productid_seq", name = "comments_productid_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comments_commentid_seq")
+	@SequenceGenerator(sequenceName = "comments_commentid_seq", name = "comments_commentid_seq", allocationSize = 1)
 	@Column(name = "commentid")	
 	private int id;
 	

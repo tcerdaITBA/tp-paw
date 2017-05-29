@@ -14,7 +14,6 @@ import static tp.paw.khet.model.ProductTestUtils.dummyPlainProductList;
 import static tp.paw.khet.model.ProductTestUtils.dummyPlainProductListWithCategory;
 import static tp.paw.khet.model.ProductTestUtils.dummyPlainProductListWithUserId;
 import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
-import static tp.paw.khet.model.ProductTestUtils.dummyProductBuilder;
 import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.model.UserTestUtils.dummyUser;
 
@@ -106,7 +105,7 @@ public class ProductServiceImplTest {
 	@Test
 	public void getProductByIdTest() {
 		Product expected = dummyProduct(0);
-		when(productDaoMock.getFullProductById(0)).thenReturn(dummyProductBuilder(0));
+		when(productDaoMock.getFullProductById(0)).thenReturn(expected);
 		when(commentServiceMock.getCommentsByProductId(0)).thenReturn(Collections.emptyList());
 		
 		Product actual = productService.getFullProductById(0);

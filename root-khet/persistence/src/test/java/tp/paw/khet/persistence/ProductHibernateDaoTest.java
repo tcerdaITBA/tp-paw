@@ -97,7 +97,7 @@ public class ProductHibernateDaoTest {
 		Product expected = dummyProduct(1);
 		insertProduct(expected);
 		
-		Product actual = productDao.getFullProductById(1).build();
+		Product actual = productDao.getFullProductById(1);
 		
 		assertEqualsFullProducts(expected, actual);
 		assertNull(productDao.getFullProductById(2));

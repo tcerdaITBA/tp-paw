@@ -107,12 +107,11 @@ public interface ProductDao {
     public int getTotalProductsInCategory(Category category);
     
 	/**
-	 * Retrieves a {@link Product.ProductBuilder} with every attribute set except for 
-	 * the familyComments and videos.
+	 * Retrieves a {@link Product} with every attribute set except for the familyComments.
 	 * @param productId - ID of the product
 	 * @return Product with the associated ID of null if it doesn't exist
 	 */
-	public Product.ProductBuilder getFullProductById(int productId);
+	public Product getFullProductById(int productId);
 	
 	/**
 	 * Retrieves a {@link Product} as a {@link Product}.

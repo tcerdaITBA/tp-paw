@@ -33,14 +33,12 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public Product getFullProductById(final int productId) {
-		Product.ProductBuilder productBuilder = productDao.getFullProductById(productId);
+		final Product product = productDao.getFullProductById(productId);
 		
-		if (productBuilder == null)
+		if (product == null)
 			return null;
 		
-		productBuilder.commentFamilies(commentService.getCommentsByProductId(productId));
-		
-		return productBuilder.build();
+		return Product.getBuilderFromProduct(product).commentFamilies(commentService.getCommentsByProductId(productId)).build();		
 	}
 
 	@Override
@@ -63,8 +61,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getPlainProductsByCategory(category);
 	}
 	
-	@Override
 	@Transactional
+	@Override
 	public Product createProduct(final String name, final String description, final String shortDescription, final String website,
 			final Category category, final byte[] logo, final int creatorId, final List<byte[]> imageBytes, final List<String> videoIds) {
 		
@@ -107,6 +105,7 @@ public class ProductServiceImpl implements ProductService {
         return (int) Math.ceil((float) total / pageSize);
     }
     
+    @Transactional
     @Override
     public boolean deleteProductById(final int productId) {
     	return productDao.deleteProductById(productId);

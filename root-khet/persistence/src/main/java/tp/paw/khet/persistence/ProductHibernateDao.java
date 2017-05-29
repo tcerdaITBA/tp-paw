@@ -16,7 +16,7 @@ import tp.paw.khet.model.User;
 
 @Repository
 public class ProductHibernateDao implements ProductDao {
-	    
+	    	
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -34,15 +34,21 @@ public class ProductHibernateDao implements ProductDao {
 	}
 	
 	@Override
-	public Product.ProductBuilder getFullProductById(final int productId) {
-		final Product product = em.find(Product.class, productId);
+	public Product getFullProductById(final int productId) {
+		final TypedQuery<Product> query = em.createQuery("from Product as p join fetch p.creator as pc where p.id = :productId", Product.class);
+		query.setParameter("productId", productId);
+
+		final List<Product> result = query.getResultList();
 		
-		if (product == null)
+		if (result.isEmpty())
 			return null;
 		
-		final Product.ProductBuilder builder = Product.getBuilderFromProduct(product);
+		final Product product = result.get(0);
 		
-		return builder;
+		product.getImages().size();
+		product.getVideos().size();
+		
+		return product;
 	}
 	
 	@Override
@@ -113,7 +119,7 @@ public class ProductHibernateDao implements ProductDao {
     @Override
     public int getTotalProductsInCategory(final Category category) {
        	final TypedQuery<Long> query = em.createQuery("select count(*) from Product as p where p.category = :category", Long.class);
-       	query.setParameter("category", category.name());
+       	query.setParameter("category", category);
     	final Long total = query.getSingleResult();
     	
         return total != null ? total.intValue() : 0;

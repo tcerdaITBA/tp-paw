@@ -70,7 +70,7 @@ public class ShowProductController {
 		mav.addObject("creator", product.getCreator());
 		mav.addObject("videos", product.getVideos());
 		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
-		mav.addObject("parentcomments", product.getCommentFamilies());
+		mav.addObject("parentcomments", commentService.getCommentsByProductId(productId));
 		
 		return mav;
 	}
