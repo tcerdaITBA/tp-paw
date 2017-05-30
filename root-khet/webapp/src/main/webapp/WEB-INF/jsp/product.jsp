@@ -67,13 +67,13 @@
                             <div class="col-md-9 product-info-box">
                                 <div class="row col-md-12">
                                     <div class="row product-name">
-                                        <div class="col-md-12 info-box-field">
+                                        <div class="col-md-12 info-box-field capitalize-firstLetter">
                                             <p><c:out value="${product.name}"/></p>
                                         </div>
                                     </div>
                                     <div class="row product-short-description">
-                                        <div class="col-md-12 info-box-field">
-                                            <p class="capitalize"><c:out value="${product.shortDescription}"/></p>
+                                        <div class="col-md-12 info-box-field capitalize-firstLetter" >
+                                            <p><c:out value="${product.shortDescription}"/></p>
                                         </div>
                                     </div>
                                     <div class="row">

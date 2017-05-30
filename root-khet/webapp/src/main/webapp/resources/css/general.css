@@ -132,8 +132,16 @@ footer p {
     margin-right: -4px;
 }
 
+.capitalize-firstLetter {
+	display: block;
+}
+
+.capitalize-firstLetter:first-letter {
+	text-transform: uppercase;
+}
+
 .capitalize {
-    text-transform: capitalize;
+	text-transform: uppercase;
 }
 
 #search-box {

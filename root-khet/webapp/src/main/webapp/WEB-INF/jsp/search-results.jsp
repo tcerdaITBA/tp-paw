@@ -82,13 +82,13 @@
 												<div class="col-md-9 product-info-box">
 													<div class="row col-md-12">
 														<div class="row">
-															<div class="col-md-12">
+															<div class="col-md-12 capitalize-firstLetter">
 																<p class="product-name result-text"><c:out value="${product.name}"/></p>
 															</div>
 														</div>
 														<div class="row product-short-description">
-															<div class="col-md-12">
-																<p class="capitalize result-text"><c:out value="${product.shortDescription}"/></p>
+															<div class="col-md-12 capitalize-firstLetter">
+																<p class="result-text"><c:out value="${product.shortDescription}"/></p>
 															</div>
 														</div>
 														<div class="row product-category">
@@ -129,8 +129,8 @@
 												<div class="col-md-9">
 													<div class="row">
 														<div class="col-md-12">
-															<div class="profile-name-holder">
-																<span class="capitalize profile-name result-text"><c:out value="${user.name}"/></span>
+															<div class="profile-name-holder capitalize-firstLetter">
+																<span class="profile-name result-text"><c:out value="${user.name}"/></span>
 															</div>
 														</div>
 													</div>
