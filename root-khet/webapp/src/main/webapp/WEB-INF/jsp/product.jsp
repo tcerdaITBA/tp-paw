@@ -53,7 +53,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
                     <div class="col-md-7">
-                        <div class="row product-item vertical-align highlighted">
+                        <div class="row product-item product-item-height vertical-align highlighted">
                             <sec:authorize access="isAuthenticated()">
                               <c:if test="${loggedUser.userId == creator.userId}">
                                   <span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>

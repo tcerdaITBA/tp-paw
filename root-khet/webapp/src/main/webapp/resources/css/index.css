@@ -21,6 +21,10 @@
 	object-fit: contain;
 }
 
+.product-logo {
+	align-self: center;
+}
+
 .modal-product-name {
 	font-weight: bold;
 	text-transform: uppercase;	
@@ -178,4 +182,25 @@ h2 {
 
 .zrp a {
 	color: #39c6a6;
+}
+
+.row.product-item-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+.row.product-item-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+.row.product-item-height > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }

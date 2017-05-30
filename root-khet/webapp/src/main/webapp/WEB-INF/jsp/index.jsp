@@ -102,7 +102,7 @@
 							<c:forEach items="${products}" var="product">
 								
 								<a href="<c:url value="/product/${product.id}"/>">
-									<div class="row product-list-item">
+									<div class="row product-list-item product-item-height">
 										<div class="col-md-3 product-logo">
 											<img src="<c:url value="/product/${product.id}/logo"/>">
 										</div>
