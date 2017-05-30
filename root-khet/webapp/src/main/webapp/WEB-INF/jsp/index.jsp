@@ -132,8 +132,10 @@
 							</c:forEach>
 							</div>
 						</c:otherwise>
-				</c:choose>									
-				<%@include file="includes/pagination.jsp"%></%@include>
+				</c:choose>
+				<c:if test="${totalPages > 1}">
+					<%@include file="includes/pagination.jsp"%></%@include>
+				</c:if>									
 		</div>
 	</div>
 	<%@include file="includes/footer.jsp"%>
