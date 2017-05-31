@@ -163,6 +163,12 @@ footer p {
 	border: 1px solid rgba(0,0,0,.09);
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
 	padding: 1em;
+	width: 100%;
+}
+
+.suggestions-box .divider {
+	border: 1px solid #f3f3f3;
+	margin: 0.5em;
 }
 
 .search-icn {

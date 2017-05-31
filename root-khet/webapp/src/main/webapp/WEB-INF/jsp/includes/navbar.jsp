@@ -32,12 +32,52 @@
 				</div>
 				<div class="suggestions-box">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-2">
+							<span class="glyphicon glyphicon-time"></span>
+						</div>
+						<div class="col-md-10">
 							<div class="search-history">
-								HOLA WACHINNGGG
+								<!--FOREACH-->
+								<div class="row">
+									<div class="col-md-12">
+										<p>QUERY 1</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<p>QUERY 2</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-md-12"><div class="divider"></div></div>
+					</div>
+					<!--FOREACH-->
+					<div class="row">
+						<div class="col-md-12">
+							<p class="most-popular-title">Most popular</p>
+						</div>
+					</div>
+					<a href="<c:url value="/product/3"/>">
+<!--					<a href="<c:url value="/product/${product.id}"/>">-->
+						<div class="row suggestion-list-item">
+							<div class="col-md-3 suggestion-product-logo">
+								<img src="<c:url value="/product/3/logo"/>">
+<!--								<img src="<c:url value="/product/${product.id}/logo"/>">-->
+							</div>
+							<div class="col-md-9 suggestion-product-info-box">
+								<div class="row suggestion-product-name">
+									<div class="col-md-12 capitalize-firstLetter">
+										<p><c:out value="Zelda"/></p>
+<!--										<p><c:out value="${product.name}"/></p>-->
+									</div>
+								</div>
+							</div>
+						</div>	
+					</a>
+					
 				</div>
 			</div>
 		</form>

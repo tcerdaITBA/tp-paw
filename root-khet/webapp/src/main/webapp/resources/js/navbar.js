@@ -30,7 +30,7 @@ $(document).ready(function() {
 	searchBox.focus(showSuggestions);
 	searchBtn.focus(showSuggestions);
 	
-	searchBox.focusout(hideSuggestions);
+//	searchBox.focusout(hideSuggestions);
 
 	searchBox.on('keyup', function(event) {
 		if (timeoutSearch) {
