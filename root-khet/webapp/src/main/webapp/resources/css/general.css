@@ -166,6 +166,27 @@ footer p {
 	width: 100%;
 }
 
+.history-item {
+	color: #8c8c8c;
+	display: block;
+	padding: 5px;
+	border-radius: 4px;
+}
+
+.history-item .glyphicon {
+	margin-right: 1em;
+}
+
+.suggestion-list-item:hover, .history-item:hover {
+	background-color: #f3f3f3;
+	text-decoration: none;
+	color: #333;
+}
+
+.suggestion-product-name {
+	color: #333;
+}
+
 .suggestions-box .divider {
 	border: 1px solid #f3f3f3;
 	margin: 0.5em;

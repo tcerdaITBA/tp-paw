@@ -31,23 +31,22 @@
 					</button>
 				</div>
 				<div class="suggestions-box">
-					<div class="row">
-						<div class="col-md-2">
-							<span class="glyphicon glyphicon-time"></span>
+					<div class="search-history">
+						<!--FOREACH-->
+						<div class="row">
+							<div class="col-md-12">
+								<a href="<c:url value="/search?query=QUERY 1"/>" class="history-item">
+									<span class="glyphicon glyphicon-time"></span>
+									<span>QUERY 1</span>
+								</a>
+							</div>
 						</div>
-						<div class="col-md-10">
-							<div class="search-history">
-								<!--FOREACH-->
-								<div class="row">
-									<div class="col-md-12">
-										<p>QUERY 1</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<p>QUERY 2</p>
-									</div>
-								</div>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="<c:url value="/search?query=QUERY 1"/>" class="history-item">
+									<span class="glyphicon glyphicon-time"></span>
+									<span>QUERY 1</span>
+								</a>
 							</div>
 						</div>
 					</div>
