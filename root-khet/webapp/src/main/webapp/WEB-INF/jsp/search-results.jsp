@@ -35,13 +35,16 @@
 				<div class="row tabs-row">
 					<div class="col-md-6 col-md-offset-3">
 						<ul class="nav nav-pills nav-justified search-tabs">
-							<li role="presentation" class="active"><a href="#products-pane" data-toggle="tab"><spring:message code="searchResults.products"/></a></li>
-							<li role="presentation"><a href="#users-pane" data-toggle="tab"><spring:message code="searchResults.users"/></a></li>
+							<c:set var="activeTab" value="${products.size() == 0 && users.size() != 0 }"></c:set>
+
+			
+							<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#products-pane" data-toggle="tab"><spring:message code="searchResults.products"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
+							<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#users-pane" data-toggle="tab"><spring:message code="searchResults.users"/><span class="badge tab-badge"><c:out value="${users.size()}"/></span></a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="tab-content">
-					<div id="products-pane" class="tab-pane fade in active row result-for-products">
+					<div id="products-pane" class="tab-pane fade row result-for-products ${!activeTab ? 'active in' : 'none' }">
 						<c:choose>
 							<c:when test="${products.isEmpty()}">
 								<div class="col-md-6 col-md-offset-3">
@@ -79,13 +82,13 @@
 												<div class="col-md-9 product-info-box">
 													<div class="row col-md-12">
 														<div class="row">
-															<div class="col-md-12">
+															<div class="col-md-12 capitalize-firstLetter">
 																<p class="product-name result-text"><c:out value="${product.name}"/></p>
 															</div>
 														</div>
 														<div class="row product-short-description">
-															<div class="col-md-12">
-																<p class="capitalize result-text"><c:out value="${product.shortDescription}"/></p>
+															<div class="col-md-12 capitalize-firstLetter">
+																<p class="result-text"><c:out value="${product.shortDescription}"/></p>
 															</div>
 														</div>
 														<div class="row product-category">
@@ -104,7 +107,7 @@
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<div id="users-pane" class="tab-pane fade row result-for-users">
+					<div id="users-pane" class="tab-pane fade row result-for-users ${activeTab ? 'active in' : 'none' }">
 						<c:choose>
 							<c:when test="${users.isEmpty()}">
 								<div class="col-md-6 col-md-offset-3">
@@ -126,8 +129,8 @@
 												<div class="col-md-9">
 													<div class="row">
 														<div class="col-md-12">
-															<div class="profile-name-holder">
-																<span class="capitalize profile-name result-text"><c:out value="${user.name}"/></span>
+															<div class="profile-name-holder capitalize-firstLetter">
+																<span class="profile-name result-text"><c:out value="${user.name}"/></span>
 															</div>
 														</div>
 													</div>

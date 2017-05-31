@@ -53,7 +53,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
                     <div class="col-md-7">
-                        <div class="row product-item vertical-align highlighted">
+                        <div class="row product-item product-item-height vertical-align highlighted">
                             <sec:authorize access="isAuthenticated()">
                               <c:if test="${loggedUser.userId == creator.userId}">
                                   <span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
@@ -67,13 +67,13 @@
                             <div class="col-md-9 product-info-box">
                                 <div class="row col-md-12">
                                     <div class="row product-name">
-                                        <div class="col-md-12 info-box-field">
+                                        <div class="col-md-12 info-box-field capitalize-firstLetter">
                                             <p><c:out value="${product.name}"/></p>
                                         </div>
                                     </div>
                                     <div class="row product-short-description">
-                                        <div class="col-md-12 info-box-field">
-                                            <p class="capitalize"><c:out value="${product.shortDescription}"/></p>
+                                        <div class="col-md-12 info-box-field capitalize-firstLetter" >
+                                            <p><c:out value="${product.shortDescription}"/></p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -226,12 +226,30 @@
                                 </div>
                                 <div class="row reply-button-holder">
                                     <div class="col-md-4">
-                                        <p class="reply-btn">
-                                            <span class="glyphicon glyphicon-share-alt"></span>
-                                            <spring:message code="productPage.reply"/>
-                                        </p>
+                                        	<sec:authorize access="isAnonymous()">
+                                        		<a tabindex="0" class="reply-btn" role="button" data-toggle="popover" data-trigger="focus" 
+												 data-content="<p class='popover-msg'>
+												 <span><spring:message code="productPage.anonymousComment1"/></span>
+												 <a href='<c:url value="/login"/>'>
+												 <span> <spring:message code="productPage.anonymousComment2"/></span>
+								 				</a>
+								 				<span><spring:message code="productPage.anonymousComment3"/></span>
+												 <a href='<c:url value="/register"/>'>
+												 <span> <spring:message code="productPage.anonymousComment4"/></span>
+								 				</a>
+								 				</p>" id="reply-popover">
+												 <span class="glyphicon glyphicon-share-alt"></span>
+						                         <spring:message code="productPage.reply"/>
+								 				</a>
+                                        	</sec:authorize>
+                                        	<sec:authorize access="isAuthenticated()">
+		                                        <p class="reply-btn reply-btn-fn">
+	                                        		<span class="glyphicon glyphicon-share-alt"></span>
+		                                            <spring:message code="productPage.reply"/>
+		                                        </p>
+                                        	</sec:authorize>    	
                                     </div>
-                                </div>
+                                </div>       
                                 <div class="row comment-divider">
                                     <div class="col-md-12"></div>
                                 </div>

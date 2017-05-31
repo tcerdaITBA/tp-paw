@@ -102,19 +102,19 @@
 							<c:forEach items="${products}" var="product">
 								
 								<a href="<c:url value="/product/${product.id}"/>">
-									<div class="row product-list-item">
+									<div class="row product-list-item product-item-height">
 										<div class="col-md-3 product-logo">
 											<img src="<c:url value="/product/${product.id}/logo"/>">
 										</div>
 										<div class="col-md-9 product-info-box">
 											<div class="row product-name">
-												<div class="col-md-12">
+												<div class="col-md-12 capitalize-firstLetter">
 													<p><c:out value="${product.name}"/></p>
 												</div>
 											</div>
 											<div class="row product-short-description">
-												<div class="col-md-12">
-													<p class="capitalize"><c:out value="${product.shortDescription}"/></p>
+												<div class="col-md-12 capitalize-firstLetter">
+													<p><c:out value="${product.shortDescription}"/></p>
 												</div>
 											</div>
 											<div class="row product-category">
@@ -132,8 +132,10 @@
 							</c:forEach>
 							</div>
 						</c:otherwise>
-				</c:choose>									
-				<%@include file="includes/pagination.jsp"%></%@include>
+				</c:choose>
+				<c:if test="${totalPages > 1}">
+					<%@include file="includes/pagination.jsp"%></%@include>
+				</c:if>									
 		</div>
 	</div>
 	<%@include file="includes/footer.jsp"%>
