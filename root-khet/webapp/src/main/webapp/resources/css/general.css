@@ -177,7 +177,7 @@ footer p {
 	margin-right: 1em;
 }
 
-.suggestion-list-item:hover, .history-item:hover {
+.history-item:hover, .history-item:focus {
 	background-color: #f3f3f3;
 	text-decoration: none;
 	color: #333;
@@ -212,5 +212,3 @@ footer p {
 	margin-left: 0.5em;
   margin-right: 0.5em;
 }
-
-.search

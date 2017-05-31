@@ -1,11 +1,19 @@
 package tp.paw.khet.webapp.controller;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Category;
@@ -14,6 +22,7 @@ import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.InvalidQueryException;
 
 @Controller
+@SessionAttributes(value="searchHistory")
 public class SearchController {
     
 	private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
@@ -29,7 +38,7 @@ public class SearchController {
     private static final int MAX_RESULTS = 10;
     
     @RequestMapping("/search")
-    public ModelAndView searchResults(@RequestParam(value = "query") String query) throws InvalidQueryException {
+    public ModelAndView searchResults(@RequestParam(value = "query") String query, HttpSession session) throws InvalidQueryException {
 		LOGGER.debug("Accessed search with query {}", query);
     	
         if (query == null || query.length() < MIN_QUERY) {
@@ -40,6 +49,15 @@ public class SearchController {
         	LOGGER.warn("Invalid query: too long");
             throw new InvalidQueryException();      	
         }
+        
+        // TODO: ver que usar. No puede haber repetidos, pero tienen que estar ordenados.
+        List<String> history = (List<String>) session.getAttribute("searchHistory");
+        session.setMaxInactiveInterval(0); // Trata de que la sesión no expire nunca.
+        if (history == null)
+            history = new LinkedList<>();
+        
+        history.add(query);
+        session.setAttribute("searchHistory", history);
         
         final ModelAndView mav = new ModelAndView("search-results");
         mav.addObject("products", productService.getPlainProductsByKeyword(query, MAX_RESULTS));
