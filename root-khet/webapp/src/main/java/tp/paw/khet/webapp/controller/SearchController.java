@@ -1,9 +1,6 @@
 package tp.paw.khet.webapp.controller;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collection;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Category;
+import tp.paw.khet.service.HistoryService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.InvalidQueryException;
@@ -32,6 +30,9 @@ public class SearchController {
     @Autowired
     private ProductService productService;
     
+    @Autowired
+    private HistoryService historyService;
+    
     private static final int MAX_RESULTS = 10;
     
     @RequestMapping("/search")
@@ -47,22 +48,11 @@ public class SearchController {
             throw new InvalidQueryException();      	
         }
         
-        // TODO: ver que usar. No puede haber repetidos, pero tienen que estar ordenados.
-        List<String> history = (List<String>) session.getAttribute("searchHistory");
-        
-        // TODO: donde se configura esto?
-        session.setMaxInactiveInterval(0); // Trata de que la sesión no expire nunca.
-        
-        // TODO: ver valor por defecto de session attribute
-        if (history == null) {
-            LOGGER.debug("No search history. Creating new one.");
-            history = new ArrayList<String>();
-        }
-        
-        LOGGER.debug("Adding {} to search history", query);
-        history.add(query);
+        @SuppressWarnings("unchecked")
+        Collection<String> history = (Collection<String>) session.getAttribute("searchHistory");
+        history = historyService.saveQueryInHistory(history, query);
         session.setAttribute("searchHistory", history);
-        
+
         final ModelAndView mav = new ModelAndView("search-results");
         mav.addObject("products", productService.getPlainProductsByKeyword(query, MAX_RESULTS));
         mav.addObject("categories", Category.values());
