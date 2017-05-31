@@ -23,6 +23,7 @@
 
 .product-logo {
 	align-self: center;
+	width: inherit;
 }
 
 .modal-product-name {

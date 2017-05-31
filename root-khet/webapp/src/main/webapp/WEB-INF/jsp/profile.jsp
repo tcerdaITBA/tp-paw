@@ -97,7 +97,7 @@
                                     <!-- The Modal -->
 									<%@include file="includes/deleteModal.jsp"%></%@include>
 									<a href="<c:url value="/product/${product.id}"/>">
-										<div class="row product-list-item">
+										<div class="row product-list-item product-item-height">
 											<sec:authorize access="isAuthenticated()">
 													<c:if test="${loggedUser.userId == profileUser.userId}">
 															<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
