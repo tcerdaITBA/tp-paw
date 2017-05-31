@@ -23,11 +23,22 @@
 		</div>
 
 		<form action="<c:url value="/search"/>" method="get" class="navbar-form navbar-left">
-			<div class="form-group">
-				<input id="search-box" pattern=".{3,}" maxlength="64" required oninvalid="this.setCustomValidity('<spring:message code="navBar.search.minimum3"/>')" onchange="try{setCustomValidity('')}catch(e){}" value="${fn:escapeXml(queryText)}" name="query" type="text" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>">
-				<button type="submit" class="search-button">
-					<span class="glyphicon glyphicon-search search-icn"></span>
-				</button>
+			<div class="search-form-container">
+				<div class="form-group">
+					<input id="search-box" pattern=".{3,}" maxlength="64" required oninvalid="this.setCustomValidity('<spring:message code="navBar.search.minimum3"/>')" onchange="try{setCustomValidity('')}catch(e){}" value="${fn:escapeXml(queryText)}" name="query" type="text" autocomplete="off" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>">
+					<button type="submit" class="search-button">
+						<span class="glyphicon glyphicon-search search-icn"></span>
+					</button>
+				</div>
+				<div class="suggestions-box">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="search-history">
+								HOLA WACHINNGGG
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</form>
 			

@@ -145,9 +145,24 @@ footer p {
 }
 
 #search-box {
-	width: 20em;
+	width: 24em;
 	border: 1px solid #e3e3e3;
 	border-radius: 3px;
+}
+
+.search-form-container {
+	position: relative;
+}
+
+.suggestions-box {
+	top: 40px;
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	border-radius: 3px;
+	border: 1px solid rgba(0,0,0,.09);
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
+	padding: 1em;
 }
 
 .search-icn {
@@ -170,3 +185,5 @@ footer p {
 	margin-left: 0.5em;
   margin-right: 0.5em;
 }
+
+.search
