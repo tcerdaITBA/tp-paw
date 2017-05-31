@@ -40,7 +40,7 @@ public class RegisterController {
 	@RequestMapping(value = "/register", method = {RequestMethod.GET})
 	public ModelAndView register() {
 		LOGGER.debug("Accessed register");
-		return new ModelAndView("createUser");
+	    return new ModelAndView("createUser");
 	}
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
@@ -49,24 +49,26 @@ public class RegisterController {
 
 		LOGGER.debug("Accessed register POST");
 		
-		FormPassword passwordForm = createUserForm.getPasswordForm();
+		final FormPassword passwordForm = createUserForm.getPasswordForm();
 		
-		if (errors.hasErrors())
+		if (errors.hasErrors()) {
+			LOGGER.warn("Failed to register user: form has error: {}", errors.getAllErrors());
 			return errorState(createUserForm, errors, attr);
+		}
 		
-		User user;
+		final User user;
 		
 		try {
 			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), passwordForm.getPassword(), createUserForm.getProfilePicture().getBytes());
 		} catch (DuplicateEmailException e) {
-			LOGGER.warn("Duplicate email exception: {}", e.getMessage());
+			LOGGER.warn("Failed to register user: duplicate email {}", e.getMessage());
 			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}
 		
 		LOGGER.info("New user with id {} registered", user.getUserId());
 		
-		Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+		final Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:/");
 	}

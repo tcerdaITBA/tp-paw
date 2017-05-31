@@ -1,13 +1,16 @@
 package tp.paw.khet;
 
-import static org.apache.commons.lang3.Validate.*;
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notBlank;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public final class Product {
+import tp.paw.khet.interfaces.PlainProduct;
+
+public final class Product implements PlainProduct {
 	private final int id;
 	private final String name;
 	private final String description;
@@ -40,10 +43,12 @@ public final class Product {
 		this.videos = builder.videos;
 	}
 	
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -52,6 +57,7 @@ public final class Product {
 		return description;
 	}
 	
+	@Override
 	public String getShortDescription() {
 		return shortDescription;
 	}
@@ -60,6 +66,7 @@ public final class Product {
 	    return website;
 	}
 	
+	@Override
 	public Category getCategory() {
 		return category;
 	}

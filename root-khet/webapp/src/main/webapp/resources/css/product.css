@@ -75,7 +75,8 @@
 	background-color: white;
 	padding: 10px 20px;
 	margin-top: 20px;
-	border-color: #33bb9c;
+	border-color: #337ab7;
+	word-wrap: break-word;
 }
 
 .long-description p {
@@ -105,7 +106,7 @@
 	display: inline;
 }
 
-.glyphicon {
+.glyphicon-envelope{
 	padding-right: 5px;
 }
 
@@ -171,6 +172,7 @@
 
 .parent-comment, .child-comment {
 	margin-top: 1em;
+	word-wrap: break-word;
 }
 
 .comment-content p {
@@ -199,10 +201,10 @@
 }
 
 .join-discussion {
-	font-size: 1.2em;
+	font-size: 1.4em;
 	font-weight: 500;
 	margin-bottom: 5px;
-	color: #39C6C6;
+	margin-top: 1em;
 }
 
 .comment-form-fields p { /* errors */
@@ -223,6 +225,7 @@
 	font-weight: bold;
 	position: relative;
 	bottom: 4px;
+    text-transform: capitalize;
 }
 
 .profile-name-holder {
@@ -245,6 +248,7 @@
 
 .child-comment-row {
 	margin-top: 1em;
+	word-wrap: break-word;
 }
 
 .comment-content {
@@ -262,6 +266,7 @@
 	background-color: white;
 	padding-top: 20px;
 	padding-left: 30px;
+	word-wrap: break-word;
 }
 
 .anonymous-holder {
@@ -284,4 +289,19 @@
 
 .comment-and-replies {
 	padding: 10px 30px;
+}
+
+.delete-product-button {
+	font-size: 1.4em;
+	color: #888a85;
+	position: absolute;
+	right: 15px;
+	top: 35px;
+	z-index: 5;
+}
+
+.delete-product-button:hover, .delete-product-button:focus {
+	color: #ef2929;
+	text-decoration: none;
+	cursor: pointer;
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.service.UserService;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
 import tp.paw.khet.webapp.form.FormPassword;
@@ -39,19 +40,14 @@ public class ProfileCustomizeController {
 	@Autowired
 	private UserService userService;
 	    
-	@ModelAttribute("loggedUser")
-	public User loggedUser() {
-		return securityUserService.getLoggedInUser();
-	}
-		
 	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
 	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
-			RedirectAttributes attr) {
+			RedirectAttributes attr) throws UnauthorizedException {
 		
 		LOGGER.debug("User with id {} accessed change password POST", loggedUser.getUserId());
 		
-		ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
 		
 		changePasswordForm.setCurrentPassword(loggedUser.getPassword());
 		passwordChangeValidator.validate(changePasswordForm, errors);
@@ -62,8 +58,10 @@ public class ProfileCustomizeController {
 			return mav;
 		}
 		
-		FormPassword passwordForm = changePasswordForm.getPasswordForm();
+		final FormPassword passwordForm = changePasswordForm.getPasswordForm();
 		securityUserService.changePassword(loggedUser.getUserId(), passwordForm.getPassword());
+		attr.addFlashAttribute("passFeedback", true);
+		attr.addFlashAttribute("changePasswordForm", new FormChangePassword());
 		
 		LOGGER.info("User with id {} successfully changed his password", loggedUser.getUserId());
 		
@@ -80,17 +78,19 @@ public class ProfileCustomizeController {
 	@RequestMapping(value="/profile/customize/profilePicture", method = {RequestMethod.POST})
 	public ModelAndView changeProfilePicture(@Valid @ModelAttribute("changeProfilePictureForm") final FormChangePicture changeProfilePictureForm ,
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
-			RedirectAttributes attr) {
-		
+			final RedirectAttributes attr) throws UnauthorizedException {
+				
 		LOGGER.debug("User with id {} accessed change profile picture POST", loggedUser.getUserId());
 		
-		ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
 		
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to change profile picture: form has errors: {}", errors.getAllErrors());
 			setErrorState(changeProfilePictureForm, errors, attr, loggedUser);
 			return mav;
 		}
+		
+		attr.addFlashAttribute("imgFeedback", true);
 		
 		try {
 			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePicture().getBytes());

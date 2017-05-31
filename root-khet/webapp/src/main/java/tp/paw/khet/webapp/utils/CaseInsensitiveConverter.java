@@ -6,7 +6,7 @@ public class CaseInsensitiveConverter<T extends Enum<T>> extends PropertyEditorS
 
     private final Class<T> typeParameterClass;
 
-    public CaseInsensitiveConverter(Class<T> typeParameterClass) {
+    public CaseInsensitiveConverter(final Class<T> typeParameterClass) {
         super();
         this.typeParameterClass = typeParameterClass;
     }

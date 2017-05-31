@@ -86,7 +86,7 @@ public class UserJdbcDao implements UserDao {
 		String otherWordsKeyword = "% "+keyword+"%";
 		String sql = "SELECT userId, userName, email, password FROM users WHERE "
 					 + "lower(userName) LIKE lower(?) OR lower(userName) LIKE lower(?) "
-					 + "ORDER BY userName LIMIT ?";
+					 + "ORDER BY lower(userName) LIMIT ?";
 
 		return jdbcTemplate.query(sql, userRowMapper, firstWordKeyword, otherWordsKeyword, maxLength);
 	}

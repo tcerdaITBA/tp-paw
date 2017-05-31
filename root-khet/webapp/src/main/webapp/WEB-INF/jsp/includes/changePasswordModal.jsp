@@ -8,7 +8,10 @@
 		<div class="modal-content">
             <div class="modal-header">
        	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><spring:message code="Profile.settings.changePassword"/></h4>
+                <h4 class="modal-title">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    <spring:message code="Profile.settings.changePassword"/>
+                </h4>
             </div>
             <div class="modal-body">
                 <c:url value="/profile/customize/password" var="postPath" />
@@ -29,7 +32,6 @@
                         <form:errors path="passwordForm.password" cssClass="form-error" element="p"/>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <form:label path="passwordForm.passwordConf" class="col-sm-4 control-label"><spring:message code="userFormLabel.passwordConfirm"></spring:message></form:label>
                     <div class="col-sm-7">
@@ -40,12 +42,38 @@
                     
                 <div class="form-group row-centered">
                     <div class="form-input-buttons">
-                        <input class="ps-btn-red btn submit-btn" type="submit" value="<spring:message code="changePassword"></spring:message>" />
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
+                        <input class="ps-btn-red btn submit-btn modal-btn" type="submit" value="<spring:message code="changePassword" />" />
+                        <button type="button" class="btn btn-default modal-btn" data-dismiss="modal"><spring:message code="passwordForm.cancel"/></button>
                     </div>
                 </div>
                     
                 </form:form>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div id="feedbackChangePassModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    <spring:message code="Profile.settings.title.changePasswordFeedback"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><spring:message code="Profile.settings.body.changePasswordFeedback" /></p>
+                    </div>
+                </div>
+                <div class="row row-centered">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.settings.ok"/></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

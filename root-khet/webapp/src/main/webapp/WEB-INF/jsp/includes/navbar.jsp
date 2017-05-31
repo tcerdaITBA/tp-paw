@@ -1,6 +1,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 	<sec:authentication var="user" property="principal" />
@@ -22,8 +24,10 @@
 
 		<form action="<c:url value="/search"/>" method="get" class="navbar-form navbar-left">
 			<div class="form-group">
-				<input id="search-box" value="${queryText}" name="query" type="text" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>"</input>
-				<span class="glyphicon glyphicon-search search-icn"></span>
+				<input id="search-box" pattern=".{3,}" maxlength="64" required oninvalid="this.setCustomValidity('<spring:message code="navBar.search.minimum3"/>')" onchange="try{setCustomValidity('')}catch(e){}" value="${fn:escapeXml(queryText)}" name="query" type="text" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>">
+				<button type="submit" class="search-button">
+					<span class="glyphicon glyphicon-search search-icn"></span>
+				</button>
 			</div>
 		</form>
 			
@@ -55,7 +59,17 @@
 				</sec:authorize>
 				<li>
 					<p class="navbar-btn">
-						<a href="<c:url value="/upload"/>" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
+						<sec:authorize access="isAuthenticated()">
+							<a href="<c:url value="/upload"/>" class="ps-btn btn upload-btn"><spring:message code="navBar.postButton" /></a>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<a tabindex="0" class="ps-btn btn upload-btn" role="button" data-toggle="popover" data-trigger="focus" 
+								 data-content="<p class='popover-msg'>
+								 <span><spring:message code="navBar.toPost"/></span>
+								 <a href='<c:url value="/login"/>'> 
+								 <span> <spring:message code="navBar.signIn"/></span>
+								 </a></p>" id="upload-popover"><spring:message code="navBar.postButton" /></a>
+						</sec:authorize>
 					</p>
 				</li>
 			</ul>

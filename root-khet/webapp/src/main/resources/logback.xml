@@ -2,7 +2,7 @@
 <configuration>
 	<property name="defaultPattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
 	
-	<appender name="root-appender" class="ch.qos.logback.core.RollingFileAppender">
+	<appender name="root-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<maxHistory>5</maxHistory>
 			<fileNamePattern>logs/grupo2warnings.%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -12,7 +12,7 @@
 		</encoder>
 	</appender>
 	
-	<appender name="paw-appender" class="ch.qos.logback.core.RollingFileAppender">
+	<appender name="paw-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<maxHistory>5</maxHistory>
 			<fileNamePattern>logs/grupo2paw.%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -22,11 +22,11 @@
 		</encoder>
 	</appender>
 	
-	<root level="ERROR">
+	<root level="WARN">
 		<appender-ref ref="root-appender" />
 	</root>
 	
-	<logger name="tp.paw.khet" level="WARN" additivity="false">
+	<logger name="tp.paw.khet" level="INFO" additivity="false">
 		<appender-ref ref="paw-appender" />
 	</logger>
 </configuration>

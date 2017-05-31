@@ -4,7 +4,7 @@
 	height: 15em;
 	margin: auto;
 	margin-top: 30px;
-	margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .create-title {
@@ -25,4 +25,8 @@
 
 .text-centered {
 	text-align: center;
+}
+
+.upload-btn {
+    visibility: hidden;
 }

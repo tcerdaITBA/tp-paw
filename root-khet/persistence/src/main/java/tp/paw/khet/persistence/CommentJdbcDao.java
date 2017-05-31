@@ -36,14 +36,14 @@ public class CommentJdbcDao implements CommentDao {
 	}
 
 	@Override
-	public List<Comment> getCommentsByProductId(int id) {
-		List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments NATURAL JOIN users WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", 
+	public List<Comment> getCommentsByProductId(final int id) {
+		final List<Comment> comments = jdbcTemplate.query("SELECT * FROM comments NATURAL JOIN users WHERE productId = ? ORDER BY parentId NULLS FIRST, commentDate ASC", 
 				commentRowMapper, id);
 		return comments;	
 	}
 	
 	@Override
-	public Comment createComment(String content, LocalDateTime date, int parentId, int productId, int userId) {
+	public Comment createComment(final String content, final LocalDateTime date, final int parentId, final int productId, final int userId) {
 		final Map<String, Object> args = argsMap(content, date, productId, userId);
 		args.put("parentId", parentId);
 		
@@ -53,7 +53,7 @@ public class CommentJdbcDao implements CommentDao {
 	}
 
 	@Override
-	public Comment createParentComment(String content, LocalDateTime date, int productId, int userId) {
+	public Comment createParentComment(final String content, final LocalDateTime date, final int productId, final int userId) {
 		final Map<String, Object> args = argsMap(content, date, productId, userId);
 		
 		final Number commentId = jdbcInsert.executeAndReturnKey(args);
@@ -61,7 +61,7 @@ public class CommentJdbcDao implements CommentDao {
 		return new Comment(commentId.intValue(), userDao.getUserById(userId), content, date);
 	}
 
-	private Map<String, Object> argsMap(String content, LocalDateTime date, int productId, int userId) {
+	private Map<String, Object> argsMap(final String content, final LocalDateTime date, final int productId, final int userId) {
 		final Map<String, Object> args = new HashMap<String, Object>();
 		args.put("commentContent", content);
 		args.put("commentDate", Timestamp.valueOf(date));

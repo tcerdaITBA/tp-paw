@@ -7,10 +7,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import tp.paw.khet.Product;
+import tp.paw.khet.interfaces.PlainProduct;
 
 @Component
-public class PlainProductRowMapper implements RowMapper<Product> {
-	public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+public class PlainProductRowMapper implements RowMapper<PlainProduct> {
+	public PlainProduct mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		return Product.getBuilder(rs.getInt("productId"), rs.getString("productName"), rs.getString("shortDescription"))
 				.category(rs.getString("category"))
 				.build();

@@ -15,6 +15,7 @@
 	width: 6em;
 	height: 6em;
 	border-radius: 50%;
+    object-fit: contain;
 }
 
 .img-col {
@@ -29,8 +30,16 @@
 	align-items: center;
 }
 
+.user-info-box:hover {
+	border-color: #337ab7;
+}
+
 .product-list-item:hover {
 	border-color: #33bb9c;
+}
+
+.no-cap-strong {
+    text-transform: inherit;
 }
 
 .creator-mail p {
@@ -44,7 +53,9 @@
 
 .creator-mail {
 	font-size: 1.2em;
+	display: inline-block;
 }
+
 
 .search-tabs {
 	font-size: 1.2em;
@@ -58,4 +69,65 @@
 
 .search-tabs .active a {
 	border: 2px solid #39c6a6;
+}
+
+
+.filter-checkbox {
+	display: none;
+	color: #333;
+	font-weight: 400;
+}
+
+.filter-panel {
+	border: 1px solid #f3f3f3;
+}
+
+
+.filter-title {
+	margin-top: 0;
+	font-weight: 300;
+	color: #333;
+}
+
+.filter-checkbox input {
+	margin-right: 5px;
+}
+
+#user-search-zrp, #product-search-zrp {
+	text-align: center;
+	color: #737373;
+}
+
+#user-search-zrp h2, #product-search-zrp h2 {
+	font-size: 4em;
+}
+
+#user-search-zrp h3, #product-search-zrp h3 {
+	color: black;
+	font-weight: 400;
+}
+
+#user-search-zrp p, #product-search-zrp p {
+	margin-top: 1em;
+	font-size: 1.5em;
+	font-weight: 300;
+	color: #737373;
+}
+
+.creator-mail:hover {
+	text-decoration: underline;
+}
+
+.user-ref:hover .creator-mail {
+	color: #337ab7;
+}
+
+.result-text {
+	word-wrap: break-word;
+}
+
+.badge{
+	background: white;
+    margin-left: 10px !important;
+    color: #737373 !important;
 }

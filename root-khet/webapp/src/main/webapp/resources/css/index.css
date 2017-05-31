@@ -18,7 +18,16 @@
 .product-logo img {
 	height: 100px;
 	width: 100px;
-	object-fit: cover;
+	object-fit: contain;
+}
+
+.product-logo {
+	align-self: center;
+}
+
+.modal-product-name {
+	font-weight: bold;
+	text-transform: uppercase;	
 }
 
 /* magia para que quede alineado abajo */
@@ -36,11 +45,12 @@
 
 .product-info-box {
 	padding-left: 0;
+	padding-right: 1.6em;
+	
 }
 
 .product-name {
 	color: #000000;
-	text-transform: capitalize;
 	font-weight: 400;
 	font-size: 1.3em;
 }
@@ -89,8 +99,9 @@ h2 {
 	text-align: center;
 	border: 2px solid #c4c4c4;
 	border-radius: 4px;
-	padding: 5px 5px;
+	padding: 5px 1em;
 	word-wrap: break-word;
+	display: inline-block;
 }
 
 .categoryTag:hover {
@@ -172,4 +183,25 @@ h2 {
 
 .zrp a {
 	color: #39c6a6;
+}
+
+.row.product-item-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+.row.product-item-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+.row.product-item-height > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }

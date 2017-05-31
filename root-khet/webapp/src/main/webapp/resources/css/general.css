@@ -3,6 +3,10 @@ body {
 	padding-top: 70px;
 }
 
+p {
+	word-wrap: break-word;
+}
+
 .navbar-default {
 	background-color: #fff !important;
 	border-radius: 0;
@@ -47,11 +51,20 @@ nav img {
 	position: relative;
 }
 
-.search-results {
-  position: absolute;
-	width: 100%;
-  top: 3em;
-	background-color: green;
+.popover {
+	width: 15em !important;
+	text-align: center;
+}
+
+.popover-msg {
+	margin: 0 !important;
+	font-size: 1em !important;
+	color: #000 !important;
+	font-weight: 400 !important;
+}
+
+.popover-msg a {
+	color: #337ab7;
 }
 
 textarea {
@@ -119,6 +132,18 @@ footer p {
     margin-right: -4px;
 }
 
+.capitalize-firstLetter {
+	display: block;
+}
+
+.capitalize-firstLetter:first-letter {
+	text-transform: uppercase;
+}
+
+.capitalize {
+	text-transform: uppercase;
+}
+
 #search-box {
 	width: 20em;
 	border: 1px solid #e3e3e3;
@@ -129,4 +154,19 @@ footer p {
 	line-height: 20px;
 	color: #e3e3e3;
 	padding-left: 5px;
+}
+
+.search-button {
+	background: rgba(255, 255, 255, 0);
+    border: transparent;
+}
+
+.search-icn:hover {
+	color: #33bb9c;
+	transition: all .1s ease-in;
+}
+
+.modal-btn {
+	margin-left: 0.5em;
+  margin-right: 0.5em;
 }
