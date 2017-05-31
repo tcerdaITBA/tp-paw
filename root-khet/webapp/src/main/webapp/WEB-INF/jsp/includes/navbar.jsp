@@ -33,22 +33,16 @@
 				<div class="suggestions-box">
 					<div class="search-history">
 						<!--FOREACH-->
-						<div class="row">
-							<div class="col-md-12">
-								<a href="<c:url value="/search?query=QUERY 1"/>" class="history-item">
-									<span class="glyphicon glyphicon-time"></span>
-									<span>QUERY 1</span>
-								</a>
+						<c:forEach items="${sessionScope.searchHistory}" var="savedQuery">
+							<div class="row">
+								<div class="col-md-12">
+									<a href="<c:url value="/search?query=${fn:escapeXml(savedQuery)}"/>" class="history-item">
+										<span class="glyphicon glyphicon-time"></span>
+										<span><c:out value="${savedQuery}"/></span>
+									</a>
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<a href="<c:url value="/search?query=QUERY 1"/>" class="history-item">
-									<span class="glyphicon glyphicon-time"></span>
-									<span>QUERY 1</span>
-								</a>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<div class="row">
 						<div class="col-md-12"><div class="divider"></div></div>

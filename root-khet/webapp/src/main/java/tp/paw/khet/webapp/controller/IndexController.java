@@ -1,8 +1,6 @@
 package tp.paw.khet.webapp.controller;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.Category;
@@ -20,7 +17,6 @@ import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
 
 @Controller
-@SessionAttributes(value="searchHistory")
 public class IndexController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
@@ -40,20 +36,11 @@ public class IndexController {
 	        throw new ResourceNotFoundException();
 	    }
 	    
-	    List<String> history = (List<String>) session.getAttribute("searchHistory");
-	    if (history != null)
-    	    for (String s: history)
-    	        System.out.println(s);
-	    
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
 		mav.addObject("categories", Category.values());
 		mav.addObject("currentPage", page);
 		mav.addObject("totalPages", maxPage);
-		
-		//TODO sacar
-		mav.addObject("searchHistory", history);
-		
 		return mav;
 	}
 		
