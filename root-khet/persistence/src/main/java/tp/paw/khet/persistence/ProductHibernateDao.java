@@ -45,6 +45,7 @@ public class ProductHibernateDao implements ProductDao {
 		
 		final Product product = result.get(0);
 		
+		// Hibernate lazy initialization
 		product.getImages().size();
 		product.getVideos().size();
 		
