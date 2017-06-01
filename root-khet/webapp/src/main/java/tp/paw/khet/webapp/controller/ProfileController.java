@@ -19,9 +19,9 @@ import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
-import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.exception.ProductNotFoundException;
+import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.exception.UserNotFoundException;
 import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
@@ -37,7 +37,7 @@ public class ProfileController {
 
     @Autowired
     private ProductService productService;
-    
+
 	@ModelAttribute("changePasswordForm")
 	public FormChangePassword passwordForm(@ModelAttribute("loggedUser") final User loggedUser){
 		return new FormChangePassword();
@@ -62,6 +62,7 @@ public class ProfileController {
 				
 		mav.addObject("profileUser", user);
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
+		mav.addObject("votedProducts", userService.getUserWithVotedProductsById(userId).getVotedProducts());
 		return mav;
 	}
 	
