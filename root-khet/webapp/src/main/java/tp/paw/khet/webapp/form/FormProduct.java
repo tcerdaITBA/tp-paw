@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.URL;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
-import tp.paw.khet.Category;
+import tp.paw.khet.model.Category;
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
 import tp.paw.khet.webapp.form.constraints.NoDuplicateVideos;

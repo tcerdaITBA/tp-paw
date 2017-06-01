@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import tp.paw.khet.Video;
+import tp.paw.khet.model.Video;
 import tp.paw.khet.persistence.VideoDao;
 
 @Service
@@ -20,11 +21,13 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.getVideosByProductId(id);
 	}
 	
+	@Transactional
 	@Override
 	public Video createVideo(final String videoId, final int productId) {
 		return videoDao.createVideo(videoId, productId);
 	}
 
+	@Transactional
 	@Override
 	public List<Video> createVideos(final List<String> videoIds, final int productId) {
 		List<Video> videos = new ArrayList<>();
@@ -32,7 +35,7 @@ public class VideoServiceImpl implements VideoService {
 		for (String videoId : videoIds)
 			videos.add(createVideo(videoId, productId));
 		
-		return null;
+		return videos;
 	}
 
 }

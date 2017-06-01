@@ -1,10 +1,10 @@
-package tp.paw.khet.testutils;
+package tp.paw.khet.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import tp.paw.khet.Video;
+import tp.paw.khet.model.Video;
 
 public final class VideoTestUtils {
 

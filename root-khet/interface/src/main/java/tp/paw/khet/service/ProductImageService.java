@@ -2,8 +2,8 @@ package tp.paw.khet.service;
 
 import java.util.List;
 
-import tp.paw.khet.ProductImage;
-import tp.paw.khet.Product;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.ProductImage;
 
 public interface ProductImageService {
 	
@@ -30,6 +30,13 @@ public interface ProductImageService {
 	 * @return {@link List} with the product images ID. Could be empty if the product possesses no images
 	 */
 	public List<Integer> getImagesIdByProductId(int productId);
+	
+	/**
+	 * Lists the IDs of the images corresponding to the given {@link Product}
+	 * @param product - Product whose image IDs list
+	 * @return
+	 */
+	public List<Integer> getImagesIdsFromProduct(Product product);
 	
 	/**
 	 * Retrieves a {@link ProductImage} associated with a {@link Product}.

@@ -2,8 +2,8 @@ package tp.paw.khet.persistence;
 
 import java.util.List;
 
-import tp.paw.khet.Video;
-import tp.paw.khet.Product;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.Video;
 
 public interface VideoDao {
 	

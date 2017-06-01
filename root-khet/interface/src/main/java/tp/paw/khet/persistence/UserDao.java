@@ -2,8 +2,8 @@ package tp.paw.khet.persistence;
 
 import java.util.List;
 
-import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.User;
 
 public interface UserDao {
 	

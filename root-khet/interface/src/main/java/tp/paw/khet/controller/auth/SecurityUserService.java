@@ -1,7 +1,7 @@
 package tp.paw.khet.controller.auth;
 
-import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.User;
 
 public interface SecurityUserService {
 	/**

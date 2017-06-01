@@ -1,14 +1,15 @@
 package tp.paw.khet.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.CommentFamily;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.CommentFamily;
 import tp.paw.khet.persistence.CommentDao;
 
 @Service
@@ -16,6 +17,12 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Autowired
 	private CommentDao commentDao;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private ProductService productService;
 
 	@Override
 	public List<CommentFamily> getCommentsByProductId(final int id) {
@@ -32,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
 				parents.add(commentFamily);
 				commentIndex++;
 			}
-			else if (c.getParentId() == parents.get(parentIndex).getParentComment().getId()) {
+			else if (c.getParent().equals(parents.get(parentIndex).getParentComment())) {
 				parents.get(parentIndex).addChildComment(c);
 				commentIndex++;
 			}
@@ -43,14 +50,17 @@ public class CommentServiceImpl implements CommentService {
 		return parents;
 	}
 	
+	@Transactional
 	@Override
 	public Comment createComment(final String content, final int parentId, final int productId, final int userId) {
-		return commentDao.createComment(content, LocalDateTime.now(), parentId, productId, userId);
+		return commentDao.createComment(content, new Date(), commentDao.getCommentById(parentId), 
+				productService.getPlainProductById(productId), userService.getUserById(userId));
 	}
 
+	@Transactional
 	@Override
 	public Comment createParentComment(final String content, final int productId, final int userId) {
-		return commentDao.createParentComment(content, LocalDateTime.now(), productId, userId);
+		return commentDao.createParentComment(content, new Date(), productService.getPlainProductById(productId), userService.getUserById(userId));
 	}
 
 }

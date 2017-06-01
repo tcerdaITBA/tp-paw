@@ -1,14 +1,15 @@
 package tp.paw.khet.service;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.Product.ProductBuilder;
 import tp.paw.khet.persistence.ProductDao;
 
 @Service
@@ -29,51 +30,49 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private UserService userService;
 	
+	@Transactional
 	@Override
 	public Product getFullProductById(final int productId) {
-		Product.ProductBuilder productBuilder = productDao.getFullProductById(productId);
+		final Product product = productDao.getFullProductById(productId);
 		
-		if (productBuilder == null)
+		if (product == null)
 			return null;
 		
-		productBuilder.commentFamilies(commentService.getCommentsByProductId(productId))
-					  .videos(videoService.getVideosByProductId(productId));
-		
-		return productBuilder.build();
+		return Product.getBuilderFromProduct(product).commentFamilies(commentService.getCommentsByProductId(productId)).build();		
 	}
 
 	@Override
-	public PlainProduct getPlainProductById(final int productId) {
+	public Product getPlainProductById(final int productId) {
 		return productDao.getPlainProductById(productId);
 	}
 	
 	@Override
-	public List<PlainProduct> getPlainProducts() {
+	public List<Product> getPlainProducts() {
 		return productDao.getPlainProducts();
 	}
 
 	@Override
-	public List<PlainProduct> getPlainProductsByUserId(final int userId) {
+	public List<Product> getPlainProductsByUserId(final int userId) {
 		return productDao.getPlainProductsByUserId(userId);
 	}
 	
 	@Override
-	public List<PlainProduct> getPlainProductsByCategory(final Category category) {
-		return productDao.getPlainProductsByCategory(category.name());
+	public List<Product> getPlainProductsByCategory(final Category category) {
+		return productDao.getPlainProductsByCategory(category);
 	}
 	
+	@Transactional
 	@Override
 	public Product createProduct(final String name, final String description, final String shortDescription, final String website,
-			Category category, byte[] logo, int creatorId, List<byte[]> imageBytes, List<String> videoIds) {
+			final Category category, final byte[] logo, final int creatorId, final List<byte[]> imageBytes, final List<String> videoIds) {
 		
-		Product.ProductBuilder productBuilder = productDao.createProduct(name, description, shortDescription, 
-				website, category.name(), LocalDateTime.now(), logo, creatorId);
+		final Product product = productDao.createProduct(name, description, shortDescription, 
+						website, category, new Date(), logo, userService.getUserById(creatorId));
 		
-		int productId = productBuilder.build().getId();
+		final ProductBuilder productBuilder = Product.getBuilderFromProduct(product);
 		
-		productBuilder.creator(userService.getUserById(creatorId));
-		productBuilder.videos(videoService.createVideos(videoIds, productId));
-		productImageService.createProductImages(imageBytes, productId);
+		productBuilder.videos(videoService.createVideos(videoIds, product.getId()));
+		productBuilder.images(productImageService.createProductImages(imageBytes, product.getId()));
 		
 		return productBuilder.build();
 	}
@@ -84,14 +83,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
     @Override
-    public List<PlainProduct> getPlainProductsPaged(final int page, final int pageSize) {
+    public List<Product> getPlainProductsPaged(final int page, final int pageSize) {
         return productDao.getPlainProductsRange((page - 1) * pageSize, pageSize);
     }
 
     @Override
-    public List<PlainProduct> getPlainProductsByCategoryPaged(final Category category, final int page,
+    public List<Product> getPlainProductsByCategoryPaged(final Category category, final int page,
     		final int pageSize) {
-        return productDao.getPlainProductsRangeByCategory(category.name(), (page - 1) * pageSize, pageSize);
+        return productDao.getPlainProductsRangeByCategory(category, (page - 1) * pageSize, pageSize);
     }
 
     @Override
@@ -106,24 +105,25 @@ public class ProductServiceImpl implements ProductService {
         return (int) Math.ceil((float) total / pageSize);
     }
     
+    @Transactional
     @Override
     public boolean deleteProductById(final int productId) {
     	return productDao.deleteProductById(productId);
     }
 
     @Override
-    public List<PlainProduct> getPlainProductsAlphabeticallyPaged(final int page, final int pageSize) {
+    public List<Product> getPlainProductsAlphabeticallyPaged(final int page, final int pageSize) {
         return productDao.getPlainProductsRangeAlphabetically((page - 1) * pageSize, pageSize);
     }
 
     @Override
-    public List<PlainProduct> getPlainProductsAlphabeticallyByCategoryPaged(final Category category, final int page,
+    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(final Category category, final int page,
     		final int pageSize) {
-        return productDao.getPlainProductsRangeAlphabeticallyByCategory(category.name(), (page - 1) * pageSize, pageSize);
+        return productDao.getPlainProductsRangeAlphabeticallyByCategory(category, (page - 1) * pageSize, pageSize);
     }
 
 	@Override
-	public List<PlainProduct> getPlainProductsByKeyword(String keyword, int maxLength) {
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
 		return productDao.getPlainProductsByKeyword(keyword, maxLength);
 	}
 }

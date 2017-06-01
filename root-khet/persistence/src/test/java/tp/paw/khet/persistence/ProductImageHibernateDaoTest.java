@@ -1,9 +1,13 @@
 package tp.paw.khet.persistence;
 
 import static org.junit.Assert.assertEquals;
-import static tp.paw.khet.testutils.ProductImageTestUtils.*;
-import static tp.paw.khet.testutils.ProductTestUtils.*;
-import static tp.paw.khet.testutils.UserTestUtils.*;
+import static tp.paw.khet.model.ProductImageTestUtils.assertEqualsProductImages;
+import static tp.paw.khet.model.ProductImageTestUtils.dummyProductImage;
+import static tp.paw.khet.model.ProductImageTestUtils.dummyProductImageList;
+import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
+import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
+import static tp.paw.khet.model.UserTestUtils.dummyUser;
+import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 
 import java.util.List;
 
@@ -18,22 +22,24 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
-import tp.paw.khet.Product;
-import tp.paw.khet.ProductImage;
-import tp.paw.khet.User;
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.ProductImage;
+import tp.paw.khet.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Transactional
 @Sql("classpath:schema.sql")
-public class ProductImageJdbcDaoTest {
+public class ProductImageHibernateDaoTest {
 
 	private final static String TABLE_NAME = "productImages";
 	private final static int DUMMY_LIST_SIZE = 20;
 	
 	@Autowired
-	private ProductImageJdbcDao productImageDao;
+	private ProductImageHibernateDao productImageDao;
 	
 	@Autowired
 	private UserDao userDao;
@@ -57,63 +63,50 @@ public class ProductImageJdbcDaoTest {
 
 	@Test
 	public void getImagesIdByProductIdTest() {
-		List<ProductImage> expectedList = dummyProductImageList(DUMMY_LIST_SIZE, 0, 0);
+		List<ProductImage> expectedList = dummyProductImageList(DUMMY_LIST_SIZE, 1, 1);
 		
 		for (ProductImage productImage : expectedList)
-			productImageDao.createProductImage(productImage.getProductImageId(), 0, productImage.getData());
+			productImageDao.createProductImage(productImage.getProductImageId(), 1, productImage.getData());
 		
-		List<Integer> actualList = productImageDao.getImagesIdByProductId(0);
+		List<Integer> actualList = productImageDao.getImagesIdByProductId(1);
 		
 		int i;
 		for (i = 0; i < expectedList.size(); i++)
 			assertEquals(expectedList.get(i).getProductImageId(), actualList.get(i).intValue());
 		
 		assertEquals(i, actualList.size());
-		assertEquals(0, productImageDao.getImagesIdByProductId(1).size());
+		assertEquals(0, productImageDao.getImagesIdByProductId(2).size());
 		assertEquals(DUMMY_LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
 	}
 	
 	@Test
 	public void getImageByIdsTest() {
-		ProductImage expected = dummyProductImage(0, 0);
+		ProductImage expected = dummyProductImage(1, 1);
 		
 		productImageDao.createProductImage(expected.getProductImageId(), expected.getProductId(), expected.getData());
 		
-		ProductImage actual = productImageDao.getImageByIds(0, 0);
+		ProductImage actual = productImageDao.getImageByIds(1, 1);
 		
 		assertEqualsProductImages(expected, actual);
 	}
 	
 	@Test
 	public void createProductImageTest() {
-		ProductImage expected = dummyProductImage(0, 0);
+		ProductImage expected = dummyProductImage(1, 1);
 		
-		ProductImage actual = productImageDao.createProductImage(0, 0, expected.getData());
+		ProductImage actual = productImageDao.createProductImage(1, 1, expected.getData());
 		
 		assertEqualsProductImages(expected, actual);
-		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
-	}
-	
-	@Test
-	public void onDeleteCascadeTest() {
-		ProductImage dummy = dummyProductImage(0, 0);
-		productImageDao.createProductImage(0, 0, dummy.getData());
-		
-		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
-
-		JdbcTestUtils.deleteFromTables(jdbcTemplate, "products");
-		
-		assertEquals(0, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
 	}
 	
 	private void insertDummyProduct() {
-		Product dummy = dummyProduct(0);
-		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), dummy.getWebsite(), dummy.getCategory().name(),
-				dummy.getUploadDate(), logoFromProduct(dummy), 0);
+		Product dummy = dummyProduct(1);
+		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), dummy.getWebsite(), dummy.getCategory(),
+				dummy.getUploadDate(), logoFromProduct(dummy), dummyUser(1));
 	}
 
 	private void insertDummyUser() throws DuplicateEmailException {
-		User dummy = dummyUser(0);
+		User dummy = dummyUser(1);
 		userDao.createUser(dummy.getName(), dummy.getEmail(), dummy.getPassword(), profilePictureFromUser(dummy));
 	}
 }

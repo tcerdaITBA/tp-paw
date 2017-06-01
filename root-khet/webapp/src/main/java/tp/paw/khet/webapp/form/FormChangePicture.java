@@ -13,15 +13,13 @@ public class FormChangePicture {
 	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
 	@FileSize(min = 1)
 	@NotNull
-	private MultipartFile profilePicture;
+	private MultipartFile profilePictureFile;
 
-	public MultipartFile getProfilePicture() {
-		return profilePicture;
+	public MultipartFile getProfilePictureFile() {
+		return profilePictureFile;
 	}
 
-	public void setProfilePicture(MultipartFile profilePicture) {
-		this.profilePicture = profilePicture;
+	public void setProfilePictureFile(MultipartFile profilePictureFile) {
+		this.profilePictureFile = profilePictureFile;
 	}
-	
-	
 }

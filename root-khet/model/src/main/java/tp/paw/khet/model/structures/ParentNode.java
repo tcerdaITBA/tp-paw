@@ -1,4 +1,4 @@
-package tp.paw.khet.structures;
+package tp.paw.khet.model.structures;
 
 import java.util.ArrayList;
 import java.util.List;

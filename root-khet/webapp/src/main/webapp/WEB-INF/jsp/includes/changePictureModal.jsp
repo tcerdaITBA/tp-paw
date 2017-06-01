@@ -34,8 +34,8 @@
 								<div class="row">
 								<div class="col-md-6 col-md-offset-3">
 									<div class="profile-img-input">
-										<form:input class="image-input" type="file" path="profilePicture" accept="image/*"/>
-										<form:label id="profilePicture-label" path="profilePicture">
+										<form:input class="image-input" type="file" path="profilePictureFile" accept="image/*"/>
+										<form:label id="profilePicture-label" path="profilePictureFile">
 											<div class="preview-container">
 												<img src="#" class="preview-image">
 												<span class="add-img-text">
@@ -48,7 +48,7 @@
 									</div>
 								</div>
 								</div>
-									<form:errors path="profilePicture" element="p" cssClass="error-centered form-error"/>
+									<form:errors path="profilePictureFile" element="p" cssClass="error-centered form-error"/>
 								</div>
 							</div>
 							

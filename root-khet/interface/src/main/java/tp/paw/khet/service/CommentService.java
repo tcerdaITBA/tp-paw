@@ -2,10 +2,10 @@ package tp.paw.khet.service;
 
 import java.util.List;
 
-import tp.paw.khet.Comment;
-import tp.paw.khet.CommentFamily;
-import tp.paw.khet.Product;
-import tp.paw.khet.User;
+import tp.paw.khet.model.Comment;
+import tp.paw.khet.model.CommentFamily;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
 
 public interface CommentService {
 	

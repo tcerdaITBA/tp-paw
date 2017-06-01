@@ -1,4 +1,4 @@
-package tp.paw.khet;
+package tp.paw.khet.model;
 
 import static org.apache.commons.lang3.Validate.notNull;
 import static org.apache.commons.lang3.Validate.isTrue;
@@ -6,14 +6,14 @@ import static org.apache.commons.lang3.Validate.isTrue;
 import java.util.Collections;
 import java.util.List;
 
-import tp.paw.khet.structures.ParentNode;
+import tp.paw.khet.model.structures.ParentNode;
 
 public class CommentFamily {
 
 	private final ParentNode<Comment> parentNode;
 	private final int parentId;
 	
-	public CommentFamily(Comment parentComment) {
+	public CommentFamily(final Comment parentComment) {
 		notNull(parentComment, "Parent comment cannot be null");
 		
 		this.parentNode = new ParentNode<Comment>(parentComment);
@@ -28,8 +28,8 @@ public class CommentFamily {
 		return Collections.unmodifiableList(parentNode.getChildren());
 	}
 	
-	public void addChildComment(Comment child) {
-		isTrue(child.getParentId() == parentId, "Child's ID: %d should be equals to parent's ID: %d", child.getId(), parentId);
+	public void addChildComment(final Comment child) {
+		isTrue(child.getParent().equals(parentNode.getParent()), "Child's parent: %s should be equals to familiy's parent: %s", child.getParent(), parentNode.getParent());
 		parentNode.addChild(child);
 	}
 	

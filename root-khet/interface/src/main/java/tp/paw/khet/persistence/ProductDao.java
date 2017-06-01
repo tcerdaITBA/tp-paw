@@ -1,18 +1,16 @@
 package tp.paw.khet.persistence;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
-import tp.paw.khet.Category;
-import tp.paw.khet.Product;
-import tp.paw.khet.Product.ProductBuilder;
-import tp.paw.khet.User;
-import tp.paw.khet.interfaces.PlainProduct;
+import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
 
 public interface ProductDao {
 	
 	/**
-	 * Creates a {@link Product.ProductBuilder} inserting the {@link Product} data into the database.
+	 * Creates a {@link Product} persisting it into the database.
 	 * @param name - Name of the product
 	 * @param description - Description of the product
 	 * @param shortDescription - Brief comment or description of the product
@@ -20,27 +18,27 @@ public interface ProductDao {
 	 * @param category - Category the product belongs to
 	 * @param uploadDate - Date the product was uploaded
 	 * @param logo - Logo or image that identifies the product
-	 * @param creatorId - ID of the product creator
+	 * @param creator - Product creator
 	 * @return Product - The newly created product
 	 */
-	public ProductBuilder createProduct(String name, String description, String shortDescription, String website, String category,
-			LocalDateTime uploadDate, byte[] logo, int creatorId);
+	public Product createProduct(String name, String description, String shortDescription, String website, Category category,
+			Date uploadDate, byte[] logo, User creator);
 	
 	/**
-	 * Lists every existing {@link Product} as a {@link PlainProduct}.
+	 * Lists every existing {@link Product} as a {@link Product}.
 	 * @return {@link List} of the existing products
 	 */
-	public List<PlainProduct> getPlainProducts();
+	public List<Product> getPlainProducts();
 	
 	/**
-	 * Lists product created by {@link User} as a {@link PlainProduct} with the given userId.
+	 * Lists product created by {@link User} as a {@link Product} with the given userId.
 	 * @param userId - ID of the creator
 	 * @return List of products. Empty in case the user did not create any product
 	 */
-	public List<PlainProduct> getPlainProductsByUserId(int userId);
+	public List<Product> getPlainProductsByUserId(int userId);
 	
 	 /**
-     * Lists a range of {@link PlainProduct}.
+     * Lists a range of {@link Product}.
      * Products are ordered by uploadDate.
      * @param offset - Offset in the list of all products.
      * @param length - Length of the range to be retrieved
@@ -48,10 +46,10 @@ public interface ProductDao {
      *         Could be empty if offset is greater than the total number of products available.
      *         The amount of products retrieved could be smaller than the length given.
      */
-    public List<PlainProduct> getPlainProductsRange(int offset, int length);
+    public List<Product> getPlainProductsRange(int offset, int length);
     
     /**
-    * Lists a range of {@link PlainProduct}.
+    * Lists a range of {@link Product}.
     * Products are ordered alphabetically by product name.
     * @param offset - Offset in the list of all products.
     * @param length - Length of the range to be retrieved
@@ -59,18 +57,18 @@ public interface ProductDao {
     *         Could be empty if offset is greater than the total number of products available.
     *         The amount of products retrieved could be smaller than the length given.
     */
-   public List<PlainProduct> getPlainProductsRangeAlphabetically(int offset, int length);
+   public List<Product> getPlainProductsRangeAlphabetically(int offset, int length);
 	
 	/**
-	 * Lists {@link PlainProduct} belonging to certain {@link Category}.
+	 * Lists {@link Product} belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
 	 * @return {@link List} of the products belonging to the category. 
 	 * 		   Could be empty if there are no products registered in given category.
 	 */
-	public List<PlainProduct> getPlainProductsByCategory(String category);
+	public List<Product> getPlainProductsByCategory(Category category);
 	
 	 /**
-     * Lists a range of {@link PlainProduct} belonging to certain {@link Category}.
+     * Lists a range of {@link Product} belonging to certain {@link Category}.
      * Products are ordered by uploadDate.
      * @param offset - Offset in the list of all products.
      * @param category - Category the products belong to
@@ -80,10 +78,10 @@ public interface ProductDao {
      *         to the given {@link Category}.
      *         The amount of products retrieved could be smaller than the length given.
      */
-    public List<PlainProduct> getPlainProductsRangeByCategory(String category, int offset, int length);
+    public List<Product> getPlainProductsRangeByCategory(Category category, int offset, int length);
     
     /**
-    * Lists a range of {@link PlainProduct} belonging to certain {@link Category}.
+    * Lists a range of {@link Product} belonging to certain {@link Category}.
     * Products are ordered alphabetically by product name.
     * @param offset - Offset in the list of all products.
     * @param category - Category the products belong to
@@ -93,7 +91,7 @@ public interface ProductDao {
     *         to the given {@link Category}.
     *         The amount of products retrieved could be smaller than the length given.
     */
-    public List<PlainProduct> getPlainProductsRangeAlphabeticallyByCategory(String category, int offset, int length);
+    public List<Product> getPlainProductsRangeAlphabeticallyByCategory(Category category, int offset, int length);
 
     /**
      * Retrieves the total amount of products registered.
@@ -109,19 +107,18 @@ public interface ProductDao {
     public int getTotalProductsInCategory(Category category);
     
 	/**
-	 * Retrieves a {@link Product.ProductBuilder} with every attribute set except for 
-	 * the familyComments and videos.
+	 * Retrieves a {@link Product} with every attribute set except for the familyComments.
 	 * @param productId - ID of the product
 	 * @return Product with the associated ID of null if it doesn't exist
 	 */
-	public Product.ProductBuilder getFullProductById(int productId);
+	public Product getFullProductById(int productId);
 	
 	/**
-	 * Retrieves a {@link Product} as a {@link PlainProduct}.
+	 * Retrieves a {@link Product} as a {@link Product}.
 	 * @param productId - ID of the product
 	 * @return Plain Product with the associated ID or null if it doesn't exist
 	 */
-	public PlainProduct getPlainProductById(int productId);
+	public Product getPlainProductById(int productId);
 	
 	/**
 	 * Retrieves the logo of a {@link Product}.
@@ -138,11 +135,11 @@ public interface ProductDao {
 	public boolean deleteProductById(int productId);
 
 	/**
-	 * Retrieves a {@link List} of {@link PlainProduct} given a keyword.
+	 * Retrieves a {@link List} of {@link Product} given a keyword.
 	 * The keyword should match the product's name or short description.
 	 * @param keyword - The keyword which should be matched
 	 * @param maxLength - The maximum length of the returned list
 	 * @return The list of plain products that match with the keyword.
 	 */
-	public List<PlainProduct> getPlainProductsByKeyword(String keyword, int maxLength);
+	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength);
 }

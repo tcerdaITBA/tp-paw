@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import tp.paw.khet.User;
 import tp.paw.khet.controller.auth.SecurityUserService;
+import tp.paw.khet.model.User;
 import tp.paw.khet.service.UserService;
-import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
 import tp.paw.khet.webapp.form.FormPassword;
@@ -42,8 +41,7 @@ public class ProfileCustomizeController {
 	    
 	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
 	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
-			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
-			RedirectAttributes attr) throws UnauthorizedException {
+			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) {
 		
 		LOGGER.debug("User with id {} accessed change password POST", loggedUser.getUserId());
 		
@@ -77,8 +75,7 @@ public class ProfileCustomizeController {
 	
 	@RequestMapping(value="/profile/customize/profilePicture", method = {RequestMethod.POST})
 	public ModelAndView changeProfilePicture(@Valid @ModelAttribute("changeProfilePictureForm") final FormChangePicture changeProfilePictureForm ,
-			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
-			final RedirectAttributes attr) throws UnauthorizedException {
+			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) {
 				
 		LOGGER.debug("User with id {} accessed change profile picture POST", loggedUser.getUserId());
 		
@@ -93,7 +90,7 @@ public class ProfileCustomizeController {
 		attr.addFlashAttribute("imgFeedback", true);
 		
 		try {
-			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePicture().getBytes());
+			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePictureFile().getBytes());
 		} catch (IOException e) {
 			LOGGER.error("Failed to load profile picture: {}", e.getMessage());
 			e.printStackTrace();
