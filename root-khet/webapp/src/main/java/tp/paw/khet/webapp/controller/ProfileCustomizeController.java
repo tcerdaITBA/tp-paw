@@ -90,7 +90,7 @@ public class ProfileCustomizeController {
 		attr.addFlashAttribute("imgFeedback", true);
 		
 		try {
-			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePicture().getBytes());
+			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePictureFile().getBytes());
 		} catch (IOException e) {
 			LOGGER.error("Failed to load profile picture: {}", e.getMessage());
 			e.printStackTrace();
