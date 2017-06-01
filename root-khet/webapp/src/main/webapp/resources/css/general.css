@@ -177,12 +177,21 @@ footer p {
 	margin-right: 1em;
 }
 
-.suggestion-list-item:hover, .suggestion-list-item:focus,
+.suggestion-row {
+	height: 2em;
+}
+
+.suggestion-list-item:focus {
+	outline: none;
+}
+
+.suggestion-list-item:hover,
 .history-item:hover, .history-item:focus,
-.suggestion-product-href:focus .suggestion-list-item {
+.suggestion-list-item:focus .suggestion-row {
 	background-color: #f3f3f3;
 	text-decoration: none;
 	color: #333;
+	border-radius: 4px;
 	outline: none;
 }
 

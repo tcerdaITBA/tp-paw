@@ -36,7 +36,7 @@
 								<c:forEach items="${sessionScope.searchHistory}" var="savedQuery" varStatus="loop">
 									<div class="row">
 										<div class="col-md-12">
-											<a href="<c:url value="/search?query=${fn:escapeXml(savedQuery)}"/>" id="suggestion-${loop.index}" class="history-item">
+											<a href="<c:url value="/search?query=${fn:escapeXml(savedQuery)}"/>" id="suggestion-${loop.index}" class="history-item" data-list-index="${loop.index}">
 												<span class="glyphicon glyphicon-time"></span>
 												<span><c:out value="${savedQuery}"/></span>
 											</a>
@@ -54,20 +54,22 @@
 						</div>
 					</div>
 					<c:forEach items="${products}" var="product" varStatus="loop">
-						<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}">
-							<div>
-								<div class="row">
-									<div class="col-md-3 suggestion-product-logo">
-										<img src="<c:url value="/product/${product.id}/logo"/>">
-									</div>
-									<div class="col-md-9 suggestion-product-info-box">
-										<div class="suggestion-product-name">
-											<p class="capitalize-firstLetter"><c:out value="${product.name}"/></p>
+						<c:if test="${loop.count <= 3}">
+							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}" data-list-index="${loop.index + sessionScope.searchHistory.size()}">
+								<div class="suggestion-row">
+									<div class="row">
+										<div class="col-md-3 suggestion-product-logo">
+											<img src="<c:url value="/product/${product.id}/logo"/>">
 										</div>
-									</div>
-								</div>	
-							</div>
-						</a>
+										<div class="col-md-9 suggestion-product-info-box">
+											<div class="suggestion-product-name">
+												<p class="capitalize-firstLetter"><c:out value="${product.name}"/></p>
+											</div>
+										</div>
+									</div>	
+								</div>
+							</a>
+						</c:if>
 					</c:forEach>
 					
 				</div>
