@@ -23,11 +23,56 @@
 		</div>
 
 		<form action="<c:url value="/search"/>" method="get" class="navbar-form navbar-left">
-			<div class="form-group">
-				<input id="search-box" pattern=".{3,}" maxlength="64" required oninvalid="this.setCustomValidity('<spring:message code="navBar.search.minimum3"/>')" onchange="try{setCustomValidity('')}catch(e){}" value="${fn:escapeXml(queryText)}" name="query" type="text" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>">
-				<button type="submit" class="search-button">
-					<span class="glyphicon glyphicon-search search-icn"></span>
-				</button>
+			<div class="search-form-container">
+				<div class="form-group">
+					<input id="search-box" pattern=".{3,}" maxlength="64" required oninvalid="this.setCustomValidity('<spring:message code="navBar.search.minimum3"/>')" onchange="try{setCustomValidity('')}catch(e){}" value="${fn:escapeXml(queryText)}" name="query" type="text" autocomplete="off" class="form-control" placeholder="<spring:message code="navBar.search.placeholder"/>">
+					<button type="submit" class="search-button">
+						<span class="glyphicon glyphicon-search search-icn"></span>
+					</button>
+				</div>
+				<div class="suggestions-box">
+					<c:if test="${not empty sessionScope.searchHistory}">
+						<div class="search-history">
+								<c:forEach items="${sessionScope.searchHistory}" var="savedQuery" varStatus="loop">
+									<div class="row">
+										<div class="col-md-12">
+											<a href="<c:url value="/search?query=${fn:escapeXml(savedQuery)}"/>" id="suggestion-${loop.index}" class="history-item" data-list-index="${loop.index}">
+												<span class="glyphicon glyphicon-time"></span>
+												<span><c:out value="${savedQuery}"/></span>
+											</a>
+										</div>
+									</div>
+								</c:forEach>
+						</div>
+						<div class="row">
+							<div class="col-md-12"><div class="divider"></div></div>
+						</div>
+					</c:if>
+					<div class="row">
+						<div class="col-md-12">
+							<p class="most-popular-title"><spring:message code="navBar.search.mostPopular"/></p>
+						</div>
+					</div>
+					<c:forEach items="${products}" var="product" varStatus="loop">
+						<c:if test="${loop.count <= 3}">
+							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}" data-list-index="${loop.index + sessionScope.searchHistory.size()}">
+								<div class="suggestion-row">
+									<div class="row">
+										<div class="col-md-3 suggestion-product-logo">
+											<img src="<c:url value="/product/${product.id}/logo"/>">
+										</div>
+										<div class="col-md-9 suggestion-product-info-box">
+											<div class="suggestion-product-name">
+												<p class="capitalize-firstLetter"><c:out value="${product.name}"/></p>
+											</div>
+										</div>
+									</div>	
+								</div>
+							</a>
+						</c:if>
+					</c:forEach>
+					
+				</div>
 			</div>
 		</form>
 			

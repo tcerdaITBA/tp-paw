@@ -1,5 +1,9 @@
 package tp.paw.khet.webapp.controller;
 
+import java.util.Stack;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.service.HistoryService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.InvalidQueryException;
@@ -26,10 +31,13 @@ public class SearchController {
     @Autowired
     private ProductService productService;
     
+    @Autowired
+    private HistoryService historyService;
+    
     private static final int MAX_RESULTS = 10;
     
     @RequestMapping("/search")
-    public ModelAndView searchResults(@RequestParam(value = "query") String query) throws InvalidQueryException {
+    public ModelAndView searchResults(@RequestParam(value = "query") String query, HttpSession session) throws InvalidQueryException {
 		LOGGER.debug("Accessed search with query {}", query);
     	
         if (query == null || query.length() < MIN_QUERY) {
@@ -41,6 +49,11 @@ public class SearchController {
             throw new InvalidQueryException();      	
         }
         
+        @SuppressWarnings("unchecked")
+        Stack<String> history = (Stack<String>) session.getAttribute("searchHistory");
+        history = historyService.saveQueryInHistory(history, query);
+        session.setAttribute("searchHistory", history);
+
         final ModelAndView mav = new ModelAndView("search-results");
         mav.addObject("products", productService.getPlainProductsByKeyword(query, MAX_RESULTS));
         mav.addObject("categories", Category.values());
