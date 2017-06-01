@@ -155,7 +155,7 @@ footer p {
 }
 
 .suggestions-box {
-	top: 40px;
+	top: 42px;
 	display: none;
 	position: absolute;
 	background-color: #fff;
@@ -177,10 +177,13 @@ footer p {
 	margin-right: 1em;
 }
 
-.history-item:hover, .history-item:focus {
+.suggestion-list-item:hover, .suggestion-list-item:focus,
+.history-item:hover, .history-item:focus,
+.suggestion-product-href:focus .suggestion-list-item {
 	background-color: #f3f3f3;
 	text-decoration: none;
 	color: #333;
+	outline: none;
 }
 
 .suggestion-product-name {
@@ -200,7 +203,7 @@ footer p {
 
 .search-button {
 	background: rgba(255, 255, 255, 0);
-    border: transparent;
+  border: transparent;
 }
 
 .search-icn:hover {
@@ -211,4 +214,17 @@ footer p {
 .modal-btn {
 	margin-left: 0.5em;
   margin-right: 0.5em;
+}
+
+.suggestion-product-logo {
+	height: 100%;
+  width: 60px;
+  object-fit: contain;
+}
+
+.suggestion-list-item {
+	height: 3.5em;
+	padding-top: 5px;
+	padding-right: 0;
+	padding-bottom: 5px;
 }

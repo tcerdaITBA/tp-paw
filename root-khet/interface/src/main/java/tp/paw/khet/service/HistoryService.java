@@ -1,9 +1,9 @@
 package tp.paw.khet.service;
 
-import java.util.Collection;
+import java.util.Stack;
 
 public interface HistoryService {
     
     //TODO: javadoc
-    public Collection<String> saveQueryInHistory(Collection<String> history, String query);
+    public Stack<String> saveQueryInHistory(Stack<String> history, String query);
 }

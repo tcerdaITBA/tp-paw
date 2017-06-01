@@ -31,41 +31,42 @@
 					</button>
 				</div>
 				<div class="suggestions-box">
-					<div class="search-history">
-						<!--FOREACH-->
-						<c:forEach items="${sessionScope.searchHistory}" var="savedQuery">
-							<div class="row">
-								<div class="col-md-12">
-									<a href="<c:url value="/search?query=${fn:escapeXml(savedQuery)}"/>" class="history-item">
-										<span class="glyphicon glyphicon-time"></span>
-										<span><c:out value="${savedQuery}"/></span>
-									</a>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-					<div class="row">
-						<div class="col-md-12"><div class="divider"></div></div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<p class="most-popular-title">Most popular</p>
-						</div>
-					</div>
-					<c:forEach items="${products}" var="product">
-						<a href="<c:url value="/product/${product.id}"/>">
-							<div class="row suggestion-list-item">
-								<div class="col-md-3 suggestion-product-logo">
-									<img src="<c:url value="/product/${product.id}/logo"/>">
-								</div>
-								<div class="col-md-9 suggestion-product-info-box">
-									<div class="row suggestion-product-name">
-										<div class="col-md-12 capitalize-firstLetter">
-											<p><c:out value="${product.name}"/></p>
+					<c:if test="${not empty sessionScope.searchHistory}">
+						<div class="search-history">
+								<c:forEach items="${sessionScope.searchHistory}" var="savedQuery" varStatus="loop">
+									<div class="row">
+										<div class="col-md-12">
+											<a href="<c:url value="/search?query=${fn:escapeXml(savedQuery)}"/>" id="suggestion-${loop.index}" class="history-item">
+												<span class="glyphicon glyphicon-time"></span>
+												<span><c:out value="${savedQuery}"/></span>
+											</a>
 										</div>
 									</div>
-								</div>
-							</div>	
+								</c:forEach>
+						</div>
+						<div class="row">
+							<div class="col-md-12"><div class="divider"></div></div>
+						</div>
+					</c:if>
+					<div class="row">
+						<div class="col-md-12">
+							<p class="most-popular-title"><spring:message code="navBar.search.mostPopular"/></p>
+						</div>
+					</div>
+					<c:forEach items="${products}" var="product" varStatus="loop">
+						<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}">
+							<div>
+								<div class="row">
+									<div class="col-md-3 suggestion-product-logo">
+										<img src="<c:url value="/product/${product.id}/logo"/>">
+									</div>
+									<div class="col-md-9 suggestion-product-info-box">
+										<div class="suggestion-product-name">
+											<p class="capitalize-firstLetter"><c:out value="${product.name}"/></p>
+										</div>
+									</div>
+								</div>	
+							</div>
 						</a>
 					</c:forEach>
 					

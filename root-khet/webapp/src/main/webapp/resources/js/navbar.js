@@ -21,6 +21,11 @@ function hideSuggestions() {
 	$('.suggestions-box').hide();	
 }
 
+function arrowFocus(selected) {
+	console.log(selected);
+	$('#suggestion-' + selected.toString()).focus();
+}
+
 $(document).ready(function() {
 	var timeoutSearch;
 	
@@ -30,16 +35,38 @@ $(document).ready(function() {
 	searchBox.focus(showSuggestions);
 	searchBtn.focus(showSuggestions);
 	
-	searchBox.focusout(hideSuggestions);
-
-	searchBox.on('keyup', function(event) {
-		if (timeoutSearch) {
-			console.log('clearing');
-			clearTimeout(timeoutSearch);
+	var selected = -1;
+	
+	// Dismiss search suggestions if clicked outside
+	$(document).click(function(e) {
+    var container = $('.search-form-container');
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      $('.suggestions-box').hide();
+			selected = 0;	
 		}
-		
-		timeoutSearch = setTimeout(function() {
-			search(searchBox)	
-		}, SEARCH_WAIT_TIME_MILLIS);
 	});
+	
+	$('.search-form-container').keydown(function(e) {
+		if (e.keyCode == 38) { // arrow up
+			selected = (selected < 1) ? 0 : selected - 1;
+			arrowFocus(selected);
+			return false;
+		} 
+		else if (e.keyCode == 40) { // arrow down
+			selected++;
+			arrowFocus(selected);
+			return false;
+		}
+	});
+	
+//	searchBox.on('keyup', function(event) {
+//		if (timeoutSearch) {
+//			console.log('clearing');
+//			clearTimeout(timeoutSearch);
+//		}
+//		
+//		timeoutSearch = setTimeout(function() {
+//			search(searchBox)	
+//		}, SEARCH_WAIT_TIME_MILLIS);
+//	});
 });

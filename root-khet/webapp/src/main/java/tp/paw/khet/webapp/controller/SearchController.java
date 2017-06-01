@@ -1,6 +1,7 @@
 package tp.paw.khet.webapp.controller;
 
-import java.util.Collection;
+import java.util.Stack;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ public class SearchController {
         }
         
         @SuppressWarnings("unchecked")
-        Collection<String> history = (Collection<String>) session.getAttribute("searchHistory");
+        Stack<String> history = (Stack<String>) session.getAttribute("searchHistory");
         history = historyService.saveQueryInHistory(history, query);
         session.setAttribute("searchHistory", history);
 

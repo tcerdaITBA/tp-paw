@@ -1,9 +1,10 @@
 package tp.paw.khet.service;
 
-import java.util.Collection;
+import java.util.Stack;
+
 import org.springframework.stereotype.Service;
 
-import structures.ArrayQueue;
+import structures.FixedLengthStack;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {
@@ -11,12 +12,14 @@ public class HistoryServiceImpl implements HistoryService {
     private static final int HISTORY_MAX_SIZE = 3;
     
     @Override
-    public Collection<String> saveQueryInHistory(Collection<String> history, String query) {
+    public Stack<String> saveQueryInHistory(Stack<String> history, String query) {
         if (history == null) {
-            history = new ArrayQueue<String>(String.class, HISTORY_MAX_SIZE);
+            history = new FixedLengthStack<String>(HISTORY_MAX_SIZE);
         }
         
-        history.add(query);
+        if (!history.contains(query))
+            history.push(query);
+        
         return history;
     }
 
