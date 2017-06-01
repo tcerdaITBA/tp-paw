@@ -5,11 +5,18 @@ import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 
+import java.util.Collections;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -34,6 +41,10 @@ public class User {
 	
 	@Column(nullable = false, columnDefinition = "bytea")
 	private byte[] profilePicture;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "votes")
+	private List<Product> votedProducts = Collections.emptyList();
 	
 	// Hibernate
 	User() {
@@ -72,6 +83,10 @@ public class User {
 	
 	public byte[] getProfilePicture() {
 		return profilePicture;
+	}
+	
+	public List<Product> getVotedProducts() {
+		return votedProducts;
 	}
 
 	public void setPassword(final String password) {

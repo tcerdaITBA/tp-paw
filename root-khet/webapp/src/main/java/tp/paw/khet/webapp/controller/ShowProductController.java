@@ -26,6 +26,7 @@ import tp.paw.khet.model.User;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.service.VoteService;
 import tp.paw.khet.webapp.exception.ImageNotFoundException;
 import tp.paw.khet.webapp.exception.ProductNotFoundException;
 import tp.paw.khet.webapp.exception.UnauthorizedException;
@@ -46,13 +47,16 @@ public class ShowProductController {
 	@Autowired
 	private CommentService commentService;
 	
+	@Autowired
+	private VoteService voteService;
+	
 	@ModelAttribute("commentsForm")
 	public FormComments formComments() {
 		return new FormComments();
 	}
 	
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
-	public ModelAndView getProduct(@PathVariable final int productId) 
+	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("loggedUser") final User loggedUser) 
 	throws ProductNotFoundException {
 		
 		LOGGER.debug("Accessed product with id {}", productId);

@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.springframework.dao.DuplicateKeyException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.exception.DuplicateEmailException;
@@ -26,7 +26,7 @@ public class UserHibernateDao implements UserDao {
 			em.persist(user);
 			return user;
 		} 
-		catch (DuplicateKeyException e) {
+		catch (ConstraintViolationException e) {
 			throw new DuplicateEmailException("There already exists an user with email: " + email);
 		}
 	}
@@ -86,5 +86,18 @@ public class UserHibernateDao implements UserDao {
 			user.setProfilePicture(profilePicture);
 		
 		return user;
+	}
+
+	@Override
+	public User getUserWithVotedProductsById(final int userId) {
+		final TypedQuery<User> query = em.createQuery("from User as u join fetch u.votedProducts as uvp where u.userId = :userId", User.class);
+		query.setParameter("userId", userId);
+		
+		final List<User> list = query.getResultList();
+		
+		if (list.isEmpty())
+			return null;
+		
+		return list.get(0);
 	}
 }

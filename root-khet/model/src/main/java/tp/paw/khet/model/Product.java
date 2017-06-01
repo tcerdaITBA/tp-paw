@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -71,8 +72,12 @@ public class Product {
 	@OrderBy("productImageId ASC")
 	private List<ProductImage> images;
 
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
+	@OrderBy("name ASC")
+	private List<User> votingUsers;
+	
 	@Transient
-	private List<CommentFamily> commentFamilies;
+	private List<CommentFamily> commentFamilies = Collections.emptyList();
 	
 	public static ProductBuilder getBuilder(final String name, final String shortDescription) {
 		notBlank(name, "Product name must contain at least one non blank character");
@@ -104,6 +109,7 @@ public class Product {
 		this.commentFamilies = builder.commentFamilies;
 		this.videos = builder.videos;
 		this.images = builder.images;
+		this.votingUsers = builder.votingUsers;
 	}
 	
 	public int getId() {
@@ -143,15 +149,19 @@ public class Product {
 	}
 	
 	public List<CommentFamily> getCommentFamilies() {
-		return commentFamilies == null ? Collections.emptyList() : Collections.unmodifiableList(commentFamilies);
+		return Collections.unmodifiableList(commentFamilies);
 	}
 	
 	public List<Video> getVideos() {
-		return videos == null ? Collections.emptyList() : Collections.unmodifiableList(videos);
+		return Collections.unmodifiableList(videos);
 	}
 	
 	public List<ProductImage> getImages() {
-		return images == null ? Collections.emptyList() : Collections.unmodifiableList(images);
+		return Collections.unmodifiableList(images);
+	}
+	
+	public List<User> getVotingUsers() {
+		return votingUsers;
 	}
 	
 	@Override
@@ -189,6 +199,7 @@ public class Product {
 		private List<CommentFamily> commentFamilies = Collections.emptyList();
 		private List<Video> videos = Collections.emptyList();
 		private List<ProductImage> images = Collections.emptyList();
+		private List<User> votingUsers = Collections.emptyList();
 
 		private ProductBuilder(String name, String shortDescription) {
 			this.name = name;
@@ -257,6 +268,11 @@ public class Product {
 		
 		public ProductBuilder images(List<ProductImage> images) {
 			this.images = images;
+			return this;
+		}
+		
+		public ProductBuilder votingUsers(List<User> votingUsers) {
+			this.votingUsers = votingUsers;
 			return this;
 		}
 		

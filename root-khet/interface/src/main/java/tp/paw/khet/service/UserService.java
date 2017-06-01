@@ -28,9 +28,16 @@ public interface UserService {
 	/**
 	 * Retrieves an {@link User} given it's ID
 	 * @param creatorId - ID of the user
-	 * @return User object corresponding to the given id
+	 * @return The corresponding {@link User} or null if it doesn't exist
 	 */
 	public User getUserById(int userId);
+	
+	/**
+	 * Retrieves an {@link User} populated with the {@link List} of the voted products
+	 * @param userId - ID of the user
+	 * @return The corresponding {@link User} or null if it doesn't exist
+	 */
+	public User getUserWithVotedProductsById(int userId);
 
 	/**
 	 * Retrieves a {@link List} of {@User} given a keyword.

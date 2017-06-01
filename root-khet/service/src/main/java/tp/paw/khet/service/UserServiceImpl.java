@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
 	public User getUserById(final int userId) {
 		return userDao.getUserById(userId);
 	}
+
+	@Override
+	public User getUserWithVotedProductsById(int userId) {
+		return userDao.getUserWithVotedProductsById(userId);
+	}
 	
 	@Override
 	public List<User> getUsersByKeyword(final String keyword, final int maxLength) {
