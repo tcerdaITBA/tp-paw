@@ -83,55 +83,126 @@
 						
 					</div>
 					<div class="col-md-7 col-md-offset-1">
-						<c:choose>
-							<c:when test="${products.isEmpty()}">
-								<div class="zrp" id="user-products-zrp">
-									<h2><spring:message code="userZRP.empty"/></h2>
-									<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
-								</div>
-							</c:when>
-							<c:otherwise>
-							<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${capitalizedUserName}"/></h2>
-							<div class="col-md-12 product-list">
-								<c:forEach items="${products}" var="product">
-                                    <!-- The Modal -->
-									<%@include file="includes/deleteModal.jsp"%></%@include>
-									<a href="<c:url value="/product/${product.id}"/>">
-										<div class="row product-list-item product-item-height">
-											<sec:authorize access="isAuthenticated()">
-													<c:if test="${loggedUser.userId == profileUser.userId}">
-															<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-													</c:if>
-											</sec:authorize>
-											<div class="col-md-3 product-logo">
-												<img src="<c:url value="/product/${product.id}/logo"/>">
-											</div>
-											<div class="col-md-9 product-info-box">
-												<div class="row product-name">
-													<div class="col-md-12 capitalize-firstLetter">
-														<p><c:out value="${product.name}"/></p>
-													</div>
+						<div class="row tabs-row">
+							<div class="col-md-12">
+								<ul class="nav nav-pills nav-justified profile-tabs">
+									<c:set var="activeTab" value="${products.size() == 0 && users.size() != 0 }"></c:set>
+		
+					
+									<li role="presentation" class="active"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
+									<li role="presentation" class=""><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${votedProducts.size()}"/></span></a></li>
+								</ul>
+							</div>
+						</div>
+					
+					<div class="col-md-12">
+					
+					
+					<div class="tab-content">
+						<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products active">
+							<c:choose>
+								<c:when test="${products.isEmpty()}">
+									<div class="zrp" id="user-products-zrp">
+										<h2><spring:message code="userZRP.empty"/></h2>
+										<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+									</div>
+								</c:when>
+								<c:otherwise>
+								<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${capitalizedUserName}"/></h2>
+								<div class="col-md-12 product-list">
+									<c:forEach items="${products}" var="product">
+	                                    <!-- The Modal -->
+										<%@include file="includes/deleteModal.jsp"%></%@include>
+										<a href="<c:url value="/product/${product.id}"/>">
+											<div class="row product-list-item product-item-height">
+												<sec:authorize access="isAuthenticated()">
+														<c:if test="${loggedUser.userId == profileUser.userId}">
+																<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+														</c:if>
+												</sec:authorize>
+												<div class="col-md-3 product-logo">
+													<img src="<c:url value="/product/${product.id}/logo"/>">
 												</div>
-												<div class="row product-short-description">
-													<div class="col-md-12 capitalize-firstLetter">
-														<p><c:out value="${product.shortDescription}"/></p>
+												<div class="col-md-9 product-info-box">
+													<div class="row product-name">
+														<div class="col-md-12 capitalize-firstLetter">
+															<p><c:out value="${product.name}"/></p>
+														</div>
 													</div>
-												</div>
-												<div class="row product-category">
-													<div class="col-md-12">
-														<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
-															<p><spring:message code="category.${product.category.lowerName}"/></p>
+													<div class="row product-short-description">
+														<div class="col-md-12 capitalize-firstLetter">
+															<p><c:out value="${product.shortDescription}"/></p>
+														</div>
+													</div>
+													<div class="row product-category">
+														<div class="col-md-12">
+															<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
+																<p><spring:message code="category.${product.category.lowerName}"/></p>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>	
-									</a>
-								</c:forEach>
-							</div>
-						</c:otherwise>
-					</c:choose>									
-				</div>
+											</div>	
+										</a>
+									</c:forEach>
+								</div>
+							</c:otherwise>
+						</c:choose>		
+						</div>							
+						<div id="votedProducts-pane" class="tab-pane fade row result-for-products">
+							<c:choose>
+									<c:when test="${products.isEmpty()}">
+										<div class="zrp" id="user-products-zrp">
+											<h2><spring:message code="userZRP.empty"/></h2>
+											<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+										</div>
+									</c:when>
+									<c:otherwise>
+									<h2 class="uploaded-products-title"><spring:message code="votedProductsTitle" arguments="${capitalizedUserName}"/></h2>
+									<div class="col-md-12 product-list">
+										<c:forEach items="${votedProducts}" var="votedProduct">
+		                                    <!-- The Modal -->
+											<%@include file="includes/deleteModal.jsp"%></%@include>
+											<a href="<c:url value="/product/${votedProduct.id}"/>">
+												<div class="row product-list-item product-item-height">
+													<sec:authorize access="isAuthenticated()">
+															<c:if test="${loggedUser.userId == profileUser.userId}">
+																	<span id="delete${votedProduct.id}" data-product-id="${votedProduct.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+															</c:if>
+													</sec:authorize>
+													<div class="col-md-3 product-logo">
+														<img src="<c:url value="/product/${votedProduct.id}/logo"/>">
+													</div>
+													<div class="col-md-9 product-info-box">
+														<div class="row product-name">
+															<div class="col-md-12 capitalize-firstLetter">
+																<p><c:out value="${votedProduct.name}"/></p>
+															</div>
+														</div>
+														<div class="row product-short-description">
+															<div class="col-md-12 capitalize-firstLetter">
+																<p><c:out value="${votedProduct.shortDescription}"/></p>
+															</div>
+														</div>
+														<div class="row product-category">
+															<div class="col-md-12">
+																<div data-href="<c:url value="/category/${votedProduct.category.lowerName}"/>" class="categoryTag product-category-btn">
+																	<p><spring:message code="category.${votedProduct.category.lowerName}"/></p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>	
+											</a>
+										</c:forEach>
+									</div>
+								</c:otherwise>
+							</c:choose>		
+						</div>
+					
+					</div>
+					</div>
+			</div>
 			</div>
 			<%@include file="includes/footer.jsp"%>
 		</div>

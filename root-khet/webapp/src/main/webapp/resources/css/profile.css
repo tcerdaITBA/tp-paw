@@ -84,3 +84,13 @@
 .row-centered {
 	text-align: center;
 }
+
+.profile-tabs {
+	font-size: 1.2em;
+    font-weight: 500;
+}
+
+.profile-tabs a {
+	color: #39c6a6;
+    border: 2px solid #eee;
+}
