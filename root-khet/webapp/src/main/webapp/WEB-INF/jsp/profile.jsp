@@ -84,22 +84,19 @@
 					</div>
 					<div class="col-md-7 col-md-offset-1">
 						<div class="row tabs-row">
-							<div class="col-md-12">
+							<div class="">
 								<ul class="nav nav-pills nav-justified profile-tabs">
-									<c:set var="activeTab" value="${products.size() == 0 && users.size() != 0 }"></c:set>
+									<c:set var="activeTab" value="${products.size() == 0 && votedProducts.size() != 0 }"></c:set>
 		
 					
-									<li role="presentation" class="active"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
-									<li role="presentation" class=""><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${votedProducts.size()}"/></span></a></li>
+									<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
+									<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${votedProducts.size()}"/></span></a></li>
 								</ul>
 							</div>
 						</div>
 					
-					<div class="col-md-12">
-					
-					
 					<div class="tab-content">
-						<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products active">
+						<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products ${!activeTab ? 'active in' : 'none' }">
 							<c:choose>
 								<c:when test="${products.isEmpty()}">
 									<div class="zrp" id="user-products-zrp">
@@ -146,10 +143,11 @@
 										</a>
 									</c:forEach>
 								</div>
-							</c:otherwise>
-						</c:choose>		
-						</div>							
-						<div id="votedProducts-pane" class="tab-pane fade row result-for-products">
+								</c:otherwise>
+							</c:choose>		
+						</div>
+													
+						<div id="votedProducts-pane" class="tab-pane fade row result-for-products ${activeTab ? 'active in' : 'none' }">
 							<c:choose>
 									<c:when test="${products.isEmpty()}">
 										<div class="zrp" id="user-products-zrp">
@@ -200,7 +198,6 @@
 							</c:choose>		
 						</div>
 					
-					</div>
 					</div>
 			</div>
 			</div>
