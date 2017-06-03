@@ -177,7 +177,7 @@ public class Product {
 		
 		Product other = (Product) obj;
 		
-		return id == other.id;
+		return getId() == other.getId();
 	}
 	
 	@Override

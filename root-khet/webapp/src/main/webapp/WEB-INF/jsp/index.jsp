@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="myfn" uri="http://samplefn"%>
 <html>    
 
 <head>
@@ -134,9 +134,9 @@
 													</div>
 							                    </form:form>
 							                    <sec:authorize access="isAuthenticated()">
-							                    	<c:if test="${product.votingUsers.contains(loggedUser)}">
-							                    	<script>alert('asd');</script>
-							                    	</c:if>
+							                   		<c:if test="${ product.votingUsers.contains(loggedUser) }">
+							                    		<script>alert('asd');</script>
+							                    	</c:if>							                    
 							                    </sec:authorize>
 											</div>
 										</div>

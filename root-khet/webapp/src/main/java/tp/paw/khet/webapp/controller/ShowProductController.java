@@ -65,7 +65,7 @@ public class ShowProductController {
 		}
 		
 		final ModelAndView mav = new ModelAndView("product");
-				
+		
 		mav.addObject("product", product);
 		mav.addObject("creator", product.getCreator());
 		mav.addObject("videos", product.getVideos());

@@ -1,7 +1,6 @@
 package tp.paw.khet.webapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +24,7 @@ public class IndexController {
     private ProductService productService;
 
 	@RequestMapping("/")
-	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpSession session) 
+	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") final int page) 
 			throws ResourceNotFoundException {
 		LOGGER.debug("Accessed index with page {}", page);
 		
@@ -36,7 +35,7 @@ public class IndexController {
 	        throw new ResourceNotFoundException();
 	    }
 	    
-		ModelAndView mav = new ModelAndView("index");
+		final ModelAndView mav = new ModelAndView("index");
 		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
 		mav.addObject("categories", Category.values());
 		mav.addObject("currentPage", page);

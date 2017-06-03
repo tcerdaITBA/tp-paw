@@ -106,7 +106,7 @@ public class User {
 		
 		User other = (User) obj;
 		
-		return userId == other.userId || email.equals(other.email);
+		return getUserId() == other.getUserId() || getEmail().equals(other.getEmail());
 	}
 	
 	@Override

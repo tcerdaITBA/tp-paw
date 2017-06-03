@@ -52,7 +52,7 @@ public class Video {
 		
 		Video other = (Video) obj;
 		
-		return productId == other.productId && videoId.equals(other.videoId);
+		return getProductId() == other.getProductId() && getVideoId().equals(other.getVideoId());
 	}
 	
 	@Override

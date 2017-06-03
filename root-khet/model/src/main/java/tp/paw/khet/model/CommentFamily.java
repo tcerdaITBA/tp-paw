@@ -11,13 +11,11 @@ import tp.paw.khet.model.structures.ParentNode;
 public class CommentFamily {
 
 	private final ParentNode<Comment> parentNode;
-	private final int parentId;
 	
 	public CommentFamily(final Comment parentComment) {
 		notNull(parentComment, "Parent comment cannot be null");
 		
 		this.parentNode = new ParentNode<Comment>(parentComment);
-		this.parentId = parentComment.getId();
 	}
 	
 	public Comment getParentComment() {
@@ -42,7 +40,7 @@ public class CommentFamily {
 		
 		CommentFamily other = (CommentFamily) obj;
 		
-		return other.parentId == this.parentId && other.parentNode.equals(parentNode);
+		return other.getParentComment().equals(getParentComment()) && other.parentNode.equals(parentNode);
 	}
 	
 	@Override
