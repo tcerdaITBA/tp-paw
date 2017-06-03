@@ -52,7 +52,7 @@ public class ShowProductController {
 	}
 	
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
-	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("loggedUser") final User loggedUser) 
+	public ModelAndView getProduct(@PathVariable final int productId) 
 	throws ProductNotFoundException {
 		
 		LOGGER.debug("Accessed product with id {}", productId);

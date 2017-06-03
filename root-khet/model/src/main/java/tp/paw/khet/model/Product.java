@@ -164,7 +164,7 @@ public class Product {
 		return votingUsers;
 	}
 	
-	public int getVotes() {
+	public int getVotesCount() {
 		return votingUsers.size();
 	}
 	

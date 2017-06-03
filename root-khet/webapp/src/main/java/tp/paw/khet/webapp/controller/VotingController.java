@@ -35,8 +35,6 @@ public class VotingController {
 			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer) 
 					throws ProductNotFoundException{
 		
-		LOGGER.debug("User {} voted product with id {}", loggedUser.getUserId(), productId);
-		
 		final Product product = productService.getPlainProductById(productId);
 		
 		if (product == null) {
@@ -45,6 +43,8 @@ public class VotingController {
 		}
 		
 		voteService.toggleVoteFromProduct(productId, loggedUser.getUserId());
+		
+		LOGGER.debug("User {} voted product with id {}", loggedUser.getUserId(), productId);
 		
 		String redirect = "redirect:" + referrer;
 		

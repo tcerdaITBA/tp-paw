@@ -132,12 +132,12 @@ h2 {
 	display: inline-block;
 }
 
-.upVote:hover {
+.upVote:hover, .upVote:focus {
 	background-color: #c4c4c4;
 	transition: 0.2s;
 }
 
-.upVote:hover p {
+.upVote:hover p, .upVote:focus p {
 	color: #fff;
 }
 

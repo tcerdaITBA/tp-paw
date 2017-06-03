@@ -1,6 +1,5 @@
 package tp.paw.khet.webapp.controller;
 
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,7 +25,8 @@ public class IndexController {
     private ProductService productService;
 
 	@RequestMapping("/")
-	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpSession session) throws ResourceNotFoundException {
+	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpSession session) 
+			throws ResourceNotFoundException {
 		LOGGER.debug("Accessed index with page {}", page);
 		
 	    final int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);

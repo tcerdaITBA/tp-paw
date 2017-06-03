@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>    
@@ -129,10 +129,15 @@
 													<div class="col-md-3 col-md-offset-6 upvote-holder">
 								                            <button class="btn btn-default upVote" type="submit">
 									                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-												                <c:out value="${product.votes}"/></p>
+												                <c:out value="${product.votesCount}"/></p>
 								                            </button>
 													</div>
 							                    </form:form>
+							                    <sec:authorize access="isAuthenticated()">
+							                    	<c:if test="${product.votingUsers.contains(loggedUser)}">
+							                    	<script>alert('asd');</script>
+							                    	</c:if>
+							                    </sec:authorize>
 											</div>
 										</div>
 									</div>	
