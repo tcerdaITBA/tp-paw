@@ -79,9 +79,9 @@
                                     <div class="row">
                                        <div class="col-md-12">
                                         	<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
-																						<div class="categoryTag">
-																							<p><spring:message code="category.${product.category.lowerName}"/></p>
-																						</div>
+												<div class="categoryTag">
+													<p><spring:message code="category.${product.category.lowerName}"/></p>
+												</div>
                                         	</a>
                                        </div>
                                     </div>
@@ -122,12 +122,12 @@
                                                 <c:out value="${creator.name}" />
                                             </a>
                                         </div>
-																			<div class="row col-md-12">
-																				<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
-																						<span class="glyphicon glyphicon-envelope"></span>
-																						<p><c:out value="${creator.email}"/></p>
-																				</a>
-																			</div>										
+											<div class="row col-md-12">
+												<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+														<span class="glyphicon glyphicon-envelope"></span>
+														<p><c:out value="${creator.email}"/></p>
+												</a>
+											</div>										
                                     </div>
                                 </div>
                             </div>

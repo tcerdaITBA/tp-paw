@@ -35,6 +35,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 			.and().authorizeRequests()
 				.antMatchers("/errors/**").permitAll()
 				.antMatchers("/upload").authenticated()
+				.antMatchers("/vote/**").authenticated()
 				.antMatchers("/login").anonymous()
 				.antMatchers("/register").anonymous()
 				.antMatchers(HttpMethod.POST, "/profile/customize/**").authenticated()

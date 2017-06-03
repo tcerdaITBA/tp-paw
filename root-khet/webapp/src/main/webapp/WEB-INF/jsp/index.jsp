@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>    
 
@@ -101,7 +102,7 @@
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
 								
-								<a href="<c:url value="/product/${product.id}"/>">
+								<a href="<c:url value="/product/${product.id}"/>" id="product${product.id}">
 									<div class="row product-list-item product-item-height">
 										<div class="col-md-3 product-logo">
 											<img src="<c:url value="/product/${product.id}/logo"/>">
@@ -118,11 +119,20 @@
 												</div>
 											</div>
 											<div class="row product-category">
-												<div class="col-md-12">
-													<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
+												<div class="col-md-3">
+													<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag">
 														<p><spring:message code="category.${product.category.lowerName}"/></p>
 													</div>
 												</div>
+												<c:url value="/vote/product/${product.id}" var="vote" />
+							                    <form:form action="${vote}" method="post">
+													<div class="col-md-3 col-md-offset-6 upvote-holder">
+								                            <button class="btn btn-default upVote" type="submit">
+									                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+												                <c:out value="${product.votes}"/></p>
+								                            </button>
+													</div>
+							                    </form:form>
 											</div>
 										</div>
 									</div>	
@@ -145,5 +155,10 @@
 
 	</div>
 	<%@include file="includes/scripts.jsp"%>
+	<script>
+		var gotoProduct = "${productVoted}";
+	</script>	
+	<script src="<c:url value="/resources/js/index.js" />"></script>
+	
 </body>
 </html>

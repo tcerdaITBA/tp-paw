@@ -1,15 +1,20 @@
 package tp.paw.khet.webapp.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.VoteService;
@@ -28,36 +33,40 @@ public class VotingController {
 	
 	@RequestMapping(value= "/vote/product/{productId}", method = RequestMethod.POST)
 	public ModelAndView voteProduct(@PathVariable final int productId, 
-			@ModelAttribute("loggedUser") final User loggedUser) throws ProductNotFoundException{
+			@ModelAttribute("loggedUser") final User loggedUser,  final RedirectAttributes attr,
+			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer) 
+					throws ProductNotFoundException{
 		
 		LOGGER.debug("Voted product with id {}", productId);
 		
-		if(productService.getFullProductById(productId) == null){
+		Product product = productService.getFullProductById(productId);
+		
+		if(product == null){
 			LOGGER.warn("Failed to vote product with id {}: product not found");
 			throw new ProductNotFoundException();
 		}
 		
-		voteService.voteProduct(productId, loggedUser.getUserId());
+		List<User> votingUsers = product.getVotingUsers();
 		
-		return new ModelAndView("redirect:/product/" + productId);
+		if (votingUsers.contains(loggedUser))
+			voteService.unvoteProduct(productId, loggedUser.getUserId());
+		else 
+			voteService.voteProduct(productId, loggedUser.getUserId());
 		
-	}
-	
-	@RequestMapping(value= "/unvote/product/{productId}", method = RequestMethod.POST)
-	public ModelAndView unvoteProduct(@PathVariable final int productId, 
-			@ModelAttribute("loggedUser") final User loggedUser) throws ProductNotFoundException{
+		String redirect = "redirect:";
 		
-		LOGGER.debug("Voted product with id {}", productId);
-		
-		if(productService.getFullProductById(productId) == null){
-			LOGGER.warn("Failed to Unvote product with id {}: product not found");
-			throw new ProductNotFoundException();
+		if (referrer.contains("product/" + productId))
+			redirect += "/product/" + productId;
+		else {
+			redirect += "/";
+			
+			if (referrer.contains("?page"))
+				redirect+= "?page=" + referrer.substring(referrer.lastIndexOf('=') + 1);
 		}
 		
-		voteService.unvoteProduct(productId, loggedUser.getUserId());
+		attr.addFlashAttribute("productVoted", product.getId());
 		
-		return new ModelAndView("redirect:/product/" + productId);
+		return new ModelAndView(redirect);
 		
 	}
-	
 }
