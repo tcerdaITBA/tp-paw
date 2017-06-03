@@ -17,4 +17,12 @@ public interface VoteService {
 	 * @param userId - ID of the user who wants to remove his/her vote
 	 */
 	public void unvoteProduct(int productId, int userId);
+
+	/**
+	 * Removes a vote from a {@link Product} if 
+	 * it was already voted or votes it otherwise
+	 * @param productId - ID of the product to unvote
+	 * @param userId - ID of the user who wants to toggle it's vote
+	 */
+	public void toggleVoteFromProduct(int productId, int userId);
 }

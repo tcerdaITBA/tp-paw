@@ -223,6 +223,7 @@ public class Product {
 			this.commentFamilies = product.getCommentFamilies();
 			this.videos = product.getVideos();
 			this.images = product.getImages();
+			this.votingUsers = product.getVotingUsers();
 		}
 
 		public ProductBuilder id(int id) {

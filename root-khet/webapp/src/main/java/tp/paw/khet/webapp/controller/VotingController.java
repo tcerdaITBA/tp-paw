@@ -1,7 +1,5 @@
 package tp.paw.khet.webapp.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,36 +35,21 @@ public class VotingController {
 			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer) 
 					throws ProductNotFoundException{
 		
-		LOGGER.debug("Voted product with id {}", productId);
+		LOGGER.debug("User {} voted product with id {}", loggedUser.getUserId(), productId);
 		
-		Product product = productService.getFullProductById(productId);
+		final Product product = productService.getPlainProductById(productId);
 		
-		if(product == null){
+		if (product == null) {
 			LOGGER.warn("Failed to vote product with id {}: product not found");
 			throw new ProductNotFoundException();
 		}
 		
-		List<User> votingUsers = product.getVotingUsers();
+		voteService.toggleVoteFromProduct(productId, loggedUser.getUserId());
 		
-		if (votingUsers.contains(loggedUser))
-			voteService.unvoteProduct(productId, loggedUser.getUserId());
-		else 
-			voteService.voteProduct(productId, loggedUser.getUserId());
-		
-		String redirect = "redirect:";
-		
-		if (referrer.contains("product/" + productId))
-			redirect += "/product/" + productId;
-		else {
-			redirect += "/";
-			
-			if (referrer.contains("?page"))
-				redirect+= "?page=" + referrer.substring(referrer.lastIndexOf('=') + 1);
-		}
+		String redirect = "redirect:" + referrer;
 		
 		attr.addFlashAttribute("productVoted", product.getId());
 		
-		return new ModelAndView(redirect);
-		
+		return new ModelAndView(redirect);		
 	}
 }
