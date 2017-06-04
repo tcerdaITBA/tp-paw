@@ -6,7 +6,7 @@ $(document).ready(function(){
         }, 'fast');
         return this; // for chaining...
     };
-    
+        
     if (gotoProduct)
 		$('#product' + gotoProduct).goTo();
 });

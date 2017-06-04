@@ -2,7 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="myfn" uri="http://samplefn"%>
 <html>    
 
 <head>
@@ -31,6 +30,7 @@
 </head>
 
 <body>
+	<script src="<c:url value="/resources/js/lib.js" />"></script>
 	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 	<div class="row title-row">
@@ -126,8 +126,8 @@
 												</div>
 												<c:url value="/vote/product/${product.id}" var="vote" />
 							                    <form:form action="${vote}" method="post">
-													<div class="col-md-3 col-md-offset-6 upvote-holder">
-								                            <button class="btn btn-default upVote" type="submit">
+													<div class="col-md-3 col-md-offset-6">
+								                            <button class="btn btn-default categoryTag" type="submit" id="vote${product.id}">
 									                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
 												                <c:out value="${product.votesCount}"/></p>
 								                            </button>
@@ -135,7 +135,9 @@
 							                    </form:form>
 							                    <sec:authorize access="isAuthenticated()">
 							                   		<c:if test="${ product.votingUsers.contains(loggedUser) }">
-							                    		<script>alert('asd');</script>
+							                    		<script>
+							                    		upVotedProductByLoggedUser(${product.id});
+							                    		</script>
 							                    	</c:if>							                    
 							                    </sec:authorize>
 											</div>

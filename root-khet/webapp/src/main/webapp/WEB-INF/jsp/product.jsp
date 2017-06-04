@@ -31,6 +31,7 @@
 <spring:message code="commentLabel.userNamePlaceholder" var="UserNamePlaceholder"/>
 <spring:message code="commentLabel.contentPlaceholder" var="ContentPlaceholder"/>	
 
+<script src="<c:url value="/resources/js/lib.js" />"></script>
 <%@include file="includes/navbar.jsp" %>
     <div class="container">
         <div class="row" id="carouselHolder">
@@ -77,13 +78,29 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                       <div class="col-md-12">
+                                       <div class="col-md-3">
                                         	<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
 												<div class="categoryTag">
 													<p><spring:message code="category.${product.category.lowerName}"/></p>
 												</div>
                                         	</a>
                                        </div>
+                                       <c:url value="/vote/product/${product.id}" var="vote" />
+					                   <form:form action="${vote}" method="post">
+											<div class="col-md-3 col-md-offset-6">
+						                            <button class="btn btn-default categoryTag" type="submit" id="vote${product.id}">
+							                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+										                <c:out value="${product.votesCount}"/></p>
+						                            </button>
+											</div>
+					                   </form:form>
+					                   <sec:authorize access="isAuthenticated()">
+					                   		<c:if test="${ product.votingUsers.contains(loggedUser) }">
+					                    		<script>
+					                    		upVotedProductByLoggedUser(${product.id});
+					                    		</script>
+					                    	</c:if>							                    
+					                   </sec:authorize>
                                     </div>
                                 </div>
                             </div>
