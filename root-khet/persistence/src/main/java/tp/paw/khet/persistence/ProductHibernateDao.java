@@ -111,7 +111,18 @@ public class ProductHibernateDao implements ProductDao {
     
 	@Override
 	public List<Product> getPlainProductsRangePopularity(final int offset, final int length) {
-    	final TypedQuery<Product> query = em.createQuery("select p from Product as p left join p.votingUsers as vu GROUP BY p ORDER BY count(vu) DESC, lower(p.name)", Product.class);
+    	final TypedQuery<Product> query = em.createQuery("select p from Product as p left join p.votingUsers as vu "
+    			+ "GROUP BY p ORDER BY count(vu) DESC, lower(p.name)", Product.class);
+    	
+        return pagedResult(query, offset, length);
+	}
+	
+	@Override
+	public List<Product> getPlainProductsRangePopularityByCategory(final Category category, final int offset, final int length) {
+    	final TypedQuery<Product> query = em.createQuery("select p from Product as p left join p.votingUsers as vu "
+    			+ "where p.category = :category GROUP BY p ORDER BY count(vu) DESC, lower(p.name)", Product.class);
+    	query.setParameter("category", category);
+    	
     	
         return pagedResult(query, offset, length);
 	}

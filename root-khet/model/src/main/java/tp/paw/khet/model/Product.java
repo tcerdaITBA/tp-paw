@@ -76,7 +76,7 @@ public class Product {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
 	@OrderBy("name ASC")
 	private List<User> votingUsers;
-		
+	
 	@Transient
 	private List<CommentFamily> commentFamilies = Collections.emptyList();
 	

@@ -57,17 +57,7 @@ public interface ProductService {
      * @return {@link List} of the products in the given range. 
      */
     public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
-    
-	/**
-     * Lists a range of existing {@link Product} as a {@link Product}.
-     * Products are sorted by their number of votes, the range given is [(page - 1) * pageSize, page * pageSize].
-     * First page is number 1.
-     * @param page - index of the page to be retrieved
-     * @param pageSize - amount of products per page
-     * @return {@link List} of the products in the given range. 
-     */
-	public List<Product> getPlainProductsPopularitySortedPaged(int page, int pageSize);
-    
+    	
 	/**
 	 * Lists {@link Product} belonging to certain {@link Category}.
 	 * @param category - Category the products belong to
@@ -78,7 +68,7 @@ public interface ProductService {
 	
 	/**
 	 * Lists a range of {@link Product} belonging to certain {@link Category}.
-	 * Products are ordered by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize] 
+	 * Products are sorted by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize] 
 	 * First page is number 1.
 	 * @param category Category the products belong to
 	 * @param page - index of the page to be retrieved
@@ -90,7 +80,7 @@ public interface ProductService {
 	
 	 /**
      * Lists a range of {@link Product} belonging to certain {@link Category}.
-     * Products are ordered alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize] 
+     * Products are sorted alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize] 
      * First page is number 1.
      * @param category Category the products belong to
      * @param page - index of the page to be retrieved
@@ -100,6 +90,28 @@ public interface ProductService {
      */
     public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(Category category, int page, int pageSize);
  	
+	/**
+     * Lists a range of existing {@link Product} as a {@link Product}.
+     * Products are sorted by their number of votes, the range given is [(page - 1) * pageSize, page * pageSize].
+     * First page is number 1.
+     * @param page - index of the page to be retrieved
+     * @param pageSize - amount of products per page
+     * @return {@link List} of the products in the given range. 
+     */
+	public List<Product> getPlainProductsPopularitySortedPaged(int page, int pageSize);
+    
+	 /**
+     * Lists a range of {@link Product} belonging to certain {@link Category}.
+     * Products are sorted by their vote count, the range given is [(page - 1) * pageSize, page * pageSize] 
+     * First page is number 1.
+     * @param category Category the products belong to
+     * @param page - index of the page to be retrieved
+     * @param pageSize - amount of products per page
+     * @return {@link List} of the products belonging to the category. 
+     *         Could be empty if there are no products registered in given category.
+     */
+	public List<Product> getPlainProductsPopularitySortedByCategoryPaged(Category category, int page, int pageSize);
+    
 	/**
 	 * Returns the amount of pages available for a given page size.
 	 * @param pageSize - amount of products per page
