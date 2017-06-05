@@ -76,8 +76,9 @@
 		</div>	
 	
 		<div class="col-md-8">
-					<c:choose>
-						<c:when test="${products.isEmpty()}">
+				<c:choose>
+					<c:when test="${products.isEmpty()}">
+						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="zrp" id="category-zrp">
 									<h2><spring:message code="categoryZRP.sorry"/></h2>
@@ -97,11 +98,26 @@
 									</p>
 								</div>
 							</div>
-						</c:when>
-						<c:otherwise>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="order-selection">
+									<a class="order-btn" href="<c:url value="/category/game?orderBy=recent"/>">
+										RECIENTES
+									</a>
+									<span class="order-divider"></span>
+									<a class="order-btn" href="<c:url value="/category/game?orderBy=popularity"/>">
+										POPULARES
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
-								
+
 								<a href="<c:url value="/product/${product.id}"/>" id="product${product.id}">
 									<div class="row product-list-item product-item-height">
 										<div class="col-md-3 product-logo">
@@ -125,34 +141,31 @@
 													</div>
 												</div>
 												<c:url value="/vote/product/${product.id}" var="vote" />
-							                    <form:form action="${vote}" method="post">
-													<div class="col-md-2 col-md-offset-5">
-								                            <button class="btn btn-default categoryTag" type="submit" id="vote${product.id}">
-									                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-												                <c:out value="${product.votesCount}"/></p>
-								                            </button>
-													</div>
-							                    </form:form>
-							                    <sec:authorize access="isAuthenticated()">
-							                   		<c:if test="${ product.votingUsers.contains(loggedUser) }">
-							                    		<script>
-							                    		upVotedProductByLoggedUser(${product.id});
-							                    		</script>
-							                    	</c:if>							                    
-							                    </sec:authorize>
+													<form:form action="${vote}" method="post">
+														<div class="col-md-2 col-md-offset-5">
+															<button class="btn btn-default categoryTag" type="submit" id="vote${product.id}">
+																<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+																<c:out value="${product.votesCount}"/></p>
+															</button>
+														</div>
+													</form:form>
+													<sec:authorize access="isAuthenticated()">
+														<c:if test="${ product.votingUsers.contains(loggedUser) }">
+															<script>upVotedProductByLoggedUser(${product.id});</script>
+														</c:if>							                    
+													</sec:authorize>
 											</div>
 										</div>
 									</div>	
 								</a>
-								
-								
 							</c:forEach>
 							</div>
-						</c:otherwise>
-				</c:choose>
-				<c:if test="${totalPages > 1}">
-					<%@include file="includes/pagination.jsp"%></%@include>
-				</c:if>									
+						</div>
+					</c:otherwise>
+			</c:choose>
+			<c:if test="${totalPages > 1}">
+				<%@include file="includes/pagination.jsp"%></%@include>
+			</c:if>									
 		</div>
 	</div>
 	<%@include file="includes/footer.jsp"%>
