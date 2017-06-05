@@ -90,7 +90,7 @@
 											<div class="col-md-2 col-md-offset-5">
 						                            <button class="btn btn-default categoryTag" type="submit" id="vote${product.id}">
 							                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-										                <c:out value="${product.votesCount}"/></p>
+										                <c:out value="${voters.size()}"/></p>
 						                            </button>
 											</div>
 					                   </form:form>
@@ -101,6 +101,14 @@
 					                    		</script>
 					                    	</c:if>							                    
 					                   </sec:authorize>
+					                   
+					                   <div class="col-md-1">
+					                   		<button type="button" class="btn btn-default categoryTag" data-toggle="modal" data-target="#votersModal">
+												<span class="glyphicon glyphicon-user"></span>
+											</button>
+											<%@include file="includes/votersModal.jsp"%>
+		
+					                   </div>
                                     </div>
                                 </div>
                             </div>

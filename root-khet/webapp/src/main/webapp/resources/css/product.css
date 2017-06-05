@@ -305,3 +305,12 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.votersModalDialog {
+	overflow-y: initial !important
+}
+
+.votersModal-body {
+	max-height: 200px;
+    overflow-y: auto;
+}
