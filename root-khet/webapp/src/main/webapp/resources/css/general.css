@@ -187,7 +187,9 @@ footer p {
 
 .suggestion-list-item:hover,
 .history-item:hover, .history-item:focus,
-.suggestion-list-item:focus .suggestion-row {
+.suggestion-list-item:focus,
+.suggestion-row:hover, .suggestion-row:focus
+{
 	background-color: #f3f3f3;
 	text-decoration: none;
 	color: #333;
@@ -202,6 +204,19 @@ footer p {
 .suggestions-box .divider {
 	border: 1px solid #f3f3f3;
 	margin: 0.5em;
+}
+
+.suggestion-upvote {
+	text-align: center;
+	border: 1px solid #c4c4c4;
+	border-radius: 3px;
+	padding: 0;
+	word-wrap: break-word;
+	display: inline-block;
+}
+
+.most-popular-title {
+	color: #737373;
 }
 
 .search-icn {

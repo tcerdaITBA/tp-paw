@@ -54,20 +54,25 @@
 						</div>
 					</div>
 					<c:forEach items="${topProducts}" var="product" varStatus="loop">
-                        <a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}" data-list-index="${loop.index + sessionScope.searchHistory.size()}">
-                            <div class="suggestion-row">
-                                <div class="row">
-                                    <div class="col-md-3 suggestion-product-logo">
-                                        <img src="<c:url value="/product/${product.id}/logo"/>">
-                                    </div>
-                                    <div class="col-md-9 suggestion-product-info-box">
-                                        <div class="suggestion-product-name">
-                                            <p class="capitalize-firstLetter"><c:out value="${product.name}"/></p>
-                                        </div>
-                                    </div>
-                                </div>	
-                            </div>
-                        </a>
+						<if test="${loop.index < 3}">
+							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}" data-list-index="${loop.index + sessionScope.searchHistory.size()}">
+								<div class="suggestion-row row">
+										<div class="col-md-12 suggestion-product-info-box">
+											<span>
+												<form:form action="${vote}" method="post">
+													<button class="btn btn-default suggestion-upvote" type="submit" id="vote${product.id}">
+														<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+														<c:out value="${voters.size()}"/>
+													</button>
+												</form:form>
+											</span>
+											<span class="suggestion-product-name capitalize-firstLetter">
+												<c:out value="${product.name}"/>
+											</span>
+										</div>
+								</div>	
+							</a>
+						</if>
 					</c:forEach>
 					
 				</div>

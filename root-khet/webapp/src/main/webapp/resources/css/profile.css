@@ -94,3 +94,7 @@
 	color: #39c6a6;
     border: 2px solid #eee;
 }
+
+.nav-pills {
+	margin-bottom: 1em;
+}

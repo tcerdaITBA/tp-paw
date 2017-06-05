@@ -105,7 +105,6 @@
 									</div>
 								</c:when>
 								<c:otherwise>
-								<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${capitalizedUserName}"/></h2>
 								<div class="col-md-12 product-list">
 									<c:forEach items="${products}" var="product">
 	                                    <!-- The Modal -->
@@ -113,9 +112,9 @@
 										<a href="<c:url value="/product/${product.id}"/>">
 											<div class="row product-list-item product-item-height">
 												<sec:authorize access="isAuthenticated()">
-														<c:if test="${loggedUser.userId == profileUser.userId}">
-																<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-														</c:if>
+													<c:if test="${loggedUser.userId == profileUser.userId}">
+														<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
+													</c:if>
 												</sec:authorize>
 												<div class="col-md-3 product-logo">
 													<img src="<c:url value="/product/${product.id}/logo"/>">
@@ -156,7 +155,6 @@
 										</div>
 									</c:when>
 									<c:otherwise>
-									<h2 class="uploaded-products-title"><spring:message code="votedProductsTitle" arguments="${capitalizedUserName}"/></h2>
 									<div class="col-md-12 product-list">
 										<c:forEach items="${votedProducts}" var="votedProduct">
 		                                    <!-- The Modal -->

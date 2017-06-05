@@ -92,10 +92,19 @@
 															</div>
 														</div>
 														<div class="row product-category">
-															<div class="col-md-12">
+															<div class="col-md-3">
 																<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
 																	<p><spring:message code="category.${product.category.lowerName}"/></p>
 																</div>
+															</div>
+															<c:url value="/vote/product/${product.id}" var="vote" />
+															<div class="col-md-2 col-md-offset-7">
+																<form:form action="${vote}" method="post">
+																		<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
+																			<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+																			<c:out value="${product.votesCount}"/></p>
+																		</button>
+																</form:form>
 															</div>
 														</div>
 													</div>

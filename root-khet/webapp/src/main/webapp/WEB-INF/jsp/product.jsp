@@ -86,14 +86,14 @@
                                         	</a>
                                        </div>
                                        <c:url value="/vote/product/${product.id}" var="vote" />
-					                   <form:form action="${vote}" method="post">
-											<div class="col-md-2 col-md-offset-5">
-						                            <button class="btn btn-default categoryTag" type="submit" id="vote${product.id}">
-							                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-										                <c:out value="${voters.size()}"/></p>
-						                            </button>
-											</div>
-					                   </form:form>
+														<div class="col-md-2 col-md-offset-7">
+															<form:form action="${vote}" method="post">
+																	<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
+																		<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+																		<c:out value="${product.votesCount}"/></p>
+																	</button>
+															</form:form>
+														</div>
 					                   <sec:authorize access="isAuthenticated()">
 					                   		<c:if test="${ product.votingUsers.contains(loggedUser) }">
 					                    		<script>
