@@ -101,6 +101,14 @@
 					                    		</script>
 					                    	</c:if>							                    
 					                   </sec:authorize>
+					                   
+					                   <div class="col-md-1">
+					                   		<button type="button" class="btn btn-default categoryTag" data-toggle="modal" data-target="#votersModal">
+												<span class="glyphicon glyphicon-user"></span>
+											</button>
+											<%@include file="includes/votersModal.jsp"%>
+		
+					                   </div>
                                     </div>
                                 </div>
                             </div>
