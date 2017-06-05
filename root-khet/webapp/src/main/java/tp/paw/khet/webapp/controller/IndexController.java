@@ -39,8 +39,19 @@ public class IndexController {
 	    
 		final ModelAndView mav = new ModelAndView("index");
 		
-		// TODO: un switch para ver que orden usar?
-		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
+		// TODO: esto es horrible y se repite en categorías
+		switch(order) {
+		    case "recent":
+		        mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
+		        break;
+		    case "popularity":
+                mav.addObject("products", productService.getPlainProductsPopularitySortedPaged(page, PAGE_SIZE));
+		        break;
+		    case "alphabethically":
+                mav.addObject("products", productService.getPlainProductsAlphabeticallyPaged(page, PAGE_SIZE));
+		        break;
+		}
+        mav.addObject("productOrder", order);
 		mav.addObject("categories", Category.values());
 		mav.addObject("currentPage", page);
 		mav.addObject("totalPages", maxPage);

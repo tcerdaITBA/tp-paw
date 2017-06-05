@@ -37,13 +37,18 @@
 		<div class="col-md-8 col-md-offset-3 title-col">
 			<div class="content-title">
 				<c:choose>
-					 <c:when test="${empty currentCategory}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
+					 <c:when test="${empty currentCategory}">
+						 <h2><spring:message code="index.mostrecent"/></h2>	
+						 <%@include file="includes/orders.jsp"%></%@include>
+					 </c:when>
 					 <c:otherwise>
-					 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
-					 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
+						 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
+						 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
+						 <c:if test="${not products.isEmpty()}">
+						 		<%@include file="includes/orders.jsp"%></%@include>
+						 </c:if>
 					 </c:otherwise>
 				</c:choose>					
-				<%@include file="includes/orders.jsp"%></%@include>
 			</div>
 		</div>
 	</div>
