@@ -136,7 +136,7 @@
 											</div>
 											<div class="row product-category">
 												<div class="col-md-3">
-													<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag">
+													<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
 														<p><spring:message code="category.${product.category.lowerName}"/></p>
 													</div>
 												</div>
