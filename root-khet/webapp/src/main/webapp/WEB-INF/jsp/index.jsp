@@ -37,12 +37,13 @@
 		<div class="col-md-8 col-md-offset-3 title-col">
 			<div class="content-title">
 				<c:choose>
-				 <c:when test="${empty currentCategory}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
-				 <c:otherwise>
-				 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
-				 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
-				 </c:otherwise>
-				 </c:choose>					
+					 <c:when test="${empty currentCategory}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
+					 <c:otherwise>
+					 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
+					 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
+					 </c:otherwise>
+				</c:choose>					
+				<%@include file="includes/orders.jsp"%></%@include>
 			</div>
 		</div>
 	</div>
@@ -101,24 +102,6 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<!--TODO: hacer con la página actual, no con category-->
-								<div class="order-selection">
-									<a class="order-btn" href="<c:url value="/category/${currentCategory.lowerName}?orderBy=recent"/>">
-										<spring:message code="index.order.recent"/>
-									</a>
-									<span class="order-divider"></span>
-									<a class="order-btn" href="<c:url value="/category/${currentCategory.lowerName}?orderBy=popularity"/>">
-										<spring:message code="index.order.popular"/>
-									</a>
-									<span class="order-divider"></span>
-									<a class="order-btn" href="<c:url value="/category/${currentCategory.lowerName}?orderBy=alfabethically"/>">
-										<spring:message code="index.order.atoz"/>
-									</a>
-								</div>
-							</div>
-						</div>
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">

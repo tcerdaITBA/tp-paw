@@ -130,7 +130,6 @@ form {
 	font-family: inherit;
 	color: #737373;
 	text-align: center;
-	margin-bottom: 10px;
 }
 
 .icon {
@@ -213,6 +212,7 @@ form {
 .order-selection {
 	text-align: center;
 	margin-bottom: 0.5em;
+	margin-top: 3px;
 }
 
 .order-btn {
