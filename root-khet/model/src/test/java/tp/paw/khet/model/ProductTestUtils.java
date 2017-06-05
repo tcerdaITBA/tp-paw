@@ -93,7 +93,6 @@ public final class ProductTestUtils {
 
 	
 	public static void assertEqualsFullProducts(Product expected, Product actual) {
-		assertEquals(expected, actual);
 		assertEquals(expected.getName(), actual.getName());
 		assertEquals(expected.getDescription(), actual.getDescription());
 		assertEquals(expected.getWebsite(), actual.getWebsite());
@@ -101,12 +100,14 @@ public final class ProductTestUtils {
 		assertEquals(expected.getCategory(), actual.getCategory());
 		assertArrayEquals(expected.getLogo(), actual.getLogo());
 		assertEquals(expected.getCreator(), actual.getCreator());
+		assertEquals(expected, actual);
 	}
 	
 	public static void assertEqualsPlainProducts(Product expected, Product actual) {
-		assertEquals(expected, actual);
+		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getShortDescription(), actual.getShortDescription());
 		assertEquals(expected.getCategory(), actual.getCategory());
+		assertEquals(expected, actual);
 	}
 	
 	public static byte[] logoFromProduct(Product product) {

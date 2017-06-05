@@ -40,7 +40,7 @@ public interface ProductService {
 	
 	/**
      * Lists a range of existing {@link Product} as a {@link Product}.
-     * Products are ordered by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize].
+     * Products are sorted by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize].
      * First page is number 1.
      * @param page - index of the page to be retrieved
      * @param pageSize - amount of products per page
@@ -50,13 +50,23 @@ public interface ProductService {
 	
 	/**
      * Lists a range of existing {@link Product} as a {@link Product}.
-     * Products are ordered alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize].
+     * Products are sorted alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize].
      * First page is number 1.
      * @param page - index of the page to be retrieved
      * @param pageSize - amount of products per page
      * @return {@link List} of the products in the given range. 
      */
     public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
+    
+	/**
+     * Lists a range of existing {@link Product} as a {@link Product}.
+     * Products are sorted by their number of votes, the range given is [(page - 1) * pageSize, page * pageSize].
+     * First page is number 1.
+     * @param page - index of the page to be retrieved
+     * @param pageSize - amount of products per page
+     * @return {@link List} of the products in the given range. 
+     */
+	public List<Product> getPlainProductsPopularitySortedPaged(int page, int pageSize);
     
 	/**
 	 * Lists {@link Product} belonging to certain {@link Category}.
@@ -78,7 +88,7 @@ public interface ProductService {
 	 */
 	public List<Product> getPlainProductsByCategoryPaged(Category category, int page, int pageSize);
 	
-	   /**
+	 /**
      * Lists a range of {@link Product} belonging to certain {@link Category}.
      * Products are ordered alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize] 
      * First page is number 1.

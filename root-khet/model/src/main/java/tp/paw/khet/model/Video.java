@@ -59,8 +59,8 @@ public class Video {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 17;
-		result = prime * result + productId;
-		result = prime * result + videoId.hashCode();
+		result = prime * result + getProductId();
+		result = prime * result + getVideoId().hashCode();
 		return result;
 	}
 	

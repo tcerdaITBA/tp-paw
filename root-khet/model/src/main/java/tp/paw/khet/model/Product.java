@@ -6,6 +6,7 @@ import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -75,7 +76,7 @@ public class Product {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
 	@OrderBy("name ASC")
 	private List<User> votingUsers;
-	
+		
 	@Transient
 	private List<CommentFamily> commentFamilies = Collections.emptyList();
 	
@@ -165,7 +166,7 @@ public class Product {
 	}
 	
 	public int getVotesCount() {
-		return votingUsers.size();
+		return getVotingUsers().size();
 	}
 	
 	@Override
@@ -182,7 +183,7 @@ public class Product {
 	
 	@Override
 	public int hashCode() {
-		return id;
+		return getId();
 	}
 	
 	@Override
@@ -203,7 +204,7 @@ public class Product {
 		private List<CommentFamily> commentFamilies = Collections.emptyList();
 		private List<Video> videos = Collections.emptyList();
 		private List<ProductImage> images = Collections.emptyList();
-		private List<User> votingUsers = Collections.emptyList();
+		private List<User> votingUsers = new LinkedList<>();  // mutable
 
 		private ProductBuilder(String name, String shortDescription) {
 			this.name = name;

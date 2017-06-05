@@ -121,6 +121,11 @@ public class ProductServiceImpl implements ProductService {
     		final int pageSize) {
         return productDao.getPlainProductsRangeAlphabeticallyByCategory(category, (page - 1) * pageSize, pageSize);
     }
+    
+    @Override
+    public List<Product> getPlainProductsPopularitySortedPaged(final int page, final int pageSize) {
+    	return productDao.getPlainProductsRangePopularity((page - 1) * pageSize, pageSize);
+    }
 
 	@Override
 	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {

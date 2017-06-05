@@ -111,7 +111,7 @@ public class User {
 	
 	@Override
 	public int hashCode() {
-		return userId;
+		return getUserId();
 	}
 	
 	@Override

@@ -38,7 +38,7 @@ public interface ProductDao {
 	public List<Product> getPlainProductsByUserId(int userId);
 	
 	 /**
-     * Lists a range of {@link Product}.
+     * Lists a range of {@link Product} sorted by upload date.
      * Products are ordered by uploadDate.
      * @param offset - Offset in the list of all products.
      * @param length - Length of the range to be retrieved
@@ -49,7 +49,7 @@ public interface ProductDao {
     public List<Product> getPlainProductsRange(int offset, int length);
     
     /**
-    * Lists a range of {@link Product}.
+    * Lists a range of {@link Product} sorted alphabetically.
     * Products are ordered alphabetically by product name.
     * @param offset - Offset in the list of all products.
     * @param length - Length of the range to be retrieved
@@ -58,6 +58,16 @@ public interface ProductDao {
     *         The amount of products retrieved could be smaller than the length given.
     */
    public List<Product> getPlainProductsRangeAlphabetically(int offset, int length);
+	
+	/**
+	 * Lists a range of {@link Product} sorted by number of votes.
+	 * @param offset - Offset int the list of all products.
+	 * @param length - Length of the range to be retrieved
+	 * @return {@link List} of the products in the given range. 
+     *         Could be empty if offset is greater than the total number of products available.
+     *         The amount of products retrieved could be smaller than the length given.
+	 */
+	public List<Product> getPlainProductsRangePopularity(int offset, int length);
 	
 	/**
 	 * Lists {@link Product} belonging to certain {@link Category}.
