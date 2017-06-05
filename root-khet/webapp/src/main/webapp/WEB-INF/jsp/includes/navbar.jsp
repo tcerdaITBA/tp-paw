@@ -56,21 +56,25 @@
 					<c:forEach items="${topProducts}" var="product" varStatus="loop">
 						<if test="${loop.index < 3}">
 							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}" data-list-index="${loop.index + sessionScope.searchHistory.size()}">
-								<div class="suggestion-row row">
-										<div class="col-md-12 suggestion-product-info-box">
-											<span>
-												<form:form action="${vote}" method="post">
-													<button class="btn btn-default suggestion-upvote" type="submit" id="vote${product.id}">
-														<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-														<c:out value="${voters.size()}"/>
-													</button>
-												</form:form>
-											</span>
-											<span class="suggestion-product-name capitalize-firstLetter">
-												<c:out value="${product.name}"/>
-											</span>
-										</div>
-								</div>	
+								<c:url value="/vote/product/${product.id}" var="vote"/>
+								<div class="row suggestion-row ">
+									<div class="col-md-3 suggestion-product-logo">
+										<img src="<c:url value="/product/${product.id}/logo"/>">
+									</div>
+									<div class="col-md-7">
+										<span class="suggestion-product-name capitalize-firstLetter">
+											<c:out value="${product.name}"/>
+										</span>
+									</div>
+									<div class="col-md-2">
+										<form:form action="${vote}" method="post">
+												<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
+													<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+													<c:out value="${product.votesCount}"/></p>
+												</button>
+										</form:form>
+									</div>
+								</div>
 							</a>
 						</if>
 					</c:forEach>

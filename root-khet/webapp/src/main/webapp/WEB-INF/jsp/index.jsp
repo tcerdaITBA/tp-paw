@@ -103,6 +103,7 @@
 					<c:otherwise>
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
+								<!--TODO: hacer con la página actual, no con category-->
 								<div class="order-selection">
 									<a class="order-btn" href="<c:url value="/category/${currentCategory.lowerName}?orderBy=recent"/>">
 										RECIENTES
