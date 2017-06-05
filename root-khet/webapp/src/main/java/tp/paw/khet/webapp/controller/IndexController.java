@@ -24,8 +24,10 @@ public class IndexController {
     private ProductService productService;
 
 	@RequestMapping("/")
-	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") final int page) 
+	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") final int page, 
+	        @RequestParam(value="orderBy", required = false, defaultValue = "recent") final String order) 
 			throws ResourceNotFoundException {
+	    
 		LOGGER.debug("Accessed index with page {}", page);
 		
 	    final int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);
@@ -36,6 +38,8 @@ public class IndexController {
 	    }
 	    
 		final ModelAndView mav = new ModelAndView("index");
+		
+		// TODO: un switch para ver que orden usar?
 		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
 		mav.addObject("categories", Category.values());
 		mav.addObject("currentPage", page);

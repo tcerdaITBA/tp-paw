@@ -106,11 +106,15 @@
 								<!--TODO: hacer con la página actual, no con category-->
 								<div class="order-selection">
 									<a class="order-btn" href="<c:url value="/category/${currentCategory.lowerName}?orderBy=recent"/>">
-										RECIENTES
+										<spring:message code="index.order.recent"/>
 									</a>
 									<span class="order-divider"></span>
 									<a class="order-btn" href="<c:url value="/category/${currentCategory.lowerName}?orderBy=popularity"/>">
-										POPULARES
+										<spring:message code="index.order.popular"/>
+									</a>
+									<span class="order-divider"></span>
+									<a class="order-btn" href="<c:url value="/category/${currentCategory.lowerName}?orderBy=alfabethically"/>">
+										<spring:message code="index.order.atoz"/>
 									</a>
 								</div>
 							</div>

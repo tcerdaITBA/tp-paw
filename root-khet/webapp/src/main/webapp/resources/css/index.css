@@ -220,6 +220,7 @@ form {
 	font-size: 0.9em;
 	letter-spacing: 0.5px;
 	text-align: center;
+	text-transform: uppercase;
 }
 
 .order-btn.selected {

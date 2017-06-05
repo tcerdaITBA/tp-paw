@@ -55,9 +55,9 @@
 					</div>
 					<c:forEach items="${topProducts}" var="product" varStatus="loop">
 						<if test="${loop.index < 3}">
-							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}" data-list-index="${loop.index + sessionScope.searchHistory.size()}">
+							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>"  data-list-index="${loop.index + sessionScope.searchHistory.size()}" id="suggestion-${loop.index + sessionScope.searchHistory.size()}">
 								<c:url value="/vote/product/${product.id}" var="vote"/>
-								<div class="row suggestion-row ">
+								<div class="row center-flex">
 									<div class="col-md-3 suggestion-product-logo">
 										<img src="<c:url value="/product/${product.id}/logo"/>">
 									</div>
