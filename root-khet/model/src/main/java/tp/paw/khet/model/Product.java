@@ -165,10 +165,6 @@ public class Product {
 		return votingUsers;
 	}
 	
-	public int getVotesCount() {
-		return getVotingUsers().size();
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
