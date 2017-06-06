@@ -160,14 +160,8 @@
 									<div class="col-md-12 product-list">
 										<c:forEach items="${votedProducts}" var="votedProduct">
 		                                    <!-- The Modal -->
-											<%@include file="includes/deleteModal.jsp"%></%@include>
 											<a href="<c:url value="/product/${votedProduct.id}"/>">
 												<div class="row product-list-item product-item-height">
-													<sec:authorize access="isAuthenticated()">
-															<c:if test="${loggedUser.userId == profileUser.userId}">
-																	<span id="delete${votedProduct.id}" data-product-id="${votedProduct.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-															</c:if>
-													</sec:authorize>
 													<div class="col-md-3 product-logo">
 														<img src="<c:url value="/product/${votedProduct.id}/logo"/>">
 													</div>
