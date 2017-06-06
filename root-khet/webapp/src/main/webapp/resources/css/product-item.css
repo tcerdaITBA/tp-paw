@@ -114,6 +114,16 @@
 	color: #F64763;
 }
 
+.upvote-btn.voted:hover {
+	background-color: #F64763;
+	border-color: #F64763;
+}
+
+.upvote-btn.voted:hover p {
+	background-color: #F64763 !important;
+	color: #fff;
+}
+
 .upvote-btn p {
 	margin: auto auto;
 	color: #8a8a8a;

@@ -1,3 +1,8 @@
 function upVotedProductByLoggedUser(id) {
-	document.getElementById("vote" + id).style.background = "#f3f3f3";
-}
+	var el = document.getElementById('vote' + id);
+	var className = 'voted'
+	if (el.classList)
+  	el.classList.add(className);
+	else
+  	el.className += ' ' + className;
+};
