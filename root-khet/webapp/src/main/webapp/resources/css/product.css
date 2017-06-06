@@ -228,6 +228,10 @@
  	margin-right: 0px;
 }
 
+.voter-span {
+	padding: 10px 2px;
+}
+
 .voter-span:hover {
 	cursor: pointer;
 }
