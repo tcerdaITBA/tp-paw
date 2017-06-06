@@ -32,7 +32,7 @@
 <spring:message code="commentLabel.userNamePlaceholder" var="UserNamePlaceholder"/>
 <spring:message code="commentLabel.contentPlaceholder" var="ContentPlaceholder"/>	
 
-<script src="<c:url value="/resources/js/lib.js" />"></script>
+<script src="<c:url value="/resources/js/upvote.js" />"></script>
 <%@include file="includes/navbar.jsp" %>
     <div class="container">
         <div class="row" id="carouselHolder">

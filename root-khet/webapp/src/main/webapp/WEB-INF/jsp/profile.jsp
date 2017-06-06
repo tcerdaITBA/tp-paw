@@ -32,8 +32,9 @@
 			<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 
 		</head>
+		<script src="<c:url value="/resources/js/upvote.js" />"></script>
+		<%@include file="includes/navbar.jsp" %>
 		<body>
-			<%@include file="includes/navbar.jsp" %>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3 profile-info-box">

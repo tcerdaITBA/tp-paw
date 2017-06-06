@@ -24,9 +24,9 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
+<script src="<c:url value="/resources/js/upvote.js" />"></script>
+<%@include file="includes/navbar.jsp"%>
 <body>
-	<%@include file="includes/navbar.jsp"%>
-	<script src="<c:url value="/resources/js/lib.js" />"></script>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
