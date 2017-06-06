@@ -29,7 +29,7 @@
 			<c:url value="/vote/product/${product.id}" var="vote" />
 			<div class="col-md-3 col-md-offset-6">
 				<form:form class="pull-right" action="${vote}" method="post">
-						<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
+						<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
 							<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
 							<c:out value="${product.votesCount}"/></p>
 						</button>

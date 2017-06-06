@@ -1,8 +1,10 @@
 function upVotedProductByLoggedUser(id) {
-	var el = document.getElementById('vote' + id);
+	var els = document.querySelectorAll('[data-vote-id=vote' + id + ']');
 	var className = 'voted'
-	if (el.classList)
-  	el.classList.add(className);
-	else
-  	el.className += ' ' + className;
+	for (var i = 0; i < els.length; i++) {
+		if (els[i].classList)
+			els[i].classList.add(className);
+		else
+			els[i].className += ' ' + className;
+	}
 };
