@@ -56,17 +56,17 @@
                 <div class="row">
                     <div class="col-md-7">
                         <div class="row product-item product-item-height vertical-align highlighted">
-                            <sec:authorize access="isAuthenticated()">
+                            <div class="col-md-3 product-logo">
+                                <img src="<c:url value="/product/${product.id}/logo"/>">
+                            </div>
+                            <div class="col-md-9 product-info-box">
+															<sec:authorize access="isAuthenticated()">
                               <c:if test="${loggedUser.userId == creator.userId}">
                                   <span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
 	                               <!-- The Modal -->
                                   <%@include file="includes/deleteModal.jsp"%>
                               </c:if>
                             </sec:authorize>
-                            <div class="col-md-3 product-logo">
-                                <img src="<c:url value="/product/${product.id}/logo"/>">
-                            </div>
-                            <div class="col-md-9 product-info-box">
                                 <div class="row col-md-12">
                                     <div class="row product-name">
                                         <div class="col-md-12 info-box-field capitalize-firstLetter">
