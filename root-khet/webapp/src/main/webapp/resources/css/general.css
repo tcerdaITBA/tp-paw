@@ -160,8 +160,8 @@ footer p {
 	position: absolute;
 	background-color: #fff;
 	border-radius: 3px;
-	border: 1px solid rgba(0,0,0,.09);
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
+	border: 1px solid rgba(0, 0, 0, .09);
+	box-shadow: 3px 5px 6px 0 rgba(0, 0, 0, .2);
 	padding: 1em;
 	width: 100%;
 }
@@ -222,6 +222,7 @@ footer p {
 
 .most-popular-title {
 	color: #737373;
+	padding-left: 10px;
 }
 
 .search-icn {
@@ -246,14 +247,19 @@ footer p {
 }
 
 .suggestion-product-logo {
-  width: 60px;
+	height: 40px;
   object-fit: contain;
+	padding-right: 0;
 }
 
 .suggestion-list-item {
-	height: 3.5em;
-	padding-top: 5px;
-	padding-right: 0;
-	padding-bottom: 5px;
+	padding: 5px 1em;
 	display: block;
+}
+
+.upvote-info {
+	color: #737373;
+	font-weight: 600;
+	font-size: 1em;
+	float: right;
 }

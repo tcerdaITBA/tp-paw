@@ -40,7 +40,7 @@
 			<div class="content-title">
 				<c:choose>
 					 <c:when test="${empty currentCategory}">
-						 <h2><spring:message code="index.mostrecent"/></h2>	
+						 <h2><spring:message code="index.allproducts"/></h2>	
 						 <%@include file="includes/orders.jsp"%></%@include>
 					 </c:when>
 					 <c:otherwise>

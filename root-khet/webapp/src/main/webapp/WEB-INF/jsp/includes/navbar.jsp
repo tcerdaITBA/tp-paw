@@ -54,11 +54,11 @@
 						</div>
 					</div>
 					<c:forEach items="${topProducts}" var="product" varStatus="loop">
-						<if test="${loop.index < 3}">
+						<c:if test="${loop.index < 3}">
 							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>"  data-list-index="${loop.index + sessionScope.searchHistory.size()}" id="suggestion-${loop.index + sessionScope.searchHistory.size()}">
 								<c:url value="/vote/product/${product.id}" var="vote"/>
 								<div class="row center-flex">
-									<div class="col-md-3 suggestion-product-logo">
+									<div class="col-md-2 suggestion-product-logo center-flex">
 										<img src="<c:url value="/product/${product.id}/logo"/>">
 									</div>
 									<div class="col-md-7">
@@ -66,17 +66,15 @@
 											<c:out value="${product.name}"/>
 										</span>
 									</div>
-									<div class="col-md-2">
-										<form:form action="${vote}" method="post">
-												<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
-													<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-													<c:out value="${product.votesCount}"/></p>
-												</button>
-										</form:form>
+									<div class="col-md-3">
+										<span class="upvote-info">
+											<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+											<c:out value="${product.votesCount}"/>
+										</span>
 									</div>
 								</div>
 							</a>
-						</if>
+						</c:if>
 					</c:forEach>
 					
 				</div>
