@@ -16,14 +16,16 @@
       <div class="modal-body votersModal-body">
         <c:forEach items="${voters}" var="voter">
         	<a href="<c:url value="/profile/${voter.userId}"/>">
-	        	<div class="col-md-12 voter-box capitalize-firstLetter">
-	        		<p><c:out value="${voter.name}"/></p>
-	        	</div>
+        		<div class="row voters-info-box">        		
+	        		<div class="col-md-2 usr-img-col">
+						<img class="profile-img-circle" src="<c:url value="/profile/${voter.userId}/profilePicture"/>">
+					</div>
+		        	<div class="col-md-10 voter-box capitalize-firstLetter">
+		        		<span class="result-text"><c:out value="${voter.name}"/></span>
+		        	</div>
+        		</div>
         	</a>
         </c:forEach>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
 
