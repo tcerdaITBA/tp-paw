@@ -32,9 +32,9 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
+<script src="<c:url value="/resources/js/upvote.js" />"></script>
+<%@include file="includes/navbar.jsp" %>
 <body>
-	<script src="<c:url value="/resources/js/lib.js" />"></script>
-	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 	<div class="row title-row">
 		<div class="col-md-8 col-md-offset-3 title-col">

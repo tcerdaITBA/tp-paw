@@ -118,7 +118,12 @@
 								 <span><spring:message code="navBar.toPost"/></span>
 								 <a href='<c:url value="/login"/>'> 
 								 <span> <spring:message code="navBar.signIn"/></span>
-								 </a></p>" id="upload-popover"><spring:message code="navBar.postButton" /></a>
+								 </a>
+								 <span><spring:message code="navBar.toPostBis"/></span>
+								 <a href='<c:url value="/signup"/>'> 
+								 <span> <spring:message code="navBar.signUp"/></span>
+								 </a>
+								 </p>" id="upload-popover"><spring:message code="navBar.postButton" /></a>
 						</sec:authorize>
 					</p>
 				</li>

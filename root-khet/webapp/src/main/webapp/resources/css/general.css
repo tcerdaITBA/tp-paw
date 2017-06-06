@@ -3,8 +3,8 @@ body {
 	padding-top: 70px;
 }
 
-p {
-	word-wrap: break-word;
+* {
+	word-wrap: break-word !important;
 }
 
 .badge {

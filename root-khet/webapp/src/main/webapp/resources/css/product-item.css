@@ -5,6 +5,10 @@
 	position: relative;
 }
 
+.product-list-item form {
+	margin-bottom: 0 !important;
+}
+
 .product-list-item:hover {
 	border-color: #33bb9c;
 }
@@ -134,4 +138,21 @@
 
 .pull-right {
 	float: right !important;
+}
+
+
+.delete-product-button {
+	font-size: 1.1em;
+	margin-top: 3px;
+	color: #737373;
+}
+
+.delete-product-button:hover, .delete-product-button:focus {
+	color: crimson;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.adjust-right {
+	padding-right: 0;
 }
