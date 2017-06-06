@@ -75,12 +75,12 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<c:forEach items="${products}" var="product">
-										<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
-											<%@include file="includes/product-item.jsp"%></%@include>
-										</a>				
-									</c:forEach>
+								<div class="col-md-6 product-list">
+										<c:forEach items="${products}" var="product">
+											<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
+												<%@include file="includes/product-item.jsp"%></%@include>
+											</a>				
+										</c:forEach>
 								</div>
 							</c:otherwise>
 						</c:choose>
