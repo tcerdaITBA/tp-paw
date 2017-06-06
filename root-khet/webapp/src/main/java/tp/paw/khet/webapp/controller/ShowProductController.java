@@ -26,6 +26,7 @@ import tp.paw.khet.model.User;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.service.VoteService;
 import tp.paw.khet.webapp.exception.ImageNotFoundException;
 import tp.paw.khet.webapp.exception.ProductNotFoundException;
 import tp.paw.khet.webapp.exception.UnauthorizedException;
@@ -46,6 +47,9 @@ public class ShowProductController {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private VoteService voteService;
 	
 	@ModelAttribute("commentsForm")
 	public FormComments formComments() {
@@ -73,7 +77,7 @@ public class ShowProductController {
 		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
 		mav.addObject("parentcomments", commentService.getCommentsByProductId(productId));
 		mav.addObject("voters", product.getVotingUsers());
-		mav.addObject("votersresume", product.getVotingUsers(VOTERS_TO_SHOW));
+		mav.addObject("votersresume", voteService.getAlphabeticallySortedVotersFromProduct(product, VOTERS_TO_SHOW));
 		
 		return mav;
 	}

@@ -6,8 +6,9 @@ import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Comparable<Product> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_productid_seq")
@@ -75,7 +76,7 @@ public class Product {
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
 	@OrderBy("name ASC")
-	private List<User> votingUsers;
+	private SortedSet<User> votingUsers;
 	
 	@Transient
 	private List<CommentFamily> commentFamilies = Collections.emptyList();
@@ -161,19 +162,18 @@ public class Product {
 		return Collections.unmodifiableList(images);
 	}
 	
-	public List<User> getVotingUsers() {
+	public SortedSet<User> getVotingUsers() {
 		return votingUsers;
-	}
-	
-	public List<User> getVotingUsers(int N) {
-		if (N > votingUsers.size())
-			N = votingUsers.size();
-		
-		return new LinkedList<User>(votingUsers.subList(0, N));
 	}
 	
 	public int getVotesCount() {
 		return getVotingUsers().size();
+	}
+	
+	// TODO: es para hibernate que necesita que sea Comparable. No pude hacer que use un Comparator
+	@Override
+	public int compareTo(Product o) {
+		return getName().compareTo(o.getName());
 	}
 	
 	@Override
@@ -211,7 +211,7 @@ public class Product {
 		private List<CommentFamily> commentFamilies = Collections.emptyList();
 		private List<Video> videos = Collections.emptyList();
 		private List<ProductImage> images = Collections.emptyList();
-		private List<User> votingUsers = new LinkedList<>();  // mutable
+		private SortedSet<User> votingUsers = new TreeSet<>();  // mutable
 
 		private ProductBuilder(String name, String shortDescription) {
 			this.name = name;
@@ -284,7 +284,7 @@ public class Product {
 			return this;
 		}
 		
-		public ProductBuilder votingUsers(List<User> votingUsers) {
+		public ProductBuilder votingUsers(SortedSet<User> votingUsers) {
 			this.votingUsers = votingUsers;
 			return this;
 		}

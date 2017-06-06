@@ -5,24 +5,25 @@ import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Comparable<User> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_userid_seq")
@@ -42,9 +43,10 @@ public class User {
 	@Column(nullable = false, columnDefinition = "bytea")
 	private byte[] profilePicture;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "votes")
-	private List<Product> votedProducts = Collections.emptyList();
+	@OrderBy("name ASC")
+	private SortedSet<Product> votedProducts = new TreeSet<>();  // mutable
 	
 	// Hibernate
 	User() {
@@ -85,7 +87,7 @@ public class User {
 		return profilePicture;
 	}
 	
-	public List<Product> getVotedProducts() {
+	public SortedSet<Product> getVotedProducts() {
 		return votedProducts;
 	}
 
@@ -117,5 +119,11 @@ public class User {
 	@Override
 	public String toString() {
 		return name + " " + email;
+	}
+
+	// TODO: es para hibernate que necesita que sea Comparable. No pude hacer que use un Comparator
+	@Override
+	public int compareTo(User o) {
+		return o.getName().compareTo(o.getName());
 	}
 }
