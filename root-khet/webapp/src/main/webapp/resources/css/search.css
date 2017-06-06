@@ -56,30 +56,6 @@
 	display: inline-block;
 }
 
-
-.search-tabs {
-	font-size: 1.2em;
-	font-weight: 500;
-}
-
-.search-tabs a {
-	color: #39c6a6;
-	border: 2px solid #eee;
-}
-
-.search-tabs .active a {
-	border: 2px solid #39c6a6;
-}
-
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-	color: #fff;
-	background-color: #39c6a6;    
-}
-
-.nav-pills>li.active {
-	pointer-events:none;
-}
-
 .filter-checkbox {
 	display: none;
 	color: #333;
@@ -132,10 +108,4 @@
 
 .result-text {
 	word-wrap: break-word;
-}
-
-.badge{
-	background: white;
-	margin-left: 10px !important;
-	color: #737373 !important;
 }
