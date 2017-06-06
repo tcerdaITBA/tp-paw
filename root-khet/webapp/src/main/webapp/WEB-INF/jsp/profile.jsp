@@ -19,14 +19,14 @@
 						rel="stylesheet"
 						integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 						crossorigin="anonymous">
-			<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/profile.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/customizeUser.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
-            <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
-			
+      <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/zrp.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/product-item.css"/>" rel="stylesheet">
 			<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 
 		</head>

@@ -4,28 +4,6 @@
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
 }
 
-.product-list-item {
-	border: 1px solid #f3f3f3;
-	background-color: white;
-	padding: 15px 10px;
-	position: relative;
-}
-
-.product-list-item:hover {
-	border-color: #33bb9c;
-}
-
-.product-logo img {
-	height: 100px;
-	width: 100px;
-	object-fit: contain;
-}
-
-.product-logo {
-	align-self: center;
-	width: inherit;
-}
-
 .modal-product-name {
 	font-weight: bold;
 	text-transform: uppercase;	
@@ -41,32 +19,6 @@
 .title-row h2 {
 	margin-top: 0;
 	margin-bottom: 5px;
-}
-
-.product-info-box {
-	padding-left: 0;
-	padding-right: 1.6em;
-	
-}
-
-.product-name {
-	color: #000000;
-	font-weight: 400;
-	font-size: 1.3em;
-}
-
-.product-short-description p {
-	color: #8c8c8c;
-	font-weight: 400;	
-	word-wrap: break-word;
-	font-size: 1.1em;
-}
-
-.product-category p {
-	color: #8c8c8c;
-	font-weight: 200;
-	word-wrap: break-word;
-	font-size: small;
 }
 
 h2 {
@@ -92,33 +44,6 @@ h2 {
 
 .nav-pills>li.active {
 	pointer-events:none;
-
-}
-
-.categoryTag {
-	text-align: center;
-	border: 2px solid #c4c4c4;
-	border-radius: 4px;
-	padding: 5px 1em;
-	word-wrap: break-word;
-	display: inline-block;
-}
-
-.categoryTag:hover {
-	background-color: #c4c4c4 !important;
-	transition: 0.2s;
-}
-
-.categoryTag:hover p {
-	color: #fff;
-}
-
-.categoryTag p {
-	margin: auto auto;
-	color: #8a8a8a;
-	font-weight: 500;
-	letter-spacing: 1px;
-	text-transform: uppercase;
 }
 
 form {
@@ -162,54 +87,6 @@ form {
 	font-size: 1.45em;
 }
 
-.zrp {
-	text-align: center;
-	padding: 10%;
-	box-shadow: 0 0 3px 0 rgba(0,0,0,.2);
-	margin-top: 10px;
-}
-
-.zrp h2 {
-	font-size: 4em;
-}
-
-.zrp h3 {
-	color: black;
-	font-weight: 400;
-}
-
-.zrp p {
-	margin-top: 2em;	
-	font-size: 1.5em;
-	font-weight: 300;
-	color: #737373;
-}
-
-.zrp a {
-	color: #39c6a6;
-}
-
-.row.product-item-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
-  flex-wrap: wrap;
-}
-
-.row.product-item-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
-  flex-wrap: wrap;
-}
-
-.row.product-item-height > [class*='col-'] {
-  display: flex;
-  flex-direction: column;
-}
-
 .order-selection {
 	text-align: center;
 	margin-bottom: 0.5em;
@@ -244,3 +121,4 @@ form {
 	margin-left: 1em;
 	margin-right: 1em;
 }
+

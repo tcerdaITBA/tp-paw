@@ -14,10 +14,11 @@
 	rel="stylesheet"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/product-item.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/search.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/zrp.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
@@ -75,41 +76,7 @@
 								<div class="col-md-6">
 									<c:forEach items="${products}" var="product">
 										<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
-											<div class="row product-list-item vertical-align">
-												<div class="col-md-3 product-logo">
-													<img src="<c:url value="/product/${product.id}/logo"/>">
-												</div>
-												<div class="col-md-9 product-info-box">
-													<div class="row col-md-12">
-														<div class="row">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p class="product-name result-text"><c:out value="${product.name}"/></p>
-															</div>
-														</div>
-														<div class="row product-short-description">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p class="result-text"><c:out value="${product.shortDescription}"/></p>
-															</div>
-														</div>
-														<div class="row product-category">
-															<div class="col-md-3">
-																<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
-																	<p><spring:message code="category.${product.category.lowerName}"/></p>
-																</div>
-															</div>
-															<c:url value="/vote/product/${product.id}" var="vote" />
-															<div class="col-md-2 col-md-offset-7">
-																<form:form action="${vote}" method="post">
-																		<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
-																			<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-																			<c:out value="${product.votesCount}"/></p>
-																		</button>
-																</form:form>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>	
+											<%@include file="includes/product-item.jsp"%></%@include>
 										</a>				
 									</c:forEach>
 								</div>

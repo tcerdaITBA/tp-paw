@@ -15,7 +15,7 @@
 	width: 6em;
 	height: 6em;
 	border-radius: 50%;
-    object-fit: contain;
+  object-fit: contain;
 }
 
 .img-col {
@@ -71,6 +71,14 @@
 	border: 2px solid #39c6a6;
 }
 
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+	color: #fff;
+	background-color: #39c6a6;    
+}
+
+.nav-pills>li.active {
+	pointer-events:none;
+}
 
 .filter-checkbox {
 	display: none;
@@ -128,6 +136,6 @@
 
 .badge{
 	background: white;
-    margin-left: 10px !important;
-    color: #737373 !important;
+	margin-left: 10px !important;
+	color: #737373 !important;
 }
