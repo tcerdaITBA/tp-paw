@@ -112,35 +112,7 @@
 	                                    <!-- The Modal -->
 										<%@include file="includes/deleteModal.jsp"%></%@include>
 										<a href="<c:url value="/product/${product.id}"/>">
-											<div class="row product-list-item product-item-height">
-												<sec:authorize access="isAuthenticated()">
-													<c:if test="${loggedUser.userId == profileUser.userId}">
-														<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-													</c:if>
-												</sec:authorize>
-												<div class="col-md-3 product-logo">
-													<img src="<c:url value="/product/${product.id}/logo"/>">
-												</div>
-												<div class="col-md-9 product-info-box">
-													<div class="row product-name">
-														<div class="col-md-12 capitalize-firstLetter">
-															<p><c:out value="${product.name}"/></p>
-														</div>
-													</div>
-													<div class="row product-short-description">
-														<div class="col-md-12 capitalize-firstLetter">
-															<p><c:out value="${product.shortDescription}"/></p>
-														</div>
-													</div>
-													<div class="row product-category">
-														<div class="col-md-12">
-															<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
-																<p><spring:message code="category.${product.category.lowerName}"/></p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>	
+											<%@include file="includes/product-item-delete.jsp"%></%@include>
 										</a>
 									</c:forEach>
 								</div>
@@ -158,39 +130,11 @@
 									</c:when>
 									<c:otherwise>
 									<div class="col-md-12 product-list">
-										<c:forEach items="${votedProducts}" var="votedProduct">
+										<c:forEach items="${votedProducts}" var="product">
 		                                    <!-- The Modal -->
 											<%@include file="includes/deleteModal.jsp"%></%@include>
 											<a href="<c:url value="/product/${votedProduct.id}"/>">
-												<div class="row product-list-item product-item-height">
-													<sec:authorize access="isAuthenticated()">
-															<c:if test="${loggedUser.userId == profileUser.userId}">
-																	<span id="delete${votedProduct.id}" data-product-id="${votedProduct.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-															</c:if>
-													</sec:authorize>
-													<div class="col-md-3 product-logo">
-														<img src="<c:url value="/product/${votedProduct.id}/logo"/>">
-													</div>
-													<div class="col-md-9 product-info-box">
-														<div class="row product-name">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p><c:out value="${votedProduct.name}"/></p>
-															</div>
-														</div>
-														<div class="row product-short-description">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p><c:out value="${votedProduct.shortDescription}"/></p>
-															</div>
-														</div>
-														<div class="row product-category">
-															<div class="col-md-12">
-																<div data-href="<c:url value="/category/${votedProduct.category.lowerName}"/>" class="categoryTag product-category-btn">
-																	<p><spring:message code="category.${votedProduct.category.lowerName}"/></p>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>	
+												<%@include file="includes/product-item-delete.jsp"%></%@include>
 											</a>
 										</c:forEach>
 									</div>
@@ -201,12 +145,12 @@
 					</div>
 			</div>
 			</div>
-			<%@include file="includes/footer.jsp"%>
+			<%@include file="includes/footer.jsp"%></%@include>
 		</div>
 		</body>
 		<%@include file="includes/changePictureModal.jsp"%>
 		<%@include file="includes/changePasswordModal.jsp"%>
-        <%@include file="includes/deleteModal.jsp"%>
+    <%@include file="includes/deleteModal.jsp"%>
 		<%@include file="includes/scripts.jsp"%>
 
 		<script src="<c:url value="/resources/js/profile.js" />"></script>		
