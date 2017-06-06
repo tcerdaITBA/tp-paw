@@ -220,6 +220,14 @@
 	object-fit: contain;
 }
 
+.voters-holder {
+	padding-right: 0px;
+}
+
+.voters-img {
+ 	margin-right: 0px;
+}
+
 .profile-name {
 	color: #333;
 	font-weight: bold;

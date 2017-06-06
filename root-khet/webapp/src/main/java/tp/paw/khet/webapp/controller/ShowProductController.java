@@ -36,6 +36,7 @@ import tp.paw.khet.webapp.form.FormComments;
 public class ShowProductController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShowProductController.class);
+	private static final int VOTERS_TO_SHOW = 3;
 	
 	@Autowired
 	private ProductService productService;
@@ -65,13 +66,14 @@ public class ShowProductController {
 		}
 		
 		final ModelAndView mav = new ModelAndView("product");
-		
+						
 		mav.addObject("product", product);
 		mav.addObject("creator", product.getCreator());
 		mav.addObject("videos", product.getVideos());
 		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
 		mav.addObject("parentcomments", commentService.getCommentsByProductId(productId));
 		mav.addObject("voters", product.getVotingUsers());
+		mav.addObject("votersresume", product.getVotingUsers(VOTERS_TO_SHOW));
 		
 		return mav;
 	}

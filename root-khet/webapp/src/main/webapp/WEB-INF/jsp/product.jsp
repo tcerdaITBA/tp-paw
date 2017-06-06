@@ -85,15 +85,23 @@
 												</div>
                                         	</a>
                                        </div>
+                                  	   <%@include file="includes/votersModal.jsp"%>
+                                       <div class="col-md-4 col-md-offset-3 text-right voters-holder" data-toggle="tooltip" data-placement="bottom"
+                                       title="probando">
+	                                       <c:forEach items="${votersresume}" var="voter">
+	                                       			<img class="profile-img-circle voters-img" data-toggle="modal" data-target="#votersModal" 
+	                                       			src="<c:url value="/profile/${voter.userId}/profilePicture"/>">
+										   </c:forEach>
+									   </div>
                                        <c:url value="/vote/product/${product.id}" var="vote" />
-														<div class="col-md-2 col-md-offset-7">
-															<form:form action="${vote}" method="post">
-																	<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
-																		<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-																		<c:out value="${product.votesCount}"/></p>
-																	</button>
-															</form:form>
-														</div>
+										<div class="col-md-2">
+											<form:form action="${vote}" method="post">
+													<button class="btn btn-default upvote-btn" type="submit" id="vote${product.id}">
+														<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+														<c:out value="${product.votesCount}"/></p>
+													</button>
+											</form:form>
+										</div>
 					                   <sec:authorize access="isAuthenticated()">
 					                   		<c:if test="${ product.votingUsers.contains(loggedUser) }">
 					                    		<script>
@@ -101,14 +109,6 @@
 					                    		</script>
 					                    	</c:if>							                    
 					                   </sec:authorize>
-					                   
-					                   <div class="col-md-1">
-					                   		<button type="button" class="btn btn-default categoryTag" data-toggle="modal" data-target="#votersModal">
-												<span class="glyphicon glyphicon-user"></span>
-											</button>
-											<%@include file="includes/votersModal.jsp"%>
-		
-					                   </div>
                                     </div>
                                 </div>
                             </div>

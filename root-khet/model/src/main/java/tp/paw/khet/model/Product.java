@@ -165,6 +165,13 @@ public class Product {
 		return votingUsers;
 	}
 	
+	public List<User> getVotingUsers(int N) {
+		if (N > votingUsers.size())
+			N = votingUsers.size();
+		
+		return new LinkedList<User>(votingUsers.subList(0, N));
+	}
+	
 	public int getVotesCount() {
 		return getVotingUsers().size();
 	}
