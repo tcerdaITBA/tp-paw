@@ -86,12 +86,14 @@
                                         	</a>
                                        </div>
                                   	   <%@include file="includes/votersModal.jsp"%>
-                                       <div class="col-md-4 col-md-offset-3 text-right voters-holder" data-toggle="tooltip" data-placement="bottom"
-                                       title="probando">
-	                                       <c:forEach items="${votersresume}" var="voter">
+                                       
+                                       <div class="col-md-4 col-md-offset-3 text-right voters-holder">
+                                       		<span class="voter-span" data-toggle="tooltip" data-placement="bottom" title="<spring:message code="ProductPage.votersTooltip"/>">
+		                                       <c:forEach items="${votersresume}" var="voter">
 	                                       			<img class="profile-img-circle voters-img" data-toggle="modal" data-target="#votersModal" 
 	                                       			src="<c:url value="/profile/${voter.userId}/profilePicture"/>">
-										   </c:forEach>
+											   </c:forEach>
+									  		</span>
 									   </div>
                                        <c:url value="/vote/product/${product.id}" var="vote" />
 										<div class="col-md-2">

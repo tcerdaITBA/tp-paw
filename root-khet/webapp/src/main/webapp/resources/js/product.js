@@ -50,4 +50,8 @@ $(document).ready(function(){
 		placement: 'bottom',
 		html: true,
 	});
+	
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+	})
 });
