@@ -7,16 +7,18 @@ function glowObject(object) {
 
 $(document).ready(function() {
 	if(passError)
-		$("#changePassModal").modal("show");
+		$('#changePassModal').modal('show');
 
-	if(passFeedback)
-		$("#feedbackChangePassModal").modal("show");
+	if(passFeedback) {
+		$('#password-change-snackbar').addClass('show');
+		setTimeout(function(){ $('#password-change-snackbar').removeClass('show'); }, 3000);
+	}
 
 	if(imgError)
-		$("#changePictureModal").modal("show");
+		$('#changePictureModal').modal('show');
 
 	if(productDeleted)
-		$("#feedbackDeleteModal").modal("show");
+		$('#feedbackDeleteModal').modal('show');
 
 	if(imgFeedback)
 		glowObject($('.profile-img'));
