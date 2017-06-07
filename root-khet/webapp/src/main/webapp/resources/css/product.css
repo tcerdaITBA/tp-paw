@@ -340,6 +340,10 @@
     border: 1px solid #f3f3f3;
 }
 
+.voters-info-box:hover {
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
 .usr-img-col {
 	text-align: center;
 }
