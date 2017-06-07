@@ -24,8 +24,8 @@
                                      </div>
                                      <div class="row">
                                         <div class="col-md-3">
-                                         	<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
- 												<div class="categoryTag">
+		                                         	<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
+		 												<div class="categoryTag">
  													<p><spring:message code="category.${product.category.lowerName}"/></p>
  												</div>
                                          	</a>
@@ -45,7 +45,7 @@
  										<div class="col-md-2">
  											<sec:authorize access="isAuthenticated()">
 												<form:form class="pull-right" action="${vote}" method="post">
-														<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
+														<button class="btn btn-default upvote-btn upvote-auth-btn" type="submit" data-vote-id="vote${product.id}">
 															<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
 															<c:out value="${product.votesCount}"/></p>
 														</button>
