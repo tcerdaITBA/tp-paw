@@ -64,6 +64,17 @@ $(document).ready(function(){
 	    });
 	});
 	
+	//Esconde el popover en caso de hacer click afuera
+	//https://stackoverflow.com/questions/11703093/how-to-dismiss-a-twitter-bootstrap-popover-by-clicking-outside
+	$(document).on('click', function (e) {
+	    $('[data-toggle="popover"],[data-original-title]').each(function () {
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {                
+	            (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false
+	        }
+
+	    });
+	});
+	
 	$(function () {
 		  $('[data-toggle="tooltip"]').tooltip()
 	})
