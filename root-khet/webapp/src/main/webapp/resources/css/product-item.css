@@ -55,6 +55,7 @@
 	padding: 5px 1em;
 	word-wrap: break-word;
 	display: inline-block;
+    cursor: pointer;
 }
 
 .categoryTag:hover {
@@ -155,4 +156,8 @@
 
 .adjust-right {
 	padding-right: 0;
+}
+
+.voters-popover-btn {
+	margin-right: 1em;
 }

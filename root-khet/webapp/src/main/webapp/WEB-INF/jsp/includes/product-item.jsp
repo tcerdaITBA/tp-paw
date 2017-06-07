@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-md-9 product-info-box">
 		<div class="row product-name">
-			<div class="col-md-12 capitalize-firstLetter">
+			<div class="col-md-10 capitalize-firstLetter">
 				<p><c:out value="${product.name}"/></p>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 					</form:form>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
-					<button class="btn btn-default upvote-btn popover-btn" data-toggle="popover" data-trigger="focus" 
+					<button class="btn btn-default upvote-btn popover-btn pull-right" data-toggle="popover" data-trigger="focus" 
 					data-content="<p class='popover-msg'>
 					 <span><spring:message code="upVote.toPost"/></span>
 					 <a href='<c:url value="/login"/>'> 

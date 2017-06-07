@@ -5,4 +5,9 @@ $(document).ready(function() {
 		event.stopPropagation();
 		return false;
 	});
+	
+	$('.popover-btn').on('click', function() {
+		$(this).focus();
+		return false;
+	});
 });
