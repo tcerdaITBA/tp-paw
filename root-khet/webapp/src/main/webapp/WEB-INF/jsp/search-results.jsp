@@ -134,7 +134,9 @@
 		</div>
 	</div>
 
-	<%@include file="includes/scripts.jsp"%>
+	<%@include file="includes/scripts.jsp"%>	
+	<script src="<c:url value="/resources/js/product-list.js"/>"></script>
 	<script src="<c:url value="/resources/js/search-results.js"/>"></script>
+	
 </body>
 </html>
