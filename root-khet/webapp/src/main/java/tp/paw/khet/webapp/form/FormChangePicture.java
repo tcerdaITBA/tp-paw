@@ -1,12 +1,13 @@
 package tp.paw.khet.webapp.form;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.istack.internal.NotNull;
-
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
+
 
 public class FormChangePicture {
 
