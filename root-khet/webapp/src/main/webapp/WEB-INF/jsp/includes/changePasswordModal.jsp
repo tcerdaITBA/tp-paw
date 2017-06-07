@@ -52,29 +52,12 @@
         </div>
     </div>
 </div>
-    
-<div id="feedbackChangePassModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">
-                    <span class="glyphicon glyphicon-cog"></span>
-                    <spring:message code="Profile.settings.title.changePasswordFeedback"/>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p><spring:message code="Profile.settings.body.changePasswordFeedback" /></p>
-                    </div>
-                </div>
-                <div class="row row-centered">
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.settings.ok"/></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	
+<div id="password-change-snackbar">
+	<div class="alert alert-success">
+		<strong>
+			<span class="glyphicon glyphicon-cog"></span>
+			<span class="snackbar-product-name"><spring:message code="Profile.settings.body.changePasswordFeedback"/></span>
+		</strong>
+	</div>
 </div>

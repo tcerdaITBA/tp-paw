@@ -34,6 +34,7 @@
 
 <script src="<c:url value="/resources/js/upvote.js" />"></script>
 <%@include file="includes/navbar.jsp" %>
+<%@include file="includes/deleteModal.jsp"%>
     <div class="container">
         <div class="row" id="carouselHolder">
             <div class="col-md-6 col-md-offset-3">
@@ -316,5 +317,6 @@
 	</script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 	<script src="<c:url value="/resources/js/product.js" />"></script>
+	<script src="<c:url value="/resources/js/product-list.js" />"></script>
 </body>
 </html>

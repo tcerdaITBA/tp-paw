@@ -127,7 +127,7 @@
 											<c:when test="${votedProducts.isEmpty()}">
 												<div class="zrp" id="user-products-zrp">
 													<h2><spring:message code="userZRP.empty"/></h2>
-													<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+													<h3><spring:message code="userZRP.noVotedProducts" arguments="${capitalizedUserName}"/></h3>
 												</div>
 											</c:when>
 											<c:otherwise>
@@ -157,4 +157,5 @@
 
 		<script src="<c:url value="/resources/js/profile.js" />"></script>		
 		<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
+		<script src="<c:url value="/resources/js/product-list.js" />"></script>
 	</html>
