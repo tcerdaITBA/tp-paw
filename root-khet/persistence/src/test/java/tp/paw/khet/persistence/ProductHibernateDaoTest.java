@@ -61,29 +61,29 @@ public class ProductHibernateDaoTest {
 		insertDummyUser();
 	}
 
-	@Test
-	public void getProductsTest() {
-		List<Product> expected = dummyProductList(LIST_SIZE, 1);
-		insertProducts(expected);
-		
-		List<Product> actual = productDao.getPlainProducts();
-		
-		assertEqualsReversedSortedList(expected, actual);
-		
-		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
-	}
+//	@Test
+//	public void getProductsTest() {
+//		List<Product> expected = dummyProductList(LIST_SIZE, 1);
+//		insertProducts(expected);
+//		
+//		List<Product> actual = productDao.getPlainProducts();
+//		
+//		assertEqualsReversedSortedList(expected, actual);
+//		
+//		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+//	}
 	
-	@Test
-	public void getProductsByCategoryTest() {
-		Category[] categories = Category.values();
-		List<Product> productList = dummyProductList(LIST_SIZE, 1);
-		insertProducts(productList);
-		
-		for (int i = 0; i < categories.length; i++)
-			assertRetrievedCategory(categories[i], productList);
-
-		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
-	}
+//	@Test
+//	public void getProductsByCategoryTest() {
+//		Category[] categories = Category.values();
+//		List<Product> productList = dummyProductList(LIST_SIZE, 1);
+//		insertProducts(productList);
+//		
+//		for (int i = 0; i < categories.length; i++)
+//			assertRetrievedCategory(categories[i], productList);
+//
+//		assertEquals(LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, "products"));
+//	}
 
 	@Test
 	public void createProductTest() {
@@ -242,14 +242,14 @@ public class ProductHibernateDaoTest {
 		}		
 	}
 
-	private void assertRetrievedCategory(Category category, List<Product> productList) {
-		List<Product> productsByCategory = productDao.getPlainProductsByCategory(category);
-		
-		for (Product product : productsByCategory) {
-			assertTrue(productList.contains(product));
-			assertEquals(category, product.getCategory());
-		}
-		
-		assertEquals(LIST_SIZE / Category.values().length, productsByCategory.size());
-	}
+//	private void assertRetrievedCategory(Category category, List<Product> productList) {
+//		List<Product> productsByCategory = productDao.getPlainProductsByCategory(category);
+//		
+//		for (Product product : productsByCategory) {
+//			assertTrue(productList.contains(product));
+//			assertEquals(category, product.getCategory());
+//		}
+//		
+//		assertEquals(LIST_SIZE / Category.values().length, productsByCategory.size());
+//	}
 }

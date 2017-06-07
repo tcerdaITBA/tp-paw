@@ -5,6 +5,7 @@ import java.util.List;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
+import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
 
 public interface ProductDao {
@@ -25,97 +26,12 @@ public interface ProductDao {
 			Date uploadDate, byte[] logo, User creator);
 	
 	/**
-	 * Lists every existing {@link Product} as a {@link Product}.
-	 * @return {@link List} of the existing products
-	 */
-	public List<Product> getPlainProducts();
-	
-	/**
 	 * Lists product created by {@link User} as a {@link Product} with the given userId.
 	 * @param userId - ID of the creator
 	 * @return List of products. Empty in case the user did not create any product
 	 */
 	public List<Product> getPlainProductsByUserId(int userId);
-	
-	 /**
-     * Lists a range of {@link Product} sorted by upload date.
-     * Products are sorted by uploadDate.
-     * @param offset - Offset in the list of all products.
-     * @param length - Length of the range to be retrieved
-     * @return {@link List} of the products in the given range. 
-     *         Could be empty if offset is greater than the total number of products available.
-     *         The amount of products retrieved could be smaller than the length given.
-     */
-    public List<Product> getPlainProductsRange(int offset, int length);
-    
-    /**
-    * Lists a range of {@link Product} sorted alphabetically.
-    * Products are sorted alphabetically by product name.
-    * @param offset - Offset in the list of all products.
-    * @param length - Length of the range to be retrieved
-    * @return {@link List} of the products in the given range. 
-    *         Could be empty if offset is greater than the total number of products available.
-    *         The amount of products retrieved could be smaller than the length given.
-    */
-   public List<Product> getPlainProductsRangeAlphabetically(int offset, int length);
-		
-	/**
-	 * Lists {@link Product} belonging to certain {@link Category}.
-	 * @param category - Category the products belong to
-	 * @return {@link List} of the products belonging to the category. 
-	 * 		   Could be empty if there are no products registered in given category.
-	 */
-	public List<Product> getPlainProductsByCategory(Category category);
-	
-	 /**
-     * Lists a range of {@link Product} belonging to certain {@link Category}.
-     * Products are sorted by uploadDate.
-     * @param category - Category the products belong to
-     * @param offset - Offset in the list of all products.
-     * @param length - Length of the range to be retrieved
-     * @return {@link List} of the products in the given range. 
-     *         Could be empty if offset is greater than the total number of products belonging
-     *         to the given {@link Category}.
-     *         The amount of products retrieved could be smaller than the length given.
-     */
-    public List<Product> getPlainProductsRangeByCategory(Category category, int offset, int length);
-    
-    /**
-    * Lists a range of {@link Product} belonging to certain {@link Category}.
-    * Products are sorted alphabetically by product name.
-    * @param category - Category the products belong to
-    * @param offset - Offset in the list of all products.
-    * @param length - Length of the range to be retrieved
-    * @return {@link List} of the products in the given range. 
-    *         Could be empty if offset is greater than the total number of products belonging
-    *         to the given {@link Category}.
-    *         The amount of products retrieved could be smaller than the length given.
-    */
-    public List<Product> getPlainProductsRangeAlphabeticallyByCategory(Category category, int offset, int length);
-
-	/**
-	 * Lists a range of {@link Product} sorted by number of votes.
-	 * @param offset - Offset int the list of all products.
-	 * @param length - Length of the range to be retrieved
-	 * @return {@link List} of the products in the given range. 
-     *         Could be empty if offset is greater than the total number of products available.
-     *         The amount of products retrieved could be smaller than the length given.
-	 */
-	public List<Product> getPlainProductsRangePopularity(int offset, int length);
-	
-    /**
-    * Lists a range of {@link Product} belonging to certain {@link Category}.
-    * Products are sorted alphabetically by product name.
-    * @param category - Category the products belong to
-    * @param offset - Offset in the list of all products.
-    * @param length - Length of the range to be retrieved
-    * @return {@link List} of the products in the given range. 
-    *         Could be empty if offset is greater than the total number of products belonging
-    *         to the given {@link Category}.
-    *         The amount of products retrieved could be smaller than the length given.
-    */
-	public List<Product> getPlainProductsRangePopularityByCategory(Category category, int offset, int length);
-    
+			        
     /**
      * Retrieves the total amount of products registered.
      * @return The number of products.
@@ -128,6 +44,32 @@ public interface ProductDao {
      * @return The number of products in the given category.
      */
     public int getTotalProductsInCategory(Category category);
+    
+    /**
+    * Lists a range of {@link Product} belonging to certain {@link Category}.
+    * Products are sorted by the given {@link ProductSortCriteria}.
+    * @param category - Category the products belong to
+    * @param sortCriteria - Criteria by which products will be sorted
+    * @param offset - Offset in the list of all products.
+    * @param length - Length of the range to be retrieved
+    * @return {@link List} of the products in the given range. 
+    *         Could be empty if offset is greater than the total number of products belonging
+    *         to the given {@link Category}.
+    *         The amount of products retrieved could be less than the length given.
+    */
+	public List<Product> getPlainProductsRangeByCategory(Category category, ProductSortCriteria sortCriteria, int offset, int pageSize);
+
+    /**
+    * Lists a range of {@link Product}.
+    * Products are sorted by the given {@link ProductSortCriteria}.
+    * @param sortCriteria - Criteria by which products will be sorted
+    * @param offset - Offset in the list of all products.
+    * @param length - Length of the range to be retrieved
+    * @return {@link List} of the products in the given range. 
+    *         Could be empty if offset is greater than the total number of products.
+    *         The amount of products retrieved could be less than the length given.
+    */
+	public List<Product> getPlainProductsRange(ProductSortCriteria sortCriteria, int offset, int pageSize);
     
 	/**
 	 * Retrieves a {@link Product} with every attribute set except for the familyComments.

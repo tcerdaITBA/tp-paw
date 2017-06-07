@@ -2,6 +2,7 @@ package tp.paw.khet.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.Product.ProductBuilder;
+import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.persistence.ProductDao;
 
 @Service
@@ -45,20 +47,10 @@ public class ProductServiceImpl implements ProductService {
 	public Product getPlainProductById(final int productId) {
 		return productDao.getPlainProductById(productId);
 	}
-	
-	@Override
-	public List<Product> getPlainProducts() {
-		return productDao.getPlainProducts();
-	}
 
 	@Override
 	public List<Product> getPlainProductsByUserId(final int userId) {
 		return productDao.getPlainProductsByUserId(userId);
-	}
-	
-	@Override
-	public List<Product> getPlainProductsByCategory(final Category category) {
-		return productDao.getPlainProductsByCategory(category);
 	}
 	
 	@Transactional
@@ -81,29 +73,6 @@ public class ProductServiceImpl implements ProductService {
 	public byte[] getLogoByProductId(final int productId) {
 		return productDao.getLogoByProductId(productId);
 	}
-
-    @Override
-    public List<Product> getPlainProductsPaged(final int page, final int pageSize) {
-        return productDao.getPlainProductsRange((page - 1) * pageSize, pageSize);
-    }
-
-    @Override
-    public List<Product> getPlainProductsByCategoryPaged(final Category category, final int page,
-    		final int pageSize) {
-        return productDao.getPlainProductsRangeByCategory(category, (page - 1) * pageSize, pageSize);
-    }
-
-    @Override
-    public int getMaxProductPageWithSize(final int pageSize) {
-        int total = productDao.getTotalProducts();
-        return (int) Math.ceil((float) total / pageSize);
-    }
-
-    @Override
-    public int getMaxProductPageInCategoryWithSize(final Category category, final int pageSize) {
-        int total = productDao.getTotalProductsInCategory(category);
-        return (int) Math.ceil((float) total / pageSize);
-    }
     
     @Transactional
     @Override
@@ -111,28 +80,23 @@ public class ProductServiceImpl implements ProductService {
     	return productDao.deleteProductById(productId);
     }
 
-    @Override
-    public List<Product> getPlainProductsAlphabeticallyPaged(final int page, final int pageSize) {
-        return productDao.getPlainProductsRangeAlphabetically((page - 1) * pageSize, pageSize);
-    }
-
-    @Override
-    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(final Category category, final int page, final int pageSize) {
-        return productDao.getPlainProductsRangeAlphabeticallyByCategory(category, (page - 1) * pageSize, pageSize);
-    }
-    
-    @Override
-    public List<Product> getPlainProductsPopularitySortedPaged(final int page, final int pageSize) {
-    	return productDao.getPlainProductsRangePopularity((page - 1) * pageSize, pageSize);
-    }
-    
-    @Override
-    public List<Product> getPlainProductsPopularitySortedByCategoryPaged(final Category category, final int page, final int pageSize) {
-    	return productDao.getPlainProductsRangePopularityByCategory(category, (page - 1) * pageSize, pageSize);
-    }
-
 	@Override
 	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
 		return productDao.getPlainProductsByKeyword(keyword, maxLength);
 	}
+
+	@Override
+	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, int page, int pageSize) {
+		if (category.isPresent())
+			return productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, (page - 1) * pageSize, pageSize); 
+
+		return productDao.getPlainProductsRange(sortCriteria, (page - 1) * pageSize, pageSize); 
+	}
+
+	@Override
+	public int getMaxProductPageWithSize(Optional<Category> category, int pageSize) {
+		int total = category.isPresent() ? productDao.getTotalProductsInCategory(category.get()) : productDao.getTotalProducts();
+		
+		return (int) Math.ceil((float) total / pageSize);
+	}	
 }

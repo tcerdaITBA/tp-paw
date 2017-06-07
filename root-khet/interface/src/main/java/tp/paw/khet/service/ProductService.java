@@ -1,9 +1,11 @@
 package tp.paw.khet.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
+import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
 
 public interface ProductService {
@@ -24,12 +26,21 @@ public interface ProductService {
 	 */
 	public Product createProduct(String name, String description, String shortDescription, String website, 
 			Category category, byte[] logo, int creatorId, List<byte[]> imageBytes, List<String> videoIds);
-	
-	/**
-	 * Lists every existing {@link Product} as a {@link Product}.
-	 * @return {@link List} of the existing products
-	 */
-	public List<Product> getPlainProducts();
+		
+	 /**
+     * Lists a range of {@link Product} sorted by the given {@link ProductSortCriteria}.
+     * The range given is [(page - 1) * pageSize, page * pageSize].
+     * First page is number 1.<p>
+     * Optionally, the range may be filtered by a {@link Category}.
+	 * @param category - optional category the products belong to. See {@link Optional}.
+	 * @param sortCriteria - product sort criteria to be used.
+	 * @param page - index of the page to be retrieved.
+     * @param pageSize - amount of products per page.
+     * @return Sorted {@link List} of the products belonging to the category if given. 
+     * 		   Otherwise, products belong to any category.<p>
+     *         Could be empty if there are no products registered.
+     */
+	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, int page, int pageSize);
 	
 	/**
 	 * Lists products created by {@link User} as a {@link Product} with the given userId.
@@ -37,95 +48,15 @@ public interface ProductService {
 	 * @return List of products. Empty in case the user did not create any product
 	 */
 	public List<Product> getPlainProductsByUserId(int userId);
-	
-	/**
-     * Lists a range of existing {@link Product} as a {@link Product}.
-     * Products are sorted by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize].
-     * First page is number 1.
-     * @param page - index of the page to be retrieved
-     * @param pageSize - amount of products per page
-     * @return {@link List} of the products in the given range. 
-     */
-	public List<Product> getPlainProductsPaged(int page, int pageSize);
-	
-	/**
-     * Lists a range of existing {@link Product} as a {@link Product}.
-     * Products are sorted alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize].
-     * First page is number 1.
-     * @param page - index of the page to be retrieved
-     * @param pageSize - amount of products per page
-     * @return {@link List} of the products in the given range. 
-     */
-    public List<Product> getPlainProductsAlphabeticallyPaged(int page, int pageSize);
-    	
-	/**
-	 * Lists {@link Product} belonging to certain {@link Category}.
-	 * @param category - Category the products belong to
-	 * @return {@link List} of the products belonging to the category. 
-	 * 		   Could be empty if there are no products registered in given category.
-	 */
-	public List<Product> getPlainProductsByCategory(Category category);
-	
-	/**
-	 * Lists a range of {@link Product} belonging to certain {@link Category}.
-	 * Products are sorted by uploadDate, the range given is [(page - 1) * pageSize, page * pageSize] 
-	 * First page is number 1.
-	 * @param category Category the products belong to
-	 * @param page - index of the page to be retrieved
-	 * @param pageSize - amount of products per page
-	 * @return {@link List} of the products belonging to the category. 
-     *         Could be empty if there are no products registered in given category.
-	 */
-	public List<Product> getPlainProductsByCategoryPaged(Category category, int page, int pageSize);
-	
+		    
 	 /**
-     * Lists a range of {@link Product} belonging to certain {@link Category}.
-     * Products are sorted alphabetically by their product name, the range given is [(page - 1) * pageSize, page * pageSize] 
-     * First page is number 1.
-     * @param category Category the products belong to
-     * @param page - index of the page to be retrieved
-     * @param pageSize - amount of products per page
-     * @return {@link List} of the products belonging to the category. 
-     *         Could be empty if there are no products registered in given category.
-     */
-    public List<Product> getPlainProductsAlphabeticallyByCategoryPaged(Category category, int page, int pageSize);
- 	
-	/**
-     * Lists a range of existing {@link Product} as a {@link Product}.
-     * Products are sorted by their number of votes, the range given is [(page - 1) * pageSize, page * pageSize].
-     * First page is number 1.
-     * @param page - index of the page to be retrieved
-     * @param pageSize - amount of products per page
-     * @return {@link List} of the products in the given range. 
-     */
-	public List<Product> getPlainProductsPopularitySortedPaged(int page, int pageSize);
-    
-	 /**
-     * Lists a range of {@link Product} belonging to certain {@link Category}.
-     * Products are sorted by their vote count, the range given is [(page - 1) * pageSize, page * pageSize] 
-     * First page is number 1.
-     * @param category Category the products belong to
-     * @param page - index of the page to be retrieved
-     * @param pageSize - amount of products per page
-     * @return {@link List} of the products belonging to the category. 
-     *         Could be empty if there are no products registered in given category.
-     */
-	public List<Product> getPlainProductsPopularitySortedByCategoryPaged(Category category, int page, int pageSize);
-    
-	/**
-	 * Returns the amount of pages available for a given page size.
-	 * @param pageSize - amount of products per page
-	 * @return the maximum page number, which is the total number of pages for the given size.
-	 */
-	public int getMaxProductPageWithSize(int pageSize);
-	
-	   /**
-     * Returns the amount of pages available for a given page size with products of a given category.
-     * @param category - the category the products belong to.
+     * Returns the amount of product pages available for a given page size.
+     * Optionally, a {@link Category} may be given to aquire max page size only for products belonging in it.
+	 * @param category - optional category the products belong to. See {@link Optional}.
      * @param pageSize - amount of products per page
      * @return the maximum page number, which is the total number of pages for the given size.
      */
-    public int getMaxProductPageInCategoryWithSize(Category category, int pageSize);
+	public int getMaxProductPageWithSize(Optional<Category> category, int pageSize);
 	
 	/**
 	 * Retrieves a {@link Product} with no null attributes.
@@ -153,7 +84,7 @@ public interface ProductService {
 	 * @param productId - ID of the product to delete
 	 * @return true if a product was deleted
 	 */
-	boolean deleteProductById(int productId);
+	public boolean deleteProductById(int productId);
 	
 	/**
 	 * Retrieves a {@link List} of {@link Product} given a keyword.

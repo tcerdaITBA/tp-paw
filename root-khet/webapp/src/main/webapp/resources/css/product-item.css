@@ -55,6 +55,7 @@
 	padding: 5px 1em;
 	word-wrap: break-word;
 	display: inline-block;
+    cursor: pointer;
 }
 
 .categoryTag:hover {
