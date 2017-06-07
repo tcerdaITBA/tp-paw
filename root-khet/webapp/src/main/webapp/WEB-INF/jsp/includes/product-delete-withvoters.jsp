@@ -28,7 +28,7 @@
 			</div>
 			<c:url value="/vote/product/${product.id}" var="vote" />
 			<div class="col-md-4 col-md-offset-3 text-right voters-holder">
-				<a class="voters-popover-btn" rel="popover" data-popover-content="#votersPopover" data-placement="bottom" title="<spring:message code="ProductPage.votersTooltip"/>" >
+				<a tabindex="0" class="voters-popover-btn" rel="popover" data-popover-content="#votersPopover" data-placement="bottom" title="<spring:message code="ProductPage.votersTooltip"/>" data-trigger="focus" >
 					<span class="voter-span" data-toggle="tooltip" data-placement="left" title="<spring:message code="ProductPage.votersTooltip"/>">
 						<c:forEach items="${votersresume}" var="voter">
 							<img class="profile-img-circle voters-img" src="<c:url value="/profile/${voter.userId}/profilePicture"/>">
