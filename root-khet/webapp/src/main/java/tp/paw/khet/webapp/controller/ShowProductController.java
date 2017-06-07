@@ -26,6 +26,7 @@ import tp.paw.khet.model.User;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.service.VoteService;
 import tp.paw.khet.webapp.exception.ImageNotFoundException;
 import tp.paw.khet.webapp.exception.ProductNotFoundException;
 import tp.paw.khet.webapp.exception.UnauthorizedException;
@@ -36,6 +37,7 @@ import tp.paw.khet.webapp.form.FormComments;
 public class ShowProductController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShowProductController.class);
+	private static final int VOTERS_TO_SHOW = 3;
 	
 	@Autowired
 	private ProductService productService;
@@ -46,13 +48,16 @@ public class ShowProductController {
 	@Autowired
 	private CommentService commentService;
 	
+	@Autowired
+	private VoteService voteService;
+	
 	@ModelAttribute("commentsForm")
 	public FormComments formComments() {
 		return new FormComments();
 	}
 	
 	@RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
-	public ModelAndView getProduct(@PathVariable final int productId, @ModelAttribute("loggedUser") final User loggedUser) 
+	public ModelAndView getProduct(@PathVariable final int productId) 
 	throws ProductNotFoundException {
 		
 		LOGGER.debug("Accessed product with id {}", productId);
@@ -65,13 +70,14 @@ public class ShowProductController {
 		}
 		
 		final ModelAndView mav = new ModelAndView("product");
-				
+						
 		mav.addObject("product", product);
 		mav.addObject("creator", product.getCreator());
 		mav.addObject("videos", product.getVideos());
 		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
 		mav.addObject("parentcomments", commentService.getCommentsByProductId(productId));
 		mav.addObject("voters", product.getVotingUsers());
+		mav.addObject("votersresume", voteService.getAlphabeticallySortedVotersFromProduct(product, VOTERS_TO_SHOW));
 		
 		return mav;
 	}

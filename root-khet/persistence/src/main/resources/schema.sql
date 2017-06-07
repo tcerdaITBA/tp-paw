@@ -40,3 +40,4 @@ CREATE TABLE IF NOT EXISTS comments (
     parentId INTEGER REFERENCES comments(commentId) ON DELETE CASCADE,
     UNIQUE(commentDate, userId, productId)
 );
+

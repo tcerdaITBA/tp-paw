@@ -19,19 +19,22 @@
 						rel="stylesheet"
 						integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 						crossorigin="anonymous">
-			<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/profile.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/customizeUser.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
-            <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
-			
+      <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/zrp.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/tabs.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
+			<link href="<c:url value="/resources/css/product-item.css"/>" rel="stylesheet">
 			<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 
 		</head>
+		<script src="<c:url value="/resources/js/upvote.js" />"></script>
+		<%@include file="includes/navbar.jsp" %>
 		<body>
-			<%@include file="includes/navbar.jsp" %>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3 profile-info-box">
@@ -83,124 +86,73 @@
 						
 					</div>
 					<div class="col-md-7 col-md-offset-1">
-						<div class="row tabs-row">
-							<div class="">
-								<ul class="nav nav-pills nav-justified profile-tabs">
-									<c:set var="activeTab" value="${products.size() == 0 && votedProducts.size() != 0 }"></c:set>
-		
-					
-									<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
-									<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${votedProducts.size()}"/></span></a></li>
-								</ul>
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="row tabs-row">
+									<div class="">
+										<ul class="nav nav-pills nav-justified profile-tabs">
+											<c:set var="activeTab" value="${products.size() == 0 && votedProducts.size() != 0 }"></c:set>
+
+
+											<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
+											<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${votedProducts.size()}"/></span></a></li>
+										</ul>
+									</div>
+								</div>
+
+							<div class="tab-content">
+								<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products ${!activeTab ? 'active in' : 'none' }">
+									<c:choose>
+										<c:when test="${products.isEmpty()}">
+											<div class="zrp" id="user-products-zrp">
+												<h2><spring:message code="userZRP.empty"/></h2>
+												<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+											</div>
+										</c:when>
+										<c:otherwise>
+										<div class="col-md-12 product-list">
+											<c:forEach items="${products}" var="product">
+												<%@include file="includes/deleteModal.jsp"%></%@include>
+												<a href="<c:url value="/product/${product.id}"/>">
+													<%@include file="includes/product-item-delete.jsp"%></%@include>
+												</a>
+											</c:forEach>
+										</div>
+									</c:otherwise>
+									</c:choose>		
+								</div>
+
+								<div id="votedProducts-pane" class="tab-pane fade row result-for-products ${activeTab ? 'active in' : 'none' }">
+									<c:choose>
+											<c:when test="${votedProducts.isEmpty()}">
+												<div class="zrp" id="user-products-zrp">
+													<h2><spring:message code="userZRP.empty"/></h2>
+													<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+												</div>
+											</c:when>
+											<c:otherwise>
+											<div class="col-md-12 product-list">
+												<c:forEach items="${votedProducts}" var="product">
+													<a href="<c:url value="/product/${product.id}"/>">
+														<%@include file="includes/product-item.jsp"%></%@include>
+													</a>
+												</c:forEach>
+											</div>
+										</c:otherwise>
+									</c:choose>		
+								</div>
 							</div>
 						</div>
-					
-					<div class="tab-content">
-						<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products ${!activeTab ? 'active in' : 'none' }">
-							<c:choose>
-								<c:when test="${products.isEmpty()}">
-									<div class="zrp" id="user-products-zrp">
-										<h2><spring:message code="userZRP.empty"/></h2>
-										<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
-									</div>
-								</c:when>
-								<c:otherwise>
-								<h2 class="uploaded-products-title"><spring:message code="uploadedProductsTitle" arguments="${capitalizedUserName}"/></h2>
-								<div class="col-md-12 product-list">
-									<c:forEach items="${products}" var="product">
-	                                    <!-- The Modal -->
-										<%@include file="includes/deleteModal.jsp"%></%@include>
-										<a href="<c:url value="/product/${product.id}"/>">
-											<div class="row product-list-item product-item-height">
-												<sec:authorize access="isAuthenticated()">
-														<c:if test="${loggedUser.userId == profileUser.userId}">
-																<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-														</c:if>
-												</sec:authorize>
-												<div class="col-md-3 product-logo">
-													<img src="<c:url value="/product/${product.id}/logo"/>">
-												</div>
-												<div class="col-md-9 product-info-box">
-													<div class="row product-name">
-														<div class="col-md-12 capitalize-firstLetter">
-															<p><c:out value="${product.name}"/></p>
-														</div>
-													</div>
-													<div class="row product-short-description">
-														<div class="col-md-12 capitalize-firstLetter">
-															<p><c:out value="${product.shortDescription}"/></p>
-														</div>
-													</div>
-													<div class="row product-category">
-														<div class="col-md-12">
-															<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
-																<p><spring:message code="category.${product.category.lowerName}"/></p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>	
-										</a>
-									</c:forEach>
-								</div>
-								</c:otherwise>
-							</c:choose>		
-						</div>
-													
-						<div id="votedProducts-pane" class="tab-pane fade row result-for-products ${activeTab ? 'active in' : 'none' }">
-							<c:choose>
-									<c:when test="${products.isEmpty()}">
-										<div class="zrp" id="user-products-zrp">
-											<h2><spring:message code="userZRP.empty"/></h2>
-											<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
-										</div>
-									</c:when>
-									<c:otherwise>
-									<h2 class="uploaded-products-title"><spring:message code="votedProductsTitle" arguments="${capitalizedUserName}"/></h2>
-									<div class="col-md-12 product-list">
-										<c:forEach items="${votedProducts}" var="votedProduct">
-		                                    <!-- The Modal -->
-											<a href="<c:url value="/product/${votedProduct.id}"/>">
-												<div class="row product-list-item product-item-height">
-													<div class="col-md-3 product-logo">
-														<img src="<c:url value="/product/${votedProduct.id}/logo"/>">
-													</div>
-													<div class="col-md-9 product-info-box">
-														<div class="row product-name">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p><c:out value="${votedProduct.name}"/></p>
-															</div>
-														</div>
-														<div class="row product-short-description">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p><c:out value="${votedProduct.shortDescription}"/></p>
-															</div>
-														</div>
-														<div class="row product-category">
-															<div class="col-md-12">
-																<div data-href="<c:url value="/category/${votedProduct.category.lowerName}"/>" class="categoryTag product-category-btn">
-																	<p><spring:message code="category.${votedProduct.category.lowerName}"/></p>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>	
-											</a>
-										</c:forEach>
-									</div>
-								</c:otherwise>
-							</c:choose>		
-						</div>
-					
 					</div>
+						
 			</div>
 			</div>
-			<%@include file="includes/footer.jsp"%>
+			<%@include file="includes/footer.jsp"%></%@include>
 		</div>
 		</body>
 		<%@include file="includes/changePictureModal.jsp"%>
 		<%@include file="includes/changePasswordModal.jsp"%>
-        <%@include file="includes/deleteModal.jsp"%>
+    <%@include file="includes/deleteModal.jsp"%>
 		<%@include file="includes/scripts.jsp"%>
 
 		<script src="<c:url value="/resources/js/profile.js" />"></script>		

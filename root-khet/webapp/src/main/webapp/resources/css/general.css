@@ -3,8 +3,16 @@ body {
 	padding-top: 70px;
 }
 
-p {
-	word-wrap: break-word;
+* {
+	word-wrap: break-word !important;
+}
+
+.badge {
+	margin-bottom: 1px;
+	border: 1px solid #737373;
+	background: white;
+	margin-left: 10px !important;
+	color: #737373 !important;
 }
 
 .navbar-default {
@@ -64,7 +72,7 @@ nav img {
 }
 
 .popover-msg a {
-	color: #337ab7;
+	color: #337ab7 !important;
 }
 
 textarea {
@@ -160,8 +168,8 @@ footer p {
 	position: absolute;
 	background-color: #fff;
 	border-radius: 3px;
-	border: 1px solid rgba(0,0,0,.09);
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
+	border: 1px solid rgba(0, 0, 0, .09);
+	box-shadow: 3px 5px 6px 0 rgba(0, 0, 0, .2);
 	padding: 1em;
 	width: 100%;
 }
@@ -178,7 +186,12 @@ footer p {
 }
 
 .suggestion-row {
-	height: 2em;
+	height: 3em;
+}
+
+.center-flex {
+	display: flex;
+	align-items: center;	
 }
 
 .suggestion-list-item:focus {
@@ -187,7 +200,9 @@ footer p {
 
 .suggestion-list-item:hover,
 .history-item:hover, .history-item:focus,
-.suggestion-list-item:focus .suggestion-row {
+.suggestion-list-item:focus,
+.suggestion-row:hover, .suggestion-row:focus
+{
 	background-color: #f3f3f3;
 	text-decoration: none;
 	color: #333;
@@ -197,11 +212,25 @@ footer p {
 
 .suggestion-product-name {
 	color: #333;
+	font-weight: 500;
 }
 
 .suggestions-box .divider {
 	border: 1px solid #f3f3f3;
 	margin: 0.5em;
+}
+
+.suggestion-list-item .upvote-btn {
+	padding: 3px 10px;
+}
+
+.suggestion-list-item .upvote-btn p {
+	font-size: 0.9em;
+}
+
+.most-popular-title {
+	color: #737373;
+	padding-left: 10px;
 }
 
 .search-icn {
@@ -226,14 +255,19 @@ footer p {
 }
 
 .suggestion-product-logo {
-	height: 100%;
-  width: 60px;
+	height: 40px;
   object-fit: contain;
+	padding-right: 0;
 }
 
 .suggestion-list-item {
-	height: 3.5em;
-	padding-top: 5px;
-	padding-right: 0;
-	padding-bottom: 5px;
+	padding: 5px 1em;
+	display: block;
+}
+
+.upvote-info {
+	color: #737373;
+	font-weight: 600;
+	font-size: 1em;
+	float: right;
 }

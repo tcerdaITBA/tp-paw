@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>    
 
 <head>
@@ -25,23 +25,33 @@
 <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/zrp.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/product-item.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
+<script src="<c:url value="/resources/js/upvote.js" />"></script>
+<%@include file="includes/navbar.jsp" %>
 <body>
-	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 	<div class="row title-row">
 		<div class="col-md-8 col-md-offset-3 title-col">
 			<div class="content-title">
 				<c:choose>
-				 <c:when test="${empty currentCategory}"><h2><spring:message code="index.mostrecent"/></h2></c:when>
-				 <c:otherwise>
-				 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
-				 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
-				 </c:otherwise>
-				 </c:choose>					
+					 <c:when test="${empty currentCategory}">
+						 <h2><spring:message code="index.allproducts"/></h2>	
+						 <%@include file="includes/orders.jsp"%></%@include>
+					 </c:when>
+					 <c:otherwise>
+						 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
+						 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
+						 <c:if test="${not products.isEmpty()}">
+						 		<%@include file="includes/orders.jsp"%></%@include>
+						 </c:if>
+					 </c:otherwise>
+				</c:choose>					
 			</div>
 		</div>
 	</div>
@@ -75,8 +85,9 @@
 		</div>	
 	
 		<div class="col-md-8">
-					<c:choose>
-						<c:when test="${products.isEmpty()}">
+				<c:choose>
+					<c:when test="${products.isEmpty()}">
+						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="zrp" id="category-zrp">
 									<h2><spring:message code="categoryZRP.sorry"/></h2>
@@ -96,46 +107,24 @@
 									</p>
 								</div>
 							</div>
-						</c:when>
-						<c:otherwise>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="row">
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
-								
-								<a href="<c:url value="/product/${product.id}"/>">
-									<div class="row product-list-item product-item-height">
-										<div class="col-md-3 product-logo">
-											<img src="<c:url value="/product/${product.id}/logo"/>">
-										</div>
-										<div class="col-md-9 product-info-box">
-											<div class="row product-name">
-												<div class="col-md-12 capitalize-firstLetter">
-													<p><c:out value="${product.name}"/></p>
-												</div>
-											</div>
-											<div class="row product-short-description">
-												<div class="col-md-12 capitalize-firstLetter">
-													<p><c:out value="${product.shortDescription}"/></p>
-												</div>
-											</div>
-											<div class="row product-category">
-												<div class="col-md-12">
-													<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
-														<p><spring:message code="category.${product.category.lowerName}"/></p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>	
+
+								<a href="<c:url value="/product/${product.id}"/>" id="product${product.id}">
+									<%@include file="includes/product-item.jsp"%></%@include>
 								</a>
-								
-								
 							</c:forEach>
 							</div>
-						</c:otherwise>
-				</c:choose>
-				<c:if test="${totalPages > 1}">
-					<%@include file="includes/pagination.jsp"%></%@include>
-				</c:if>									
+						</div>
+					</c:otherwise>
+			</c:choose>
+			<c:if test="${totalPages > 1}">
+				<%@include file="includes/pagination.jsp"%></%@include>
+			</c:if>									
 		</div>
 	</div>
 	<%@include file="includes/footer.jsp"%>
@@ -145,5 +134,10 @@
 
 	</div>
 	<%@include file="includes/scripts.jsp"%>
+	<script>
+		var gotoProduct = "${productVoted}";
+	</script>	
+	<script src="<c:url value="/resources/js/index.js" />"></script>
+	
 </body>
 </html>

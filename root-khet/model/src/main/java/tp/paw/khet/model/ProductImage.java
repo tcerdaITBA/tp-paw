@@ -120,8 +120,8 @@ public class ProductImage {
 			final int prime = 31;
 			int result = 17;
 			
-			result = result * prime + productImageId;
-			result = result * prime + productId;
+			result = result * prime + getProductImageId();
+			result = result * prime + getProductId();
 			
 			return result;
 		}

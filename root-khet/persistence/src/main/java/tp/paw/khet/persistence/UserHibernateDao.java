@@ -90,7 +90,7 @@ public class UserHibernateDao implements UserDao {
 
 	@Override
 	public User getUserWithVotedProductsById(final int userId) {
-		final TypedQuery<User> query = em.createQuery("from User as u join fetch u.votedProducts as uvp where u.userId = :userId", User.class);
+		final TypedQuery<User> query = em.createQuery("from User as u left join fetch u.votedProducts as uvp where u.userId = :userId", User.class);
 		query.setParameter("userId", userId);
 		
 		final List<User> list = query.getResultList();

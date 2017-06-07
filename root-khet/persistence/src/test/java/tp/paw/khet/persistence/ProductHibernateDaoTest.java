@@ -11,6 +11,7 @@ import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.model.ProductTestUtils.dummyProductList;
 import static tp.paw.khet.model.ProductTestUtils.dummyProductListWithUserId;
 import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
+import static tp.paw.khet.model.UserTestUtils.dummyUser;
 import static tp.paw.khet.model.UserTestUtils.dummyUserList;
 import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 
@@ -132,7 +133,34 @@ public class ProductHibernateDaoTest {
 
 		assertTrue(productDao.deleteProductById(1));
 		assertFalse(productDao.deleteProductById(1));
+	}
+	
+//	@Test
+//	public void getPlainProductsRangePopularityTest() {
+//		List<Product> expected = dummyProductList(LIST_SIZE, 1);
+//		insertProducts(expected);
+//		voteList(expected); // List is sorted by most popular products first
+//				
+//		List<Product> actual = productDao.getPlainProductsRangePopularity(0, LIST_SIZE);
+//		
+//		assertEqualsList(expected, actual);
+//	}
+//	
+//	private void voteList(List<Product> expected) {
+//		for (int i = 0; i < expected.size(); i++)
+//			voteProduct(expected.get(i), expected.size() - i);
+//	}
+//
+//	private void voteProduct(Product product, int votes) {
+//		for (int i = 0; i < votes; i++)
+//			product.getVotingUsers().add(dummyUser(i));
+//	}
+
+	private void assertEqualsList(List<Product> expected, List<Product> actual) {
+		assertEquals(expected.size(), actual.size());
 		
+		for (int i = 0; i < expected.size(); i++)
+			assertEqualsPlainProducts(expected.get(i), actual.get(i));
 	}
 	
 	@Test

@@ -7,6 +7,8 @@ import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +23,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +34,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Comparable<Product> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_productid_seq")
@@ -74,7 +77,7 @@ public class Product {
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
 	@OrderBy("name ASC")
-	private List<User> votingUsers;
+	private SortedSet<User> votingUsers;
 	
 	@Transient
 	private List<CommentFamily> commentFamilies = Collections.emptyList();
@@ -160,8 +163,30 @@ public class Product {
 		return Collections.unmodifiableList(images);
 	}
 	
-	public List<User> getVotingUsers() {
+	public SortedSet<User> getVotingUsers() {
 		return votingUsers;
+	}
+	
+	public int getVotesCount() {
+		return getVotingUsers().size();
+	}
+	
+	//TODO: esto es porq hibernate no coloca el ON DELETE CASCADE sobre la FOREIGN KEY de productId en la tabla Votes
+	@PreRemove
+	private void removeProductFromUserVotedProducts() {
+		for (User u : getVotingUsers())
+			u.getVotedProducts().remove(this);
+	}
+	
+	// TODO: es para hibernate que necesita que sea Comparable. No pude hacer que use un Comparator
+	@Override
+	public int compareTo(Product o) {
+		int cmp = getName().compareTo(o.getName());
+		
+		if (cmp == 0)
+			return Integer.compare(getId(), o.getId());
+		
+		return cmp;
 	}
 	
 	@Override
@@ -173,12 +198,12 @@ public class Product {
 		
 		Product other = (Product) obj;
 		
-		return id == other.id;
+		return getId() == other.getId();
 	}
 	
 	@Override
 	public int hashCode() {
-		return id;
+		return getId();
 	}
 	
 	@Override
@@ -199,7 +224,7 @@ public class Product {
 		private List<CommentFamily> commentFamilies = Collections.emptyList();
 		private List<Video> videos = Collections.emptyList();
 		private List<ProductImage> images = Collections.emptyList();
-		private List<User> votingUsers = Collections.emptyList();
+		private SortedSet<User> votingUsers = new TreeSet<>();  // mutable
 
 		private ProductBuilder(String name, String shortDescription) {
 			this.name = name;
@@ -219,6 +244,7 @@ public class Product {
 			this.commentFamilies = product.getCommentFamilies();
 			this.videos = product.getVideos();
 			this.images = product.getImages();
+			this.votingUsers = product.getVotingUsers();
 		}
 
 		public ProductBuilder id(int id) {
@@ -271,7 +297,7 @@ public class Product {
 			return this;
 		}
 		
-		public ProductBuilder votingUsers(List<User> votingUsers) {
+		public ProductBuilder votingUsers(SortedSet<User> votingUsers) {
 			this.votingUsers = votingUsers;
 			return this;
 		}

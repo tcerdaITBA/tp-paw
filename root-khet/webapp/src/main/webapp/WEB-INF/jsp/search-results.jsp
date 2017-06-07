@@ -14,16 +14,19 @@
 	rel="stylesheet"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/product-item.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/search.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/zrp.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/tabs.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
+<script src="<c:url value="/resources/js/upvote.js" />"></script>
+<%@include file="includes/navbar.jsp"%>
 <body>
-	<%@include file="includes/navbar.jsp"%>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -72,37 +75,12 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<c:forEach items="${products}" var="product">
-										<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
-											<div class="row product-list-item vertical-align">
-												<div class="col-md-3 product-logo">
-													<img src="<c:url value="/product/${product.id}/logo"/>">
-												</div>
-												<div class="col-md-9 product-info-box">
-													<div class="row col-md-12">
-														<div class="row">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p class="product-name result-text"><c:out value="${product.name}"/></p>
-															</div>
-														</div>
-														<div class="row product-short-description">
-															<div class="col-md-12 capitalize-firstLetter">
-																<p class="result-text"><c:out value="${product.shortDescription}"/></p>
-															</div>
-														</div>
-														<div class="row product-category">
-															<div class="col-md-12">
-																<div data-href="<c:url value="/category/${product.category.lowerName}"/>" class="categoryTag product-category-btn">
-																	<p><spring:message code="category.${product.category.lowerName}"/></p>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>	
-										</a>				
-									</c:forEach>
+								<div class="col-md-6 product-list">
+										<c:forEach items="${products}" var="product">
+											<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
+												<%@include file="includes/product-item.jsp"%></%@include>
+											</a>				
+										</c:forEach>
 								</div>
 							</c:otherwise>
 						</c:choose>

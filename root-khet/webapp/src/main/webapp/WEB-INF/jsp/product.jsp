@@ -22,6 +22,7 @@
     <link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/product.css" />" rel="stylesheet" />
+		<link href="<c:url value="/resources/css/product-item.css" />" rel="stylesheet" />
     <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
     <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
 
@@ -31,6 +32,7 @@
 <spring:message code="commentLabel.userNamePlaceholder" var="UserNamePlaceholder"/>
 <spring:message code="commentLabel.contentPlaceholder" var="ContentPlaceholder"/>	
 
+<script src="<c:url value="/resources/js/upvote.js" />"></script>
 <%@include file="includes/navbar.jsp" %>
     <div class="container">
         <div class="row" id="carouselHolder">
@@ -50,58 +52,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-10 col-md-offset-1 info-section">
                 <div class="row">
-                    <div class="col-md-7">
-                        <div class="row product-item product-item-height vertical-align highlighted">
-                            <sec:authorize access="isAuthenticated()">
-                              <c:if test="${loggedUser.userId == creator.userId}">
-                                  <span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button"></span>
-	                               <!-- The Modal -->
-                                  <%@include file="includes/deleteModal.jsp"%>
-                              </c:if>
-                            </sec:authorize>
-                            <div class="col-md-3 product-logo">
-                                <img src="<c:url value="/product/${product.id}/logo"/>">
-                            </div>
-                            <div class="col-md-9 product-info-box">
-                                <div class="row col-md-12">
-                                    <div class="row product-name">
-                                        <div class="col-md-12 info-box-field capitalize-firstLetter">
-                                            <p><c:out value="${product.name}"/></p>
-                                        </div>
-                                    </div>
-                                    <div class="row product-short-description">
-                                        <div class="col-md-12 info-box-field capitalize-firstLetter" >
-                                            <p><c:out value="${product.shortDescription}"/></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-md-12">
-                                        	<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
-																						<div class="categoryTag">
-																							<p><spring:message code="category.${product.category.lowerName}"/></p>
-																						</div>
-                                        	</a>
-                                       </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 website-btn-col">
-                                <c:if test="${not empty product.website}">
-                                    <div class="website-btn-row">
-                                        <a href="<c:out value="${product.website}"/>" class="ps-btn btn website-btn" target="_blank">
-                                            <span class="glyphicon glyphicon-globe"></span>
-                                            <spring:message code="productPage.visitWebsite"/>
-                                        </a>
-                                    </div>
-                                </c:if>
-                            </div>
-                        </div>
-                    </div>
-
+									<div class="col-md-7">
+										<%@include file="includes/product-delete-withvoters.jsp" %></%@include>
+									</div>
                     <div class="col-md-4 col-md-offset-1 creator-item highlighted">
                         <div class="row">
                             <div class="col-md-12">
@@ -122,12 +77,12 @@
                                                 <c:out value="${creator.name}" />
                                             </a>
                                         </div>
-																			<div class="row col-md-12">
-																				<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
-																						<span class="glyphicon glyphicon-envelope"></span>
-																						<p><c:out value="${creator.email}"/></p>
-																				</a>
-																			</div>										
+											<div class="row col-md-12">
+												<a class="creator-mail" href="mailto:<c:out value="${creator.email}"/>">
+														<span class="glyphicon glyphicon-envelope"></span>
+														<p><c:out value="${creator.email}"/></p>
+												</a>
+											</div>										
                                     </div>
                                 </div>
                             </div>

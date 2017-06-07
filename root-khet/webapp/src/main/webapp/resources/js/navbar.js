@@ -22,7 +22,6 @@ function hideSuggestions() {
 }
 
 function arrowFocus(selected) {
-	console.log(selected);
 	$('#suggestion-' + selected.toString()).focus();
 }
 

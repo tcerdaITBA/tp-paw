@@ -36,33 +36,20 @@
     </div>	
 </div>
 
-<c:if test="${not empty productDeleted}">    
-    <div id="feedbackDeleteModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">
-                        <span class="glyphicon glyphicon-trash"></span>
-                        <spring:message code="Profile.modal.title.feedbackDeleteModal"/>
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>
-                                <span class="modal-product-name"><c:out value="${productDeleted}" /></span>
-                                <spring:message code="Profile.modal.body.feedbackDeleteModal.textEnd" />
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row row-centered">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="Profile.settings.ok"/></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<c:if test="${not empty productDeleted}">
+	<div id="delete-snackbar">
+		<div class="alert alert-success">
+			<strong>
+				<span class="glyphicon glyphicon-trash"></span>
+				<span class="snackbar-product-name"><c:out value="${productDeleted}" /></span>
+			</strong>
+			<spring:message code="Profile.modal.body.feedbackDeleteModal.textEnd" />
+		</div>
+	</div>
+	
+	<script>
+		var x = document.getElementById('delete-snackbar');
+		x.className = 'show';
+		setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
+	</script>
 </c:if>

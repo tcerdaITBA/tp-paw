@@ -53,20 +53,25 @@
 							<p class="most-popular-title"><spring:message code="navBar.search.mostPopular"/></p>
 						</div>
 					</div>
-					<c:forEach items="${products}" var="product" varStatus="loop">
-						<c:if test="${loop.count <= 3}">
-							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>" id="suggestion-${loop.index + sessionScope.searchHistory.size()}" data-list-index="${loop.index + sessionScope.searchHistory.size()}">
-								<div class="suggestion-row">
-									<div class="row">
-										<div class="col-md-3 suggestion-product-logo">
-											<img src="<c:url value="/product/${product.id}/logo"/>">
-										</div>
-										<div class="col-md-9 suggestion-product-info-box">
-											<div class="suggestion-product-name">
-												<p class="capitalize-firstLetter"><c:out value="${product.name}"/></p>
-											</div>
-										</div>
-									</div>	
+					<c:forEach items="${topProducts}" var="product" varStatus="loop">
+						<c:if test="${loop.index < 3}">
+							<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>"  data-list-index="${loop.index + sessionScope.searchHistory.size()}" id="suggestion-${loop.index + sessionScope.searchHistory.size()}">
+								<c:url value="/vote/product/${product.id}" var="vote"/>
+								<div class="row center-flex">
+									<div class="col-md-2 suggestion-product-logo center-flex">
+										<img src="<c:url value="/product/${product.id}/logo"/>">
+									</div>
+									<div class="col-md-7">
+										<span class="suggestion-product-name capitalize-firstLetter">
+											<c:out value="${product.name}"/>
+										</span>
+									</div>
+									<div class="col-md-3">
+										<span class="upvote-info">
+											<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+											<c:out value="${product.votesCount}"/>
+										</span>
+									</div>
 								</div>
 							</a>
 						</c:if>
@@ -113,7 +118,12 @@
 								 <span><spring:message code="navBar.toPost"/></span>
 								 <a href='<c:url value="/login"/>'> 
 								 <span> <spring:message code="navBar.signIn"/></span>
-								 </a></p>" id="upload-popover"><spring:message code="navBar.postButton" /></a>
+								 </a>
+								 <span><spring:message code="navBar.toPostBis"/></span>
+								 <a href='<c:url value="/register"/>'> 
+								 <span> <spring:message code="navBar.signUp"/></span>
+								 </a>
+								 </p>" id="upload-popover"><spring:message code="navBar.postButton" /></a>
 						</sec:authorize>
 					</p>
 				</li>

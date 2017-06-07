@@ -25,5 +25,5 @@ $(document).ready(function() {
 	$('.delete-product-button').on('click', function() {
 		$('#deleteModal' + $(this).data('product-id')).modal('show');
 		return false;
-	});	
+	});
 });

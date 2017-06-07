@@ -1,8 +1,6 @@
 package tp.paw.khet.webapp.controller;
 
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +24,10 @@ public class IndexController {
     private ProductService productService;
 
 	@RequestMapping("/")
-	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpSession session) throws ResourceNotFoundException {
+	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") final int page, 
+	        @RequestParam(value="orderBy", required = false, defaultValue = "recent") final String order) 
+			throws ResourceNotFoundException {
+	    
 		LOGGER.debug("Accessed index with page {}", page);
 		
 	    final int maxPage = productService.getMaxProductPageWithSize(PAGE_SIZE);
@@ -36,8 +37,21 @@ public class IndexController {
 	        throw new ResourceNotFoundException();
 	    }
 	    
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
+		final ModelAndView mav = new ModelAndView("index");
+		
+		// TODO: esto es horrible y se repite en categorías
+		switch(order) {
+		    case "recent":
+		        mav.addObject("products", productService.getPlainProductsPaged(page, PAGE_SIZE));
+		        break;
+		    case "popularity":
+                mav.addObject("products", productService.getPlainProductsPopularitySortedPaged(page, PAGE_SIZE));
+		        break;
+		    case "alphabethically":
+                mav.addObject("products", productService.getPlainProductsAlphabeticallyPaged(page, PAGE_SIZE));
+		        break;
+		}
+        mav.addObject("productOrder", order);
 		mav.addObject("categories", Category.values());
 		mav.addObject("currentPage", page);
 		mav.addObject("totalPages", maxPage);

@@ -26,7 +26,8 @@ public class CategoryController {
     private ProductService productService;
 	
 	@RequestMapping(value = "/category/{category}")
-	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+	public ModelAndView showProductsForCategory(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	        @RequestParam(value="orderBy", required = false, defaultValue = "recent") final String order,
 	        @PathVariable(value = "category") Category category) throws ResourceNotFoundException {
 		
 		LOGGER.debug("Accessed category {} with page {}", category, page);
@@ -38,10 +39,22 @@ public class CategoryController {
         	throw new ResourceNotFoundException();
         }
 	    
-		ModelAndView mav = new ModelAndView("index");
+        ModelAndView mav = new ModelAndView("index");
+
+        switch(order) {
+            case "recent":
+                mav.addObject("products", productService.getPlainProductsByCategoryPaged(category, page, PAGE_SIZE));
+                break;
+            case "popularity":
+                mav.addObject("products", productService.getPlainProductsPopularitySortedByCategoryPaged(category, page, PAGE_SIZE));
+                break;
+            case "alphabethically":
+                mav.addObject("products", productService.getPlainProductsAlphabeticallyByCategoryPaged(category, page, PAGE_SIZE));
+                break;
+        }
+        mav.addObject("productOrder", order);
 		mav.addObject("currentCategory", category);
 		mav.addObject("categories", Category.values());
-	    mav.addObject("products", productService.getPlainProductsByCategoryPaged(category, page, PAGE_SIZE));
 	    mav.addObject("currentPage", page);
 	    mav.addObject("totalPages", maxPage);
 	    return mav;

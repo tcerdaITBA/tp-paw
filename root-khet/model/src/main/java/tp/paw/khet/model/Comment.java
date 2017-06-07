@@ -108,7 +108,7 @@ public class Comment {
 	
 	@Override
 	public int hashCode() {
-		return id;
+		return getId();
 	}
 	
 	@Override
