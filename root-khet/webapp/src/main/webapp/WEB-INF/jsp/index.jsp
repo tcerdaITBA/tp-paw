@@ -132,6 +132,7 @@
 			</c:if>									
 		</div>
 	</div>
+	
 	<%@include file="includes/footer.jsp"%>
     
     <!-- Deleted product feedback -->
