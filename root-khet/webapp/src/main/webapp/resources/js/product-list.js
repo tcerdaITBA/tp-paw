@@ -19,8 +19,11 @@ $(document).ready(function() {
 		return false;
 	});
     	
-    if (gotoProduct)
-        $('#product' + gotoProduct).goTo();
+    if (gotoProduct) {
+    	var prod = $('#product' + gotoProduct);
+    	if (prod.length)
+    		prod.goTo();
+    }    
         
     // to avoid propagation return false
 	$('.delete-product-button').on('click', function() {
