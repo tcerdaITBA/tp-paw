@@ -10,4 +10,13 @@ $(document).ready(function() {
 		$(this).focus();
 		return false;
 	});
+    
+    if (gotoProduct)
+        $('#product' + gotoProduct).goTo();
+    
+    // to avoid propagation return false
+	$('.delete-product-button').on('click', function() {
+		$('#deleteModal' + $(this).data('product-id')).modal('show');
+		return false;
+	});
 });

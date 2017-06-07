@@ -139,9 +139,6 @@
 
 	</div>
 	<%@include file="includes/scripts.jsp"%>
-	<script>
-		var gotoProduct = "${productVoted}";
-	</script>	
 	<script src="<c:url value="/resources/js/index.js" />"></script>
 	
 </body>

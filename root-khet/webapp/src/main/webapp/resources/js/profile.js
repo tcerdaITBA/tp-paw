@@ -19,11 +19,5 @@ $(document).ready(function() {
 		$("#feedbackDeleteModal").modal("show");
 
 	if(imgFeedback)
-		glowObject($('.profile-img'));
-	
-	// to avoid propagation return false
-	$('.delete-product-button').on('click', function() {
-		$('#deleteModal' + $(this).data('product-id')).modal('show');
-		return false;
-	});
+		glowObject($('.profile-img'));	
 });

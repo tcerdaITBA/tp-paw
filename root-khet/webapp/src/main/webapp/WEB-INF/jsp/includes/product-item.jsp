@@ -1,4 +1,4 @@
-<div class="row product-list-item product-item-height">
+<div class="row product-list-item product-item-height" id="product${product.id}">
 	<div class="col-md-3 product-logo">
 		<img src="<c:url value="/product/${product.id}/logo"/>">
 	</div>

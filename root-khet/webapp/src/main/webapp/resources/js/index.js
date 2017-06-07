@@ -5,8 +5,5 @@ $(document).ready(function(){
             scrollTop: $(this).offset().top + - offset + 'px'
         }, 'fast');
         return this; // for chaining...
-    };
-        
-    if (gotoProduct)
-			$('#product' + gotoProduct).goTo();
+    };        
 });

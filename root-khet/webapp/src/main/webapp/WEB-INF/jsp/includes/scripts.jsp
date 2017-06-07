@@ -12,7 +12,8 @@
     var passFeedback = "${passFeedback}";
     var imgError = "${imgError}";
     var imgFeedback = "${imgFeedback}";
-    var productDeleted = "<c:out value="${productDeleted}" />";    
+    var productDeleted = "<c:out value="${productDeleted}" />";
+    var gotoProduct = "${productVoted}";
 </script>
 <script src="<c:url value="/resources/js/profile.js"/>"></script>
 <script src="<c:url value="/resources/js/product-list.js"/>"></script>
