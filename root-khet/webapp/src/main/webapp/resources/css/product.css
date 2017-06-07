@@ -357,3 +357,8 @@
 .result-text {
 	word-wrap: break-word;
 }
+
+.upvote-btn {
+	position: relative;
+	left: 27px;
+}
