@@ -1,17 +1,23 @@
 package tp.paw.khet.persistence;
 
 import java.util.Date;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.Product.ProductBuilder;
+import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
 
 @Repository
@@ -20,19 +26,31 @@ public class ProductHibernateDao implements ProductDao {
 	@PersistenceContext
 	private EntityManager em;
 	
-	@Override
-	public List<Product> getPlainProducts() {
-		return em.createQuery("from Product as p ORDER BY p.uploadDate DESC", Product.class).getResultList();
+	private final String selectProductTemplate;
+	private final String selectProductWithCategoryTemplate;
+	private final EnumMap<ProductSortCriteria, ProductSortCriteriaClause> productSortCriteriaClauseMap;
+		
+	public ProductHibernateDao() {
+		selectProductTemplate = "select p from Product as p ${join} ${group} ORDER BY ${order}";
+		
+		selectProductWithCategoryTemplate = "select p from Product as p ${join} WHERE p.category = :category ${group} ORDER BY ${order}";
+		
+		final Map<String, String> whereCategoryValuesMap = new HashMap<>();
+		whereCategoryValuesMap.put("where", "WHERE category = :category");
+				
+		productSortCriteriaClauseMap = new EnumMap<>(ProductSortCriteria.class);
+		initProductSortCriteriaClauseMap();
 	}
 
-	@Override
-	public List<Product> getPlainProductsByCategory(final Category category) {
-		final TypedQuery<Product> query = em.createQuery("from Product as p where p.category = :category ORDER BY p.uploadDate DESC", Product.class);
-		query.setParameter("category", category);
+	private void initProductSortCriteriaClauseMap() {
+		productSortCriteriaClauseMap.put(ProductSortCriteria.ALPHABETICALLY, new ProductSortCriteriaClause("lower(p.name)"));
 		
-		return query.getResultList();
+		productSortCriteriaClauseMap.put(ProductSortCriteria.MOST_RECENT, new ProductSortCriteriaClause("p.uploadDate DESC"));		
+		
+		productSortCriteriaClauseMap.put(ProductSortCriteria.POPULARITY, 
+				new ProductSortCriteriaClause("left join p.votingUsers as vu", "count(vu) DESC, lower(p.name)", "p"));
 	}
-	
+
 	@Override
 	public Product getFullProductById(final int productId) {
 		final TypedQuery<Product> query = em.createQuery("from Product as p join fetch p.creator as pc where p.id = :productId", Product.class);
@@ -59,7 +77,7 @@ public class ProductHibernateDao implements ProductDao {
 	
 	@Override
 	public List<Product> getPlainProductsByUserId(final int userId) {
-		final TypedQuery<Product> query = em.createQuery("from Product as p where p.creator.userId = :userId ORDER BY uploadDate DESC", Product.class);
+		final TypedQuery<Product> query = em.createQuery("from Product as p where p.creator.userId = :userId ORDER BY p.uploadDate DESC", Product.class);
 		query.setParameter("userId", userId);
 		
 		return query.getResultList();
@@ -95,39 +113,6 @@ public class ProductHibernateDao implements ProductDao {
 	}
 
     @Override
-    public List<Product> getPlainProductsRange(final int offset, final int length) {
-    	final TypedQuery<Product> query = em.createQuery("from Product as p ORDER BY p.uploadDate DESC", Product.class);
-    	
-        return pagedResult(query, offset, length);
-    }
-
-    @Override
-    public List<Product> getPlainProductsRangeByCategory(final Category category, final int offset, final int length) {
-    	final TypedQuery<Product> query = em.createQuery("from Product as p where p.category = :category ORDER BY p.uploadDate DESC", Product.class);
-    	query.setParameter("category", category);
-    	
-        return pagedResult(query, offset, length);
-    }
-    
-	@Override
-	public List<Product> getPlainProductsRangePopularity(final int offset, final int length) {
-    	final TypedQuery<Product> query = em.createQuery("select p from Product as p left join p.votingUsers as vu "
-    			+ "GROUP BY p ORDER BY count(vu) DESC, lower(p.name)", Product.class);
-    	
-        return pagedResult(query, offset, length);
-	}
-	
-	@Override
-	public List<Product> getPlainProductsRangePopularityByCategory(final Category category, final int offset, final int length) {
-    	final TypedQuery<Product> query = em.createQuery("select p from Product as p left join p.votingUsers as vu "
-    			+ "where p.category = :category GROUP BY p ORDER BY count(vu) DESC, lower(p.name)", Product.class);
-    	query.setParameter("category", category);
-    	
-    	
-        return pagedResult(query, offset, length);
-	}
-
-    @Override
     public int getTotalProducts() {
     	final TypedQuery<Long> query = em.createQuery("select count(*) from Product as p", Long.class);
     	final Long total = query.getSingleResult();
@@ -154,21 +139,6 @@ public class ProductHibernateDao implements ProductDao {
 		return product == null ? false : true;
 	}
 
-    @Override
-    public List<Product> getPlainProductsRangeAlphabetically(final int offset, final int length) {
-    	final TypedQuery<Product> query = em.createQuery("from Product as p ORDER BY lower(p.name)", Product.class);
-    	
-        return pagedResult(query, offset, length);
-    }
-
-    @Override
-    public List<Product> getPlainProductsRangeAlphabeticallyByCategory(final Category category, final int offset, final int length) {
-    	final TypedQuery<Product> query = em.createQuery("from Product as p where p.category = :category ORDER BY lower(p.name)", Product.class);
-      	query.setParameter("category", category);
-      	 
-        return pagedResult(query, offset, length);
-    }
-
 	@Override
 	public List<Product> getPlainProductsByKeyword(final String keyword, final int maxLength) {
 		final String firstWordKeyword = keyword+"%";
@@ -193,4 +163,50 @@ public class ProductHibernateDao implements ProductDao {
     	query.setMaxResults(length);
     	return query.getResultList();
     }
+
+	@Override
+	public List<Product> getPlainProductsRangeByCategory(final Category category, final ProductSortCriteria sortCriteria, 
+			final int offset, final int length) {
+		
+		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductWithCategoryTemplate);
+		final TypedQuery<Product> query = em.createQuery(strQuery, Product.class);
+		query.setParameter("category", category);
+		
+		return pagedResult(query, offset, length);
+	}
+
+	@Override
+	public List<Product> getPlainProductsRange(final ProductSortCriteria sortCriteria, final int offset, final int length) {
+		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductTemplate);
+		final TypedQuery<Product> query = em.createQuery(strQuery, Product.class);
+		
+		return pagedResult(query, offset, length);
+	}
+	
+	private static class ProductSortCriteriaClause {
+		private final Map<String, String> valuesMap;
+		private final StrSubstitutor substitutor;
+
+		public ProductSortCriteriaClause(final String orderClause) {
+			valuesMap = new HashMap<>();
+			valuesMap.put("join", StringUtils.EMPTY);
+			valuesMap.put("group", StringUtils.EMPTY);
+			valuesMap.put("order", orderClause);
+			
+			substitutor = new StrSubstitutor(valuesMap);
+		}
+		
+		public ProductSortCriteriaClause(final String joinClause, final String orderClause, final String groupClause) {
+			valuesMap = new HashMap<>();
+			valuesMap.put("join", joinClause);
+			valuesMap.put("order", orderClause);
+			valuesMap.put("group", "GROUP BY " + groupClause);
+			
+			substitutor = new StrSubstitutor(valuesMap);
+		}
+		
+		public String injectIntoTemplate(final String template) {
+			return substitutor.replace(template);
+		}
+	}
 }
