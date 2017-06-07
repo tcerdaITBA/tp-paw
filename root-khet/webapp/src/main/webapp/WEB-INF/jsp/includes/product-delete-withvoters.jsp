@@ -8,7 +8,7 @@
 				<p><c:out value="${product.name}"/></p>
 			</div>
 			<sec:authorize access="isAuthenticated()">
-				<c:if test="${loggedUser.userId == profileUser.userId}">
+				<c:if test="${loggedUser.userId == creator.userId}">
 					<div class="col-md-2">
 						<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button pull-right"></span>
 					</div>
