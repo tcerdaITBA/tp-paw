@@ -21,5 +21,5 @@ $(document).ready(function() {
 		$('#feedbackDeleteModal').modal('show');
 
 	if(imgFeedback)
-		glowObject($('.profile-img'));
+		glowObject($('.profile-img'));	
 });
