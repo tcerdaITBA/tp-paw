@@ -14,6 +14,11 @@
     <c:when test="${empty currentCategory}"><c:set var="pageTitle" value="default.title"/></c:when>
     <c:otherwise><c:set var="pageTitle" value="default.title.${currentCategory.lowerName}"/></c:otherwise>
 </c:choose>
+
+<c:set var="orderQuery" value="&orderBy=${productOrder.lowerName}"/>
+<c:if test="${not empty currentCategory}">
+    <c:set var="categoryQuery" value="&category=${currentCategory.name}" />
+</c:if>
     
 <title><spring:message code="${pageTitle}" /></title>
 <link
@@ -63,14 +68,14 @@
 							<ul class="nav nav-pills nav-stacked categoryBox">
 								<c:set var="active" value="${empty currentCategory}"/>
 								<li role="presentation" class="${active ? 'active' : 'none'}">
-										<a href="<c:url value="/"/>">
+										<a href="<c:url value="/?${orderQuery}"/>">
 										<div class="col-md-5"></div>
 										<spring:message code="category.all"/></a>
 								</li>
 							<c:forEach items="${categories}" var="category">
 						     <c:set var="active" value="${category eq currentCategory}"/>
 								<li role="presentation" class="${active ? 'active' : 'none'}">					
-									<a href="<c:url value="/category/${category.lowerName}"/>">
+									<a href="<c:url value="/?category=${category.name}${orderQuery}"/>">
 									<div class="col-md-5">
 										<img class="icon" src="<c:url value="/resources/img/${category.lowerName}.svg"/>"/>
 									</div>

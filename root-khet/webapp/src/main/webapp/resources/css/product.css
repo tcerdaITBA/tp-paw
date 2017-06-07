@@ -239,6 +239,10 @@
 	padding: 10px 2px;
 }
 
+.voters-popover-btn:focus{
+	outline: none !important;
+
+}
 .voter-span:hover {
 	cursor: pointer;
 }
