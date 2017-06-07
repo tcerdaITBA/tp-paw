@@ -8,9 +8,5 @@ $(document).ready(function(){
     };
         
     if (gotoProduct)
-		$('#product' + gotoProduct).goTo();
-
-	$('.popover-btn').on('click', function() {
-		return false;
-	});
+			$('#product' + gotoProduct).goTo();
 });

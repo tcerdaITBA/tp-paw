@@ -45,17 +45,7 @@ $(document).ready(function(){
 		replyform.goTo();
 	});	
 	
-	$('[data-toggle="popover"]').popover({
-		trigger: 'focus',
-		placement: 'bottom',
-		html: true,
-	});
-	
 	$(function () {
 		  $('[data-toggle="tooltip"]').tooltip()
 	})
-	
-	$('.popover-btn').on('click', function() {
-		return false;
-	});
 });
