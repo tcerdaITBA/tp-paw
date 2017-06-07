@@ -370,3 +370,7 @@
     box-shadow: 0 0 2px rgba(0, 0, 0, .8);
     object-fit: contain;
 }
+
+.product-list-item:hover {
+	border-color: #f3f3f3 !important;
+}
