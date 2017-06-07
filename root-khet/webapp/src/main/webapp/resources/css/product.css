@@ -227,6 +227,10 @@
 	padding-right: 0px;
 }
 
+.voters-holder a {
+	text-decoration: none !important;
+}
+
 .voters-img {
  	margin-right: 0px;
 }
