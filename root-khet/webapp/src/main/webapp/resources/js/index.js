@@ -10,7 +10,7 @@ $(document).ready(function(){
     if (gotoProduct)
 		$('#product' + gotoProduct).goTo();
 
-	$('.upvote-btn').on('click', function() {
+	$('.popover-btn').on('click', function() {
 		return false;
 	});
 });

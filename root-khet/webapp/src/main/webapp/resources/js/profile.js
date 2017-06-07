@@ -27,7 +27,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$('.upvote-btn').on('click', function() {
+	$('.popover-btn').on('click', function() {
 		return false;
 	});
 });

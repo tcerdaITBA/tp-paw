@@ -30,7 +30,7 @@
 					</form:form>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
-					<button class="btn btn-default upvote-btn" data-toggle="popover" data-trigger="focus" 
+					<button class="btn btn-default upvote-btn popover-btn" data-toggle="popover" data-trigger="focus" 
 					data-content="<p class='popover-msg'>
 					 <span><spring:message code="upVote.toPost"/></span>
 					 <a href='<c:url value="/login"/>'> 

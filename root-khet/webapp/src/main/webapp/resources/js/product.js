@@ -55,7 +55,7 @@ $(document).ready(function(){
 		  $('[data-toggle="tooltip"]').tooltip()
 	})
 	
-	$('.upvote-btn').on('click', function() {
+	$('.popover-btn').on('click', function() {
 		return false;
 	});
 });
