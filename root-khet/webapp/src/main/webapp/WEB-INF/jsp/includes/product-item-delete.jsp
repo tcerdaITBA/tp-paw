@@ -4,9 +4,16 @@
 	</div>
 	<div class="col-md-9 product-info-box">
 		<div class="row product-name">
-			<div class="col-md-12 capitalize-firstLetter">
+			<div class="col-md-10 capitalize-firstLetter">
 				<p><c:out value="${product.name}"/></p>
 			</div>
+			<sec:authorize access="isAuthenticated()">
+				<c:if test="${loggedUser.userId == profileUser.userId}">
+					<div class="col-md-2">
+						<span id="delete${product.id}" data-product-id="${product.id}" class="glyphicon glyphicon-trash delete-product-button pull-right"></span>
+					</div>
+				</c:if>
+			</sec:authorize>
 		</div>
 		<div class="row product-short-description">
 			<div class="col-md-12 capitalize-firstLetter">
