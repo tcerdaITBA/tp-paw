@@ -120,7 +120,7 @@
 								 <span> <spring:message code="navBar.signIn"/></span>
 								 </a>
 								 <span><spring:message code="navBar.toPostBis"/></span>
-								 <a href='<c:url value="/signup"/>'> 
+								 <a href='<c:url value="/register"/>'> 
 								 <span> <spring:message code="navBar.signUp"/></span>
 								 </a>
 								 </p>" id="upload-popover"><spring:message code="navBar.postButton" /></a>
