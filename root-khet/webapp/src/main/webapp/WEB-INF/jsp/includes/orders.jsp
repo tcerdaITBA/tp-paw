@@ -12,8 +12,8 @@
 				<spring:message code="index.order.popular"/>
 			</a>
 			<span class="order-divider"></span>
-			<c:set var="selected" value="${productOrder == 'alphabethically'}"/>
-			<a class="order-btn ${selected ? 'selected':''}" href="<c:url value="?orderBy=alphabethically"/>">
+			<c:set var="selected" value="${productOrder == 'alphabetically'}"/>
+			<a class="order-btn ${selected ? 'selected':''}" href="<c:url value="?orderBy=alphabetically"/>">
 				<spring:message code="index.order.atoz"/>
 			</a>
 		</div>
