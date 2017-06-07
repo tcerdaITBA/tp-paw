@@ -8,9 +8,12 @@ import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,8 +46,10 @@ public class User implements Comparable<User> {
 	@Column(nullable = false, columnDefinition = "bytea")
 	private byte[] profilePicture;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "votes")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "votes",
+			   joinColumns = @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT)),
+			   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false), foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT))
 	@OrderBy("name ASC")
 	private SortedSet<Product> votedProducts = new TreeSet<>();  // mutable
 	
