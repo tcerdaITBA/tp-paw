@@ -62,7 +62,8 @@ public class ProfileController {
 				
 		mav.addObject("profileUser", user);
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
-		mav.addObject("votedProducts", userService.getUserWithVotedProductsById(userId).getVotedProducts());
+		System.out.println(user.getVotedProducts());
+		mav.addObject("votedProducts", user.getVotedProducts());
 		return mav;
 	}
 	

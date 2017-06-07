@@ -124,7 +124,7 @@
 
 								<div id="votedProducts-pane" class="tab-pane fade row result-for-products ${activeTab ? 'active in' : 'none' }">
 									<c:choose>
-											<c:when test="${products.isEmpty()}">
+											<c:when test="${votedProducts.isEmpty()}">
 												<div class="zrp" id="user-products-zrp">
 													<h2><spring:message code="userZRP.empty"/></h2>
 													<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
@@ -133,9 +133,8 @@
 											<c:otherwise>
 											<div class="col-md-12 product-list">
 												<c:forEach items="${votedProducts}" var="product">
-													<%@include file="includes/deleteModal.jsp"%></%@include>
 													<a href="<c:url value="/product/${product.id}"/>">
-														<%@include file="includes/product-item-delete.jsp"%></%@include>
+														<%@include file="includes/product-item.jsp"%></%@include>
 													</a>
 												</c:forEach>
 											</div>
