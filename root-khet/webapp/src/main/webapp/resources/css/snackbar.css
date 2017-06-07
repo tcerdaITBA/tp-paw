@@ -1,4 +1,4 @@
-#delete-snackbar {
+#delete-snackbar, #password-change-snackbar {
 	visibility: hidden;
 	min-width: 250px;
 	margin-left: -125px;
@@ -9,7 +9,7 @@
 	font-size: 1.2em;
 }
 
-#delete-snackbar.show {
+#delete-snackbar.show, #password-change-snackbar.show {
 	visibility: visible;
 	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
 	animation: fadein 0.5s, fadeout 0.5s 2.5s;

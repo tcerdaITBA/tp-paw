@@ -83,3 +83,7 @@
 .nav-pills {
 	margin-bottom: 1em;
 }
+
+#password-change-snackbar {
+	display: hidden;
+}
