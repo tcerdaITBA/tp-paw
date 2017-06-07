@@ -26,8 +26,4 @@ $(document).ready(function() {
 		$('#deleteModal' + $(this).data('product-id')).modal('show');
 		return false;
 	});
-	
-	$('.popover-btn').on('click', function() {
-		return false;
-	});
 });

@@ -45,12 +45,6 @@ $(document).ready(function(){
 		replyform.goTo();
 	});	
 	
-	$('[data-toggle="popover"]').popover({
-		trigger: 'focus',
-		placement: 'bottom',
-		html: true,
-	});
-	
 	$(function(){
 	    $('[rel="popover"]').popover({
 	        container: 'body',
@@ -82,4 +76,5 @@ $(document).ready(function(){
 	$('.popover-btn').on('click', function() {
 		return false;
 	});
+
 });
