@@ -101,6 +101,8 @@
 .upvote-btn.voted {
 	background-color: #F64763;
 	border-color: #F64763;
+	position: relative;
+	left: 27px;
 }
 
 .upvote-btn.voted p {
