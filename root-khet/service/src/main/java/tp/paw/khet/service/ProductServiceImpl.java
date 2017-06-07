@@ -82,13 +82,14 @@ public class ProductServiceImpl implements ProductService {
     	return productDao.deleteProductById(productId);
     }
 
+    //TODO: Arreglar para que devuelva todos y haga la interseccion entre estos no una cantidad maxLength
 	@Override
 	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
-	    String[] splitted = keyword.trim().split(" ");
-	    List<Product> result = productDao.getPlainProductsByKeyword(splitted[0], maxLength);
+	    final String[] splitted = keyword.trim().split(" ");
+	    final List<Product> result = productDao.getPlainProductsByKeyword(splitted[0], maxLength);
 
 	    for (int i = 1; i < splitted.length; i++) {
-	        if (splitted[i].length() > 3)
+	        if (splitted[i].length() >= 3)
 	            result.retainAll(productDao.getPlainProductsByKeyword(splitted[i], maxLength));
 	    }
 	   

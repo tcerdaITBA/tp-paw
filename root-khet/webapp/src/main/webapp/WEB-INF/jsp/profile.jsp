@@ -157,4 +157,5 @@
 
 		<script src="<c:url value="/resources/js/profile.js" />"></script>		
 		<script src="<c:url value="/resources/js/upload-form.js"/>"></script>
+		<script src="<c:url value="/resources/js/product-list.js" />"></script>
 	</html>
