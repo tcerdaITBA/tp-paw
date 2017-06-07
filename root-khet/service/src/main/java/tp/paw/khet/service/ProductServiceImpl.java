@@ -1,5 +1,7 @@
 package tp.paw.khet.service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -133,6 +135,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
-		return productDao.getPlainProductsByKeyword(keyword, maxLength);
+	    String[] splitted = keyword.trim().split(" ");
+	    List<Product> result = productDao.getPlainProductsByKeyword(splitted[0], maxLength);
+
+	    for (int i = 1; i < splitted.length; i++) {
+	        if (splitted[i].length() > 3)
+	            result.retainAll(productDao.getPlainProductsByKeyword(splitted[i], maxLength));
+	    }
+	   
+		return result;
 	}
 }
