@@ -127,7 +127,7 @@
 											<c:when test="${votedProducts.isEmpty()}">
 												<div class="zrp" id="user-products-zrp">
 													<h2><spring:message code="userZRP.empty"/></h2>
-													<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+													<h3><spring:message code="userZRP.noVotedProducts" arguments="${capitalizedUserName}"/></h3>
 												</div>
 											</c:when>
 											<c:otherwise>
