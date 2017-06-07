@@ -1,11 +1,4 @@
 $(document).ready(function(){
-//	var currentHash = window.location.hash.substr(1);
-//	
-//	if (!currentHash)
-//		location.hash = "goBack";
-//	else if (currentHash === "goBack")
-//		history.back();
-	
 	$.fn.goTo = function() {
 		var offset = 100;
         $('html, body').animate({
@@ -45,6 +38,10 @@ $(document).ready(function(){
 		replyform.goTo();
 	});	
 	
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+	})
+		
 	$(function(){
 	    $('[rel="popover"]').popover({
 	        container: 'body',

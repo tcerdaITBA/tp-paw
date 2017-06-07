@@ -156,3 +156,7 @@
 .adjust-right {
 	padding-right: 0;
 }
+
+.voters-popover-btn {
+	margin-right: 1em;
+}

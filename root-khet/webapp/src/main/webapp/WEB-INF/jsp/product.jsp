@@ -52,9 +52,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-10 col-md-offset-1 info-section">
                 <div class="row">
-					<%@include file="includes/product-delete-withvoters.jsp" %>
+									<div class="col-md-7">
+										<%@include file="includes/product-delete-withvoters.jsp" %></%@include>
+									</div>
                     <div class="col-md-4 col-md-offset-1 creator-item highlighted">
                         <div class="row">
                             <div class="col-md-12">

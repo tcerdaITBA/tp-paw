@@ -74,9 +74,12 @@
 .creator-item {
 	background-color: white;
 	padding: 10px 20px;
-	margin-top: 20px;
 	border-color: #337ab7;
 	word-wrap: break-word;
+}
+
+.info-section {
+	margin-top: 20px;
 }
 
 .long-description p {
@@ -305,21 +308,6 @@
 
 .comment-and-replies {
 	padding: 10px 30px;
-}
-
-.delete-product-button {
-	font-size: 1.4em;
-	color: #888a85;
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	z-index: 5;
-}
-
-.delete-product-button:hover, .delete-product-button:focus {
-	color: #ef2929;
-	text-decoration: none;
-	cursor: pointer;
 }
 
 .votersModalDialog {
