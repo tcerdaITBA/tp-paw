@@ -45,7 +45,7 @@ public class ProductHibernateDao implements ProductDao {
 	private void initProductSortCriteriaClauseMap() {
 		productSortCriteriaClauseMap.put(ProductSortCriteria.ALPHABETICALLY, new ProductSortCriteriaClause("lower(p.name)"));
 		
-		productSortCriteriaClauseMap.put(ProductSortCriteria.MOST_RECENT, new ProductSortCriteriaClause("p.uploadDate DESC"));		
+		productSortCriteriaClauseMap.put(ProductSortCriteria.RECENT, new ProductSortCriteriaClause("p.uploadDate DESC"));		
 		
 		productSortCriteriaClauseMap.put(ProductSortCriteria.POPULARITY, 
 				new ProductSortCriteriaClause("left join p.votingUsers as vu", "count(vu) DESC, lower(p.name)", "p"));

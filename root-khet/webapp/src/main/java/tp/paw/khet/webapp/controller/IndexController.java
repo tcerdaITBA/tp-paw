@@ -32,7 +32,7 @@ public class IndexController {
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") final int page, 
 	        @RequestParam(value="orderBy", required = false, defaultValue = "recent") final ProductSortCriteria sortCriteria,
-	        @RequestParam(value="category", required = false) final Optional<Category> category) 
+	        @RequestParam(value="category", required = false) final Optional<Category> category)
 			throws ResourceNotFoundException {
 	    
 		LOGGER.debug("Accessed index with page {}", page);
@@ -53,7 +53,7 @@ public class IndexController {
 		mav.addObject("categories", Category.values());
 		
 		if (category.isPresent())
-			mav.addObject("currentCategory", category);
+			mav.addObject("currentCategory", category.get());
 		
 		return mav;
 	}
@@ -69,7 +69,7 @@ public class IndexController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Category.class,new CaseInsensitiveConverter<>(Category.class));
 		binder.registerCustomEditor(ProductSortCriteria.class, new CaseInsensitiveConverter<>(ProductSortCriteria.class));
+		binder.registerCustomEditor(Category.class, new CaseInsensitiveConverter<>(Category.class));
 	}
 }

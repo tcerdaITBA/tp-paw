@@ -80,7 +80,7 @@
                                      </div>
                                      <div class="row">
                                         <div class="col-md-3">
-                                         	<a href="<c:url value="/category/${product.category.lowerName}"/>" class="product-category">
+                                         	<a href="<c:url value="/?category=${product.category.name}"/>" class="product-category">
  												<div class="categoryTag">
  													<p><spring:message code="category.${product.category.lowerName}"/></p>
  												</div>
