@@ -44,12 +44,42 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Autowired
 	private Environment env;
-
+	
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setViewClass(JstlView.class);
+		resolver.setPrefix("/WEB-INF/jsp/");
+		resolver.setSuffix(".jsp");
+		
+		return resolver;
+	}
+	
+	@Profile("dev")
+	public DataSource dataSource() {
+		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
+		ds.setDriverClass(org.postgresql.Driver.class);
+		ds.setUrl("jdbc:postgresql://localhost/tp-paw");
+		ds.setUsername("root");
+		ds.setPassword("root");
+		return ds;
+	}
+	
+	@Profile("live")
+	public DataSource liveDataSource() {
+		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
+		ds.setDriverClass(org.postgresql.Driver.class);
+		ds.setUrl("jdbc:postgresql://localhost/paw-2017a-2");
+		ds.setUsername("paw-2017a-2");
+		ds.setPassword("aipeik3W");
+		return ds;
+	}
+	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setPackagesToScan("tp.paw.khet.model");
-		factoryBean.setDataSource(dataSource());
+		factoryBean.setDataSource(env.acceptsProfiles("dev") ? dataSource() : liveDataSource());
 		
 		final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		factoryBean.setJpaVendorAdapter(vendorAdapter);
@@ -65,38 +95,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		
 		factoryBean.setJpaProperties(properties);
 		return factoryBean;
-	}
-	
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setViewClass(JstlView.class);
-		resolver.setPrefix("/WEB-INF/jsp/");
-		resolver.setSuffix(".jsp");
-		
-		return resolver;
-	}
-	
-	@Bean
-	@Profile("dev")
-	public DataSource dataSource() {
-		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
-		ds.setDriverClass(org.postgresql.Driver.class);
-		ds.setUrl("jdbc:postgresql://localhost/tp-paw");
-		ds.setUsername("root");
-		ds.setPassword("root");
-		return ds;
-	}
-	
-	@Bean
-	@Profile("live")
-	public DataSource liveDataSource() {
-		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
-		ds.setDriverClass(org.postgresql.Driver.class);
-		ds.setUrl("jdbc:postgresql://localhost/paw-2017a-2");
-		ds.setUsername("paw-2017a-2");
-		ds.setPassword("aipeik3W");
-		return ds;
 	}
 	
 	@Bean
