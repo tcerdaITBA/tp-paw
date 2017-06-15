@@ -14,7 +14,7 @@ import tp.paw.khet.service.ProductService;
 @ControllerAdvice
 public class ProductControllerAdvice {
 
-	private static final int TOP = 3;
+	public static final int TOP = 3;
 	
 	@Autowired
 	private ProductService productService;
