@@ -1,6 +1,7 @@
 package tp.paw.khet.service;
 
 import tp.paw.khet.model.FavList;
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 
 public interface FavListService {
@@ -25,4 +26,18 @@ public interface FavListService {
 	 * @return FavList with the associated ID or null if it doesn't exist
 	 */
 	public FavList getFavListById(int favListId);
+
+	/**
+	 * Adds a {@link Product} to a {@link FavList}
+	 * @param favListId - ID of the favList
+	 * @param productId - ID of the product which should be added to favList
+	 */
+	public void addProductToFavList(int favListId, int productId);
+	
+	/**
+	 * Removes a {@link Product} from a {@link FavList}.
+	 * @param favListId - ID of the favList
+	 * @param productId - ID of the product to remove from favList
+	 */
+	public void removeProductFromFavList(int favListId, int productId);
 }

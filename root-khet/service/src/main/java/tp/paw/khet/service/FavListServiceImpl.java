@@ -15,18 +15,21 @@ public class FavListServiceImpl implements FavListService {
 	private UserService userService;
 	
 	@Autowired
+	private ProductService productService;
+	
+	@Autowired
 	private FavListDao favListDao;
 
 	@Override
 	@Transactional
-	public FavList createFavList(String name, int creatorId) {
+	public FavList createFavList(final String name, final int creatorId) {
 		final User creator = userService.getUserById(creatorId);
 		return creator.createFavList(name);		
 	}
 
 	@Override
 	@Transactional
-	public void deleteFavList(int favListId) {
+	public void deleteFavList(final int favListId) {
 		final FavList favList = favListDao.getFavListById(favListId); // TODO: cequear por null
 		final User creator = favList.getCreator();
 		
@@ -34,8 +37,20 @@ public class FavListServiceImpl implements FavListService {
 	}
 
 	@Override
-	public FavList getFavListById(int favListId) {
+	public FavList getFavListById(final int favListId) {
 		return favListDao.getFavListById(favListId);
+	}
+	
+	@Override
+	@Transactional
+	public void addProductToFavList(final int favListId, final int productId) {
+		getFavListById(favListId).addProduct(productService.getPlainProductById(productId));
+	}
+
+	@Override
+	@Transactional
+	public void removeProductFromFavList(int favListId, int productId) {
+		getFavListById(favListId).removeProduct(productService.getPlainProductById(productId));
 	}
 
 }
