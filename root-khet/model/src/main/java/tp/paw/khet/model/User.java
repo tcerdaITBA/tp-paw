@@ -100,8 +100,16 @@ public class User {
 		return password;
 	}
 	
+	public void setPassword(final String password) {
+		this.password = notEmpty(password, "User password must have at least one character");		
+	}
+	
 	public byte[] getProfilePicture() {
 		return profilePicture;
+	}
+	
+	public void setProfilePicture(final byte[] profilePicture) {
+		this.profilePicture = notEmptyByteArray(profilePicture, "Profile picture array cannot be null", "Profile picture array cannot be empty");		
 	}
 	
 	public SortedSet<Product> getVotedProducts() {
@@ -110,22 +118,16 @@ public class User {
 	
 	public void voteProduct(final Product product) {
 		votedProducts.add(product);
+		product.addVoter(this);
 	}
 	
 	public void unvoteProduct(final Product product) {
 		votedProducts.remove(product);
-	}
-
-	public void setPassword(final String password) {
-		this.password = notEmpty(password, "User password must have at least one character");		
-	}
-	
-	public void setProfilePicture(final byte[] profilePicture) {
-		this.profilePicture = notEmptyByteArray(profilePicture, "Profile picture array cannot be null", "Profile picture array cannot be empty");		
+		product.removeVoter(this);
 	}
 	
 	public SortedSet<FavList> getFavLists() {
-		return Collections.unmodifiableSortedSet(favLists);
+		return favLists;
 	}
 	
 	public FavList createFavList(final String name) {

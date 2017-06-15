@@ -167,14 +167,22 @@ public class Product {
 	}
 	
 	public SortedSet<User> getVotingUsers() {
-		return votingUsers;
+		return votingUsers;  // EL implementation bug on calling .contains() in includes/product-item.jsp forbids returning and unmodifiable view.
+							 // See https://stackoverflow.com/questions/25020756/java-lang-illegalaccessexception-can-not-access-a-member-of-class-java-util-col
+	}
+	
+	public void addVoter(User user) {
+		votingUsers.add(user);
+	}
+
+	public void removeVoter(User user) {
+		votingUsers.remove(user);
 	}
 	
 	public int getVotesCount() {
 		return getVotingUsers().size();
 	}
 	
-	//TODO: esto es porq hibernate no coloca el ON DELETE CASCADE sobre la FOREIGN KEY de productId en la tabla Votes
 	@PreRemove
 	private void removeProductFromUserVotedProducts() {
 		for (User u : getVotingUsers())
