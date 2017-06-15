@@ -55,7 +55,7 @@ public class User implements Comparable<User> {
 	@OrderBy("name ASC")
 	private SortedSet<Product> votedProducts;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", orphanRemoval = true, cascade=CascadeType.ALL)
 	@OrderBy("creationDate DESC")
 	private SortedSet<FavList> favLists;
 	

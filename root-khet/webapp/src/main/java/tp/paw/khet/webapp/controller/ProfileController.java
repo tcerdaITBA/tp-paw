@@ -28,7 +28,7 @@ import tp.paw.khet.webapp.form.FormChangePicture;
 import tp.paw.khet.webapp.form.FormFavList;
 
 @Controller
-@SessionAttributes(value={"changePasswordForm","changeProfilePictureForm"})
+@SessionAttributes(value={"changePasswordForm","changeProfilePictureForm","createFavListForm"})
 public class ProfileController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
@@ -69,6 +69,7 @@ public class ProfileController {
 		mav.addObject("profileUser", user);
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
 		mav.addObject("votedProducts", user.getVotedProducts());
+		mav.addObject("favlistSet", user.getFavLists());
 		return mav;
 	}
 	

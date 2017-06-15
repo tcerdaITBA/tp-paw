@@ -95,6 +95,8 @@
 
 											<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${fn:length(products)}"/></span></a></li>
 											<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${fn:length(votedProducts)}"/></span></a></li>
+											<li role="presentation" class="none"><a href="#favList-pane" data-toggle="tab"><spring:message code="Profile.Tab.favlist"/><span class="badge tab-badge"><c:out value="${fn:length(favlistSet)}"/></span></a></li>
+											
 										</ul>
 									</div>
 								</div>
@@ -139,6 +141,38 @@
 											</div>
 										</c:otherwise>
 									</c:choose>		
+								</div>
+							
+								<div id="favList-pane" class="tab-pane fade row result-for-products none">
+									
+									<sec:authorize access="isAuthenticated()">
+										<c:if test="${loggedUser.userId == profileUser.userId}">
+											<button class="voters-popover-btn" rel="popover" data-popover-content="#favlistPopover" data-placement="bottom"  >
+												<spring:message code="Profile.createFavLists"></spring:message>
+											</button>
+											
+											<%@include file="includes/FavListPopOver.jsp" %>
+										</c:if>
+									</sec:authorize>
+									
+									<c:choose>
+										<c:when test="${empty favlistSet}">
+											<div class="zrp" id="user-products-zrp">
+												<h2><spring:message code="userZRP.empty"/></h2>
+												<h3><spring:message code="userZRP.noFavLists" arguments="${capitalizedUserName}"/></h3>
+											</div>
+											<c:url value="/favlist/create" var="postPath" />										
+										</c:when>
+										<c:otherwise>
+										<div class="col-md-12 product-list">
+											<c:forEach items="${favlistSet}" var="favList">
+												<a href="<c:url value="/favlist/${favList.id}"/>">
+													<c:out value="${favList.name}"></c:out>
+												</a>
+											</c:forEach>
+										</div>
+									</c:otherwise>
+									</c:choose>	
 								</div>
 							</div>
 						</div>
