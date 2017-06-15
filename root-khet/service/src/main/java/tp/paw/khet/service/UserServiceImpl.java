@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	@Transactional
 	@Override
+	@Transactional
 	public User createUser(final String userName, final String email, final String password, final byte[] profilePicture) throws DuplicateEmailException {
 		return userDao.createUser(userName, email.toLowerCase(), password, profilePicture);
 	}
@@ -28,13 +28,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Transactional  // In order to fetch lazy attributes
 	public User getUserById(final int userId) {
 		return userDao.getUserById(userId);
-	}
-
-	@Override
-	public User getUserWithVotedProductsById(int userId) {
-		return userDao.getUserWithVotedProductsById(userId);
 	}
 	
 	@Override
@@ -47,14 +43,14 @@ public class UserServiceImpl implements UserService {
 		return userDao.getProfilePictureByUserId(userId);
 	}
 
-	@Transactional
 	@Override
+	@Transactional
 	public User changePassword(final int userId, final String password) {
 		return userDao.changePassword(userId, password);
 	}
 
-	@Transactional
 	@Override
+	@Transactional
 	public User changeProfilePicture(final int userId, final byte[] profilePicture) {
 		return userDao.changeProfilePicture(userId, profilePicture);
 	}

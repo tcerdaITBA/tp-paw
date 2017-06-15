@@ -33,13 +33,6 @@ public interface UserDao {
 	public User getUserById(int userId);
 	
 	/**
-	 * Retrieves an {@link User} populated with the {@link List} of the voted products
-	 * @param userId - ID of the user
-	 * @return The corresponding {@link User} or null if it doesn't exist
-	 */
-	public User getUserWithVotedProductsById(int userId);
-	
-	/**
 	 * Retrieves a {@link List} of {@User} given a keyword.
 	 * The keyword should match the user's name.
 	 * @param keyword - The keyword which should be matched

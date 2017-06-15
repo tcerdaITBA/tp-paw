@@ -53,7 +53,7 @@ public class ProfileController {
 		LOGGER.debug("Accessed user profile with ID: {}", userId);
 		
 		final ModelAndView mav = new ModelAndView("profile");
-		final User user = userService.getUserWithVotedProductsById(userId);
+		final User user = userService.getUserById(userId);
 				
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile: user ID not found: {}", userId);
@@ -62,7 +62,6 @@ public class ProfileController {
 				
 		mav.addObject("profileUser", user);
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
-		System.out.println(user.getVotedProducts());
 		mav.addObject("votedProducts", user.getVotedProducts());
 		return mav;
 	}
