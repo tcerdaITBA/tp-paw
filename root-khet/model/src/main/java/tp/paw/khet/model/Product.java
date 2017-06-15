@@ -31,10 +31,13 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.hibernate.annotations.SortComparator;
+
+import tp.paw.khet.model.comparator.UserAlphaComparator;
 
 @Entity
 @Table(name = "products")
-public class Product implements Comparable<Product> {
+public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_productid_seq")
@@ -76,7 +79,7 @@ public class Product implements Comparable<Product> {
 	private List<ProductImage> images;
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
-	@OrderBy("name ASC")
+	@SortComparator(UserAlphaComparator.class)
 	private SortedSet<User> votingUsers;
 	
 	@Transient
@@ -178,17 +181,6 @@ public class Product implements Comparable<Product> {
 			u.getVotedProducts().remove(this);
 	}
 	
-	// TODO: es para hibernate que necesita que sea Comparable. No pude hacer que use un Comparator
-	@Override
-	public int compareTo(Product o) {
-		int cmp = getName().compareTo(o.getName());
-		
-		if (cmp == 0)
-			return Integer.compare(getId(), o.getId());
-		
-		return cmp;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -224,7 +216,7 @@ public class Product implements Comparable<Product> {
 		private List<CommentFamily> commentFamilies = Collections.emptyList();
 		private List<Video> videos = Collections.emptyList();
 		private List<ProductImage> images = Collections.emptyList();
-		private SortedSet<User> votingUsers = new TreeSet<>();  // mutable
+		private SortedSet<User> votingUsers = new TreeSet<>(new UserAlphaComparator());  // mutable
 
 		private ProductBuilder(String name, String shortDescription) {
 			this.name = name;

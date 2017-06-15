@@ -22,13 +22,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SortComparator;
+
+import tp.paw.khet.model.comparator.FavListDateComparator;
+import tp.paw.khet.model.comparator.ProductAlphaComparator;
+
 @Entity
 @Table(name = "users")
-public class User implements Comparable<User> {
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_userid_seq")
@@ -52,11 +56,11 @@ public class User implements Comparable<User> {
 	@JoinTable(name = "votes",
 			   joinColumns = @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "user_id_contraint")),
 			   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_contraint")))
-	@OrderBy("name ASC")
+	@SortComparator(ProductAlphaComparator.class)
 	private SortedSet<Product> votedProducts;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", orphanRemoval = true)
-	@OrderBy("creationDate DESC")
+	@SortComparator(FavListDateComparator.class)
 	private SortedSet<FavList> favLists;
 	
 	// Hibernate
@@ -70,7 +74,8 @@ public class User implements Comparable<User> {
 		this.userId = userId;
 		this.name = notBlank(name, "User name must have at least one non empty character");
 		this.email = notBlank(email, "User email must have at least one non empty character");
-		this.votedProducts = new TreeSet<>();
+		this.votedProducts = new TreeSet<>(new ProductAlphaComparator());
+		this.favLists = new TreeSet<>(new FavListDateComparator());
 		setPassword(password);
 		setProfilePicture(profilePicture);
 	}
@@ -153,16 +158,5 @@ public class User implements Comparable<User> {
 	@Override
 	public String toString() {
 		return name + " " + email;
-	}
-
-	// TODO: es para hibernate que necesita que sea Comparable. No pude hacer que use un Comparator
-	@Override
-	public int compareTo(User o) {
-		int cmp = getName().compareTo(o.getName());
-		
-		if (cmp == 0)
-			return Integer.compare(getUserId(), o.getUserId());
-		
-		return cmp;
 	}
 }
