@@ -166,9 +166,13 @@
 										<div class="col-md-12 product-list">
 											<c:forEach items="${favlistSet}" var="favList">
 												<div class="col-md-12">
-												<a href="<c:url value="/favlist/${favList.id}"/>">
-														<div class="col-md-10">
+													<div class="col-md-10">
+														<a href="<c:url value="/favlist/${favList.id}"/>">
 															<c:out value="${favList.name}"></c:out>
+															<c:forEach items="${favList.productList}" var="product">
+																<c:out value="${product.name}"></c:out>
+															</c:forEach>						
+														</a>
 														</div>
 														<div class="col-md-2">
 															<sec:authorize access="isAuthenticated()">
@@ -183,7 +187,6 @@
 															</sec:authorize>
 														</div>
 													
-												</a>
 												</div>
 											</c:forEach>
 										</div>
