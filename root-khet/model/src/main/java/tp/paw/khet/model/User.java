@@ -131,8 +131,8 @@ public class User implements Comparable<User> {
 		return favList;
 	}
 	
-	public void deleteFavList(final FavList favList) {
-		favLists.remove(favList);
+	public boolean deleteFavList(final FavList favList) {
+		return favLists.remove(favList);
 	}
 	
 	@Override

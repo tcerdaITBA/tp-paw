@@ -49,7 +49,7 @@ public class FavList implements Comparable<FavList> {
 	   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_constraint")))
 	private List<Product> productList;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private User creator;
 	
 	public FavList(final String name, final User creator) {

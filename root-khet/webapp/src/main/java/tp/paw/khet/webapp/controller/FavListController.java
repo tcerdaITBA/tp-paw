@@ -19,7 +19,7 @@ import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.FavListService;
 import tp.paw.khet.webapp.exception.FavListNotFoundException;
-import tp.paw.khet.webapp.form.FormChangePassword;
+import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.form.FormFavList;
 
 @Controller
@@ -75,5 +75,33 @@ public class FavListController {
 		
 		return mav;
 
+	}
+	
+	@RequestMapping(value = "/favlist/delete/{favListId}", method = RequestMethod.POST)
+	public ModelAndView deleteFavList(@PathVariable final int favListId, @ModelAttribute("loggedUser") final User loggedUser) throws FavListNotFoundException, ForbiddenException{
+		
+		LOGGER.debug("Accessed delete favlist POST for product with id: {}", favListId);
+		
+		final FavList favlist = favListService.getFavListById(favListId);
+		
+		if (favlist == null) {
+			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
+			throw new FavListNotFoundException();
+		}
+		
+		final User creator = favlist.getCreator();
+		
+		if(!creator.equals(loggedUser)){
+			LOGGER.warn("Failed to delete favlist with id {}: logged user with id {} is not favlist creator with id {}", 
+					favListId, loggedUser.getUserId(), creator.getUserId());
+			throw new ForbiddenException();
+		}
+		
+		if(favListService.deleteFavList(favListId)){
+			LOGGER.info("Favlist with id {} deleted by user with id {}", favListId, loggedUser.getUserId());
+		}
+		
+		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
+		
 	}
 }
