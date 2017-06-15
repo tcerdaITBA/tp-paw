@@ -24,7 +24,7 @@
 			<link href="<c:url value="/resources/css/profile.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/customizeUser.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
-      <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
+      		<link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/zrp.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/tabs.css"/>" rel="stylesheet">
 			<link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
@@ -91,11 +91,10 @@
 								<div class="row tabs-row">
 									<div class="">
 										<ul class="nav nav-pills nav-justified profile-tabs">
-											<c:set var="activeTab" value="${products.size() == 0 && votedProducts.size() != 0 }"></c:set>
+											<c:set var="activeTab" value="${empty products && not empty votedProducts}"></c:set>
 
-
-											<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
-											<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${votedProducts.size()}"/></span></a></li>
+											<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${fn:length(products)}"/></span></a></li>
+											<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${fn:length(votedProducts)}"/></span></a></li>
 										</ul>
 									</div>
 								</div>
@@ -103,7 +102,7 @@
 							<div class="tab-content">
 								<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products ${!activeTab ? 'active in' : 'none' }">
 									<c:choose>
-										<c:when test="${products.isEmpty()}">
+										<c:when test="${empty products}">
 											<div class="zrp" id="user-products-zrp">
 												<h2><spring:message code="userZRP.empty"/></h2>
 												<h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
@@ -124,7 +123,7 @@
 
 								<div id="votedProducts-pane" class="tab-pane fade row result-for-products ${activeTab ? 'active in' : 'none' }">
 									<c:choose>
-											<c:when test="${votedProducts.isEmpty()}">
+											<c:when test="${empty votedProducts}">
 												<div class="zrp" id="user-products-zrp">
 													<h2><spring:message code="userZRP.empty"/></h2>
 													<h3><spring:message code="userZRP.noVotedProducts" arguments="${capitalizedUserName}"/></h3>
