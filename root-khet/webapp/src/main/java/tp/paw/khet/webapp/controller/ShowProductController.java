@@ -70,12 +70,12 @@ public class ShowProductController {
 		}
 		
 		final ModelAndView mav = new ModelAndView("product");
-						
+	
 		mav.addObject("product", product);
 		mav.addObject("creator", product.getCreator());
 		mav.addObject("videos", product.getVideos());
 		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
-		mav.addObject("parentcomments", commentService.getCommentsByProductId(productId));
+		mav.addObject("parentcomments", product.getCommentFamilies());
 		mav.addObject("voters", product.getVotingUsers());
 		mav.addObject("votersresume", voteService.getAlphabeticallySortedVotersFromProduct(product, VOTERS_TO_SHOW));
 		
