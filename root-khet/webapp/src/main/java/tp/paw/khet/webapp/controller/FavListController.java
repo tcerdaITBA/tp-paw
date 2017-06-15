@@ -91,13 +91,13 @@ public class FavListController {
 		
 		final User creator = favlist.getCreator();
 		
-		if(!creator.equals(loggedUser)){
+		if (!creator.equals(loggedUser)) {
 			LOGGER.warn("Failed to delete favlist with id {}: logged user with id {} is not favlist creator with id {}", 
 					favListId, loggedUser.getUserId(), creator.getUserId());
 			throw new ForbiddenException();
 		}
 		
-		if(favListService.deleteFavList(favListId)){
+		if (favListService.deleteFavList(favListId)) {
 			LOGGER.info("Favlist with id {} deleted by user with id {}", favListId, loggedUser.getUserId());
 		}
 		
