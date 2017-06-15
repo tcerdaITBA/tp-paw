@@ -19,6 +19,7 @@ import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.FavListService;
 import tp.paw.khet.webapp.exception.FavListNotFoundException;
+import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormFavList;
 
 @Controller
@@ -46,6 +47,7 @@ public class FavListController {
 		}
 		
 		favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
+		attr.addFlashAttribute("createFavListForm", new FormFavList()); // clear form
 		
 		return mav;
 	}
@@ -62,7 +64,7 @@ public class FavListController {
 		final ModelAndView mav = new ModelAndView("favList");
 		final FavList favList = favListService.getFavListById(favListId);
 		
-		if(favList == null) {
+		if (favList == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
 			throw new FavListNotFoundException();
 		}

@@ -161,7 +161,6 @@
 												<h2><spring:message code="userZRP.empty"/></h2>
 												<h3><spring:message code="userZRP.noFavLists" arguments="${capitalizedUserName}"/></h3>
 											</div>
-											<c:url value="/favlist/create" var="postPath" />										
 										</c:when>
 										<c:otherwise>
 										<div class="col-md-12 product-list">

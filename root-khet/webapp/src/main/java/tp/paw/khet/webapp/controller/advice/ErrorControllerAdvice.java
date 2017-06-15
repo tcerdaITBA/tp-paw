@@ -13,6 +13,7 @@ import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.controller.mav.ErrorMav;
+import tp.paw.khet.webapp.exception.FavListNotFoundException;
 import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.exception.ImageNotFoundException;
 import tp.paw.khet.webapp.exception.InvalidQueryException;
@@ -65,6 +66,12 @@ public class ErrorControllerAdvice {
 	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	public ModelAndView imageNotFound() {
 		return buildErrorMav("error.title.404image", "error.404image", "error.imageNotFound", "error.imageNotFoundDesc");
+	}
+	
+	@ExceptionHandler(FavListNotFoundException.class)
+	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	public ModelAndView favListNotFound() {
+		return buildErrorMav("error.title.404favList", "error.404favList", "error.favListNotFound", "error.favListNotFoundDesc");
 	}
 	
 	@ExceptionHandler(UnauthorizedException.class)

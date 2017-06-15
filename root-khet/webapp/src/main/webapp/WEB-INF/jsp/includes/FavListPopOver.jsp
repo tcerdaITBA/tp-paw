@@ -1,6 +1,7 @@
 <div id="favlistPopover" class="row hide popover-body">
 	<div class="col-md-12">
 
+	<c:url value="/favlist/create" var="postPath" />
 	<!--Formulario para crear una lista (Solo se deberia ver si soy el usuario del perfil o estoy autenticado)-->
 	<form:form modelAttribute="createFavListForm" class="favlist-form" action="${postPath}" method="post">
 	    <div class="form-group">
