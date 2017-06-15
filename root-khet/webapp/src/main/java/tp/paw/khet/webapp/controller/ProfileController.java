@@ -25,6 +25,7 @@ import tp.paw.khet.webapp.exception.UnauthorizedException;
 import tp.paw.khet.webapp.exception.UserNotFoundException;
 import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
+import tp.paw.khet.webapp.form.FormFavList;
 
 @Controller
 @SessionAttributes(value={"changePasswordForm","changeProfilePictureForm"})
@@ -39,13 +40,18 @@ public class ProfileController {
     private ProductService productService;
 
 	@ModelAttribute("changePasswordForm")
-	public FormChangePassword passwordForm(@ModelAttribute("loggedUser") final User loggedUser){
+	public FormChangePassword passwordForm(){
 		return new FormChangePassword();
 	}
 	
 	@ModelAttribute("changeProfilePictureForm")
-	public FormChangePicture pictureForm(@ModelAttribute("loggedUser") final User loggedUser){
+	public FormChangePicture pictureForm(){
 		return new FormChangePicture();
+	}
+	
+	@ModelAttribute("createFavListForm")
+	public FormFavList favListForm() {
+		return new FormFavList();
 	}
 	
 	@RequestMapping("/profile/{userId}")
