@@ -147,7 +147,7 @@
 									
 									<sec:authorize access="isAuthenticated()">
 										<c:if test="${loggedUser.userId == profileUser.userId}">
-											<button class="voters-popover-btn" rel="popover" data-popover-content="#favlistPopover" data-placement="bottom"  >
+											<button tabindex="0" class="voters-popover-btn" rel="popover" data-popover-content="#favlistPopover" data-placement="bottom" data-trigger="focus">
 												<spring:message code="Profile.createFavLists"></spring:message>
 											</button>
 											
