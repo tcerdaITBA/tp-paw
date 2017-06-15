@@ -5,9 +5,10 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title><spring:message code="error.title.404image"/></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        
+        <title><spring:message code="${errorPageTitle}"/></title>
         
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<!-- Latest compiled and minified CSS -->
@@ -18,29 +19,29 @@
 		<link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 		
-		<link href="<c:url value="/resources/css/errorcodes.css"/>" rel="stylesheet">
+		<link href="<c:url value="/resources/css/errorcodes.css"/>" rel="stylesheet">		
 		<link href="<c:url value="/resources/css/ps-buttons.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
- 
+
 	</head>
 	<body>
 	<%@include file="includes/navbar.jsp" %>
 	<div class="container">
 		<h1>
-			<spring:message code="error.404image"/>
+			<spring:message code="${errorTitle}"/>
 		</h1>
 		
 		<div class="row col-md-8 col-md-offset-2">
 			<div class="errorDescription">
 				<h2><spring:message code="error.tear"/></h2>
-				<h3><spring:message code="error.imageNotFound"/></h3>
-				<p><spring:message code="error.imageNotFoundDesc"/></p>
+				<h3><spring:message code="${errorCause}"/></h3>
+				<p><spring:message code="${errorDesc}"/></p>
 			</div>
 		</div>
 	
 	</div>
 	<%@include file="includes/footer.jsp"%>
-	<%@include file="includes/scripts.jsp"%>	
+    <%@include file="includes/scripts.jsp"%>
 	</body>
 
 </html>
