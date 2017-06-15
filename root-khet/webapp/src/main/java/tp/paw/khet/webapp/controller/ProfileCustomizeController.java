@@ -38,7 +38,7 @@ public class ProfileCustomizeController {
 	
 	@Autowired
 	private UserService userService;
-	    
+
 	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
 	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) {

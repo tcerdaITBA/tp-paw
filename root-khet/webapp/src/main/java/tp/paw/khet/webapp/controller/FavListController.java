@@ -19,7 +19,6 @@ import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.FavListService;
 import tp.paw.khet.webapp.exception.FavListNotFoundException;
-import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormFavList;
 
 @Controller

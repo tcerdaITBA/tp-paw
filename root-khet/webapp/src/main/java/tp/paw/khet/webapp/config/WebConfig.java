@@ -56,6 +56,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Profile("dev")
+	@Bean
 	public DataSource dataSource() {
 		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(org.postgresql.Driver.class);
@@ -66,6 +67,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Profile("live")
+	@Bean
 	public DataSource liveDataSource() {
 		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(org.postgresql.Driver.class);
@@ -76,10 +78,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource) {
 		final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setPackagesToScan("tp.paw.khet.model");
-		factoryBean.setDataSource(env.acceptsProfiles("dev") ? dataSource() : liveDataSource());
+		factoryBean.setDataSource(dataSource);
 		
 		final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		factoryBean.setJpaVendorAdapter(vendorAdapter);
