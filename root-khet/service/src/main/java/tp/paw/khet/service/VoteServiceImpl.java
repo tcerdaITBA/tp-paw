@@ -32,14 +32,7 @@ public class VoteServiceImpl implements VoteService {
 		if (votedProducts.contains(product))
 			throw new DuplicateVoteException("User " + user + " already voted product " + product);
 		
-		voteProduct(product, user);
-	}
-
-	private void voteProduct(final Product product, final User user) {
-		final SortedSet<Product> votedProducts = user.getVotedProducts();
-		
-		votedProducts.add(product);
-		product.getVotingUsers().add(user);		
+		user.voteProduct(product);
 	}
 	
 	@Transactional
@@ -53,14 +46,7 @@ public class VoteServiceImpl implements VoteService {
 		if (!votedProducts.contains(product))
 			throw new MissingVoteException("User " + user + " has not voted product " + product);
 		
-		unvoteProduct(product, user);
-	}
-	
-	private void unvoteProduct(final Product product, final User user) {
-		final SortedSet<Product> votedProducts = user.getVotedProducts();
-		
-		votedProducts.remove(product);
-		product.getVotingUsers().remove(user);		
+		user.unvoteProduct(product);
 	}
 	
 	@Transactional
@@ -71,14 +57,14 @@ public class VoteServiceImpl implements VoteService {
 		final SortedSet<Product> votedProducts = user.getVotedProducts();
 
 		if (votedProducts.contains(product))
-			unvoteProduct(product, user);
+			user.unvoteProduct(product);
 		else
-			voteProduct(product, user);
+			user.voteProduct(product);
 	}
 
 	@Override
 	public SortedSet<User> getAlphabeticallySortedVotersFromProduct(final Product product, final int votersToShow) {
-		final SortedSet<User> voters = new TreeSet<>(); // TODO: mover comparator a un lugar en comúm
+		final SortedSet<User> voters = new TreeSet<>();
 		
 		int i = 0;
 		for (User user : product.getVotingUsers()) {

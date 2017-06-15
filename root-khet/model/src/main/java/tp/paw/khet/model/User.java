@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
 
+import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -20,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -48,10 +50,14 @@ public class User implements Comparable<User> {
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "votes",
-			   joinColumns = @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT)),
-			   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false), foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT))
+			   joinColumns = @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "user_id_contraint")),
+			   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_contraint")))
 	@OrderBy("name ASC")
-	private SortedSet<Product> votedProducts = new TreeSet<>();  // mutable
+	private SortedSet<Product> votedProducts;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", orphanRemoval = true)
+	@OrderBy("creationDate DESC")
+	private SortedSet<FavList> favLists;
 	
 	// Hibernate
 	User() {
@@ -64,6 +70,7 @@ public class User implements Comparable<User> {
 		this.userId = userId;
 		this.name = notBlank(name, "User name must have at least one non empty character");
 		this.email = notBlank(email, "User email must have at least one non empty character");
+		this.votedProducts = new TreeSet<>();
 		setPassword(password);
 		setProfilePicture(profilePicture);
 	}
@@ -93,7 +100,15 @@ public class User implements Comparable<User> {
 	}
 	
 	public SortedSet<Product> getVotedProducts() {
-		return votedProducts;
+		return Collections.unmodifiableSortedSet(votedProducts);
+	}
+	
+	public void voteProduct(final Product product) {
+		votedProducts.add(product);
+	}
+	
+	public void unvoteProduct(final Product product) {
+		votedProducts.remove(product);
 	}
 
 	public void setPassword(final String password) {
@@ -102,6 +117,20 @@ public class User implements Comparable<User> {
 	
 	public void setProfilePicture(final byte[] profilePicture) {
 		this.profilePicture = notEmptyByteArray(profilePicture, "Profile picture array cannot be null", "Profile picture array cannot be empty");		
+	}
+	
+	public SortedSet<FavList> getFavLists() {
+		return Collections.unmodifiableSortedSet(favLists);
+	}
+	
+	public FavList createFavList(final String name) {
+		final FavList favList = new FavList(name, this);
+		favLists.add(favList);
+		return favList;
+	}
+	
+	public void deleteFavList(final FavList favList) {
+		favLists.remove(favList);
 	}
 	
 	@Override
