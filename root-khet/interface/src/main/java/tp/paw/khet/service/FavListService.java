@@ -18,7 +18,7 @@ public interface FavListService {
 	 * Deletes a {@link FavList}
 	 * @param favListId - ID of the favList to delete
 	 */
-	public void deleteFavList(int favListId);
+	public boolean deleteFavList(int favListId);
 	
 	/**
 	 * Retrievea a {@link FavList} given it's ID.

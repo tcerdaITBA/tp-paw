@@ -147,7 +147,7 @@
 									
 									<sec:authorize access="isAuthenticated()">
 										<c:if test="${loggedUser.userId == profileUser.userId}">
-											<button class="voters-popover-btn" rel="popover" data-popover-content="#favlistPopover" data-placement="bottom"  >
+											<button tabindex="0" class="voters-popover-btn" rel="popover" data-popover-content="#favlistPopover" data-placement="bottom" data-trigger="focus">
 												<spring:message code="Profile.createFavLists"></spring:message>
 											</button>
 											
@@ -165,9 +165,26 @@
 										<c:otherwise>
 										<div class="col-md-12 product-list">
 											<c:forEach items="${favlistSet}" var="favList">
+												<div class="col-md-12">
 												<a href="<c:url value="/favlist/${favList.id}"/>">
-													<c:out value="${favList.name}"></c:out>
+														<div class="col-md-10">
+															<c:out value="${favList.name}"></c:out>
+														</div>
+														<div class="col-md-2">
+															<sec:authorize access="isAuthenticated()">
+																<c:if test="${loggedUser.userId == profileUser.userId}">
+																	<c:url value="/favlist/delete/${favList.id}" var="delete" />
+																	<form:form class="" action="${delete}" method="post">
+																		<button class="btn btn-default" type="submit"">
+																			<p><span class="glyphicon glyphicon-trash"></span>
+																		</button>
+																	</form:form>
+																</c:if>
+															</sec:authorize>
+														</div>
+													
 												</a>
+												</div>
 											</c:forEach>
 										</div>
 									</c:otherwise>
