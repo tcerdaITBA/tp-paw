@@ -48,7 +48,7 @@ public class ProductHibernateDao implements ProductDao {
 		productSortCriteriaClauseMap.put(ProductSortCriteria.RECENT, new ProductSortCriteriaClause("p.uploadDate DESC"));		
 		
 		productSortCriteriaClauseMap.put(ProductSortCriteria.POPULARITY, 
-				new ProductSortCriteriaClause("left join p.votingUsers as vu", "count(vu) DESC, lower(p.name)", "p"));
+				new ProductSortCriteriaClause("left join p.votingUsers as vu", "count(vu) DESC, lower(p.name)", "GROUP BY p"));
 	}
 
 	@Override
@@ -195,7 +195,7 @@ public class ProductHibernateDao implements ProductDao {
 			valuesMap = new HashMap<>();
 			valuesMap.put("join", joinClause);
 			valuesMap.put("order", orderClause);
-			valuesMap.put("group", "GROUP BY " + groupClause);
+			valuesMap.put("group", groupClause);
 			
 			substitutor = new StrSubstitutor(valuesMap);
 		}
