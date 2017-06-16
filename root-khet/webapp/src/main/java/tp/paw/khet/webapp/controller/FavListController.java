@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -103,5 +104,32 @@ public class FavListController {
 		
 		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
 		
+	}
+	
+	@RequestMapping(value = "/favlist/add/{favListId}/{productId}", method = RequestMethod.POST)
+	public ModelAndView addProductToFavList(@PathVariable final int favListId, @PathVariable final int productId,
+			@ModelAttribute("loggedUser") final User loggedUser, @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer)
+					throws FavListNotFoundException, ForbiddenException {
+				
+		LOGGER.debug("Accessed add product with id {} to favlist with id {}", productId, favListId);
+		
+		final FavList favlist = favListService.getFavListById(favListId);
+		
+		if (favlist == null) {
+			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
+			throw new FavListNotFoundException();
+		}
+		
+		final User creator = favlist.getCreator();
+		
+		if(!creator.equals(loggedUser)){
+			LOGGER.warn("Failed to add to favlist with id {}: logged user with id {} is not favlist creator with id {}", 
+					favListId, loggedUser.getUserId(), creator.getUserId());
+			throw new ForbiddenException();
+		}
+		
+		favListService.addProductToFavList(favListId, productId);
+		
+		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
 	}
 }

@@ -169,10 +169,10 @@
 													<div class="col-md-10">
 														<a href="<c:url value="/favlist/${favList.id}"/>">
 															<c:out value="${favList.name}"></c:out>
-															<c:forEach items="${favList.productList}" var="product">
-																<c:out value="${product.name}"></c:out>
-															</c:forEach>						
 														</a>
+															<c:forEach items="${favList.productList}" var="product">
+																<br><c:out value="${product.name}"></c:out>
+															</c:forEach>						
 														</div>
 														<div class="col-md-2">
 															<sec:authorize access="isAuthenticated()">
@@ -181,6 +181,12 @@
 																	<form:form class="" action="${delete}" method="post">
 																		<button class="btn btn-default" type="submit"">
 																			<p><span class="glyphicon glyphicon-trash"></span>
+																		</button>
+																	</form:form>
+																	<c:url value="/favlist/add/${favList.id}/34" var="add" />
+																	<form:form class="" action="${add}" method="post">
+																		<button class="btn btn-default" type="submit"">
+																			<p><span class="glyphicon glyphicon-plus"></span>
 																		</button>
 																	</form:form>
 																</c:if>
