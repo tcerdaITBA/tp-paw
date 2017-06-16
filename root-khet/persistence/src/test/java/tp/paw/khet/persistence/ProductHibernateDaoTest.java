@@ -17,6 +17,7 @@ import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -90,8 +91,7 @@ public class ProductHibernateDaoTest {
 		voteList(expected); // List is sorted by most popular products first
 
 		for (Category category : Category.values()) {
-			List<Product> filtered = new ArrayList<>(expected);
-			filtered.removeIf(p -> !p.getCategory().equals(category));
+			List<Product> filtered = expected.stream().filter(p -> p.getCategory().equals(category)).collect(Collectors.toList());
 			testProductSortCriteria(Optional.of(category), ProductSortCriteria.POPULARITY, filtered);
 		}
 	}
