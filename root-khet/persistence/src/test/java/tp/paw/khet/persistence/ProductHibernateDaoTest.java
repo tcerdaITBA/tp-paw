@@ -14,10 +14,10 @@ import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.model.UserTestUtils.dummyUserList;
 import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.junit.Before;
@@ -42,7 +42,8 @@ import tp.paw.khet.model.User;
 @Sql("classpath:schema.sql")
 public class ProductHibernateDaoTest {
 
-	private static final int LIST_SIZE = Category.values().length * 5;
+	private static final int CATEGORY_PRODUCT_EACH = 5;
+	private static final int LIST_SIZE = Category.values().length * CATEGORY_PRODUCT_EACH;
 	
 	@Autowired
 	private ProductHibernateDao productDao;
@@ -78,13 +79,21 @@ public class ProductHibernateDaoTest {
 		List<Product> expected = dummyProductList(LIST_SIZE, 1);
 		insertProducts(expected);
 		voteList(expected); // List is sorted by most popular products first
-				
-		List<Product> actual = productDao.getPlainProductsRange(ProductSortCriteria.POPULARITY, 0, LIST_SIZE);
+
+		testProductSortCriteria(Optional.empty(), ProductSortCriteria.POPULARITY, expected);
+	}
 		
-		for (Product p : actual) {
+	@Test
+	public void getPlainProductsRangeCategoryPopularityTest() {
+		List<Product> expected = dummyProductList(LIST_SIZE, 1);
+		insertProducts(expected);
+		voteList(expected); // List is sorted by most popular products first
+
+		for (Category category : Category.values()) {
+			List<Product> filtered = new ArrayList<>(expected);
+			filtered.removeIf(p -> !p.getCategory().equals(category));
+			testProductSortCriteria(Optional.of(category), ProductSortCriteria.POPULARITY, filtered);
 		}
-		
-		assertEqualsList(expected, actual);
 	}
 	
 	private void voteList(List<Product> expected) {
@@ -97,6 +106,28 @@ public class ProductHibernateDaoTest {
 			product.getVotingUsers().add(dummyUserList.get(i));
 			dummyUserList.get(i).getVotedProducts().add(product);
 		}
+	}
+	
+	private void testProductSortCriteria(Optional<Category> category, ProductSortCriteria sortCriteria, List<Product> expected) {
+		List<Product> actual = category.isPresent() ? 
+							   productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, 0, expected.size()) :
+							   productDao.getPlainProductsRange(sortCriteria, 0, expected.size());
+		
+		assertEqualsList(expected, actual);
+		
+		List<Product> halfActual = category.isPresent() ? 
+				productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, 0, expected.size()/2) :
+				productDao.getPlainProductsRange(sortCriteria, 0, expected.size()/2);
+		
+		for (int i = 0; i < expected.size()/2; i++)
+			assertEqualsPlainProducts(expected.get(i), halfActual.get(i));
+		
+		List<Product> halfActualOffset = category.isPresent() ?
+				productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, expected.size()/2, expected.size()/2) :
+				productDao.getPlainProductsRange(sortCriteria, expected.size()/2, expected.size()/2);
+		
+		for (int i = 0; i < expected.size()/2; i++)
+			assertEqualsPlainProducts(expected.get(i + expected.size()/2), halfActualOffset.get(i));		
 	}
 	
 	private void assertEqualsList(List<Product> expected, List<Product> actual) {
