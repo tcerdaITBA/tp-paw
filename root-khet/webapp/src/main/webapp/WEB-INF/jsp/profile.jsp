@@ -183,12 +183,7 @@
 																			<p><span class="glyphicon glyphicon-trash"></span>
 																		</button>
 																	</form:form>
-																	<c:url value="/favlist/add/${favList.id}/34" var="add" />
-																	<form:form class="" action="${add}" method="post">
-																		<button class="btn btn-default" type="submit"">
-																			<p><span class="glyphicon glyphicon-plus"></span>
-																		</button>
-																	</form:form>
+																	
 																</c:if>
 															</sec:authorize>
 														</div>
