@@ -128,8 +128,39 @@ public class FavListController {
 			throw new ForbiddenException();
 		}
 		
+		//No deberia ser capaz de agregar dos veces el mismo producto
 		favListService.addProductToFavList(favListId, productId);
 		
+		//TODO:Hacer los referers
 		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
 	}
+	
+	@RequestMapping(value = "/favlist/delete/{favListId}/{productId}", method = RequestMethod.POST)
+	public ModelAndView removeProductToFavList(@PathVariable final int favListId, @PathVariable final int productId,
+			@ModelAttribute("loggedUser") final User loggedUser, @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer)
+					throws FavListNotFoundException, ForbiddenException {
+				
+		LOGGER.debug("Accessed remove product with id {} to favlist with id {}", productId, favListId);
+		
+		final FavList favlist = favListService.getFavListById(favListId);
+		
+		if (favlist == null) {
+			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
+			throw new FavListNotFoundException();
+		}
+		
+		final User creator = favlist.getCreator();
+		
+		if(!creator.equals(loggedUser)){
+			LOGGER.warn("Failed to remove to favlist with id {}: logged user with id {} is not favlist creator with id {}", 
+					favListId, loggedUser.getUserId(), creator.getUserId());
+			throw new ForbiddenException();
+		}
+		
+		favListService.removeProductFromFavList(favListId, productId);
+		
+		//TODO:Hacer los referers
+		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
+	}
+	
 }
