@@ -153,12 +153,10 @@
 											</div>
 										</c:when>
 										<c:otherwise>
-										<div class="col-md-12 product-list">
-											<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-												<c:forEach items="${favlistSet}" var="favList">
-													<%@include file="includes/collection-item.jsp"%></%@include>
-												</c:forEach>
-											</div>
+										<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+											<c:forEach items="${favlistSet}" var="favList">
+												<%@include file="includes/collection-item.jsp"%></%@include>
+											</c:forEach>
 										</div>
 									</c:otherwise>
 									</c:choose>	

@@ -5,13 +5,21 @@
 
 .collection-panel .panel-heading{
 	background-color: #fff;
+	padding: 20px 25px;
 }
 
 .collection-panel a, .collection-panel a:hover {
 	color: #333;
 	text-decoration: none;
-	font-weight: 600;
-	font-size: 1.2em;
+	font-weight: 500;
+	font-size: 1.5em;
+}
+
+.collection-panel .collection-info {
+	color: #8a8a8a;
+	font-weight: 400;
+	font-size: 0.8em;
+	margin-left: 15px;
 }
 
 .collection-panel .row {
@@ -30,4 +38,38 @@
 
 .collection-panel .panel-body {
 	background-color: #f9f9f9;
+}
+
+.collection-delete-btn {
+	border: 0;
+	padding: 0;
+	background: none;
+}
+
+.collection-product-list-item {
+	padding: 5px 1em;
+	display: block;
+}
+
+.collection-product-list-item:hover {
+	background-color: #f3f3f3;
+	text-decoration: none;
+	color: #333;
+	border-radius: 4px;
+	outline: none;
+}
+
+.collection-delete-btn:hover, 
+.collection-delete-btn:active {
+	color: crimson;
+	background: none;
+}
+
+.collection-product-logo img{
+	max-width: 100%;
+	max-height: 50px;
+}
+.collection-product-name, .collection-upvote-info {
+	font-weight: 400;
+	font-size: 1em;
 }
