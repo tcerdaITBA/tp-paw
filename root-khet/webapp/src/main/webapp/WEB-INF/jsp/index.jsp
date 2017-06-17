@@ -118,7 +118,6 @@
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
-
 								<a href="<c:url value="/product/${product.id}"/>" id="product${product.id}">
 									<%@include file="includes/product-item.jsp"%></%@include>
 								</a>

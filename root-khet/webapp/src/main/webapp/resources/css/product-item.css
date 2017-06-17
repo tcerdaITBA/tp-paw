@@ -55,7 +55,8 @@
 	padding: 5px 1em;
 	word-wrap: break-word;
 	display: inline-block;
-    cursor: pointer;
+  cursor: pointer;
+	margin: 1px;
 }
 
 .categoryTag:hover {
@@ -160,4 +161,17 @@
 
 .voters-popover-btn {
 	margin-right: 1em;
+}
+
+.add-to-collection-btn {
+	text-align: center;
+	align-content: center;
+	padding: 5px;
+}
+
+.add-to-collection-btn .glyphicon {
+	line-height: inherit;
+}
+.new-collection-form {
+	display: none;
 }

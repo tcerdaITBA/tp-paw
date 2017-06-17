@@ -179,11 +179,10 @@
 																<c:if test="${loggedUser.userId == profileUser.userId}">
 																	<c:url value="/favlist/delete/${favList.id}" var="delete" />
 																	<form:form class="" action="${delete}" method="post">
-																		<button class="btn btn-default" type="submit"">
-																			<p><span class="glyphicon glyphicon-trash"></span>
+																		<button class="btn btn-default" type="submit">
+																			<p><span class="glyphicon glyphicon-trash"></span></p>
 																		</button>
-																	</form:form>
-																	
+																	</form:form>	
 																</c:if>
 															</sec:authorize>
 														</div>

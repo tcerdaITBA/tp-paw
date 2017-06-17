@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<c:url value="/vote/product/${product.id}" var="vote" />
-			<div class="col-md-3 col-md-offset-6">
+			<div class="col-md-6 col-md-offset-3">
 				<sec:authorize access="isAuthenticated()">
 					<form:form class="pull-right" action="${vote}" method="post">
 							<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
@@ -28,6 +28,9 @@
 								<c:out value="${product.votesCount}"/></p>
 							</button>
 					</form:form>
+					<button class="btn btn-default add-to-collection-btn pull-right categoryTag">
+						<p><span class="glyphicon glyphicon-plus"></span></p>
+					</button>	
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<button class="btn btn-default upvote-btn popover-btn pull-right" data-toggle="popover" data-trigger="focus" 
