@@ -55,27 +55,7 @@ public class FavListController {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.favListForm", errors);
 		attr.addFlashAttribute("createFavListForm", favListForm);		
 	}
-	
-	@RequestMapping(value="/favlist/{favListId}")
-	public ModelAndView viewFavList(@PathVariable final int favListId) throws FavListNotFoundException{
-		LOGGER.debug("Accessed user favList with ID: {}", favListId);
 		
-		final ModelAndView mav = new ModelAndView("favList");
-		final FavList favList = favListService.getFavListById(favListId);
-		
-		if (favList == null) {
-			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
-			throw new FavListNotFoundException();
-		}
-		
-		mav.addObject("favlist", favList.getProductList());
-		mav.addObject("favlistName", favList.getName());
-		mav.addObject("creator", favList.getCreator());
-		
-		return mav;
-
-	}
-	
 	@RequestMapping(value = "/favlist/delete/{favListId}", method = RequestMethod.POST)
 	public ModelAndView deleteFavList(@PathVariable final int favListId, @ModelAttribute("loggedUser") final User loggedUser) throws FavListNotFoundException, ForbiddenException{
 		
@@ -111,7 +91,7 @@ public class FavListController {
 				
 		LOGGER.debug("Accessed add product with id {} to favlist with id {}", productId, favListId);
 		
-		final FavList favlist = favListService.getFavListById(favListId);
+		final FavList favlist = favListService.getFavListByIdWithCreator(favListId);
 		
 		if (favlist == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
@@ -140,7 +120,7 @@ public class FavListController {
 				
 		LOGGER.debug("Accessed remove product with id {} to favlist with id {}", productId, favListId);
 		
-		final FavList favlist = favListService.getFavListById(favListId);
+		final FavList favlist = favListService.getFavListByIdWithCreator(favListId);
 		
 		if (favlist == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
@@ -178,7 +158,6 @@ public class FavListController {
 			return mav;
 		}
 		
-		//Crea la lista
 		final FavList favlist = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
 		
 		//Añado el producto a la lista recién creada (solo si se creó correctamente)		
