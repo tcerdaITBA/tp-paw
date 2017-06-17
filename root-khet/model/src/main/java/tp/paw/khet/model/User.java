@@ -71,6 +71,7 @@ public class User implements Comparable<User> {
 		this.name = notBlank(name, "User name must have at least one non empty character");
 		this.email = notBlank(email, "User email must have at least one non empty character");
 		this.votedProducts = new TreeSet<>();
+		this.favLists = new TreeSet<>();
 		setPassword(password);
 		setProfilePicture(profilePicture);
 	}

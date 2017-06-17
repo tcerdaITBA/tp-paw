@@ -61,7 +61,7 @@ public class VoteServiceImpl implements VoteService {
 		else
 			user.voteProduct(product);
 	}
-
+	
 	@Override
 	public SortedSet<User> getAlphabeticallySortedVotersFromProduct(final Product product, final int votersToShow) {
 		final SortedSet<User> voters = new TreeSet<>();
