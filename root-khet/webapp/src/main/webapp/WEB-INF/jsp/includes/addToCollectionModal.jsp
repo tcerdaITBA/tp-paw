@@ -25,12 +25,12 @@
 										<c:forEach items="${loggedUser.favLists}" var="collection">
 											<div class="row">
 												<div class="col-md-12">
+													<c:url value="/favlist/add/${collection.id}/${product.id}" var="addToList"/>
 													<form:form action="${addToList}" method="post">
 															<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}">
 																<span class="collection-name"><c:out value="${collection.name}"></c:out></span>
 																<span class="collection-info">
 																	<p>- <c:out value="${fn:length(collection.productList)}"/> productos</p>
-																	 
 																</span>
 															</button>
 													</form:form>
