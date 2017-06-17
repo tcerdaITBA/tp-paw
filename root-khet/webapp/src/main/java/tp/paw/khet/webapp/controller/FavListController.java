@@ -163,4 +163,37 @@ public class FavListController {
 		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
 	}
 	
+	@RequestMapping(value = "/favlist/create-and-add/{productId}", method = RequestMethod.POST)
+	public ModelAndView addProductAndCreateFavList(@PathVariable final int productId,
+			@ModelAttribute("loggedUser") final User loggedUser, @Valid @ModelAttribute("createFavListForm") final FormFavList favListForm,
+			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
+			final BindingResult errors, final RedirectAttributes attr)
+					throws FavListNotFoundException, ForbiddenException {
+				
+		LOGGER.debug("Accessed add product with id {} to a new favlist", productId);
+		
+		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		 
+		if (errors.hasErrors()) {
+			LOGGER.warn("Failed to create favList: form has errors: {}", errors.getAllErrors());
+			setErrorState(favListForm, errors, attr);
+			return mav;
+		}
+		//Crea la lista
+		FavList favlist = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
+		
+		//Añado el producto a la lista recién creada (solo si se creó correctamente)		
+		if (favlist == null) {
+			LOGGER.warn("Cannot render favList, it seems the favList was not created correctly");
+			throw new FavListNotFoundException();
+		}
+		
+		//No deberia ser capaz de agregar dos veces el mismo producto
+		favListService.addProductToFavList(favlist.getId(), productId);
+		
+		attr.addFlashAttribute("createFavListForm", new FormFavList()); // clear form
+
+		//TODO:Hacer los referers
+		return mav;
+	}
 }
