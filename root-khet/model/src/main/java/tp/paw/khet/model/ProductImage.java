@@ -110,7 +110,7 @@ public class ProductImage {
 			if (!(obj instanceof ProductImagePrimaryKeyIds))
 				return false;
 			
-			ProductImagePrimaryKeyIds other = (ProductImagePrimaryKeyIds) obj;
+			final ProductImagePrimaryKeyIds other = (ProductImagePrimaryKeyIds) obj;
 			
 			return productId == other.productId && productImageId == other.productImageId;
 		}
