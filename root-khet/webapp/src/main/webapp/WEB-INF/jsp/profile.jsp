@@ -144,17 +144,6 @@
 								</div>
 							
 								<div id="favList-pane" class="tab-pane fade row result-for-products none">
-									
-									<sec:authorize access="isAuthenticated()">
-										<c:if test="${loggedUser.userId == profileUser.userId}">
-											<button tabindex="0" class="voters-popover-btn" rel="popover" data-popover-content="#favlistPopover" data-placement="bottom" data-trigger="focus">
-												<spring:message code="Profile.createFavLists"></spring:message>
-											</button>
-											
-											<%@include file="includes/FavListPopOver.jsp" %>
-										</c:if>
-									</sec:authorize>
-									
 									<c:choose>
 										<c:when test="${empty favlistSet}">
 											<div class="zrp" id="user-products-zrp">
@@ -164,31 +153,11 @@
 										</c:when>
 										<c:otherwise>
 										<div class="col-md-12 product-list">
-											<c:forEach items="${favlistSet}" var="favList">
-												<div class="col-md-12">
-													<div class="col-md-10">
-														<a href="<c:url value="/favlist/${favList.id}"/>">
-															<c:out value="${favList.name}"></c:out>
-														</a>
-															<c:forEach items="${favList.productList}" var="product">
-																<br><c:out value="${product.name}"></c:out>
-															</c:forEach>						
-														</div>
-														<div class="col-md-2">
-															<sec:authorize access="isAuthenticated()">
-																<c:if test="${loggedUser.userId == profileUser.userId}">
-																	<c:url value="/favlist/delete/${favList.id}" var="delete" />
-																	<form:form class="" action="${delete}" method="post">
-																		<button class="btn btn-default" type="submit">
-																			<p><span class="glyphicon glyphicon-trash"></span></p>
-																		</button>
-																	</form:form>	
-																</c:if>
-															</sec:authorize>
-														</div>
-													
-												</div>
-											</c:forEach>
+											<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+												<c:forEach items="${favlistSet}" var="favList">
+													<%@include file="includes/collection-item.jsp"%></%@include>
+												</c:forEach>
+											</div>
 										</div>
 									</c:otherwise>
 									</c:choose>	
