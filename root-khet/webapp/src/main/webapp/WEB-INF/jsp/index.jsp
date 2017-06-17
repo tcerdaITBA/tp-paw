@@ -52,7 +52,7 @@
 					 <c:otherwise>
 						 <h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
 						 <div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
-						 <c:if test="${not products.isEmpty()}">
+						 <c:if test="${not empty products}">
 						 		<%@include file="includes/orders.jsp"%></%@include>
 						 </c:if>
 					 </c:otherwise>
@@ -91,7 +91,7 @@
 	
 		<div class="col-md-8">
 				<c:choose>
-					<c:when test="${products.isEmpty()}">
+					<c:when test="${empty products}">
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="zrp" id="category-zrp">
