@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,7 +23,6 @@ import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.form.FormFavList;
 
 @Controller
-@SessionAttributes(value={"createFavListForm"})
 public class FavListController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavListController.class);
@@ -179,14 +177,17 @@ public class FavListController {
 			setErrorState(favListForm, errors, attr);
 			return mav;
 		}
+		
 		//Crea la lista
-		FavList favlist = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
+		final FavList favlist = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
 		
 		//Añado el producto a la lista recién creada (solo si se creó correctamente)		
 		if (favlist == null) {
 			LOGGER.warn("Cannot render favList, it seems the favList was not created correctly");
 			throw new FavListNotFoundException();
 		}
+		
+		LOGGER.debug("Created FavList with ID: {}", favlist.getId());
 		
 		//No deberia ser capaz de agregar dos veces el mismo producto
 		favListService.addProductToFavList(favlist.getId(), productId);

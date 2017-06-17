@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:url value="/favlist/create" var="postPath" />
 <div id="add-to-collection-modal-${product.id}" class="modal fade">
     <div class="modal-dialog">
 		<div class="modal-content">
@@ -53,6 +52,7 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="new-collection-form well">
+											<c:url value="/favlist/create-and-add/${product.id}" var="postPath" />
 												<form:form modelAttribute="createFavListForm" class="favlist-form" action="${postPath}" method="post">
 													<div class="form-group">
 															<form:input type="text" class="form-control" rows="1" path="name" placeholder="Collection name" maxlength="64"/>

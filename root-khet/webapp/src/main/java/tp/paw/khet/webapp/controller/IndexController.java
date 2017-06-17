@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +18,6 @@ import tp.paw.khet.model.Category;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
-import tp.paw.khet.webapp.form.FormFavList;
 import tp.paw.khet.webapp.utils.CaseInsensitiveConverter;
 
 @Controller
@@ -30,12 +28,6 @@ public class IndexController {
 	
 	@Autowired
     private ProductService productService;
-
-
-    @ModelAttribute("createFavListForm")
-    public FormFavList favListForm() {
-        return new FormFavList();
-    }
 	
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") final int page, 
