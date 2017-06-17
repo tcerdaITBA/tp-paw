@@ -175,8 +175,10 @@
 											<div id="new-collection-section" class="well">
 												<c:url value="/favlist/create" var="createCollection" />
 												<form:form modelAttribute="createFavListForm" class="favlist-form" action="${createCollection}" method="post">
+													<h3><spring:message code="collections.newCollection"></spring:message></h3>
+													<spring:message code="collection.collectionNamePlaceholder" var="namePlaceholder"/>
 													<div class="form-group">
-															<form:input type="text" class="form-control" rows="1" path="name" placeholder="Collection name" maxlength="64"/>
+															<form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
 															<form:errors path="name" element="p" cssClass="form-error"/>
 													</div>
 													<button class="btn btn-default create-new-btn" type="submit">

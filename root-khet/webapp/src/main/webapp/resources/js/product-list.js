@@ -35,6 +35,7 @@ $(document).ready(function() {
 	$('.add-to-collection-btn').on('click', function() {
 		$($(this).data('target')).modal('show');
 		$('.new-collection-form').hide();
+		$('.new-collection-form input').val(null);
 		$('.add-to-new-list-btn').show();
 		return false;
 	});
@@ -42,5 +43,6 @@ $(document).ready(function() {
 	$('.add-to-new-list-btn').on('click', function() {
 		$(this).hide();
 		$('.new-collection-form').show();
+		$('.new-collection-form input').focus();
 	})
 });
