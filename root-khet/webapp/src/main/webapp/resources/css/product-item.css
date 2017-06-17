@@ -188,6 +188,10 @@
 	border-radius: 3px;
 }
 
+.add-to-list-item[disabled] {
+	color: #b8b8b8;
+}
+
 .add-to-list-item p {
 	margin: 0;
 	padding: 5px 0;
@@ -203,8 +207,14 @@
 	font-size: 0.7em;
 }
 
-.add-to-list-item:hover {
+.add-to-list-item[enabled]:hover {
 	background-color: #f3f3f3;
+}
+
+.already-added-msg {
+	font-weight: 600;
+	color: #333;
+	font-size: 0.6em;
 }
 
 .add-to-new-list-btn, .create-and-add-btn {

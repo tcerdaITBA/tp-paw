@@ -34,6 +34,11 @@
 															<span class="collection-info">
 																<p>- <c:out value="${fn:length(collection.productList)}"/> productos</p>
 															</span>
+															<c:if test="${fn:contains(collection.productList, product)}">
+																<span class="already-added-msg">
+																	<spring:message code="collections.alreadyInCollection"></spring:message>
+																</span>
+															</c:if>
 														</button>
 													</form:form>
 												</div>
