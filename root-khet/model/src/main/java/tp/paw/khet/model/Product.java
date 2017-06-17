@@ -189,7 +189,7 @@ public class Product implements Comparable<Product> {
 	// TODO: es para hibernate que necesita que sea Comparable. No pude hacer que use un Comparator
 	@Override
 	public int compareTo(Product o) {
-		int cmp = getName().compareTo(o.getName());
+		int cmp = getName().compareToIgnoreCase(o.getName());
 		
 		if (cmp == 0)
 			return Integer.compare(getId(), o.getId());

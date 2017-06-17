@@ -45,11 +45,9 @@ public class VotingController {
 		voteService.toggleVoteFromProduct(productId, loggedUser.getUserId());
 		
 		LOGGER.debug("User {} voted product with id {}", loggedUser.getUserId(), productId);
-		
-		String redirect = "redirect:" + referrer;
-		
+				
 		attr.addFlashAttribute("productVoted", product.getId());
 		
-		return new ModelAndView(redirect);		
+		return new ModelAndView("redirect:" + referrer);		
 	}
 }

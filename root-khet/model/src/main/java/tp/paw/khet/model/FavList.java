@@ -3,10 +3,10 @@ package tp.paw.khet.model;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -47,16 +48,17 @@ public class FavList implements Comparable<FavList> {
 	@JoinTable(
 	   joinColumns = @JoinColumn(name = "favListId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "favList_id_constraint")),
 	   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_constraint")))
-	private List<Product> productList;
+	@OrderBy("name ASC")
+	private SortedSet<Product> productList;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private User creator;
 	
 	public FavList(final String name, final User creator) {
 		this.name = notBlank(name, "User name must have at least one non empty character");
 		this.creator = notNull(creator, "FavList creator cannot be null");
 		this.creationDate = new Date();
-		this.productList = new ArrayList<>();
+		this.productList = new TreeSet<>();
 	}
 	
 	// Hibernate
@@ -75,8 +77,8 @@ public class FavList implements Comparable<FavList> {
 		return creationDate;
 	}
 	
-	public List<Product> getProductList() {
-		return Collections.unmodifiableList(productList);
+	public SortedSet<Product> getProductList() {
+		return Collections.unmodifiableSortedSet(productList);
 	}
 	
 	public void addProduct(final Product product) {

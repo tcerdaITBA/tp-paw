@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,7 +23,6 @@ import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.form.FormFavList;
 
 @Controller
-@SessionAttributes(value={"createFavListForm"})
 public class FavListController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavListController.class);
@@ -35,11 +33,12 @@ public class FavListController {
 	@RequestMapping(value = "/favlist/create", method = {RequestMethod.POST})
 	public ModelAndView createFavList(@ModelAttribute("loggedUser") final User loggedUser,
 							  @Valid @ModelAttribute("createFavListForm") final FormFavList favListForm,
+							  @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
 							  final BindingResult errors, final RedirectAttributes attr) {
 		
 		LOGGER.debug("User with id {} accessed favList create POST", loggedUser.getUserId());
 		
-		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		final ModelAndView mav = new ModelAndView("redirect:" + referrer);
 		
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to create favList: form has errors: {}", errors.getAllErrors());
@@ -57,33 +56,14 @@ public class FavListController {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.favListForm", errors);
 		attr.addFlashAttribute("createFavListForm", favListForm);		
 	}
-	
-	@RequestMapping(value="/favlist/{favListId}")
-	public ModelAndView viewFavList(@PathVariable final int favListId) throws FavListNotFoundException{
-		LOGGER.debug("Accessed user favList with ID: {}", favListId);
 		
-		final ModelAndView mav = new ModelAndView("favList");
-		final FavList favList = favListService.getFavListById(favListId);
-		
-		if (favList == null) {
-			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
-			throw new FavListNotFoundException();
-		}
-		
-		mav.addObject("favlist", favList.getProductList());
-		mav.addObject("favlistName", favList.getName());
-		mav.addObject("creator", favList.getCreator());
-		
-		return mav;
-
-	}
-	
 	@RequestMapping(value = "/favlist/delete/{favListId}", method = RequestMethod.POST)
-	public ModelAndView deleteFavList(@PathVariable final int favListId, @ModelAttribute("loggedUser") final User loggedUser) throws FavListNotFoundException, ForbiddenException{
+	public ModelAndView deleteFavList(@PathVariable final int favListId, 
+			@ModelAttribute("loggedUser") final User loggedUser) throws FavListNotFoundException, ForbiddenException{
 		
 		LOGGER.debug("Accessed delete favlist POST for product with id: {}", favListId);
 		
-		final FavList favlist = favListService.getFavListById(favListId);
+		final FavList favlist = favListService.getFavListByIdWithCreator(favListId);
 		
 		if (favlist == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
@@ -98,9 +78,8 @@ public class FavListController {
 			throw new ForbiddenException();
 		}
 		
-		if (favListService.deleteFavList(favListId)) {
+		if (favListService.deleteFavList(favListId))
 			LOGGER.info("Favlist with id {} deleted by user with id {}", favListId, loggedUser.getUserId());
-		}
 		
 		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
 		
@@ -113,7 +92,7 @@ public class FavListController {
 				
 		LOGGER.debug("Accessed add product with id {} to favlist with id {}", productId, favListId);
 		
-		final FavList favlist = favListService.getFavListById(favListId);
+		final FavList favlist = favListService.getFavListByIdWithCreator(favListId);
 		
 		if (favlist == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
@@ -128,11 +107,10 @@ public class FavListController {
 			throw new ForbiddenException();
 		}
 		
-		//No deberia ser capaz de agregar dos veces el mismo producto
+		//TODO: No deberia ser capaz de agregar dos veces el mismo producto
 		favListService.addProductToFavList(favListId, productId);
 		
-		//TODO:Hacer los referers
-		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
+		return new ModelAndView("redirect:" + referrer);
 	}
 	
 	@RequestMapping(value = "/favlist/delete/{favListId}/{productId}", method = RequestMethod.POST)
@@ -142,7 +120,7 @@ public class FavListController {
 				
 		LOGGER.debug("Accessed remove product with id {} to favlist with id {}", productId, favListId);
 		
-		final FavList favlist = favListService.getFavListById(favListId);
+		final FavList favlist = favListService.getFavListByIdWithCreator(favListId);
 		
 		if (favlist == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
@@ -159,8 +137,7 @@ public class FavListController {
 		
 		favListService.removeProductFromFavList(favListId, productId);
 		
-		//TODO:Hacer los referers
-		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
+		return new ModelAndView("redirect:" + referrer);
 	}
 	
 	@RequestMapping(value = "/favlist/create-and-add/{productId}", method = RequestMethod.POST)
@@ -172,15 +149,15 @@ public class FavListController {
 				
 		LOGGER.debug("Accessed add product with id {} to a new favlist", productId);
 		
-		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		final ModelAndView mav = new ModelAndView("redirect:" + referrer);
 		 
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to create favList: form has errors: {}", errors.getAllErrors());
 			setErrorState(favListForm, errors, attr);
 			return mav;
 		}
-		//Crea la lista
-		FavList favlist = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
+		
+		final FavList favlist = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
 		
 		//Añado el producto a la lista recién creada (solo si se creó correctamente)		
 		if (favlist == null) {
@@ -188,12 +165,13 @@ public class FavListController {
 			throw new FavListNotFoundException();
 		}
 		
+		LOGGER.debug("Created FavList with ID: {}", favlist.getId());
+		
 		//No deberia ser capaz de agregar dos veces el mismo producto
 		favListService.addProductToFavList(favlist.getId(), productId);
 		
 		attr.addFlashAttribute("createFavListForm", new FormFavList()); // clear form
 
-		//TODO:Hacer los referers
 		return mav;
 	}
 }
