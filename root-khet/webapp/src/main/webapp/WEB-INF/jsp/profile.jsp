@@ -145,21 +145,48 @@
 								</div>
 							
 								<div id="favList-pane" class="tab-pane fade row result-for-products none">
-									<c:choose>
-										<c:when test="${empty favlistSet}">
-											<div class="zrp" id="user-products-zrp">
-												<h2><spring:message code="userZRP.empty"/></h2>
-												<h3><spring:message code="userZRP.noFavLists" arguments="${capitalizedUserName}"/></h3>
-											</div>
-										</c:when>
-										<c:otherwise>
-										<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-											<c:forEach items="${favlistSet}" var="favList">
-												<%@include file="includes/collection-item.jsp"%></%@include>
-											</c:forEach>
+									<div class="row">
+										<div class="col-md-12">
+											<c:choose>
+												<c:when test="${empty favlistSet}">
+													<div class="zrp" id="user-products-zrp">
+														<h2><spring:message code="userZRP.empty"/></h2>
+														<h3><spring:message code="userZRP.noFavLists" arguments="${capitalizedUserName}"/></h3>
+													</div>
+												</c:when>
+												<c:otherwise>
+												<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+													<c:forEach items="${favlistSet}" var="favList">
+														<%@include file="includes/collection-item.jsp"%></%@include>
+													</c:forEach>
+												</div>
+											</c:otherwise>
+											</c:choose>
 										</div>
-									</c:otherwise>
-									</c:choose>	
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<a href="#" id="add-new-collection-link">
+												<spring:message code="collections.createCollection"/>
+											</a>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div id="new-collection-section" class="well">
+												<c:url value="/favlist/create" var="createCollection" />
+												<form:form modelAttribute="createFavListForm" class="favlist-form" action="${createCollection}" method="post">
+													<div class="form-group">
+															<form:input type="text" class="form-control" rows="1" path="name" placeholder="Collection name" maxlength="64"/>
+															<form:errors path="name" element="p" cssClass="form-error"/>
+													</div>
+													<button class="btn btn-default create-new-btn" type="submit">
+														<spring:message code="collections.create"/>
+													</button>
+												</form:form>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

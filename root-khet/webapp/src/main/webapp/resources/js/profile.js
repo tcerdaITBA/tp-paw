@@ -36,4 +36,9 @@ $(document).ready(function() {
 	    });
 	});
 	
+	$('#add-new-collection-link').on('click', function() {
+		$('#new-collection-section').show();
+		$(this).hide();
+	});
+	
 });

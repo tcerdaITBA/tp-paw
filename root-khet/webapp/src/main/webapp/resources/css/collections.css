@@ -69,7 +69,17 @@
 	max-width: 100%;
 	max-height: 50px;
 }
-.collection-product-name, .collection-upvote-info {
+
+.collection-product-name {
+	font-size: 1em;	
 	font-weight: 400;
-	font-size: 1em;
+} 
+
+.collection-upvote-info {
+	font-weight: 400;
+	font-size: 0.7em;
+}
+
+#new-collection-section {
+	display: none;
 }
