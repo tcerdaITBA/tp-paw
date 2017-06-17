@@ -28,12 +28,13 @@
 												<div class="col-md-12">
 													<c:url value="/favlist/add/${collection.id}/${product.id}" var="addToList"/>
 													<form:form action="${addToList}" method="post">
-															<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}">
-																<span class="collection-name"><c:out value="${collection.name}"></c:out></span>
-																<span class="collection-info">
-																	<p>- <c:out value="${fn:length(collection.productList)}"/> productos</p>
-																</span>
-															</button>
+														<c:set var="isDisabled" value="${fn:contains(collection.productList, product) ? 'disabled' : 'enabled'}" ></c:set>
+														<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}" ${isDisabled}>
+															<span class="collection-name"><c:out value="${collection.name}"></c:out></span>
+															<span class="collection-info">
+																<p>- <c:out value="${fn:length(collection.productList)}"/> productos</p>
+															</span>
+														</button>
 													</form:form>
 												</div>
 											</div>
