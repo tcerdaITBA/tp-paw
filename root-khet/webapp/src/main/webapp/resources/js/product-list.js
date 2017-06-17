@@ -31,18 +31,16 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$('[data-toggle="popover"]').on('shown.bs.popover', function() {
-		$('.add-to-new-list-btn').on('click', function(e) {
-			$(this).hide();
-			var id = $(this).data('collection-popover');
-			console.log($(this));
-			console.log(id);
-			$('.new-collection-form[data-collection-popover=' + id.toString() + ']').show();
-			console.log($('.new-collection-form[data-collection-popover=' + id.toString() + ']'));//.show();
-
-			e.stopPropagation();
-			e.stopImmediatePropagation();
-			return false;
-		});
+	// TODO: Se puede mejorar porque ahora se le aplica a TODOS los del html
+	$('.add-to-collection-btn').on('click', function() {
+		$($(this).data('target')).modal('show');
+		$('.new-collection-form').hide();
+		$('.add-to-new-list-btn').show();
+		return false;
 	});
+	
+	$('.add-to-new-list-btn').on('click', function() {
+		$(this).hide();
+		$('.new-collection-form').show();
+	})
 });

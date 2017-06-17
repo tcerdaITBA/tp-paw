@@ -121,6 +121,7 @@
 								<a href="<c:url value="/product/${product.id}"/>" id="product${product.id}">
 									<%@include file="includes/product-item.jsp"%></%@include>
 								</a>
+								<%@include file="includes/addToCollectionModal.jsp"%></%@include>
 							</c:forEach>
 							</div>
 						</div>

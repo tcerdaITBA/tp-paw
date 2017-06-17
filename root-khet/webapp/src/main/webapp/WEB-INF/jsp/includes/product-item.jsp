@@ -28,7 +28,7 @@
 								<c:out value="${product.votesCount}"/></p>
 							</button>
 					</form:form>
-					<button class="btn btn-default add-to-collection-btn pull-right categoryTag">
+					<button class="btn btn-default add-to-collection-btn pull-right categoryTag" data-target="#add-to-collection-modal-${product.id}" data-toggle="modal">
 						<p><span class="glyphicon glyphicon-plus"></span></p>
 					</button>	
 				</sec:authorize>
