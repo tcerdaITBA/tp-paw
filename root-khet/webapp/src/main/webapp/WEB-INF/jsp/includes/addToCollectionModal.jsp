@@ -6,9 +6,11 @@
 		<div class="modal-content">
             <div class="modal-header">
        	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">
+                <h4 class="modal-title collection-modal-title">
                     <span class="glyphicon glyphicon-plus"></span>
-                    <spring:message code="collections.addToCollection"/>
+                    <spring:message code="collections.add"/>
+										<span class="product-to-add"><c:out value="${product.name}"></c:out></span>
+										<spring:message code="collections.toCollection"/>
                 </h4>
             </div>
             <div class="modal-body">

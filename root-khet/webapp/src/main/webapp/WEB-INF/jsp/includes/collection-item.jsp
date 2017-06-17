@@ -40,7 +40,7 @@
 							</span>
 						</div>
 						<div class="col-md-3">
-							<span class="collection-upvote-info">
+							<span class="collection-upvote-info pull-right">
 								<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
 								<c:out value="${product.votesCount}"/>
 							</span>
