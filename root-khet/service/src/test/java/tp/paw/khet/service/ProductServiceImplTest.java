@@ -4,14 +4,13 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tp.paw.khet.model.ProductTestUtils.assertEqualsFullProducts;
 import static tp.paw.khet.model.ProductTestUtils.assertEqualsPlainProducts;
-import static tp.paw.khet.model.ProductTestUtils.dummyPlainProductList;
-import static tp.paw.khet.model.ProductTestUtils.dummyPlainProductListWithCategory;
 import static tp.paw.khet.model.ProductTestUtils.dummyPlainProductListWithUserId;
 import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
@@ -19,20 +18,18 @@ import static tp.paw.khet.model.UserTestUtils.dummyUser;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.persistence.ProductDao;
-
-//TODO: actualizar tests
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {
@@ -58,22 +55,7 @@ public class ProductServiceImplTest {
 	public void setUp() {
 		when(userServiceMock.getUserById(0)).thenReturn(dummyUser(0));
 	}
-	
-//	@Test
-//	public void getProductsTest() {
-//		List<Product> expected = dummyPlainProductList(LIST_SIZE, 0);
-//		when(productDaoMock.getPlainProducts()).thenReturn(expected);
-//		
-//		List<Product> actual = productService.getPlainProducts();
-//		
-//		assertEquals(expected.size(), actual.size());
-//		
-//		for (int i = 0; i < expected.size(); i++)
-//			assertEqualsPlainProducts(expected.get(i), actual.get(i));
-//		
-//		verify(productDaoMock, times(1)).getPlainProducts();
-//	}
-
+		
 	@Test
 	public void getLogoByProductIdTest() {
 		Product dummyProduct = dummyProduct(0);
@@ -119,29 +101,37 @@ public class ProductServiceImplTest {
 		assertNull(productService.getFullProductById(1));
 	}
 	
-//	@Test
-//	public void getProductByCategoryTest() {
-//		int id = 0;
-//		Category[] categories = Category.values();
-//		
-//		for (Category category : categories) {
-//			assertCategoryRetrieval(category, id);
-//			id += 5;
-//		}
-//		
-//		verify(productDaoMock, times(categories.length)).getPlainProductsByCategory(Matchers.any(Category.class));
-//	}
+	@Test
+	public void getMaxProductPageWithSizeTest() {
+		assertMaxPageSize(50, 9, 6);   // 5 pages of size 9 and 1 page of size 5
+		assertMaxPageSize(50, 10, 5);   // 5 pages of size 10
+		
+		verify(productDaoMock, times(2)).getTotalProducts();
+		verify(productDaoMock, times(0)).getTotalProductsInCategory(any());
+	}
 	
-//	private void assertCategoryRetrieval(Category category, int initialId) {
-//		List<Product> expected = dummyPlainProductListWithCategory(5, initialId, category);
-//		when(productDaoMock.getPlainProductsByCategory(category)).thenReturn(expected);
-//		
-//		List<Product> actual = productService.getPlainProductsByCategory(category);
-//		Collections.reverse(expected); // actual list is ordered descendant by upload date
-//		
-//		assertEquals(expected, actual);
-//		
-//		for (int i = 0; i < expected.size(); i++)
-//			assertEqualsPlainProducts(expected.get(0), actual.get(0));
-//	}
+	private void assertMaxPageSize(int totalProducts, int pageSize, int expected) {
+		when(productDaoMock.getTotalProducts()).thenReturn(totalProducts);
+		
+		int actual = productService.getMaxProductPageWithSize(Optional.empty(), pageSize);
+		
+		assertEquals(expected, actual);		
+	}
+	
+	@Test
+	public void getMaxProductPageCategoryWithSizeTest() {
+		assertMaxPageCategorySize(50, 9, 6);   // 5 pages of size 9 and 1 page of size 5
+		assertMaxPageCategorySize(50, 10, 5);   // 5 pages of size 10
+		
+		verify(productDaoMock, times(2)).getTotalProductsInCategory(any());		
+		verify(productDaoMock, times(0)).getTotalProducts();
+	}
+
+	private void assertMaxPageCategorySize(int totalProducts, int pageSize, int expected) {
+		when(productDaoMock.getTotalProductsInCategory(any())).thenReturn(totalProducts);
+		
+		int actual = productService.getMaxProductPageWithSize(Optional.of(Category.APP), pageSize);
+		
+		assertEquals(expected, actual);
+	}
 }

@@ -84,11 +84,11 @@ public class ProductHibernateDaoTest {
 			testProductSortCriteria(Optional.empty(), psc, expected);
 	}
 			
-	@Test
+	@Test  // with category filter
 	public void getPlainProductsRangeCategoryPopularityTest() {
 		List<Product> expected = dummyProductList(LIST_SIZE, 1);
 		insertProducts(expected);
-		voteList(expected); // List is sorted by most popular products first
+		voteList(expected);
 
 		for (Category category : Category.values())
 			for (ProductSortCriteria psc : ProductSortCriteria.values())
@@ -175,7 +175,7 @@ public class ProductHibernateDaoTest {
 	}
 	
 	@Test
-	public void deleteProductByUserId() {
+	public void deleteProductById() {
 		Product dummyProduct = dummyProduct(1);
 		insertProduct(dummyProduct);
 
@@ -191,6 +191,17 @@ public class ProductHibernateDaoTest {
 		String noMatchKeyword = expected.get(0).getName().substring(1, 3);
 
 		assertSearch(keyword, noMatchKeyword, expected);
+	}
+	
+	@Test
+	public void getTotalProductsTest() {
+		assertEquals(0, productDao.getTotalProducts());
+		
+		insertProduct(dummyProduct(1));
+		assertEquals(1, productDao.getTotalProducts());
+		
+		productDao.deleteProductById(1);
+		assertEquals(0, productDao.getTotalProducts());
 	}
 	
 	@Test
