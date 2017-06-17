@@ -174,4 +174,49 @@
 }
 .new-collection-form {
 	display: none;
+	text-align: right;
+}
+
+.add-to-list-item {
+	border: 0;
+	background-color: #fff;
+	font-weight: 600;
+	font-size: 1.7em;
+	display: block;
+	width: 100%;
+	text-align: left;
+	border-radius: 3px;
+}
+
+.add-to-list-item p {
+	margin: 0;
+	padding: 5px 0;
+	display: inline;
+}
+
+.add-to-list-item .collection-info {
+	color: #737373;
+	font-weight: 400;
+}
+
+.collection-info p {
+	font-size: 0.7em;
+}
+
+.add-to-list-item:hover {
+	background-color: #f3f3f3;
+}
+
+.add-to-new-list-btn, .create-and-add-btn {
+	font-size: 1.1em;
+	font-weight: 700;
+	padding: 5px 25px;
+}
+
+.new-collection-holder {
+	margin-top: 1em;
+}
+
+.new-collection-button-row {
+	text-align: center;
 }
