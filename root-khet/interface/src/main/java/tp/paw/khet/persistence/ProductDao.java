@@ -31,7 +31,7 @@ public interface ProductDao {
 	 * @return List of products. Empty in case the user did not create any product
 	 */
 	public List<Product> getPlainProductsByUserId(int userId);
-			        
+	        
     /**
      * Retrieves the total amount of products registered.
      * @return The number of products.
