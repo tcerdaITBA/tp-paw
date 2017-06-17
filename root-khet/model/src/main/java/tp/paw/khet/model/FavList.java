@@ -51,7 +51,7 @@ public class FavList implements Comparable<FavList> {
 	@OrderBy("name ASC")
 	private SortedSet<Product> productList;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private User creator;
 	
 	public FavList(final String name, final User creator) {

@@ -42,6 +42,11 @@ public class FavListServiceImpl implements FavListService {
 	}
 	
 	@Override
+	public FavList getFavListByIdWithCreator(int favListId) {
+		return favListDao.getFavListByIdWithCreator(favListId);
+	}
+	
+	@Override
 	@Transactional
 	public void addProductToFavList(final int favListId, final int productId) {
 		getFavListById(favListId).addProduct(productService.getPlainProductById(productId));
@@ -52,5 +57,4 @@ public class FavListServiceImpl implements FavListService {
 	public void removeProductFromFavList(int favListId, int productId) {
 		getFavListById(favListId).removeProduct(productService.getPlainProductById(productId));
 	}
-
 }

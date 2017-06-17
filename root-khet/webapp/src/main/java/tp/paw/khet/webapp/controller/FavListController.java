@@ -81,7 +81,7 @@ public class FavListController {
 		
 		LOGGER.debug("Accessed delete favlist POST for product with id: {}", favListId);
 		
-		final FavList favlist = favListService.getFavListById(favListId);
+		final FavList favlist = favListService.getFavListByIdWithCreator(favListId);
 		
 		if (favlist == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
