@@ -1,0 +1,33 @@
+
+.delete-collection-form {
+	margin: 0;
+}
+
+.collection-panel .panel-heading{
+	background-color: #fff;
+}
+
+.collection-panel a, .collection-panel a:hover {
+	color: #333;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 1.2em;
+}
+
+.collection-panel .row {
+	display: flex;
+}
+
+.collection-panel .col-md-2, 
+.collection-panel .col-md-10 {
+	align-self: center;
+} 
+
+.collection-panel .panel-heading:hover{
+	border-color: #333;
+	background-color: #f3f3f3;
+}
+
+.collection-panel .panel-body {
+	background-color: #f9f9f9;
+}
