@@ -33,11 +33,12 @@ public class FavListController {
 	@RequestMapping(value = "/favlist/create", method = {RequestMethod.POST})
 	public ModelAndView createFavList(@ModelAttribute("loggedUser") final User loggedUser,
 							  @Valid @ModelAttribute("createFavListForm") final FormFavList favListForm,
+							  @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
 							  final BindingResult errors, final RedirectAttributes attr) {
 		
 		LOGGER.debug("User with id {} accessed favList create POST", loggedUser.getUserId());
 		
-		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		final ModelAndView mav = new ModelAndView("redirect:" + referrer);
 		
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to create favList: form has errors: {}", errors.getAllErrors());
@@ -57,7 +58,8 @@ public class FavListController {
 	}
 		
 	@RequestMapping(value = "/favlist/delete/{favListId}", method = RequestMethod.POST)
-	public ModelAndView deleteFavList(@PathVariable final int favListId, @ModelAttribute("loggedUser") final User loggedUser) throws FavListNotFoundException, ForbiddenException{
+	public ModelAndView deleteFavList(@PathVariable final int favListId, 
+			@ModelAttribute("loggedUser") final User loggedUser) throws FavListNotFoundException, ForbiddenException{
 		
 		LOGGER.debug("Accessed delete favlist POST for product with id: {}", favListId);
 		
@@ -76,9 +78,8 @@ public class FavListController {
 			throw new ForbiddenException();
 		}
 		
-		if (favListService.deleteFavList(favListId)) {
+		if (favListService.deleteFavList(favListId))
 			LOGGER.info("Favlist with id {} deleted by user with id {}", favListId, loggedUser.getUserId());
-		}
 		
 		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
 		
@@ -106,11 +107,10 @@ public class FavListController {
 			throw new ForbiddenException();
 		}
 		
-		//No deberia ser capaz de agregar dos veces el mismo producto
+		//TODO: No deberia ser capaz de agregar dos veces el mismo producto
 		favListService.addProductToFavList(favListId, productId);
 		
-		//TODO:Hacer los referers
-		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
+		return new ModelAndView("redirect:" + referrer);
 	}
 	
 	@RequestMapping(value = "/favlist/delete/{favListId}/{productId}", method = RequestMethod.POST)
@@ -137,8 +137,7 @@ public class FavListController {
 		
 		favListService.removeProductFromFavList(favListId, productId);
 		
-		//TODO:Hacer los referers
-		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
+		return new ModelAndView("redirect:" + referrer);
 	}
 	
 	@RequestMapping(value = "/favlist/create-and-add/{productId}", method = RequestMethod.POST)
@@ -150,7 +149,7 @@ public class FavListController {
 				
 		LOGGER.debug("Accessed add product with id {} to a new favlist", productId);
 		
-		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
+		final ModelAndView mav = new ModelAndView("redirect:" + referrer);
 		 
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to create favList: form has errors: {}", errors.getAllErrors());
@@ -173,7 +172,6 @@ public class FavListController {
 		
 		attr.addFlashAttribute("createFavListForm", new FormFavList()); // clear form
 
-		//TODO:Hacer los referers
 		return mav;
 	}
 }
