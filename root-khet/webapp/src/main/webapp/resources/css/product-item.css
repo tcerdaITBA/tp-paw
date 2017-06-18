@@ -166,7 +166,11 @@
 .add-to-collection-btn {
 	text-align: center;
 	align-content: center;
-	padding: 5px;
+	padding: 5px 10px;
+}
+
+.add-to-collection-btn .glyphicon {
+	margin-left: 3px;
 }
 
 .add-to-collection-btn .glyphicon {
