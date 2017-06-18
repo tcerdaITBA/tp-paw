@@ -42,6 +42,7 @@ public class FavList {
 	private String name;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
 	private Date creationDate;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
