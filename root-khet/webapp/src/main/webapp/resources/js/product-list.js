@@ -46,7 +46,7 @@ $(document).ready(function() {
 	
 	$('.add-to-new-list-btn').on('click', function() {
 		$(this).hide();
-		$('.new-collection-form').show();
+		$('.new-collection-form').fadeIn();
 		$('.new-collection-form input').focus();
 	})
 });

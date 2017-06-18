@@ -3,24 +3,24 @@
 		<div class="panel-heading" role="tab" id="heading-${favList.id}">
 			<div class="row">
 				<div class="col-md-10">
-					<span class="collection-title">
+					<div class="collection-title">
 						<c:out value="${favList.name}"></c:out>
-					</span>
-					<span class="collection-info">
-                        <c:set var="favListLen" value="${fn:length(favList.productList)}" />
+					</div>
+					<div class="collection-info">
+						<c:set var="favListLen" value="${fn:length(favList.productList)}" />
 						<c:out value="${favListLen}"></c:out>
-                        <c:choose>
-                            <c:when test="${favListLen eq 1}"><spring:message code="product.singular" /></c:when>
-                            <c:otherwise><spring:message code="product.plural" /></c:otherwise>
-                        </c:choose>
-					</span>
+						<c:choose>
+								<c:when test="${favListLen eq 1}"><spring:message code="product.singular" /></c:when>
+								<c:otherwise><spring:message code="product.plural" /></c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 				<div class="col-md-2">
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${loggedUser.userId == profileUser.userId}">
-                            <button class="btn btn-default collection-delete-btn" type="submit" data-favlist-id="${favList.id}">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
+							<button class="btn btn-default collection-delete-btn pull-right" type="submit" data-favlist-id="${favList.id}">
+									<span class="glyphicon glyphicon-trash"></span>
+							</button>
 						</c:if>
 					</sec:authorize>
 				</div>

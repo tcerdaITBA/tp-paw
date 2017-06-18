@@ -166,7 +166,11 @@
 .add-to-collection-btn {
 	text-align: center;
 	align-content: center;
-	padding: 5px;
+	padding: 5px 10px;
+}
+
+.add-to-collection-btn .glyphicon {
+	margin-left: 3px;
 }
 
 .add-to-collection-btn .glyphicon {
@@ -252,8 +256,8 @@
 .collection-panel .collection-info {
 	color: #8a8a8a;
 	font-weight: 400;
+	margin-top: -5px;
 	font-size: 0.8em;
-	margin-left: 15px;
 }
 
 .collection-panel .row {
@@ -315,8 +319,17 @@
 	font-size: 0.7em;
 }
 
+.tool-tip {
+  display: inline-block;
+}
+
+.tool-tip [disabled] {
+  pointer-events: none;
+}
+
 #new-collection-section {
 	display: none;
+	
 }
 
 .new-collection-form input {
@@ -338,4 +351,9 @@
 
 .collection-modal-title {
 	font-weight: 400;
+}
+
+.collection-modal-body {
+	max-height: 30em;
+	overflow-y: scroll;
 }
