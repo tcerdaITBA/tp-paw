@@ -7,18 +7,20 @@
 						<c:out value="${favList.name}"></c:out>
 					</span>
 					<span class="collection-info">
-						<c:out value="${fn:length(favList.productList)}"></c:out> productos
+                        <c:set var="favListLen" value="${fn:length(favList.productList)}" />
+						<c:out value="${favListLen}"></c:out>
+                        <c:choose>
+                            <c:when test="${favListLen eq 1}"><spring:message code="product.singular" /></c:when>
+                            <c:otherwise><spring:message code="product.plural" /></c:otherwise>
+                        </c:choose>
 					</span>
 				</div>
 				<div class="col-md-2">
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${loggedUser.userId == profileUser.userId}">
-							<c:url value="/favlist/delete/${favList.id}" var="delete"/>
-							<form:form class="delete-collection-form pull-right" action="${delete}" method="post">
-								<button class="btn btn-default collection-delete-btn" type="submit">
-									<span class="glyphicon glyphicon-trash"></span>
-								</button>
-							</form:form>	
+                            <button class="btn btn-default collection-delete-btn" type="submit" data-favlist-id="${favList.id}">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
 						</c:if>
 					</sec:authorize>
 				</div>

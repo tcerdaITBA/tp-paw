@@ -135,8 +135,7 @@
 	
 	<%@include file="includes/footer.jsp"%>
     
-    <!-- Deleted product feedback -->
-    <%@include file="includes/deleteModal.jsp"%>
+    <%@include file="includes/deleteProductFeedback.jsp"%>
 
 	</div>
 	<%@include file="includes/scripts.jsp"%>

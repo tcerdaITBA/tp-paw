@@ -27,9 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "favLists"
-//	   ,uniqueConstraints= @UniqueConstraint(columnNames={"favListName", "creator_userId"})  TODO: column am.amcanorder does no exist
-)
+@Table(name = "favLists")
 public class FavList implements Comparable<FavList> {
 
 	@Id
@@ -46,8 +44,8 @@ public class FavList implements Comparable<FavList> {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-	   joinColumns = @JoinColumn(name = "favListId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "favList_id_constraint")),
-	   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_constraint")))
+	   joinColumns = @JoinColumn(name = "favlistid", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "favList_id_constraint")),
+	   inverseJoinColumns = @JoinColumn(name = "productid", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_constraint")))
 	@OrderBy("name ASC")
 	private SortedSet<Product> productList;
 	
