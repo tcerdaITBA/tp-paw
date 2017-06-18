@@ -33,8 +33,9 @@ public class FavListController {
 	@RequestMapping(value = "/favlist/create", method = {RequestMethod.POST})
 	public ModelAndView createFavList(@ModelAttribute("loggedUser") final User loggedUser,
 							  @Valid @ModelAttribute("createFavListForm") final FormFavList favListForm,
+							  final BindingResult errors,
 							  @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
-							  final BindingResult errors, final RedirectAttributes attr) {
+							  final RedirectAttributes attr) {
 		
 		LOGGER.debug("User with id {} accessed favList create POST", loggedUser.getUserId());
 		
@@ -53,7 +54,7 @@ public class FavListController {
 	}
 
 	private void setErrorState(FormFavList favListForm, BindingResult errors, RedirectAttributes attr) {
-		attr.addFlashAttribute("org.springframework.validation.BindingResult.favListForm", errors);
+		attr.addFlashAttribute("org.springframework.validation.BindingResult.createFavListForm", errors);
 		attr.addFlashAttribute("createFavListForm", favListForm);		
 	}
 		
@@ -87,8 +88,10 @@ public class FavListController {
 	}
 	
 	@RequestMapping(value = "/favlist/add/{favListId}/{productId}", method = RequestMethod.POST)
-	public ModelAndView addProductToFavList(@PathVariable final int favListId, @PathVariable final int productId,
-			@ModelAttribute("loggedUser") final User loggedUser, @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer)
+	public ModelAndView addProductToFavList(@PathVariable final int favListId, 
+			@PathVariable final int productId,
+			@ModelAttribute("loggedUser") final User loggedUser, 
+			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer)
 					throws FavListNotFoundException, ForbiddenException {
 				
 		LOGGER.debug("Accessed add product with id {} to favlist with id {}", productId, favListId);
@@ -115,8 +118,10 @@ public class FavListController {
 	}
 	
 	@RequestMapping(value = "/favlist/delete/{favListId}/{productId}", method = RequestMethod.POST)
-	public ModelAndView removeProductToFavList(@PathVariable final int favListId, @PathVariable final int productId,
-			@ModelAttribute("loggedUser") final User loggedUser, @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer)
+	public ModelAndView removeProductToFavList(@PathVariable final int favListId, 
+			@PathVariable final int productId,
+			@ModelAttribute("loggedUser") final User loggedUser, 
+			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer)
 					throws FavListNotFoundException, ForbiddenException {
 				
 		LOGGER.debug("Accessed remove product with id {} to favlist with id {}", productId, favListId);
@@ -143,9 +148,11 @@ public class FavListController {
 	
 	@RequestMapping(value = "/favlist/create-and-add/{productId}", method = RequestMethod.POST)
 	public ModelAndView addProductAndCreateFavList(@PathVariable final int productId,
-			@ModelAttribute("loggedUser") final User loggedUser, @Valid @ModelAttribute("createFavListForm") final FormFavList favListForm,
+			@ModelAttribute("loggedUser") final User loggedUser, 
+			@Valid @ModelAttribute("createFavListForm") final FormFavList favListForm,
+			final BindingResult errors,
 			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
-			final BindingResult errors, final RedirectAttributes attr)
+			final RedirectAttributes attr)
 					throws FavListNotFoundException, ForbiddenException {
 				
 		LOGGER.debug("Accessed add product with id {} to a new favlist", productId);

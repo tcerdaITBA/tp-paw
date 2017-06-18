@@ -72,8 +72,8 @@
                                 <form:form modelAttribute="createFavListForm" class="favlist-form" action="${postPath}" method="post">
                                     <h3 class="favlist-form-title"><spring:message code="collections.newCollection"></spring:message></h3>
                                     <div class="form-group">
-                                            <form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
-                                            <form:errors path="name" element="p" cssClass="form-error"/>
+                                        <form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
+                                        <form:errors path="name" element="p" cssClass="form-error"/>
                                     </div>
                                     <button class="btn btn-default create-and-add-btn" type="submit">
                                         <span class="glyphicon glyphicon-plus"></span>

@@ -180,8 +180,8 @@
                                                     <h3><spring:message code="collections.newCollection"></spring:message></h3>
                                                     <spring:message code="collection.collectionNamePlaceholder" var="namePlaceholder"/>
                                                     <div class="form-group">
-                                                            <form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
-                                                            <form:errors path="name" element="p" cssClass="form-error"/>
+                                                        <form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
+                                                        <form:errors path="name" element="p" cssClass="form-error"/>
                                                     </div>
                                                     <button class="btn btn-default create-new-btn" type="submit">
                                                         <spring:message code="collections.create"/>
