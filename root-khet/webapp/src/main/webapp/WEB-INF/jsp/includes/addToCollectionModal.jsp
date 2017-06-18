@@ -33,7 +33,14 @@
 														<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}" ${isDisabled}>
 															<span class="collection-name"><c:out value="${collection.name}"></c:out></span>
 															<span class="collection-info">
-																<p>- <c:out value="${fn:length(collection.productList)}"/> productos</p>
+                                                            <p>- 
+                                                                <c:set var="collectionLen" value="${fn:length(collection.productList)}" />
+                                                                <c:out value="${collectionLen}"></c:out>
+                                                                <c:choose>
+                                                                    <c:when test="${collectionLen eq 1}"><spring:message code="product.singular" /></c:when>
+                                                                    <c:otherwise><spring:message code="product.plural" /></c:otherwise>
+                                                                </c:choose>
+                                                            </p>
 															</span>
 															<c:if test="${fn:contains(collection.productList, product)}">
 																<span class="already-added-msg">
