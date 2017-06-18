@@ -256,8 +256,8 @@
 .collection-panel .collection-info {
 	color: #8a8a8a;
 	font-weight: 400;
+	margin-top: -5px;
 	font-size: 0.8em;
-	margin-left: 15px;
 }
 
 .collection-panel .row {
@@ -351,4 +351,9 @@
 
 .collection-modal-title {
 	font-weight: 400;
+}
+
+.collection-modal-body {
+	max-height: 30em;
+	overflow-y: scroll;
 }
