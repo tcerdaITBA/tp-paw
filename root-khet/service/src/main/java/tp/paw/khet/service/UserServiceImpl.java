@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = DuplicateEmailException.class)
 	public User createUser(final String userName, final String email, final String password, final byte[] profilePicture) throws DuplicateEmailException {
 		return userDao.createUser(userName, email.toLowerCase(), password, profilePicture);
 	}

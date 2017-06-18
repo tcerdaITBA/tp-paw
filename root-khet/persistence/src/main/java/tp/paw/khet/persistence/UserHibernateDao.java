@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.exception.DuplicateEmailException;
@@ -24,9 +24,10 @@ public class UserHibernateDao implements UserDao {
 		
 		try {
 			em.persist(user);
+			em.flush();
 			return user;
 		} 
-		catch (ConstraintViolationException e) {
+		catch (PersistenceException e) {
 			throw new DuplicateEmailException("There already exists an user with email: " + email);
 		}
 	}

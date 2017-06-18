@@ -103,7 +103,7 @@ public class FavList {
 		
 		final FavList other = (FavList) obj;
 		
-		return getId() == other.getId();
+		return getId() == other.getId() || (getName().equalsIgnoreCase(other.getName()) && getCreator().equals(other.getCreator()));
 	}
 	
 	@Override

@@ -59,12 +59,12 @@ public class UserHibernateDaoTest {
 		assertEqualsUsers(expected, actual);
 	}
 	
-//	@Test(expected = DuplicateEmailException.class)
-//	public void duplicateEmailExceptionTest() throws DuplicateEmailException {
-//		User dummyUser = dummyUser(1);
-//		insertUser(dummyUser);
-//		insertUser(dummyUser);
-//	}
+	@Test(expected = DuplicateEmailException.class)
+	public void duplicateEmailExceptionTest() throws DuplicateEmailException {
+		User dummyUser = dummyUser(1);
+		insertUser(dummyUser);
+		insertUser(dummyUser);
+	}
 	
 	@Test
 	public void getUserByEmailTest() throws DuplicateEmailException {
