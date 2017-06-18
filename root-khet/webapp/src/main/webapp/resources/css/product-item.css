@@ -315,8 +315,17 @@
 	font-size: 0.7em;
 }
 
+.tool-tip {
+  display: inline-block;
+}
+
+.tool-tip [disabled] {
+  pointer-events: none;
+}
+
 #new-collection-section {
 	display: none;
+	
 }
 
 .new-collection-form input {

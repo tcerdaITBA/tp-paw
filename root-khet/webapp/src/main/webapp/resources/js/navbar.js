@@ -4,6 +4,8 @@ $(document).ready(function(){
 		placement: 'bottom',
 		html: true,
 	});
+	
+  $('[data-toggle="tooltip"]').tooltip();
 });
 
 const SEARCH_WAIT_TIME_MILLIS = 400;

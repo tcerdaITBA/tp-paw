@@ -18,9 +18,9 @@
 				<div class="col-md-2">
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${loggedUser.userId == profileUser.userId}">
-                            <button class="btn btn-default collection-delete-btn" type="submit" data-favlist-id="${favList.id}">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
+							<button class="btn btn-default collection-delete-btn pull-right" type="submit" data-favlist-id="${favList.id}">
+									<span class="glyphicon glyphicon-trash"></span>
+							</button>
 						</c:if>
 					</sec:authorize>
 				</div>
