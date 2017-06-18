@@ -59,27 +59,28 @@ public class FavListController {
 		
 	@RequestMapping(value = "/favlist/delete/{favListId}", method = RequestMethod.POST)
 	public ModelAndView deleteFavList(@PathVariable final int favListId, 
-			@ModelAttribute("loggedUser") final User loggedUser) throws FavListNotFoundException, ForbiddenException{
+			@ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) throws FavListNotFoundException, ForbiddenException{
 		
 		LOGGER.debug("Accessed delete favlist POST for product with id: {}", favListId);
 		
-		final FavList favlist = favListService.getFavListByIdWithCreator(favListId);
+		final FavList favList = favListService.getFavListByIdWithCreator(favListId);
 		
-		if (favlist == null) {
+		if (favList == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);
 			throw new FavListNotFoundException();
 		}
 		
-		final User creator = favlist.getCreator();
+		final User creator = favList.getCreator();
 		
 		if (!creator.equals(loggedUser)) {
 			LOGGER.warn("Failed to delete favlist with id {}: logged user with id {} is not favlist creator with id {}", 
 					favListId, loggedUser.getUserId(), creator.getUserId());
 			throw new ForbiddenException();
 		}
-		
-		if (favListService.deleteFavList(favListId))
-			LOGGER.info("Favlist with id {} deleted by user with id {}", favListId, loggedUser.getUserId());
+				
+		LOGGER.info("Favlist with id {} deleted by user with id {}", favListId, loggedUser.getUserId());
+		attr.addFlashAttribute("favListDeleted", favList.getName());
+		favListService.deleteFavList(favListId);
 		
 		return new ModelAndView("redirect:/profile/"+ loggedUser.getUserId());
 		

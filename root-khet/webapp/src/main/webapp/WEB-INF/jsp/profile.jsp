@@ -157,6 +157,7 @@
 												<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 													<c:forEach items="${favlistSet}" var="favList">
 														<%@include file="includes/collection-item.jsp"%></%@include>
+                                                        <%@include file="includes/favListDeleteModal.jsp"%></%@include>
 													</c:forEach>
 												</div>
 											</c:otherwise>
@@ -196,9 +197,10 @@
 			<%@include file="includes/footer.jsp"%></%@include>
 		</div>
 		</body>
+        <%@include file="includes/deleteProductFeedback.jsp"%>
+        <%@include file="includes/favListDeleteFeedback.jsp"%>
 		<%@include file="includes/changePictureModal.jsp"%>
 		<%@include file="includes/changePasswordModal.jsp"%>
-    <%@include file="includes/deleteModal.jsp"%>
 		<%@include file="includes/scripts.jsp"%>
 
 		<script src="<c:url value="/resources/js/profile.js" />"></script>		

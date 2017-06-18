@@ -8,7 +8,6 @@ $(document).ready(function() {
     };
     
 	$('.product-category-btn').on('click', function(event) {
-    console.log(event);
 		location.href = $(this).data('href');
 		event.stopPropagation();
 		return false;
@@ -30,7 +29,12 @@ $(document).ready(function() {
 		$('#deleteModal' + $(this).data('product-id')).modal('show');
 		return false;
 	});
-	
+
+	$('.collection-delete-btn').on('click', function() {
+        $('#favListDeleteModal' + $(this).data('favlist-id')).modal('show');
+		return false;
+	});
+    
 	// TODO: Se puede mejorar porque ahora se le aplica a TODOS los del html
 	$('.add-to-collection-btn').on('click', function() {
 		$($(this).data('target')).modal('show');
