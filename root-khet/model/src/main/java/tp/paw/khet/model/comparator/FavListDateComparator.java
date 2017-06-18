@@ -8,7 +8,9 @@ public class FavListDateComparator implements Comparator<FavList> {
 
 	@Override
 	public int compare(final FavList o1, final FavList o2) {
-		return o1.getCreationDate().compareTo(o2.getCreationDate());
+		int cmp = o1.getCreationDate().compareTo(o2.getCreationDate());
+		
+		return cmp != 0 ? cmp : Integer.compare(o1.getId(), o2.getId());		
 	}
 
 }
