@@ -172,10 +172,10 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											<div id="new-collection-section" class="well">
+											<div id="new-collection-section" class="well new-collection-form">
 												<c:url value="/favlist/create" var="createCollection" />
 												<form:form modelAttribute="createFavListForm" class="favlist-form" action="${createCollection}" method="post">
-													<h3><spring:message code="collections.newCollection"></spring:message></h3>
+													<h3 class="favlist-form-title"><spring:message code="collections.newCollection"></spring:message></h3>
 													<spring:message code="collection.collectionNamePlaceholder" var="namePlaceholder"/>
 													<div class="form-group">
 															<form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
