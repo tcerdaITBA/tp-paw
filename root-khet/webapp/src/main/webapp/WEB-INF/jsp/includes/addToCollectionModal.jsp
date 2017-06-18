@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<spring:message code="collection.collectionNamePlaceholder" var="namePlaceholder"></spring:message>
 <div id="add-to-collection-modal-${product.id}" class="modal fade">
     <div class="modal-dialog">
 		<div class="modal-content">
@@ -28,12 +29,18 @@
 												<div class="col-md-12">
 													<c:url value="/favlist/add/${collection.id}/${product.id}" var="addToList"/>
 													<form:form action="${addToList}" method="post">
-															<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}">
-																<span class="collection-name"><c:out value="${collection.name}"></c:out></span>
-																<span class="collection-info">
-																	<p>- <c:out value="${fn:length(collection.productList)}"/> productos</p>
+														<c:set var="isDisabled" value="${fn:contains(collection.productList, product) ? 'disabled' : 'enabled'}" ></c:set>
+														<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}" ${isDisabled}>
+															<span class="collection-name"><c:out value="${collection.name}"></c:out></span>
+															<span class="collection-info">
+																<p>- <c:out value="${fn:length(collection.productList)}"/> productos</p>
+															</span>
+															<c:if test="${fn:contains(collection.productList, product)}">
+																<span class="already-added-msg">
+																	<spring:message code="collections.alreadyInCollection"></spring:message>
 																</span>
-															</button>
+															</c:if>
+														</button>
 													</form:form>
 												</div>
 											</div>
@@ -56,8 +63,9 @@
 											<div class="new-collection-form well">
 											<c:url value="/favlist/create-and-add/${product.id}" var="postPath" />
 												<form:form modelAttribute="createFavListForm" class="favlist-form" action="${postPath}" method="post">
+													<h3 class="favlist-form-title"><spring:message code="collections.newCollection"></spring:message></h3>
 													<div class="form-group">
-															<form:input type="text" class="form-control" rows="1" path="name" placeholder="Collection name" maxlength="64"/>
+															<form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
 															<form:errors path="name" element="p" cssClass="form-error"/>
 													</div>
 													<button class="btn btn-default create-and-add-btn" type="submit">

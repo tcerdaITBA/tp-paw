@@ -175,6 +175,7 @@
 .new-collection-form {
 	display: none;
 	text-align: right;
+	margin-bottom: 0;
 }
 
 .add-to-list-item {
@@ -186,6 +187,10 @@
 	width: 100%;
 	text-align: left;
 	border-radius: 3px;
+}
+
+.add-to-list-item[disabled] {
+	color: #b8b8b8;
 }
 
 .add-to-list-item p {
@@ -203,9 +208,16 @@
 	font-size: 0.7em;
 }
 
-.add-to-list-item:hover {
+.add-to-list-item[enabled]:hover {
 	background-color: #f3f3f3;
 }
+
+.already-added-msg {
+	font-weight: 600;
+	color: #333;
+	font-size: 0.6em;
+}
+
 
 .add-to-new-list-btn, .create-and-add-btn {
 	font-size: 1.1em;
@@ -304,6 +316,18 @@
 
 #new-collection-section {
 	display: none;
+}
+
+.new-collection-form input {
+	text-align: center;
+	font-weight:500;
+}
+
+.favlist-form-title {
+	color: #333;
+	text-align: center;
+	margin: 0 0 10px 2px;
+	font-size: 1.2em;
 }
 
 .product-to-add {
