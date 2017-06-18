@@ -28,7 +28,7 @@ public class IndexController {
 	
 	@Autowired
     private ProductService productService;
-
+	
 	@RequestMapping("/")
 	public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") final int page, 
 	        @RequestParam(value="orderBy", required = false, defaultValue = "recent") final ProductSortCriteria sortCriteria,
@@ -72,4 +72,5 @@ public class IndexController {
 		binder.registerCustomEditor(ProductSortCriteria.class, new CaseInsensitiveConverter<>(ProductSortCriteria.class));
 		binder.registerCustomEditor(Category.class, new CaseInsensitiveConverter<>(Category.class));
 	}
+	
 }

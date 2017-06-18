@@ -38,7 +38,7 @@ public class ProfileCustomizeController {
 	
 	@Autowired
 	private UserService userService;
-	    
+
 	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
 	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
 			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) {
@@ -52,7 +52,7 @@ public class ProfileCustomizeController {
 		
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to change password: form has errors: {}", errors.getAllErrors());
-			setErrorState(changePasswordForm, errors, attr, loggedUser);
+			setErrorState(changePasswordForm, errors, attr);
 			return mav;
 		}
 		
@@ -66,8 +66,7 @@ public class ProfileCustomizeController {
 		return mav;	
 	}
 
-	private void setErrorState(final FormChangePassword changePasswordForm, final BindingResult errors, 
-			final RedirectAttributes attr, final User loggedUser) {
+	private void setErrorState(final FormChangePassword changePasswordForm, final BindingResult errors, final RedirectAttributes attr) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.changePasswordForm", errors);
 		attr.addFlashAttribute("changePasswordForm", changePasswordForm);
 		attr.addFlashAttribute("passError", true);
@@ -83,7 +82,7 @@ public class ProfileCustomizeController {
 		
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to change profile picture: form has errors: {}", errors.getAllErrors());
-			setErrorState(changeProfilePictureForm, errors, attr, loggedUser);
+			setErrorState(changeProfilePictureForm, errors, attr);
 			return mav;
 		}
 		
@@ -99,8 +98,7 @@ public class ProfileCustomizeController {
 		return mav;	
 	}
 
-	private void setErrorState(final FormChangePicture changeProfilePictureForm, final BindingResult errors, 
-			final RedirectAttributes attr, final User loggedUser) {
+	private void setErrorState(final FormChangePicture changeProfilePictureForm, final BindingResult errors, final RedirectAttributes attr) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.changeProfilePictureForm", errors);
 		attr.addFlashAttribute("changeProfilePictureForm", changeProfilePictureForm);
 		attr.addFlashAttribute("imgError", true);

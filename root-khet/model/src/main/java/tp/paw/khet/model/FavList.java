@@ -3,13 +3,12 @@ package tp.paw.khet.model;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -25,11 +24,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.SortComparator;
+
+import tp.paw.khet.model.comparator.ProductAlphaComparator;
+
 @Entity
-@Table(name = "favLists"
-//	   ,uniqueConstraints= @UniqueConstraint(columnNames={"favListName", "creator_userId"})  TODO: column am.amcanorder does no exist
-)
-public class FavList implements Comparable<FavList> {
+@Table(name = "favLists")
+public class FavList {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favLists_favListid_seq")
@@ -45,9 +46,10 @@ public class FavList implements Comparable<FavList> {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-	   joinColumns = @JoinColumn(name = "favListId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "favList_id_constraint")),
-	   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_constraint")))
-	private List<Product> productList;
+	   joinColumns = @JoinColumn(name = "favlistid", nullable = false, foreignKey = @ForeignKey(name = "favList_id_constraint")),
+	   inverseJoinColumns = @JoinColumn(name = "productid", nullable = false, foreignKey = @ForeignKey(name = "product_id_constraint")))
+	@SortComparator(ProductAlphaComparator.class)
+	private SortedSet<Product> productList;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private User creator;
@@ -56,7 +58,7 @@ public class FavList implements Comparable<FavList> {
 		this.name = notBlank(name, "User name must have at least one non empty character");
 		this.creator = notNull(creator, "FavList creator cannot be null");
 		this.creationDate = new Date();
-		this.productList = new ArrayList<>();
+		this.productList = new TreeSet<>(new ProductAlphaComparator());
 	}
 	
 	// Hibernate
@@ -75,8 +77,8 @@ public class FavList implements Comparable<FavList> {
 		return creationDate;
 	}
 	
-	public List<Product> getProductList() {
-		return Collections.unmodifiableList(productList);
+	public SortedSet<Product> getProductList() {
+		return Collections.unmodifiableSortedSet(productList);
 	}
 	
 	public void addProduct(final Product product) {
@@ -89,11 +91,6 @@ public class FavList implements Comparable<FavList> {
 	
 	public User getCreator() {
 		return creator;
-	}
-
-	@Override
-	public int compareTo(final FavList o) {
-		return getCreationDate().compareTo(o.getCreationDate());
 	}
 	
 	@Override

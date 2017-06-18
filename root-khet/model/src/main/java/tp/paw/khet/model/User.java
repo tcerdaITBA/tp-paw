@@ -11,7 +11,6 @@ import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -54,12 +53,13 @@ public class User {
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "votes",
-			   joinColumns = @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "user_id_contraint")),
-			   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "product_id_contraint")))
+			   joinColumns = @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(name = "user_id_constraint")),
+			   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(name = "product_id_constraint")))
 	@SortComparator(ProductAlphaComparator.class)
 	private SortedSet<Product> votedProducts;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", orphanRemoval = true)
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creator", orphanRemoval = true, cascade = CascadeType.ALL)
 	@SortComparator(FavListDateComparator.class)
 	private SortedSet<FavList> favLists;
 	
@@ -136,8 +136,8 @@ public class User {
 		return favList;
 	}
 	
-	public void deleteFavList(final FavList favList) {
-		favLists.remove(favList);
+	public boolean deleteFavList(final FavList favList) {
+		return favLists.remove(favList);
 	}
 	
 	@Override

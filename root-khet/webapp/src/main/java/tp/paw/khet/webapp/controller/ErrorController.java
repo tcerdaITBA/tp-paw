@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import tp.paw.khet.webapp.controller.mav.ErrorMav;
+
 @Controller
 public class ErrorController {
 
@@ -14,13 +16,13 @@ public class ErrorController {
 	@RequestMapping("/errors/400")
 	public ModelAndView badRequest() {
 		LOGGER.warn("Bad Request");
-		return new ModelAndView("400");
+		return new ErrorMav("error.title.400", "error.400", "error.badRequest", "error.badRequestDesc");
 	}
 	
 	@RequestMapping("/errors/401")
 	public ModelAndView unauthorized() {
 		LOGGER.warn("Unauthorized");
-		return new ModelAndView("401");
+		return new ErrorMav("error.title.401", "error.401", "error.unAuthorized", "error.unAuthorizedDesc");
 	}
 	
 	@RequestMapping("/errors/403")
@@ -32,8 +34,6 @@ public class ErrorController {
 	@RequestMapping("/errors/404")
 	public ModelAndView noSuchRequestHandler() {
 		LOGGER.warn("Page not found");
-		return new ModelAndView("404");
+		return new ErrorMav("error.title.404", "error.404", "error.pageNotFound", "error.pageNotFoundDesc");
 	}
-	
-	
 }

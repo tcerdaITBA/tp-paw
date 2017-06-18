@@ -23,7 +23,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -181,12 +180,6 @@ public class Product {
 	
 	public int getVotesCount() {
 		return getVotingUsers().size();
-	}
-	
-	@PreRemove
-	private void removeProductFromUserVotedProducts() {
-		for (User u : getVotingUsers())
-			u.getVotedProducts().remove(this);
 	}
 	
 	@Override

@@ -17,15 +17,23 @@ public interface FavListService {
 	/**
 	 * Deletes a {@link FavList}
 	 * @param favListId - ID of the favList to delete
+	 * @return true if the favList was deleted, false otherwise
 	 */
-	public void deleteFavList(int favListId);
+	public boolean deleteFavList(int favListId);
 	
 	/**
-	 * Retrievea a {@link FavList} given it's ID.
+	 * Retrieves a {@link FavList} given it's ID.
 	 * @param id - ID of the favList to retrieve
 	 * @return FavList with the associated ID or null if it doesn't exist
 	 */
 	public FavList getFavListById(int favListId);
+	
+	/**
+	 * Retrieves a {@link FavList} given it's ID populated with the corresponding {@link User} creator.
+	 * @param favListId - ID of the favList
+	 * @return FavList with the associated ID or null if it doesn't exist
+	 */
+	public FavList getFavListByIdWithCreator(int favListId);
 
 	/**
 	 * Adds a {@link Product} to a {@link FavList}
