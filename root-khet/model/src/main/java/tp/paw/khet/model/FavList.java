@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.SortComparator;
 
 import tp.paw.khet.model.comparator.ProductAlphaComparator;
@@ -64,6 +65,14 @@ public class FavList {
 	
 	// Hibernate
 	FavList() {
+	}
+	
+	// Constructor for testing purposes
+	FavList(final int id, final String name, final User creator) {
+		this(name, creator);
+		
+		Validate.isTrue(id >= 0, "FavList ID must be non-negative: " + id);
+		this.id = id;
 	}
 	
 	public int getId() {

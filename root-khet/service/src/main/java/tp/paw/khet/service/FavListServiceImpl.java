@@ -39,7 +39,11 @@ public class FavListServiceImpl implements FavListService {
 	@Override
 	@Transactional
 	public boolean deleteFavList(final int favListId) {
-		final FavList favList = favListDao.getFavListById(favListId);
+		final FavList favList = getFavListById(favListId);
+		
+		if (favList == null)
+			return false;
+		
 		final User creator = favList.getCreator();
 		
 		return creator.deleteFavList(favList);
