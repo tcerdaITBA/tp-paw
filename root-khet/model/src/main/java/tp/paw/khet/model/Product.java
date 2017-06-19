@@ -250,7 +250,7 @@ public class Product {
 		}
 		
 		public ProductBuilder website(final String link) {
-		    this.website = notBlank(link, "Product website link cannot be null");
+		    this.website = link;
 		    return this;
 		}
 		
