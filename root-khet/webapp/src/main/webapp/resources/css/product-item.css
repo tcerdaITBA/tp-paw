@@ -398,6 +398,7 @@
 .collection-delete-product {
 	border: transparent;
 	background: transparent;
+	padding: 0;
 }
 
 .collection-remove-product-icon:hover {
@@ -408,3 +409,12 @@
 	padding: 0 3em 0 1em;
 }
 
+
+.button-delete-col {
+	display: flex;
+}
+
+.button-delete-col form {
+	margin: 0;
+	align-self: center;
+}

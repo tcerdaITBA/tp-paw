@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<c:url value="/vote/product/${product.id}" var="vote" />
-			<div class="col-md-3 col-md-offset-6">
+			<div class="col-md-4 col-md-offset-5">
 				<sec:authorize access="isAuthenticated()">
 					<form:form class="pull-right" action="${vote}" method="post">
 							<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">

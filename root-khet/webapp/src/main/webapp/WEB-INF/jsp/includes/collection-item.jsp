@@ -52,13 +52,13 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-1">
+				<div class="col-md-1 button-delete-col">
 					<c:url value="/favlist/delete/${favList.id}/${product.id}" var="removeFromList"/>
 					<sec:authorize access="isAuthenticated()">
 					<c:if test="${loggedUser.userId == profileUser.userId}">
-						<form:form class="pull-right" action="${removeFromList}" method="post">
-								<button class="btn collection-delete-product" type="submit"">
-									<p><span class="glyphicon glyphicon-remove collection-remove-product-icon"></span>
+						<form:form action="${removeFromList}" method="post">
+								<button class="btn collection-delete-product" type="submit">
+									<span class="glyphicon glyphicon-remove collection-remove-product-icon"></span>
 								</button>
 						</form:form>
 					</c:if>
