@@ -271,3 +271,7 @@ footer p {
 	font-size: 1em;
 	float: right;
 }
+
+.panel {
+	margin-top: 5px;
+}

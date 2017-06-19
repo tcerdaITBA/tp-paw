@@ -212,8 +212,30 @@
 	font-size: 0.7em;
 }
 
-.add-to-list-item[enabled]:hover {
+.add-to-list-item:hover {
 	background-color: #f3f3f3;
+}
+
+.add-to-list-item:hover .adding-hint {
+	visibility: visible;
+}
+
+.add-to-list-item .row {
+	display: flex;
+}
+
+.add-to-list-item .hint-col {
+	margin: auto auto;
+}
+
+.adding-hint {
+	visibility: hidden;
+	color: #fff;
+	font-size: 0.7em;
+	background-color: #d6354f;
+	border-radius: 4px;
+	padding: 10px;
+	display: inline-block;
 }
 
 .already-added-msg {
@@ -288,13 +310,15 @@
 .collection-product-list-item {
 	padding: 5px 1em;
 	display: block;
+	margin-top: 3px;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid #f3f3f3;
 }
 
 .collection-product-list-item:hover {
-	background-color: #f3f3f3;
+	border-color: #33bb9c;
 	text-decoration: none;
-	color: #333;
-	border-radius: 4px;
 	outline: none;
 }
 
@@ -304,9 +328,16 @@
 	background: none;
 }
 
-.collection-product-logo img{
+.collection-product-logo img {
 	max-width: 100%;
-	max-height: 50px;
+	height: 50px;
+	object-fit: contain;
+}
+
+.preview-product-logo img {
+	max-width: 100%;
+	height: 50px;
+	object-fit: contain;
 }
 
 .collection-product-name {
@@ -314,9 +345,19 @@
 	font-weight: 400;
 } 
 
+.preview-product-name {
+	font-size: 1.7em;	
+	font-weight: 600;
+}
+
 .collection-upvote-info {
 	font-weight: 400;
 	font-size: 0.7em;
+}
+
+.preview-upvote-info {
+	font-weight: 500;
+	font-size: 1.2em;
 }
 
 .tool-tip {
@@ -356,4 +397,33 @@
 .collection-modal-body {
 	max-height: 30em;
 	overflow-y: scroll;
+}
+
+.collection-delete-product {
+	border: transparent;
+	background: transparent;
+	padding: 0;
+}
+
+.collection-remove-product-icon:hover {
+	color: crimson;
+}
+
+.collection-remove-product-icon {
+	color: #7b7b7b;
+}
+
+.product-preview {
+	padding: 0 3em 0 1em;
+}
+
+
+.button-delete-col {
+	display: flex;
+	padding-left: 0;
+}
+
+.button-delete-col form {
+	margin: 0;
+	align-self: center;
 }

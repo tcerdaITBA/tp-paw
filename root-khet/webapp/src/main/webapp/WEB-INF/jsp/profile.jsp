@@ -90,18 +90,31 @@
                         <div class="row tabs-row">
                             <div class="">
                                 <ul class="nav nav-pills nav-justified profile-tabs">
-                                    <c:set var="activeTab" value="${empty products && not empty votedProducts}"></c:set>
+                                    <c:choose>
+                                    	<c:when test="${!empty favlistSet}">
+                                    		<c:set var="activeTab" value="1"></c:set>
+                                    	</c:when>
+                                    	<c:when test="${!empty products}">
+                                    		<c:set var="activeTab" value="2"></c:set>
+                                    	</c:when>
+                                    	<c:when test="${!empty votedProducts}">
+                                    		<c:set var="activeTab" value="3"></c:set>
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    		<c:set var="activeTab" value="1"></c:set>
+                                    	</c:otherwise>
+                                    </c:choose>
 
-                                    <li role="presentation" class="none"><a href="#favList-pane" data-toggle="tab"><spring:message code="Profile.Tab.favlist"/><span class="badge tab-badge"><c:out value="${fn:length(favlistSet)}"/></span></a></li>
-                                    <li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${fn:length(products)}"/></span></a></li>
-                                    <li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${fn:length(votedProducts)}"/></span></a></li>
+                                    <li role="presentation" class="${activeTab == 1 ? 'active' : 'none' }"><a href="#favList-pane" data-toggle="tab"><spring:message code="Profile.Tab.favlist"/><span class="badge tab-badge"><c:out value="${fn:length(favlistSet)}"/></span></a></li>
+                                    <li role="presentation" class="${activeTab == 2 ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${fn:length(products)}"/></span></a></li>
+                                    <li role="presentation" class="${activeTab == 3 ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${fn:length(votedProducts)}"/></span></a></li>
 
                                 </ul>
                             </div>
                         </div>
 
                     <div class="tab-content">
-                        <div id="uploadedProducts-pane" class="tab-pane fade row result-for-products ${!activeTab ? 'active in' : 'none' }">
+                        <div id="uploadedProducts-pane" class="tab-pane fade row result-for-products ${activeTab == 2 ? 'active in' : 'none' }">
                             <c:choose>
                                 <c:when test="${empty products}">
                                     <div class="zrp" id="user-products-zrp">
@@ -116,13 +129,14 @@
                                         <a href="<c:url value="/product/${product.id}"/>">
                                             <%@include file="includes/product-item-delete.jsp"%></%@include>
                                         </a>
+										<%@include file="includes/addToCollectionModal.jsp"%></%@include>
                                     </c:forEach>
                                 </div>
                             </c:otherwise>
                             </c:choose>		
                         </div>
 
-                        <div id="votedProducts-pane" class="tab-pane fade row result-for-products ${activeTab ? 'active in' : 'none' }">
+                        <div id="votedProducts-pane" class="tab-pane fade row result-for-products ${activeTab == 3 ? 'active in' : 'none'}">
                             <c:choose>
                                     <c:when test="${empty votedProducts}">
                                         <div class="zrp" id="user-products-zrp">
@@ -136,13 +150,14 @@
                                             <a href="<c:url value="/product/${product.id}"/>">
                                                 <%@include file="includes/product-item.jsp"%></%@include>
                                             </a>
+											<%@include file="includes/addToCollectionModal.jsp"%></%@include>
                                         </c:forEach>
                                     </div>
                                 </c:otherwise>
                             </c:choose>		
                         </div>
 
-                        <div id="favList-pane" class="tab-pane fade row result-for-products none">
+                        <div id="favList-pane" class="tab-pane fade row result-for-products none ${activeTab == 1 ? 'active in' : 'none'}">
                             <div class="row">
                                 <div class="col-md-12">
                                     <c:choose>
@@ -155,8 +170,8 @@
                                         <c:otherwise>
                                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                             <c:forEach items="${favlistSet}" var="favList">
-                                                <%@include file="includes/collection-item.jsp"%></%@include>
-                                                <%@include file="includes/favListDeleteModal.jsp"%></%@include>
+                                                <%@include file="includes/collection-item.jsp"%>
+                                                <%@include file="includes/favListDeleteModal.jsp"%>
                                             </c:forEach>
                                         </div>
                                     </c:otherwise>
