@@ -66,7 +66,7 @@ public class Video {
 	
 	@Override
 	public String toString() {
-		return videoId;
+		return getVideoId();
 	}
 	
 	// For Hibernate Composite keys

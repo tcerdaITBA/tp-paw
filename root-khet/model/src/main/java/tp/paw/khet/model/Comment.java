@@ -124,6 +124,6 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return content;
+		return getContent();
 	}
 }
