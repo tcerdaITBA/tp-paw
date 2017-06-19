@@ -8,12 +8,24 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title collection-modal-title">
-					<span class="glyphicon glyphicon-plus"></span>
-					<spring:message code="collections.add"/>
-					<span class="product-to-add"><c:out value="${product.name}"></c:out></span>
-					<spring:message code="collections.toCollection"/>
-				</h4>
+				<div class="product-preview">
+					<div class="row center-flex">
+						<div class="col-md-2 preview-product-logo center-flex">
+							<img src="<c:url value="/product/${product.id}/logo"/>">
+						</div>
+						<div class="col-md-7">
+							<span class="preview-product-name capitalize-firstLetter">
+								<c:out value="${product.name}"/>
+							</span>
+						</div>
+						<div class="col-md-3">
+							<span class="preview-upvote-info pull-right">
+								<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+								<c:out value="${product.votesCount}"/>
+							</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="modal-body">
 				<c:choose>
@@ -51,16 +63,26 @@
 												</c:when>
 												<c:otherwise>
 													<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}">
-														<div class="collection-name"><c:out value="${collection.name}"></c:out></div>
-														<div class="collection-info">
-															<p> 
-																<c:set var="collectionLen" value="${fn:length(collection.productList)}" />
-																<c:out value="${collectionLen}"></c:out>
-																<c:choose>
-																	<c:when test="${collectionLen eq 1}"><spring:message code="product.singular" /></c:when>
-																	<c:otherwise><spring:message code="product.plural" /></c:otherwise>
-																</c:choose>
-															</p>
+														<div class="row">
+															<div class="col-md-8">
+																<div class="collection-name"><c:out value="${collection.name}"></c:out></div>
+																<div class="collection-info">
+																	<p> 
+																		<c:set var="collectionLen" value="${fn:length(collection.productList)}" />
+																		<c:out value="${collectionLen}"></c:out>
+																		<c:choose>
+																			<c:when test="${collectionLen eq 1}"><spring:message code="product.singular" /></c:when>
+																			<c:otherwise><spring:message code="product.plural" /></c:otherwise>
+																		</c:choose>
+																	</p>
+																</div>
+															</div>
+															<div class="col-md-4 hint-col">
+																<div class="adding-hint pull-right">
+																	<span class="glyphicon glyphicon-plus"></span>
+																	<span>Agregar</span>
+																</div>
+															</div>
 														</div>
 													</button>
 												</c:otherwise>
