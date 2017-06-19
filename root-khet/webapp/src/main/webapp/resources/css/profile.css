@@ -116,3 +116,9 @@
 	text-decoration: none;
 	color:#333;
 }
+
+.create-new-btn {
+	font-size: 1.1em;
+	font-weight: 700;
+	padding: 5px 25px;
+}
