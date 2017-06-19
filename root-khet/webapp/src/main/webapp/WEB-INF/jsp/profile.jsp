@@ -170,7 +170,8 @@
                                         <c:otherwise>
                                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                             <c:forEach items="${favlistSet}" var="favList">
-                                                <%@include file="includes/collection-item.jsp"%></%@include>
+                                                <%@include file="includes/collection-item.jsp"%>
+                                                <%@include file="includes/favListDeleteModal.jsp"%>
                                             </c:forEach>
                                         </div>
                                     </c:otherwise>
