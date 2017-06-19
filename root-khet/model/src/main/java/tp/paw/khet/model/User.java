@@ -1,6 +1,7 @@
 package tp.paw.khet.model;
 
 import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notNull;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static tp.paw.khet.model.validate.PrimitiveValidation.notEmptyByteArray;
@@ -116,27 +117,24 @@ public class User {
 		return Collections.unmodifiableSortedSet(votedProducts);
 	}
 	
-	public void voteProduct(final Product product) {
-		votedProducts.add(product);
-		product.addVoter(this);
+	public boolean voteProduct(final Product product) {
+		return votedProducts.add(notNull(product, "Product to vote by user " + this + "cannot be null")) && product.addVoter(this);
 	}
 	
-	public void unvoteProduct(final Product product) {
-		votedProducts.remove(product);
-		product.removeVoter(this);
+	public boolean unvoteProduct(final Product product) {
+		return votedProducts.remove(notNull(product, "Product to unvote by user " + this + " cannot be null")) && product.removeVoter(this);
 	}
 	
 	public SortedSet<FavList> getFavLists() {
 		return Collections.unmodifiableSortedSet(favLists);
 	}
 	
-	public FavList addFavList(final FavList favList) {
-		favLists.add(favList);
-		return favList;
+	public boolean addFavList(final FavList favList) {
+		return favLists.add(notNull(favList, "FavList to add by user " + this + " cannot be null"));
 	}
 	
 	public boolean deleteFavList(final FavList favList) {
-		return favLists.remove(favList);
+		return favLists.remove(notNull(favList, "FavList to delete by user " + this + " cannot be null"));
 	}
 	
 	@Override
@@ -148,7 +146,7 @@ public class User {
 		
 		User other = (User) obj;
 		
-		return getUserId() == other.getUserId() || getEmail().equals(other.getEmail());
+		return getUserId() == other.getUserId() || getEmail().equalsIgnoreCase(other.getEmail());
 	}
 	
 	@Override
@@ -158,6 +156,6 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return name + " " + email;
+		return getName() + " " + getEmail();
 	}
 }

@@ -34,7 +34,9 @@ public class FavListServiceImpl implements FavListService {
 		if (favLists.contains(favList))
 			throw new DuplicateFavListException("There already exists a favList with the name " + name + " in user " + creator + " posession");
 		
-		return creator.addFavList(favList);		
+		creator.addFavList(favList);
+		
+		return favList;		
 	}
 
 	@Override
@@ -64,13 +66,9 @@ public class FavListServiceImpl implements FavListService {
 	@Transactional
 	public boolean addProductToFavList(final int favListId, final int productId) {
 		final FavList favList = getFavListById(favListId);
-		
-		if (favList == null)
-			return false;
-		
 		final Product product = productService.getPlainProductById(productId);
 		
-		if (product == null)
+		if (favList == null || product == null)
 			return false;
 		
 		return favList.addProduct(product);
@@ -80,13 +78,9 @@ public class FavListServiceImpl implements FavListService {
 	@Transactional
 	public boolean removeProductFromFavList(final int favListId, final int productId) {
 		final FavList favList = getFavListById(favListId);
-		
-		if (favList == null)
-			return false;
-		
 		final Product product = productService.getPlainProductById(productId);
 		
-		if (product == null)
+		if (favList == null || product == null)
 			return false;
 		
 		return favList.removeProduct(product);

@@ -20,35 +20,45 @@ public class VoteServiceImpl implements VoteService {
 	@Autowired
 	private UserService userService;
 	
-	@Transactional
 	@Override
-	public void voteProduct(final int productId, final int userId) {
+	@Transactional
+	public boolean voteProduct(final int productId, final int userId) {
 		final Product product = productService.getPlainProductById(productId);
 		final User user = userService.getUserById(userId);
+		
+		if (product == null || user == null)
+			return false;
 				
-		user.voteProduct(product);
+		return user.voteProduct(product);
 	}
 	
-	@Transactional
 	@Override
-	public void unvoteProduct(final int productId, final int userId) {
+	@Transactional
+	public boolean unvoteProduct(final int productId, final int userId) {
 		final Product product = productService.getPlainProductById(productId);
 		final User user = userService.getUserById(userId);
+		
+		if (product == null || user == null)
+			return false;
 				
-		user.unvoteProduct(product);
+		return user.unvoteProduct(product);
 	}
 	
-	@Transactional
 	@Override
-	public void toggleVoteFromProduct(final int productId, final int userId) {
+	@Transactional
+	public boolean toggleVoteFromProduct(final int productId, final int userId) {
 		final Product product = productService.getPlainProductById(productId);
 		final User user = userService.getUserById(userId);
+		
+		if (product == null || user == null)
+			return false;
+		
 		final SortedSet<Product> votedProducts = user.getVotedProducts();
 
 		if (votedProducts.contains(product))
-			user.unvoteProduct(product);
+			return user.unvoteProduct(product);
 		else
-			user.voteProduct(product);
+			return user.voteProduct(product);
 	}
 	
 	@Override
