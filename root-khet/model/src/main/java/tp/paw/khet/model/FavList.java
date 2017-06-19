@@ -91,12 +91,12 @@ public class FavList {
 		return Collections.unmodifiableSortedSet(productList);
 	}
 	
-	public void addProduct(final Product product) {
-		productList.add(product);
+	public boolean addProduct(final Product product) {
+		return productList.add(notNull(product, "Product to add to FavList " + this + " cannot be null"));
 	}
 	
 	public boolean removeProduct(final Product product) {
-		return productList.remove(product);
+		return productList.remove(notNull(product, "Product to remove from FavList " + this + " cannot be null"));
 	}
 	
 	public User getCreator() {

@@ -93,7 +93,7 @@ public class FavListServiceImplTest {
 		final Set<Product> productList = dummyFavList.getProductList();
 		assertTrue(productList.isEmpty());
 		
-		favListService.addProductToFavList(dummyFavList.getId(), dummyProduct.getId());
+		assertTrue(favListService.addProductToFavList(dummyFavList.getId(), dummyProduct.getId()));
 		
 		assertEquals(1, productList.size());
 		assertTrue(productList.contains(dummyProduct));
@@ -104,8 +104,16 @@ public class FavListServiceImplTest {
 		final Set<Product> productList = dummyFavList.getProductList();
 		dummyFavList.addProduct(dummyProduct);
 		
-		favListService.removeProductFromFavList(dummyFavList.getId(), dummyProduct.getId());
+		assertFalse(favListService.removeProductFromFavList(dummyFavList.getId() + 1, dummyProduct.getId()));
+		assertEquals(1, productList.size());
 		
+		assertFalse(favListService.removeProductFromFavList(dummyFavList.getId(), dummyProduct.getId() + 1));
+		assertEquals(1, productList.size());
+
+		assertFalse(favListService.removeProductFromFavList(dummyFavList.getId() + 1, dummyProduct.getId() + 1));
+		assertEquals(1, productList.size());
+		
+		assertTrue(favListService.removeProductFromFavList(dummyFavList.getId(), dummyProduct.getId()));
 		assertTrue(productList.isEmpty());
 	}
 }

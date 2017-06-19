@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.exception.DuplicateFavListException;
 import tp.paw.khet.model.FavList;
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 import tp.paw.khet.persistence.FavListDao;
 
@@ -61,13 +62,33 @@ public class FavListServiceImpl implements FavListService {
 	
 	@Override
 	@Transactional
-	public void addProductToFavList(final int favListId, final int productId) {
-		getFavListById(favListId).addProduct(productService.getPlainProductById(productId));
+	public boolean addProductToFavList(final int favListId, final int productId) {
+		final FavList favList = getFavListById(favListId);
+		
+		if (favList == null)
+			return false;
+		
+		final Product product = productService.getPlainProductById(productId);
+		
+		if (product == null)
+			return false;
+		
+		return favList.addProduct(product);
 	}
 
 	@Override
 	@Transactional
-	public void removeProductFromFavList(final int favListId, final int productId) {
-		getFavListById(favListId).removeProduct(productService.getPlainProductById(productId));
+	public boolean removeProductFromFavList(final int favListId, final int productId) {
+		final FavList favList = getFavListById(favListId);
+		
+		if (favList == null)
+			return false;
+		
+		final Product product = productService.getPlainProductById(productId);
+		
+		if (product == null)
+			return false;
+		
+		return favList.removeProduct(product);
 	}
 }

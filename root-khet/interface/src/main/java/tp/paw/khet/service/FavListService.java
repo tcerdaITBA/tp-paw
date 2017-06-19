@@ -41,13 +41,15 @@ public interface FavListService {
 	 * Adds a {@link Product} to a {@link FavList}
 	 * @param favListId - ID of the favList
 	 * @param productId - ID of the product which should be added to favList
+	 * @return 
 	 */
-	public void addProductToFavList(int favListId, int productId);
+	public boolean addProductToFavList(int favListId, int productId);
 	
 	/**
 	 * Removes a {@link Product} from a {@link FavList}.
 	 * @param favListId - ID of the favList
 	 * @param productId - ID of the product to remove from favList
+	 * @return 
 	 */
-	public void removeProductFromFavList(int favListId, int productId);
+	public boolean removeProductFromFavList(int favListId, int productId);
 }
