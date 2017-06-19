@@ -22,7 +22,14 @@ $(document).ready(function() {
 		var prod = $('#product' + gotoProduct);
 		if (prod.length)
 			prod.goTo();
-	}    
+	}
+    
+    if (favListErrorProductId) {
+        $('#add-to-collection-modal-' + favListErrorProductId).modal('show');
+        $('.add-to-new-list-btn').hide();
+        $('.new-collection-form').fadeIn();
+		$('.new-collection-form input').focus();
+    }
         
     // to avoid propagation return false
 	$('.delete-product-button').on('click', function() {
@@ -41,6 +48,7 @@ $(document).ready(function() {
 		$('.new-collection-form').hide();
 		$('.new-collection-form input').val(null);
 		$('.add-to-new-list-btn').show();
+        $('.collection-error').hide();
 		return false;
 	});
 	

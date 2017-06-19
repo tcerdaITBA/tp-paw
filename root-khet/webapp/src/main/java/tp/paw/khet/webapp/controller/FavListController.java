@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import tp.paw.khet.exception.DuplicateFavListException;
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
@@ -54,11 +55,20 @@ public class FavListController {
 		
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to create favList: form has errors: {}", errors.getAllErrors());
-			setErrorState(favListForm, errors, attr);
+			setErrorState(favListForm, errors, attr, productId);
 			return mav;
 		}
 		
-		final FavList favList = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
+		final FavList favList;
+		
+		try {
+			favList = favListService.createFavList(favListForm.getName(), loggedUser.getUserId());
+		} catch (DuplicateFavListException e) {
+			LOGGER.warn("Failed to create favList: duplicate favList {}", e.getMessage());
+			errors.rejectValue("name", "DuplicateFavList", new Object[]{favListForm.getName()}, "DuplicateFavList");
+			setErrorState(favListForm, errors, attr, productId);
+			return mav;
+		}
 		
 		attr.addFlashAttribute("createFavListForm", new FormFavList()); // clear form
 		attr.addFlashAttribute("favListCreated", favList.getName());
@@ -71,7 +81,7 @@ public class FavListController {
 		
 	@RequestMapping(value = "/favlist/delete/{favListId}", method = RequestMethod.POST)
 	public ModelAndView deleteFavList(@PathVariable final int favListId, 
-			@ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) throws FavListNotFoundException, ForbiddenException{
+			@ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) throws FavListNotFoundException, ForbiddenException {
 		
 		LOGGER.debug("Accessed delete favlist POST for product with id: {}", favListId);
 		
@@ -108,7 +118,7 @@ public class FavListController {
 	}
 	
 	@RequestMapping(value = "/favlist/delete/{favListId}/{productId}", method = RequestMethod.POST)
-	public ModelAndView removeProductToFavList(@PathVariable final int favListId, 
+	public ModelAndView removeProductFromFavList(@PathVariable final int favListId, 
 			@PathVariable final int productId,
 			@ModelAttribute("loggedUser") final User loggedUser, 
 			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
@@ -128,9 +138,13 @@ public class FavListController {
 		return new ModelAndView("redirect:" + referrer);
 	}
 	
-	private void setErrorState(FormFavList favListForm, BindingResult errors, RedirectAttributes attr) {
+	private void setErrorState(final FormFavList favListForm, final BindingResult errors, final RedirectAttributes attr, 
+							   final Optional<Integer> productId) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.createFavListForm", errors);
-		attr.addFlashAttribute("createFavListForm", favListForm);		
+		attr.addFlashAttribute("createFavListForm", favListForm);
+		
+		if (productId.isPresent())
+			attr.addFlashAttribute("favListErrorProductId", productId.get());
 	}
 	
 	private void addProductToFavList(final int productId, final FavList favList, final RedirectAttributes attr) throws ProductNotFoundException {

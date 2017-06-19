@@ -63,7 +63,7 @@
 				</sec:authorize>
 			</div>
 			<sec:authorize access="isAuthenticated()">
-				<c:if test="${product.votingUsers.contains(loggedUser)}">
+				<c:if test="${fn:contains(product.votingUsers, loggedUser)}">
 					<script>upVotedProductByLoggedUser(${product.id});</script>
 				</c:if>							                    
 			</sec:authorize>

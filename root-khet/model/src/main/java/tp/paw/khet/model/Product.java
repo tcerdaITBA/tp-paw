@@ -166,8 +166,7 @@ public class Product {
 	}
 	
 	public SortedSet<User> getVotingUsers() {
-		return votingUsers;  // EL implementation bug on calling .contains() in includes/product-item.jsp forbids returning and unmodifiable view.
-							 // See https://stackoverflow.com/questions/25020756/java-lang-illegalaccessexception-can-not-access-a-member-of-class-java-util-col
+		return Collections.unmodifiableSortedSet(votingUsers);
 	}
 	
 	public void addVoter(User user) {

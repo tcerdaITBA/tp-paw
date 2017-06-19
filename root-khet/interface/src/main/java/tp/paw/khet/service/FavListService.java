@@ -1,5 +1,6 @@
 package tp.paw.khet.service;
 
+import tp.paw.khet.exception.DuplicateFavListException;
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
@@ -11,8 +12,9 @@ public interface FavListService {
 	 * @param name - name of the new favList
 	 * @param creatorId - ID of the {@link User} who created the favList
 	 * @return The created favList
+	 * @throws DuplicateFavListException - if the user already has a favList with the same name
 	 */
-	public FavList createFavList(String name, int creatorId);
+	public FavList createFavList(String name, int creatorId) throws DuplicateFavListException;
 	
 	/**
 	 * Deletes a {@link FavList}

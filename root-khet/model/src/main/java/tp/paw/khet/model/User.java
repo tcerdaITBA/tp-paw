@@ -26,6 +26,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.SortComparator;
 
+import tp.paw.khet.model.comparator.FavListAlphaComparator;
 import tp.paw.khet.model.comparator.FavListDateComparator;
 import tp.paw.khet.model.comparator.ProductAlphaComparator;
 
@@ -57,10 +58,9 @@ public class User {
 			   inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(name = "product_id_constraint")))
 	@SortComparator(ProductAlphaComparator.class)
 	private SortedSet<Product> votedProducts;
-	
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creator", orphanRemoval = true, cascade = CascadeType.ALL)
-	@SortComparator(FavListDateComparator.class)
+	@SortComparator(FavListAlphaComparator.class)
 	private SortedSet<FavList> favLists;
 	
 	// Hibernate
@@ -127,11 +127,10 @@ public class User {
 	}
 	
 	public SortedSet<FavList> getFavLists() {
-		return favLists;
+		return Collections.unmodifiableSortedSet(favLists);
 	}
 	
-	public FavList createFavList(final String name) {
-		final FavList favList = new FavList(name, this);
+	public FavList addFavList(final FavList favList) {
 		favLists.add(favList);
 		return favList;
 	}

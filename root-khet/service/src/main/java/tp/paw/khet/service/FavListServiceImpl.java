@@ -1,9 +1,12 @@
 package tp.paw.khet.service;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tp.paw.khet.exception.DuplicateFavListException;
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.User;
 import tp.paw.khet.persistence.FavListDao;
@@ -22,9 +25,15 @@ public class FavListServiceImpl implements FavListService {
 
 	@Override
 	@Transactional
-	public FavList createFavList(final String name, final int creatorId) {
+	public FavList createFavList(final String name, final int creatorId) throws DuplicateFavListException {
 		final User creator = userService.getUserById(creatorId);
-		return creator.createFavList(name);		
+		final Set<FavList> favLists = creator.getFavLists();
+		final FavList favList = new FavList(name, creator);
+		
+		if (favLists.contains(favList))
+			throw new DuplicateFavListException("There already exists a favList with the name " + name + " in user " + creator + " posession");
+		
+		return creator.addFavList(favList);		
 	}
 
 	@Override

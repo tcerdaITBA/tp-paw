@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <spring:message code="collection.collectionNamePlaceholder" var="namePlaceholder"></spring:message>
+    
 <div id="add-to-collection-modal-${product.id}" class="modal fade">
     <div class="modal-dialog">
 		<div class="modal-content">
@@ -16,7 +17,7 @@
             </div>
             <div class="modal-body">
                <c:choose>
-                    <c:when test="${loggedUser.favLists.isEmpty()}">
+                    <c:when test="${empty loggedUser.favLists}">
                         <div class="row">
                             <div class="col-md-12">
                                 <p><spring:message code="collections.noCollectionsYet"></spring:message></p>
@@ -24,7 +25,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-											<div class="collection-modal-body">
+				        <div class="collection-modal-body">
                         <c:forEach items="${loggedUser.favLists}" var="collection">
                             <div class="row">
                                 <div class="col-md-12">
@@ -90,7 +91,7 @@
                                     <h3 class="favlist-form-title"><spring:message code="collections.newCollection"></spring:message></h3>
                                     <div class="form-group">
                                         <form:input type="text" class="form-control" rows="1" path="name" placeholder="${namePlaceholder}" maxlength="64"/>
-                                        <form:errors path="name" element="p" cssClass="form-error"/>
+                                        <form:errors path="name" element="p" cssClass="form-error collection-error"/>
                                     </div>
                                     <button class="btn btn-default create-and-add-btn" type="submit">
                                         <span class="glyphicon glyphicon-plus"></span>
