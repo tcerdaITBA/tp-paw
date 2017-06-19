@@ -357,3 +357,12 @@
 	max-height: 30em;
 	overflow-y: scroll;
 }
+
+.collection-delete-product {
+	border: transparent;
+	background: transparent;
+}
+
+.collection-remove-product-icon:hover {
+	color: crimson;
+}
