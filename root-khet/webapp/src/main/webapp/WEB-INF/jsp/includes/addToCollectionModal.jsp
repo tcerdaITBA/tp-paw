@@ -30,40 +30,40 @@
                                 <div class="col-md-12">
                                     <c:url value="/favlist/add/${collection.id}/${product.id}" var="addToList"/>
                                     <form:form action="${addToList}" method="post">
-																				<c:choose>
-																					<c:when test="${fn:contains(collection.productList, product)}">
-																						<span class="tool-tip" data-toggle="tooltip" data-placement="right" title="<spring:message code="collections.alreadyInCollection"/>">
-																							<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}" disabled>
-																									<div class="collection-name"><c:out value="${collection.name}"></c:out></div>
-																									<div class="collection-info">
-																									<p>
-																										<c:set var="collectionLen" value="${fn:length(collection.productList)}"/>
-																										<c:out value="${collectionLen}"></c:out>
-																										<c:choose>
-																												<c:when test="${collectionLen eq 1}"><spring:message code="product.singular" /></c:when>
-																												<c:otherwise><spring:message code="product.plural" /></c:otherwise>
-																										</c:choose>
-																									</p>
-																									</div>
-																							</button>
-																						</span>
-																					</c:when>
-																					<c:otherwise>
-																						<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}">
-																							<div class="collection-name"><c:out value="${collection.name}"></c:out></div>
-																							<div class="collection-info">
-																								<p> 
-																									<c:set var="collectionLen" value="${fn:length(collection.productList)}" />
-																									<c:out value="${collectionLen}"></c:out>
-																									<c:choose>
-																											<c:when test="${collectionLen eq 1}"><spring:message code="product.singular" /></c:when>
-																											<c:otherwise><spring:message code="product.plural" /></c:otherwise>
-																									</c:choose>
-																								</p>
-																							</div>
-																						</button>
-																					</c:otherwise>
-																				</c:choose>		
+                                        <c:choose>
+                                            <c:when test="${fn:contains(collection.productList, product)}">
+                                                <span class="tool-tip" data-toggle="tooltip" data-placement="right" title="<spring:message code="collections.alreadyInCollection"/>">
+                                                    <button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}" disabled>
+                                                            <div class="collection-name"><c:out value="${collection.name}"></c:out></div>
+                                                            <div class="collection-info">
+                                                            <p>
+                                                                <c:set var="collectionLen" value="${fn:length(collection.productList)}"/>
+                                                                <c:out value="${collectionLen}"></c:out>
+                                                                <c:choose>
+                                                                        <c:when test="${collectionLen eq 1}"><spring:message code="product.singular" /></c:when>
+                                                                        <c:otherwise><spring:message code="product.plural" /></c:otherwise>
+                                                                </c:choose>
+                                                            </p>
+                                                            </div>
+                                                    </button>
+                                                </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}">
+                                                    <div class="collection-name"><c:out value="${collection.name}"></c:out></div>
+                                                    <div class="collection-info">
+                                                        <p> 
+                                                            <c:set var="collectionLen" value="${fn:length(collection.productList)}" />
+                                                            <c:out value="${collectionLen}"></c:out>
+                                                            <c:choose>
+                                                                    <c:when test="${collectionLen eq 1}"><spring:message code="product.singular" /></c:when>
+                                                                    <c:otherwise><spring:message code="product.plural" /></c:otherwise>
+                                                            </c:choose>
+                                                        </p>
+                                                    </div>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>		
                                     </form:form>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="new-collection-form well">
-                            <c:url value="/favlist/create-and-add/${product.id}" var="postPath" />
+                            <c:url value="/favlist/create?productId=${product.id}" var="postPath" />
                                 <form:form modelAttribute="createFavListForm" class="favlist-form" action="${postPath}" method="post">
                                     <h3 class="favlist-form-title"><spring:message code="collections.newCollection"></spring:message></h3>
                                     <div class="form-group">

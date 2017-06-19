@@ -30,7 +30,7 @@ public class FavListServiceImpl implements FavListService {
 	@Override
 	@Transactional
 	public boolean deleteFavList(final int favListId) {
-		final FavList favList = favListDao.getFavListById(favListId); // TODO: cequear por null
+		final FavList favList = favListDao.getFavListById(favListId);
 		final User creator = favList.getCreator();
 		
 		return creator.deleteFavList(favList);
@@ -42,7 +42,7 @@ public class FavListServiceImpl implements FavListService {
 	}
 	
 	@Override
-	public FavList getFavListByIdWithCreator(int favListId) {
+	public FavList getFavListByIdWithCreator(final int favListId) {
 		return favListDao.getFavListByIdWithCreator(favListId);
 	}
 	
@@ -54,7 +54,7 @@ public class FavListServiceImpl implements FavListService {
 
 	@Override
 	@Transactional
-	public void removeProductFromFavList(int favListId, int productId) {
+	public void removeProductFromFavList(final int favListId, final int productId) {
 		getFavListById(favListId).removeProduct(productService.getPlainProductById(productId));
 	}
 }

@@ -20,7 +20,7 @@
                 <div class="row row-centered">
                     <div class="col-md-12">
                         <c:url value="/favlist/delete/${favList.id}" var="delete"/>
-                        <form:form class="delete-collection-form pull-right" action="${delete}" method="post">
+                        <form:form class="delete-collection-form" action="${delete}" method="post">
                             <input class="ps-btn-red btn submit-btn modal-btn" type="submit" value="<spring:message code="Profile.modal.leftButton"></spring:message>" />
                             <button type="button" class="btn btn-default modal-btn" data-dismiss="modal"><spring:message code="Profile.modal.rightButton"/></button>
                         </form:form>
