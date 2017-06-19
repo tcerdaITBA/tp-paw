@@ -92,9 +92,9 @@
                                 <ul class="nav nav-pills nav-justified profile-tabs">
                                     <c:set var="activeTab" value="${empty products && not empty votedProducts}"></c:set>
 
+                                    <li role="presentation" class="none"><a href="#favList-pane" data-toggle="tab"><spring:message code="Profile.Tab.favlist"/><span class="badge tab-badge"><c:out value="${fn:length(favlistSet)}"/></span></a></li>
                                     <li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#uploadedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.uploadedProducts"/><span class="badge"><c:out value="${fn:length(products)}"/></span></a></li>
                                     <li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#votedProducts-pane" data-toggle="tab"><spring:message code="Profile.Tab.votedProducts"/><span class="badge tab-badge"><c:out value="${fn:length(votedProducts)}"/></span></a></li>
-                                    <li role="presentation" class="none"><a href="#favList-pane" data-toggle="tab"><spring:message code="Profile.Tab.favlist"/><span class="badge tab-badge"><c:out value="${fn:length(favlistSet)}"/></span></a></li>
 
                                 </ul>
                             </div>
