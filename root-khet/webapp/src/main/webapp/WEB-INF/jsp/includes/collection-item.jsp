@@ -29,27 +29,43 @@
 	</a>
 	<div id="collapse-${favList.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-${favList.id}">
 		<div class="panel-body">
+		<div class="row">
 			<c:forEach items="${favList.productList}" var="product">
-				<a class="collection-product-list-item" href="<c:url value="/product/${product.id}"/>" >
-					<c:url value="/vote/product/${product.id}" var="vote"/>
-					<div class="row center-flex">
-						<div class="col-md-2 collection-product-logo center-flex">
-							<img src="<c:url value="/product/${product.id}/logo"/>">
+				<div class="col-md-11">
+					<a class="collection-product-list-item" href="<c:url value="/product/${product.id}"/>" >
+						<c:url value="/vote/product/${product.id}" var="vote"/>
+						<div class="row center-flex">
+							<div class="col-md-2 collection-product-logo center-flex">
+								<img src="<c:url value="/product/${product.id}/logo"/>">
+							</div>
+							<div class="col-md-7">
+								<span class="collection-product-name capitalize-firstLetter">
+									<c:out value="${product.name}"/>
+								</span>
+							</div>
+							<div class="col-md-3">
+								<span class="collection-upvote-info pull-right">
+									<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+									<c:out value="${product.votesCount}"/>
+								</span>
+							</div>
 						</div>
-						<div class="col-md-7">
-							<span class="collection-product-name capitalize-firstLetter">
-								<c:out value="${product.name}"/>
-							</span>
-						</div>
-						<div class="col-md-3">
-							<span class="collection-upvote-info pull-right">
-								<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-								<c:out value="${product.votesCount}"/>
-							</span>
-						</div>
-					</div>
-				</a>
-			</c:forEach>	
+					</a>
+				</div>
+				<div class="col-md-1">
+					<c:url value="/favlist/delete/${favList.id}/${product.id}" var="removeFromList"/>
+					<sec:authorize access="isAuthenticated()">
+					<c:if test="${loggedUser.userId == profileUser.userId}">
+						<form:form class="pull-right" action="${removeFromList}" method="post">
+								<button class="btn collection-delete-product" type="submit"">
+									<p><span class="glyphicon glyphicon-remove collection-remove-product-icon"></span>
+								</button>
+						</form:form>
+					</c:if>
+				</sec:authorize>
+				</div>
+			</c:forEach>
+			</div>	
 		</div>
 	</div>
 </div>
