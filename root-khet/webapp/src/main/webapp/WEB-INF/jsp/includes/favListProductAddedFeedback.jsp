@@ -16,7 +16,7 @@
 		var y = document.getElementById('add-product-to-favlist-snackbar');
         <c:choose>
             <c:when test="${empty favListCreated}">
-                x.className = 'show';
+                y.className = 'show';
                 setTimeout(function(){ y.className = y.className.replace('show', ''); }, 3000);
             </c:when>
             <c:otherwise>
