@@ -29,8 +29,8 @@
 	</a>
 	<div id="collapse-${favList.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-${favList.id}">
 		<div class="panel-body">
-		<div class="row">
 			<c:forEach items="${favList.productList}" var="product">
+			<div class="row">
 				<div class="col-md-11">
 					<a class="collection-product-list-item" href="<c:url value="/product/${product.id}"/>" >
 						<c:url value="/vote/product/${product.id}" var="vote"/>
@@ -64,8 +64,8 @@
 					</c:if>
 				</sec:authorize>
 				</div>
+				</div>
 			</c:forEach>
-			</div>	
 		</div>
 	</div>
 </div>
