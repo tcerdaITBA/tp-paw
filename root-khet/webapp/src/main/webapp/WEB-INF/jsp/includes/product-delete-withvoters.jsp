@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<c:url value="/vote/product/${product.id}" var="vote" />
-			<div class="col-md-5 col-md-offset-2 text-right voters-holder">
+			<div class="col-md-4 col-md-offset-1 text-right voters-holder">
 				<c:if test="${!empty votersresume}">
 				<a tabindex="0" class="voters-popover-btn" rel="popover" data-popover-content="#votersPopover" data-placement="bottom" title="<spring:message code="ProductPage.votersTooltip"/>" data-trigger="focus" >
 					<span class="voter-span" data-toggle="tooltip" data-placement="left" title="<spring:message code="ProductPage.votersTooltip"/>">
@@ -39,7 +39,7 @@
 				<%@include file="votersPopover.jsp"%>
 				</c:if>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-4">
 				<sec:authorize access="isAuthenticated()">
 					<form:form class="pull-right" action="${vote}" method="post">
 							<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
