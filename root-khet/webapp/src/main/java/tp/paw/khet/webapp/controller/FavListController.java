@@ -122,7 +122,7 @@ public class FavListController {
 			@PathVariable final int productId,
 			@ModelAttribute("loggedUser") final User loggedUser, 
 			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
-			final RedirectAttributes attr) throws FavListNotFoundException, ForbiddenException {
+			final RedirectAttributes attr) throws FavListNotFoundException, ForbiddenException, ProductNotFoundException {
 				
 		LOGGER.debug("Accessed remove product with id {} to favlist with id {}", productId, favListId);
 		
@@ -132,14 +132,13 @@ public class FavListController {
 		
 		favListService.removeProductFromFavList(favListId, productId);
 		
-		attr.addFlashAttribute("productRemoved", productService.getPlainProductById(productId).getName());
+		attr.addFlashAttribute("productRemovedFromFavList", retrieveValidProduct(productId).getName());
 		attr.addFlashAttribute("favListRemoved", favList.getName());
 		
 		return new ModelAndView("redirect:" + referrer);
 	}
 	
-	private void setErrorState(final FormFavList favListForm, final BindingResult errors, final RedirectAttributes attr, 
-							   final Optional<Integer> productId) {
+	private void setErrorState(final FormFavList favListForm, final BindingResult errors, final RedirectAttributes attr, final Optional<Integer> productId) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.createFavListForm", errors);
 		attr.addFlashAttribute("createFavListForm", favListForm);
 		
@@ -148,18 +147,24 @@ public class FavListController {
 	}
 	
 	private void addProductToFavList(final int productId, final FavList favList, final RedirectAttributes attr) throws ProductNotFoundException {
+		final Product product = retrieveValidProduct(productId);
+		
+		favListService.addProductToFavList(favList.getId(), productId);
+
+		attr.addFlashAttribute("productAddedToFavList", product.getName());
+		attr.addFlashAttribute("favListAdded", favList.getName());		
+	}
+	
+	private Product retrieveValidProduct(final int productId) throws ProductNotFoundException {
 		final Product product = productService.getPlainProductById(productId);
 		
 		if (product == null)
 			throw new ProductNotFoundException();
-		
-		favListService.addProductToFavList(favList.getId(), productId);
 
-		attr.addFlashAttribute("productAdded", product.getName());
-		attr.addFlashAttribute("favListAdded", favList.getName());		
+		return product;
 	}
 	
-	private void assertValidCreator(FavList favList, User loggedUser) throws ForbiddenException {
+	private void assertValidCreator(final FavList favList, final User loggedUser) throws ForbiddenException {
 		final User creator = favList.getCreator();
 		
 		if (!creator.equals(loggedUser)) {
@@ -169,7 +174,7 @@ public class FavListController {
 		}		
 	}
 
-	private FavList retrieveValidFavList(int favListId) throws FavListNotFoundException {
+	private FavList retrieveValidFavList(final int favListId) throws FavListNotFoundException {
 		final FavList favList = favListService.getFavListByIdWithCreator(favListId);
 		
 		if (favList == null) {

@@ -23,6 +23,7 @@
 <link href="<c:url value="/resources/css/tabs.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 </head>
 
 <script src="<c:url value="/resources/js/upvote.js" />"></script>

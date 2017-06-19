@@ -25,7 +25,7 @@
 		<link href="<c:url value="/resources/css/product-item.css" />" rel="stylesheet" />
     <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
     <link href="<c:url value="/resources/css/modal.css"/>" rel="stylesheet">
-
+    <link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 </head>
 <body>
 <spring:message code="formLabel.emailPlaceholder" var="EmailPlaceholder"/>

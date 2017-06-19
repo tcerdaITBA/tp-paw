@@ -54,7 +54,7 @@
 </div>
 	
 <div id="password-change-snackbar">
-	<div class="alert alert-success">
+	<div class="alert alert-success row-centered" >
 		<strong>
 			<span class="glyphicon glyphicon-cog"></span>
 			<span class="snackbar-product-name"><spring:message code="Profile.settings.body.changePasswordFeedback"/></span>

@@ -30,7 +30,7 @@
     <link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/product-item.css"/>" rel="stylesheet">
     <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
-
+    <link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 </head>
 <script src="<c:url value="/resources/js/upvote.js" />"></script>
 <%@include file="includes/navbar.jsp" %>
@@ -203,6 +203,7 @@
 </div>
 </body>
 <%@include file="includes/deleteProductFeedback.jsp"%>
+<%@include file="includes/favListProductRemovedFeedback.jsp"%>
 <%@include file="includes/favListDeleteFeedback.jsp"%>
 <%@include file="includes/changePictureModal.jsp"%>
 <%@include file="includes/changePasswordModal.jsp"%>

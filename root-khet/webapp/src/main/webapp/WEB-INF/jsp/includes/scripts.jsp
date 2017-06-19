@@ -16,5 +16,7 @@
     var gotoProduct = "${productVoted}";
     var favListErrorProductId = "${favListErrorProductId}";
 </script>
+<%@include file="favListProductAddedFeedback.jsp"%>
+<%@include file="favListCreatedFeedback.jsp"%>
 <script src="<c:url value="/resources/js/profile.js"/>"></script>
 <script src="<c:url value="/resources/js/product-list.js"/>"></script>

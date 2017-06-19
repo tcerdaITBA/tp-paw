@@ -1,6 +1,6 @@
 <c:if test="${not empty productDeleted}">
 	<div id="delete-snackbar">
-		<div class="alert alert-success">
+		<div class="alert alert-success row-centered">
 			<strong>
 				<span class="glyphicon glyphicon-trash"></span>
 				<span class="snackbar-product-name"><c:out value="${productDeleted}" /></span>
