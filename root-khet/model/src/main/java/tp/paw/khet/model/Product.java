@@ -101,7 +101,7 @@ public class Product {
 	Product() {
 	}
 	
-	private Product(ProductBuilder builder) {
+	private Product(final ProductBuilder builder) {
 		this.id = builder.id;
 		this.name = builder.name;
 		this.description = builder.description;
@@ -169,12 +169,12 @@ public class Product {
 		return Collections.unmodifiableSortedSet(votingUsers);
 	}
 	
-	public void addVoter(User user) {
-		votingUsers.add(user);
+	public boolean addVoter(final User user) {
+		return votingUsers.add(notNull(user, "Voter to add to product " + this + " cannot be null"));
 	}
 
-	public void removeVoter(User user) {
-		votingUsers.remove(user);
+	public boolean removeVoter(final User user) {
+		return votingUsers.remove(notNull(user, "Voter to remove from product " + this + " cannot be null"));
 	}
 	
 	public int getVotesCount() {
@@ -239,58 +239,58 @@ public class Product {
 			this.votingUsers = product.getVotingUsers();
 		}
 
-		public ProductBuilder id(int id) {
+		public ProductBuilder id(final int id) {
 			this.id = id;
 			return this;
 		}
 		
-		public ProductBuilder description(String description) {
-			this.description = description;
+		public ProductBuilder description(final String description) {
+			this.description = notBlank(description, "Product description cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder website(String link) {
-		    this.website = link;
+		public ProductBuilder website(final String link) {
+		    this.website = notBlank(link, "Product website link cannot be null");
 		    return this;
 		}
 		
-		public ProductBuilder category(Category category) {
-			this.category = category;
+		public ProductBuilder category(final Category category) {
+			this.category = notNull(category, "Product category cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder uploadDate(Date uploadDate) {
-			this.uploadDate = uploadDate;
+		public ProductBuilder uploadDate(final Date uploadDate) {
+			this.uploadDate = notNull(uploadDate, "Product upload date cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder logo(byte[] logo) {
+		public ProductBuilder logo(final byte[] logo) {
 			this.logo = notEmptyByteArray(logo, "Product logo array cannot be null", "Product logo array cannot be empty");
 			return this;
 		}
 		
-		public ProductBuilder creator(User creator) {
-			this.creator = creator;
+		public ProductBuilder creator(final User creator) {
+			this.creator = notNull(creator, "Product creator cannot be null");
 			return this;
 		}
 
-		public ProductBuilder commentFamilies(List<CommentFamily> commentFamilies) {
-			this.commentFamilies = commentFamilies;
+		public ProductBuilder commentFamilies(final List<CommentFamily> commentFamilies) {
+			this.commentFamilies = notNull(commentFamilies, "Product comment families cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder videos(List<Video> videos) {
-			this.videos = videos;
+		public ProductBuilder videos(final List<Video> videos) {
+			this.videos = notNull(videos, "Product videos cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder images(List<ProductImage> images) {
-			this.images = images;
+		public ProductBuilder images(final List<ProductImage> images) {
+			this.images = notNull(images, "Product images cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder votingUsers(SortedSet<User> votingUsers) {
-			this.votingUsers = votingUsers;
+		public ProductBuilder votingUsers(final SortedSet<User> votingUsers) {
+			this.votingUsers = notNull(votingUsers, "Voring users set cannot be null");
 			return this;
 		}
 		

@@ -69,15 +69,15 @@ public class ProductImage {
 		final int prime = 31;
 		int result = 17;
 		
-		result = result * prime + productImageId;
-		result = result * prime + productId;
+		result = result * prime + getProductImageId();
+		result = result * prime + getProductId();
 		
 		return result;
 	}
 	
 	@Override
 	public String toString() {
-		return "Image " + productImageId + " from product " + productId;
+		return "Image " + getProductImageId() + " from product " + getProductId();
 	}
 	
 	// For Hibernate Composite keys
