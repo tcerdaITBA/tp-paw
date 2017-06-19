@@ -80,7 +80,7 @@
 															<div class="col-md-4 hint-col">
 																<div class="adding-hint pull-right">
 																	<span class="glyphicon glyphicon-plus"></span>
-																	<span>Agregar</span>
+																	<span><spring:message code="collections.add"/></span>
 																</div>
 															</div>
 														</div>

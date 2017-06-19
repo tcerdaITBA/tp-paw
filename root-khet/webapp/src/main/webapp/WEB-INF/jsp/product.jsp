@@ -57,6 +57,7 @@
                 <div class="row">
 									<div class="col-md-7">
 										<%@include file="includes/product-delete-withvoters.jsp" %></%@include>
+										<%@include file="includes/addToCollectionModal.jsp"%></%@include>
 									</div>
                     <div class="col-md-4 col-md-offset-1 creator-item highlighted">
                         <div class="row">

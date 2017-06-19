@@ -116,6 +116,7 @@
                                         <a href="<c:url value="/product/${product.id}"/>">
                                             <%@include file="includes/product-item-delete.jsp"%></%@include>
                                         </a>
+																				<%@include file="includes/addToCollectionModal.jsp"%></%@include>
                                     </c:forEach>
                                 </div>
                             </c:otherwise>
@@ -136,6 +137,7 @@
                                             <a href="<c:url value="/product/${product.id}"/>">
                                                 <%@include file="includes/product-item.jsp"%></%@include>
                                             </a>
+																					<%@include file="includes/addToCollectionModal.jsp"%></%@include>
                                         </c:forEach>
                                     </div>
                                 </c:otherwise>
@@ -156,7 +158,6 @@
                                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                             <c:forEach items="${favlistSet}" var="favList">
                                                 <%@include file="includes/collection-item.jsp"%></%@include>
-                                                <%@include file="includes/favListDeleteModal.jsp"%></%@include>
                                             </c:forEach>
                                         </div>
                                     </c:otherwise>
