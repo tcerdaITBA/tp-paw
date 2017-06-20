@@ -41,14 +41,26 @@ $(document).ready(function() {
         $('#favListDeleteModal' + $(this).data('favlist-id')).modal('show');
 		return false;
 	});
-    
+        
 	// TODO: Se puede mejorar porque ahora se le aplica a TODOS los del html
 	$('.add-to-collection-btn').on('click', function() {
-		$($(this).data('target')).modal('show');
+        var addModal = $($(this).data('target'));
+		addModal.modal('show');  
 		$('.new-collection-form').hide();
 		$('.new-collection-form input').val(null);
 		$('.add-to-new-list-btn').show();
         $('.collection-error').hide();
+        
+        if ($(this).data('published-tab')) {
+            addModal.find('form').each(function() {
+                var action = $(this).attr('action');
+                if (action.indexOf('publishedTab') == -1) {
+                    var prefix = action.indexOf('?') == -1 ? '?' : '&'
+                    $(this).attr('action', action + prefix + 'publishedTab=true');
+                }
+            });
+        }
+        
 		return false;
 	});
 	

@@ -2,8 +2,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <spring:message code="collection.collectionNamePlaceholder" var="namePlaceholder"></spring:message>
-
-<div id="add-to-collection-modal-${product.id}" class="modal fade">
+<c:choose>
+    <c:when test="${not empty deleteItem and deleteItem}">
+        <div id="add-to-collection-modal-${product.id}-delete" class="modal fade">
+    </c:when>
+    <c:otherwise>
+        <div id="add-to-collection-modal-${product.id}" class="modal fade">
+    </c:otherwise>
+</c:choose>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">

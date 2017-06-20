@@ -44,6 +44,7 @@ public class FavListController {
 	public ModelAndView createFavList(
 							  @ModelAttribute("loggedUser") final User loggedUser,
 							  @RequestParam(name = "productId", required = false) final Optional<Integer> productId,
+							  @RequestParam(name = "publishedTab", required = false, defaultValue = "false") final boolean publishedTab,
 							  @Valid @ModelAttribute("createFavListForm") final FormFavList favListForm,
 							  final BindingResult errors,
 							  @RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
@@ -72,6 +73,7 @@ public class FavListController {
 		
 		attr.addFlashAttribute("createFavListForm", new FormFavList()); // clear form
 		attr.addFlashAttribute("favListCreated", favList.getName());
+		attr.addFlashAttribute("publishedTab", publishedTab);
 		
 		if (productId.isPresent())
 			addProductToFavList(productId.get(), favList, attr);
@@ -103,6 +105,7 @@ public class FavListController {
 						@PathVariable final int favListId, 
 						@PathVariable final int productId,
 						@ModelAttribute("loggedUser") final User loggedUser, 
+						@RequestParam(name = "publishedTab", required = false, defaultValue = "false") final boolean publishedTab,
 						@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
 						final RedirectAttributes attr) throws FavListNotFoundException, ForbiddenException, ProductNotFoundException {
 
@@ -113,6 +116,8 @@ public class FavListController {
 		assertValidCreator(favList, loggedUser);
 		
 		addProductToFavList(productId, favList, attr);
+		
+		attr.addFlashAttribute("publishedTab", publishedTab);
 		
 		return new ModelAndView("redirect:" + referrer);
 	}

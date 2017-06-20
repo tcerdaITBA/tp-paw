@@ -91,13 +91,13 @@
                             <div class="">
                                 <ul class="nav nav-pills nav-justified profile-tabs">
                                     <c:choose>
-                                    	<c:when test="${!empty favlistSet}">
+                                    	<c:when test="${(!empty favlistSet and empty publishedTab and empty productDeleted and empty productAddedToFavList) or not empty favListDeleted}">
                                     		<c:set var="activeTab" value="1"></c:set>
                                     	</c:when>
-                                    	<c:when test="${!empty products}">
+                                    	<c:when test="${(!empty products and empty publishedTab) or not empty productDeleted or publishedTab}">
                                     		<c:set var="activeTab" value="2"></c:set>
                                     	</c:when>
-                                    	<c:when test="${!empty votedProducts}">
+                                    	<c:when test="${!empty votedProducts or not empty publishedTab}">
                                     		<c:set var="activeTab" value="3"></c:set>
                                     	</c:when>
                                     	<c:otherwise>
@@ -129,7 +129,9 @@
                                         <a href="<c:url value="/product/${product.id}"/>">
                                             <%@include file="includes/product-item-delete.jsp"%></%@include>
                                         </a>
+                                        <c:set var="deleteItem" value="true" ></c:set>
 										<%@include file="includes/addToCollectionModal.jsp"%></%@include>
+                                        <c:set var="deleteItem" value="false" ></c:set>
                                     </c:forEach>
                                 </div>
                             </c:otherwise>
