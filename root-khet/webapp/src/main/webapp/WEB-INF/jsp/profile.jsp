@@ -200,6 +200,7 @@
                                                         <form:errors path="name" element="p" cssClass="form-error"/>
                                                     </div>
                                                     <button class="btn btn-default create-new-btn" type="submit">
+                                                        <span class="glyphicon glyphicon-plus"></span>
                                                         <spring:message code="collections.create"/>
                                                     </button>
                                                 </form:form>
