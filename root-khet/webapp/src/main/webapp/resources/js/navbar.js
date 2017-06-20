@@ -67,15 +67,23 @@ $(document).ready(function() {
 		}
 	});
 	
-// Timed autocomplete
-//	searchBox.on('keyup', function(event) {
-//		if (timeoutSearch) {
-//			console.log('clearing');
-//			clearTimeout(timeoutSearch);
-//		}
-//		
-//		timeoutSearch = setTimeout(function() {
-//			search(searchBox)	
-//		}, SEARCH_WAIT_TIME_MILLIS);
-//	});
+	$('.navbar-form').submit(function(e) {
+		if ($('#search-box').val().trim().length < 3) {
+			e.preventDefault();
+			$('#search-box').trigger('invalid');
+			return false;
+		}
+	});
+	
+	// Timed autocomplete
+	//	searchBox.on('keyup', function(event) {
+	//		if (timeoutSearch) {
+	//			console.log('clearing');
+	//			clearTimeout(timeoutSearch);
+	//		}
+	//		
+	//		timeoutSearch = setTimeout(function() {
+	//			search(searchBox)	
+	//		}, SEARCH_WAIT_TIME_MILLIS);
+	//	});
 });
