@@ -69,4 +69,10 @@ $(document).ready(function() {
 		$('.new-collection-form').fadeIn();
 		$('.new-collection-form input').focus();
 	})
+	
+	$('.close-well-icn').on('click', function() {
+		$('.new-collection-form').hide();
+		$('.new-collection-form input').val(null);
+		$('.add-to-new-list-btn').fadeIn();
+	})
 });

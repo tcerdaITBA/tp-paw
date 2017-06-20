@@ -160,7 +160,6 @@
 }
 
 .voters-popover-btn {
-	margin-right: 1em;
 	display: inline-block;
 }
 
@@ -396,8 +395,9 @@
 }
 
 .collection-modal-body {
-	max-height: 30em;
+	max-height: 15em;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .collection-delete-product {
@@ -427,4 +427,14 @@
 .button-delete-col form {
 	margin: 0;
 	align-self: center;
+}
+
+.close-well-icn {
+	color: #000;
+	opacity: .5;
+}
+
+.close-well-icn:hover {
+	cursor: pointer;
+	opacity: 1;
 }

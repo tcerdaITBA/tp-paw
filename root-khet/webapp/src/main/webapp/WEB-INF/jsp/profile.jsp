@@ -229,6 +229,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div id="new-collection-section" class="well">
+																								<span class="glyphicon glyphicon-remove close-well-icn"></span>
                                                 <c:url value="/favlist/create" var="createCollection" />
                                                 <form:form modelAttribute="createFavListForm" class="favlist-form" action="${createCollection}" method="post">
                                                     <h3 class="favlist-form-title"><spring:message code="collections.newCollection"></spring:message></h3>
