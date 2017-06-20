@@ -22,6 +22,7 @@
 		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 	</head>
 
 <body>

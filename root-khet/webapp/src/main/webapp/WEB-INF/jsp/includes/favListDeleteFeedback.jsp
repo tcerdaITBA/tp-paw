@@ -1,11 +1,11 @@
 <c:if test="${not empty favListDeleted}">
 	<div id="delete-favlist-snackbar">
-		<div class="alert alert-success">
+		<div class="alert alert-success row-centered">
 			<strong>
 				<span class="glyphicon glyphicon-trash"></span>
 				<span class="snackbar-product-name"><c:out value="${favListDeleted}" /></span>
 			</strong>
-			<spring:message code="Profile.modal.body.feedbackDeleteModal.textEnd" />
+			<spring:message code="feedback.favListDeleted.textEnd" />
 		</div>
 	</div>
 	
