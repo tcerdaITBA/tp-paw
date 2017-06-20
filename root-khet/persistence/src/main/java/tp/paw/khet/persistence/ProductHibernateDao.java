@@ -139,24 +139,6 @@ public class ProductHibernateDao implements ProductDao {
 		
 		return product == null ? false : true;
 	}
-
-//	@Override
-//	public List<Product> getPlainProductsByKeyword(final String keyword) {
-//		final String firstWordKeyword = keyword+"%";
-//		final String otherWordsKeyword = "% "+keyword+"%";
-//		
-//		final TypedQuery<Product> query = em.createQuery(
-//				  "from Product as p where "
-//				+ "lower(p.name) LIKE lower(:firstWordKeyword) OR lower(p.name) LIKE lower(:otherWordsKeyword) OR "
-//				+ "lower(p.shortDescription) LIKE lower(:firstWordKeyword) OR lower(p.shortDescription) LIKE lower(:otherWordsKeyword) "
-//				+ "ORDER BY lower(p.name)", 
-//				Product.class);
-//		
-//		query.setParameter("firstWordKeyword", firstWordKeyword);
-//		query.setParameter("otherWordsKeyword", otherWordsKeyword);
-//		
-//		return query.getResultList();
-//	}
 	
 	@Override
 	public List<Product> getPlainProductsByKeyword(final String whereQuery, final Map<String, String> keyWordsRegExp) {

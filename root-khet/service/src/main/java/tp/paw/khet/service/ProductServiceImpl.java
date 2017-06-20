@@ -101,9 +101,7 @@ public class ProductServiceImpl implements ProductService {
 	    		    	
 	    	if (i!=0 && !keyWordsRegExp.isEmpty())
 	    		whereQueryBuilder.append(" OR ");
-	    	
-//	    	whereQueryBuilder.append("(");
-	    	
+	    		    	
 		    for (int j = 0; j < keywords.length; j++) {
 		        if (keywords[j].length() >= MIN_WORD_SIZE) {
 		        	
@@ -133,15 +131,11 @@ public class ProductServiceImpl implements ProductService {
 			        	keyWordsRegExp.put(firstKeyWord, firstKeyWordRegExp);
 			        	keyWordsRegExp.put(otherKeyWord, otherKeyWordRegExp);
 		        	}
-		        	
 		        	putAnd = true;
 		        }
 		    }
-		    putAnd = false;
-	    	
-//		    whereQueryBuilder.append(")");
+		    putAnd = false;	    	
 	    }
-	    
 	    //no candidates with length greater or equal than MIN_WORD_SIZE
 	    if (keyWordsRegExp.isEmpty())
 	    	return new ArrayList<Product>();
