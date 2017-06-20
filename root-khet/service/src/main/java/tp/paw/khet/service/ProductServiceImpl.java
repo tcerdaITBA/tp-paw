@@ -95,24 +95,29 @@ public class ProductServiceImpl implements ProductService {
 	    
 	    Map<String, String> keyWordsRegExp = new HashMap<String, String>();
 	    StringBuilder whereQueryBuilder = new StringBuilder();
-	    boolean putAnd = false;
+	    boolean queryPutAnd = false;
+	 
+	    for (int j = 0; j < keywords.length; j++) {	    	
+	    	if (keywords[j].length() >= MIN_WORD_SIZE) {
+	    		
+	    		if (queryPutAnd)
+		    		whereQueryBuilder.append(" AND ");
 
-	    for (int i = 0; i < fields.length; i++) {
-	    		    	
-	    	if (i!=0 && !keyWordsRegExp.isEmpty())
-	    		whereQueryBuilder.append(" OR ");
-	    		    	
-		    for (int j = 0; j < keywords.length; j++) {
-		        if (keywords[j].length() >= MIN_WORD_SIZE) {
-		        	
-		        	if (putAnd)
-			        	whereQueryBuilder.append(" AND ");
-		        	
-		        	String candidateKeyWord = keywords[j].toLowerCase();
-		        	String firstKeyWord = "first" + candidateKeyWord;
-		        	String otherKeyWord = "other" + candidateKeyWord;
-		        	String firstKeyWordRegExp = candidateKeyWord + "%";
-		        	String otherKeyWordRegExp = "% " + candidateKeyWord + "%";
+	    	    for (int i = 0; i < fields.length; i++) {
+	    	    	
+	    	    	String candidateKeyWord = keywords[j].toLowerCase();
+	    	    	String firstKeyWord = "first" + candidateKeyWord;
+	    	    	String otherKeyWord = "other" + candidateKeyWord;
+	    	    	String firstKeyWordRegExp = candidateKeyWord + "%";
+	    	    	String otherKeyWordRegExp = "% " + candidateKeyWord + "%";
+
+	    	    	if (i == 0) {
+		        		whereQueryBuilder.append("(");
+			        	keyWordsRegExp.put(firstKeyWord, firstKeyWordRegExp);
+			        	keyWordsRegExp.put(otherKeyWord, otherKeyWordRegExp);
+	    	    	}
+		        	else	
+		        		whereQueryBuilder.append(" OR ");
 
 		        	whereQueryBuilder.append("(");
 		        	whereQueryBuilder.append(fields[i]);
@@ -126,15 +131,12 @@ public class ProductServiceImpl implements ProductService {
 		        	whereQueryBuilder.append(":").append(otherKeyWord);
 		        	whereQueryBuilder.append(")");
 		        	
-		        	//if we don´t check this the insertion would be done i times more than necessary
-		        	if (i == 0) {
-			        	keyWordsRegExp.put(firstKeyWord, firstKeyWordRegExp);
-			        	keyWordsRegExp.put(otherKeyWord, otherKeyWordRegExp);
-		        	}
-		        	putAnd = true;
-		        }
-		    }
-		    putAnd = false;	    	
+		        	if (i == fields.length-1)
+		        		whereQueryBuilder.append(")");		        	
+		        	
+		        	queryPutAnd = true;
+	    	    }
+	    	}
 	    }
 	    //no candidates with length greater or equal than MIN_WORD_SIZE
 	    if (keyWordsRegExp.isEmpty())
