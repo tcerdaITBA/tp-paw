@@ -1,5 +1,6 @@
 package tp.paw.khet.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -93,21 +94,21 @@ public class ProductServiceImpl implements ProductService {
 	    final String[] fields ={FIRST_SEARCH_FIELD, SECOND_SEARCH_FIELD};
 	    
 	    Map<String, String> keyWordsRegExp = new HashMap<String, String>();
-	   
-	    StringBuilder likeQueryBuilder = new StringBuilder();
+	    StringBuilder whereQueryBuilder = new StringBuilder();
+	    boolean putAnd = false;
 
 	    for (int i = 0; i < fields.length; i++) {
 	    		    	
-	    	if (i != 0)
-	    		likeQueryBuilder.append(" OR ");
+	    	if (i!=0 && !keyWordsRegExp.isEmpty())
+	    		whereQueryBuilder.append(" OR ");
 	    	
-	    	likeQueryBuilder.append("(");
+//	    	whereQueryBuilder.append("(");
 	    	
 		    for (int j = 0; j < keywords.length; j++) {
 		        if (keywords[j].length() >= MIN_WORD_SIZE) {
 		        	
-		        	if (j != 0)
-			        	likeQueryBuilder.append(" AND ");
+		        	if (putAnd)
+			        	whereQueryBuilder.append(" AND ");
 		        	
 		        	String candidateKeyWord = keywords[j].toLowerCase();
 		        	String firstKeyWord = "first" + candidateKeyWord;
@@ -115,27 +116,37 @@ public class ProductServiceImpl implements ProductService {
 		        	String firstKeyWordRegExp = candidateKeyWord + "%";
 		        	String otherKeyWordRegExp = "% " + candidateKeyWord + "%";
 
-		        	likeQueryBuilder.append("(");
-		        	likeQueryBuilder.append(fields[i]);
-		        	likeQueryBuilder.append(" LIKE ");
-		        	likeQueryBuilder.append(":").append(firstKeyWord);
+		        	whereQueryBuilder.append("(");
+		        	whereQueryBuilder.append(fields[i]);
+		        	whereQueryBuilder.append(" LIKE ");
+		        	whereQueryBuilder.append(":").append(firstKeyWord);
 		        	
-		        	likeQueryBuilder.append(" OR ");
+		        	whereQueryBuilder.append(" OR ");
 		        	
-		        	likeQueryBuilder.append(fields[i]);
-		        	likeQueryBuilder.append(" LIKE ");
-		        	likeQueryBuilder.append(":").append(otherKeyWord);
-		        	likeQueryBuilder.append(")");
+		        	whereQueryBuilder.append(fields[i]);
+		        	whereQueryBuilder.append(" LIKE ");
+		        	whereQueryBuilder.append(":").append(otherKeyWord);
+		        	whereQueryBuilder.append(")");
 		        	
-		        	keyWordsRegExp.put(firstKeyWord, firstKeyWordRegExp);
-		        	keyWordsRegExp.put(otherKeyWord, otherKeyWordRegExp);
+		        	//if we don´t check this the insertion would be done i times more than necessary
+		        	if (i == 0) {
+			        	keyWordsRegExp.put(firstKeyWord, firstKeyWordRegExp);
+			        	keyWordsRegExp.put(otherKeyWord, otherKeyWordRegExp);
+		        	}
+		        	
+		        	putAnd = true;
 		        }
 		    }
+		    putAnd = false;
 	    	
-		    likeQueryBuilder.append(")");
+//		    whereQueryBuilder.append(")");
 	    }
-	   
-	    return productDao.getPlainProductsByKeyword(likeQueryBuilder.toString(), keyWordsRegExp);
+	    
+	    //no candidates with length greater or equal than MIN_WORD_SIZE
+	    if (keyWordsRegExp.isEmpty())
+	    	return new ArrayList<Product>();
+	    
+	    return productDao.getPlainProductsByKeyword(whereQueryBuilder.toString(), keyWordsRegExp);
 	}
 
 	@Override

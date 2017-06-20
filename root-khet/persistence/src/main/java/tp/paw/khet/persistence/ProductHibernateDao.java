@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -160,11 +159,11 @@ public class ProductHibernateDao implements ProductDao {
 //	}
 	
 	@Override
-	public List<Product> getPlainProductsByKeyword(final String likeQuery, final Map<String, String> keyWordsRegExp) {
+	public List<Product> getPlainProductsByKeyword(final String whereQuery, final Map<String, String> keyWordsRegExp) {
 		
 		final TypedQuery<Product> query = em.createQuery(
-				  "from Product as p where "
-				+ likeQuery
+				"from Product as p"
+				+ " where " + whereQuery
 				+ " ORDER BY lower(p.name)", 
 				Product.class);
 
