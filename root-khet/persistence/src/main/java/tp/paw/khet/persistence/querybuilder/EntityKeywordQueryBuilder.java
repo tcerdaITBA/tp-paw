@@ -3,8 +3,7 @@ package tp.paw.khet.persistence.querybuilder;
 import java.util.Map;
 import java.util.Set;
 
-import tp.paw.khet.persistence.querybuilder.KeywordQueryBuilder;;;
-
+import tp.paw.khet.persistence.querybuilder.KeywordQueryBuilder;
 
 public abstract class EntityKeywordQueryBuilder implements KeywordQueryBuilder {
 
