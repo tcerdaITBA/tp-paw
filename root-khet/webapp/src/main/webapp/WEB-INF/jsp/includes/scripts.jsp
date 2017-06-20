@@ -1,3 +1,6 @@
+<%@include file="favListProductAddedFeedback.jsp"%>
+<%@include file="favListCreatedFeedback.jsp"%>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -14,6 +17,7 @@
     var imgFeedback = "${imgFeedback}";
     var productDeleted = "<c:out value="${productDeleted}" />";
     var gotoProduct = "${productVoted}";
+    var favListErrorProductId = "${favListErrorProductId}";
 </script>
 <script src="<c:url value="/resources/js/profile.js"/>"></script>
 <script src="<c:url value="/resources/js/product-list.js"/>"></script>

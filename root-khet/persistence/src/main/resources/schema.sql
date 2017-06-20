@@ -41,3 +41,17 @@ CREATE TABLE IF NOT EXISTS comments (
     UNIQUE(commentDate, userId, productId)
 );
 
+
+-- Postgres tira una excepción de column am.amcanorder does not exists si se colocase esta constraint en el modelo FavList con anotación @UniqueConstraints
+ALTER TABLE favLists DROP CONSTRAINT IF EXISTS name_creator_constraint;
+ALTER TABLE favLists ADD CONSTRAINT name_creator_constraint UNIQUE (favListName, creator_userid);
+
+ALTER TABLE favLists_products DROP CONSTRAINT IF EXISTS product_id_constraint;
+ALTER TABLE favLists_products DROP CONSTRAINT IF EXISTS favList_id_constraint;
+ALTER TABLE favLists_products ADD CONSTRAINT product_id_constraint FOREIGN KEY (productid) REFERENCES products ON DELETE CASCADE;
+ALTER TABLE favLists_products ADD CONSTRAINT favList_id_constraint FOREIGN KEY (favlistid) REFERENCES favLists ON DELETE CASCADE;
+
+ALTER TABLE votes DROP CONSTRAINT IF EXISTS user_id_constraint;
+ALTER TABLE votes DROP CONSTRAINT IF EXISTS product_id_constraint;
+ALTER TABLE votes ADD CONSTRAINT product_id_constraint FOREIGN KEY (productid) REFERENCES products ON DELETE CASCADE;
+ALTER TABLE votes ADD CONSTRAINT user_id_constraint FOREIGN KEY (userid) REFERENCES users ON DELETE CASCADE;

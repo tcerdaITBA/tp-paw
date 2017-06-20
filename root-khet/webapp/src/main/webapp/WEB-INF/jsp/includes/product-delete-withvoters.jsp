@@ -27,7 +27,8 @@
 				</div>
 			</div>
 			<c:url value="/vote/product/${product.id}" var="vote" />
-			<div class="col-md-5 col-md-offset-2 text-right voters-holder">
+			<div class="col-md-4 col-md-offset-1 text-right voters-holder">
+				<c:if test="${!empty votersresume}">
 				<a tabindex="0" class="voters-popover-btn" rel="popover" data-popover-content="#votersPopover" data-placement="bottom" title="<spring:message code="ProductPage.votersTooltip"/>" data-trigger="focus" >
 					<span class="voter-span" data-toggle="tooltip" data-placement="left" title="<spring:message code="ProductPage.votersTooltip"/>">
 						<c:forEach items="${votersresume}" var="voter">
@@ -35,9 +36,10 @@
 						</c:forEach>
 					</span>
 				</a>
+				<%@include file="votersPopover.jsp"%>
+				</c:if>
 			</div>
-			<%@include file="votersPopover.jsp"%>
-			<div class="col-md-2">
+			<div class="col-md-4">
 				<sec:authorize access="isAuthenticated()">
 					<form:form class="pull-right" action="${vote}" method="post">
 							<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
@@ -45,6 +47,11 @@
 								<c:out value="${product.votesCount}"/></p>
 							</button>
 					</form:form>
+					<button class="btn btn-default add-to-collection-btn pull-right categoryTag" data-target="#add-to-collection-modal-${product.id}" data-toggle="modal">
+						<p>
+							<span class="glyphicon glyphicon-plus"></span>
+						</p>
+					</button>	
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<button class="btn btn-default upvote-btn popover-btn pull-right" data-toggle="popover" data-trigger="focus" 
@@ -64,7 +71,7 @@
 				</sec:authorize>
 			</div>
 			<sec:authorize access="isAuthenticated()">
-				<c:if test="${product.votingUsers.contains(loggedUser)}">
+				<c:if test="${fn:contains(product.votingUsers, loggedUser)}">
 					<script>upVotedProductByLoggedUser(${product.id});</script>
 				</c:if>							                    
 			</sec:authorize>

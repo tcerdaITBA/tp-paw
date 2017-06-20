@@ -87,3 +87,38 @@
 #password-change-snackbar {
 	display: hidden;
 }
+
+#new-collection-section {
+	display: none;
+	text-align: right;
+	margin-bottom: 0;
+}
+
+#new-collection-section input {
+	text-align: center;
+	font-weight:500;
+}
+
+#createFavListForm {
+	margin-bottom: 0;
+}
+
+#add-new-collection-link {
+	text-align: center ;
+	display: block ;
+	font-size: 1.4em;
+	font-weight: 500;
+	color: #7b7b7b;
+	letter-spacing: 1px;
+}
+
+#add-new-collection-link:hover {
+	text-decoration: none;
+	color:#333;
+}
+
+.create-new-btn {
+	font-size: 1.1em;
+	font-weight: 700;
+	padding: 5px 25px;
+}

@@ -22,19 +22,24 @@
 		</div>
 		<div class="row product-category">
 			<div class="col-md-3">
-				<div data-href="<c:url value="?category=${product.category.name}${orderQuery}"/>" class="categoryTag product-category-btn">
+				<div data-href="<c:url value="/?category=${product.category.name}${orderQuery}"/>" class="categoryTag product-category-btn">
 					<p><spring:message code="category.${product.category.lowerName}"/></p>
 				</div>
 			</div>
-			<c:url value="/vote/product/${product.id}" var="vote" />
-			<div class="col-md-3 col-md-offset-6">
+			<c:url value="/vote/product/${product.id}?publishedTab=true" var="vote" />
+			<div class="col-md-4 col-md-offset-5">
 				<sec:authorize access="isAuthenticated()">
 					<form:form class="pull-right" action="${vote}" method="post">
-							<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
-								<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-								<c:out value="${product.votesCount}"/></p>
-							</button>
+                        <button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
+                            <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+                            <c:out value="${product.votesCount}"/></p>
+                        </button>
 					</form:form>
+					<button class="btn btn-default add-to-collection-btn pull-right categoryTag" data-target="#add-to-collection-modal-${product.id}-delete" data-toggle="modal" data-published-tab="true">
+						<p>
+							<span class="glyphicon glyphicon-plus"></span>
+						</p>
+					</button>	
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<button class="btn btn-default upvote-btn popover-btn pull-right" data-toggle="popover" data-trigger="focus" 
@@ -54,7 +59,7 @@
 				</sec:authorize>
 			</div>
 			<sec:authorize access="isAuthenticated()">
-				<c:if test="${product.votingUsers.contains(loggedUser)}">
+				<c:if test="${fn:contains(product.votingUsers, loggedUser)}">
 					<script>upVotedProductByLoggedUser(${product.id});</script>
 				</c:if>							                    
 			</sec:authorize>

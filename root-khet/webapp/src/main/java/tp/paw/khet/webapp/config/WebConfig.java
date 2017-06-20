@@ -18,6 +18,9 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -46,6 +49,20 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	private Environment env;
 	
 	@Bean
+	public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
+		final DataSourceInitializer dsi = new DataSourceInitializer();
+		dsi.setDataSource(ds);
+		dsi.setDatabasePopulator(databasePopulator());
+		return dsi;
+	}
+	
+	private DatabasePopulator databasePopulator() {
+		final ResourceDatabasePopulator dbp = new ResourceDatabasePopulator();
+		dbp.addScript(schemaSql);
+		return dbp;
+	}
+	
+	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
@@ -56,6 +73,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Profile("dev")
+	@Bean
 	public DataSource dataSource() {
 		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(org.postgresql.Driver.class);
@@ -66,6 +84,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Profile("live")
+	@Bean
 	public DataSource liveDataSource() {
 		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(org.postgresql.Driver.class);
@@ -76,10 +95,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource) {
 		final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setPackagesToScan("tp.paw.khet.model");
-		factoryBean.setDataSource(env.acceptsProfiles("dev") ? dataSource() : liveDataSource());
+		factoryBean.setDataSource(dataSource);
 		
 		final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		factoryBean.setJpaVendorAdapter(vendorAdapter);

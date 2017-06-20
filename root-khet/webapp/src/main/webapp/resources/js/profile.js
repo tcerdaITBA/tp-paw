@@ -22,4 +22,29 @@ $(document).ready(function() {
 
 	if(imgFeedback)
 		glowObject($('.profile-img'));	
+	
+	$(function(){
+	    $('[rel="popover"]').popover({
+	        container: 'body',
+	        html: true,
+	        content: function () {
+	            var clone = $($(this).data('popover-content')).clone(true).removeClass('hide');
+	            return clone;
+	        }
+	    }).click(function(e) {
+	        e.preventDefault();
+	    });
+	});
+	
+	$('#add-new-collection-link').on('click', function() {
+		$(this).hide();
+		$('#new-collection-section').fadeIn();
+		$('#new-collection-section input').focus();
+	});
+	
+	$('.close-well-icn').on('click', function() {
+		$('#new-collection-section').hide();
+		$('#new-collection-section input').val(null);
+		$('#add-new-collection-link').fadeIn();
+	})
 });

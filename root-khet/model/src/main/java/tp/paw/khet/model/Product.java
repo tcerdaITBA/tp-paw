@@ -23,7 +23,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,10 +30,13 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.hibernate.annotations.SortComparator;
+
+import tp.paw.khet.model.comparator.UserAlphaComparator;
 
 @Entity
 @Table(name = "products")
-public class Product implements Comparable<Product> {
+public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_productid_seq")
@@ -76,7 +78,7 @@ public class Product implements Comparable<Product> {
 	private List<ProductImage> images;
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
-	@OrderBy("name ASC")
+	@SortComparator(UserAlphaComparator.class)
 	private SortedSet<User> votingUsers;
 	
 	@Transient
@@ -99,7 +101,7 @@ public class Product implements Comparable<Product> {
 	Product() {
 	}
 	
-	private Product(ProductBuilder builder) {
+	private Product(final ProductBuilder builder) {
 		this.id = builder.id;
 		this.name = builder.name;
 		this.description = builder.description;
@@ -164,29 +166,19 @@ public class Product implements Comparable<Product> {
 	}
 	
 	public SortedSet<User> getVotingUsers() {
-		return votingUsers;
+		return Collections.unmodifiableSortedSet(votingUsers);
+	}
+	
+	public boolean addVoter(final User user) {
+		return votingUsers.add(notNull(user, "Voter to add to product " + this + " cannot be null"));
+	}
+
+	public boolean removeVoter(final User user) {
+		return votingUsers.remove(notNull(user, "Voter to remove from product " + this + " cannot be null"));
 	}
 	
 	public int getVotesCount() {
 		return getVotingUsers().size();
-	}
-	
-	//TODO: esto es porq hibernate no coloca el ON DELETE CASCADE sobre la FOREIGN KEY de productId en la tabla Votes
-	@PreRemove
-	private void removeProductFromUserVotedProducts() {
-		for (User u : getVotingUsers())
-			u.getVotedProducts().remove(this);
-	}
-	
-	// TODO: es para hibernate que necesita que sea Comparable. No pude hacer que use un Comparator
-	@Override
-	public int compareTo(Product o) {
-		int cmp = getName().compareTo(o.getName());
-		
-		if (cmp == 0)
-			return Integer.compare(getId(), o.getId());
-		
-		return cmp;
 	}
 	
 	@Override
@@ -224,7 +216,7 @@ public class Product implements Comparable<Product> {
 		private List<CommentFamily> commentFamilies = Collections.emptyList();
 		private List<Video> videos = Collections.emptyList();
 		private List<ProductImage> images = Collections.emptyList();
-		private SortedSet<User> votingUsers = new TreeSet<>();  // mutable
+		private SortedSet<User> votingUsers = new TreeSet<>(new UserAlphaComparator());  // mutable
 
 		private ProductBuilder(String name, String shortDescription) {
 			this.name = name;
@@ -247,58 +239,58 @@ public class Product implements Comparable<Product> {
 			this.votingUsers = product.getVotingUsers();
 		}
 
-		public ProductBuilder id(int id) {
+		public ProductBuilder id(final int id) {
 			this.id = id;
 			return this;
 		}
 		
-		public ProductBuilder description(String description) {
-			this.description = description;
+		public ProductBuilder description(final String description) {
+			this.description = notBlank(description, "Product description cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder website(String link) {
+		public ProductBuilder website(final String link) {
 		    this.website = link;
 		    return this;
 		}
 		
-		public ProductBuilder category(Category category) {
-			this.category = category;
+		public ProductBuilder category(final Category category) {
+			this.category = notNull(category, "Product category cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder uploadDate(Date uploadDate) {
-			this.uploadDate = uploadDate;
+		public ProductBuilder uploadDate(final Date uploadDate) {
+			this.uploadDate = notNull(uploadDate, "Product upload date cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder logo(byte[] logo) {
+		public ProductBuilder logo(final byte[] logo) {
 			this.logo = notEmptyByteArray(logo, "Product logo array cannot be null", "Product logo array cannot be empty");
 			return this;
 		}
 		
-		public ProductBuilder creator(User creator) {
-			this.creator = creator;
+		public ProductBuilder creator(final User creator) {
+			this.creator = notNull(creator, "Product creator cannot be null");
 			return this;
 		}
 
-		public ProductBuilder commentFamilies(List<CommentFamily> commentFamilies) {
-			this.commentFamilies = commentFamilies;
+		public ProductBuilder commentFamilies(final List<CommentFamily> commentFamilies) {
+			this.commentFamilies = notNull(commentFamilies, "Product comment families cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder videos(List<Video> videos) {
-			this.videos = videos;
+		public ProductBuilder videos(final List<Video> videos) {
+			this.videos = notNull(videos, "Product videos cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder images(List<ProductImage> images) {
-			this.images = images;
+		public ProductBuilder images(final List<ProductImage> images) {
+			this.images = notNull(images, "Product images cannot be null");
 			return this;
 		}
 		
-		public ProductBuilder votingUsers(SortedSet<User> votingUsers) {
-			this.votingUsers = votingUsers;
+		public ProductBuilder votingUsers(final SortedSet<User> votingUsers) {
+			this.votingUsers = notNull(votingUsers, "Voring users set cannot be null");
 			return this;
 		}
 		

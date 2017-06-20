@@ -10,6 +10,10 @@
 	/*	box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);*/
 }
 
+.slick-disabled {
+    cursor: default;
+}
+
 .slick-next:before {
 	color: grey;
 	font-size: 50px;

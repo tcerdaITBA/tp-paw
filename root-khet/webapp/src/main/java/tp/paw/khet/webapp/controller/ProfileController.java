@@ -39,12 +39,12 @@ public class ProfileController {
     private ProductService productService;
 
 	@ModelAttribute("changePasswordForm")
-	public FormChangePassword passwordForm(@ModelAttribute("loggedUser") final User loggedUser){
+	public FormChangePassword passwordForm(){
 		return new FormChangePassword();
 	}
 	
 	@ModelAttribute("changeProfilePictureForm")
-	public FormChangePicture pictureForm(@ModelAttribute("loggedUser") final User loggedUser){
+	public FormChangePicture pictureForm(){
 		return new FormChangePicture();
 	}
 	
@@ -53,7 +53,7 @@ public class ProfileController {
 		LOGGER.debug("Accessed user profile with ID: {}", userId);
 		
 		final ModelAndView mav = new ModelAndView("profile");
-		final User user = userService.getUserWithVotedProductsById(userId);
+		final User user = userService.getUserById(userId);
 				
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile: user ID not found: {}", userId);
@@ -62,8 +62,8 @@ public class ProfileController {
 				
 		mav.addObject("profileUser", user);
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
-		System.out.println(user.getVotedProducts());
 		mav.addObject("votedProducts", user.getVotedProducts());
+		mav.addObject("favlistSet", user.getFavLists());
 		return mav;
 	}
 	

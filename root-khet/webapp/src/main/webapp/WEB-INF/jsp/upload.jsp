@@ -22,6 +22,7 @@
 		<link href="<c:url value="/resources/css/upload-form.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/general.css"/>" rel="stylesheet">
 		<link href="<c:url value="/resources/css/img-upload.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 	</head>
 
 <body>
@@ -72,8 +73,9 @@
 							<div class="col-md-12 form-group">
 								<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
 								<div class="col-sm-9">
-									<form:input type="text" path="name" class="form-control" placeholder="${NamePlaceholder}" maxlength="64"/>
+									<form:input type="text" path="name" class="form-control" placeholder="${NamePlaceholder}" data-maxlength="64"/>
 									<form:errors path="name" cssClass="form-error" element="p"/>
+									<p class="input-long-error"><spring:message code="Size.uploadForm.nameUpper" arguments="0, 64"></spring:message></p>
 								</div>
 							</div>
 						</div>
@@ -81,8 +83,9 @@
 							<div class="col-md-12 form-group">
 								<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.tagline"/></form:label>
 								<div class="col-sm-9">
-									<form:textarea type="text" path="shortDescription" placeholder="${TaglinePlaceholder}" class="form-control" rows="1" maxlength="140"/>
+									<form:textarea type="text" path="shortDescription" placeholder="${TaglinePlaceholder}" class="form-control" rows="2" data-maxlength="64"/>
 									<form:errors path="shortDescription" cssClass="form-error" element="p"/>
+									<p class="input-long-error"><spring:message code="Size.uploadForm.shortDescription" arguments="0, 140"></spring:message></p>
 								</div>
 							</div>
 						</div>

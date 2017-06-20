@@ -104,8 +104,8 @@ public class ProductHibernateDaoTest {
 
 	private void voteProduct(Product product, int votes) {
 		for (int i = 0; i < votes; i++) {
-			product.getVotingUsers().add(dummyUserList.get(i));
-			dummyUserList.get(i).getVotedProducts().add(product);
+			product.addVoter(dummyUserList.get(i));
+			dummyUserList.get(i).voteProduct(product);
 		}
 	}
 	

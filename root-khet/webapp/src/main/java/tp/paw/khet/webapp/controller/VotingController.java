@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,11 +30,11 @@ public class VotingController {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping(value= "/vote/product/{productId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/vote/product/{productId}", method = RequestMethod.POST)
 	public ModelAndView voteProduct(@PathVariable final int productId, 
+			@RequestParam(name = "publishedTab", required = false, defaultValue = "false") final boolean publishedTab,
 			@ModelAttribute("loggedUser") final User loggedUser,  final RedirectAttributes attr,
-			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer) 
-					throws ProductNotFoundException{
+			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer) throws ProductNotFoundException {
 		
 		final Product product = productService.getPlainProductById(productId);
 		
@@ -45,11 +46,10 @@ public class VotingController {
 		voteService.toggleVoteFromProduct(productId, loggedUser.getUserId());
 		
 		LOGGER.debug("User {} voted product with id {}", loggedUser.getUserId(), productId);
-		
-		final String redirect = "redirect:" + referrer;
-		
+				
 		attr.addFlashAttribute("productVoted", product.getId());
+		attr.addFlashAttribute("publishedTab", publishedTab);
 		
-		return new ModelAndView(redirect);		
+		return new ModelAndView("redirect:" + referrer);		
 	}
 }

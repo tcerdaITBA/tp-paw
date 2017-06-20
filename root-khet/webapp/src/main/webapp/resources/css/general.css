@@ -113,6 +113,10 @@ footer p {
 	color: #bc0f0f;
 }
 
+.collection-error {
+    text-align: left;
+}
+
 .error-centered {
 	text-align: center;
 }
@@ -270,4 +274,8 @@ footer p {
 	font-weight: 600;
 	font-size: 1em;
 	float: right;
+}
+
+.panel {
+	margin-top: 5px;
 }

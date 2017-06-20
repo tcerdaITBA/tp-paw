@@ -3,14 +3,14 @@ package tp.paw.khet.persistence;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,9 +33,10 @@ public class UserHibernateDao implements UserDao {
 		
 		try {
 			em.persist(user);
+			em.flush();
 			return user;
 		} 
-		catch (ConstraintViolationException e) {
+		catch (PersistenceException e) {
 			throw new DuplicateEmailException("There already exists an user with email: " + email);
 		}
 	}
@@ -52,12 +53,22 @@ public class UserHibernateDao implements UserDao {
 
 	@Override
 	public User getUserById(final int userId) {
+		final User user = getPlainUserById(userId);
+		
+		// Hibernate LAZY fetch
+		user.getFavLists().size();
+		user.getVotedProducts().size();
+		
+		return user;
+	}
+	
+	private User getPlainUserById(final int userId) {
 		return em.find(User.class, userId);
 	}
 
 	@Override
 	public byte[] getProfilePictureByUserId(final int userId) {
-		final User user = getUserById(userId);
+		final User user = getPlainUserById(userId);
 		
 		return user == null ? new byte[0] : user.getProfilePicture();
 	}
@@ -78,7 +89,7 @@ public class UserHibernateDao implements UserDao {
 	
 	@Override
 	public User changePassword(final int userId, final String password) {
-		final User user = getUserById(userId);
+		final User user = getPlainUserById(userId);
 		
 		if (user != null)
 			user.setPassword(password);
@@ -88,7 +99,7 @@ public class UserHibernateDao implements UserDao {
 
 	@Override
 	public User changeProfilePicture(final int userId, final byte[] profilePicture) {
-		final User user = getUserById(userId);
+		final User user = getPlainUserById(userId);
 		
 		if (user != null)
 			user.setProfilePicture(profilePicture);
@@ -96,19 +107,6 @@ public class UserHibernateDao implements UserDao {
 		return user;
 	}
 
-	@Override
-	public User getUserWithVotedProductsById(final int userId) {
-		final TypedQuery<User> query = em.createQuery("from User as u left join fetch u.votedProducts as uvp where u.userId = :userId", User.class);
-		query.setParameter("userId", userId);
-		
-		final List<User> list = query.getResultList();
-		
-		if (list.isEmpty())
-			return null;
-		
-		return list.get(0);
-	}
-	
     private List<User> pagedResult(final TypedQuery<User> query, final int offset, final int length) {
     	query.setFirstResult(offset);
     	query.setMaxResults(length);

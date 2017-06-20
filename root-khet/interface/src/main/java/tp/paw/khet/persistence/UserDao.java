@@ -34,19 +34,11 @@ public interface UserDao {
 	public User getUserById(int userId);
 	
 	/**
-	 * Retrieves an {@link User} populated with the {@link List} of the voted products
-	 * @param userId - ID of the user
-	 * @return The corresponding {@link User} or null if it doesn't exist
-	 */
-	public User getUserWithVotedProductsById(int userId);
-	
-	/**
-	 * Retrieves a {@link List} of {@User} given a keyword String set.
-	 * All keywords should match with an user´s name.
-	 * @param keywords - The set of keywords which should be matched
-	 * @param offset - Offset in the list of all users
-	 * @param length - Length of the range to be retrieved
-	 * @return The list of users that match with the keyword.
+	 * Retrieves a {@link List} of {@User} given a keyword.
+	 * The keyword should match the user's name.
+	 * @param keyword - The keyword which should be matched
+	 * @param maxLength - The maximum length of the returned list
+	 * @return The list of plain products that match with the keyword.
 	 */
 	public List<User> getUsersByKeyword(Set<String> keywords, int offset, int length);
 

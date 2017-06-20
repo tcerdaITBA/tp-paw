@@ -35,6 +35,7 @@
 <link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 <link rel="icon" href="<c:url value="/resources/img/icon.png"/>" sizes="16x16 32x32" type="image/png">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="<c:url value="/resources/css/snackbar.css"/>" rel="stylesheet">
 </head>
 
 <script src="<c:url value="/resources/js/upvote.js" />"></script>
@@ -118,10 +119,10 @@
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1 product-list">
 							<c:forEach items="${products}" var="product">
-
 								<a href="<c:url value="/product/${product.id}"/>" id="product${product.id}">
 									<%@include file="includes/product-item.jsp"%></%@include>
 								</a>
+								<%@include file="includes/addToCollectionModal.jsp"%></%@include>
 							</c:forEach>
 							</div>
 						</div>
@@ -135,8 +136,7 @@
 	
 	<%@include file="includes/footer.jsp"%>
     
-    <!-- Deleted product feedback -->
-    <%@include file="includes/deleteModal.jsp"%>
+    <%@include file="includes/deleteProductFeedback.jsp"%>
 
 	</div>
 	<%@include file="includes/scripts.jsp"%>

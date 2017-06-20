@@ -1,4 +1,4 @@
-#delete-snackbar, #password-change-snackbar {
+#password-change-snackbar, #add-product-to-favlist-snackbar, #remove-product-from-favlist-snackbar, #delete-favlist-snackbar, #create-favlist-snackbar, #delete-snackbar {
 	visibility: hidden;
 	min-width: 250px;
 	margin-left: -125px;
@@ -9,7 +9,7 @@
 	font-size: 1.2em;
 }
 
-#delete-snackbar.show, #password-change-snackbar.show {
+#password-change-snackbar.show, #add-product-to-favlist-snackbar.show, #remove-product-from-favlist-snackbar.show, #delete-favlist-snackbar.show, #create-favlist-snackbar.show, #delete-snackbar.show {
 	visibility: visible;
 	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
 	animation: fadein 0.5s, fadeout 0.5s 2.5s;

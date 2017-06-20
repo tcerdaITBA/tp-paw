@@ -44,14 +44,16 @@ public class VoteServiceImplTest {
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
 		
-		voteService.voteProduct(0, 0);
+		assertTrue(voteService.voteProduct(0, 0));
+		assertFalse(voteService.voteProduct(0, 0));
 		
 		assertEquals(1, product.getVotesCount());
 		assertEquals(1, user.getVotedProducts().size());
 		assertEquals(user, product.getVotingUsers().first());
 		assertEquals(product, user.getVotedProducts().first());
 		
-		voteService.unvoteProduct(0, 0);
+		assertTrue(voteService.unvoteProduct(0, 0));
+		assertFalse(voteService.unvoteProduct(0, 0));
 		
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
@@ -62,14 +64,14 @@ public class VoteServiceImplTest {
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
 		
-		voteService.toggleVoteFromProduct(0, 0);
+		assertTrue(voteService.toggleVoteFromProduct(0, 0));
 		
 		assertEquals(1, product.getVotesCount());
 		assertEquals(1, user.getVotedProducts().size());
 		assertEquals(user, product.getVotingUsers().first());
 		assertEquals(product, user.getVotedProducts().first());
 		
-		voteService.toggleVoteFromProduct(0, 0);
+		assertTrue(voteService.toggleVoteFromProduct(0, 0));
 		
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
