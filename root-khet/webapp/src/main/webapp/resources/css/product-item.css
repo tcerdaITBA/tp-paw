@@ -396,8 +396,9 @@
 }
 
 .collection-modal-body {
-	max-height: 30em;
+	max-height: 15em;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .collection-delete-product {
