@@ -3,7 +3,7 @@
 		<div class="panel-heading" role="tab" id="heading-${favList.id}">
 			<div class="row">
 				<div class="col-md-10">
-					<div class="collection-title">
+					<div class="collection-title capitalize-firstLetter">
 						<c:out value="${favList.name}"></c:out>
 					</div>
 					<div class="collection-info">
