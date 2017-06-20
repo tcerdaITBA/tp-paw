@@ -113,6 +113,10 @@ footer p {
 	color: #bc0f0f;
 }
 
+.collection-error {
+    text-align: left;
+}
+
 .error-centered {
 	text-align: center;
 }

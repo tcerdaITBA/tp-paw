@@ -37,28 +37,34 @@
 				<c:otherwise>
 					<c:forEach items="${favList.productList}" var="product">
 					<div class="row">
-						<div class="col-md-11">
-							<a class="collection-product-list-item" href="<c:url value="/product/${product.id}"/>" >
-								<c:url value="/vote/product/${product.id}" var="vote"/>
-								<div class="row center-flex">
-									<div class="col-md-2 collection-product-logo center-flex">
-										<img src="<c:url value="/product/${product.id}/logo"/>">
-									</div>
-									<div class="col-md-7">
-										<span class="collection-product-name capitalize-firstLetter">
-											<c:out value="${product.name}"/>
-										</span>
-									</div>
-									<div class="col-md-3">
-										<span class="collection-upvote-info pull-right">
-											<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-											<c:out value="${product.votesCount}"/>
-										</span>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-1 button-delete-col">
+                        <c:set var="collectionOffset" value="12"></c:set>
+                        <sec:authorize access="isAuthenticated()">
+                            <c:if test="${loggedUser.userId == profileUser.userId}">
+                                <c:set var="collectionOffset" value="11"></c:set>
+                            </c:if>
+                        </sec:authorize>
+                            <div class="col-md-${collectionOffset}">
+                                <a class="collection-product-list-item" href="<c:url value="/product/${product.id}"/>" >
+                                    <c:url value="/vote/product/${product.id}" var="vote"/>
+                                    <div class="row center-flex">
+                                        <div class="col-md-2 collection-product-logo center-flex">
+                                            <img src="<c:url value="/product/${product.id}/logo"/>">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <span class="collection-product-name capitalize-firstLetter">
+                                                <c:out value="${product.name}"/>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span class="collection-upvote-info pull-right">
+                                                <span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+                                                <c:out value="${product.votesCount}"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+						<div class="col-md-${12 - collectionOffset} button-delete-col">
 							<c:url value="/favlist/delete/${favList.id}/${product.id}" var="removeFromList"/>
 							<sec:authorize access="isAuthenticated()">
 							<c:if test="${loggedUser.userId == profileUser.userId}">
