@@ -1,18 +1,24 @@
 package tp.paw.khet.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 import tp.paw.khet.persistence.UserDao;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+	private static final int MIN_WORD_SIZE = 3;
+	
 	@Autowired
 	private UserDao userDao;
 	
@@ -39,7 +45,18 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getUsersByKeyword(final String keyword, final int page, final int pageSize) {
-		return userDao.getUsersByKeyword(keyword, (page - 1) * pageSize, pageSize);
+		
+		final String[] keywords = keyword.trim().split(" ");
+	    final Set<String> validKeywords = new HashSet<>();
+	    
+	    for (final String word : keywords)
+	    	if (word.length() >= MIN_WORD_SIZE)
+	    		validKeywords.add(word);
+	    
+	    if (validKeywords.isEmpty())
+	    	return new ArrayList<User>();
+	    	    		
+		return userDao.getUsersByKeyword(validKeywords, (page - 1) * pageSize, pageSize);
 	}
 	
 	@Override

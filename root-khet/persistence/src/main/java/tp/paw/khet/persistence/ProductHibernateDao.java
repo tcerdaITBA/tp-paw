@@ -22,6 +22,7 @@ import tp.paw.khet.model.Product;
 import tp.paw.khet.model.Product.ProductBuilder;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
+import tp.paw.khet.persistence.querybuilder.ProductKeywordQueryBuilder;
 
 @Repository
 public class ProductHibernateDao implements ProductDao {

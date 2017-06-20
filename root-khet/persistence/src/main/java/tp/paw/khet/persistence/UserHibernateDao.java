@@ -1,22 +1,31 @@
 package tp.paw.khet.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.model.User;
+import tp.paw.khet.persistence.querybuilder.UserKeywordQueryBuilder;
 
 @Repository
 public class UserHibernateDao implements UserDao {
 	
 	@PersistenceContext
 	private EntityManager em;
+	
+	@Autowired
+	private UserKeywordQueryBuilder userKeywordQueryBuilder;
 	
 	@Override
 	public User createUser(final String userName, final String email, final String password, final byte[] profilePicture) throws DuplicateEmailException {
@@ -54,20 +63,17 @@ public class UserHibernateDao implements UserDao {
 	}
 
 	@Override
-	public List<User> getUsersByKeyword(final String keyword, final int offset, final int length) {
-		final TypedQuery<User> query = em.createQuery("from User as u where lower(u.name) LIKE lower(:firstWordKeyword) "
-													  + "OR lower(u.name) LIKE lower(:otherWordsKeyword) "
-													  + "order by lower(u.name)", User.class);
+	public List<User> getUsersByKeyword(final Set<String> keywords, final int offset, final int length) {
 		
-		final String firstWordKeyword = keyword+"%";
-		final String otherWordsKeyword = "% "+keyword+"%";
-		query.setParameter("firstWordKeyword", firstWordKeyword);
-		query.setParameter("otherWordsKeyword", otherWordsKeyword);
+		final Map<String, String> keyWordsRegExp = new HashMap<>();
+		final String whereQuery = userKeywordQueryBuilder.buildQuery(keywords, keyWordsRegExp);
 		
-		query.setFirstResult(offset);
-		query.setMaxResults(length);
+		final TypedQuery<User> query = em.createQuery("from User as u where " + whereQuery + " ORDER BY lower(u.name)", User.class);
+
+		for (final Entry<String,String> e : keyWordsRegExp.entrySet())
+			query.setParameter(e.getKey(), e.getValue());	
 		
-		return query.getResultList();
+		return pagedResult(query, offset, length);
 	}
 	
 	@Override
@@ -102,4 +108,10 @@ public class UserHibernateDao implements UserDao {
 		
 		return list.get(0);
 	}
+	
+    private List<User> pagedResult(final TypedQuery<User> query, final int offset, final int length) {
+    	query.setFirstResult(offset);
+    	query.setMaxResults(length);
+    	return query.getResultList();
+    }
 }

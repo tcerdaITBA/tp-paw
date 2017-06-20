@@ -1,4 +1,4 @@
-package tp.paw.khet.persistence;
+package tp.paw.khet.persistence.querybuilder;
 
 import java.util.Map;
 import java.util.Set;

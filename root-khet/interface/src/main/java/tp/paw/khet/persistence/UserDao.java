@@ -1,6 +1,7 @@
 package tp.paw.khet.persistence;
 
 import java.util.List;
+import java.util.Set;
 
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.model.User;
@@ -40,14 +41,14 @@ public interface UserDao {
 	public User getUserWithVotedProductsById(int userId);
 	
 	/**
-	 * Retrieves a {@link List} of {@User} given a keyword.
-	 * The keyword should match the user's name.
-	 * @param keyword - The keyword which should be matched
+	 * Retrieves a {@link List} of {@User} given a keyword String set.
+	 * All keywords should match with an user´s name.
+	 * @param keywords - The set of keywords which should be matched
 	 * @param offset - Offset in the list of all users
 	 * @param length - Length of the range to be retrieved
-	 * @return The list of plain products that match with the keyword.
+	 * @return The list of users that match with the keyword.
 	 */
-	public List<User> getUsersByKeyword(String keyword, int offset, int length);
+	public List<User> getUsersByKeyword(Set<String> keywords, int offset, int length);
 
 	/**
 	 * Retrieves an {@link User} profile picture.
