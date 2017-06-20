@@ -119,7 +119,19 @@
                                 <c:when test="${empty products}">
                                     <div class="zrp" id="user-products-zrp">
                                         <h2><spring:message code="userZRP.empty"/></h2>
-                                        <h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+                                        <sec:authorize access="isAuthenticated()">
+                                            <c:choose>
+                                                <c:when test="${loggedUser.userId == profileUser.userId}">
+                                                    <h3><spring:message code="ownerUserZRP.noProducts"/></h3>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </sec:authorize>
+				                        <sec:authorize access="isAnonymous()">
+                                            <h3><spring:message code="userZRP.noProducts" arguments="${capitalizedUserName}"/></h3>
+                                        </sec:authorize>
                                     </div>
                                 </c:when>
                                 <c:otherwise>
@@ -142,8 +154,20 @@
                             <c:choose>
                                     <c:when test="${empty votedProducts}">
                                         <div class="zrp" id="user-products-zrp">
-                                            <h2><spring:message code="userZRP.empty"/></h2>
+                                        <h2><spring:message code="userZRP.empty"/></h2>
+                                        <sec:authorize access="isAuthenticated()">
+                                            <c:choose>
+                                                <c:when test="${loggedUser.userId == profileUser.userId}">
+                                                <h3><spring:message code="ownerUserZRP.noVotedProducts"/></h3>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h3><spring:message code="userZRP.noVotedProducts" arguments="${capitalizedUserName}"/></h3>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </sec:authorize>
+				                        <sec:authorize access="isAnonymous()">
                                             <h3><spring:message code="userZRP.noVotedProducts" arguments="${capitalizedUserName}"/></h3>
+                                        </sec:authorize>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
@@ -166,7 +190,19 @@
                                         <c:when test="${empty favlistSet}">
                                             <div class="zrp" id="user-products-zrp">
                                                 <h2><spring:message code="userZRP.empty"/></h2>
-                                                <h3><spring:message code="userZRP.noFavLists" arguments="${capitalizedUserName}"/></h3>
+                                                <sec:authorize access="isAuthenticated()">
+                                                    <c:choose>
+                                                        <c:when test="${loggedUser.userId == profileUser.userId}">
+                                                            <h3><spring:message code="ownerUserZRP.noFavLists"/></h3>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <h3><spring:message code="userZRP.noFavLists" arguments="${capitalizedUserName}"/></h3>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </sec:authorize>
+                                                <sec:authorize access="isAnonymous()">
+                                                    <h3><spring:message code="userZRP.noFavLists" arguments="${capitalizedUserName}"/></h3>
+                                                </sec:authorize>
                                             </div>
                                         </c:when>
                                         <c:otherwise>
