@@ -54,7 +54,7 @@ public class UserHibernateDao implements UserDao {
 	}
 
 	@Override
-	public List<User> getUsersByKeyword(final String keyword, final int maxLength) {
+	public List<User> getUsersByKeyword(final String keyword, final int offset, final int length) {
 		final TypedQuery<User> query = em.createQuery("from User as u where lower(u.name) LIKE lower(:firstWordKeyword) "
 													  + "OR lower(u.name) LIKE lower(:otherWordsKeyword) "
 													  + "order by lower(u.name)", User.class);
@@ -63,7 +63,9 @@ public class UserHibernateDao implements UserDao {
 		final String otherWordsKeyword = "% "+keyword+"%";
 		query.setParameter("firstWordKeyword", firstWordKeyword);
 		query.setParameter("otherWordsKeyword", otherWordsKeyword);
-		query.setMaxResults(maxLength);
+		
+		query.setFirstResult(offset);
+		query.setMaxResults(length);
 		
 		return query.getResultList();
 	}

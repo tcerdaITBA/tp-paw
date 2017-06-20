@@ -2,10 +2,10 @@ package tp.paw.khet.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,8 @@ import tp.paw.khet.persistence.ProductDao;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
+	
 	private final static int MIN_WORD_SIZE = 3;
-	private final static String FIRST_SEARCH_FIELD = "lower(p.name)";
-	private final static String SECOND_SEARCH_FIELD = "lower(p.shortDescription)";
-
 	
 	@Autowired
 	private ProductDao productDao;
@@ -89,64 +86,22 @@ public class ProductServiceImpl implements ProductService {
     }
     
 	@Override
-	public List<Product> getPlainProductsByKeyword(String keyword) {
+	public List<Product> getPlainProductsByKeyword(final String keyword, final int page, final int pageSize) {
 	    final String[] keywords = keyword.trim().split(" ");
-	    final String[] fields ={FIRST_SEARCH_FIELD, SECOND_SEARCH_FIELD};
+	    final Set<String> validKeywords = new HashSet<>();
 	    
-	    Map<String, String> keyWordsRegExp = new HashMap<String, String>();
-	    StringBuilder whereQueryBuilder = new StringBuilder();
-	    boolean queryPutAnd = false;
-	 
-	    for (int j = 0; j < keywords.length; j++) {	    	
-	    	if (keywords[j].length() >= MIN_WORD_SIZE) {
-	    		
-	    		if (queryPutAnd)
-		    		whereQueryBuilder.append(" AND ");
-
-	    	    for (int i = 0; i < fields.length; i++) {
-	    	    	
-	    	    	String candidateKeyWord = keywords[j].toLowerCase();
-	    	    	String firstKeyWord = "first" + candidateKeyWord;
-	    	    	String otherKeyWord = "other" + candidateKeyWord;
-	    	    	String firstKeyWordRegExp = candidateKeyWord + "%";
-	    	    	String otherKeyWordRegExp = "% " + candidateKeyWord + "%";
-
-	    	    	if (i == 0) {
-		        		whereQueryBuilder.append("(");
-			        	keyWordsRegExp.put(firstKeyWord, firstKeyWordRegExp);
-			        	keyWordsRegExp.put(otherKeyWord, otherKeyWordRegExp);
-	    	    	}
-		        	else	
-		        		whereQueryBuilder.append(" OR ");
-
-		        	whereQueryBuilder.append("(");
-		        	whereQueryBuilder.append(fields[i]);
-		        	whereQueryBuilder.append(" LIKE ");
-		        	whereQueryBuilder.append(":").append(firstKeyWord);
-		        	
-		        	whereQueryBuilder.append(" OR ");
-		        	
-		        	whereQueryBuilder.append(fields[i]);
-		        	whereQueryBuilder.append(" LIKE ");
-		        	whereQueryBuilder.append(":").append(otherKeyWord);
-		        	whereQueryBuilder.append(")");
-		        	
-		        	if (i == fields.length-1)
-		        		whereQueryBuilder.append(")");		        	
-		        	
-		        	queryPutAnd = true;
-	    	    }
-	    	}
-	    }
-	    //no candidates with length greater or equal than MIN_WORD_SIZE
-	    if (keyWordsRegExp.isEmpty())
+	    for (final String word : keywords)
+	    	if (word.length() >= MIN_WORD_SIZE)
+	    		validKeywords.add(word);
+	    
+	    if (validKeywords.isEmpty())
 	    	return new ArrayList<Product>();
-	    
-	    return productDao.getPlainProductsByKeyword(whereQueryBuilder.toString(), keyWordsRegExp);
+	    	    
+	    return productDao.getPlainProductsByKeyword(validKeywords, (page - 1) * pageSize, pageSize);
 	}
 
 	@Override
-	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, int page, int pageSize) {
+	public List<Product> getPlainProductsPaged(final Optional<Category> category, final ProductSortCriteria sortCriteria, final int page, final int pageSize) {
 		if (category.isPresent())
 			return productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, (page - 1) * pageSize, pageSize); 
 
@@ -154,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getMaxProductPageWithSize(Optional<Category> category, int pageSize) {
+	public int getMaxProductPageWithSize(final Optional<Category> category, final int pageSize) {
 		int total = category.isPresent() ? productDao.getTotalProductsInCategory(category.get()) : productDao.getTotalProducts();
 		
 		return (int) Math.ceil((float) total / pageSize);

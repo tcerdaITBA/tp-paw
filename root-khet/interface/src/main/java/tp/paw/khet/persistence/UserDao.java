@@ -43,10 +43,11 @@ public interface UserDao {
 	 * Retrieves a {@link List} of {@User} given a keyword.
 	 * The keyword should match the user's name.
 	 * @param keyword - The keyword which should be matched
-	 * @param maxLength - The maximum length of the returned list
+	 * @param offset - Offset in the list of all users
+	 * @param length - Length of the range to be retrieved
 	 * @return The list of plain products that match with the keyword.
 	 */
-	public List<User> getUsersByKeyword(String keyword, int maxLength);
+	public List<User> getUsersByKeyword(String keyword, int offset, int length);
 
 	/**
 	 * Retrieves an {@link User} profile picture.

@@ -24,6 +24,7 @@ public class SearchController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
 	private static final int MIN_QUERY = 3;
 	private static final int MAX_QUERY = 64;
+	private static final int MAX_RESULTS = 15;
 	
     @Autowired
     private UserService userService;
@@ -52,12 +53,10 @@ public class SearchController {
         history = historyService.saveQueryInHistory(history, query);
         session.setAttribute("searchHistory", history);
         
-        int MAX_RESULTS = 10;
-
         final ModelAndView mav = new ModelAndView("search-results");
-        mav.addObject("products", productService.getPlainProductsByKeyword(query));
+        mav.addObject("products", productService.getPlainProductsByKeyword(query, 1, MAX_RESULTS));
         mav.addObject("categories", Category.values());
-        mav.addObject("users", userService.getUsersByKeyword(query, MAX_RESULTS));
+        mav.addObject("users", userService.getUsersByKeyword(query, 1, MAX_RESULTS));
         mav.addObject("queryText", query);
         return mav;
     }

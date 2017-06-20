@@ -14,8 +14,10 @@ import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.model.UserTestUtils.dummyUserList;
 import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
@@ -212,13 +214,23 @@ public class ProductHibernateDaoTest {
 		String noMatchKeyword = expected.get(0).getShortDescription().substring(1, 3);
 
 		assertSearch(keyword, noMatchKeyword, expected);
-		List<Product> actual = productDao.getPlainProductsByKeyword("desc", LIST_SIZE);
+		List<Product> actual = productDao.getPlainProductsByKeyword(stringToSet("desc"), 0, LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 	}
 	
+	private Set<String> stringToSet(final String str) {
+	    final String[] keywords = str.trim().split(" ");
+	    final Set<String> validKeywords = new HashSet<>();
+
+	    for (final String word : keywords)
+    		validKeywords.add(word);
+	    
+	    return validKeywords;
+	}
+	
 	private void assertSearch(String keyword, String noMatchKeyword, List<? extends Product> expected) {
-		List<Product> actual = productDao.getPlainProductsByKeyword(keyword, LIST_SIZE);
+		List<Product> actual = productDao.getPlainProductsByKeyword(stringToSet(keyword), 0, LIST_SIZE);
 		
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
@@ -226,15 +238,15 @@ public class ProductHibernateDaoTest {
 		assertSortedByName(actual);
 		
 		expected = actual.subList(0, 5);
-		actual = productDao.getPlainProductsByKeyword(keyword, 5);
+		actual = productDao.getPlainProductsByKeyword(stringToSet(keyword), 0, 5);
 				
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		
-		assertTrue(productDao.getPlainProductsByKeyword("sucutrule", LIST_SIZE).isEmpty());
+		assertTrue(productDao.getPlainProductsByKeyword(stringToSet("sucutrule"), 0, LIST_SIZE).isEmpty());
 				
-		assertTrue(productDao.getPlainProductsByKeyword(noMatchKeyword, LIST_SIZE).isEmpty());
-		assertEqualsPlainProducts(dummyProduct(1), productDao.getPlainProductsByKeyword("1", LIST_SIZE).get(0));
+		assertTrue(productDao.getPlainProductsByKeyword(stringToSet(noMatchKeyword), 0, LIST_SIZE).isEmpty());
+		assertEqualsPlainProducts(dummyProduct(1), productDao.getPlainProductsByKeyword(stringToSet("1"), 0, LIST_SIZE).get(0));
 	}
 	
 	private void assertSortedByName(List<? extends Product> actual) {

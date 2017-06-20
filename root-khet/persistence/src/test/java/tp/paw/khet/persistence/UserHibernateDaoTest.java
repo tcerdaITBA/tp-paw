@@ -104,25 +104,25 @@ public class UserHibernateDaoTest {
 		insertUsers(expected);
 		String keyword = expected.get(0).getName().substring(0, 3);
 
-		List<User> actual = userDao.getUsersByKeyword(keyword, LIST_SIZE);
+		List<User> actual = userDao.getUsersByKeyword(keyword, 0, LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);
 		
-		actual = userDao.getUsersByKeyword("cerd", LIST_SIZE);
+		actual = userDao.getUsersByKeyword("cerd", 0, LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);
 		
 		expected = actual.subList(0, 5);
-		actual = userDao.getUsersByKeyword(keyword, 5);
+		actual = userDao.getUsersByKeyword(keyword, 0, 5);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);
 		
-		assertTrue(userDao.getUsersByKeyword("sucutrule", LIST_SIZE).isEmpty());
+		assertTrue(userDao.getUsersByKeyword("sucutrule", 0, LIST_SIZE).isEmpty());
 		
-		assertEqualsUsers(dummyUser(1), userDao.getUsersByKeyword("1", LIST_SIZE).get(0));
+		assertEqualsUsers(dummyUser(1), userDao.getUsersByKeyword("1", 0, LIST_SIZE).get(0));
 	}
 	
 	private void assertSortedByUsername(List<User> actual) {

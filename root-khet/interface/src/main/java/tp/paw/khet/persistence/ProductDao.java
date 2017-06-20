@@ -2,7 +2,7 @@ package tp.paw.khet.persistence;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
@@ -58,7 +58,7 @@ public interface ProductDao {
     *         to the given {@link Category}.
     *         The amount of products retrieved could be less than the length given.
     */
-	public List<Product> getPlainProductsRangeByCategory(Category category, ProductSortCriteria sortCriteria, int offset, int pageSize);
+	public List<Product> getPlainProductsRangeByCategory(Category category, ProductSortCriteria sortCriteria, int offset, int length);
 
     /**
     * Lists a range of {@link Product}.
@@ -70,7 +70,7 @@ public interface ProductDao {
     *         Could be empty if offset is greater than the total number of products.
     *         The amount of products retrieved could be less than the length given.
     */
-	public List<Product> getPlainProductsRange(ProductSortCriteria sortCriteria, int offset, int pageSize);
+	public List<Product> getPlainProductsRange(ProductSortCriteria sortCriteria, int offset, int length);
     
 	/**
 	 * Retrieves a {@link Product} with every attribute set except for the familyComments.
@@ -101,10 +101,13 @@ public interface ProductDao {
 	public boolean deleteProductById(int productId);
 
 	/**
-	 * Retrieves a {@link List} of {@link Product} given a keyword.
-	 * The keyword should match the product's name or short description.
-	 * @param keyword - The keyword which should be matched
-	 * @return The list of plain products that match with the keyword.
+	 * Retrieves a {@link List} of {@link Product} given a keyword String set.
+	 * All keywords should match with a product's name or short description.
+	 * @param keywords - The set of keywords which should be matched
+	 * @param offset - Offset in the list of all products
+	 * @param length - Length of the range to be retrieved
+	 * @return The list of plain products which matched with the keywords.
 	 */
-	public List<Product> getPlainProductsByKeyword(String keyword, Map<String, String> keyWordsRegExp);
+	public List<Product> getPlainProductsByKeyword(Set<String> keywords, int offset, int length);
+
 }

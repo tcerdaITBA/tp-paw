@@ -90,7 +90,9 @@ public interface ProductService {
 	 * Retrieves a {@link List} of {@link Product} given a keyword.
 	 * The keyword should match the product's name or short description.
 	 * @param keyword - The keyword which should be matched
+	 * @param page - index of the page to be retrieved
+     * @param pageSize - amount of products per page
 	 * @return The list of plain products that match with the keyword.
 	 */
-	public List<Product> getPlainProductsByKeyword(String keyword);
+	public List<Product> getPlainProductsByKeyword(String keyword, int page, int pageSize);
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.model.Category;
@@ -26,6 +28,9 @@ public class ProductHibernateDao implements ProductDao {
 	    	
 	@PersistenceContext
 	private EntityManager em;
+	
+	@Autowired
+	private ProductKeywordQueryBuilder productKeywordQueryBuilder;
 	
 	private final String selectProductTemplate;
 	private final String selectProductFilterCategoryTemplate;
@@ -141,18 +146,17 @@ public class ProductHibernateDao implements ProductDao {
 	}
 	
 	@Override
-	public List<Product> getPlainProductsByKeyword(final String whereQuery, final Map<String, String> keyWordsRegExp) {
+	public List<Product> getPlainProductsByKeyword(final Set<String> keywords, final int offset, final int length) {
 		
-		final TypedQuery<Product> query = em.createQuery(
-				"from Product as p"
-				+ " where " + whereQuery
-				+ " ORDER BY lower(p.name)", 
-				Product.class);
+		final Map<String, String> keyWordsRegExp = new HashMap<>();
+		final String whereQuery = productKeywordQueryBuilder.buildQuery(keywords, keyWordsRegExp);
+		
+		final TypedQuery<Product> query = em.createQuery("from Product as p where " + whereQuery + " ORDER BY lower(p.name)", Product.class);
 
-		for (Entry<String,String> e : keyWordsRegExp.entrySet())
+		for (final Entry<String,String> e : keyWordsRegExp.entrySet())
 			query.setParameter(e.getKey(), e.getValue());	
 		
-		return query.getResultList();
+		return pagedResult(query, offset, length);
 	}
 	
 	@Override

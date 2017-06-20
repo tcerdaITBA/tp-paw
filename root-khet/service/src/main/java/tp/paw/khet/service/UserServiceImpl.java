@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<User> getUsersByKeyword(final String keyword, final int maxLength) {
-		return userDao.getUsersByKeyword(keyword, maxLength);
+	public List<User> getUsersByKeyword(final String keyword, final int page, final int pageSize) {
+		return userDao.getUsersByKeyword(keyword, (page - 1) * pageSize, pageSize);
 	}
 	
 	@Override

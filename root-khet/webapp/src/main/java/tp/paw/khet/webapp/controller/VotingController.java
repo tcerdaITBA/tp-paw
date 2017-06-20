@@ -46,7 +46,7 @@ public class VotingController {
 		
 		LOGGER.debug("User {} voted product with id {}", loggedUser.getUserId(), productId);
 		
-		String redirect = "redirect:" + referrer;
+		final String redirect = "redirect:" + referrer;
 		
 		attr.addFlashAttribute("productVoted", product.getId());
 		
