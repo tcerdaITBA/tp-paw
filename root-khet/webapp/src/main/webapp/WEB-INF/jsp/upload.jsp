@@ -72,7 +72,7 @@
 							<div class="col-md-12 form-group">
 								<form:label path="name" class="col-sm-3 control-label"><spring:message code="formLabel.productName" /></form:label>
 								<div class="col-sm-9">
-									<form:input type="text" path="name" class="form-control" placeholder="${NamePlaceholder}" maxlength="64"/>
+									<form:input type="text" path="name" class="form-control" placeholder="${NamePlaceholder}"/>
 									<form:errors path="name" cssClass="form-error" element="p"/>
 								</div>
 							</div>
@@ -81,7 +81,7 @@
 							<div class="col-md-12 form-group">
 								<form:label path="shortDescription" class="col-sm-3 control-label"><spring:message code="formLabel.tagline"/></form:label>
 								<div class="col-sm-9">
-									<form:textarea type="text" path="shortDescription" placeholder="${TaglinePlaceholder}" class="form-control" rows="1" maxlength="140"/>
+									<form:textarea type="text" path="shortDescription" placeholder="${TaglinePlaceholder}" class="form-control" rows="2"/>
 									<form:errors path="shortDescription" cssClass="form-error" element="p"/>
 								</div>
 							</div>
