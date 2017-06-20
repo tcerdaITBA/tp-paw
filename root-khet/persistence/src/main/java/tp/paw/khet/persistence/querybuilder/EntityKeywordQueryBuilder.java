@@ -3,7 +3,9 @@ package tp.paw.khet.persistence.querybuilder;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class EntityKeywordQueryBuilder {
+import tp.paw.khet.persistence.QueryBuilder;
+
+public abstract class EntityKeywordQueryBuilder implements QueryBuilder {
 
 	public String buildQuery(final Set<String> keywords, final Map<String, String> keyWordsRegExp, String[] fields) {
 	    final StringBuilder whereQueryBuilder = new StringBuilder();
