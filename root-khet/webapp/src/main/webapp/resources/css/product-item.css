@@ -396,7 +396,7 @@
 }
 
 .collection-modal-body {
-	max-height: 15em;
+	max-height: 20em;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
