@@ -421,6 +421,7 @@
 
 .button-delete-col {
 	display: flex;
+    margin-left: -0.55em;
 }
 
 .button-delete-col form {
