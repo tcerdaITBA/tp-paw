@@ -45,7 +45,7 @@
 										<form:form action="${addToList}" method="post">
 											<c:choose>
 												<c:when test="${fn:contains(collection.productList, product)}">
-													<span class="tool-tip" data-toggle="tooltip" data-placement="right" title="<spring:message code="collections.alreadyInCollection"/>">
+													<span class="tool-tip" data-toggle="tooltip" data-placement="right" title="<spring:message code="collections.alreadyInCollection"/>" data-container=".modal-body">
 														<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}" disabled>
 															<div class="collection-name"><c:out value="${collection.name}"></c:out></div>
 															<div class="collection-info">

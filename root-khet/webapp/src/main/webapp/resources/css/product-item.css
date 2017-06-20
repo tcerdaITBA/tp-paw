@@ -362,7 +362,7 @@
 }
 
 .tool-tip {
-  display: inline-block;
+  display: block;
 }
 
 .tool-tip [disabled] {
@@ -421,7 +421,6 @@
 
 .button-delete-col {
 	display: flex;
-	padding-left: 0;
 }
 
 .button-delete-col form {
