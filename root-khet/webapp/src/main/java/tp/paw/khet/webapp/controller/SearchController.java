@@ -33,9 +33,7 @@ public class SearchController {
     
     @Autowired
     private HistoryService historyService;
-    
-    private static final int MAX_RESULTS = 10;
-    
+        
     @RequestMapping("/search")
     public ModelAndView searchResults(@RequestParam(value = "query") String query, HttpSession session) throws InvalidQueryException {
 		LOGGER.debug("Accessed search with query {}", query);
@@ -53,9 +51,11 @@ public class SearchController {
         Stack<String> history = (Stack<String>) session.getAttribute("searchHistory");
         history = historyService.saveQueryInHistory(history, query);
         session.setAttribute("searchHistory", history);
+        
+        int MAX_RESULTS = 10;
 
         final ModelAndView mav = new ModelAndView("search-results");
-        mav.addObject("products", productService.getPlainProductsByKeyword(query, MAX_RESULTS));
+        mav.addObject("products", productService.getPlainProductsByKeyword(query));
         mav.addObject("categories", Category.values());
         mav.addObject("users", userService.getUsersByKeyword(query, MAX_RESULTS));
         mav.addObject("queryText", query);

@@ -1,7 +1,9 @@
 package tp.paw.khet.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,11 @@ import tp.paw.khet.persistence.ProductDao;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+	private final static int MIN_WORD_SIZE = 3;
+	private final static String FIRST_SEARCH_FIELD = "lower(p.name)";
+	private final static String SECOND_SEARCH_FIELD = "lower(p.shortDescription)";
+
+	
 	@Autowired
 	private ProductDao productDao;
 	
@@ -79,19 +86,56 @@ public class ProductServiceImpl implements ProductService {
     public boolean deleteProductById(final int productId) {
     	return productDao.deleteProductById(productId);
     }
-
-    //TODO: Arreglar para que devuelva todos y haga la interseccion entre estos no una cantidad maxLength
+    
 	@Override
-	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength) {
-	    final String[] splitted = keyword.trim().split(" ");
-	    final List<Product> result = productDao.getPlainProductsByKeyword(splitted[0], maxLength);
+	public List<Product> getPlainProductsByKeyword(String keyword) {
+	    final String[] keywords = keyword.trim().split(" ");
+	    final String[] fields ={FIRST_SEARCH_FIELD, SECOND_SEARCH_FIELD};
+	    
+	    Map<String, String> keyWordsRegExp = new HashMap<String, String>();
+	   
+	    StringBuilder likeQueryBuilder = new StringBuilder();
 
-	    for (int i = 1; i < splitted.length; i++) {
-	        if (splitted[i].length() >= 3)
-	            result.retainAll(productDao.getPlainProductsByKeyword(splitted[i], maxLength));
+	    for (int i = 0; i < fields.length; i++) {
+	    		    	
+	    	if (i != 0)
+	    		likeQueryBuilder.append(" OR ");
+	    	
+	    	likeQueryBuilder.append("(");
+	    	
+		    for (int j = 0; j < keywords.length; j++) {
+		        if (keywords[j].length() >= MIN_WORD_SIZE) {
+		        	
+		        	if (j != 0)
+			        	likeQueryBuilder.append(" AND ");
+		        	
+		        	String candidateKeyWord = keywords[j].toLowerCase();
+		        	String firstKeyWord = "first" + candidateKeyWord;
+		        	String otherKeyWord = "other" + candidateKeyWord;
+		        	String firstKeyWordRegExp = candidateKeyWord + "%";
+		        	String otherKeyWordRegExp = "% " + candidateKeyWord + "%";
+
+		        	likeQueryBuilder.append("(");
+		        	likeQueryBuilder.append(fields[i]);
+		        	likeQueryBuilder.append(" LIKE ");
+		        	likeQueryBuilder.append(":").append(firstKeyWord);
+		        	
+		        	likeQueryBuilder.append(" OR ");
+		        	
+		        	likeQueryBuilder.append(fields[i]);
+		        	likeQueryBuilder.append(" LIKE ");
+		        	likeQueryBuilder.append(":").append(otherKeyWord);
+		        	likeQueryBuilder.append(")");
+		        	
+		        	keyWordsRegExp.put(firstKeyWord, firstKeyWordRegExp);
+		        	keyWordsRegExp.put(otherKeyWord, otherKeyWordRegExp);
+		        }
+		    }
+	    	
+		    likeQueryBuilder.append(")");
 	    }
 	   
-		return result;
+	    return productDao.getPlainProductsByKeyword(likeQueryBuilder.toString(), keyWordsRegExp);
 	}
 
 	@Override

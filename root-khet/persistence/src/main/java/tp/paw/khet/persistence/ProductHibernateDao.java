@@ -5,6 +5,8 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -139,21 +141,35 @@ public class ProductHibernateDao implements ProductDao {
 		return product == null ? false : true;
 	}
 
+//	@Override
+//	public List<Product> getPlainProductsByKeyword(final String keyword) {
+//		final String firstWordKeyword = keyword+"%";
+//		final String otherWordsKeyword = "% "+keyword+"%";
+//		
+//		final TypedQuery<Product> query = em.createQuery(
+//				  "from Product as p where "
+//				+ "lower(p.name) LIKE lower(:firstWordKeyword) OR lower(p.name) LIKE lower(:otherWordsKeyword) OR "
+//				+ "lower(p.shortDescription) LIKE lower(:firstWordKeyword) OR lower(p.shortDescription) LIKE lower(:otherWordsKeyword) "
+//				+ "ORDER BY lower(p.name)", 
+//				Product.class);
+//		
+//		query.setParameter("firstWordKeyword", firstWordKeyword);
+//		query.setParameter("otherWordsKeyword", otherWordsKeyword);
+//		
+//		return query.getResultList();
+//	}
+	
 	@Override
-	public List<Product> getPlainProductsByKeyword(final String keyword, final int maxLength) {
-		final String firstWordKeyword = keyword+"%";
-		final String otherWordsKeyword = "% "+keyword+"%";
+	public List<Product> getPlainProductsByKeyword(final String likeQuery, final Map<String, String> keyWordsRegExp) {
 		
 		final TypedQuery<Product> query = em.createQuery(
 				  "from Product as p where "
-				+ "lower(p.name) LIKE lower(:firstWordKeyword) OR lower(p.name) LIKE lower(:otherWordsKeyword) OR "
-				+ "lower(p.shortDescription) LIKE lower(:firstWordKeyword) OR lower(p.shortDescription) LIKE lower(:otherWordsKeyword) "
-				+ "ORDER BY lower(p.name)", 
+				+ likeQuery
+				+ " ORDER BY lower(p.name)", 
 				Product.class);
-		
-		query.setParameter("firstWordKeyword", firstWordKeyword);
-		query.setParameter("otherWordsKeyword", otherWordsKeyword);
-		query.setMaxResults(maxLength);
+
+		for (Entry<String,String> e : keyWordsRegExp.entrySet())
+			query.setParameter(e.getKey(), e.getValue());	
 		
 		return query.getResultList();
 	}

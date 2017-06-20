@@ -2,6 +2,7 @@ package tp.paw.khet.persistence;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
@@ -103,8 +104,7 @@ public interface ProductDao {
 	 * Retrieves a {@link List} of {@link Product} given a keyword.
 	 * The keyword should match the product's name or short description.
 	 * @param keyword - The keyword which should be matched
-	 * @param maxLength - The maximum length of the returned list
 	 * @return The list of plain products that match with the keyword.
 	 */
-	public List<Product> getPlainProductsByKeyword(String keyword, int maxLength);
+	public List<Product> getPlainProductsByKeyword(String keyword, Map<String, String> keyWordsRegExp);
 }
