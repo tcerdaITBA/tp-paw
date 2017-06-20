@@ -54,5 +54,14 @@ $(document).ready(function() {
 	$(".image-input").change(function(){
 		loadImage(this);
 	});
+	
+	$('[data-maxlength]').on('propertychange change keyup paste input',function() {
+		var max = $(this).data('maxlength');
+		var errorMessage = $(this).siblings('.input-long-error');
+		if ($(this).val().length > max) 
+			errorMessage.show();
+		else
+			errorMessage.fadeOut();
+	});
 
 });

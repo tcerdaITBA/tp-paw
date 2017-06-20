@@ -83,3 +83,8 @@
 	font-weight: 500;
 }
 
+
+.input-long-error {
+	display: none;
+	color: crimson;
+}
