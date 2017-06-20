@@ -39,6 +39,12 @@ $(document).ready(function() {
 	$('#add-new-collection-link').on('click', function() {
 		$(this).hide();
 		$('#new-collection-section').fadeIn();
+		$('#new-collection-section input').focus();
 	});
 	
+	$('.close-well-icn').on('click', function() {
+		$('#new-collection-section').hide();
+		$('#new-collection-section input').val(null);
+		$('#add-new-collection-link').fadeIn();
+	})
 });

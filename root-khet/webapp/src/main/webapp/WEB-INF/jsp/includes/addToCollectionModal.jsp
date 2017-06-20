@@ -68,7 +68,7 @@
 													</span>
 												</c:when>
 												<c:otherwise>
-													<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}">
+													<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.id}">
 														<div class="row">
 															<div class="col-md-8">
 																<div class="collection-name capitalize-firstLetter"><c:out value="${collection.name}"></c:out></div>
@@ -114,6 +114,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="new-collection-form well">
+								<span class="glyphicon glyphicon-remove close-well-icn"></span>
 								<c:url value="/favlist/create?productId=${product.id}" var="postPath" />
 								<form:form modelAttribute="createFavListForm" class="favlist-form" action="${postPath}" method="post">
 									<h3 class="favlist-form-title"><spring:message code="collections.newCollection"></spring:message></h3>
