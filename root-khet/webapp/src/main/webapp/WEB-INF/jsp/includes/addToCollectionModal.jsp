@@ -38,7 +38,7 @@
 					<c:when test="${empty loggedUser.favLists}">
 						<div class="row">
 							<div class="col-md-12">
-								<p><spring:message code="collections.noCollectionsYet"></spring:message></p>
+								<h4><spring:message code="ownerUserZRP.noFavLists"></spring:message></h4>
 							</div>
 						</div>
 					</c:when>
