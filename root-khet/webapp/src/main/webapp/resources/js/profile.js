@@ -21,7 +21,13 @@ $(document).ready(function() {
 		$('#feedbackDeleteModal').modal('show');
 
 	if(imgFeedback)
-		glowObject($('.profile-img'));	
+		glowObject($('.profile-img'));
+    
+    if(favListError) {
+ 		$('#add-new-collection-link').hide();
+		$('#new-collection-section').fadeIn();
+		$('#new-collection-section input').focus();       
+    }
 	
 	$(function(){
 	    $('[rel="popover"]').popover({
@@ -46,5 +52,6 @@ $(document).ready(function() {
 		$('#new-collection-section').hide();
 		$('#new-collection-section input').val(null);
 		$('#add-new-collection-link').fadeIn();
+        $('.collection-error').hide();
 	})
 });

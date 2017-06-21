@@ -18,6 +18,7 @@
     var productDeleted = "<c:out value="${productDeleted}" />";
     var gotoProduct = "${productVoted}";
     var favListErrorProductId = "${favListErrorProductId}";
+    var favListError = "${favListError}";
 </script>
 <script src="<c:url value="/resources/js/profile.js"/>"></script>
 <script src="<c:url value="/resources/js/product-list.js"/>"></script>

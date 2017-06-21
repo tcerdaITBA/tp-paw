@@ -146,6 +146,7 @@ public class FavListController {
 	private void setErrorState(final FormFavList favListForm, final BindingResult errors, final RedirectAttributes attr, final Optional<Integer> productId) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.createFavListForm", errors);
 		attr.addFlashAttribute("createFavListForm", favListForm);
+		attr.addFlashAttribute("favListError", true);
 		
 		if (productId.isPresent())
 			attr.addFlashAttribute("favListErrorProductId", productId.get());
