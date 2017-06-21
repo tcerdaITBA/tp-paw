@@ -1,4 +1,5 @@
 <div class="panel panel-default collection-panel">
+    <c:set var="expand" value="${not empty favListRemovedId && favListRemovedId == favList.id}"></c:set>
 	<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-${favList.id}" aria-expanded="false" aria-controls="collapse-${favList.id}">
 		<div class="panel-heading" role="tab" id="heading-${favList.id}">
 			<div class="row">
@@ -27,7 +28,7 @@
 			</div>
 		</div>
 	</a>
-	<div id="collapse-${favList.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-${favList.id}">
+	<div id="collapse-${favList.id}" class="panel-collapse collapse ${expand ? 'in' : ''}" role="tabpanel" aria-labelledby="heading-${favList.id}">
 		<div class="panel-body">
 			<c:choose>
 				<c:when test="${empty favList.productList}">

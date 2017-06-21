@@ -139,6 +139,7 @@ public class FavListController {
 		
 		attr.addFlashAttribute("productRemovedFromFavList", retrieveValidProduct(productId).getName());
 		attr.addFlashAttribute("favListRemoved", favList.getName());
+		attr.addFlashAttribute("favListRemovedId", favList.getId());
 		
 		return new ModelAndView("redirect:" + referrer);
 	}
