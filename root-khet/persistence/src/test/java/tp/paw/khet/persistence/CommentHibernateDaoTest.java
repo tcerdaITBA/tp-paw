@@ -40,23 +40,23 @@ public class CommentHibernateDaoTest {
 
 	@Autowired
 	private CommentHibernateDao commentDao;
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Autowired
 	private DataSource dataSource;
-	
+
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK");
-				
+
 		insertDummyUser();
 		insertDummyProduct();
 	}
@@ -65,12 +65,12 @@ public class CommentHibernateDaoTest {
 	public void createParentCommentTest() {
 		Comment expected = dummyParentComment(1, 1, 1);
 		Comment actual = insertComment(expected);
-		
+
 		assertEqualsComments(expected, actual);
 		assertFalse(actual.hasParent());
 		assertEqualsComments(actual, commentDao.getCommentById(actual.getId()));
 	}
-	
+
 	@Test
 	public void createChildCommentTest() {
 		Comment dummyParent = dummyParentComment(1, 1, 1);
@@ -83,70 +83,76 @@ public class CommentHibernateDaoTest {
 		assertEqualsComments(dummyParent, actual.getParent());
 		assertEqualsComments(actual, commentDao.getCommentById(actual.getId()));
 	}
-	
+
 	@Test
 	public void getCommentsByProductIdTest() {
 		List<Comment> parentCommentList = dummyParentCommentList(7, 1, 1, 1);
 		insertCommentList(parentCommentList, 1);
-		
+
 		for (int i = 0; i < 7; i++)
 			insertCommentList(dummyCommentList(5, 7 + i * 5, parentCommentList.get(i), 1, 1), 1);
-		
+
 		List<Comment> actual = commentDao.getCommentsByProductId(1);
 		List<Comment> comments = new ArrayList<>(actual.size());
 		for (Comment comment : actual)
 			comments.add(comment);
-		
+
 		assertCommentsOrder(comments);
 	}
-	
+
 	private void insertCommentList(List<Comment> comments, int productId) {
 		for (Comment comment : comments)
 			insertComment(comment);
 	}
 
-	// Asserts that a block of parent comments come first, then a block of child comments with parentId of the first parent comment and so on
+	// Asserts that a block of parent comments come first, then a block of child
+	// comments with parentId of the first parent comment and so on
 	private void assertCommentsOrder(List<Comment> comments) {
 		assertFalse(comments.get(0).hasParent());
-		
+
 		for (int i = 0, j = childrenPointer(comments); j < comments.size(); j++) {
 			Comment parent = comments.get(i);
 			Comment child = comments.get(j);
-			
+
 			assertFalse(parent.hasParent());
-			
+
 			if (child.getParent().getId() > parent.getId()) {
 				i++;
-			}
-			else {
+			} else {
 				assertEquals(parent.getId(), child.getParent().getId());
-				if (j < comments.size() - 1 && child.getParent().getId() == comments.get(j+1).getParent().getId())
-					assertTrue(child.getCommentDate().compareTo(comments.get(j+1).getCommentDate()) < 0); // Oldest comments first
+				if (j < comments.size() - 1 && child.getParent().getId() == comments.get(j + 1).getParent().getId())
+					assertTrue(child.getCommentDate().compareTo(comments.get(j + 1).getCommentDate()) < 0); // Oldest
+																											// comments
+																											// first
 			}
 		}
 	}
-	
+
 	private int childrenPointer(List<Comment> comments) {
 		for (int i = 0; i < comments.size(); i++) {
 			if (comments.get(i).hasParent())
 				return i;
-			
-			if (i < comments.size()-1 && comments.get(i+1).hasParent())
-				assertTrue(comments.get(i).getCommentDate().compareTo(comments.get(i+1).getCommentDate()) < 0); // Oldest comments first
+
+			if (i < comments.size() - 1 && comments.get(i + 1).hasParent())
+				assertTrue(comments.get(i).getCommentDate().compareTo(comments.get(i + 1).getCommentDate()) < 0); // Oldest
+																													// comments
+																													// first
 		}
-		
+
 		return comments.size();
 	}
-	
+
 	private Comment insertComment(Comment comment) {
 		if (comment.hasParent())
-			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParent(), comment.getCommentedProduct(), comment.getAuthor());
-		return commentDao.createParentComment(comment.getContent(), comment.getCommentDate(), comment.getCommentedProduct(), comment.getAuthor());
+			return commentDao.createComment(comment.getContent(), comment.getCommentDate(), comment.getParent(),
+					comment.getCommentedProduct(), comment.getAuthor());
+		return commentDao.createParentComment(comment.getContent(), comment.getCommentDate(),
+				comment.getCommentedProduct(), comment.getAuthor());
 	}
 
 	private void insertDummyProduct() {
 		Product dummy = dummyProduct(1);
-		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), 
+		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(),
 				dummy.getWebsite(), dummy.getCategory(), dummy.getUploadDate(), dummy.getLogo(), dummy.getCreator());
 	}
 

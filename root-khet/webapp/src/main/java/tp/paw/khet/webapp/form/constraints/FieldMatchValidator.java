@@ -8,40 +8,36 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FieldMatchValidator.class);
-	
-    private String firstFieldName;
-    private String secondFieldName;
 
-    @Override
-    public void initialize(final FieldMatch constraintAnnotation)
-    {
-        firstFieldName = constraintAnnotation.first();
-        secondFieldName = constraintAnnotation.second();
-    }
+	private String firstFieldName;
+	private String secondFieldName;
 
-    @Override
-    public boolean isValid(final Object value, final ConstraintValidatorContext context)
-    {
-        try {
-            final Object firstObj = BeanUtils.getProperty(value, firstFieldName);
-            final Object secondObj = BeanUtils.getProperty(value, secondFieldName);
+	@Override
+	public void initialize(final FieldMatch constraintAnnotation) {
+		firstFieldName = constraintAnnotation.first();
+		secondFieldName = constraintAnnotation.second();
+	}
 
-            boolean matches = firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
-            
-            if (!matches) {
-            	context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-            		.addNode(secondFieldName)
-            		.addConstraintViolation();
-            }
-            
-            return matches;
-        }
-        catch (final Exception e) {
-        	LOGGER.error("Failed to read property on object {}: {}", value, e.getMessage());
-        }
-        
-        return true;
-    }
+	@Override
+	public boolean isValid(final Object value, final ConstraintValidatorContext context) {
+		try {
+			final Object firstObj = BeanUtils.getProperty(value, firstFieldName);
+			final Object secondObj = BeanUtils.getProperty(value, secondFieldName);
+
+			boolean matches = firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
+
+			if (!matches) {
+				context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
+						.addNode(secondFieldName).addConstraintViolation();
+			}
+
+			return matches;
+		} catch (final Exception e) {
+			LOGGER.error("Failed to read property on object {}: {}", value, e.getMessage());
+		}
+
+		return true;
+	}
 }

@@ -16,20 +16,22 @@ public final class CommentTestUtils {
 
 	private CommentTestUtils() {
 	}
-	
+
 	public static Comment dummyParentComment(int commentId, int authorId, int productId) {
 		LocalDateTime ldt = LocalDateTime.now().plusSeconds(commentId);
-		return new Comment(dummyUser(authorId), dummyProduct(productId), "Content " + commentId, Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant())).setCommentId(commentId);
+		return new Comment(dummyUser(authorId), dummyProduct(productId), "Content " + commentId,
+				Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant())).setCommentId(commentId);
 	}
-	
+
 	public static Comment dummyComment(int commentId, Comment parent, int authorId, int productId) {
 		LocalDateTime ldt = LocalDateTime.now().plusSeconds(commentId);
-		return new Comment(parent, dummyUser(authorId), dummyProduct(productId), "Content " + commentId, Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant())).setCommentId(commentId);
+		return new Comment(parent, dummyUser(authorId), dummyProduct(productId), "Content " + commentId,
+				Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant())).setCommentId(commentId);
 	}
-	
+
 	public static List<Comment> dummyParentCommentList(int size, int initialId, int authorId, int productId) {
 		List<Comment> list = new ArrayList<>(size);
-		
+
 		for (int i = 0; i < size; i++)
 			list.add(dummyParentComment(initialId + i, authorId, productId));
 
@@ -38,13 +40,13 @@ public final class CommentTestUtils {
 
 	public static List<Comment> dummyCommentList(int size, int initialId, Comment parent, int authorId, int productId) {
 		List<Comment> list = new ArrayList<>(size);
-		
+
 		for (int i = 0; i < size; i++)
 			list.add(dummyComment(initialId + i, parent, authorId, productId));
 
 		return list;
 	}
-	
+
 	public static void assertEqualsComments(Comment expected, Comment actual) {
 		assertEqualsUsers(expected.getAuthor(), actual.getAuthor());
 		assertEquals(expected.hasParent(), actual.hasParent());
@@ -53,5 +55,5 @@ public final class CommentTestUtils {
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getContent(), actual.getContent());
 		assertEquals(expected, actual);
-	}	
+	}
 }

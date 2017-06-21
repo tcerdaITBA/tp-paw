@@ -15,12 +15,12 @@ public class VideoServiceImpl implements VideoService {
 
 	@Autowired
 	private VideoDao videoDao;
-	
+
 	@Override
 	public List<Video> getVideosByProductId(final int id) {
 		return videoDao.getVideosByProductId(id);
 	}
-	
+
 	@Transactional
 	@Override
 	public Video createVideo(final String videoId, final int productId) {
@@ -31,10 +31,10 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public List<Video> createVideos(final List<String> videoIds, final int productId) {
 		List<Video> videos = new ArrayList<>();
-		
+
 		for (String videoId : videoIds)
 			videos.add(createVideo(videoId, productId));
-		
+
 		return videos;
 	}
 

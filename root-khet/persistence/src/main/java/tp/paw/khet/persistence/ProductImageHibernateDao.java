@@ -15,22 +15,23 @@ public class ProductImageHibernateDao implements ProductImageDao {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
 	public ProductImage createProductImage(final int imageId, final int productId, final byte[] data) {
 		final ProductImage productImage = new ProductImage(imageId, productId, data);
 
 		em.persist(productImage);
-		
+
 		return productImage;
 	}
 
 	@Override
 	public List<Integer> getImagesIdByProductId(final int productId) {
-		final TypedQuery<Integer> query = em.createQuery("select productImageId from ProductImage as pi where pi.productId = :productId "
-														+ "ORDER BY pi.productImageId", Integer.class);
+		final TypedQuery<Integer> query = em
+				.createQuery("select productImageId from ProductImage as pi where pi.productId = :productId "
+						+ "ORDER BY pi.productImageId", Integer.class);
 		query.setParameter("productId", productId);
-		
+
 		return query.getResultList();
 	}
 

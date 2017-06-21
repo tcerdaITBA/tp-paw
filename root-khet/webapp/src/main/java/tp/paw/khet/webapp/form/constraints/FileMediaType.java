@@ -17,13 +17,13 @@ import javax.validation.Payload;
 @Constraint(validatedBy = FileMediaTypeValidator.class)
 @Documented
 public @interface FileMediaType {
-	
+
 	String message() default "{tp.paw.khet.webapp.form.constraints.FileMediaType.message}";
-	
+
 	Class<?>[] groups() default {};
-	
+
 	Class<? extends Payload>[] payload() default {};
-	
+
 	String[] value();
 
 }

@@ -21,16 +21,16 @@ public class ImageOrVideoValidator implements Validator {
 
 	public void validate(Object target, Errors errors) {
 		FormProduct formProduct = (FormProduct) target;
-		
+
 		for (MultipartFileImageWrapper image : formProduct.getImages())
-			if(image.hasFile())
+			if (image.hasFile())
 				return;
-		
+
 		for (VideoStringWrapper video : formProduct.getVideos())
-			if(video.hasUrl())
+			if (video.hasUrl())
 				return;
 
 		errors.rejectValue("images", "ImageOrVideo");
 	}
-	
+
 }

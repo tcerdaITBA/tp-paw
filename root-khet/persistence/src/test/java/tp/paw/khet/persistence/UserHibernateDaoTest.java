@@ -34,19 +34,19 @@ import tp.paw.khet.model.User;
 @Transactional
 @Sql("classpath:schema.sql")
 public class UserHibernateDaoTest {
-	
+
 	private final static int LIST_SIZE = 20;
-	
+
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Autowired
 	private UserHibernateDao userDao;
-	
+
 	@Autowired
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		jdbcTemplate = new JdbcTemplate(dataSource);
@@ -56,50 +56,51 @@ public class UserHibernateDaoTest {
 	@Test
 	public void createUserTest() throws DuplicateEmailException {
 		User expected = dummyUser(1);
-		User actual = userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(), profilePictureFromUser(expected));
-		
+		User actual = userDao.createUser(expected.getName(), expected.getEmail(), expected.getPassword(),
+				profilePictureFromUser(expected));
+
 		assertEqualsUsers(expected, actual);
 	}
-	
+
 	@Test(expected = DuplicateEmailException.class)
 	public void duplicateEmailExceptionTest() throws DuplicateEmailException {
 		User dummyUser = dummyUser(1);
 		insertUser(dummyUser);
 		insertUser(dummyUser);
 	}
-	
+
 	@Test
 	public void getUserByEmailTest() throws DuplicateEmailException {
 		User expected = dummyUser(1);
 		insertUser(expected);
-		
+
 		User actual = userDao.getUserByEmail(expected.getEmail());
-		
+
 		assertEqualsUsers(expected, actual);
 	}
-	
+
 	@Test
 	public void getUserByIdTest() throws DuplicateEmailException {
 		User expected = dummyUser(1);
 		insertUser(expected);
-		
+
 		User actual = userDao.getUserById(expected.getUserId());
-		
+
 		assertEqualsUsers(expected, actual);
 	}
-	
+
 	@Test
 	@Transactional
 	public void getProfilePictureFromIdTest() throws DuplicateEmailException {
 		User dummyUser = dummyUser(1);
 		byte[] expected = profilePictureFromUser(dummyUser);
 		userDao.createUser(dummyUser.getName(), dummyUser.getEmail(), dummyUser.getPassword(), expected);
-		
+
 		byte[] actual = userDao.getProfilePictureByUserId(dummyUser.getUserId());
-		
+
 		assertArrayEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void getUserByKeywordTest() throws DuplicateEmailException {
 		List<User> expected = dummyUserList(LIST_SIZE, 1);
@@ -110,69 +111,70 @@ public class UserHibernateDaoTest {
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);
-		
+
 		actual = userDao.getUsersByKeyword(stringToSet("cerd"), 0, LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);
-		
+
 		expected = actual.subList(0, 5);
 		actual = userDao.getUsersByKeyword(stringToSet(keyword), 0, 5);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);
-		
+
 		assertTrue(userDao.getUsersByKeyword(stringToSet("sucutrule"), 0, LIST_SIZE).isEmpty());
-		
+
 		assertEqualsUsers(dummyUser(1), userDao.getUsersByKeyword(stringToSet("1"), 0, LIST_SIZE).get(0));
 	}
-	
-	private Set<String> stringToSet(final String str) {
-	    final String[] keywords = str.trim().split(" ");
-	    final Set<String> validKeywords = new HashSet<>();
 
-	    for (final String word : keywords)
-    		validKeywords.add(word);
-	    
-	    return validKeywords;
+	private Set<String> stringToSet(final String str) {
+		final String[] keywords = str.trim().split(" ");
+		final Set<String> validKeywords = new HashSet<>();
+
+		for (final String word : keywords)
+			validKeywords.add(word);
+
+		return validKeywords;
 	}
-	
+
 	private void assertSortedByUsername(List<User> actual) {
 		for (int i = 1; i < actual.size(); i++)
-			assertTrue(actual.get(i).getName().compareTo(actual.get(i-1).getName()) > 0);
+			assertTrue(actual.get(i).getName().compareTo(actual.get(i - 1).getName()) > 0);
 	}
 
 	@Test
 	public void changePasswordTest() throws DuplicateEmailException {
 		User dummyUser = dummyUser(1);
 		String expectedPassword = "sucutrule";
-		User expected = new User(dummyUser.getName(), dummyUser.getEmail(), expectedPassword, profilePictureFromUser(dummyUser));
-		
+		User expected = new User(dummyUser.getName(), dummyUser.getEmail(), expectedPassword,
+				profilePictureFromUser(dummyUser));
+
 		User inserted = insertUser(dummyUser);
-		
+
 		User actual = userDao.changePassword(inserted.getUserId(), expectedPassword);
-		
+
 		assertEqualsUsers(inserted, actual);
 		assertEquals(expectedPassword, expected.getPassword());
 	}
-	
+
 	@Test
 	public void changeProfilePictureTest() throws DuplicateEmailException {
 		User dummyUser = dummyUser(1);
 		byte[] expected = "Modified image".getBytes();
 
 		User inserted = insertUser(dummyUser);
-		
+
 		userDao.changeProfilePicture(inserted.getUserId(), expected);
 		byte[] actual = userDao.getProfilePictureByUserId(inserted.getUserId());
-		
+
 		assertArrayEquals(expected, actual);
 	}
-	
+
 	public User insertUser(User user) throws DuplicateEmailException {
 		return userDao.createUser(user.getName(), user.getEmail(), user.getPassword(), profilePictureFromUser(user));
 	}
-	
+
 	private void insertUsers(List<User> users) throws DuplicateEmailException {
 		for (User user : users)
 			insertUser(user);

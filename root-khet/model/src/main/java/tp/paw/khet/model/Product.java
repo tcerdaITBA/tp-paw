@@ -37,42 +37,42 @@ import tp.paw.khet.model.comparator.UserAlphaComparator;
 @Entity
 @Table(name = "products")
 public class Product {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_productid_seq")
 	@SequenceGenerator(sequenceName = "products_productid_seq", name = "products_productid_seq", allocationSize = 1)
-	@Column(name = "productid")	
+	@Column(name = "productid")
 	private int id;
-	
+
 	@Column(name = "productname", length = 64, nullable = false)
 	private String name;
-	
+
 	@Column(nullable = false, columnDefinition = "text")
 	private String description;
-	
+
 	@Column(length = 140, nullable = false)
 	private String shortDescription;
-	
+
 	@Column(length = 256, nullable = true)
 	private String website;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Category category;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date uploadDate;
-	
+
 	@Column(nullable = false, columnDefinition = "bytea")
 	private byte[] logo;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name="userid", nullable = false, updatable = false)
+	@JoinColumn(name = "userid", nullable = false, updatable = false)
 	private User creator;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productId", orphanRemoval = true)
 	@OrderBy("productId ASC")
 	private List<Video> videos;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productId", orphanRemoval = true)
 	@OrderBy("productImageId ASC")
 	private List<ProductImage> images;
@@ -80,27 +80,27 @@ public class Product {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "votedProducts")
 	@SortComparator(UserAlphaComparator.class)
 	private SortedSet<User> votingUsers;
-	
+
 	@Transient
 	private List<CommentFamily> commentFamilies = Collections.emptyList();
-	
+
 	public static ProductBuilder getBuilder(final String name, final String shortDescription) {
 		notBlank(name, "Product name must contain at least one non blank character");
 		notBlank(shortDescription, "Product short description must contain at least one non blank character");
 
 		return new ProductBuilder(name, shortDescription);
 	}
-	
+
 	public static ProductBuilder getBuilderFromProduct(final Product product) {
 		notNull(product, "Product cannot be null in order to retrieve Builder");
-		
+
 		return new ProductBuilder(product);
 	}
-	
+
 	// Hibernate
 	Product() {
 	}
-	
+
 	private Product(final ProductBuilder builder) {
 		this.id = builder.id;
 		this.name = builder.name;
@@ -116,7 +116,7 @@ public class Product {
 		this.images = builder.images;
 		this.votingUsers = builder.votingUsers;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -124,51 +124,51 @@ public class Product {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getShortDescription() {
 		return shortDescription;
 	}
-	
+
 	public String getWebsite() {
-	    return website;
+		return website;
 	}
-	
+
 	public Category getCategory() {
 		return category;
 	}
-	
+
 	public User getCreator() {
 		return creator;
 	}
-	
+
 	public Date getUploadDate() {
 		return uploadDate;
 	}
-	
+
 	public byte[] getLogo() {
 		return logo;
 	}
-	
+
 	public List<CommentFamily> getCommentFamilies() {
 		return Collections.unmodifiableList(commentFamilies);
 	}
-	
+
 	public List<Video> getVideos() {
 		return Collections.unmodifiableList(videos);
 	}
-	
+
 	public List<ProductImage> getImages() {
 		return Collections.unmodifiableList(images);
 	}
-	
+
 	public SortedSet<User> getVotingUsers() {
 		return Collections.unmodifiableSortedSet(votingUsers);
 	}
-	
+
 	public boolean addVoter(final User user) {
 		return votingUsers.add(notNull(user, "Voter to add to product " + this + " cannot be null"));
 	}
@@ -176,33 +176,33 @@ public class Product {
 	public boolean removeVoter(final User user) {
 		return votingUsers.remove(notNull(user, "Voter to remove from product " + this + " cannot be null"));
 	}
-	
+
 	public int getVotesCount() {
 		return getVotingUsers().size();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
 		if (!(obj instanceof Product))
 			return false;
-		
+
 		Product other = (Product) obj;
-		
+
 		return getId() == other.getId();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return getId();
 	}
-	
+
 	@Override
 	public String toString() {
 		return name + " " + uploadDate + " " + shortDescription;
 	}
-	
+
 	public static class ProductBuilder {
 		private int id;
 		private final String name;
@@ -216,13 +216,13 @@ public class Product {
 		private List<CommentFamily> commentFamilies = Collections.emptyList();
 		private List<Video> videos = Collections.emptyList();
 		private List<ProductImage> images = Collections.emptyList();
-		private SortedSet<User> votingUsers = new TreeSet<>(new UserAlphaComparator());  // mutable
+		private SortedSet<User> votingUsers = new TreeSet<>(new UserAlphaComparator()); // mutable
 
 		private ProductBuilder(String name, String shortDescription) {
 			this.name = name;
 			this.shortDescription = shortDescription;
 		}
-		
+
 		private ProductBuilder(Product product) {
 			this.id = product.getId();
 			this.name = product.getName();
@@ -243,32 +243,33 @@ public class Product {
 			this.id = id;
 			return this;
 		}
-		
+
 		public ProductBuilder description(final String description) {
 			this.description = notBlank(description, "Product description cannot be null");
 			return this;
 		}
-		
+
 		public ProductBuilder website(final String link) {
-		    this.website = link;
-		    return this;
+			this.website = link;
+			return this;
 		}
-		
+
 		public ProductBuilder category(final Category category) {
 			this.category = notNull(category, "Product category cannot be null");
 			return this;
 		}
-		
+
 		public ProductBuilder uploadDate(final Date uploadDate) {
 			this.uploadDate = notNull(uploadDate, "Product upload date cannot be null");
 			return this;
 		}
-		
+
 		public ProductBuilder logo(final byte[] logo) {
-			this.logo = notEmptyByteArray(logo, "Product logo array cannot be null", "Product logo array cannot be empty");
+			this.logo = notEmptyByteArray(logo, "Product logo array cannot be null",
+					"Product logo array cannot be empty");
 			return this;
 		}
-		
+
 		public ProductBuilder creator(final User creator) {
 			this.creator = notNull(creator, "Product creator cannot be null");
 			return this;
@@ -278,22 +279,22 @@ public class Product {
 			this.commentFamilies = notNull(commentFamilies, "Product comment families cannot be null");
 			return this;
 		}
-		
+
 		public ProductBuilder videos(final List<Video> videos) {
 			this.videos = notNull(videos, "Product videos cannot be null");
 			return this;
 		}
-		
+
 		public ProductBuilder images(final List<ProductImage> images) {
 			this.images = notNull(images, "Product images cannot be null");
 			return this;
 		}
-		
+
 		public ProductBuilder votingUsers(final SortedSet<User> votingUsers) {
 			this.votingUsers = notNull(votingUsers, "Voring users set cannot be null");
 			return this;
 		}
-		
+
 		public Product build() {
 			return new Product(this);
 		}

@@ -17,10 +17,10 @@ public class FavListServiceImpl implements FavListService {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private FavListDao favListDao;
 
@@ -30,25 +30,25 @@ public class FavListServiceImpl implements FavListService {
 		final User creator = userService.getUserById(creatorId);
 		final Set<FavList> favLists = creator.getFavLists();
 		final FavList favList = new FavList(name, creator);
-		
+
 		if (favLists.contains(favList))
 			throw new DuplicateFavListException("There already exists a favList with the name " + name + " in user " + creator + " posession");
-		
+
 		creator.addFavList(favList);
-		
-		return favList;		
+
+		return favList;
 	}
 
 	@Override
 	@Transactional
 	public boolean deleteFavList(final int favListId) {
 		final FavList favList = getFavListById(favListId);
-		
+
 		if (favList == null)
 			return false;
-		
+
 		final User creator = favList.getCreator();
-		
+
 		return creator.deleteFavList(favList);
 	}
 
@@ -56,21 +56,21 @@ public class FavListServiceImpl implements FavListService {
 	public FavList getFavListById(final int favListId) {
 		return favListDao.getFavListById(favListId);
 	}
-	
+
 	@Override
 	public FavList getFavListByIdWithCreator(final int favListId) {
 		return favListDao.getFavListByIdWithCreator(favListId);
 	}
-	
+
 	@Override
 	@Transactional
 	public boolean addProductToFavList(final int favListId, final int productId) {
 		final FavList favList = getFavListById(favListId);
 		final Product product = productService.getPlainProductById(productId);
-		
+
 		if (favList == null || product == null)
 			return false;
-		
+
 		return favList.addProduct(product);
 	}
 
@@ -79,10 +79,10 @@ public class FavListServiceImpl implements FavListService {
 	public boolean removeProductFromFavList(final int favListId, final int productId) {
 		final FavList favList = getFavListById(favListId);
 		final Product product = productService.getPlainProductById(productId);
-		
+
 		if (favList == null || product == null)
 			return false;
-		
+
 		return favList.removeProduct(product);
 	}
 }

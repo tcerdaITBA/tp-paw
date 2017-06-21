@@ -31,10 +31,10 @@ import tp.paw.khet.webapp.validators.ImageOrVideoValidator;
 public class UploadController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private ImageOrVideoValidator imageOrVideoValidator;
 
@@ -42,44 +42,40 @@ public class UploadController {
 	public FormProduct uploadForm() {
 		return new FormProduct();
 	}
-	
+
 	@RequestMapping("/upload")
 	public ModelAndView formCompletion(@ModelAttribute("loggedUser") final User loggedUser) {
 		LOGGER.debug("User with id {} accessed upload", loggedUser.getUserId());
-		
+
 		final ModelAndView mav = new ModelAndView("upload");
 		mav.addObject("categories", Category.values());
 		return mav;
 	}
-	
-	@RequestMapping(value= "/upload", method = {RequestMethod.POST})
-	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct, final BindingResult errors,
-							   @ModelAttribute("loggedUser") final User loggedUser,
-							   final RedirectAttributes attr) throws IOException, UnauthorizedException {
-		
+
+	@RequestMapping(value = "/upload", method = { RequestMethod.POST })
+	public ModelAndView upload(@Valid @ModelAttribute("uploadForm") final FormProduct formProduct,
+			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
+			final RedirectAttributes attr) throws IOException, UnauthorizedException {
+
 		LOGGER.debug("User with id {} accessed upload POST", loggedUser.getUserId());
-		
+
 		imageOrVideoValidator.validate(formProduct, errors);
-		
+
 		if (errors.hasErrors()) {
 			LOGGER.warn("User with id {} failed to post product: form has errors: {}", loggedUser.getUserId(), errors.getAllErrors());
 			return errorState(formProduct, errors, attr);
 		}
-		
-		final Product product =  productService.createProduct(formProduct.getName(), 
-												formProduct.getDescription(), formProduct.getShortDescription(),
-												formProduct.getWebsite(),
-												formProduct.getCategory(),
-												formProduct.getLogo().getBytes(), 
-												loggedUser.getUserId(),
-												imageByteList(formProduct.getImages()),
-												videoIdList(formProduct.getVideos()));
-		
+
+		final Product product = productService.createProduct(formProduct.getName(), formProduct.getDescription(),
+				formProduct.getShortDescription(), formProduct.getWebsite(), formProduct.getCategory(),
+				formProduct.getLogo().getBytes(), loggedUser.getUserId(), imageByteList(formProduct.getImages()),
+				videoIdList(formProduct.getVideos()));
+
 		LOGGER.info("User with id {} posted product with id {}", loggedUser.getUserId(), product.getId());
-		
+
 		return new ModelAndView("redirect:/product/" + product.getId());
 	}
-		
+
 	private List<String> videoIdList(final VideoStringWrapper[] videos) {
 		List<String> videoIdList = new ArrayList<>();
 		for (VideoStringWrapper video : videos)
@@ -90,7 +86,7 @@ public class UploadController {
 
 	private List<byte[]> imageByteList(final MultipartFileImageWrapper[] images) {
 		List<byte[]> byteList = new ArrayList<>();
-		
+
 		for (MultipartFileImageWrapper image : images) {
 			if (image.hasFile()) {
 				try {
@@ -101,14 +97,14 @@ public class UploadController {
 				}
 			}
 		}
-		
+
 		return byteList;
 	}
-	
+
 	private ModelAndView errorState(FormProduct form, final BindingResult errors, RedirectAttributes attr) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.uploadForm", errors);
 		attr.addFlashAttribute("uploadForm", form);
-		return new ModelAndView("redirect:/upload");		
+		return new ModelAndView("redirect:/upload");
 	}
-	
+
 }

@@ -37,26 +37,26 @@ public class ProductImageHibernateDaoTest {
 
 	private final static String TABLE_NAME = "productImages";
 	private final static int DUMMY_LIST_SIZE = 20;
-	
+
 	@Autowired
 	private ProductImageHibernateDao productImageDao;
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Autowired
 	private DataSource dataSource;
-	
+
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK");
-				
+
 		insertDummyUser();
 		insertDummyProduct();
 	}
@@ -64,45 +64,45 @@ public class ProductImageHibernateDaoTest {
 	@Test
 	public void getImagesIdByProductIdTest() {
 		List<ProductImage> expectedList = dummyProductImageList(DUMMY_LIST_SIZE, 1, 1);
-		
+
 		for (ProductImage productImage : expectedList)
 			productImageDao.createProductImage(productImage.getProductImageId(), 1, productImage.getData());
-		
+
 		List<Integer> actualList = productImageDao.getImagesIdByProductId(1);
-		
+
 		int i;
 		for (i = 0; i < expectedList.size(); i++)
 			assertEquals(expectedList.get(i).getProductImageId(), actualList.get(i).intValue());
-		
+
 		assertEquals(i, actualList.size());
 		assertEquals(0, productImageDao.getImagesIdByProductId(2).size());
 		assertEquals(DUMMY_LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
 	}
-	
+
 	@Test
 	public void getImageByIdsTest() {
 		ProductImage expected = dummyProductImage(1, 1);
-		
+
 		productImageDao.createProductImage(expected.getProductImageId(), expected.getProductId(), expected.getData());
-		
+
 		ProductImage actual = productImageDao.getImageByIds(1, 1);
-		
+
 		assertEqualsProductImages(expected, actual);
 	}
-	
+
 	@Test
 	public void createProductImageTest() {
 		ProductImage expected = dummyProductImage(1, 1);
-		
+
 		ProductImage actual = productImageDao.createProductImage(1, 1, expected.getData());
-		
+
 		assertEqualsProductImages(expected, actual);
 	}
-	
+
 	private void insertDummyProduct() {
 		Product dummy = dummyProduct(1);
-		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), dummy.getWebsite(), dummy.getCategory(),
-				dummy.getUploadDate(), logoFromProduct(dummy), dummyUser(1));
+		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(),
+				dummy.getWebsite(), dummy.getCategory(), dummy.getUploadDate(), logoFromProduct(dummy), dummyUser(1));
 	}
 
 	private void insertDummyUser() throws DuplicateEmailException {

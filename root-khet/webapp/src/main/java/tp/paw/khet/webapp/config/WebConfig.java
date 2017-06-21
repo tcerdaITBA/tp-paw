@@ -38,16 +38,17 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan({"tp.paw.khet.webapp.controller", "tp.paw.khet.webapp.validators", "tp.paw.khet.persistence", "tp.paw.khet.service"})
+@ComponentScan({ "tp.paw.khet.webapp.controller", "tp.paw.khet.webapp.validators", "tp.paw.khet.persistence",
+		"tp.paw.khet.service" })
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Value("classpath:schema.sql")
 	private Resource schemaSql;
-	
+
 	@Autowired
 	private Environment env;
-	
+
 	@Bean
 	public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
 		final DataSourceInitializer dsi = new DataSourceInitializer();
@@ -55,23 +56,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		dsi.setDatabasePopulator(databasePopulator());
 		return dsi;
 	}
-	
+
 	private DatabasePopulator databasePopulator() {
 		final ResourceDatabasePopulator dbp = new ResourceDatabasePopulator();
 		dbp.addScript(schemaSql);
 		return dbp;
 	}
-	
+
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
 		resolver.setPrefix("/WEB-INF/jsp/");
 		resolver.setSuffix(".jsp");
-		
+
 		return resolver;
 	}
-	
+
 	@Profile("dev")
 	@Bean
 	public DataSource dataSource() {
@@ -82,7 +83,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		ds.setPassword("root");
 		return ds;
 	}
-	
+
 	@Profile("live")
 	@Bean
 	public DataSource liveDataSource() {
@@ -93,29 +94,29 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		ds.setPassword("aipeik3W");
 		return ds;
 	}
-	
+
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource) {
 		final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setPackagesToScan("tp.paw.khet.model");
 		factoryBean.setDataSource(dataSource);
-		
+
 		final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		factoryBean.setJpaVendorAdapter(vendorAdapter);
-		
+
 		final Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
-		
+
 		if (env.acceptsProfiles("!live")) {
 			properties.setProperty("hibernate.show_sql", "true");
 			properties.setProperty("format_sql", "true");
 		}
-		
+
 		factoryBean.setJpaProperties(properties);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
 		final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -123,17 +124,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		messageSource.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
 		return messageSource;
 	}
-	
+
 	@Bean
 	public MultipartResolver multipartResolver() throws IOException {
 		return new CommonsMultipartResolver();
 	}
-	
+
 	@Bean
 	public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
 		return new JpaTransactionManager(emf);
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");

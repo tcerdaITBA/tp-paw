@@ -19,11 +19,11 @@ import javax.validation.Payload;
 public @interface FileSize {
 
 	String message() default "{tp.paw.khet.webapp.form.constraints.FileSize.message}";
-	
+
 	Class<?>[] groups() default {};
-	
+
 	Class<? extends Payload>[] payload() default {};
-	
+
 	/**
 	 * @return size the element must be higher or equal to
 	 */
@@ -33,7 +33,7 @@ public @interface FileSize {
 	 * @return size the element must be lower or equal to
 	 */
 	int max() default Integer.MAX_VALUE;
-	
+
 	@Target({ FIELD, METHOD, ANNOTATION_TYPE })
 	@Retention(RUNTIME)
 	@Documented

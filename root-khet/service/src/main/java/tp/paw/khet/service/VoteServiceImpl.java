@@ -16,43 +16,43 @@ public class VoteServiceImpl implements VoteService {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Override
 	@Transactional
 	public boolean voteProduct(final int productId, final int userId) {
 		final Product product = productService.getPlainProductById(productId);
 		final User user = userService.getUserById(userId);
-		
+
 		if (product == null || user == null)
 			return false;
-				
+
 		return user.voteProduct(product);
 	}
-	
+
 	@Override
 	@Transactional
 	public boolean unvoteProduct(final int productId, final int userId) {
 		final Product product = productService.getPlainProductById(productId);
 		final User user = userService.getUserById(userId);
-		
+
 		if (product == null || user == null)
 			return false;
-				
+
 		return user.unvoteProduct(product);
 	}
-	
+
 	@Override
 	@Transactional
 	public boolean toggleVoteFromProduct(final int productId, final int userId) {
 		final Product product = productService.getPlainProductById(productId);
 		final User user = userService.getUserById(userId);
-		
+
 		if (product == null || user == null)
 			return false;
-		
+
 		final SortedSet<Product> votedProducts = user.getVotedProducts();
 
 		if (votedProducts.contains(product))
@@ -60,19 +60,19 @@ public class VoteServiceImpl implements VoteService {
 		else
 			return user.voteProduct(product);
 	}
-	
+
 	@Override
 	public SortedSet<User> getAlphabeticallySortedVotersFromProduct(final Product product, final int votersToShow) {
 		final SortedSet<User> voters = new TreeSet<>(new UserAlphaComparator());
-		
+
 		int i = 0;
 		for (User user : product.getVotingUsers()) {
 			if (i++ == votersToShow)
 				break;
-			
+
 			voters.add(user);
 		}
-		
+
 		return voters;
-	}	
+	}
 }

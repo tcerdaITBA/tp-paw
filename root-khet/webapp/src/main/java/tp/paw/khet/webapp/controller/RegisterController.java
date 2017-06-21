@@ -26,56 +26,57 @@ import tp.paw.khet.webapp.form.FormUser;
 
 @Controller
 public class RegisterController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);
-	
+
 	@Autowired
 	private SecurityUserService securityUserService;
-	
+
 	@ModelAttribute("createUserForm")
 	public FormUser createUserForm() {
 		return new FormUser();
 	}
-	
-	@RequestMapping(value = "/register", method = {RequestMethod.GET})
+
+	@RequestMapping(value = "/register", method = { RequestMethod.GET })
 	public ModelAndView register() {
 		LOGGER.debug("Accessed register");
-	    return new ModelAndView("createUser");
+		return new ModelAndView("createUser");
 	}
-	
-	@RequestMapping(value = "/register", method = {RequestMethod.POST})
-	public ModelAndView register(@ModelAttribute("createUserForm") @Valid final FormUser createUserForm, 
+
+	@RequestMapping(value = "/register", method = { RequestMethod.POST })
+	public ModelAndView register(@ModelAttribute("createUserForm") @Valid final FormUser createUserForm,
 			final BindingResult errors, final RedirectAttributes attr) throws IOException {
 
 		LOGGER.debug("Accessed register POST");
-		
+
 		final FormPassword passwordForm = createUserForm.getPasswordForm();
-		
+
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to register user: form has error: {}", errors.getAllErrors());
 			return errorState(createUserForm, errors, attr);
 		}
-		
+
 		final User user;
-		
+
 		try {
-			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), passwordForm.getPassword(), createUserForm.getProfilePicture().getBytes());
+			user = securityUserService.registerUser(createUserForm.getName(), createUserForm.getEmail(), passwordForm.getPassword(), 
+					createUserForm.getProfilePicture().getBytes());
 		} catch (DuplicateEmailException e) {
 			LOGGER.warn("Failed to register user: duplicate email {}", e.getMessage());
 			errors.rejectValue("email", "DuplicateEmail");
 			return errorState(createUserForm, errors, attr);
 		}
-		
+
 		LOGGER.info("New user with id {} registered", user.getUserId());
-		
+
 		final Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:/");
 	}
-	
+
 	private ModelAndView errorState(final FormUser createUserForm, final BindingResult errors, final RedirectAttributes attr) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.createUserForm", errors);
 		attr.addFlashAttribute("createUserForm", createUserForm);
-		return new ModelAndView("redirect:/register");		
+		return new ModelAndView("redirect:/register");
 	}
 }

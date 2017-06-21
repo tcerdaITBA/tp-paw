@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParentNode<T> {
-	
+
 	private final T parent;
 	private final List<T> children;
-	
+
 	public ParentNode(T parent) {
 		this.parent = parent;
 		this.children = new ArrayList<T>();
 	}
-	
+
 	public T getParent() {
 		return parent;
 	}
@@ -24,7 +24,7 @@ public class ParentNode<T> {
 	public void addChild(T child) {
 		this.children.add(child);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -40,7 +40,7 @@ public class ParentNode<T> {
 			return true;
 		if (!(obj instanceof ParentNode))
 			return false;
-		
+
 		@SuppressWarnings("unchecked")
 		ParentNode<T> other = (ParentNode<T>) obj;
 		return parent.equals(other.getParent()) && children.equals(other.getChildren());

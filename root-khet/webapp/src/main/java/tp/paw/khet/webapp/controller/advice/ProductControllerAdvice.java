@@ -15,10 +15,10 @@ import tp.paw.khet.service.ProductService;
 public class ProductControllerAdvice {
 
 	public static final int TOP = 3;
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@ModelAttribute("topProducts")
 	public List<Product> topProducts() {
 		return productService.getPlainProductsPaged(Optional.empty(), ProductSortCriteria.POPULARITY, 1, TOP);

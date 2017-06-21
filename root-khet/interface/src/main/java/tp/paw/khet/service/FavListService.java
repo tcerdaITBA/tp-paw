@@ -9,47 +9,64 @@ public interface FavListService {
 
 	/**
 	 * Creates a {@link FavList} with no products.
-	 * @param name - name of the new favList
-	 * @param creatorId - ID of the {@link User} who created the favList
+	 * 
+	 * @param name
+	 *            - name of the new favList
+	 * @param creatorId
+	 *            - ID of the {@link User} who created the favList
 	 * @return The created favList
-	 * @throws DuplicateFavListException - if the user already has a favList with the same name
+	 * @throws DuplicateFavListException
+	 *             - if the user already has a favList with the same name
 	 */
 	public FavList createFavList(String name, int creatorId) throws DuplicateFavListException;
-	
+
 	/**
 	 * Deletes a {@link FavList}
-	 * @param favListId - ID of the favList to delete
+	 * 
+	 * @param favListId
+	 *            - ID of the favList to delete
 	 * @return true if the favList was deleted, false otherwise
 	 */
 	public boolean deleteFavList(int favListId);
-	
+
 	/**
 	 * Retrieves a {@link FavList} given it's ID.
-	 * @param id - ID of the favList to retrieve
+	 * 
+	 * @param id
+	 *            - ID of the favList to retrieve
 	 * @return FavList with the associated ID or null if it doesn't exist
 	 */
 	public FavList getFavListById(int favListId);
-	
+
 	/**
-	 * Retrieves a {@link FavList} given it's ID populated with the corresponding {@link User} creator.
-	 * @param favListId - ID of the favList
+	 * Retrieves a {@link FavList} given it's ID populated with the
+	 * corresponding {@link User} creator.
+	 * 
+	 * @param favListId
+	 *            - ID of the favList
 	 * @return FavList with the associated ID or null if it doesn't exist
 	 */
 	public FavList getFavListByIdWithCreator(int favListId);
 
 	/**
 	 * Adds a {@link Product} to a {@link FavList}
-	 * @param favListId - ID of the favList
-	 * @param productId - ID of the product which should be added to favList
-	 * @return 
+	 * 
+	 * @param favListId
+	 *            - ID of the favList
+	 * @param productId
+	 *            - ID of the product which should be added to favList
+	 * @return
 	 */
 	public boolean addProductToFavList(int favListId, int productId);
-	
+
 	/**
 	 * Removes a {@link Product} from a {@link FavList}.
-	 * @param favListId - ID of the favList
-	 * @param productId - ID of the product to remove from favList
-	 * @return 
+	 * 
+	 * @param favListId
+	 *            - ID of the favList
+	 * @param productId
+	 *            - ID of the product to remove from favList
+	 * @return
 	 */
 	public boolean removeProductFromFavList(int favListId, int productId);
 }

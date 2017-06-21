@@ -4,7 +4,7 @@ public class PrimitiveValidation {
 
 	private PrimitiveValidation() {
 	}
-	
+
 	public static byte[] notEmptyByteArray(byte[] byteArray, String nullMsg, String emptyMsg) {
 		if (byteArray == null)
 			throw new NullPointerException(nullMsg);

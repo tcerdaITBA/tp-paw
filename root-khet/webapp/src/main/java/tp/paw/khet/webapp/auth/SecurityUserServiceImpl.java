@@ -13,26 +13,27 @@ import tp.paw.khet.service.UserService;
 
 @Service
 public class SecurityUserServiceImpl implements SecurityUserService {
-		
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Override
 	public User getLoggedInUser() {
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
+
 		if (auth == null)
 			return null;
-		
+
 		final String email = auth.getName();
 		return userService.getUserByEmail(email);
 	}
 
 	@Override
-	public User registerUser(String name, String email, String password, byte[] profilePicture) throws DuplicateEmailException {
+	public User registerUser(String name, String email, String password, byte[] profilePicture)
+			throws DuplicateEmailException {
 		return userService.createUser(name, email, passwordEncoder.encode(password), profilePicture);
 	}
 

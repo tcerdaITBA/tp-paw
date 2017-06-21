@@ -25,45 +25,47 @@ import tp.paw.khet.webapp.form.FormPassword;
 import tp.paw.khet.webapp.validators.PasswordChangeValidator;
 
 @Controller
-@SessionAttributes(value={"changePasswordForm","changeProfilePictureForm"})
+@SessionAttributes(value = { "changePasswordForm", "changeProfilePictureForm" })
 public class ProfileCustomizeController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProfileCustomizeController.class);
-	
+
 	@Autowired
 	private SecurityUserService securityUserService;
 
 	@Autowired
 	private PasswordChangeValidator passwordChangeValidator;
-	
+
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/profile/customize/password", method = {RequestMethod.POST})
-	public ModelAndView changePassword(@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
-			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) {
-		
+	@RequestMapping(value = "/profile/customize/password", method = { RequestMethod.POST })
+	public ModelAndView changePassword(
+			@Valid @ModelAttribute("changePasswordForm") final FormChangePassword changePasswordForm,
+			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
+			final RedirectAttributes attr) {
+
 		LOGGER.debug("User with id {} accessed change password POST", loggedUser.getUserId());
-		
+
 		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
-		
+
 		changePasswordForm.setCurrentPassword(loggedUser.getPassword());
 		passwordChangeValidator.validate(changePasswordForm, errors);
-		
+
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to change password: form has errors: {}", errors.getAllErrors());
 			setErrorState(changePasswordForm, errors, attr);
 			return mav;
 		}
-		
+
 		final FormPassword passwordForm = changePasswordForm.getPasswordForm();
 		securityUserService.changePassword(loggedUser.getUserId(), passwordForm.getPassword());
 		attr.addFlashAttribute("passFeedback", true);
 		attr.addFlashAttribute("changePasswordForm", new FormChangePassword());
-		
+
 		LOGGER.info("User with id {} successfully changed his password", loggedUser.getUserId());
-		
-		return mav;	
+
+		return mav;
 	}
 
 	private void setErrorState(final FormChangePassword changePasswordForm, final BindingResult errors, final RedirectAttributes attr) {
@@ -71,37 +73,39 @@ public class ProfileCustomizeController {
 		attr.addFlashAttribute("changePasswordForm", changePasswordForm);
 		attr.addFlashAttribute("passError", true);
 	}
-	
-	@RequestMapping(value="/profile/customize/profilePicture", method = {RequestMethod.POST})
-	public ModelAndView changeProfilePicture(@Valid @ModelAttribute("changeProfilePictureForm") final FormChangePicture changeProfilePictureForm ,
-			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr) {
-				
+
+	@RequestMapping(value = "/profile/customize/profilePicture", method = { RequestMethod.POST })
+	public ModelAndView changeProfilePicture(
+			@Valid @ModelAttribute("changeProfilePictureForm") final FormChangePicture changeProfilePictureForm,
+			final BindingResult errors, @ModelAttribute("loggedUser") final User loggedUser,
+			final RedirectAttributes attr) {
+
 		LOGGER.debug("User with id {} accessed change profile picture POST", loggedUser.getUserId());
-		
+
 		final ModelAndView mav = new ModelAndView("redirect:/profile/" + loggedUser.getUserId());
-		
+
 		if (errors.hasErrors()) {
 			LOGGER.warn("Failed to change profile picture: form has errors: {}", errors.getAllErrors());
 			setErrorState(changeProfilePictureForm, errors, attr);
 			return mav;
 		}
-		
+
 		attr.addFlashAttribute("imgFeedback", true);
-		
+
 		try {
 			userService.changeProfilePicture(loggedUser.getUserId(), changeProfilePictureForm.getProfilePictureFile().getBytes());
 		} catch (IOException e) {
 			LOGGER.error("Failed to load profile picture: {}", e.getMessage());
 			e.printStackTrace();
 		}
-		
-		return mav;	
+
+		return mav;
 	}
 
-	private void setErrorState(final FormChangePicture changeProfilePictureForm, final BindingResult errors, final RedirectAttributes attr) {
+	private void setErrorState(final FormChangePicture changeProfilePictureForm, final BindingResult errors,
+			final RedirectAttributes attr) {
 		attr.addFlashAttribute("org.springframework.validation.BindingResult.changeProfilePictureForm", errors);
 		attr.addFlashAttribute("changeProfilePictureForm", changeProfilePictureForm);
 		attr.addFlashAttribute("imgError", true);
 	}
 }
-

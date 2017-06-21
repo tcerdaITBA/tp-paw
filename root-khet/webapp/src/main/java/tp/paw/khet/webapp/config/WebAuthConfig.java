@@ -23,44 +23,38 @@ import tp.paw.khet.webapp.auth.RefererLoginSuccessHandler;
 @Configuration
 @EnableWebSecurity
 @ComponentScan("tp.paw.khet.webapp.auth")
-public class WebAuthConfig extends WebSecurityConfigurerAdapter{
-	
+public class WebAuthConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.userDetailsService(userDetailsService).sessionManagement()
-				  .invalidSessionUrl("/")
-			.and().authorizeRequests()
-				.antMatchers("/errors/**").permitAll()
-				.antMatchers("/upload").authenticated()
-				.antMatchers("/login").anonymous()
-				.antMatchers("/register").anonymous()
-				.antMatchers(HttpMethod.POST, "/favlist/**").authenticated()
-				.antMatchers(HttpMethod.POST, "/profile/customize/**").authenticated()
-				.antMatchers(HttpMethod.POST, "/product/**").authenticated()
-				.antMatchers(HttpMethod.POST, "/delete/product/**").authenticated()
-				.antMatchers(HttpMethod.POST, "/vote/product/**").authenticated()
-				.antMatchers("/**").permitAll()
-			.and().formLogin()
-				.usernameParameter("j_username").passwordParameter("j_password")
-				.successHandler(successHandler())
-				.loginPage("/login")
-				.failureUrl("/login?error=1")
-			.and().rememberMe()
-				.userDetailsService(userDetailsService)
-				.rememberMeParameter("j_rememberme")
-				.key("037066dfb06356184e35a9eefa80b64c")
-				.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
-			.and().logout()
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/")
-			.and().exceptionHandling()
-				.accessDeniedPage("/errors/403")
-			.and().csrf().disable();
+				.invalidSessionUrl("/")
+				.and().authorizeRequests()
+					.antMatchers("/errors/**").permitAll()
+					.antMatchers("/upload").authenticated()
+					.antMatchers("/login").anonymous()
+					.antMatchers("/register").anonymous()
+					.antMatchers(HttpMethod.POST, "/favlist/**").authenticated()
+					.antMatchers(HttpMethod.POST, "/profile/customize/**").authenticated()
+					.antMatchers(HttpMethod.POST, "/product/**").authenticated()
+					.antMatchers(HttpMethod.POST, "/delete/product/**").authenticated()
+					.antMatchers(HttpMethod.POST, "/vote/product/**").authenticated()
+					.antMatchers("/**").permitAll()
+				.and().formLogin()
+					.usernameParameter("j_username").passwordParameter("j_password")
+					.successHandler(successHandler()).loginPage("/login")
+					.failureUrl("/login?error=1")
+				.and().rememberMe()
+					.userDetailsService(userDetailsService).rememberMeParameter("j_rememberme")
+					.key("037066dfb06356184e35a9eefa80b64c").tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+				.and().exceptionHandling()
+					.accessDeniedPage("/errors/403").and().csrf().disable();
 	}
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/403");
@@ -70,7 +64,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authProvider());
 	}
-	
+
 	@Bean
 	public DaoAuthenticationProvider authProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -78,12 +72,12 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter{
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
 		RefererLoginSuccessHandler handler = new RefererLoginSuccessHandler();

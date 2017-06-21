@@ -9,7 +9,7 @@ public class MultipartFileSizeValidator implements ConstraintValidator<FileSize,
 
 	private int min;
 	private int max;
-	
+
 	public void initialize(FileSize constraintAnnotation) {
 		min = constraintAnnotation.min();
 		max = constraintAnnotation.max();
@@ -18,7 +18,7 @@ public class MultipartFileSizeValidator implements ConstraintValidator<FileSize,
 	public boolean isValid(MultipartFile value, ConstraintValidatorContext context) {
 		if (value == null)
 			return true;
-		
+
 		long size = value.getSize();
 		return size >= min && size <= max;
 	}

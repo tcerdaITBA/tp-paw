@@ -13,7 +13,7 @@ public class PasswordChangeValidator implements Validator {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return FormChangePassword.class.equals(clazz);
@@ -22,7 +22,7 @@ public class PasswordChangeValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		FormChangePassword form = (FormChangePassword) target;
-		
+
 		if (!passwordEncoder.matches(form.getCurrentPasswordConf(), form.getCurrentPassword()))
 			errors.rejectValue("currentPasswordConf", "CurrentPasswordMatch");
 	}

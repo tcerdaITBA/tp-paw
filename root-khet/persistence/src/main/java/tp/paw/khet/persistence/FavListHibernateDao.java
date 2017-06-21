@@ -15,7 +15,7 @@ public class FavListHibernateDao implements FavListDao {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
 	public FavList getFavListById(int favListId) {
 		return em.find(FavList.class, favListId);
@@ -24,13 +24,12 @@ public class FavListHibernateDao implements FavListDao {
 	@Override
 	public FavList getFavListByIdWithCreator(int favListId) {
 		final TypedQuery<FavList> query = em.createQuery("from FavList as fv join fetch fv.creator as c where fv.id = :id", FavList.class);
-		
+
 		query.setParameter("id", favListId);
-		
+
 		final List<FavList> list = query.getResultList();
-		
+
 		return list.isEmpty() ? null : list.get(0);
 	}
 
-	
 }

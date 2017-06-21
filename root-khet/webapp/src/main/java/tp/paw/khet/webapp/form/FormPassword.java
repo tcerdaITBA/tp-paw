@@ -7,9 +7,9 @@ import tp.paw.khet.webapp.form.constraints.FieldMatch;
 @FieldMatch(first = "password", second = "passwordConf")
 public class FormPassword {
 
-	@Size(min=6, max=60)
+	@Size(min = 6, max = 60)
 	private String password;
-	
+
 	private String passwordConf;
 
 	public String getPassword() {
@@ -19,7 +19,7 @@ public class FormPassword {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getPasswordConf() {
 		return passwordConf;
 	}

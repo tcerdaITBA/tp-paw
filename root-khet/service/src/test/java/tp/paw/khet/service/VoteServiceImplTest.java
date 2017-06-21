@@ -17,24 +17,24 @@ import tp.paw.khet.model.User;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VoteServiceImplTest {
-	
+
 	@Mock
 	private ProductService productServiceMock;
-	
+
 	@Mock
 	private UserService userServiceMock;
-	
+
 	@InjectMocks
 	private VoteServiceImpl voteService;
 
 	private Product product;
 	private User user;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		product = dummyProduct(0);
 		user = dummyUser(0);
-		
+
 		when(productServiceMock.getPlainProductById(0)).thenReturn(product);
 		when(userServiceMock.getUserById(0)).thenReturn(user);
 	}
@@ -43,18 +43,18 @@ public class VoteServiceImplTest {
 	public void voteProductTest() {
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
-		
+
 		assertTrue(voteService.voteProduct(0, 0));
 		assertFalse(voteService.voteProduct(0, 0));
-		
+
 		assertEquals(1, product.getVotesCount());
 		assertEquals(1, user.getVotedProducts().size());
 		assertEquals(user, product.getVotingUsers().first());
 		assertEquals(product, user.getVotedProducts().first());
-		
+
 		assertTrue(voteService.unvoteProduct(0, 0));
 		assertFalse(voteService.unvoteProduct(0, 0));
-		
+
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
 	}
@@ -63,16 +63,16 @@ public class VoteServiceImplTest {
 	public void toggleVoteTest() {
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
-		
+
 		assertTrue(voteService.toggleVoteFromProduct(0, 0));
-		
+
 		assertEquals(1, product.getVotesCount());
 		assertEquals(1, user.getVotedProducts().size());
 		assertEquals(user, product.getVotingUsers().first());
 		assertEquals(product, user.getVotedProducts().first());
-		
+
 		assertTrue(voteService.toggleVoteFromProduct(0, 0));
-		
+
 		assertEquals(0, product.getVotesCount());
 		assertEquals(0, user.getVotedProducts().size());
 	}

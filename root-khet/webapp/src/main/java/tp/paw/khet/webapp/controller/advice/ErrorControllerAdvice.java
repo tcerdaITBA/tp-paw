@@ -27,62 +27,67 @@ public class ErrorControllerAdvice {
 
 	@Autowired
 	private SecurityUserService securityUserService;
-	
+
 	@Autowired
 	private ProductService productService;
 
-	private ErrorMav buildErrorMav(final String errorPageTitle, final String errorTitle, final String errorCause, final String errorDesc) {
+	private ErrorMav buildErrorMav(final String errorPageTitle, final String errorTitle, final String errorCause,
+			final String errorDesc) {
 		final ErrorMav errorMav = new ErrorMav(errorPageTitle, errorTitle, errorCause, errorDesc);
 		errorMav.addObject("loggedUser", securityUserService.getLoggedInUser());
-		errorMav.addObject("topProducts", productService.getPlainProductsPaged(Optional.empty(), ProductSortCriteria.POPULARITY, 1, ProductControllerAdvice.TOP));
-		return errorMav;		
+		errorMav.addObject("topProducts", productService.getPlainProductsPaged(Optional.empty(),
+				ProductSortCriteria.POPULARITY, 1, ProductControllerAdvice.TOP));
+		return errorMav;
 	}
-	
+
 	@ExceptionHandler(ResourceNotFoundException.class)
-	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ModelAndView resourceNotFound() {
 		return new ModelAndView("redirect:/errors/400");
 	}
-	
-    @ExceptionHandler(InvalidQueryException.class)
-	@ResponseStatus(value=HttpStatus.BAD_REQUEST)
-    public ModelAndView invalidQuery() {
+
+	@ExceptionHandler(InvalidQueryException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ModelAndView invalidQuery() {
 		return buildErrorMav("error.title.400badQuery", "error.400badQuery", "error.badQuery", "error.badQueryDesc");
-    }
-	
-	@ExceptionHandler(ProductNotFoundException.class)
-	@ResponseStatus(value=HttpStatus.NOT_FOUND)
-	public ModelAndView productNotFound() {
-		return buildErrorMav("error.title.404product", "error.404product", "error.productNotFound", "error.productNotFoundDesc");
 	}
-	
+
+	@ExceptionHandler(ProductNotFoundException.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public ModelAndView productNotFound() {
+		return buildErrorMav("error.title.404product", "error.404product", "error.productNotFound",
+				"error.productNotFoundDesc");
+	}
+
 	@ExceptionHandler(UserNotFoundException.class)
-	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ModelAndView userNotFound() {
 		return buildErrorMav("error.title.404user", "error.404user", "error.userNotFound", "error.userNotFoundDesc");
 	}
-	
+
 	@ExceptionHandler(ImageNotFoundException.class)
-	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ModelAndView imageNotFound() {
-		return buildErrorMav("error.title.404image", "error.404image", "error.imageNotFound", "error.imageNotFoundDesc");
+		return buildErrorMav("error.title.404image", "error.404image", "error.imageNotFound",
+				"error.imageNotFoundDesc");
 	}
-	
+
 	@ExceptionHandler(FavListNotFoundException.class)
-	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ModelAndView favListNotFound() {
-		return buildErrorMav("error.title.404favList", "error.404favList", "error.favListNotFound", "error.favListNotFoundDesc");
+		return buildErrorMav("error.title.404favList", "error.404favList", "error.favListNotFound",
+				"error.favListNotFoundDesc");
 	}
-	
+
 	@ExceptionHandler(UnauthorizedException.class)
-	@ResponseStatus(value=HttpStatus.UNAUTHORIZED)
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 	public ModelAndView unauthorized() {
 		return new ModelAndView("redirect:/errors/401");
 	}
-		
+
 	@ExceptionHandler(ForbiddenException.class)
-	@ResponseStatus(value=HttpStatus.FORBIDDEN)
+	@ResponseStatus(value = HttpStatus.FORBIDDEN)
 	public ModelAndView Forbidden() {
 		return new ModelAndView("redirect:/errors/403");
-	}	
+	}
 }

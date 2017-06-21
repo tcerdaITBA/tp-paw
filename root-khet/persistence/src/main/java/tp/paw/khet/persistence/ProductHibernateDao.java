@@ -26,36 +26,36 @@ import tp.paw.khet.persistence.querybuilder.ProductKeywordQueryBuilder;
 
 @Repository
 public class ProductHibernateDao implements ProductDao {
-	    	
+
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Autowired
 	private ProductKeywordQueryBuilder productKeywordQueryBuilder;
-	
+
 	private final String selectProductTemplate;
 	private final String selectProductFilterCategoryTemplate;
 	private final EnumMap<ProductSortCriteria, ProductSortCriteriaClause> productSortCriteriaClauseMap;
-		
+
 	public ProductHibernateDao() {
 		selectProductTemplate = "select p from Product as p ${join} ${group} ORDER BY ${order}";
-		
+
 		selectProductFilterCategoryTemplate = "select p from Product as p ${join} WHERE p.category = :category ${group} ORDER BY ${order}";
-		
+
 		final Map<String, String> whereCategoryValuesMap = new HashMap<>();
 		whereCategoryValuesMap.put("where", "WHERE category = :category");
-				
+
 		productSortCriteriaClauseMap = new EnumMap<>(ProductSortCriteria.class);
 		initProductSortCriteriaClauseMap();
 	}
 
 	private void initProductSortCriteriaClauseMap() {
 		productSortCriteriaClauseMap.put(ProductSortCriteria.ALPHABETICALLY, new ProductSortCriteriaClause("lower(p.name)"));
-		
-		productSortCriteriaClauseMap.put(ProductSortCriteria.RECENT, new ProductSortCriteriaClause("p.uploadDate DESC"));		
-		
-		productSortCriteriaClauseMap.put(ProductSortCriteria.POPULARITY, 
-				new ProductSortCriteriaClause("left join p.votingUsers as vu", "count(vu) DESC, lower(p.name)", "GROUP BY p"));
+
+		productSortCriteriaClauseMap.put(ProductSortCriteria.RECENT, new ProductSortCriteriaClause("p.uploadDate DESC"));
+
+		productSortCriteriaClauseMap.put(ProductSortCriteria.POPULARITY, new ProductSortCriteriaClause(
+				"left join p.votingUsers as vu", "count(vu) DESC, lower(p.name)", "GROUP BY p"));
 	}
 
 	@Override
@@ -64,52 +64,49 @@ public class ProductHibernateDao implements ProductDao {
 		query.setParameter("productId", productId);
 
 		final List<Product> result = query.getResultList();
-		
+
 		if (result.isEmpty())
 			return null;
-		
+
 		final Product product = result.get(0);
-		
+
 		// Hibernate lazy initialization
 		product.getImages().size();
 		product.getVideos().size();
-		
+
 		return product;
 	}
-	
+
 	@Override
 	public Product getPlainProductById(final int productId) {
 		return em.find(Product.class, productId);
 	}
-	
+
 	@Override
 	public List<Product> getPlainProductsByUserId(final int userId) {
 		final TypedQuery<Product> query = em.createQuery("from Product as p where p.creator.userId = :userId ORDER BY p.uploadDate DESC", Product.class);
 		query.setParameter("userId", userId);
-		
+
 		return query.getResultList();
 	}
-	
+
 	@Override
-	public Product createProduct(final String name, final String description, final String shortDescription, final String website, 
-								 final Category category, final Date uploadDate, final byte[] logo, final User creator) {
+	public Product createProduct(final String name, final String description, final String shortDescription,
+			final String website, final Category category, final Date uploadDate, final byte[] logo,
+			final User creator) {
 
 		final ProductBuilder productBuilder = Product.getBuilder(name, shortDescription);
-		
-		productBuilder.description(description)
-					  .category(category)
-					  .uploadDate(uploadDate)
-					  .logo(logo)
-					  .creator(creator);
-		
+
+		productBuilder.description(description).category(category).uploadDate(uploadDate).logo(logo).creator(creator);
+
 		if (website != null)
 			productBuilder.website(website);
-		
+
 		final Product product = productBuilder.build();
-		
+
 		em.persist(product);
-		
-		return product;		
+
+		return product;
 	}
 
 	@Override
@@ -119,71 +116,71 @@ public class ProductHibernateDao implements ProductDao {
 		return product == null ? new byte[0] : product.getLogo();
 	}
 
-    @Override
-    public int getTotalProducts() {
-    	final TypedQuery<Long> query = em.createQuery("select count(*) from Product as p", Long.class);
-    	final Long total = query.getSingleResult();
-    	
-        return total != null ? total.intValue() : 0;
-    }
+	@Override
+	public int getTotalProducts() {
+		final TypedQuery<Long> query = em.createQuery("select count(*) from Product as p", Long.class);
+		final Long total = query.getSingleResult();
 
-    @Override
-    public int getTotalProductsInCategory(final Category category) {
-       	final TypedQuery<Long> query = em.createQuery("select count(*) from Product as p where p.category = :category", Long.class);
-       	query.setParameter("category", category);
-    	final Long total = query.getSingleResult();
-    	
-        return total != null ? total.intValue() : 0;
-    }
+		return total != null ? total.intValue() : 0;
+	}
+
+	@Override
+	public int getTotalProductsInCategory(final Category category) {
+		final TypedQuery<Long> query = em.createQuery("select count(*) from Product as p where p.category = :category", Long.class);
+		query.setParameter("category", category);
+		final Long total = query.getSingleResult();
+
+		return total != null ? total.intValue() : 0;
+	}
 
 	@Override
 	public boolean deleteProductById(final int productId) {
 		final Product product = getPlainProductById(productId);
-		
+
 		if (product != null)
 			em.remove(product);
-		
+
 		return product == null ? false : true;
 	}
-	
+
 	@Override
 	public List<Product> getPlainProductsByKeyword(final Set<String> keywords, final int offset, final int length) {
-		
+
 		final Map<String, String> keyWordsRegExp = new HashMap<>();
 		final String whereQuery = productKeywordQueryBuilder.buildQuery(keywords, keyWordsRegExp);
-		
+
 		final TypedQuery<Product> query = em.createQuery("from Product as p where " + whereQuery + " ORDER BY lower(p.name)", Product.class);
 
-		for (final Entry<String,String> e : keyWordsRegExp.entrySet())
-			query.setParameter(e.getKey(), e.getValue());	
-		
+		for (final Entry<String, String> e : keyWordsRegExp.entrySet())
+			query.setParameter(e.getKey(), e.getValue());
+
 		return pagedResult(query, offset, length);
 	}
-	
+
 	@Override
-	public List<Product> getPlainProductsRangeByCategory(final Category category, final ProductSortCriteria sortCriteria, 
-			final int offset, final int length) {
-		
+	public List<Product> getPlainProductsRangeByCategory(final Category category, final ProductSortCriteria sortCriteria, final int offset, final int length) {
+
 		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductFilterCategoryTemplate);
 		final TypedQuery<Product> query = em.createQuery(strQuery, Product.class);
 		query.setParameter("category", category);
-		
+
 		return pagedResult(query, offset, length);
 	}
 
 	@Override
 	public List<Product> getPlainProductsRange(final ProductSortCriteria sortCriteria, final int offset, final int length) {
-		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductTemplate);
+		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria)
+				.injectIntoTemplate(selectProductTemplate);
 		final TypedQuery<Product> query = em.createQuery(strQuery, Product.class);
-		
+
 		return pagedResult(query, offset, length);
 	}
 
-    private List<Product> pagedResult(final TypedQuery<Product> query, final int offset, final int length) {
-    	query.setFirstResult(offset);
-    	query.setMaxResults(length);
-    	return query.getResultList();
-    }
+	private List<Product> pagedResult(final TypedQuery<Product> query, final int offset, final int length) {
+		query.setFirstResult(offset);
+		query.setMaxResults(length);
+		return query.getResultList();
+	}
 
 	private static class ProductSortCriteriaClause {
 		private final Map<String, String> valuesMap;
@@ -192,16 +189,16 @@ public class ProductHibernateDao implements ProductDao {
 		public ProductSortCriteriaClause(final String orderClause) {
 			this(StringUtils.EMPTY, orderClause, StringUtils.EMPTY);
 		}
-		
+
 		public ProductSortCriteriaClause(final String joinClause, final String orderClause, final String groupClause) {
 			valuesMap = new HashMap<>();
 			valuesMap.put("join", joinClause);
 			valuesMap.put("order", orderClause);
 			valuesMap.put("group", groupClause);
-			
+
 			substitutor = new StrSubstitutor(valuesMap);
 		}
-		
+
 		public String injectIntoTemplate(final String template) {
 			return substitutor.replace(template);
 		}

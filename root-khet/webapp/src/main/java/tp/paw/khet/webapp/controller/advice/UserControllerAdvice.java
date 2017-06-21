@@ -12,10 +12,10 @@ public class UserControllerAdvice {
 
 	@Autowired
 	private SecurityUserService securityUserService;
-	
+
 	@ModelAttribute("loggedUser")
 	public User loggedUser() {
 		return securityUserService.getLoggedInUser();
 	}
-	
+
 }

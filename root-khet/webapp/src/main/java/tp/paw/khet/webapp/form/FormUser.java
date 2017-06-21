@@ -14,19 +14,19 @@ import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
 
 public class FormUser {
-		
-	@Size(max=30, min=4)
+
+	@Size(max = 30, min = 4)
 	@Pattern(regexp = "[\\p{L}0-9_\\s\\-.]+")
 	private String name;
-	
+
 	@Email
 	@NotBlank
 	private String email;
 
 	@Valid
 	private FormPassword passwordForm = new FormPassword();
-	
-	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
+
+	@FileMediaType({ MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	@FileSize(min = 1)
 	private MultipartFile profilePicture;
 
@@ -49,11 +49,11 @@ public class FormUser {
 	public FormPassword getPasswordForm() {
 		return passwordForm;
 	}
-	
+
 	public MultipartFile getProfilePicture() {
 		return profilePicture;
 	}
-	
+
 	public void setProfilePicture(MultipartFile profilePicture) {
 		this.profilePicture = profilePicture;
 	}

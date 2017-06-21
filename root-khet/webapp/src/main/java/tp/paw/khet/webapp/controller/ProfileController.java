@@ -27,93 +27,93 @@ import tp.paw.khet.webapp.form.FormChangePassword;
 import tp.paw.khet.webapp.form.FormChangePicture;
 
 @Controller
-@SessionAttributes(value={"changePasswordForm","changeProfilePictureForm"})
+@SessionAttributes(value = { "changePasswordForm", "changeProfilePictureForm" })
 public class ProfileController {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
-	
-    @Autowired 
-    private UserService userService;
 
-    @Autowired
-    private ProductService productService;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private ProductService productService;
 
 	@ModelAttribute("changePasswordForm")
-	public FormChangePassword passwordForm(){
+	public FormChangePassword passwordForm() {
 		return new FormChangePassword();
 	}
-	
+
 	@ModelAttribute("changeProfilePictureForm")
-	public FormChangePicture pictureForm(){
+	public FormChangePicture pictureForm() {
 		return new FormChangePicture();
 	}
-	
+
 	@RequestMapping("/profile/{userId}")
 	public ModelAndView user(@PathVariable final int userId) throws UserNotFoundException {
 		LOGGER.debug("Accessed user profile with ID: {}", userId);
-		
+
 		final ModelAndView mav = new ModelAndView("profile");
 		final User user = userService.getUserById(userId);
-				
+
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile: user ID not found: {}", userId);
 			throw new UserNotFoundException();
 		}
-				
+
 		mav.addObject("profileUser", user);
 		mav.addObject("products", productService.getPlainProductsByUserId(userId));
 		mav.addObject("votedProducts", user.getVotedProducts());
 		mav.addObject("favlistSet", user.getFavLists());
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/delete/product/{productId}", method = RequestMethod.POST)
-	public ModelAndView deleteProduct(@PathVariable final int productId, @ModelAttribute("loggedUser") final User loggedUser, 
+	public ModelAndView deleteProduct(@PathVariable final int productId,
+			@ModelAttribute("loggedUser") final User loggedUser,
 			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer,
-			final RedirectAttributes attr)
-	throws ProductNotFoundException, ForbiddenException, UnauthorizedException {
-		
+			final RedirectAttributes attr) throws ProductNotFoundException, ForbiddenException, UnauthorizedException {
+
 		LOGGER.debug("Accessed delete product POST for product with id: {} from {}", productId, referrer);
-		
+
 		final Product product = productService.getFullProductById(productId);
-		
+
 		if (product == null) {
 			LOGGER.warn("Failed to delete product with id {}: product not found", productId);
 			throw new ProductNotFoundException();
 		}
-		
+
 		final User productCreator = product.getCreator();
-		
+
 		if (!loggedUser.equals(productCreator)) {
-			LOGGER.warn("Failed to delete product with id {}: logged user with id {} is not product creator with id {}", 
+			LOGGER.warn("Failed to delete product with id {}: logged user with id {} is not product creator with id {}",
 					productId, loggedUser.getUserId(), productCreator.getUserId());
 			throw new ForbiddenException();
 		}
-	
+
 		if (productService.deleteProductById(productId))
 			LOGGER.info("Product with id {} deleted by user with id {}", productId, loggedUser.getUserId());
-		
+
 		String redirect = "redirect:";
 		if (referrer.contains("product/" + productId))
 			redirect += "/";
 		else
 			redirect += "/profile/" + product.getCreator().getUserId();
-		
+
 		attr.addFlashAttribute("productDeleted", product.getName());
 		return new ModelAndView(redirect);
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/profile/{userId}/profilePicture", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+	@RequestMapping(value = "/profile/{userId}/profilePicture", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	public byte[] deliverProfilePicture(@PathVariable(value = "userId") final int userId) throws UserNotFoundException {
-		
+
 		User user = userService.getUserById(userId);
-		
+
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile picture: user ID not found: {}", userId);
 			throw new UserNotFoundException();
 		}
-		
+
 		return user.getProfilePicture();
 	}
 }

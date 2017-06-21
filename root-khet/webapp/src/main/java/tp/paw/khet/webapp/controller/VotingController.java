@@ -23,33 +23,34 @@ import tp.paw.khet.webapp.exception.ProductNotFoundException;
 public class VotingController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(VotingController.class);
-	
+
 	@Autowired
 	private VoteService voteService;
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@RequestMapping(value = "/vote/product/{productId}", method = RequestMethod.POST)
-	public ModelAndView voteProduct(@PathVariable final int productId, 
+	public ModelAndView voteProduct(@PathVariable final int productId,
 			@RequestParam(name = "publishedTab", required = false, defaultValue = "false") final boolean publishedTab,
-			@ModelAttribute("loggedUser") final User loggedUser,  final RedirectAttributes attr,
-			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer) throws ProductNotFoundException {
-		
+			@ModelAttribute("loggedUser") final User loggedUser, final RedirectAttributes attr,
+			@RequestHeader(value = "referer", required = false, defaultValue = "/") final String referrer)
+			throws ProductNotFoundException {
+
 		final Product product = productService.getPlainProductById(productId);
-		
+
 		if (product == null) {
 			LOGGER.warn("Failed to vote product with id {}: product not found");
 			throw new ProductNotFoundException();
 		}
-		
+
 		voteService.toggleVoteFromProduct(productId, loggedUser.getUserId());
-		
+
 		LOGGER.debug("User {} voted product with id {}", loggedUser.getUserId(), productId);
-				
+
 		attr.addFlashAttribute("productVoted", product.getId());
 		attr.addFlashAttribute("publishedTab", publishedTab);
-		
-		return new ModelAndView("redirect:" + referrer);		
+
+		return new ModelAndView("redirect:" + referrer);
 	}
 }

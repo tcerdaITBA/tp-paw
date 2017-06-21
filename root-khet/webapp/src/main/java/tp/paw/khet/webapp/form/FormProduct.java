@@ -19,56 +19,56 @@ import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
 public class FormProduct {
 	private static final int MAX_IMAGES = 4;
 	private static final int MAX_VIDEOS = 2;
-	
-	@Size(max = 64, min=4)
+
+	@Size(max = 64, min = 4)
 	private String name;
-	
+
 	@NotBlank
 	@Size(max = 8000)
 	private String description;
-	
+
 	@NotBlank
 	@Size(max = 140)
 	private String shortDescription;
-	
-	@FileMediaType({MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})	
+
+	@FileMediaType({ MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	@FileSize(min = 1)
 	private MultipartFile logo;
-	
+
 	@URL
 	@Size(max = 512)
 	private String website;
-	
+
 	@Valid
 	private MultipartFileImageWrapper[] images;
-	
+
 	@Valid
 	@NoDuplicateVideos
 	private VideoStringWrapper[] videos;
-	
+
 	private Category category = Category.OTHER;
 
 	public FormProduct() {
 		images = new MultipartFileImageWrapper[MAX_IMAGES];
 		videos = new VideoStringWrapper[MAX_VIDEOS];
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getShortDescription() {
 		return shortDescription;
 	}
-	
+
 	public String getWebsite() {
-	    return website;
+		return website;
 	}
-		
+
 	public void setName(String name) {
 		this.name = StringUtils.strip(name);
 	}
@@ -80,21 +80,21 @@ public class FormProduct {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = StringUtils.strip(shortDescription);
 	}
-	
+
 	public void setWebsite(String url) {
 		url = StringUtils.strip(url);
-		
+
 		if (url.length() > 0)
 			url = StringUtils.prependIfMissingIgnoreCase(url, "http://", "https://");
-		
-	    this.website = url;
+
+		this.website = url;
 	}
 
 	public MultipartFile getLogo() {
 		return logo;
 	}
-	
-	public void setLogo(MultipartFile logo){
+
+	public void setLogo(MultipartFile logo) {
 		this.logo = logo;
 	}
 
@@ -113,11 +113,11 @@ public class FormProduct {
 	public void setVideos(VideoStringWrapper[] videos) {
 		this.videos = videos;
 	}
-	
+
 	public Category getCategory() {
 		return category;
 	}
-	
+
 	public void setCategory(Category category) {
 		this.category = category;
 	}

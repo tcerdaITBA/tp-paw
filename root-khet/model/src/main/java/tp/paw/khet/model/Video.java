@@ -20,41 +20,41 @@ public class Video {
 	@Id
 	@Column(length = 11, nullable = false)
 	private String videoId;
-	
+
 	@Id
 	private int productId;
-	
+
 	// Hibernate
 	Video() {
 	}
-	
+
 	public Video(String videoId, int productId) {
 		isTrue(productId >= 0, "Product ID must be non negative");
-		
+
 		this.videoId = notBlank(videoId, "Video ID must have at least one non blank character");
 		this.productId = productId;
 	}
-	
+
 	public String getVideoId() {
 		return videoId;
 	}
-	
+
 	public int getProductId() {
 		return productId;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (!(obj instanceof Video))
 			return false;
-		
+
 		Video other = (Video) obj;
-		
+
 		return getProductId() == other.getProductId() && getVideoId().equals(other.getVideoId());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -63,38 +63,38 @@ public class Video {
 		result = prime * result + getVideoId().hashCode();
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
 		return getVideoId();
 	}
-	
+
 	// For Hibernate Composite keys
 	@SuppressWarnings("serial")
 	public static class VideoPrimaryKeyIds implements Serializable {
 		private String videoId;
 		private int productId;
-		
+
 		public VideoPrimaryKeyIds() {
 		}
-		
+
 		public VideoPrimaryKeyIds(String videoId, int productId) {
 			this.videoId = videoId;
 			this.productId = productId;
 		}
-		
+
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
 				return true;
 			if (!(obj instanceof VideoPrimaryKeyIds))
 				return false;
-			
+
 			VideoPrimaryKeyIds other = (VideoPrimaryKeyIds) obj;
-			
+
 			return productId == other.productId && videoId.equals(other.videoId);
 		}
-		
+
 		@Override
 		public int hashCode() {
 			final int prime = 31;

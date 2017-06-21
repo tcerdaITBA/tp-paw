@@ -37,46 +37,46 @@ public class VideoHibernateDaoTest {
 
 	@Autowired
 	private DataSource dataSource;
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Autowired
 	private VideoHibernateDao videoDao;
-		
+
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK");
-		
+
 		insertDummyUser();
 		insertDummyProduct();
 	}
-	
+
 	@Test
 	public void createVideoTest() {
 		Video expected = dummyVideo(1);
-		
+
 		Video actual = videoDao.createVideo(expected.getVideoId(), 1);
-		
+
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void getVideosByProductIdTest() {
 		List<Video> expectedList = dummyVideoList(DUMMY_LIST_SIZE, 1);
 		insertVideoList(expectedList);
-		
+
 		List<Video> actualList = videoDao.getVideosByProductId(1);
-		
+
 		assertTrue(expectedList.containsAll(actualList));
 		assertTrue(actualList.containsAll(expectedList));
-		
+
 		assertEquals(DUMMY_LIST_SIZE, JdbcTestUtils.countRowsInTable(jdbcTemplate, TABLE_NAME));
 	}
 
@@ -84,11 +84,11 @@ public class VideoHibernateDaoTest {
 		for (Video video : videoList)
 			videoDao.createVideo(video.getVideoId(), video.getProductId());
 	}
-	
+
 	private void insertDummyProduct() {
 		Product dummy = dummyProduct(1);
-		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(), dummy.getWebsite(), dummy.getCategory(),
-				dummy.getUploadDate(), logoFromProduct(dummy), dummyUser(1));
+		productDao.createProduct(dummy.getName(), dummy.getDescription(), dummy.getShortDescription(),
+				dummy.getWebsite(), dummy.getCategory(), dummy.getUploadDate(), logoFromProduct(dummy), dummyUser(1));
 	}
 
 	private void insertDummyUser() throws DuplicateEmailException {

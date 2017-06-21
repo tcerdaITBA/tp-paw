@@ -17,9 +17,9 @@ import javax.validation.Payload;
 @Constraint(validatedBy = NoDuplicateValidator.class)
 @Documented
 public @interface NoDuplicateVideos {
-    String message() default "{tp.paw.khet.webapp.form.constraints.NoDuplicateVideos.message}";
-    
-    Class<?>[] groups() default {};
-    
-    Class<? extends Payload>[] payload() default {};    
+	String message() default "{tp.paw.khet.webapp.form.constraints.NoDuplicateVideos.message}";
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }

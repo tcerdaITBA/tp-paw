@@ -19,17 +19,17 @@ public class PSUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserService us;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = us.getUserByEmail(username); //El username es el email
-		
-		if(user == null) 
+		final User user = us.getUserByEmail(username); // El username es el email
+
+		if (user == null)
 			throw new UsernameNotFoundException("No user by the name " + username);
-		
+
 		final Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		
+
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 	}
 
