@@ -81,7 +81,8 @@
 										<c:forEach items="${products}" var="product">
 											<a class="product-item" href="<c:url value="/product/${product.id}"/>" data-category="${product.category.lowerName}">
 												<%@include file="includes/product-item.jsp"%></%@include>
-											</a>				
+											</a>
+											<%@include file="includes/addToCollectionModal.jsp"%></%@include>
 										</c:forEach>
 								</div>
 							</c:otherwise>
