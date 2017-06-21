@@ -46,13 +46,13 @@
 						<div class="collection-modal-body">
 							<c:forEach items="${loggedUser.favLists}" var="collection">
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-12 collection-column">
 										<c:url value="/favlist/add/${collection.id}/${product.id}" var="addToList"/>
 										<form:form action="${addToList}" method="post">
 											<c:choose>
 												<c:when test="${fn:contains(collection.productList, product)}">
-													<span class="tool-tip" data-toggle="tooltip" data-placement="right" title="<spring:message code="collections.alreadyInCollection"/>" data-container=".modal-body">
-														<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.name}" disabled>
+													<span class="tool-tip" data-toggle="tooltip" data-placement="right" title="<spring:message code="collections.alreadyInCollection"/>">
+														<button class="add-to-list-item" type="submit" data-list-id="favlist${collection.id}" disabled>
 															<div class="collection-name capitalize-firstLetter"><c:out value="${collection.name}"></c:out></div>
 															<div class="collection-info">
 																<p>

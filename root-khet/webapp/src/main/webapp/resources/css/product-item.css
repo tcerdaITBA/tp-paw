@@ -361,7 +361,7 @@
 }
 
 .tool-tip {
-  display: block;
+  display: inline-block;
 }
 
 .tool-tip [disabled] {
