@@ -64,6 +64,14 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$('.collection-column').hover(function() {
+		$(this).find('.tool-tip').tooltip('show');
+	})
+	
+	$('.collection-column').mouseleave(function() {
+		$(this).find('.tool-tip').tooltip('hide');
+	})
+	
 	$('.add-to-new-list-btn').on('click', function() {
 		$(this).hide();
 		$('.new-collection-form').fadeIn();

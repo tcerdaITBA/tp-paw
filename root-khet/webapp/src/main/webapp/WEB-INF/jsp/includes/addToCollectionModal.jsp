@@ -46,7 +46,7 @@
 						<div class="collection-modal-body">
 							<c:forEach items="${loggedUser.favLists}" var="collection">
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-12 collection-column">
 										<c:url value="/favlist/add/${collection.id}/${product.id}" var="addToList"/>
 										<form:form action="${addToList}" method="post">
 											<c:choose>
