@@ -91,7 +91,7 @@
                             <div class="">
                                 <ul class="nav nav-pills nav-justified profile-tabs">
                                     <c:choose>
-                                    	<c:when test="${(!empty favlistSet and not publishedTab and empty productDeleted and empty productAddedToFavList) or not empty favListDeleted}">
+                                    	<c:when test="${(!empty favlistSet and not publishedTab and empty productDeleted and empty productAddedToFavList and empty productVoted) or not empty favListDeleted}">
                                     		<c:set var="activeTab" value="1"></c:set>
                                     	</c:when>
                                     	<c:when test="${(!empty products and empty publishedTab) or not empty productDeleted or publishedTab}">
