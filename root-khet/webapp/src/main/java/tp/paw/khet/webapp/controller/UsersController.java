@@ -18,7 +18,7 @@ import tp.paw.khet.service.UserService;
 
 @Path("users")
 @Controller
-public class UserController {
+public class UsersController {
     
     @Autowired
     UserService userService;

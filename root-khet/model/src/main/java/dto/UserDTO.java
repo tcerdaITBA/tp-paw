@@ -9,7 +9,7 @@ public class UserDTO {
     private String name;
 
     private String email;
-
+    
     public UserDTO(User user) {
         userID = user.getUserId();
         name = user.getName();
