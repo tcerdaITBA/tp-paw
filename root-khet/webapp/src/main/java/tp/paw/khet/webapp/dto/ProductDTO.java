@@ -1,4 +1,4 @@
-package dto;
+package tp.paw.khet.webapp.dto;
 
 import java.util.Date;
 import java.util.List;

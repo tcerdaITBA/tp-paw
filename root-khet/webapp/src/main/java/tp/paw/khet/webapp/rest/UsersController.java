@@ -1,4 +1,4 @@
-package tp.paw.khet.webapp.controller;
+package tp.paw.khet.webapp.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,9 +11,9 @@ import javax.ws.rs.core.Response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import dto.UserDTO;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.UserService;
+import tp.paw.khet.webapp.dto.UserDTO;
 
 
 @Path("users")
@@ -21,7 +21,7 @@ import tp.paw.khet.service.UserService;
 public class UsersController {
     
     @Autowired
-    UserService userService;
+    private UserService userService;
     
     @GET
     @Path("/{id}")

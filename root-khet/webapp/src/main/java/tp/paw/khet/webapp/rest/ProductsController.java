@@ -1,4 +1,4 @@
-package tp.paw.khet.webapp.controller;
+package tp.paw.khet.webapp.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import dto.ProductDTO;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.dto.ProductDTO;
 
 @Path("products")
 @Controller
@@ -28,13 +28,15 @@ public class ProductsController {
     @GET
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON}) 
-    public Response getProductById(@PathParam("id") final int productID) {
-        Product product = productService.getFullProductById(productID);
+    public Response getProductById(@PathParam("id") final int id) {
+        final Product product = productService.getFullProductById(id);
         
-        if (product == null)
+        if (product == null) {
+        	LOGGER.warn("Product with ID: {} not found", id);
             return Response.status(Status.NOT_FOUND).build();
+        }
         else {
-            LOGGER.debug("Accesed product with id: {}", productID);
+            LOGGER.debug("Accesed product with ID: {}", id);
             return Response.ok(new ProductDTO(product)).build();
         }
     }

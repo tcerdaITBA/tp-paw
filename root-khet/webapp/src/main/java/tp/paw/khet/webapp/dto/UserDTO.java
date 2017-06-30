@@ -1,4 +1,4 @@
-package dto;
+package tp.paw.khet.webapp.dto;
 
 import tp.paw.khet.model.User;
 
