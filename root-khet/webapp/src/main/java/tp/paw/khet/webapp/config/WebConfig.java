@@ -38,8 +38,8 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan({ "tp.paw.khet.webapp.controller", "tp.paw.khet.webapp.validators", "tp.paw.khet.persistence",
-		"tp.paw.khet.service" })
+@ComponentScan({ "tp.paw.khet.webapp.controller", "tp.paw.khet.webapp.validators", "tp.paw.khet.webapp.rest", "tp.paw.khet.webapp.utils", 
+				"tp.paw.khet.persistence", "tp.paw.khet.service" })
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 

@@ -55,8 +55,11 @@ public class UserHibernateDao implements UserDao {
 		final User user = getPlainUserById(userId);
 
 		// Hibernate LAZY fetch
-		user.getFavLists().size();
-		user.getVotedProducts().size();
+		
+		if (user != null) {
+			user.getFavLists().size();
+			user.getVotedProducts().size();
+		}
 
 		return user;
 	}

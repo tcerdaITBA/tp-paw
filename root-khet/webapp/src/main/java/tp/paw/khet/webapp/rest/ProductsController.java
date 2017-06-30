@@ -1,7 +1,8 @@
 package tp.paw.khet.webapp.rest;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.ws.rs.DefaultValue;
@@ -10,9 +11,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +32,7 @@ import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.dto.ProductDTO;
 import tp.paw.khet.webapp.dto.ProductListDTO;
 import tp.paw.khet.webapp.dto.UserListDTO;
+import tp.paw.khet.webapp.utils.PaginationLinkFactory;
 
 @Path("products")
 @Controller
@@ -39,6 +44,9 @@ public class ProductsController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private PaginationLinkFactory linkFactory;
     
     //TODO: poner en algún lado
     private static final int MAX_PAGE_SIZE = 100;
@@ -69,9 +77,12 @@ public class ProductsController {
             // TODO: No me dejar usar los toString/valueOf?? 
             @DefaultValue("" + DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize,
             @DefaultValue("ALPHABETICALLY") @QueryParam("sorted_by") final ProductSortCriteria sortCriteria,
-            @DefaultValue("asc") @QueryParam("order" )final String order
+            @DefaultValue("asc") @QueryParam("order") final String order,
+            @Context final UriInfo uriDetails
             ) {
+    	
         Optional<Category> category = Optional.empty();
+        
         if (page < 1 || pageSize < 1 || pageSize > MAX_PAGE_SIZE) { 
             return Response.status(Status.BAD_REQUEST).build();
         }
@@ -82,10 +93,18 @@ public class ProductsController {
             LOGGER.warn("Index page out of bounds: {}", page);
             return Response.status(Status.NOT_FOUND).build(); // NOT_FOUND u otra cosa?
         }
-        List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);        
+        
+        final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);        
+        
         LOGGER.debug("Accesing product list, category: {}, page: {}, per_page: {}, sort: {}, order: {}", 
                 category, page, pageSize, sortCriteria, order);        
-        return Response.ok(new ProductListDTO(products, page, pageSize, category)).build();
+                
+        final Map<String, Link> links = linkFactory.createLinks(uriDetails, page, maxPage);
+        final Link[] linkArray = links.values().toArray(new Link[0]);
+        
+        LOGGER.debug("Links: {}", links);
+        
+        return Response.ok(new ProductListDTO(products, page, pageSize, category)).links(linkArray).build();
     }
     
     @GET
@@ -105,6 +124,3 @@ public class ProductsController {
         }
     }
 }
-
-
-

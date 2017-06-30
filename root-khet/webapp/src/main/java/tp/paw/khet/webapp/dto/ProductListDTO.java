@@ -8,7 +8,7 @@ import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 
 public class ProductListDTO {
-    List<ProductDTO> products;
+    private List<ProductDTO> products;
     private int page;
     private int pageSize;
     private String category;

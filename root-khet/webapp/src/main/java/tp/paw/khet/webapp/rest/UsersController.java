@@ -28,6 +28,7 @@ public class UsersController {
     @Produces(value = {MediaType.APPLICATION_JSON}) 
     public Response getUserById(@PathParam("id") final int id) {
         final User user = userService.getUserById(id);
+        
         if (user != null) {
             return Response.ok(new UserDTO(user)).build();
         } else {

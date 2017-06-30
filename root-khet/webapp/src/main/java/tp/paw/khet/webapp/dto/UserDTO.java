@@ -4,20 +4,22 @@ import tp.paw.khet.model.User;
 
 public class UserDTO {
     
-    private int userID;
+    private int id;
     
     private String name;
 
     private String email;
     
+    public UserDTO() {};
+    
     public UserDTO(User user) {
-        userID = user.getUserId();
+        id = user.getUserId();
         name = user.getName();
         email = user.getEmail();
     }
 
-    public int getUserID() {
-        return userID;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -28,8 +30,8 @@ public class UserDTO {
         return email;
     }
     
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -39,6 +41,4 @@ public class UserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public UserDTO(){};
 }
