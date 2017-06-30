@@ -10,7 +10,7 @@
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>tp.paw.khet.webapp.controller</param-value>
+			<param-value>tp.paw.khet.webapp.rest</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -30,10 +30,10 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet> -->
 
-	<servlet-mapping>
+<!-- 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 	<context-param>
 		<param-name>contextClass</param-name>

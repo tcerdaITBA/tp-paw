@@ -8,7 +8,6 @@ import tp.paw.khet.model.Product;
 import tp.paw.khet.model.Video;
 
 public class ProductDTO {
-
     private int id;
     private String name;
     private String description;
