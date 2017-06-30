@@ -15,6 +15,7 @@ public class ProductDTO {
     private String website;
     private Category category;
     private Date uploadDate;
+    private int votersCount;
     private String logoURL;
     private UserDTO creator;
     
@@ -30,6 +31,7 @@ public class ProductDTO {
         website = product.getWebsite();
         category = product.getCategory();
         uploadDate = product.getUploadDate();
+        votersCount = product.getVotesCount();
         
         StringBuilder logoSb = new StringBuilder();
         logoURL = logoSb.append("/product/").append(id).append("/logo").toString();
@@ -45,6 +47,14 @@ public class ProductDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getVotersCount() {
+        return votersCount;
+    }
+    
+    public void setVotersCount(int votersCount) {
+        this.votersCount = votersCount;
     }
 
     public String getName() {
