@@ -7,6 +7,8 @@ import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 
 // TODO: ver si FullProductDTO puede extender de este para no repetir código
+// No me anduvo porque no reconoce que FullProduct tiene los campos de PlainProduct.
+// Tiene que haber atributos para agregar
 public class PlainProductDTO {
 	private int id;
 	private String name;
