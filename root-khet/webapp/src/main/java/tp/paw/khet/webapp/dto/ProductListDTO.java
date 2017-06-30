@@ -12,7 +12,7 @@ import tp.paw.khet.model.Product;
 
 @XmlRootElement
 public class ProductListDTO {
-	private List<ProductDTO> products;
+	private List<PlainProductDTO> products;
 	private int page;
 	private int pageSize;
 	private String category;
@@ -24,7 +24,7 @@ public class ProductListDTO {
 		this.products = new LinkedList<>();
 
 		for (final Product p : products)
-			this.products.add(new ProductDTO(p, baseUri));
+			this.products.add(new PlainProductDTO(p, baseUri));
 
 		this.page = page;
 		this.pageSize = pageSize;
@@ -33,11 +33,11 @@ public class ProductListDTO {
 			this.category = category.get().getLowerName();
 	}
 
-	public List<ProductDTO> getProducts() {
+	public List<PlainProductDTO> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<ProductDTO> products) {
+	public void setProducts(List<PlainProductDTO> products) {
 		this.products = products;
 	}
 

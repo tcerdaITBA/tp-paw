@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.model.Video;
@@ -16,7 +15,7 @@ public class ProductDTO {
 	private String description;
 	private String shortDescription;
 	private String website;
-	private Category category;
+	private String category;
 	private Date uploadDate;
 	private int votersCount;
 	private UserDTO creator;
@@ -31,7 +30,7 @@ public class ProductDTO {
 		description = product.getDescription();
 		shortDescription = product.getShortDescription();
 		website = product.getWebsite();
-		category = product.getCategory();
+		category = product.getCategory().getLowerName();
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
 		
@@ -101,11 +100,11 @@ public class ProductDTO {
 		this.website = website;
 	}
 
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
