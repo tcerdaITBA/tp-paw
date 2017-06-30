@@ -20,5 +20,4 @@ public enum ProductSortCriteria {
 	public String getLowerName() {
 		return this.name().toLowerCase();
 	}
-
 }
