@@ -3,42 +3,41 @@ package tp.paw.khet.webapp.dto;
 import tp.paw.khet.model.User;
 
 public class UserDTO {
-    
-    private int id;
-    
-    private String name;
 
-    private String email;
-    
-    public UserDTO() {};
-    
-    public UserDTO(User user) {
-        id = user.getUserId();
-        name = user.getName();
-        email = user.getEmail();
-    }
+	private int id;
+	private String name;
+	private String email;
 
-    public int getId() {
-        return id;
-    }
+	public UserDTO() {
+	};
 
-    public String getName() {
-        return name;
-    }
+	public UserDTO(User user) {
+		id = user.getUserId();
+		name = user.getName();
+		email = user.getEmail();
+	}
 
-    public String getEmail() {
-        return email;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

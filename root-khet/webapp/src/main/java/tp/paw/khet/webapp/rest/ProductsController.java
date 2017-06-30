@@ -37,90 +37,87 @@ import tp.paw.khet.webapp.utils.PaginationLinkFactory;
 @Path("products")
 @Controller
 public class ProductsController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
 
-    @Autowired
-    private ProductService productService;
-    
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private PaginationLinkFactory linkFactory;
-    
-    //TODO: poner en algún lado
-    private static final int MAX_PAGE_SIZE = 100;
-    private static final int DEFAULT_PAGE_SIZE = 20;
-    
-    @GET
-    @Path("/{id}")
-    @Produces(value = {MediaType.APPLICATION_JSON}) 
-    public Response getProductById(@PathParam("id") final int id) {
-        final Product product = productService.getFullProductById(id);
-        
-        if (product == null) {
-        	LOGGER.warn("Product with ID: {} not found", id);
-            return Response.status(Status.NOT_FOUND).build();
-        }
-        else {
-            LOGGER.debug("Accesed product with ID: {}", id);
-            return Response.ok(new ProductDTO(product)).build();
-        }
-    }
-    
-    @GET
-    @Path("/")
-    @Produces(value = {MediaType.APPLICATION_JSON}) 
-    public Response getProducts(
-            @QueryParam("category") String categoryStr,
-            @DefaultValue("1") @QueryParam("page") final int page,
-            // TODO: No me dejar usar los toString/valueOf?? 
-            @DefaultValue("" + DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize,
-            @DefaultValue("ALPHABETICALLY") @QueryParam("sorted_by") final ProductSortCriteria sortCriteria,
-            @DefaultValue("asc") @QueryParam("order") final String order,
-            @Context final UriInfo uriDetails
-            ) {
-    	
-        Optional<Category> category = Optional.empty();
-        
-        if (page < 1 || pageSize < 1 || pageSize > MAX_PAGE_SIZE) { 
-            return Response.status(Status.BAD_REQUEST).build();
-        }
-        
-        final int maxPage = productService.getMaxProductPageWithSize(category, pageSize);
+	@Autowired
+	private ProductService productService;
 
-        if (page > maxPage) {
-            LOGGER.warn("Index page out of bounds: {}", page);
-            return Response.status(Status.NOT_FOUND).build(); // NOT_FOUND u otra cosa?
-        }
-        
-        final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);        
-        
-        LOGGER.debug("Accesing product list, category: {}, page: {}, per_page: {}, sort: {}, order: {}", 
-                category, page, pageSize, sortCriteria, order);        
-                
-        final Map<String, Link> links = linkFactory.createLinks(uriDetails, page, maxPage);
-        final Link[] linkArray = links.values().toArray(new Link[0]);
-        
-        LOGGER.debug("Links: {}", links);
-        
-        return Response.ok(new ProductListDTO(products, page, pageSize, category)).links(linkArray).build();
-    }
-    
-    @GET
-    @Path("{id}/voters")
-    @Produces(value = {MediaType.APPLICATION_JSON}) 
-    public Response getProductVoters(@PathParam("id") final int id) {
-        final Product product = productService.getFullProductById(id);
-        
-        if (product == null) {
-            LOGGER.warn("Product with ID: {} not found", id);
-            return Response.status(Status.NOT_FOUND).build();
-        }
-        else {
-            LOGGER.debug("Accesed voters with product ID: {}", id);
-            List<User> users = new LinkedList<>(product.getVotingUsers());
-            return Response.ok(new UserListDTO(users, id)).build();
-        }
-    }
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private PaginationLinkFactory linkFactory;
+
+	@Context
+	private UriInfo uriContext;
+
+	// TODO: poner en algún lado
+	private static final int MAX_PAGE_SIZE = 100;
+	private static final int DEFAULT_PAGE_SIZE = 20;
+
+	@GET
+	@Path("/{id}")
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public Response getProductById(@PathParam("id") final int id) {
+		final Product product = productService.getFullProductById(id);
+
+		if (product == null) {
+			LOGGER.warn("Product with ID: {} not found", id);
+			return Response.status(Status.NOT_FOUND).build();
+		} else {
+			LOGGER.debug("Accesed product with ID: {}", id);
+			return Response.ok(new ProductDTO(product, uriContext.getBaseUri())).build();
+		}
+	}
+
+	@GET
+	@Path("/")
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public Response getProducts(@QueryParam("category") String categoryStr,
+			@DefaultValue("1") @QueryParam("page") final int page,
+			// TODO: No me dejar usar los toString/valueOf??
+			@DefaultValue("" + DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize,
+			@DefaultValue("ALPHABETICALLY") @QueryParam("sorted_by") final ProductSortCriteria sortCriteria,
+			@DefaultValue("asc") @QueryParam("order") final String order) {
+
+		final Optional<Category> category = Optional.empty();
+
+		if (page < 1 || pageSize < 1 || pageSize > MAX_PAGE_SIZE) {
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+
+		final int maxPage = productService.getMaxProductPageWithSize(category, pageSize);
+
+		if (page > maxPage) {
+			LOGGER.warn("Index page out of bounds: {}", page);
+			return Response.status(Status.NOT_FOUND).build(); // NOT_FOUND u otra cosa?
+		}
+
+		final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);
+
+		LOGGER.debug("Accesing product list, category: {}, page: {}, per_page: {}, sort: {}, order: {}", category, page,
+				pageSize, sortCriteria, order);
+
+		final Map<String, Link> links = linkFactory.createLinks(uriContext, page, maxPage);
+		final Link[] linkArray = links.values().toArray(new Link[0]);
+
+		LOGGER.debug("Links: {}", links);
+		return Response.ok(new ProductListDTO(products, page, pageSize, category, uriContext.getBaseUri())).links(linkArray).build();
+	}
+
+	@GET
+	@Path("{id}/voters")
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public Response getProductVoters(@PathParam("id") final int id) {
+		final Product product = productService.getFullProductById(id);
+
+		if (product == null) {
+			LOGGER.warn("Product with ID: {} not found", id);
+			return Response.status(Status.NOT_FOUND).build();
+		} else {
+			LOGGER.debug("Accesed voters with product ID: {}", id);
+			final List<User> users = new LinkedList<>(product.getVotingUsers());
+			return Response.ok(new UserListDTO(users, id)).build();
+		}
+	}
 }

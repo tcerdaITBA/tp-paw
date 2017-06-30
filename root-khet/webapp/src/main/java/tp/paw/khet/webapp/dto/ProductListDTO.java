@@ -1,62 +1,67 @@
 package tp.paw.khet.webapp.dto;
 
-import java.util.List;
+import java.net.URI;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 
+@XmlRootElement
 public class ProductListDTO {
-    private List<ProductDTO> products;
-    private int page;
-    private int pageSize;
-    private String category;
-    
-    public ProductListDTO() {};
-    
-    public ProductListDTO(List<Product> products, int page, int pageSize, Optional<Category> category) {
-        this.products = new LinkedList<>();
-        for (Product p: products) {
-            this.products.add(new ProductDTO(p));
-        }
-        this.page = page;
-        this.pageSize = pageSize;
-        if (category.isPresent())
-            this.category = category.get().getLowerName();
-    }
+	private List<ProductDTO> products;
+	private int page;
+	private int pageSize;
+	private String category;
 
-    public List<ProductDTO> getProducts() {
-        return products;
-    }
+	public ProductListDTO() {
+	};
 
-    public void setProducts(List<ProductDTO> products) {
-        this.products = products;
-    }
+	public ProductListDTO(final List<Product> products, final int page, final int pageSize, final Optional<Category> category, final URI baseUri) {
+		this.products = new LinkedList<>();
 
-    public int getPage() {
-        return page;
-    }
+		for (final Product p : products)
+			this.products.add(new ProductDTO(p, baseUri));
 
-    public void setPage(int page) {
-        this.page = page;
-    }
+		this.page = page;
+		this.pageSize = pageSize;
 
-    public int getPageSize() {
-        return pageSize;
-    }
+		if (category.isPresent())
+			this.category = category.get().getLowerName();
+	}
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
+	public List<ProductDTO> getProducts() {
+		return products;
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	public void setProducts(List<ProductDTO> products) {
+		this.products = products;
+	}
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    
-    
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 }
