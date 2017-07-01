@@ -19,7 +19,8 @@ define(['productSeek', 'services/restService'], function(productSeek, restServic
         }
 				
 				$scope.test = function() {
-					restService.getProducts(1, 1, 1, 1, 1, 
+					restService.getProducts(
+					/* category */undefined, 2 /* page */ , 3 /* per-page */, undefined /*sort*/ , undefined /* order */,  
 					function(data) { // success
 						console.log(data);
 					}, function(data) { // error
@@ -32,8 +33,6 @@ define(['productSeek', 'services/restService'], function(productSeek, restServic
 					}, function(data) { // error
 						console.log('ERROR GETTING PRODUCTS');
 					});
-					
-					
 				}
     }]);
 
