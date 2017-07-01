@@ -48,13 +48,19 @@ public interface UserDao {
 	 * Retrieves a {@link List} of {@User} given a keyword. The keyword should
 	 * match the user's name.
 	 * 
-	 * @param keyword
-	 *            - The keyword which should be matched
-	 * @param maxLength
-	 *            - The maximum length of the returned list
+	 * @param keyword - The keywords which should be matched
+	 * @param offset - Offset in the result list
+	 * @param length - Length of the result list
 	 * @return The list of plain products that match with the keyword.
 	 */
 	public List<User> getUsersByKeyword(Set<String> keywords, int offset, int length);
+
+	/**
+	 * Retrieves the total amount of users matching with the given set of keywords
+	 * @param keyword - The keywords which should be matched
+	 * @return The total amount of users who matched
+	 */
+	public int getTotalUsersByKeyword(Set<String> keywords);
 
 	/**
 	 * Retrieves an {@link User} profile picture.
@@ -66,7 +72,7 @@ public interface UserDao {
 	public byte[] getProfilePictureByUserId(int userId);
 
 	/**
-	 * Changes an [@link User] password
+	 * Changes an {@link User} password
 	 * 
 	 * @param userId
 	 *            - ID of the user

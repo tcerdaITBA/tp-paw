@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,20 +77,34 @@ public class UserHibernateDao implements UserDao {
 	}
 
 	@Override
+	public int getTotalUsersByKeyword(final Set<String> keywords) {
+		final Query query = buildKeywordTypedQuery(keywords, true);
+		return ((Long) query.getSingleResult()).intValue();
+	}
+	
+	@Override
 	public List<User> getUsersByKeyword(final Set<String> keywords, final int offset, final int length) {
-
-		final Map<String, String> keyWordsRegExp = new HashMap<>();
-		final String whereQuery = userKeywordQueryBuilder.buildQuery(keywords, keyWordsRegExp);
-
-		final TypedQuery<User> query = em.createQuery("from User as u where " + whereQuery + " ORDER BY lower(u.name)",
-				User.class);
-
-		for (final Entry<String, String> e : keyWordsRegExp.entrySet())
-			query.setParameter(e.getKey(), e.getValue());
-
+		final Query query = buildKeywordTypedQuery(keywords, false);
 		return pagedResult(query, offset, length);
 	}
+	
+	private Query buildKeywordTypedQuery(final Set<String> keywords, final boolean isCountQuery) {
+		final Map<String, String> keyWordsRegExp = new HashMap<>();
+		final String keywordQuery;
+		
+		if (isCountQuery)
+			keywordQuery = userKeywordQueryBuilder.buildCountQuery(keywords, keyWordsRegExp);
+		else
+			keywordQuery = userKeywordQueryBuilder.buildQuery(keywords, keyWordsRegExp);
 
+		final Query query = em.createQuery(keywordQuery);
+
+		for (final Entry<String, String> e : keyWordsRegExp.entrySet())
+			query.setParameter(e.getKey(), e.getValue());	
+		
+		return query;
+	}
+	
 	@Override
 	public User changePassword(final int userId, final String password) {
 		final User user = getPlainUserById(userId);
@@ -110,9 +125,10 @@ public class UserHibernateDao implements UserDao {
 		return user;
 	}
 
-	private List<User> pagedResult(final TypedQuery<User> query, final int offset, final int length) {
+	@SuppressWarnings("unchecked")
+	private List<User> pagedResult(final Query query, final int offset, final int length) {
 		query.setFirstResult(offset);
 		query.setMaxResults(length);
-		return query.getResultList();
+		return (List<User>) query.getResultList();
 	}
 }

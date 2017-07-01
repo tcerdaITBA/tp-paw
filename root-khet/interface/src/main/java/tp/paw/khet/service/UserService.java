@@ -28,9 +28,7 @@ public interface UserService {
 	/**
 	 * Retrieves an {@link User} given it's email.
 	 * 
-	 * @param email
-	 *            - Email address the {@link User} to retrieve is registered
-	 *            with
+	 * @param email - Email address the {@link User} to retrieve is registered with
 	 * @return The corresponding {@link User} or null if it doesn't exist
 	 */
 	public User getUserByEmail(String email);
@@ -48,16 +46,21 @@ public interface UserService {
 	 * Retrieves a {@link List} of {@User} given a keyword. The keyword should
 	 * match the user's name.
 	 * 
-	 * @param keyword
-	 *            - The keyword which should be matched
-	 * @param page
-	 *            - index of the page to be retrieved
-	 * @param pageSize
-	 *            - amount of users per page
+	 * @param keyword - The keyword which should be matched
+	 * @param page - index of the page to be retrieved
+	 * @param pageSize - amount of users per page
 	 * @return The list of plain products that match with the keyword.
 	 */
 	public List<User> getUsersByKeyword(String keyword, int page, int pageSize);
 
+	/**
+	 * Retrieves the maximum page of {@link User} which matched with the keyword corresponding with the given pageSize
+	 * @param keyword - The keyword which should be matched
+	 * @param pageSize - Amount of users per page
+	 * @return the maximum page number
+	 */
+	public int maxUserPageByKeyword(String keyword, int pageSize);
+	
 	/**
 	 * Retrieves an {@link User} profile picture.
 	 * 
@@ -68,7 +71,7 @@ public interface UserService {
 	public byte[] getProfilePictureByUserId(int userId);
 
 	/**
-	 * Changes an [@link User] password
+	 * Changes an {@link User} password
 	 * 
 	 * @param userId
 	 *            - ID of the user

@@ -39,8 +39,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUsersByKeyword(final String keyword, final int page, final int pageSize) {
+	public int maxUserPageByKeyword(final String keyword, final int pageSize) {
+		final Set<String> validKeywords = buildValidKeywords(keyword);
 
+		if (validKeywords.isEmpty())
+			return 0;
+		
+		final int total = userDao.getTotalUsersByKeyword(validKeywords);
+		return (int) Math.ceil((float) total / pageSize);
+	}
+	
+	@Override
+	public List<User> getUsersByKeyword(final String keyword, final int page, final int pageSize) {
+		final Set<String> validKeywords = buildValidKeywords(keyword);
+		
+		if (validKeywords.isEmpty())
+			return new ArrayList<User>();
+
+		return userDao.getUsersByKeyword(validKeywords, (page - 1) * pageSize, pageSize);
+	}
+	
+	private Set<String> buildValidKeywords(final String keyword) {
 		final String[] keywords = keyword.trim().split(" ");
 		final Set<String> validKeywords = new HashSet<>();
 
@@ -48,10 +67,7 @@ public class UserServiceImpl implements UserService {
 			if (word.length() >= MIN_WORD_SIZE)
 				validKeywords.add(word);
 
-		if (validKeywords.isEmpty())
-			return new ArrayList<User>();
-
-		return userDao.getUsersByKeyword(validKeywords, (page - 1) * pageSize, pageSize);
+		return validKeywords;
 	}
 
 	@Override

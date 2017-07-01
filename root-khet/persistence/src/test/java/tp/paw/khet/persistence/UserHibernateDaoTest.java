@@ -102,6 +102,19 @@ public class UserHibernateDaoTest {
 	}
 
 	@Test
+	public void getTotalUsersByKeywordTest() throws DuplicateEmailException {
+		List<User> userList = dummyUserList(LIST_SIZE, 1);
+		insertUsers(userList);
+		String keyword = userList.get(0).getName().substring(0, 3);
+
+		int actual = userDao.getTotalUsersByKeyword(stringToSet(keyword));
+		assertEquals(LIST_SIZE, actual);
+		
+		actual = userDao.getTotalUsersByKeyword(stringToSet(Integer.toString(LIST_SIZE)));
+		assertEquals(1, actual);
+	}
+	
+	@Test
 	public void getUserByKeywordTest() throws DuplicateEmailException {
 		List<User> expected = dummyUserList(LIST_SIZE, 1);
 		insertUsers(expected);
@@ -112,7 +125,7 @@ public class UserHibernateDaoTest {
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);
 
-		actual = userDao.getUsersByKeyword(stringToSet("cerd"), 0, LIST_SIZE);
+		actual = userDao.getUsersByKeyword(stringToSet("cerd tom"), 0, LIST_SIZE);
 		assertTrue(expected.containsAll(actual));
 		assertTrue(actual.containsAll(expected));
 		assertSortedByUsername(actual);

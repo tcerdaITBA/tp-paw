@@ -54,8 +54,7 @@ public interface ProductDao {
 	public int getTotalProducts();
 
 	/**
-	 * Retrieves the total amount of products registered for a given
-	 * {@link Category}.
+	 * Retrieves the total amount of products registered for a given {@link Category}.
 	 * 
 	 * @param category
 	 *            - Category the products belong to.
