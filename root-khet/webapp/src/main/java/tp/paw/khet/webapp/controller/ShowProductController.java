@@ -76,7 +76,7 @@ public class ShowProductController {
 		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
 		mav.addObject("parentcomments", product.getCommentFamilies());
 		mav.addObject("voters", product.getVotingUsers());
-		mav.addObject("votersresume", voteService.getAlphabeticallySortedVotersFromProduct(product, VOTERS_TO_SHOW));
+		mav.addObject("votersresume", voteService.getAlphabeticallySortedVotersFromProduct(product, 1, VOTERS_TO_SHOW));
 
 		return mav;
 	}
