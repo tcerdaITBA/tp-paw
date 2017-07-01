@@ -54,12 +54,14 @@ public interface UserService {
 	public List<User> getUsersByKeyword(String keyword, int page, int pageSize);
 
 	/**
-	 * Retrieves the maximum page of {@link User} which matched with the keyword corresponding with the given pageSize
+	 * Retrieves the amount of {@link User} pages available for a given page size 
+	 * corresponding with the users which matched with the given keyword.
 	 * @param keyword - The keyword which should be matched
 	 * @param pageSize - Amount of users per page
-	 * @return the maximum page number
+	 * @return the maximum page number, which is the total number of pages for
+	 *         the given size.
 	 */
-	public int maxUserPageByKeyword(String keyword, int pageSize);
+	public int getMaxUserPageByKeyword(String keyword, int pageSize);
 	
 	/**
 	 * Retrieves an {@link User} profile picture.

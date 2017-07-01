@@ -144,12 +144,25 @@ public class ProductHibernateDao implements ProductDao {
 	}
 
 	@Override
+	public int getTotalProductsByKeyword(final Set<String> keywords) {
+		final Map<String, String> keyWordsRegExp = new HashMap<>();
+		final String countQuery = productKeywordQueryBuilder.buildCountQuery(keywords, keyWordsRegExp);
+
+		final TypedQuery<Long> query = em.createQuery(countQuery, Long.class);
+
+		for (final Entry<String, String> e : keyWordsRegExp.entrySet())
+			query.setParameter(e.getKey(), e.getValue());
+		
+		return query.getSingleResult().intValue();
+	}
+	
+	@Override
 	public List<Product> getPlainProductsByKeyword(final Set<String> keywords, final int offset, final int length) {
 
 		final Map<String, String> keyWordsRegExp = new HashMap<>();
-		final String whereQuery = productKeywordQueryBuilder.buildQuery(keywords, keyWordsRegExp);
+		final String keywordQuery = productKeywordQueryBuilder.buildQuery(keywords, keyWordsRegExp);
 
-		final TypedQuery<Product> query = em.createQuery("from Product as p where " + whereQuery + " ORDER BY lower(p.name)", Product.class);
+		final TypedQuery<Product> query = em.createQuery(keywordQuery, Product.class);
 
 		for (final Entry<String, String> e : keyWordsRegExp.entrySet())
 			query.setParameter(e.getKey(), e.getValue());

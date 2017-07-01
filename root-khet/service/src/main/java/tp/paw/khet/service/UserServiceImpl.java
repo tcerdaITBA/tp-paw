@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int maxUserPageByKeyword(final String keyword, final int pageSize) {
+	public int getMaxUserPageByKeyword(final String keyword, final int pageSize) {
 		final Set<String> validKeywords = buildValidKeywords(keyword);
 
 		if (validKeywords.isEmpty())

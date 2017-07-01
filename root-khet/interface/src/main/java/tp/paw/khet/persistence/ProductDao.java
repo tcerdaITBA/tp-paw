@@ -149,4 +149,11 @@ public interface ProductDao {
 	 */
 	public List<Product> getPlainProductsByKeyword(Set<String> keywords, int offset, int length);
 
+	/**
+	 * Retrieves the total amount of products which matches with the given set of keywords.
+	 * 
+	 * @param validKeywords - The set of keywords which should be matched
+	 * @return The total amount of products which matches with the given set of keywords.
+	 */
+	public int getTotalProductsByKeyword(Set<String> validKeywords);
 }

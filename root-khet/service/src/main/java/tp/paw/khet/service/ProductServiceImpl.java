@@ -88,19 +88,33 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getPlainProductsByKeyword(final String keyword, final int page, final int pageSize) {
-		final String[] keywords = keyword.trim().split(" ");
-		final Set<String> validKeywords = new HashSet<>();
-
-		for (final String word : keywords)
-			if (word.length() >= MIN_WORD_SIZE)
-				validKeywords.add(word);
-
+		final Set<String> validKeywords = buildValidKeywords(keyword);
+		
 		if (validKeywords.isEmpty())
 			return new ArrayList<Product>();
 
 		return productDao.getPlainProductsByKeyword(validKeywords, (page - 1) * pageSize, pageSize);
 	}
 
+	@Override
+	public int getMaxProductsPageByKeyword(final String keyword, final int pageSize) {
+		final Set<String> validKeywords = buildValidKeywords(keyword);
+		final int total = productDao.getTotalProductsByKeyword(validKeywords);
+		
+		return (int) Math.ceil((float) total / pageSize);
+	}
+	
+	private Set<String> buildValidKeywords(final String keyword) {
+		final String[] keywords = keyword.trim().split(" ");
+		final Set<String> validKeywords = new HashSet<>();
+
+		for (final String word : keywords)
+			if (word.length() >= MIN_WORD_SIZE)
+				validKeywords.add(word);
+		
+		return validKeywords;
+	}
+	
 	@Override
 	public List<Product> getPlainProductsPaged(final Optional<Category> category, final ProductSortCriteria sortCriteria, 
 			final int page, final int pageSize) {

@@ -74,8 +74,8 @@ public interface ProductService {
 	public List<Product> getPlainProductsByUserId(int userId);
 
 	/**
-	 * Returns the amount of product pages available for a given page size.
-	 * Optionally, a {@link Category} may be given to aquire max page size only
+	 * Retrieves the amount of {@link Product} pages available for a given page size.
+	 * Optionally, a {@link Category} may be given to aquire the max page size only
 	 * for products belonging in it.
 	 * 
 	 * @param category
@@ -131,10 +131,20 @@ public interface ProductService {
 	 * @param keyword
 	 *            - The keyword which should be matched
 	 * @param page
-	 *            - index of the page to be retrieved
+	 *            - Index of the page to be retrieved
 	 * @param pageSize
-	 *            - amount of products per page
+	 *            - Amount of products per page
 	 * @return The list of plain products that match with the keyword.
 	 */
 	public List<Product> getPlainProductsByKeyword(String keyword, int page, int pageSize);
+
+	/**
+	 * Retrieves the amount of {@link Product} pages available for a given page size 
+	 * corresponding with the products which matched with the given keyword.
+	 * @param keyword - The keyword which should be matched
+	 * @param pageSize - Amount of products per page
+	 * @return the maximum page number, which is the total number of pages for
+	 *         the given size.
+	 */
+	public int getMaxProductsPageByKeyword(String keyword, int pageSize);
 }
