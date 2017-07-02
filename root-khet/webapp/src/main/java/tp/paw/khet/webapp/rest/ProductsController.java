@@ -81,6 +81,9 @@ public class ProductsController {
 		page = (page < 1) ? 1 : page;
 		pageSize = (pageSize < 1 || pageSize > MAX_PAGE_SIZE) ? DEFAULT_PAGE_SIZE : pageSize; 
 
+		LOGGER.debug("Accesing product list. Category: {}, page: {}, per_page: {}, sort: {}, order: {}", category, page,
+				pageSize, sortCriteria, order);
+		
 		final int maxPage = productService.getMaxProductPageWithSize(category, pageSize);
 
 		if (page > maxPage) {
@@ -91,9 +94,6 @@ public class ProductsController {
 
 		// TODO: falta usar "order"
 		final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);
-
-		LOGGER.debug("Accesing product list. Category: {}, page: {}, per_page: {}, sort: {}, order: {}", category, page,
-				pageSize, sortCriteria, order);
 
 		final Map<String, Link> links = linkFactory.createLinks(uriContext, page, maxPage);
 		final Link[] linkArray = links.values().toArray(new Link[0]);

@@ -59,7 +59,7 @@ public class User {
 	@SortComparator(ProductAlphaComparator.class)
 	private SortedSet<Product> votedProducts;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creator", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", orphanRemoval = true, cascade = CascadeType.ALL)
 	@SortComparator(FavListAlphaComparator.class)
 	private SortedSet<FavList> favLists;
 

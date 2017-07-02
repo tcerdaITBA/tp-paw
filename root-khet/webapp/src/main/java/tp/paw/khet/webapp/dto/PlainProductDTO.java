@@ -36,10 +36,10 @@ public class PlainProductDTO {
 		name = product.getName();
 		tagline = product.getShortDescription();
 		category = product.getCategory().getLowerName();
-		logoURL = baseUri.resolve("/products/" + id + "/logo");
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
 		
+		logoURL = baseUri.resolve("/products/" + id + "/logo");
 		url = baseUri.resolve("/products/" + id);
 	}
 

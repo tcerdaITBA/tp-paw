@@ -69,11 +69,11 @@ public class Product {
 	@JoinColumn(name = "userid", nullable = false, updatable = false)
 	private User creator;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "productId", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productId", orphanRemoval = true)
 	@OrderBy("productId ASC")
 	private List<Video> videos;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "productId", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productId", orphanRemoval = true)
 	@OrderBy("productImageId ASC")
 	private List<ProductImage> images;
 

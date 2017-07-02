@@ -47,8 +47,16 @@ public class UserHibernateDao implements UserDao {
 		query.setParameter("email", email);
 
 		final List<User> list = query.getResultList();
+		
+		if (list.isEmpty())
+			return null;
 
-		return list.isEmpty() ? null : list.get(0);
+		final User user = list.get(0);
+		
+		// Hibernate LAZY fetch
+		user.getFavLists().size();
+		
+		return user;
 	}
 
 	@Override

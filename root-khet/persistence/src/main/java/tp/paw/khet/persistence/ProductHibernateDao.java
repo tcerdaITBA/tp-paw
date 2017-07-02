@@ -182,8 +182,7 @@ public class ProductHibernateDao implements ProductDao {
 
 	@Override
 	public List<Product> getPlainProductsRange(final ProductSortCriteria sortCriteria, final int offset, final int length) {
-		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria)
-				.injectIntoTemplate(selectProductTemplate);
+		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductTemplate);
 		final TypedQuery<Product> query = em.createQuery(strQuery, Product.class);
 
 		return pagedResult(query, offset, length);

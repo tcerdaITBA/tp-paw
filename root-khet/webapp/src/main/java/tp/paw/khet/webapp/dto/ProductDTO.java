@@ -51,6 +51,7 @@ public class ProductDTO {
 		category = product.getCategory().getLowerName();
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
+		creator = new UserDTO(product.getCreator(), baseUri);
 		
 		logoURL = baseUri.resolve("/products/" + id + "/logo");
 		
