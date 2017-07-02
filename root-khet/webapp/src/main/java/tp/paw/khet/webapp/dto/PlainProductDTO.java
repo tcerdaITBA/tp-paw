@@ -23,6 +23,9 @@ public class PlainProductDTO {
 	@XmlElement(name = "logo_url")
 	private URI logoURL;
 	
+	@XmlElement(name = "voters_url")
+	private URI votersURL;
+	
 	@XmlElement(name = "upload_date")
 	private Date uploadDate;
 	
@@ -39,8 +42,9 @@ public class PlainProductDTO {
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
 		
-		logoURL = baseUri.resolve("products/" + id + "/logo");
 		url = baseUri.resolve("products/" + id);
+		logoURL = baseUri.resolve("products/" + id + "/logo");
+		votersURL = baseUri.resolve("products/" + id + "/voters");
 	}
 
 	public int getId() {

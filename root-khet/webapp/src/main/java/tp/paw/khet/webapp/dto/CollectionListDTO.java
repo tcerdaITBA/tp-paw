@@ -7,26 +7,17 @@ import java.net.URI;
 import tp.paw.khet.model.FavList;
 
 public class CollectionListDTO {
-	//TODO: esto o UserDTO?
-	private int ownerId;
 	private List<CollectionDTO> collections;
+	private int count;
 	
 	public CollectionListDTO() {};
 	
-	public CollectionListDTO(List<FavList> favLists, final URI baseURI, int ownerId) {
-		this.ownerId = ownerId;
+	public CollectionListDTO(final List<FavList> favLists, final URI baseURI) {
+		count = favLists.size();
 		collections = new LinkedList<>();
-		for (FavList f: favLists) {
+		
+		for (FavList f: favLists)
 			collections.add(new CollectionDTO(f, baseURI));
-		}
-	}
-
-	public int getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
 	}
 
 	public List<CollectionDTO> getCollections() {
@@ -35,5 +26,13 @@ public class CollectionListDTO {
 
 	public void setCollections(List<CollectionDTO> collections) {
 		this.collections = collections;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

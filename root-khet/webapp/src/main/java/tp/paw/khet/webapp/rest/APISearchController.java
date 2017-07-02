@@ -54,6 +54,7 @@ public class APISearchController {
     public Response getProducts(@DefaultValue("") @QueryParam("q") final String query,
             @DefaultValue("1") @QueryParam("page") final int page,
             @DefaultValue("" + ProductsController.DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize) {
+    	
         if (query.length() < MIN_QUERY_LENGTH) {
             // TODO: agregar mensaje de explicación ala Github
             return Response.status(UNPROCESSABLE_ENTITY_CODE).build();
@@ -108,6 +109,4 @@ public class APISearchController {
 
         return Response.ok(new UserListDTO(users, uriContext.getBaseUri())).links(linkArray).build();
     }
-    
-        
 }

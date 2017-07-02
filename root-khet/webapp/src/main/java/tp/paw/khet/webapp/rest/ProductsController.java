@@ -75,7 +75,7 @@ public class ProductsController {
 
 	@GET
 	@Path("/")
-	public Response getProducts(@QueryParam("category") String categoryStr,
+	public Response getProducts(@QueryParam("category") final String categoryStr,
 			@DefaultValue("1") @QueryParam("page") int page,
 			@DefaultValue("" + DEFAULT_PAGE_SIZE) @QueryParam("per_page") int pageSize,
 			@DefaultValue("ALPHABETICALLY") @QueryParam("sorted_by") final ProductSortCriteria sortCriteria,
@@ -105,7 +105,7 @@ public class ProductsController {
 		final Link[] linkArray = links.values().toArray(new Link[0]);
 
 		LOGGER.debug("Links: {}", links);
-		return Response.ok(new ProductListDTO(products, category, uriContext.getBaseUri())).links(linkArray).build();
+		return Response.ok(new ProductListDTO(products, uriContext.getBaseUri())).links(linkArray).build();
 	}
 
 	@GET

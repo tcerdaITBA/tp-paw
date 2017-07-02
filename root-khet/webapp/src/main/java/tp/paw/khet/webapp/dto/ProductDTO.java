@@ -65,7 +65,7 @@ public class ProductDTO {
 		for (final ProductImage pi : product.getImages())
 			imageURLs.add(baseUri.resolve("products/" + id + "/images/" + pi.getProductImageId()));
 		
-		setVotersURL(baseUri.resolve("products/" + id + "/voters"));
+		votersURL = baseUri.resolve("products/" + id + "/voters");
 	}
 
 	public ProductDTO() {

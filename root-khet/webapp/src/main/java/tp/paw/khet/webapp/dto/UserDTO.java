@@ -20,17 +20,25 @@ public class UserDTO {
     
     @XmlElement(name = "collections_url")
     private URI collectionsURL;
+    
+    @XmlElement(name = "voted_products_url")
+    private URI votedProductsURL;
+    
+    @XmlElement(name = "created_products_url")
+    private URI createdProductsURL;
 
 	public UserDTO() {
 	};
 
-	public UserDTO(User user, final URI baseUri) {
+	public UserDTO(final User user, final URI baseUri) {
 		id = user.getUserId();
 		name = user.getName();
 		email = user.getEmail();
 		url = baseUri.resolve("users/" + id);
 		pictureURL = baseUri.resolve("users/" + id + "/picture");
 		collectionsURL = baseUri.resolve("users/" + id + "/collections");
+		votedProductsURL = baseUri.resolve("users/" + id + "/voted_products");
+		createdProductsURL = baseUri.resolve("users/" + id + "/created_products");
 	}
 
 	public int getId() {
@@ -64,4 +72,28 @@ public class UserDTO {
     public void setUrl(URI url) {
         this.url = url;
     }
+
+	public URI getCollectionsURL() {
+		return collectionsURL;
+	}
+
+	public void setCollectionsURL(URI collectionsURL) {
+		this.collectionsURL = collectionsURL;
+	}
+
+	public URI getVotedProductsURL() {
+		return votedProductsURL;
+	}
+
+	public void setVotedProductsURL(URI votedProductsURL) {
+		this.votedProductsURL = votedProductsURL;
+	}
+
+	public URI getCreatedProductsURL() {
+		return createdProductsURL;
+	}
+
+	public void setCreatedProductsURL(URI createdProductsURL) {
+		this.createdProductsURL = createdProductsURL;
+	}
 }

@@ -1,24 +1,35 @@
 package tp.paw.khet.webapp.dto;
 
-import java.util.List;
-import java.util.LinkedList;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.Product;
 
+@XmlRootElement
 public class CollectionDTO {
+	private int id;
 	private String name;
 	private List<PlainProductDTO> products;
 	private int count;
 	
+	@XmlElement(name = "creation_date")
+	private Date creationDate;
+	
 	public CollectionDTO() {};
 	
-	public CollectionDTO(FavList favlist, final URI baseUri) {
-		name = favlist.getName();
-		products = new LinkedList<>();
-		
-		for (Product p: favlist.getProductList())
+	public CollectionDTO(final FavList favList, final URI baseUri) {
+		id = favList.getId();
+		creationDate = favList.getCreationDate();
+		name = favList.getName();
+		products = new ArrayList<>();
+
+		for (Product p: favList.getProductList())
 			products.add(new PlainProductDTO(p, baseUri));
 		
 		count = products.size();
@@ -46,5 +57,21 @@ public class CollectionDTO {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 }
