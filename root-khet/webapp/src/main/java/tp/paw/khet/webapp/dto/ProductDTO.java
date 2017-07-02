@@ -5,23 +5,41 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.model.Video;
 
+@XmlRootElement
 public class ProductDTO {
 	private int id;
 	private String name;
 	private String description;
-	private String shortDescription;
 	private String website;
 	private String category;
-	private Date uploadDate;
-	private int votersCount;
 	private UserDTO creator;
+	
+	@XmlElement(name = "tagline")
+	private String shortDescription;
+	
+	@XmlElement(name = "upload_date")
+	private Date uploadDate;
+	
+	@XmlElement(name = "voters_count")
+	private int votersCount;
+	
+	@XmlElement(name = "video_ids")
 	private List<String> videoIds;
+	
+	@XmlElement(name = "image_urls")
 	private List<URI> imageURLs;
+	
+	@XmlElement(name = "logo_url")
 	private URI logoURL;
+	
+	@XmlElement(name = "voters_url")
 	private URI votersURL;
 
 	public ProductDTO(final Product product, final URI baseUri) {

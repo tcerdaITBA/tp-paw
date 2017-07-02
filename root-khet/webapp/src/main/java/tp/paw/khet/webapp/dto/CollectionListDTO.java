@@ -36,6 +36,4 @@ public class CollectionListDTO {
 	public void setCollections(List<CollectionDTO> collections) {
 		this.collections = collections;
 	}
-	
-	
 }

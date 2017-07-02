@@ -10,6 +10,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -24,9 +26,10 @@ import java.util.LinkedList;
 
 @Path("users")
 @Controller
-@Produces(value = {MediaType.APPLICATION_JSON}) 
 public class UsersController {
     
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsersController.class);
+	
     @Autowired
     private UserService userService;
     
@@ -35,26 +38,50 @@ public class UsersController {
     
     @GET
     @Path("/{id}")
+    @Produces(value = {MediaType.APPLICATION_JSON})
     public Response getUserById(@PathParam("id") final int id) {
         final User user = userService.getUserById(id);
+        
+        LOGGER.debug("Accessed getUserById with id {}", id);
         
         if (user != null) {
             return Response.ok(new UserDTO(user, uriContext.getBaseUri())).build();
         } else {
+        	LOGGER.warn("Cannot render user profile, user with id {} not found", id);
             return Response.status(Status.NOT_FOUND).build();
         }
     }
     
     @GET
     @Path("/{id}/collections")
+    @Produces(value = {MediaType.APPLICATION_JSON})
     public Response getUserCollections(@PathParam("id") final int id) {
     	final User user = userService.getUserById(id);
+    	
+        LOGGER.debug("Accessed getUserCollections with id {}", id);
     	
         if (user != null) {
         	List<FavList> favLists = new LinkedList<>(user.getFavLists());
             return Response.ok(new CollectionListDTO(favLists, uriContext.getBaseUri(), user.getUserId())).build();
         } else {
+        	LOGGER.warn("Cannot render user collections, user with id {} not found", id);
             return Response.status(Status.NOT_FOUND).build();
         }
+    }
+    
+    @GET
+    @Path("/{id}/picture")
+    @Produces(value = {"image/png", "image/jpeg"})
+    public Response getUserProfilePicture(@PathParam("id") final int id) {    	
+		final byte[] picture = userService.getProfilePictureByUserId(id);
+
+        LOGGER.debug("Accessed getUserProfilePicture with id {}", id);
+		
+		if (picture.length == 0) {
+			LOGGER.warn("Cannot render user profile picture, user with id {} not found", id);
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		
+		return Response.ok(picture).build();
     }
 }

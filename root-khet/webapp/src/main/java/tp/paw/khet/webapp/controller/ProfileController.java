@@ -107,7 +107,7 @@ public class ProfileController {
 	@RequestMapping(value = "/profile/{userId}/profilePicture", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	public byte[] deliverProfilePicture(@PathVariable(value = "userId") final int userId) throws UserNotFoundException {
 
-		User user = userService.getUserById(userId);
+		final User user = userService.getUserById(userId);
 
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile picture: user ID not found: {}", userId);

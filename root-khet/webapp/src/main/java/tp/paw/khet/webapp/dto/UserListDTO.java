@@ -7,18 +7,16 @@ import java.util.List;
 import tp.paw.khet.model.User;
 
 public class UserListDTO {
-	private List<UserDTO> users;
-	private int page;
-	
-	//TODO: debería tener el mismo nombre que en la query que manda el cliente? SI -> cambiarlo
-	private int pageSize;
+	private List<UserDTO> users;	
+	private int count;
 	
 	public UserListDTO() {
 	};
 
-	public UserListDTO(List<User> users, int votedId, int page, int pageSize, URI baseUri) {
+	public UserListDTO(final List<User> users, final URI baseUri) {
 		this.users = new LinkedList<>();
-
+		this.setCount(users.size());
+		
 		for (User u : users)
 			this.users.add(new UserDTO(u, baseUri));
 	}
@@ -31,19 +29,12 @@ public class UserListDTO {
 		this.users = users;
 	}
 
-    public int getPage() {
-        return page;
-    }
+	public int getCount() {
+		return count;
+	}
 
-    public void setPage(int page) {
-        this.page = page;
-    }
+	public void setCount(int count) {
+		this.count = count;
+	}
 
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
 }

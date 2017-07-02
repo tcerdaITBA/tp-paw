@@ -3,19 +3,30 @@ package tp.paw.khet.webapp.dto;
 import java.net.URI;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import tp.paw.khet.model.Product;
 
 // TODO: ver si FullProductDTO puede extender de este para no repetir código
 // No me anduvo porque no reconoce que FullProduct tiene los campos de PlainProduct.
 // Tiene que haber atributos para agregar
+
+@XmlRootElement
 public class PlainProductDTO {
 	private int id;
 	private String name;
 	private String tagline;
 	private String category;
-	private URI logoURL;
 	private URI url;
+	
+	@XmlElement(name = "logo_url")
+	private URI logoURL;
+	
+	@XmlElement(name = "upload_date")
 	private Date uploadDate;
+	
+	@XmlElement(name = "voters_count")
 	private int votersCount;
 	
 	public PlainProductDTO() {};
@@ -95,7 +106,4 @@ public class PlainProductDTO {
 	public void setVotersCount(int votersCount) {
 		this.votersCount = votersCount;
 	}
-	
-	
-	
 }

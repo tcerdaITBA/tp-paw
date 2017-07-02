@@ -34,10 +34,10 @@ public class APISearchController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     
     @Autowired
-    UserService userService;
+    private UserService userService;
     
     @Autowired
     private PaginationLinkFactory linkFactory;
@@ -75,7 +75,7 @@ public class APISearchController {
         final Link[] linkArray = links.values().toArray(new Link[0]);
 
         LOGGER.debug("Links: {}", links);
-        return Response.ok(new ProductListDTO(products, page, pageSize, uriContext.getBaseUri())).links(linkArray).build();
+        return Response.ok(new ProductListDTO(products, uriContext.getBaseUri())).links(linkArray).build();
     }
     
     @GET
@@ -83,6 +83,7 @@ public class APISearchController {
     public Response getUsers(@DefaultValue("") @QueryParam("q") final String query,
             @DefaultValue("1") @QueryParam("page") final int page,
             @DefaultValue("" + ProductsController.DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize) {
+    	
         if (query.length() < MIN_QUERY_LENGTH) {
             // TODO: agregar mensaje de explicación ala Github
             return Response.status(UNPROCESSABLE_ENTITY_CODE).build();
@@ -104,8 +105,8 @@ public class APISearchController {
         final Link[] linkArray = links.values().toArray(new Link[0]);
 
         LOGGER.debug("Links: {}", links);
-        //TODO: ver que onda lo de 'voted'
-        return Response.ok(new UserListDTO(users, -1, page, pageSize, uriContext.getBaseUri())).links(linkArray).build();
+
+        return Response.ok(new UserListDTO(users, uriContext.getBaseUri())).links(linkArray).build();
     }
     
         

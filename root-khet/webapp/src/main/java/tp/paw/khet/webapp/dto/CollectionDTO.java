@@ -10,15 +10,18 @@ import tp.paw.khet.model.Product;
 public class CollectionDTO {
 	private String name;
 	private List<PlainProductDTO> products;
+	private int count;
 	
 	public CollectionDTO() {};
 	
 	public CollectionDTO(FavList favlist, final URI baseUri) {
 		name = favlist.getName();
 		products = new LinkedList<>();
-		for (Product p: favlist.getProductList()) {
+		
+		for (Product p: favlist.getProductList())
 			products.add(new PlainProductDTO(p, baseUri));
-		}
+		
+		count = products.size();
 	}
 
 	public String getName() {
@@ -35,5 +38,13 @@ public class CollectionDTO {
 
 	public void setProducts(List<PlainProductDTO> products) {
 		this.products = products;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

@@ -57,11 +57,12 @@ public class ProductsController {
 	public Response getProductById(@PathParam("id") final int id) {
 		final Product product = productService.getFullProductById(id);
 
+		LOGGER.debug("Accesed getProductById with ID: {}", id);
+		
 		if (product == null) {
 			LOGGER.warn("Product with ID: {} not found", id);
 			return Response.status(Status.NOT_FOUND).build();
 		} else {
-			LOGGER.debug("Accesed product with ID: {}", id);
 			return Response.ok(new ProductDTO(product, uriContext.getBaseUri())).build();
 		}
 	}
@@ -98,20 +99,23 @@ public class ProductsController {
 		final Link[] linkArray = links.values().toArray(new Link[0]);
 
 		LOGGER.debug("Links: {}", links);
-		return Response.ok(new ProductListDTO(products, page, pageSize, category, uriContext.getBaseUri())).links(linkArray).build();
+		return Response.ok(new ProductListDTO(products, category, uriContext.getBaseUri())).links(linkArray).build();
 	}
 
 	@GET
 	@Path("{id}/voters")
 	public Response getProductVoters(@PathParam("id") final int id) {
+		
 		final Product product = productService.getFullProductById(id);
+		
+		LOGGER.debug("Accesed voters with product ID: {}", id);
+		
 		if (product == null) {
 			LOGGER.warn("Product with ID: {} not found", id);
 			return Response.status(Status.NOT_FOUND).build();
 		} else {
-			LOGGER.debug("Accesed voters with product ID: {}", id);
 			final List<User> users = new LinkedList<>(product.getVotingUsers());
-			return Response.ok(new UserListDTO(users, id, 1, users.size(), uriContext.getBaseUri())).build();
+			return Response.ok(new UserListDTO(users, uriContext.getBaseUri())).build();
 		}
 	}
 }
