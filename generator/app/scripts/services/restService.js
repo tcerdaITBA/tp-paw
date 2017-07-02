@@ -2,6 +2,10 @@
 define(['productSeek', 'jquery'], 
 	function(productSeek) {
 		return productSeek.factory('restService', function($http, url) {
+			function doGet(baseUrl, params, successCB, errorCB) {
+				$http.get(baseUrl + '?' + jQuery.param(params)).success(successCB).error(errorCB);
+			}
+			
 			return {
 				// TODO: capaz se puede usar algo tipo un Builder para hacerlo más copado
 				getProducts: function(category, page, pageSize, orderBy, order, success, error) {
@@ -30,16 +34,13 @@ define(['productSeek', 'jquery'],
 					doGet(url + '/product/' + id + '/voters', {page:page, per_page: pageSize}, success, error);
 				},
 				searchProducts: function(query, page, pageSize, success, error) {
-					doGet(url + '/search/products', {query: query, page: page, per_page: pageSize}, success, error);
+					doGet(url + '/search/products', {q: query, page: page, per_page: pageSize}, success, error);
 				},
 				searchUsers: function(query, page, pageSize, success, error) {
-					doGet(url + '/search/users', {query: query, page: page, per_page: pageSize}, success, error);
+					doGet(url + '/search/users', {q: query, page: page, per_page: pageSize}, success, error);
 				},
 			}
 		});
 	}
 );
 
-function doGet(baseUrl, params, successCB, errorCB) {
-	$http.get(baseUrl + '?' + jQuery.param(params)).success(successCB).error(errorCB);
-}
