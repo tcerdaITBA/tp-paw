@@ -25,8 +25,10 @@ import org.springframework.stereotype.Controller;
 
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
+import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
+import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.dto.ProductDTO;
 import tp.paw.khet.webapp.dto.ProductListDTO;
@@ -41,6 +43,9 @@ public class ProductsController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductImageService productImageService;
 
 	@Autowired
 	private PaginationLinkFactory linkFactory;
@@ -62,7 +67,8 @@ public class ProductsController {
 		if (product == null) {
 			LOGGER.warn("Product with ID: {} not found", id);
 			return Response.status(Status.NOT_FOUND).build();
-		} else {
+		} 
+		else {
 			return Response.ok(new ProductDTO(product, uriContext.getBaseUri())).build();
 		}
 	}
@@ -105,17 +111,48 @@ public class ProductsController {
 	@GET
 	@Path("{id}/voters")
 	public Response getProductVoters(@PathParam("id") final int id) {
-		
-		final Product product = productService.getFullProductById(id);
-		
 		LOGGER.debug("Accesed voters with product ID: {}", id);
+		
+		final Product product = productService.getFullProductById(id);		
 		
 		if (product == null) {
 			LOGGER.warn("Product with ID: {} not found", id);
 			return Response.status(Status.NOT_FOUND).build();
-		} else {
+		} 
+		else {
 			final List<User> users = new LinkedList<>(product.getVotingUsers());
 			return Response.ok(new UserListDTO(users, uriContext.getBaseUri())).build();
 		}
+	}
+	
+	@GET
+	@Path("{id}/logo")
+	@Produces({"image/png", "image/jpeg"})
+	public Response getProductLogo(@PathParam("id") final int id) {
+		LOGGER.debug("Accessed getProductLogo with product ID: {}", id);
+		
+		final byte[] logo = productService.getLogoByProductId(id);
+	
+		if (logo.length == 0) {
+			LOGGER.warn("Product with ID: {} not found", id);
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		
+		return Response.ok(logo).build();
+	}
+	
+	@GET
+	@Path("{productId}/images/{imageId}")
+	@Produces({"image/png", "image/jpeg"})
+	public Response getProductImage(@PathParam("productId") final int productId, @PathParam("imageId") final int imageId) {
+		LOGGER.debug("Accessed getProductImage with product ID: {} and image ID: {}", productId, imageId);
+		final ProductImage image = productImageService.getImageByIds(imageId, productId);
+		
+		if (image == null) {
+			LOGGER.warn("Image with product ID: {} and image ID: {} not found", productId, imageId);
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		
+		return Response.ok(image.getData()).build();
 	}
 }

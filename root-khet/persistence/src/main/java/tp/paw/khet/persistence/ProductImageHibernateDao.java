@@ -27,8 +27,7 @@ public class ProductImageHibernateDao implements ProductImageDao {
 
 	@Override
 	public List<Integer> getImagesIdByProductId(final int productId) {
-		final TypedQuery<Integer> query = em
-				.createQuery("select productImageId from ProductImage as pi where pi.productId = :productId "
+		final TypedQuery<Integer> query = em.createQuery("select productImageId from ProductImage as pi where pi.productId = :productId "
 						+ "ORDER BY pi.productImageId", Integer.class);
 		query.setParameter("productId", productId);
 

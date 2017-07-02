@@ -26,6 +26,7 @@ import java.util.LinkedList;
 
 @Path("users")
 @Controller
+@Produces(value = {MediaType.APPLICATION_JSON})
 public class UsersController {
     
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsersController.class);
@@ -38,7 +39,6 @@ public class UsersController {
     
     @GET
     @Path("/{id}")
-    @Produces(value = {MediaType.APPLICATION_JSON})
     public Response getUserById(@PathParam("id") final int id) {
         final User user = userService.getUserById(id);
         
@@ -54,11 +54,10 @@ public class UsersController {
     
     @GET
     @Path("/{id}/collections")
-    @Produces(value = {MediaType.APPLICATION_JSON})
     public Response getUserCollections(@PathParam("id") final int id) {
-    	final User user = userService.getUserById(id);
+    	LOGGER.debug("Accessed getUserCollections with id {}", id);
     	
-        LOGGER.debug("Accessed getUserCollections with id {}", id);
+    	final User user = userService.getUserById(id);
     	
         if (user != null) {
         	List<FavList> favLists = new LinkedList<>(user.getFavLists());
@@ -73,9 +72,9 @@ public class UsersController {
     @Path("/{id}/picture")
     @Produces(value = {"image/png", "image/jpeg"})
     public Response getUserProfilePicture(@PathParam("id") final int id) {    	
-		final byte[] picture = userService.getProfilePictureByUserId(id);
+    	LOGGER.debug("Accessed getUserProfilePicture with id {}", id);
 
-        LOGGER.debug("Accessed getUserProfilePicture with id {}", id);
+    	final byte[] picture = userService.getProfilePictureByUserId(id);
 		
 		if (picture.length == 0) {
 			LOGGER.warn("Cannot render user profile picture, user with id {} not found", id);
