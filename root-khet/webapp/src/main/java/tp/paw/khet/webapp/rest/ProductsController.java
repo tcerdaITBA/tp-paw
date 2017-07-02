@@ -93,9 +93,10 @@ public class ProductsController {
 			return Response.status(Status.NOT_FOUND).build(); // NOT_FOUND u otra cosa?
 		}
 
+		// TODO: falta usar "order"
 		final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);
 
-		LOGGER.debug("Accesing product list, category: {}, page: {}, per_page: {}, sort: {}, order: {}", category, page,
+		LOGGER.debug("Accesing product list. Category: {}, page: {}, per_page: {}, sort: {}, order: {}", category, page,
 				pageSize, sortCriteria, order);
 
 		final Map<String, Link> links = linkFactory.createLinks(uriContext, page, maxPage);
@@ -110,7 +111,6 @@ public class ProductsController {
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	public Response getProductVoters(@PathParam("id") final int id) {
 		final Product product = productService.getFullProductById(id);
-
 		if (product == null) {
 			LOGGER.warn("Product with ID: {} not found", id);
 			return Response.status(Status.NOT_FOUND).build();

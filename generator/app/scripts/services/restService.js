@@ -4,26 +4,42 @@ define(['productSeek', 'jquery'],
 		return productSeek.factory('restService', function($http, url) {
 			return {
 				// TODO: capaz se puede usar algo tipo un Builder para hacerlo más copado
-				getProducts: function(category, page, pageSize, orderBy, order, successCallback, errorCallback) {
-					var params = jQuery.param(
-						{category: category, page: page, per_page: pageSize, sorted_by: orderBy, order: order}
-					);
-					$http.get(url + '/products?' + params).success(successCallback).error(errorCallback);
+				getProducts: function(category, page, pageSize, orderBy, order, success, error) {
+					var params = {category: category, page: page, per_page: pageSize, sorted_by: orderBy, order: order};
+					doGet(url + '/products', params, success, error);
 				},
-				getProduct: function(id, successCallback, errorCallback) {
-					$http.get(url + '/products/' + id).success(successCallback).error(errorCallback);
+				getProduct: function(id, success, error) {
+					doGet(url + '/products/' + id, {}, success, error);
 				},
-				getCollectionsForUser: function(id, successCallback, errorCallback) {
-					$http.get(url + '/users/' + id + '/collections').success(successCallback).error(errorCallback);
+				getComments: function(id, page, pageSize, success, error) {
+					doGet(url + '/products/' + id + '/comments', {page: page, per_page: pageSize}, success, error);
 				},
-				getUser: function(id, successCallback, errorCallback) {
-					$http.get(url + '/users/' + id).success(successCallback).error(errorCallback);
+				getCollectionsForUser: function(id, success, error) {
+					doGet(url + '/users/' + id + '/collections', {}, success, error);
 				},
-				getProductVoters: function(id, page, pageSize) {
-					var params = jQuery.param({page: page, per_page: pageSize})
-					$http.get(url + '/product/' + id + '/voters?' + params).success(successCallback).error(errorCallback);
-				}
+				getUser: function(id, success, error) {
+					doGet(url + '/users/' + id, {}, success, error);
+				},
+				getVotedByUser: function(id, success, error) {
+					doGet(url + '/users/' + id + '/voted', success, error);
+				},
+				getPostedByUser: function(id, success, error) {
+					doGet(url + '/users/' + id + '/posted', success, error);
+				},
+				getProductVoters: function(id, page, pageSize, success, error) {
+					doGet(url + '/product/' + id + '/voters', {page:page, per_page: pageSize}, success, error);
+				},
+				searchProducts: function(query, page, pageSize, success, error) {
+					doGet(url + '/search/products', {query: query, page: page, per_page: pageSize}, success, error);
+				},
+				searchUsers: function(query, page, pageSize, success, error) {
+					doGet(url + '/search/users', {query: query, page: page, per_page: pageSize}, success, error);
+				},
 			}
 		});
 	}
 );
+
+function doGet(baseUrl, params, successCB, errorCB) {
+	$http.get(baseUrl + '?' + jQuery.param(params)).success(successCB).error(errorCB);
+}
