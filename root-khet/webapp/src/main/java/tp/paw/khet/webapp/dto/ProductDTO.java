@@ -53,7 +53,7 @@ public class ProductDTO {
 		votersCount = product.getVotesCount();
 		creator = new UserDTO(product.getCreator(), baseUri);
 		
-		logoURL = baseUri.resolve("/products/" + id + "/logo");
+		logoURL = baseUri.resolve("products/" + id + "/logo");
 		
 		videoIds = new ArrayList<>();
 		
@@ -63,9 +63,9 @@ public class ProductDTO {
 		imageURLs = new ArrayList<>();
 
 		for (final ProductImage pi : product.getImages())
-			imageURLs.add(baseUri.resolve("/products/" + id + "/images/" + pi.getProductImageId()));
+			imageURLs.add(baseUri.resolve("products/" + id + "/images/" + pi.getProductImageId()));
 		
-		setVotersURL(baseUri.resolve("/products/" + id + "/voters"));
+		setVotersURL(baseUri.resolve("products/" + id + "/voters"));
 	}
 
 	public ProductDTO() {

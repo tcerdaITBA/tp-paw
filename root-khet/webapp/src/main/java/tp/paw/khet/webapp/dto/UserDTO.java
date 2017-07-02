@@ -28,9 +28,9 @@ public class UserDTO {
 		id = user.getUserId();
 		name = user.getName();
 		email = user.getEmail();
-		url = baseUri.resolve("/users/" + id);
-		pictureURL = baseUri.resolve("/users/" + id + "/picture");
-		collectionsURL = baseUri.resolve("/users/" + id + "/collections");
+		url = baseUri.resolve("users/" + id);
+		pictureURL = baseUri.resolve("users/" + id + "/picture");
+		collectionsURL = baseUri.resolve("users/" + id + "/collections");
 	}
 
 	public int getId() {

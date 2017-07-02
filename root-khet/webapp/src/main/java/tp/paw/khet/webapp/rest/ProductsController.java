@@ -60,9 +60,9 @@ public class ProductsController {
 	@GET
 	@Path("/{id}")
 	public Response getProductById(@PathParam("id") final int id) {
-		final Product product = productService.getFullProductById(id);
-
 		LOGGER.debug("Accesed getProductById with ID: {}", id);
+		
+		final Product product = productService.getFullProductById(id);
 		
 		if (product == null) {
 			LOGGER.warn("Product with ID: {} not found", id);

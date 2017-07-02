@@ -39,8 +39,8 @@ public class PlainProductDTO {
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
 		
-		logoURL = baseUri.resolve("/products/" + id + "/logo");
-		url = baseUri.resolve("/products/" + id);
+		logoURL = baseUri.resolve("products/" + id + "/logo");
+		url = baseUri.resolve("products/" + id);
 	}
 
 	public int getId() {
