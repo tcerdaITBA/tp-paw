@@ -3,7 +3,6 @@ package tp.paw.khet.webapp.dto;
 import java.net.URI;
 import java.util.Date;
 
-import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 
 // TODO: ver si FullProductDTO puede extender de este para no repetir código

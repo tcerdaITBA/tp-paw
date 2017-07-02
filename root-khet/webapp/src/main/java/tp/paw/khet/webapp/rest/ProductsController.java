@@ -28,7 +28,6 @@ import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.ProductService;
-import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.dto.ProductDTO;
 import tp.paw.khet.webapp.dto.ProductListDTO;
 import tp.paw.khet.webapp.dto.UserListDTO;
@@ -36,14 +35,12 @@ import tp.paw.khet.webapp.utils.PaginationLinkFactory;
 
 @Path("products")
 @Controller
+@Produces(value = {MediaType.APPLICATION_JSON}) 
 public class ProductsController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
 
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	private PaginationLinkFactory linkFactory;
@@ -52,12 +49,11 @@ public class ProductsController {
 	private UriInfo uriContext;
 
 	// TODO: poner en algún lado
-	private static final int MAX_PAGE_SIZE = 100;
-	private static final int DEFAULT_PAGE_SIZE = 20;
+	public static final int MAX_PAGE_SIZE = 100;
+	public static final int DEFAULT_PAGE_SIZE = 20;
 
 	@GET
 	@Path("/{id}")
-	@Produces(value = { MediaType.APPLICATION_JSON })
 	public Response getProductById(@PathParam("id") final int id) {
 		final Product product = productService.getFullProductById(id);
 
@@ -72,26 +68,25 @@ public class ProductsController {
 
 	@GET
 	@Path("/")
-	@Produces(value = { MediaType.APPLICATION_JSON })
 	public Response getProducts(@QueryParam("category") String categoryStr,
-			@DefaultValue("1") @QueryParam("page") final int page,
-			// TODO: No me dejar usar los toString/valueOf??
-			@DefaultValue("" + DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize,
+			@DefaultValue("1") @QueryParam("page") int page,
+			@DefaultValue("" + DEFAULT_PAGE_SIZE) @QueryParam("per_page") int pageSize,
 			@DefaultValue("ALPHABETICALLY") @QueryParam("sorted_by") final ProductSortCriteria sortCriteria,
 			@DefaultValue("asc") @QueryParam("order") final String order) {
 
 		final Optional<Category> category = Optional.empty();
 
-		if (page < 1 || pageSize < 1 || pageSize > MAX_PAGE_SIZE) {
-			return Response.status(Status.BAD_REQUEST).build();
-		}
+		// Ignoro valores inválidos, queda en el default.
+		page = (page < 1) ? 1 : page;
+		pageSize = (pageSize < 1 || pageSize > MAX_PAGE_SIZE) ? DEFAULT_PAGE_SIZE : pageSize; 
 
 		final int maxPage = productService.getMaxProductPageWithSize(category, pageSize);
 
 		if (page > maxPage) {
 			LOGGER.warn("Index page out of bounds: {}", page);
-			return Response.status(Status.NOT_FOUND).build(); // NOT_FOUND u otra cosa?
-		}
+			return Response.status(Status.NOT_FOUND).build(); 
+			// NOT_FOUND u otra cosa? Github devuelve body y de contenido un objecto vacío ( [ ] ó { } )
+ 		}
 
 		// TODO: falta usar "order"
 		final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);
@@ -108,7 +103,6 @@ public class ProductsController {
 
 	@GET
 	@Path("{id}/voters")
-	@Produces(value = { MediaType.APPLICATION_JSON })
 	public Response getProductVoters(@PathParam("id") final int id) {
 		final Product product = productService.getFullProductById(id);
 		if (product == null) {
@@ -117,7 +111,7 @@ public class ProductsController {
 		} else {
 			LOGGER.debug("Accesed voters with product ID: {}", id);
 			final List<User> users = new LinkedList<>(product.getVotingUsers());
-			return Response.ok(new UserListDTO(users, id)).build();
+			return Response.ok(new UserListDTO(users, id, 1, users.size(), uriContext.getBaseUri())).build();
 		}
 	}
 }

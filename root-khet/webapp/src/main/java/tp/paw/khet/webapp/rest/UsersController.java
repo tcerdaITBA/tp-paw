@@ -24,6 +24,7 @@ import java.util.LinkedList;
 
 @Path("users")
 @Controller
+@Produces(value = {MediaType.APPLICATION_JSON}) 
 public class UsersController {
     
     @Autowired
@@ -34,12 +35,11 @@ public class UsersController {
     
     @GET
     @Path("/{id}")
-    @Produces(value = {MediaType.APPLICATION_JSON}) 
     public Response getUserById(@PathParam("id") final int id) {
         final User user = userService.getUserById(id);
         
         if (user != null) {
-            return Response.ok(new UserDTO(user)).build();
+            return Response.ok(new UserDTO(user, uriContext.getBaseUri())).build();
         } else {
             return Response.status(Status.NOT_FOUND).build();
         }
@@ -47,7 +47,6 @@ public class UsersController {
     
     @GET
     @Path("/{id}/collections")
-    @Produces(value = {MediaType.APPLICATION_JSON}) 
     public Response getUserCollections(@PathParam("id") final int id) {
     	final User user = userService.getUserById(id);
     	

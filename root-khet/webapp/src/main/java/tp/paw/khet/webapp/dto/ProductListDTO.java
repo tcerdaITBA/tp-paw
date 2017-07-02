@@ -32,6 +32,10 @@ public class ProductListDTO {
 		if (category.isPresent())
 			this.category = category.get().getLowerName();
 	}
+	
+   public ProductListDTO(final List<Product> products, final int page, final int pageSize, final URI baseUri) {
+        this(products, page, pageSize, Optional.empty(), baseUri);
+    }
 
 	public List<PlainProductDTO> getProducts() {
 		return products;
