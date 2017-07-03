@@ -1,21 +1,167 @@
-<div class="jumbotron">
-	<h1>'Hola, 'Hola!</h1>
-	<p class="lead">
-		<img src="images/yeoman.png" alt="I'm Yeoman"><br />
-		{{'WELCOME_MESSAGE' | translate}}
-	</p>
-	<p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+<div class="container">
+	<div class="row title-row">
+		<div class="col-md-8 col-md-offset-3 title-col">
+			<!--
+<div class="content-title">
+<c:choose>
+<c:when test="${empty currentCategory}">
+<h2><spring:message code="index.allproducts"/></h2>	
+<%@include file="includes/orders.jsp"%></%@include>
+</c:when>
+<c:otherwise>
+<h2><spring:message code="category.${currentCategory.lowerName}"/></h2>
+<div class="categoryDescription"><spring:message code="category.description.${currentCategory.lowerName}"/></div>
+<c:if test="${not empty products}">
+<%@include file="includes/orders.jsp"%></%@include>
+</c:if>
+</c:otherwise>
+</c:choose>					
 </div>
+-->
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="row">
+						<!--
+<ul class="nav nav-pills nav-stacked categoryBox">
+<c:set var="active" value="${empty currentCategory}"/>
+<li role="presentation" class="${active ? 'active' : 'none'}">
+<a href="<c:url value="/?${orderQuery}"/>">
+<div class="col-md-5"></div>
+<spring:message code="category.all"/></a>
+</li>
+<c:forEach items="${categories}" var="category">
+<c:set var="active" value="${category eq currentCategory}"/>
+<li role="presentation" class="${active ? 'active' : 'none'}">					
+<a href="<c:url value="/?category=${category.name}${orderQuery}"/>">
+<div class="col-md-5">
+<img class="icon" src="<c:url value="/resources/img/${category.lowerName}.svg"/>"/>
+</div>
+<spring:message code="category.${category.lowerName}"/>
+</a>
+</li>
+</c:forEach>
+</ul>
+-->
+					</div>
+				</div>
+			</div>
+		</div>	
 
-<div class="row marketing">
-    <h4>{{homePageText}}</h4>
-	<h4>Angular-Require-Fullstack Generator contains</h4>
-	<ul>
-		<li>AngularJs</li>
-		<li>RequireJs</li>
-		<li>Bootstrap</li>
-		<li>i18n</li>
-		<li>Grunt</li>
-		<li>File revving</li>
-	</ul>
+		<div class="col-md-8">
+			<!--
+<c:choose>
+<c:when test="${empty products}">
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<div class="zrp" id="category-zrp">
+<h2><spring:message code="categoryZRP.sorry"/></h2>
+<h3><spring:message code="categoryZRP.noProducts"/></h3>
+<p>
+<span><spring:message code="categoryZRP.checkOther"/></span>
+<span>
+<sec:authorize access="isAuthenticated()">
+<a href="<c:url value="/upload"/>"><spring:message code="categoryZRP.postYourOwn"/></a>
+</sec:authorize>
+<sec:authorize access="isAnonymous()">
+<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" 
+data-content="<p class='popover-msg'><span><spring:message code="navBar.toPost"/></span><a href='<c:url value="/login"/>'> <span> <spring:message code="navBar.signIn"/></span></a></p>" id="upload-popover">
+<spring:message code="categoryZRP.postYourOwn"/></a>
+</sec:authorize>
+</span>
+</p>
+</div>
+</div>
+</div>
+</c:when>
+<c:otherwise>
+-->
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1 product-list">
+					<div ng-repeat="p in productsData.products">
+
+						<div class="row product-list-item product-item-height" id="product${product.id}">
+							<div class="col-md-3 product-logo">
+								<!--		<img src="<c:url value="/product/${product.id}/logo"/>">-->
+							</div>
+							<div class="col-md-9 product-info-box">
+								<div class="row product-name">
+									<div class="col-md-10 capitalize-firstLetter">
+										<p>{{p.name}}</p>
+									</div>
+								</div>
+								<div class="row product-short-description">
+									<div class="col-md-12 capitalize-firstLetter">
+										<p>{{p.tagline}}</p>
+									</div>
+								</div>
+								<div class="row product-category">
+									{{p.category}}
+
+									<!--
+<c:url value="/vote/product/${product.id}" var="vote" />
+<div class="col-md-6 col-md-offset-6">
+<sec:authorize access="isAuthenticated()">
+<form:form class="pull-right" action="${vote}" method="post">
+<button class="btn btn-default upvote-btn" type="submit" data-vote-id="vote${product.id}">
+<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+<c:out value="${product.votesCount}"/></p>
+</button>
+</form:form>
+<button class="btn btn-default add-to-collection-btn pull-right categoryTag" data-target="#add-to-collection-modal-${product.id}" data-toggle="modal">
+<p>
+<span class="glyphicon glyphicon-plus"></span>
+</p>
+</button>	
+</sec:authorize>
+<sec:authorize access="isAnonymous()">
+<button class="btn btn-default upvote-btn popover-btn pull-right" data-toggle="popover" data-trigger="focus" 
+data-content="<p class='popover-msg'>
+<span><spring:message code="upVote.toPost"/></span>
+<a href='<c:url value="/login"/>'> 
+<span> <spring:message code="upVote.signIn"/></span>
+</a>
+<span><spring:message code="upVote.toPostBis"/></span>
+<a href='<c:url value="/register"/>'> 
+<span> <spring:message code="upVote.signUp"/></span>
+</a>
+</p>">
+<p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+<c:out value="${product.votesCount}"/></p>
+</button>
+</sec:authorize>
+</div>
+<sec:authorize access="isAuthenticated()">
+<c:if test="${fn:contains(product.votingUsers, loggedUser)}">
+<script>upVotedProductByLoggedUser(${product.id});</script>
+</c:if>							                    
+</sec:authorize>
+-->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--
+<c:forEach items="${products}" var="product">
+<a href="<c:url value="/product/${product.id}"/>" id="product${product.id}">
+<%@include file="includes/product-item.jsp"%></%@include>
+</a>
+</c:forEach>
+-->
+				</div>
+			</div>
+			<!--
+</c:otherwise>
+</c:choose>
+-->
+			<!--
+<c:if test="${totalPages > 1}">
+<%@include file="includes/pagination.jsp"%></%@include>
+</c:if>									
+-->
+		</div>
+	</div>
 </div>

@@ -72,7 +72,7 @@ if (paths) {
 require([
         'angular',
         'productSeek',
-        'controllers/IndexCtrl'
+        'controllers/IndexCtrl',
     ],
     function() {
         angular.bootstrap(document, ['productSeek']);
