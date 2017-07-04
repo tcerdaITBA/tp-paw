@@ -20,6 +20,7 @@ public class ProductDTO {
 	private String website;
 	private String category;
 	private UserDTO creator;
+	private URI url;
 	
 	@XmlElement(name = "tagline")
 	private String shortDescription;
@@ -35,7 +36,7 @@ public class ProductDTO {
 	
 	@XmlElement(name = "image_urls")
 	private List<URI> imageURLs;
-	
+		
 	@XmlElement(name = "logo_url")
 	private URI logoURL;
 	
@@ -52,6 +53,7 @@ public class ProductDTO {
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
 		creator = new UserDTO(product.getCreator(), baseUri);
+		setUrl(baseUri.resolve("products/" + id));
 		
 		logoURL = baseUri.resolve("products/" + id + "/logo");
 		
@@ -173,5 +175,13 @@ public class ProductDTO {
 
 	public void setVotersURL(URI votersURL) {
 		this.votersURL = votersURL;
+	}
+
+	public URI getUrl() {
+		return url;
+	}
+
+	public void setUrl(URI url) {
+		this.url = url;
 	}
 }

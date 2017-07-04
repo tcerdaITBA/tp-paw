@@ -30,7 +30,7 @@ import tp.paw.khet.webapp.utils.PaginationLinkFactory;
 @Path("search")
 @Controller
 @Produces(value = { MediaType.APPLICATION_JSON })
-public class APISearchController {    
+public class SearchController {    
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
 
     @Autowired

@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +28,6 @@ import tp.paw.khet.webapp.exception.ForbiddenException;
 import tp.paw.khet.webapp.exception.ProductNotFoundException;
 import tp.paw.khet.webapp.form.FormFavList;
 
-@Controller
 public class FavListController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavListController.class);

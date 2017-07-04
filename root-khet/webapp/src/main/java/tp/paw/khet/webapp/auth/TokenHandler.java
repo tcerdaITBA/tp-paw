@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 @Service
 public class TokenHandler {
@@ -20,12 +21,16 @@ public class TokenHandler {
 	private UserDetailsService userDetailsService;
 
 	public UserDetails parseUserFromToken(final String token) {
-		final String username = Jwts.parser()
-				.setSigningKey(tokenSigningKey)
-				.parseClaimsJws(token)
-				.getBody()
-				.getSubject();
-		return userDetailsService.loadUserByUsername(username);
+		try {
+			final String username = Jwts.parser()
+					.setSigningKey(tokenSigningKey)
+					.parseClaimsJws(token)
+					.getBody()
+					.getSubject();
+			return userDetailsService.loadUserByUsername(username);
+		} catch (SignatureException e) {
+			return null;
+		}
 	}
 
 	public String createTokenForUser(final String username) {
