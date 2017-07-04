@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -37,11 +38,14 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private StatelessAuthenticationFilter statelessAuthenticationFilter;
 
+	@Autowired
+	private AuthenticationEntryPoint restAuthenticationEntryPoint;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.userDetailsService(userDetailsService).sessionManagement()
 				.and()
-					.csrf().disable().exceptionHandling()
+					.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
 				.and().authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/login").anonymous()
 					.antMatchers(HttpMethod.POST).authenticated()
