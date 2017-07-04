@@ -136,6 +136,13 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-jaxb</artifactId>
     </dependency>
+
+    <!-- AUTHENTICATION TOKEN SERVICE -->
+
+    <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+    </dependency>
   </dependencies>
   
   <build>

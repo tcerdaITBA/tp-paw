@@ -1,6 +1,6 @@
 package tp.paw.khet.webapp.config;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,12 +13,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import tp.paw.khet.webapp.auth.RefererLoginSuccessHandler;
+import tp.paw.khet.webapp.auth.StatelessAuthenticationFilter;
+import tp.paw.khet.webapp.auth.StatelessLoginSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -27,32 +30,32 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private StatelessLoginSuccessHandler statelessLoginSuccessHandler;
+	
+	@Autowired
+	private StatelessAuthenticationFilter statelessAuthenticationFilter;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.userDetailsService(userDetailsService).sessionManagement()
-				.invalidSessionUrl("/")
+				.and()
+					.csrf().disable().exceptionHandling()
 				.and().authorizeRequests()
-					.antMatchers("/errors/**").permitAll()
-					.antMatchers("/upload").authenticated()
-					.antMatchers("/login").anonymous()
-					.antMatchers("/register").anonymous()
-					.antMatchers(HttpMethod.POST, "/favlist/**").authenticated()
-					.antMatchers(HttpMethod.POST, "/profile/customize/**").authenticated()
-					.antMatchers(HttpMethod.POST, "/product/**").authenticated()
-					.antMatchers(HttpMethod.POST, "/delete/product/**").authenticated()
-					.antMatchers(HttpMethod.POST, "/vote/product/**").authenticated()
+					.antMatchers(HttpMethod.POST, "/login").anonymous()
+					.antMatchers(HttpMethod.POST).authenticated()
+					.antMatchers(HttpMethod.DELETE).authenticated()
+					.antMatchers(HttpMethod.PUT).authenticated()
 					.antMatchers("/**").permitAll()
-				.and().formLogin()
-					.usernameParameter("j_username").passwordParameter("j_password")
-					.successHandler(successHandler()).loginPage("/login")
-					.failureUrl("/login?error=1")
-				.and().rememberMe()
-					.userDetailsService(userDetailsService).rememberMeParameter("j_rememberme")
-					.key("037066dfb06356184e35a9eefa80b64c").tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
-				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
-				.and().exceptionHandling()
-					.accessDeniedPage("/errors/403").and().csrf().disable();
+				.and()
+					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+					.formLogin().usernameParameter("j_username").passwordParameter("j_password").loginProcessingUrl("/login")
+					.successHandler(statelessLoginSuccessHandler)
+					.failureHandler(new SimpleUrlAuthenticationFailureHandler())
+				.and()
+					.addFilterBefore(statelessAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
@@ -77,12 +80,9 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
 	@Bean
-	public AuthenticationSuccessHandler successHandler() {
-		RefererLoginSuccessHandler handler = new RefererLoginSuccessHandler();
-		handler.setAlwaysUseDefaultTargetUrl(false);
-		handler.setDefaultTargetUrl("/");
-		return handler;
+	public String tokenSigningKey() {
+		return Base64.getEncoder().encodeToString("037066dfb06356184e35a9eefa80b64c".getBytes());
 	}
 }

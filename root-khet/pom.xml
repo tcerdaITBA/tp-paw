@@ -40,6 +40,7 @@
       <spring-security.version>4.0.4.RELEASE</spring-security.version>
       <commons-beanutils.version>1.9.3</commons-beanutils.version>
       <jersey.version>3.0-SNAPSHOT</jersey.version>
+      <jsonwebtoken.version>0.7.0</jsonwebtoken.version>
   </properties>
 
   <build>
@@ -277,6 +278,15 @@
 			    <artifactId>jersey-media-jaxb</artifactId>
 			    <version>${jersey.version}</version>
 		</dependency>
+
+        <!-- AUTHENTICATION TOKEN SERVICE -->
+
+        <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jsonwebtoken.version}</version>
+        </dependency>
+
 
       </dependencies>
   </dependencyManagement>
