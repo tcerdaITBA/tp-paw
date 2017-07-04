@@ -18,6 +18,9 @@ public class CollectionDTO {
 	private List<PlainProductDTO> products;
 	private int count;
 	
+	@XmlElement(name = "creator_url")
+	private URI creatorURL;
+	
 	@XmlElement(name = "creation_date")
 	private Date creationDate;
 	
@@ -28,6 +31,7 @@ public class CollectionDTO {
 		creationDate = favList.getCreationDate();
 		name = favList.getName();
 		products = new ArrayList<>();
+		creatorURL = baseUri.resolve("users/" + id);
 
 		for (Product p: favList.getProductList())
 			products.add(new PlainProductDTO(p, baseUri));
