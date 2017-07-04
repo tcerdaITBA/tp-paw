@@ -65,7 +65,7 @@ public class Product {
 	@Column(nullable = false, columnDefinition = "bytea")
 	private byte[] logo;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "userid", nullable = false, updatable = false)
 	private User creator;
 

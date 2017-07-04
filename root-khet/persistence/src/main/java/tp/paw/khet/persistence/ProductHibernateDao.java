@@ -92,8 +92,7 @@ public class ProductHibernateDao implements ProductDao {
 
 	@Override
 	public Product createProduct(final String name, final String description, final String shortDescription,
-			final String website, final Category category, final Date uploadDate, final byte[] logo,
-			final User creator) {
+			final String website, final Category category, final Date uploadDate, final byte[] logo, final User creator) {
 
 		final ProductBuilder productBuilder = Product.getBuilder(name, shortDescription);
 

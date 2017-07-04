@@ -23,6 +23,9 @@ public class PlainProductDTO {
 	@XmlElement(name = "logo_url")
 	private URI logoURL;
 	
+	@XmlElement(name = "creator_url")
+	private URI creatorURL;
+	
 	@XmlElement(name = "voters_url")
 	private URI votersURL;
 	
@@ -34,7 +37,7 @@ public class PlainProductDTO {
 	
 	public PlainProductDTO() {};
 	
-	public PlainProductDTO(Product product, final URI baseUri) {
+	public PlainProductDTO(final Product product, final URI baseUri) {
 		id = product.getId();
 		name = product.getName();
 		tagline = product.getShortDescription();
@@ -43,6 +46,7 @@ public class PlainProductDTO {
 		votersCount = product.getVotesCount();
 		
 		url = baseUri.resolve("products/" + id);
+		creatorURL = baseUri.resolve("users/" + id);
 		logoURL = baseUri.resolve("products/" + id + "/logo");
 		votersURL = baseUri.resolve("products/" + id + "/voters");
 	}
