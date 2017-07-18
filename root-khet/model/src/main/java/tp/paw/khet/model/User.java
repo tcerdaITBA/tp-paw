@@ -25,6 +25,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.SortComparator;
 
 import tp.paw.khet.model.comparator.FavListAlphaComparator;
@@ -57,10 +59,12 @@ public class User {
 	@JoinTable(	name = "votes", joinColumns = @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(name = "user_id_constraint")), 
 				inverseJoinColumns = @JoinColumn(name = "productId", nullable = false, foreignKey = @ForeignKey(name = "product_id_constraint")))
 	@SortComparator(ProductAlphaComparator.class)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private SortedSet<Product> votedProducts;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", orphanRemoval = true, cascade = CascadeType.ALL)
 	@SortComparator(FavListAlphaComparator.class)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private SortedSet<FavList> favLists;
 
 	// Hibernate

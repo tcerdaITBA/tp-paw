@@ -24,10 +24,10 @@ public class PaginationLinkFactory {
 		final UriBuilder requestBuilder = uriRequestInfo.getRequestUriBuilder();
 
 		if (requestPage < maxPage)
-			map.put(NEXT, linkWithRel(setPageParam(requestBuilder, requestPage + 1), NEXT));
+			map.put(NEXT, linkWithRel(setPageParam(requestBuilder, requestPage < 1 ? 1 : requestPage + 1), NEXT));
 
 		if (requestPage > 1)
-			map.put(PREV, linkWithRel(setPageParam(requestBuilder, requestPage - 1), PREV));
+			map.put(PREV, linkWithRel(setPageParam(requestBuilder, requestPage > maxPage ? maxPage : requestPage - 1), PREV));
 		
 		map.put(FIRST, linkWithRel(setPageParam(requestBuilder, 1), FIRST));
 		map.put(LAST, linkWithRel(setPageParam(requestBuilder, maxPage), LAST));

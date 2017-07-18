@@ -3,21 +3,17 @@ package tp.paw.khet.service;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tp.paw.khet.model.ProductTestUtils.assertEqualsFullProducts;
-import static tp.paw.khet.model.ProductTestUtils.assertEqualsPlainProducts;
-import static tp.paw.khet.model.ProductTestUtils.dummyPlainProductListWithUserId;
 import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.model.UserTestUtils.dummyUser;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -33,8 +29,6 @@ import tp.paw.khet.persistence.ProductDao;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {
-
-	private static final int LIST_SIZE = 20;
 
 	@Mock
 	private ProductDao productDaoMock;
@@ -67,23 +61,6 @@ public class ProductServiceImplTest {
 		assertArrayEquals(expectedImage, actualImage);
 		assertNull(productService.getLogoByProductId(1));
 		verify(productDaoMock, times(2)).getLogoByProductId(anyInt());
-	}
-
-	@Test
-	public void getPlainProductsByUserIdTest() {
-		List<Product> expected = dummyPlainProductListWithUserId(LIST_SIZE, 0, 0);
-		when(productDaoMock.getPlainProductsByUserId(0)).thenReturn(expected);
-
-		List<Product> actual = productService.getPlainProductsByUserId(0);
-
-		assertEquals(expected.size(), actual.size());
-
-		for (int i = 0; i < expected.size(); i++)
-			assertEqualsPlainProducts(expected.get(i), actual.get(i));
-
-		assertTrue(productDaoMock.getPlainProductsByUserId(1).isEmpty());
-
-		verify(productDaoMock, times(2)).getPlainProductsByUserId(anyInt());
 	}
 
 	@Test

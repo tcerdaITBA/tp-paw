@@ -11,7 +11,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
@@ -62,12 +61,6 @@ public class SearchController {
         
         final int maxPage = productService.getMaxProductsPageByKeyword(query, pageSize);
 
-        if (page > maxPage) {
-            LOGGER.warn("Index page out of bounds: {}", page);
-            return Response.status(Status.NOT_FOUND).build(); 
-            // NOT_FOUND u otra cosa? Github devuelve body y de contenido un objecto vacío ( [ ] ó { } )
-        }
-        
         final List<Product> products = productService.getPlainProductsByKeyword(query, page, pageSize);
 
         LOGGER.debug("Searching products. Query: {}, page: {} per_page: {}", query, page, pageSize);
@@ -91,12 +84,6 @@ public class SearchController {
         }
         
         final int maxPage = userService.getMaxUserPageByKeyword(query, pageSize); // TODO: getMaxUsersByKeyword
-
-        if (page > maxPage) {
-            LOGGER.warn("Index page out of bounds: {}", page);
-            return Response.status(Status.NOT_FOUND).build(); 
-            // NOT_FOUND u otra cosa? Github devuelve body y de contenido un objecto vacío ( [ ] ó { } )
-        }
         
         final List<User> users = userService.getUsersByKeyword(query, page, pageSize);
 

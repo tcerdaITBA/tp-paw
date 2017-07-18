@@ -1,4 +1,4 @@
-package structures;
+package tp.paw.khet.service.structures;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

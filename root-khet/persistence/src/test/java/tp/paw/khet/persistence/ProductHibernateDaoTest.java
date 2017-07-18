@@ -9,7 +9,6 @@ import static tp.paw.khet.model.ProductTestUtils.assertEqualsFullProducts;
 import static tp.paw.khet.model.ProductTestUtils.assertEqualsPlainProducts;
 import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.model.ProductTestUtils.dummyProductList;
-import static tp.paw.khet.model.ProductTestUtils.dummyProductListWithUserId;
 import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.model.UserTestUtils.dummyUserList;
 import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
@@ -160,16 +159,6 @@ public class ProductHibernateDaoTest {
 	}
 
 	@Test
-	public void getPlainProductsByUserIdTest() {
-		List<Product> expected = dummyProductListWithUserId(LIST_SIZE, 1, 1);
-		insertProducts(expected);
-
-		List<Product> actual = productDao.getPlainProductsByUserId(1);
-
-		assertEqualsReversedSortedList(expected, actual);
-	}
-
-	@Test
 	public void getLogoByProductIdTest() {
 		Product dummyProduct = dummyProduct(1);
 		insertProduct(dummyProduct);
@@ -258,18 +247,6 @@ public class ProductHibernateDaoTest {
 			String shouldBeLower = actual.get(i - 1).getName();
 			String shouldBeHiger = actual.get(i).getName();
 			assertTrue(shouldBeLower.compareToIgnoreCase(shouldBeHiger) < 0);
-		}
-	}
-
-	private void assertEqualsReversedSortedList(List<Product> expected, List<Product> actual) {
-		assertEquals(expected.size(), actual.size());
-
-		for (int i = 0; i < expected.size(); i++) {
-			Product expectedProduct = expected.get(expected.size() - i - 1);
-			Product actualProduct = actual.get(i);
-			assertEqualsFullProducts(expectedProduct, actualProduct);
-			if (i > 0)
-				assertTrue(actualProduct.getId() < actual.get(i - 1).getId());
 		}
 	}
 

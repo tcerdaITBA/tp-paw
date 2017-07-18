@@ -6,7 +6,6 @@ import java.util.Optional;
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
-import tp.paw.khet.model.User;
 
 public interface ProductService {
 
@@ -61,17 +60,6 @@ public interface ProductService {
 	 */
 	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, int page,
 			int pageSize);
-
-	/**
-	 * Lists products created by {@link User} as a {@link Product} with the
-	 * given userId.
-	 * 
-	 * @param userId
-	 *            - ID of the creator
-	 * @return List of products. Empty in case the user did not create any
-	 *         product
-	 */
-	public List<Product> getPlainProductsByUserId(int userId);
 
 	/**
 	 * Retrieves the amount of {@link Product} pages available for a given page size.

@@ -36,17 +36,6 @@ public interface ProductDao {
 			Category category, Date uploadDate, byte[] logo, User creator);
 
 	/**
-	 * Lists product created by {@link User} as a {@link Product} with the given
-	 * userId.
-	 * 
-	 * @param userId
-	 *            - ID of the creator
-	 * @return List of products. Empty in case the user did not create any
-	 *         product
-	 */
-	public List<Product> getPlainProductsByUserId(int userId);
-
-	/**
 	 * Retrieves the total amount of products registered.
 	 * 
 	 * @return The number of products.

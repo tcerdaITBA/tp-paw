@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.FavList;
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 
 public interface UserDao {
@@ -92,4 +94,38 @@ public interface UserDao {
 	 * @return The user with the given ID
 	 */
 	public User changeProfilePicture(int userId, byte[] profilePicture);
+
+	/**
+	 * Lists a range of {@link FavList} owned by the corresponding user.
+	 * @param userId - ID of the FavLists owner
+	 * @param offset - Offset in the result list
+	 * @param length - Length of the result list
+	 * @return The {@link List} of FavLists owned by the corresponding user.
+	 */
+	public List<FavList> getFavListsRange(int userId, int offset, int length);
+
+	/**
+	 * Lists a range of {@link Product} voted by the corresponding user.
+	 * @param userId - ID of the voter
+	 * @param offset - Offset in the result list
+	 * @param length - Length of the result list
+	 * @return The {@link List} of products voted by the corresponding user.
+	 */
+	public List<Product> getVotedProductsRange(int userId, int offset, int length);
+
+	/**
+	 * Retrieves the total amount of {@link Product} created by the corresponding user.
+	 * @param userId - ID of the creator
+	 * @return The total amount of created products
+	 */	
+	public int getTotalCreatedProductsByUserId(int userId);
+
+	/**
+	 * Lists a range of {@link Product} created by the corresponding user.
+	 * @param userId - ID of the creator
+	 * @param offset - Offset in the result list
+	 * @param length - Length of the result list
+	 * @return The {@link List} of products created by the corresponding user.
+	 */
+	public List<Product> getCreatedProductsRange(int userId, int offset, int length);
 }

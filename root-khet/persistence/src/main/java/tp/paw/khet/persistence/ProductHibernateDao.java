@@ -83,14 +83,6 @@ public class ProductHibernateDao implements ProductDao {
 	}
 
 	@Override
-	public List<Product> getPlainProductsByUserId(final int userId) {
-		final TypedQuery<Product> query = em.createQuery("from Product as p where p.creator.userId = :userId ORDER BY p.uploadDate DESC", Product.class);
-		query.setParameter("userId", userId);
-
-		return query.getResultList();
-	}
-
-	@Override
 	public Product createProduct(final String name, final String description, final String shortDescription,
 			final String website, final Category category, final Date uploadDate, final byte[] logo, final User creator) {
 

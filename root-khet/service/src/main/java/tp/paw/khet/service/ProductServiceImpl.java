@@ -53,11 +53,6 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getPlainProductById(productId);
 	}
 
-	@Override
-	public List<Product> getPlainProductsByUserId(final int userId) {
-		return productDao.getPlainProductsByUserId(userId);
-	}
-
 	@Transactional
 	@Override
 	public Product createProduct(final String name, final String description, final String shortDescription,

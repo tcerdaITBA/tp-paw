@@ -44,6 +44,7 @@ public class FavListController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/")
 	public Response createCollection(final CollectionDTO collection) throws DuplicateFavListException {
 		LOGGER.debug("Accessed createCollection");
 		

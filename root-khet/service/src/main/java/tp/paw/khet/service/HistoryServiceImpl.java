@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import org.springframework.stereotype.Service;
 
-import structures.FixedLengthStack;
+import tp.paw.khet.service.structures.FixedLengthStack;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {

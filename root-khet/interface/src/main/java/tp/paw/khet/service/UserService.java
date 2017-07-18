@@ -3,6 +3,8 @@ package tp.paw.khet.service;
 import java.util.List;
 
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.FavList;
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 
 public interface UserService {
@@ -93,4 +95,61 @@ public interface UserService {
 	 * @return The user with the given ID
 	 */
 	public User changeProfilePicture(int userId, byte[] profilePicture);
+
+	/**
+	 * Retrieves the amount of {@link FavList} pages available for a given page size
+	 * corresponding to the owner.
+	 * @param userId - ID of the owner of the favLists
+	 * @param pageSize - Amount of favLists per page
+	 * @return the maximum page number, which is the total number of pages for
+	 *         the given size.
+	 */
+	public int getMaxFavListsPageWithSize(int userId, int pageSize);
+
+	/**
+	 * Retrieves a list of {@link FavList} corresponding to the owner.
+	 * @param userId - ID of the owner of the favLists
+	 * @param page - index of the page to be retrieved
+	 * @param pageSize - amount of favLists per page
+	 * @return The list of favLists corresponding to the owner and page requested.
+	 */
+	public List<FavList> getFavListsByUserId(int userId, int page, int pageSize);
+
+	/**
+	 * Retrieves the amount of voted {@link Product} pages available for a given page size
+	 * corresponding to the voter.
+	 * @param userId - ID of the voter of the products
+	 * @param pageSize - Amount of products per page
+	 * @return the maximum page number, which is the total number of pages for
+	 *         the given size.
+	 */
+	public int getMaxVotedProductsPageWithSize(int userId, int pageSize);
+
+	/**
+	 * Retrieves a list of voted {@link Product} corresponding to the voter.
+	 * @param userId - ID of the voter of the products
+	 * @param page - index of the page to be retrieved
+	 * @param pageSize - amount of products per page
+	 * @return The list of products corresponding to the voter and page requested.
+	 */
+	public List<Product> getVotedProductsByUserId(int userId, int page, int pageSize);
+
+	/**
+	 * Retrieves the amount of created {@link Product} pages available for a given page size
+	 * corresponding to the creator.
+	 * @param userId - ID of the creator of the products
+	 * @param pageSize - Amount of products per page
+	 * @return the maximum page number, which is the total number of pages for
+	 *         the given size.
+	 */
+	public int getMaxCreatedProductsPageWithSize(int userId, int pageSize);
+
+	/**
+	 * Retrieves a list of created {@link Product} corresponding to the creator.
+	 * @param userId - ID of the creator of the products
+	 * @param page - index of the page to be retrieved
+	 * @param pageSize - amount of products per page
+	 * @return The list of products corresponding to the creator and page requested.
+	 */
+	public List<Product> getCreatedProductsByUserId(int id, int page, int pageSize);
 }

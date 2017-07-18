@@ -40,6 +40,10 @@ import tp.paw.khet.webapp.utils.PaginationLinkFactory;
 @Produces(value = {MediaType.APPLICATION_JSON}) 
 public class ProductsController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
+	
+	// TODO: poner en algun lado
+	public static final int MAX_PAGE_SIZE = 100;
+	public static final int DEFAULT_PAGE_SIZE = 20;
 
 	@Autowired
 	private ProductService productService;
@@ -52,10 +56,6 @@ public class ProductsController {
 
 	@Context
 	private UriInfo uriContext;
-
-	// TODO: poner en algún lado
-	public static final int MAX_PAGE_SIZE = 100;
-	public static final int DEFAULT_PAGE_SIZE = 20;
 
 	@GET
 	@Path("/{id}")
@@ -91,12 +91,6 @@ public class ProductsController {
 				pageSize, sortCriteria, order);
 		
 		final int maxPage = productService.getMaxProductPageWithSize(category, pageSize);
-
-		if (page > maxPage) {
-			LOGGER.warn("Index page out of bounds: {}", page);
-			return Response.status(Status.NOT_FOUND).build(); 
-			// NOT_FOUND u otra cosa? Github devuelve body y de contenido un objecto vacío ( [ ] ó { } )
- 		}
 
 		// TODO: falta usar "order"
 		final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);
