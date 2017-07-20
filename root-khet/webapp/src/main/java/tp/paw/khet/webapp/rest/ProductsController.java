@@ -126,7 +126,7 @@ public class ProductsController {
 		LOGGER.debug("Accessed getProductLogo with product ID: {}", id);
 		
 		final byte[] logo = productService.getLogoByProductId(id);
-	
+
 		if (logo.length == 0) {
 			LOGGER.warn("Product with ID: {} not found", id);
 			return Response.status(Status.NOT_FOUND).build();

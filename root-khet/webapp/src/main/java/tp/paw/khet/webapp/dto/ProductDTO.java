@@ -20,6 +20,7 @@ public class ProductDTO {
 	private String website;
 	private String category;
 	private UserDTO creator;
+	private List<CommentDTO> comments;
 	private URI url;
 	
 	@XmlElement(name = "tagline")
@@ -53,21 +54,20 @@ public class ProductDTO {
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
 		creator = new UserDTO(product.getCreator(), baseUri);
-		setUrl(baseUri.resolve("products/" + id));
+		comments = CommentDTO.fromCommentFamilyList(product.getCommentFamilies(), baseUri);
 		
+		url = baseUri.resolve("products/" + id);
 		logoURL = baseUri.resolve("products/" + id + "/logo");
+		votersURL = baseUri.resolve("products/" + id + "/voters");
 		
 		videoIds = new ArrayList<>();
-		
 		for (final Video v : product.getVideos())
 			videoIds.add(v.getVideoId());
 		
 		imageURLs = new ArrayList<>();
-
 		for (final ProductImage pi : product.getImages())
 			imageURLs.add(baseUri.resolve("products/" + id + "/images/" + pi.getProductImageId()));
 		
-		votersURL = baseUri.resolve("products/" + id + "/voters");
 	}
 
 	public ProductDTO() {
@@ -151,6 +151,14 @@ public class ProductDTO {
 
 	public void setCreator(UserDTO creator) {
 		this.creator = creator;
+	}
+
+	public List<CommentDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentDTO> comments) {
+		this.comments = comments;
 	}
 
 	public List<String> getVideoIds() {
