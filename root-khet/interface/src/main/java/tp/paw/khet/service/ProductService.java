@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
 
@@ -44,21 +45,15 @@ public interface ProductService {
 	 * <p>
 	 * Optionally, the range may be filtered by a {@link Category}.
 	 * 
-	 * @param category
-	 *            - optional category the products belong to. See
-	 *            {@link Optional}.
-	 * @param sortCriteria
-	 *            - product sort criteria to be used.
-	 * @param page
-	 *            - index of the page to be retrieved.
-	 * @param pageSize
-	 *            - amount of products per page.
-	 * @return Sorted {@link List} of the products belonging to the category if
-	 *         given. Otherwise, products belong to any category.
-	 *         <p>
+	 * @param category - optional category the products belong to. See {@link Optional}.
+	 * @param sortCriteria - product sort criteria to be used.
+	 * @param order - whether should be ascendent or descendent sorted. See {@link OrderCriteria}.
+	 * @param page - index of the page to be retrieved.
+	 * @param pageSize - amount of products per page.
+	 * @return Sorted {@link List} of the products belonging to the category if given. Otherwise, products belong to any category.<p>
 	 *         Could be empty if there are no products registered.
 	 */
-	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, int page,
+	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, OrderCriteria order, int page,
 			int pageSize);
 
 	/**

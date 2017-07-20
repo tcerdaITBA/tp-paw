@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
@@ -82,7 +83,8 @@ public class ProductHibernateDaoTest {
 		voteList(expected);
 
 		for (ProductSortCriteria psc : ProductSortCriteria.values())
-			testProductSortCriteria(Optional.empty(), psc, expected);
+			for (OrderCriteria orderCriteria : OrderCriteria.values())
+				testProductSortCriteria(Optional.empty(), psc, orderCriteria, expected);
 	}
 
 	@Test // with category filter
@@ -93,7 +95,8 @@ public class ProductHibernateDaoTest {
 
 		for (Category category : Category.values())
 			for (ProductSortCriteria psc : ProductSortCriteria.values())
-				testProductSortCriteria(Optional.of(category), psc, expected);
+				for (OrderCriteria orderCriteria : OrderCriteria.values())
+					testProductSortCriteria(Optional.of(category), psc, orderCriteria, expected);
 	}
 
 	private void voteList(List<Product> expected) {
@@ -108,31 +111,28 @@ public class ProductHibernateDaoTest {
 		}
 	}
 
-	private void testProductSortCriteria(Optional<Category> category, ProductSortCriteria sortCriteria,
-			List<Product> expected) {
-		expected.sort(sortCriteria.getComparator());
+	private void testProductSortCriteria(Optional<Category> category, ProductSortCriteria sortCriteria, OrderCriteria orderCriteria, List<Product> expected) {
+		expected.sort(sortCriteria.getComparator(orderCriteria));
 
 		if (category.isPresent())
-			expected = expected.stream().filter(p -> p.getCategory().equals(category.get()))
-					.collect(Collectors.toList());
+			expected = expected.stream().filter(p -> p.getCategory().equals(category.get())).collect(Collectors.toList());
 
 		List<Product> actual = category.isPresent()
-				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, 0, expected.size())
-				: productDao.getPlainProductsRange(sortCriteria, 0, expected.size());
+				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, orderCriteria, 0, expected.size())
+				: productDao.getPlainProductsRange(sortCriteria, orderCriteria, 0, expected.size());
 
 		assertEqualsList(expected, actual);
 
-		List<Product> halfActual = category.isPresent()
-				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, 0, expected.size() / 2)
-				: productDao.getPlainProductsRange(sortCriteria, 0, expected.size() / 2);
+		List<Product> halfActual = category.isPresent() ? 
+				productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, orderCriteria, 0, expected.size() / 2)
+				: productDao.getPlainProductsRange(sortCriteria, orderCriteria, 0, expected.size() / 2);
 
 		for (int i = 0; i < expected.size() / 2; i++)
 			assertEqualsPlainProducts(expected.get(i), halfActual.get(i));
 
-		List<Product> halfActualOffset = category.isPresent()
-				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, expected.size() / 2,
-						expected.size() / 2)
-				: productDao.getPlainProductsRange(sortCriteria, expected.size() / 2, expected.size() / 2);
+		List<Product> halfActualOffset = category.isPresent() ? 
+				productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, orderCriteria, expected.size() / 2, expected.size() / 2)
+				: productDao.getPlainProductsRange(sortCriteria, orderCriteria, expected.size() / 2, expected.size() / 2);
 
 		for (int i = 0; i < expected.size() / 2; i++)
 			assertEqualsPlainProducts(expected.get(i + expected.size() / 2), halfActualOffset.get(i));

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.Product.ProductBuilder;
 import tp.paw.khet.model.ProductSortCriteria;
@@ -112,12 +113,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> getPlainProductsPaged(final Optional<Category> category, final ProductSortCriteria sortCriteria, 
-			final int page, final int pageSize) {
+			final OrderCriteria order, final int page, final int pageSize) {
 		
 		if (category.isPresent())
-			return productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, (page - 1) * pageSize, pageSize);
+			return productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, order, (page - 1) * pageSize, pageSize);
 
-		return productDao.getPlainProductsRange(sortCriteria, (page - 1) * pageSize, pageSize);
+		return productDao.getPlainProductsRange(sortCriteria, order, (page - 1) * pageSize, pageSize);
 	}
 
 	@Override

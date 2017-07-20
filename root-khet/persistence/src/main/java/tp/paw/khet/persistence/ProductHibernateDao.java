@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.Product.ProductBuilder;
 import tp.paw.khet.model.ProductSortCriteria;
@@ -36,26 +37,28 @@ public class ProductHibernateDao implements ProductDao {
 	private final String selectProductTemplate;
 	private final String selectProductFilterCategoryTemplate;
 	private final EnumMap<ProductSortCriteria, ProductSortCriteriaClause> productSortCriteriaClauseMap;
+	private final EnumMap<OrderCriteria, OrderCriteriaClause> orderCriteriaClauseMap;
 
 	public ProductHibernateDao() {
-		selectProductTemplate = "select p from Product as p ${join} ${group} ORDER BY ${order}";
-
-		selectProductFilterCategoryTemplate = "select p from Product as p ${join} WHERE p.category = :category ${group} ORDER BY ${order}";
-
-		final Map<String, String> whereCategoryValuesMap = new HashMap<>();
-		whereCategoryValuesMap.put("where", "WHERE category = :category");
+		selectProductTemplate = "select p from Product as p ${join} ${group} ORDER BY ${order} ${orderCriteria}";
+		selectProductFilterCategoryTemplate = "select p from Product as p ${join} WHERE p.category = :category ${group} ORDER BY ${order} ${orderCriteria}";
 
 		productSortCriteriaClauseMap = new EnumMap<>(ProductSortCriteria.class);
 		initProductSortCriteriaClauseMap();
+		
+		orderCriteriaClauseMap = new EnumMap<>(OrderCriteria.class);
+		initOrderCriteriaClauseMap();
 	}
 
 	private void initProductSortCriteriaClauseMap() {
-		productSortCriteriaClauseMap.put(ProductSortCriteria.ALPHABETICALLY, new ProductSortCriteriaClause("lower(p.name)"));
-
-		productSortCriteriaClauseMap.put(ProductSortCriteria.RECENT, new ProductSortCriteriaClause("p.uploadDate DESC"));
-
-		productSortCriteriaClauseMap.put(ProductSortCriteria.POPULARITY, new ProductSortCriteriaClause(
-				"left join p.votingUsers as vu", "count(vu) DESC, lower(p.name)", "GROUP BY p"));
+		productSortCriteriaClauseMap.put(ProductSortCriteria.ALPHA, new ProductSortCriteriaClause("lower(p.name)"));
+		productSortCriteriaClauseMap.put(ProductSortCriteria.DATE, new ProductSortCriteriaClause("p.uploadDate"));
+		productSortCriteriaClauseMap.put(ProductSortCriteria.VOTES, new ProductSortCriteriaClause("left join p.votingUsers as vu", "count(vu)", "GROUP BY p"));
+	}
+	
+	private void initOrderCriteriaClauseMap() {
+		orderCriteriaClauseMap.put(OrderCriteria.ASC, new OrderCriteriaClause("ASC"));
+		orderCriteriaClauseMap.put(OrderCriteria.DESC, new OrderCriteriaClause("DESC"));
 	}
 
 	@Override
@@ -162,9 +165,12 @@ public class ProductHibernateDao implements ProductDao {
 	}
 
 	@Override
-	public List<Product> getPlainProductsRangeByCategory(final Category category, final ProductSortCriteria sortCriteria, final int offset, final int length) {
+	public List<Product> getPlainProductsRangeByCategory(final Category category, final ProductSortCriteria sortCriteria, final OrderCriteria orderCriteria, 
+			final int offset, final int length) {
 
-		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductFilterCategoryTemplate);
+		String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductFilterCategoryTemplate);
+		strQuery = orderCriteriaClauseMap.get(orderCriteria).injectIntoTemplate(strQuery);
+		
 		final TypedQuery<Product> query = em.createQuery(strQuery, Product.class);
 		query.setParameter("category", category);
 
@@ -172,8 +178,10 @@ public class ProductHibernateDao implements ProductDao {
 	}
 
 	@Override
-	public List<Product> getPlainProductsRange(final ProductSortCriteria sortCriteria, final int offset, final int length) {
-		final String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductTemplate);
+	public List<Product> getPlainProductsRange(final ProductSortCriteria sortCriteria, final OrderCriteria orderCriteria, final int offset, final int length) {
+		String strQuery = productSortCriteriaClauseMap.get(sortCriteria).injectIntoTemplate(selectProductTemplate);
+		strQuery = orderCriteriaClauseMap.get(orderCriteria).injectIntoTemplate(strQuery);
+
 		final TypedQuery<Product> query = em.createQuery(strQuery, Product.class);
 
 		return pagedResult(query, offset, length);
@@ -186,7 +194,6 @@ public class ProductHibernateDao implements ProductDao {
 	}
 
 	private static class ProductSortCriteriaClause {
-		private final Map<String, String> valuesMap;
 		private final StrSubstitutor substitutor;
 
 		public ProductSortCriteriaClause(final String orderClause) {
@@ -194,7 +201,7 @@ public class ProductHibernateDao implements ProductDao {
 		}
 
 		public ProductSortCriteriaClause(final String joinClause, final String orderClause, final String groupClause) {
-			valuesMap = new HashMap<>();
+			final Map<String, String> valuesMap = new HashMap<>();
 			valuesMap.put("join", joinClause);
 			valuesMap.put("order", orderClause);
 			valuesMap.put("group", groupClause);
@@ -205,5 +212,22 @@ public class ProductHibernateDao implements ProductDao {
 		public String injectIntoTemplate(final String template) {
 			return substitutor.replace(template);
 		}
+	}
+	
+	private static class OrderCriteriaClause {
+		private final StrSubstitutor substitutor;
+		
+		public OrderCriteriaClause(final String orderCriteriaClause) {
+			final Map<String, String> valuesMap = new HashMap<>();
+
+			valuesMap.put("orderCriteria", orderCriteriaClause);
+			
+			substitutor = new StrSubstitutor(valuesMap);
+		}
+		
+		public String injectIntoTemplate(final String template) {
+			return substitutor.replace(template);
+		}
+		
 	}
 }

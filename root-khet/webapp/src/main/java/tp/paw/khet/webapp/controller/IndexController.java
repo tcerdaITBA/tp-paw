@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.exception.ResourceNotFoundException;
@@ -46,7 +47,7 @@ public class IndexController {
 
 		final ModelAndView mav = new ModelAndView("index");
 
-		mav.addObject("products", productService.getPlainProductsPaged(category, sortCriteria, page, PAGE_SIZE));
+		mav.addObject("products", productService.getPlainProductsPaged(category, sortCriteria, OrderCriteria.ASC, page, PAGE_SIZE));
 		mav.addObject("productOrder", sortCriteria);
 		mav.addObject("currentPage", page);
 		mav.addObject("totalPages", maxPage);

@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.model.ProductSortCriteria;
@@ -75,25 +76,24 @@ public class ProductsController {
 
 	@GET
 	@Path("/")
-	public Response getProducts(@QueryParam("category") final String categoryStr,
+	public Response getProducts(@QueryParam("category") final Category category,
 			@DefaultValue("1") @QueryParam("page") int page,
 			@DefaultValue("" + DEFAULT_PAGE_SIZE) @QueryParam("per_page") int pageSize,
-			@DefaultValue("ALPHABETICALLY") @QueryParam("sorted_by") final ProductSortCriteria sortCriteria,
-			@DefaultValue("asc") @QueryParam("order") final String order) {
+			@DefaultValue("date") @QueryParam("sorted_by") final ProductSortCriteria sortCriteria,
+			@DefaultValue("asc") @QueryParam("order") final OrderCriteria order) {
 
-		final Optional<Category> category = Optional.empty();
-
+		final Optional<Category> categoryOpt = Optional.ofNullable(category);			
+		
 		// Ignoro valores inválidos, queda en el default.
 		page = (page < 1) ? 1 : page;
 		pageSize = (pageSize < 1 || pageSize > MAX_PAGE_SIZE) ? DEFAULT_PAGE_SIZE : pageSize; 
 
-		LOGGER.debug("Accesing product list. Category: {}, page: {}, per_page: {}, sort: {}, order: {}", category, page,
+		LOGGER.debug("Accesing product list. Category: {}, page: {}, per_page: {}, sort: {}, order: {}", categoryOpt, page,
 				pageSize, sortCriteria, order);
 		
-		final int maxPage = productService.getMaxProductPageWithSize(category, pageSize);
+		final int maxPage = productService.getMaxProductPageWithSize(categoryOpt, pageSize);
 
-		// TODO: falta usar "order"
-		final List<Product> products = productService.getPlainProductsPaged(category, sortCriteria, page, pageSize);
+		final List<Product> products = productService.getPlainProductsPaged(categoryOpt, sortCriteria, order, page, pageSize);
 
 		final Map<String, Link> links = linkFactory.createLinks(uriContext, page, maxPage);
 		final Link[] linkArray = links.values().toArray(new Link[0]);
