@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.Product;
@@ -14,6 +17,9 @@ import tp.paw.khet.model.Product;
 @XmlRootElement
 public class CollectionDTO {
 	private int id;
+	
+	@NotEmpty
+	@Size(min = 4, max = 64)
 	private String name;
 	private List<PlainProductDTO> products;
 	private int count;

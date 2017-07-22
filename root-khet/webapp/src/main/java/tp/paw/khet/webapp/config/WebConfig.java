@@ -6,6 +6,8 @@ import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -133,6 +135,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
 		return new JpaTransactionManager(emf);
+	}
+	
+	@Bean
+	public Validator validator() {
+		return Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
 	@Override
