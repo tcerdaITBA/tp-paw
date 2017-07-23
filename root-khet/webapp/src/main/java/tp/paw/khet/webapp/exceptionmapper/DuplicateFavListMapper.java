@@ -13,7 +13,7 @@ import tp.paw.khet.webapp.dto.ExceptionDTO;
 public class DuplicateFavListMapper implements ExceptionMapper<DuplicateFavListException> {
 
 	@Override
-	public Response toResponse(DuplicateFavListException exception) {
+	public Response toResponse(final DuplicateFavListException exception) {
 		return Response.status(Status.CONFLICT).entity(new ExceptionDTO("Duplicate collection name")).type(MediaType.APPLICATION_JSON).build();
 	}
 

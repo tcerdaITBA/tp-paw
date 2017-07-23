@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.Product;
@@ -18,7 +18,7 @@ import tp.paw.khet.model.Product;
 public class CollectionDTO {
 	private int id;
 	
-	@NotEmpty
+	@NotBlank
 	@Size(min = 4, max = 64)
 	private String name;
 	private List<PlainProductDTO> products;

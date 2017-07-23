@@ -1,10 +1,7 @@
 package tp.paw.khet.webapp.rest;
 
 import java.net.URI;
-import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,6 +26,7 @@ import tp.paw.khet.model.User;
 import tp.paw.khet.service.FavListService;
 import tp.paw.khet.webapp.dto.CollectionDTO;
 import tp.paw.khet.webapp.exception.DTOValidationException;
+import tp.paw.khet.webapp.validators.DTOConstraintValidator;
 
 @Path("collections")
 @Controller
@@ -47,18 +45,15 @@ public class FavListController {
 	private FavListService favListService;
 	
 	@Autowired
-	private Validator validator;
+	private DTOConstraintValidator DTOValidator;
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/")
 	public Response createCollection(final CollectionDTO collection) throws DuplicateFavListException, DTOValidationException {
 		LOGGER.debug("Accessed createCollection");
-		
-		final Set<ConstraintViolation<CollectionDTO>> constraintViolations = validator.validate(collection);
-				
-		if (!constraintViolations.isEmpty())
-			throw new DTOValidationException("Failed to validate collection", constraintViolations);
+
+		DTOValidator.validate(collection, "Failed to validate collection");
 		
 		final User creator = securityUserService.getLoggedInUser();
 		final FavList favList = favListService.createFavList(collection.getName(), creator.getUserId());
