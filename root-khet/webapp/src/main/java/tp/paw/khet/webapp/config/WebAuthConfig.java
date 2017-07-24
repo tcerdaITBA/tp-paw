@@ -48,6 +48,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 					.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
 				.and().authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/login").anonymous()
+					.antMatchers(HttpMethod.POST, "/users").anonymous()
 					.antMatchers(HttpMethod.POST).authenticated()
 					.antMatchers(HttpMethod.DELETE).authenticated()
 					.antMatchers(HttpMethod.PUT).authenticated()
