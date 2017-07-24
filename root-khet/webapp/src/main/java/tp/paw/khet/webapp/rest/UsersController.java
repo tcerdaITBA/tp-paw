@@ -3,6 +3,7 @@ package tp.paw.khet.webapp.rest;
 import java.net.URI;
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -18,7 +19,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -166,15 +166,15 @@ public class UsersController {
     @POST
     @Path("/")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response createUser(@FormDataParam("user") final FormUser form, @FormDataParam("picture") final FormDataBodyPart pictureBodyPart) 
+    public Response createUser(@FormDataParam("user") final FormUser form, @BeanParam final FormPicture formPicture) 
     		throws DuplicateEmailException, DTOValidationException {
     	
     	LOGGER.debug("Accessed createUser");
     	
     	DTOValidator.validate(form, "Failed to validate user");
-    	DTOValidator.validate(new FormPicture(pictureBodyPart), "Failed to validate picture");
+    	DTOValidator.validate(formPicture, "Failed to validate picture");
     	
-    	final User user = userService.createUser(form.getName(), form.getEmail(), form.getPassword(), pictureBodyPart.getValueAs(byte[].class));
+    	final User user = userService.createUser(form.getName(), form.getEmail(), form.getPassword(), formPicture.getPictureBytes());
 		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(user.getUserId())).build();
 
     	return Response.created(location).entity(new UserDTO(user, uriContext.getBaseUri())).build();
