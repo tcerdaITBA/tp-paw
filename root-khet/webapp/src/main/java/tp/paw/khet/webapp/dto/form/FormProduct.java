@@ -3,6 +3,7 @@ package tp.paw.khet.webapp.dto.form;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +31,8 @@ public class FormProduct {
 
 	@Valid
 	@NoDuplicates
-	private String[] video_ids;
+	@XmlElement(name = "video_ids")
+	private String[] videoIds;
 
 	@Pattern(regexp="app|art|book|fashion|film|food|gadget|game|music|other", flags = Pattern.Flag.CASE_INSENSITIVE)
 	private String category;
@@ -74,12 +76,12 @@ public class FormProduct {
 		this.website = url;
 	}
 
-	public String[] getVideo_ids() {
-		return video_ids == null ? ArrayUtils.EMPTY_STRING_ARRAY : video_ids;
+	public String[] getVideoIds() {
+		return videoIds == null ? ArrayUtils.EMPTY_STRING_ARRAY : videoIds;
 	}
 
-	public void setVideo_ids(String[] videos) {
-		this.video_ids = videos;
+	public void setVideoIds(String[] videos) {
+		this.videoIds = videos;
 	}
 
 	public String getCategory() {

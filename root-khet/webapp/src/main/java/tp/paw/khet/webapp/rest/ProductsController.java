@@ -216,7 +216,7 @@ public class ProductsController {
 		final User creator = securityUserService.getLoggedInUser();
 		final Product product = productService.createProduct(formProduct.getName(), formProduct.getDescription(), formProduct.getTagline(), 
 				formProduct.getWebsite(), formProduct.getAsCategory(), formPictures.getLogoBytes(), 
-				creator.getUserId(), formPictures.getPicturesBytes(), Arrays.asList((formProduct.getVideo_ids())));
+				creator.getUserId(), formPictures.getPicturesBytes(), Arrays.asList((formProduct.getVideoIds())));
 		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(product.getId())).build();
 		
     	return Response.created(location).entity(new ProductDTO(product, uriContext.getBaseUri())).build();
@@ -225,7 +225,7 @@ public class ProductsController {
 	private void performFormValidations(final FormProduct formProduct, final FormProductPictures formPictures) throws DTOValidationException {
 		validator.validate(formProduct, "Failed to validate product");
 		
-		for (String id : formProduct.getVideo_ids())
+		for (String id : formProduct.getVideoIds())
 			validator.validate(new FormVideoId(id), "Failed to validate product");
 		
 		validator.validate(formPictures, "Failed to validate product pictures");
@@ -233,6 +233,6 @@ public class ProductsController {
 		for (FormDataBodyPart bodyPart : formPictures.getPictures())
 			validator.validate(new FormPicture(bodyPart), "Failed to validate product pictures");
 		
-		validator.validate(new FormProductPicturesAndVideos(formPictures.getPictures(), Arrays.asList(formProduct.getVideo_ids())), "Failed to validate product");		
+		validator.validate(new FormProductPicturesAndVideos(formPictures.getPictures(), Arrays.asList(formProduct.getVideoIds())), "Failed to validate product");		
 	}
 }
