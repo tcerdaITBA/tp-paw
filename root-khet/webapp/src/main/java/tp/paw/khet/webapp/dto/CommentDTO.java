@@ -32,12 +32,12 @@ public class CommentDTO {
 	
 	public CommentDTO() {}
 	
-	private CommentDTO(final CommentFamily commentFamily, final URI baseUri) {
+	public CommentDTO(final CommentFamily commentFamily, final URI baseUri) {
 		this(commentFamily.getParentComment(), baseUri);
 		this.children = fromCommentList(commentFamily.getChildComments(), baseUri);
 	}
 	
-	private CommentDTO(final Comment comment, final URI baseUri) {
+	public CommentDTO(final Comment comment, final URI baseUri) {
 		this.id = comment.getId();
 		this.date = comment.getCommentDate();
 		this.content = comment.getContent();

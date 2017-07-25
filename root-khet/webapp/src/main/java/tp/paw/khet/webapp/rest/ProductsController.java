@@ -32,16 +32,20 @@ import org.springframework.stereotype.Controller;
 
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.Comment;
 import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductImage;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
+import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.webapp.dto.CommentDTO;
 import tp.paw.khet.webapp.dto.ProductDTO;
 import tp.paw.khet.webapp.dto.ProductListDTO;
 import tp.paw.khet.webapp.dto.UserListDTO;
+import tp.paw.khet.webapp.dto.form.FormComment;
 import tp.paw.khet.webapp.dto.form.FormPicture;
 import tp.paw.khet.webapp.dto.form.FormProduct;
 import tp.paw.khet.webapp.dto.form.FormProductPictures;
@@ -66,6 +70,9 @@ public class ProductsController {
 	
 	@Autowired
 	private ProductImageService productImageService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	@Autowired
 	private PaginationLinkFactory linkFactory;
@@ -169,6 +176,28 @@ public class ProductsController {
 		}
 		
 		return Response.ok(image.getData()).build();
+	}
+	
+	@POST
+	@Path("{productId}/comments")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response commentProduct(@PathParam("productId") final int productId, final FormComment formComment) throws DTOValidationException {
+		final Product product = productService.getPlainProductById(productId);
+		
+		if (product == null) {
+			LOGGER.debug("Failed to commment product {}, not found", productId);
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		
+		final User user = securityUserService.getLoggedInUser();
+		
+		validator.validate(formComment, "Failed to validate comment");
+		
+		final Comment comment = formComment.hasParentId() ? 
+				commentService.createComment(formComment.getContent(), formComment.getParentId(), productId, user.getUserId()) : 
+				commentService.createParentComment(formComment.getContent(), productId, user.getUserId());
+		
+		return Response.ok(new CommentDTO(comment, uriContext.getBaseUri())).build();
 	}
 	
 	@POST

@@ -12,6 +12,8 @@ public class FormProductPicturesAndVideos {
 	private List<FormDataBodyPart> pictures;
 	private List<String> videos;
 	
+	public FormProductPicturesAndVideos() {}
+	
 	public FormProductPicturesAndVideos(final List<FormDataBodyPart> pictures, final List<String> videos) {
 		this.setPictures(pictures);
 		this.setVideos(videos);

@@ -7,6 +7,8 @@ public class FormVideoId {
 	@Pattern(regexp = "[a-zA-Z0-9_-]{11}")
 	private String video_id;
 	
+	public FormVideoId() {}
+	
 	public FormVideoId(String id) {
 		video_id = id;
 	}
