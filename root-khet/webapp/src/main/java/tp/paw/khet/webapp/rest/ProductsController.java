@@ -178,7 +178,11 @@ public class ProductsController {
 			throws DTOValidationException {
 		LOGGER.debug("Accessed createProduct");
 		
-		performValidations(formProduct, formPictures);
+		// @FormDataParam parameter is optional --> it may be null
+		if (formProduct == null)
+			return Response.status(Status.BAD_REQUEST).build();
+		
+		performFormValidations(formProduct, formPictures);
 		
 		final User creator = securityUserService.getLoggedInUser();
 		final Product product = productService.createProduct(formProduct.getName(), formProduct.getDescription(), formProduct.getTagline(), 
@@ -189,7 +193,7 @@ public class ProductsController {
     	return Response.created(location).entity(new ProductDTO(product, uriContext.getBaseUri())).build();
 	}
 	
-	private void performValidations(final FormProduct formProduct, final FormProductPictures formPictures) throws DTOValidationException {
+	private void performFormValidations(final FormProduct formProduct, final FormProductPictures formPictures) throws DTOValidationException {
 		validator.validate(formProduct, "Failed to validate product");
 		
 		for (String id : formProduct.getVideo_ids())

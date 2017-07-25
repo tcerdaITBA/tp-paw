@@ -166,15 +166,19 @@ public class UsersController {
     @POST
     @Path("/")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response createUser(@FormDataParam("user") final FormUser form, @BeanParam final FormPicture formPicture) 
+    public Response createUser(@FormDataParam("user") final FormUser formUser, @BeanParam final FormPicture formPicture) 
     		throws DuplicateEmailException, DTOValidationException {
     	
     	LOGGER.debug("Accessed createUser");
     	
-    	DTOValidator.validate(form, "Failed to validate user");
+		// @FormDataParam parameter is optional --> it may be null
+		if (formUser == null)
+			return Response.status(Status.BAD_REQUEST).build();
+    	
+    	DTOValidator.validate(formUser, "Failed to validate user");
     	DTOValidator.validate(formPicture, "Failed to validate picture");
     	
-    	final User user = userService.createUser(form.getName(), form.getEmail(), form.getPassword(), formPicture.getPictureBytes());
+    	final User user = userService.createUser(formUser.getName(), formUser.getEmail(), formUser.getPassword(), formPicture.getPictureBytes());
 		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(user.getUserId())).build();
 
     	return Response.created(location).entity(new UserDTO(user, uriContext.getBaseUri())).build();
