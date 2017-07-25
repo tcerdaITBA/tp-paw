@@ -54,21 +54,6 @@ public class FavListController {
 	@Autowired
 	private DTOConstraintValidator DTOValidator;
 	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/")
-	public Response createCollection(final CollectionDTO collection) throws DuplicateFavListException, DTOValidationException {
-		LOGGER.debug("Accessed createCollection");
-
-		DTOValidator.validate(collection, "Failed to validate collection");
-		
-		final User creator = securityUserService.getLoggedInUser();
-		final FavList favList = favListService.createFavList(collection.getName(), creator.getUserId());
-		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(favList.getId())).build();
-				
-		return Response.created(location).entity(new CollectionDTO(favList, uriContext.getBaseUri())).build();
-	}
-	
 	@GET
 	@Path("/{id}")
 	public Response getCollection(@PathParam("id") final int id) {
@@ -86,6 +71,41 @@ public class FavListController {
 		return Response.ok(new CollectionDTO(favList, uriContext.getBaseUri())).build();
 	}
 	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/")
+	public Response createCollection(final CollectionDTO collection) throws DuplicateFavListException, DTOValidationException {
+		LOGGER.debug("Accessed createCollection");
+
+		DTOValidator.validate(collection, "Failed to validate collection");
+		
+		final User creator = securityUserService.getLoggedInUser();
+		final FavList favList = favListService.createFavList(collection.getName(), creator.getUserId());
+		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(favList.getId())).build();
+				
+		return Response.created(location).entity(new CollectionDTO(favList, uriContext.getBaseUri())).build();
+	}
+	
+	@DELETE
+	@Path("/{id}")
+	public Response deleteCollection(@PathParam("id") final int id) {
+		LOGGER.debug("Accessed deleteCollection with ID {}", id);
+		
+		final User user = securityUserService.getLoggedInUser();
+		final FavList favList = favListService.getFavListById(id);
+		
+		if (favList == null)
+			return Response.noContent().build();
+		
+		if (!favList.getCreator().equals(user)) {
+			LOGGER.warn("Forbidden user {} trying to delete collection {} he/she is not owner of", user, favList);
+			return Response.status(Status.FORBIDDEN).build();
+		}
+		
+		favListService.deleteFavList(id);
+		return Response.noContent().build();
+	}
+		
 	@PUT
 	@Path("/{collectionId}/products/{productId}")
 	public Response putProductInCollection(@PathParam("collectionId") final int collectionId, @PathParam("productId") final int productId) {
@@ -114,7 +134,7 @@ public class FavListController {
 		}
 		
 		modifier.modify(collectionId, productId);
-		return Response.status(Status.NO_CONTENT).build();		
+		return Response.noContent().build();		
 	}
 	
 	private interface FavListModifier {
