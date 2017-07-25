@@ -5,6 +5,7 @@ import java.net.URI;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -22,8 +23,10 @@ import org.springframework.stereotype.Controller;
 import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.exception.DuplicateFavListException;
 import tp.paw.khet.model.FavList;
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.FavListService;
+import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.dto.CollectionDTO;
 import tp.paw.khet.webapp.exception.DTOValidationException;
 import tp.paw.khet.webapp.validators.DTOConstraintValidator;
@@ -43,6 +46,9 @@ public class FavListController {
 	
 	@Autowired
 	private FavListService favListService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@Autowired
 	private DTOConstraintValidator DTOValidator;
@@ -77,5 +83,29 @@ public class FavListController {
 		LOGGER.debug("Retrieved favList {}", favList);
 		
 		return Response.ok(new CollectionDTO(favList, uriContext.getBaseUri())).build();
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/{collectionId}/products/{productId}")
+	public Response putProductInCollection(@PathParam("collectionId") final int collectionId, @PathParam("productId") final int productId) {
+		LOGGER.debug("Accessed putProductInCollection with collection ID {} and product ID {}", collectionId, productId);
+		
+		final User user = securityUserService.getLoggedInUser();
+		final FavList favList = favListService.getFavListById(collectionId);
+		final Product product = productService.getPlainProductById(productId);
+		
+		if (favList == null || product == null) {
+			LOGGER.warn("favList with ID {} or product with ID {} not found", collectionId, productId);
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		
+		if (!favList.getCreator().equals(user)) {
+			LOGGER.warn("Forbidden user {} trying to modify collection {} he/she is not owner of", user, favList);
+			return Response.status(Status.FORBIDDEN).build();
+		}
+		
+		favListService.addProductToFavList(collectionId, productId);
+		return Response.status(Status.NO_CONTENT).build();
 	}
 }

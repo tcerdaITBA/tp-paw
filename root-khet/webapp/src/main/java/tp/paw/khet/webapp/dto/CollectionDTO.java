@@ -41,7 +41,7 @@ public class CollectionDTO {
 		name = favList.getName();
 		products = new ArrayList<>();
 		setUrl(baseUri.resolve("collections/" + id));
-		creatorURL = baseUri.resolve("users/" + id);
+		creatorURL = baseUri.resolve("users/" + favList.getCreator().getUserId());
 
 		for (Product p: favList.getProductList())
 			products.add(new PlainProductDTO(p, baseUri));

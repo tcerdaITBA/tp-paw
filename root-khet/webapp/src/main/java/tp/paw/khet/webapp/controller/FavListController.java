@@ -181,7 +181,7 @@ public class FavListController {
 	}
 
 	private FavList retrieveValidFavList(final int favListId) throws FavListNotFoundException {
-		final FavList favList = favListService.getFavListByIdWithCreator(favListId);
+		final FavList favList = favListService.getFavListById(favListId);
 
 		if (favList == null) {
 			LOGGER.warn("Cannot render favList: favlist ID not found: {}", favListId);

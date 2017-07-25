@@ -49,6 +49,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 				.and().authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/login").anonymous()
 					.antMatchers(HttpMethod.POST, "/users").anonymous()
+					.antMatchers("/user/**").authenticated()
 					.antMatchers(HttpMethod.POST).authenticated()
 					.antMatchers(HttpMethod.DELETE).authenticated()
 					.antMatchers(HttpMethod.PUT).authenticated()
