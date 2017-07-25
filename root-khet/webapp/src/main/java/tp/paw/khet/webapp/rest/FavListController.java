@@ -3,6 +3,7 @@ package tp.paw.khet.webapp.rest;
 import java.net.URI;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -86,11 +87,18 @@ public class FavListController {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{collectionId}/products/{productId}")
 	public Response putProductInCollection(@PathParam("collectionId") final int collectionId, @PathParam("productId") final int productId) {
-		LOGGER.debug("Accessed putProductInCollection with collection ID {} and product ID {}", collectionId, productId);
-		
+		return modifyFavList(collectionId, productId, (ci, pi) -> favListService.addProductToFavList(ci, pi));
+	}
+	
+	@DELETE
+	@Path("/{collectionId}/products/{productId}")
+	public Response deleteProductFromCollection(@PathParam("collectionId") final int collectionId, @PathParam("productId") final int productId) {
+		return modifyFavList(collectionId, productId, (ci, pi) -> favListService.removeProductFromFavList(ci, pi));
+	}
+	
+	private Response modifyFavList(final int collectionId, final int productId, final FavListModifier modifier) {
 		final User user = securityUserService.getLoggedInUser();
 		final FavList favList = favListService.getFavListById(collectionId);
 		final Product product = productService.getPlainProductById(productId);
@@ -105,7 +113,11 @@ public class FavListController {
 			return Response.status(Status.FORBIDDEN).build();
 		}
 		
-		favListService.addProductToFavList(collectionId, productId);
-		return Response.status(Status.NO_CONTENT).build();
+		modifier.modify(collectionId, productId);
+		return Response.status(Status.NO_CONTENT).build();		
+	}
+	
+	private interface FavListModifier {
+		abstract void modify(final int collectionId, final int productId);
 	}
 }
