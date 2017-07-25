@@ -1,12 +1,17 @@
 package tp.paw.khet.webapp.rest;
 
+import java.net.URI;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,11 +23,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.model.Category;
 import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
@@ -34,7 +42,14 @@ import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.dto.ProductDTO;
 import tp.paw.khet.webapp.dto.ProductListDTO;
 import tp.paw.khet.webapp.dto.UserListDTO;
+import tp.paw.khet.webapp.dto.form.FormPicture;
+import tp.paw.khet.webapp.dto.form.FormProduct;
+import tp.paw.khet.webapp.dto.form.FormProductPictures;
+import tp.paw.khet.webapp.dto.form.FormProductPicturesAndVideos;
+import tp.paw.khet.webapp.dto.form.FormVideoId;
+import tp.paw.khet.webapp.exception.DTOValidationException;
 import tp.paw.khet.webapp.utils.PaginationLinkFactory;
+import tp.paw.khet.webapp.validators.DTOConstraintValidator;
 
 @Path("products")
 @Controller
@@ -54,6 +69,12 @@ public class ProductsController {
 
 	@Autowired
 	private PaginationLinkFactory linkFactory;
+	
+	@Autowired
+	private DTOConstraintValidator validator;
+	
+	@Autowired
+	private SecurityUserService securityUserService;
 
 	@Context
 	private UriInfo uriContext;
@@ -148,5 +169,37 @@ public class ProductsController {
 		}
 		
 		return Response.ok(image.getData()).build();
+	}
+	
+	@POST
+	@Path("/")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response createProduct(@FormDataParam("product") final FormProduct formProduct, @BeanParam final FormProductPictures formPictures) 
+			throws DTOValidationException {
+		LOGGER.debug("Accessed createProduct");
+		
+		performValidations(formProduct, formPictures);
+		
+		final User creator = securityUserService.getLoggedInUser();
+		final Product product = productService.createProduct(formProduct.getName(), formProduct.getDescription(), formProduct.getTagline(), 
+				formProduct.getWebsite(), formProduct.getAsCategory(), formPictures.getLogoBytes(), 
+				creator.getUserId(), formPictures.getPicturesBytes(), Arrays.asList((formProduct.getVideo_ids())));
+		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(product.getId())).build();
+		
+    	return Response.created(location).entity(new ProductDTO(product, uriContext.getBaseUri())).build();
+	}
+	
+	private void performValidations(final FormProduct formProduct, final FormProductPictures formPictures) throws DTOValidationException {
+		validator.validate(formProduct, "Failed to validate product");
+		
+		for (String id : formProduct.getVideo_ids())
+			validator.validate(new FormVideoId(id), "Failed to validate product");
+		
+		validator.validate(formPictures, "Failed to validate product pictures");
+		
+		for (FormDataBodyPart bodyPart : formPictures.getPictures())
+			validator.validate(new FormPicture(bodyPart), "Failed to validate product pictures");
+		
+		validator.validate(new FormProductPicturesAndVideos(formPictures.getPictures(), Arrays.asList(formProduct.getVideo_ids())), "Failed to validate product");		
 	}
 }

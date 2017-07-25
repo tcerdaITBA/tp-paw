@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
 import tp.paw.khet.model.FavList;
@@ -53,7 +54,7 @@ public class CollectionDTO {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = StringUtils.strip(name);
 	}
 
 	public List<PlainProductDTO> getProducts() {
