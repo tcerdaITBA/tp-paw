@@ -94,8 +94,10 @@ public class FavListController {
 		final User user = securityUserService.getLoggedInUser();
 		final FavList favList = favListService.getFavListById(id);
 		
-		if (favList == null)
+		if (favList == null) {
+			LOGGER.debug("Collections to delete not found");
 			return Response.noContent().build();
+		}
 		
 		if (!favList.getCreator().equals(user)) {
 			LOGGER.warn("Forbidden user {} trying to delete collection {} he/she is not owner of", user, favList);

@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -100,6 +101,28 @@ public class ProductsController {
 		else {
 			return Response.ok(new ProductDTO(product, uriContext.getBaseUri())).build();
 		}
+	}
+	
+	@DELETE
+	@Path("/{id}")
+	public Response deleteProduct(@PathParam("id") final int id) {
+		LOGGER.debug("Accesed deleteProduct with ID: {}", id);
+
+		final Product product = productService.getPlainProductById(id);
+		final User user = securityUserService.getLoggedInUser();
+		
+		if (product == null) {
+			LOGGER.debug("Product to delete not found");
+			return Response.noContent().build();
+		}
+		
+		if (!product.getCreator().equals(user)) {
+			LOGGER.warn("Forbidden user {} trying to delete product {} he/she is not owner of", user, product);
+			return Response.status(Status.FORBIDDEN).build();
+		}
+		
+		productService.deleteProductById(id);
+		return Response.noContent().build();
 	}
 
 	@GET
