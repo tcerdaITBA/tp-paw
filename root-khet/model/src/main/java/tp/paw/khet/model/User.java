@@ -122,13 +122,11 @@ public class User {
 	}
 
 	public boolean voteProduct(final Product product) {
-		return votedProducts.add(notNull(product, "Product to vote by user " + this + "cannot be null"))
-				&& product.addVoter(this);
+		return votedProducts.add(notNull(product, "Product to vote by user " + this + "cannot be null")) && product.addVoter(this);
 	}
 
 	public boolean unvoteProduct(final Product product) {
-		return votedProducts.remove(notNull(product, "Product to unvote by user " + this + " cannot be null"))
-				&& product.removeVoter(this);
+		return votedProducts.remove(notNull(product, "Product to unvote by user " + this + " cannot be null")) && product.removeVoter(this);
 	}
 
 	public SortedSet<FavList> getFavLists() {

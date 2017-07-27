@@ -13,6 +13,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -42,6 +43,7 @@ import tp.paw.khet.model.User;
 import tp.paw.khet.service.CommentService;
 import tp.paw.khet.service.ProductImageService;
 import tp.paw.khet.service.ProductService;
+import tp.paw.khet.service.VoteService;
 import tp.paw.khet.webapp.dto.CommentDTO;
 import tp.paw.khet.webapp.dto.ProductDTO;
 import tp.paw.khet.webapp.dto.ProductListDTO;
@@ -74,6 +76,9 @@ public class ProductsController {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private VoteService voteService;
 
 	@Autowired
 	private PaginationLinkFactory linkFactory;
@@ -244,7 +249,7 @@ public class ProductsController {
 		
     	return Response.created(location).entity(new ProductDTO(product, uriContext.getBaseUri())).build();
 	}
-	
+
 	private void performFormValidations(final FormProduct formProduct, final FormProductPictures formPictures) throws DTOValidationException {
 		validator.validate(formProduct, "Failed to validate product");
 		
@@ -257,5 +262,21 @@ public class ProductsController {
 			validator.validate(new FormPicture(bodyPart), "Failed to validate product pictures");
 		
 		validator.validate(new FormProductPicturesAndVideos(formPictures.getPictures(), Arrays.asList(formProduct.getVideoIds())), "Failed to validate product");		
+	}
+	
+	@PUT
+	@Path("/{id}/votes")
+	public Response voteProduct(@PathParam("id") int productId) {
+		final User voter = securityUserService.getLoggedInUser();
+		voteService.voteProduct(productId, voter.getUserId());
+		return Response.noContent().build();
+	}
+
+	@DELETE
+	@Path("/{id}/votes")
+	public Response unvoteProduct(@PathParam("id") int productId) {
+		final User voter = securityUserService.getLoggedInUser();
+		voteService.unvoteProduct(productId, voter.getUserId());
+		return Response.noContent().build();
 	}
 }
