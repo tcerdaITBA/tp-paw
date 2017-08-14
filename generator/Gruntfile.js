@@ -3,8 +3,9 @@
 'use strict';
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
-
+  
   require('time-grunt')(grunt);
+
 
   var appConfig = {
     app: 'app',
@@ -13,6 +14,11 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: appConfig,
+    karma: {
+        unit: {
+            configFile: 'karma.conf.js'
+        }
+    },
     connect: {
       options: {
         port: 9000,
@@ -383,6 +389,9 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.registerTask('test', ['karma']);
+
   grunt.registerMultiTask('jsrev', 'Use filerev output to create require-js compatible path mappings', function () {
 
     if (!grunt.filerev) {
@@ -450,12 +459,14 @@ module.exports = function (grunt) {
     grunt.log.writeln('File "' + options.outputFile + '" created.');
   });
 
+
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target) {
       return grunt.task.run(['build:' + target, 'connect:dist:keepalive']);
     }
 
     grunt.task.run([
+      'test',
       'clean:server',
       'wiredep:serve',
       'concurrent:server',
@@ -473,6 +484,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', 'Compiles app for production or release candidate', function () {
     grunt.task.run([
+      'karma',
+      // test
       'clean:dist',
       // copy stylesheets, in: app/styles/ out: .tmp/styles
       'copy:styles',

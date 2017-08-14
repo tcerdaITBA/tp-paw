@@ -12,7 +12,7 @@
     "requirejs": "~2.1.11"
   },
   "devDependencies": {
-    "bootstrap": "~3.3.1"
+    "bootstrap": "~3.3.1",
+    "angular-mocks": "^1.6.5"
   }
 }
-
