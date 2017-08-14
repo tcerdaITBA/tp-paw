@@ -4,12 +4,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductImage;
+import tp.paw.khet.model.User;
 import tp.paw.khet.model.Video;
 
 @XmlRootElement
@@ -22,6 +24,7 @@ public class ProductDTO {
 	private UserDTO creator;
 	private List<CommentDTO> comments;
 	private URI url;
+	private boolean voted;
 	
 	@XmlElement(name = "tagline")
 	private String shortDescription;
@@ -44,7 +47,7 @@ public class ProductDTO {
 	@XmlElement(name = "voters_url")
 	private URI votersURL;
 
-	public ProductDTO(final Product product, final URI baseUri) {
+	public ProductDTO(final Product product, final URI baseUri, final Optional<User> loggedUser) {
 		id = product.getId();
 		name = product.getName();
 		description = product.getDescription();
@@ -55,6 +58,7 @@ public class ProductDTO {
 		votersCount = product.getVotesCount();
 		creator = new UserDTO(product.getCreator(), baseUri);
 		comments = CommentDTO.fromCommentFamilyList(product.getCommentFamilies(), baseUri);
+		setVoted(loggedUser.filter(product::isVotedBy).isPresent());
 		
 		url = baseUri.resolve("products/" + id);
 		logoURL = baseUri.resolve("products/" + id + "/logo");
@@ -71,7 +75,7 @@ public class ProductDTO {
 	}
 
 	public ProductDTO() {
-	};
+	}
 
 	public int getId() {
 		return id;
@@ -191,5 +195,13 @@ public class ProductDTO {
 
 	public void setUrl(URI url) {
 		this.url = url;
+	}
+
+	public boolean isVoted() {
+		return voted;
+	}
+
+	public void setVoted(boolean voted) {
+		this.voted = voted;
 	}
 }

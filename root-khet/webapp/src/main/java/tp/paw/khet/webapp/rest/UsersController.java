@@ -2,6 +2,7 @@ package tp.paw.khet.webapp.rest;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
@@ -25,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.Product;
@@ -48,6 +50,9 @@ public class UsersController {
 	public static final int MAX_PAGE_SIZE = 100;
 	public static final int DEFAULT_PAGE_SIZE = 20;
 
+	@Autowired
+	private SecurityUserService securityUserService;
+	
     @Autowired
     private UserService userService;
 
@@ -98,7 +103,8 @@ public class UsersController {
     	final List<FavList> favLists = userService.getFavListsByUserId(id, page, pageSize);
     	final Link[] linkArray = linkFactory.createLinks(uriContext, page, maxPage).values().toArray(new Link[0]);
     	
-        return Response.ok(new CollectionListDTO(favLists, uriContext.getBaseUri())).links(linkArray).build();
+        return Response.ok(new CollectionListDTO(favLists, uriContext.getBaseUri(), 
+        		Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
 
 	@GET
@@ -121,7 +127,8 @@ public class UsersController {
     	final List<Product> votedProducts = userService.getVotedProductsByUserId(id, page, pageSize);
     	final Link[] linkArray = linkFactory.createLinks(uriContext, page, maxPage).values().toArray(new Link[0]);
     	    	
-    	return Response.ok(new ProductListDTO(votedProducts, uriContext.getBaseUri())).links(linkArray).build();
+    	return Response.ok(new ProductListDTO(votedProducts, uriContext.getBaseUri(), 
+    			Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
     
     @GET
@@ -144,7 +151,8 @@ public class UsersController {
     	final List<Product> createdProducts = userService.getCreatedProductsByUserId(id, page, pageSize);
     	final Link[] linkArray = linkFactory.createLinks(uriContext, page, maxPage).values().toArray(new Link[0]);
     	    	
-    	return Response.ok(new ProductListDTO(createdProducts, uriContext.getBaseUri())).links(linkArray).build();
+    	return Response.ok(new ProductListDTO(createdProducts, uriContext.getBaseUri(), 
+    			Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
     
     @GET

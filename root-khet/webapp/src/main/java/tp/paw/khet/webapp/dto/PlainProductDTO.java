@@ -2,11 +2,13 @@ package tp.paw.khet.webapp.dto;
 
 import java.net.URI;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
 
 // TODO: ver si FullProductDTO puede extender de este para no repetir código
 // No me anduvo porque no reconoce que FullProduct tiene los campos de PlainProduct.
@@ -19,6 +21,7 @@ public class PlainProductDTO {
 	private String tagline;
 	private String category;
 	private URI url;
+	private boolean voted;
 	
 	@XmlElement(name = "logo_url")
 	private URI logoURL;
@@ -35,15 +38,16 @@ public class PlainProductDTO {
 	@XmlElement(name = "voters_count")
 	private int votersCount;
 	
-	public PlainProductDTO() {};
+	public PlainProductDTO() {}
 	
-	public PlainProductDTO(final Product product, final URI baseUri) {
+	public PlainProductDTO(final Product product, final URI baseUri, final Optional<User> loggedUser) {
 		id = product.getId();
 		name = product.getName();
 		tagline = product.getShortDescription();
 		category = product.getCategory().getLowerName();
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
+		setVoted(loggedUser.filter(product::isVotedBy).isPresent());
 		
 		url = baseUri.resolve("products/" + id);
 		creatorURL = baseUri.resolve("users/" + id);
@@ -113,5 +117,13 @@ public class PlainProductDTO {
 
 	public void setVotersCount(int votersCount) {
 		this.votersCount = votersCount;
+	}
+
+	public boolean isVoted() {
+		return voted;
+	}
+
+	public void setVoted(boolean voted) {
+		this.voted = voted;
 	}
 }

@@ -176,6 +176,10 @@ public class Product {
 	public boolean removeVoter(final User user) {
 		return votingUsers.remove(notNull(user, "Voter to remove from product " + this + " cannot be null"));
 	}
+	
+	public boolean isVotedBy(final User user) {
+		return votingUsers.contains(user);
+	}
 
 	public int getVotesCount() {
 		return getVotingUsers().size();
