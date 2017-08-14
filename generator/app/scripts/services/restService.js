@@ -2,8 +2,9 @@
 define(['productSeek', 'jquery'], 
 	function(productSeek) {
 		return productSeek.factory('restService', function($http, url) {
-			function doGet(baseUrl, params, successCB, errorCB) {
-				return  $http.get(baseUrl + '?' + jQuery.param(params))
+			function doGet(baseUrl, params) {
+				var params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
+				return  $http.get(baseUrl + params)
 						.then(function(response) {
 							return response.data;
 						})
@@ -13,16 +14,14 @@ define(['productSeek', 'jquery'],
 			}
 			
 			return {
-				// TODO: capaz se puede usar algo tipo un Builder para hacerlo más copado
-				getProducts: function(category, page, pageSize, orderBy, order) {
-					var params = {category: category, page: page, per_page: pageSize, sorted_by: orderBy, order: order};
+				getProducts: function(params) {
 					return doGet(url + '/products', params);
 				},
 				getProduct: function(id) {
 					return doGet(url + '/products/' + id, {});
 				},
-				getComments: function(id, page, pageSize) {
-					return doGet(url + '/products/' + id + '/comments', {page: page, per_page: pageSize});
+				getComments: function(id, params) {
+					return doGet(url + '/products/' + id + '/comments', params);
 				},
 				getCollectionsForUser: function(id) {
 					return doGet(url + '/users/' + id + '/collections', {});
@@ -36,15 +35,15 @@ define(['productSeek', 'jquery'],
 				getPostedByUser: function(id) {
 					return doGet(url + '/users/' + id + '/posted');
 				},
-				getProductVoters: function(id, page, pageSize) {
-					return doGet(url + '/product/' + id + '/voters', {page:page, per_page: pageSize});
+				getProductVoters: function(id, params) {
+					return doGet(url + '/product/' + id + '/voters', params);
 				},
-				searchProducts: function(query, page, pageSize) {
-					return doGet(url + '/search/products', {q: query, page: page, per_page: pageSize});
+				searchProducts: function(query, params) {
+					return doGet(url + '/search/products', params);
 				},
-				searchUsers: function(query, page, pageSize) {
-					return doGet(url + '/search/users', {q: query, page: page, per_page: pageSize});
-				},
+				searchUsers: function(query, params) {
+					return doGet(url + '/search/users', params);
+				}
 			}
 		});
 	}
