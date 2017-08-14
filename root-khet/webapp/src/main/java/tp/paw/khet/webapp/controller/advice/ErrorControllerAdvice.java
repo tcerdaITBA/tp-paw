@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import tp.paw.khet.controller.auth.SecurityUserService;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.service.ProductService;
 import tp.paw.khet.webapp.controller.mav.ErrorMav;
@@ -36,7 +37,7 @@ public class ErrorControllerAdvice {
 		final ErrorMav errorMav = new ErrorMav(errorPageTitle, errorTitle, errorCause, errorDesc);
 		errorMav.addObject("loggedUser", securityUserService.getLoggedInUser());
 		errorMav.addObject("topProducts", productService.getPlainProductsPaged(Optional.empty(),
-				ProductSortCriteria.POPULARITY, 1, ProductControllerAdvice.TOP));
+				ProductSortCriteria.VOTES, OrderCriteria.DESC, 1, ProductControllerAdvice.TOP));
 		return errorMav;
 	}
 

@@ -14,6 +14,14 @@ public class ProductKeywordQueryBuilder extends EntityKeywordQueryBuilder {
 	private final String[] fields = { FIRST_SEARCH_FIELD, SECOND_SEARCH_FIELD };
 
 	public String buildQuery(final Set<String> keywords, final Map<String, String> keyWordsRegExp) {
-		return buildQuery(keywords, keyWordsRegExp, fields);
+		return buildPlainQuery(keywords, keyWordsRegExp) + " ORDER BY lower(p.name)";
+	}
+	
+	public String buildCountQuery(final Set<String> keywords, final Map<String, String> keyWordsRegExp) {
+		return "select count(*) " + buildPlainQuery(keywords, keyWordsRegExp);
+	}
+	
+	private String buildPlainQuery(final Set<String> keywords, final Map<String, String> keyWordsRegExp) {
+		return "from Product as p where " + super.buildQuery(keywords, keyWordsRegExp, fields);
 	}
 }

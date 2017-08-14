@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.service.ProductService;
@@ -21,6 +22,6 @@ public class ProductControllerAdvice {
 
 	@ModelAttribute("topProducts")
 	public List<Product> topProducts() {
-		return productService.getPlainProductsPaged(Optional.empty(), ProductSortCriteria.POPULARITY, 1, TOP);
+		return productService.getPlainProductsPaged(Optional.empty(), ProductSortCriteria.VOTES, OrderCriteria.DESC, 1, TOP);
 	}
 }

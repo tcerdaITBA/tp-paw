@@ -16,6 +16,10 @@ public class VideoStringWrapper {
 	@Pattern(regexp = YOUTUBE_REGEX)
 	private String url;
 
+	public VideoStringWrapper(String url) {
+		this.url = url;
+	}
+	
 	public String getUrl() {
 		return url;
 	}

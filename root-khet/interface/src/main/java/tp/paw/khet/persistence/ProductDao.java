@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
@@ -36,17 +37,6 @@ public interface ProductDao {
 			Category category, Date uploadDate, byte[] logo, User creator);
 
 	/**
-	 * Lists product created by {@link User} as a {@link Product} with the given
-	 * userId.
-	 * 
-	 * @param userId
-	 *            - ID of the creator
-	 * @return List of products. Empty in case the user did not create any
-	 *         product
-	 */
-	public List<Product> getPlainProductsByUserId(int userId);
-
-	/**
 	 * Retrieves the total amount of products registered.
 	 * 
 	 * @return The number of products.
@@ -54,8 +44,7 @@ public interface ProductDao {
 	public int getTotalProducts();
 
 	/**
-	 * Retrieves the total amount of products registered for a given
-	 * {@link Category}.
+	 * Retrieves the total amount of products registered for a given {@link Category}.
 	 * 
 	 * @param category
 	 *            - Category the products belong to.
@@ -67,37 +56,32 @@ public interface ProductDao {
 	 * Lists a range of {@link Product} belonging to certain {@link Category}.
 	 * Products are sorted by the given {@link ProductSortCriteria}.
 	 * 
-	 * @param category
-	 *            - Category the products belong to
-	 * @param sortCriteria
-	 *            - Criteria by which products will be sorted
-	 * @param offset
-	 *            - Offset in the list of all products.
-	 * @param length
-	 *            - Length of the range to be retrieved
+	 * @param category - Category the products belong to
+	 * @param sortCriteria - Criteria by which products will be sorted
+	 * @param order - Whether the result list should be ascendent or descendent sorted. See {@link OrderCriteria}.
+	 * @param offset - Offset in the list of all products.
+	 * @param length - Length of the range to be retrieved
 	 * @return {@link List} of the products in the given range. Could be empty
 	 *         if offset is greater than the total number of products belonging
 	 *         to the given {@link Category}. The amount of products retrieved
 	 *         could be less than the length given.
 	 */
 	public List<Product> getPlainProductsRangeByCategory(Category category, ProductSortCriteria sortCriteria,
-			int offset, int length);
+			OrderCriteria order, int offset, int length);
 
 	/**
 	 * Lists a range of {@link Product}. Products are sorted by the given
 	 * {@link ProductSortCriteria}.
 	 * 
-	 * @param sortCriteria
-	 *            - Criteria by which products will be sorted
-	 * @param offset
-	 *            - Offset in the list of all products.
-	 * @param length
-	 *            - Length of the range to be retrieved
+	 * @param sortCriteria - Criteria by which products will be sorted
+	 * @param order - Whether the result list should be ascendent or descendent sorted. See {@link OrderCriteria}.
+	 * @param offset - Offset in the list of all products.
+	 * @param length - Length of the range to be retrieved
 	 * @return {@link List} of the products in the given range. Could be empty
 	 *         if offset is greater than the total number of products. The
 	 *         amount of products retrieved could be less than the length given.
 	 */
-	public List<Product> getPlainProductsRange(ProductSortCriteria sortCriteria, int offset, int length);
+	public List<Product> getPlainProductsRange(ProductSortCriteria sortCriteria, OrderCriteria order, int offset, int length);
 
 	/**
 	 * Retrieves a {@link Product} with every attribute set except for the
@@ -150,4 +134,11 @@ public interface ProductDao {
 	 */
 	public List<Product> getPlainProductsByKeyword(Set<String> keywords, int offset, int length);
 
+	/**
+	 * Retrieves the total amount of products which matches with the given set of keywords.
+	 * 
+	 * @param validKeywords - The set of keywords which should be matched
+	 * @return The total amount of products which matches with the given set of keywords.
+	 */
+	public int getTotalProductsByKeyword(Set<String> validKeywords);
 }

@@ -7,7 +7,7 @@ public enum Category {
 		return this.name().toLowerCase();
 	}
 
-	public String getName() {
-		return this.name();
+	public static Category fromString(final String str) {
+		return valueOf(str.toUpperCase());
 	}
 }

@@ -1,7 +1,7 @@
-define(['productSeek'], function(productSeek) {
+define(['productSeek', 'services/restService'], function(productSeek, restService) {
 
     'use strict';
-    productSeek.controller('about', function($scope) {
+    productSeek.controller('about', ['$scope', 'restService', function($scope, restService) {
         $scope.abouts = [{text: 'Product Seek', likes: 0}];       
 
         $scope.addAbout = function() {
@@ -17,6 +17,24 @@ define(['productSeek'], function(productSeek) {
             if (about.likes > 0)
                 about.likes -= 1;
         }
-    });
+				
+		$scope.test = function() {
+			restService.getProducts({page: 2, per_page: 3})
+			.then(function(data) { // success
+				console.log(data);
+			})
+			.catch(function(data) { // error
+				console.log('ERROR GETTING PRODUCTS');
+			});
+			
+			restService.getProduct(33)
+			.then(function(data) {
+				console.log(data);
+			})
+			.catch(function(data) {
+				console.log('ERROR GETTING PRODUCTS');
+			});
+		}
+    }]);
 
 });

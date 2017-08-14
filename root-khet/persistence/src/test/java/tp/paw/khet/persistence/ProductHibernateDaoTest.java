@@ -9,7 +9,6 @@ import static tp.paw.khet.model.ProductTestUtils.assertEqualsFullProducts;
 import static tp.paw.khet.model.ProductTestUtils.assertEqualsPlainProducts;
 import static tp.paw.khet.model.ProductTestUtils.dummyProduct;
 import static tp.paw.khet.model.ProductTestUtils.dummyProductList;
-import static tp.paw.khet.model.ProductTestUtils.dummyProductListWithUserId;
 import static tp.paw.khet.model.ProductTestUtils.logoFromProduct;
 import static tp.paw.khet.model.UserTestUtils.dummyUserList;
 import static tp.paw.khet.model.UserTestUtils.profilePictureFromUser;
@@ -34,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.exception.DuplicateEmailException;
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
 import tp.paw.khet.model.User;
@@ -83,7 +83,8 @@ public class ProductHibernateDaoTest {
 		voteList(expected);
 
 		for (ProductSortCriteria psc : ProductSortCriteria.values())
-			testProductSortCriteria(Optional.empty(), psc, expected);
+			for (OrderCriteria orderCriteria : OrderCriteria.values())
+				testProductSortCriteria(Optional.empty(), psc, orderCriteria, expected);
 	}
 
 	@Test // with category filter
@@ -94,7 +95,8 @@ public class ProductHibernateDaoTest {
 
 		for (Category category : Category.values())
 			for (ProductSortCriteria psc : ProductSortCriteria.values())
-				testProductSortCriteria(Optional.of(category), psc, expected);
+				for (OrderCriteria orderCriteria : OrderCriteria.values())
+					testProductSortCriteria(Optional.of(category), psc, orderCriteria, expected);
 	}
 
 	private void voteList(List<Product> expected) {
@@ -109,31 +111,28 @@ public class ProductHibernateDaoTest {
 		}
 	}
 
-	private void testProductSortCriteria(Optional<Category> category, ProductSortCriteria sortCriteria,
-			List<Product> expected) {
-		expected.sort(sortCriteria.getComparator());
+	private void testProductSortCriteria(Optional<Category> category, ProductSortCriteria sortCriteria, OrderCriteria orderCriteria, List<Product> expected) {
+		expected.sort(sortCriteria.getComparator(orderCriteria));
 
 		if (category.isPresent())
-			expected = expected.stream().filter(p -> p.getCategory().equals(category.get()))
-					.collect(Collectors.toList());
+			expected = expected.stream().filter(p -> p.getCategory().equals(category.get())).collect(Collectors.toList());
 
 		List<Product> actual = category.isPresent()
-				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, 0, expected.size())
-				: productDao.getPlainProductsRange(sortCriteria, 0, expected.size());
+				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, orderCriteria, 0, expected.size())
+				: productDao.getPlainProductsRange(sortCriteria, orderCriteria, 0, expected.size());
 
 		assertEqualsList(expected, actual);
 
-		List<Product> halfActual = category.isPresent()
-				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, 0, expected.size() / 2)
-				: productDao.getPlainProductsRange(sortCriteria, 0, expected.size() / 2);
+		List<Product> halfActual = category.isPresent() ? 
+				productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, orderCriteria, 0, expected.size() / 2)
+				: productDao.getPlainProductsRange(sortCriteria, orderCriteria, 0, expected.size() / 2);
 
 		for (int i = 0; i < expected.size() / 2; i++)
 			assertEqualsPlainProducts(expected.get(i), halfActual.get(i));
 
-		List<Product> halfActualOffset = category.isPresent()
-				? productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, expected.size() / 2,
-						expected.size() / 2)
-				: productDao.getPlainProductsRange(sortCriteria, expected.size() / 2, expected.size() / 2);
+		List<Product> halfActualOffset = category.isPresent() ? 
+				productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, orderCriteria, expected.size() / 2, expected.size() / 2)
+				: productDao.getPlainProductsRange(sortCriteria, orderCriteria, expected.size() / 2, expected.size() / 2);
 
 		for (int i = 0; i < expected.size() / 2; i++)
 			assertEqualsPlainProducts(expected.get(i + expected.size() / 2), halfActualOffset.get(i));
@@ -157,16 +156,6 @@ public class ProductHibernateDaoTest {
 		assertNull(productDao.getFullProductById(2));
 
 		assertEqualsPlainProducts(expected, productDao.getPlainProductById(1));
-	}
-
-	@Test
-	public void getPlainProductsByUserIdTest() {
-		List<Product> expected = dummyProductListWithUserId(LIST_SIZE, 1, 1);
-		insertProducts(expected);
-
-		List<Product> actual = productDao.getPlainProductsByUserId(1);
-
-		assertEqualsReversedSortedList(expected, actual);
 	}
 
 	@Test
@@ -258,18 +247,6 @@ public class ProductHibernateDaoTest {
 			String shouldBeLower = actual.get(i - 1).getName();
 			String shouldBeHiger = actual.get(i).getName();
 			assertTrue(shouldBeLower.compareToIgnoreCase(shouldBeHiger) < 0);
-		}
-	}
-
-	private void assertEqualsReversedSortedList(List<Product> expected, List<Product> actual) {
-		assertEquals(expected.size(), actual.size());
-
-		for (int i = 0; i < expected.size(); i++) {
-			Product expectedProduct = expected.get(expected.size() - i - 1);
-			Product actualProduct = actual.get(i);
-			assertEqualsFullProducts(expectedProduct, actualProduct);
-			if (i > 0)
-				assertTrue(actualProduct.getId() < actual.get(i - 1).getId());
 		}
 	}
 

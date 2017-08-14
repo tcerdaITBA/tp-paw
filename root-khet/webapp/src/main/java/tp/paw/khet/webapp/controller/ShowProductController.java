@@ -76,7 +76,7 @@ public class ShowProductController {
 		mav.addObject("images", productImageService.getImagesIdsFromProduct(product));
 		mav.addObject("parentcomments", product.getCommentFamilies());
 		mav.addObject("voters", product.getVotingUsers());
-		mav.addObject("votersresume", voteService.getAlphabeticallySortedVotersFromProduct(product, VOTERS_TO_SHOW));
+		mav.addObject("votersresume", voteService.getAlphabeticallySortedVotersFromProduct(product, 1, VOTERS_TO_SHOW));
 
 		return mav;
 	}
@@ -135,8 +135,7 @@ public class ShowProductController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = { MediaType.IMAGE_PNG_VALUE,
-			MediaType.IMAGE_JPEG_VALUE })
+	@RequestMapping(value = "/product/{productId}/image/{imageId}", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	public byte[] getProductImage(@PathVariable final int productId, @PathVariable final int imageId)
 			throws ProductNotFoundException {
 
@@ -158,8 +157,7 @@ public class ShowProductController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/product/{productId}/logo", produces = { MediaType.IMAGE_PNG_VALUE,
-			MediaType.IMAGE_JPEG_VALUE })
+	@RequestMapping(value = "/product/{productId}/logo", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	public byte[] deliverLogo(@PathVariable(value = "productId") int productId) throws ProductNotFoundException {
 
 		final Product product = productService.getPlainProductById(productId);
