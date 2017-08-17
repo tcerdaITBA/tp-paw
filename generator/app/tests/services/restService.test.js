@@ -1,4 +1,4 @@
-define(['services/restService', 'productSeek', 'angular-mocks'], function() {
+define(['services/restService', 'angular-mocks'], function() {
 
     describe('Rest Service', function() {
     	var restService, url, $httpBackend, $q;
@@ -53,8 +53,5 @@ define(['services/restService', 'productSeek', 'angular-mocks'], function() {
 
             });
         });
-
-        describe('.')
-
     });
 });
