@@ -1,6 +1,6 @@
-define(['productSeek', 'services/restService'], function(productSeek, restService) {
+'use strict';
+define(['productSeek', 'services/restService'], function(productSeek) {
 
-    'use strict';
     productSeek.controller('about', ['$scope', 'restService', function($scope, restService) {
         $scope.abouts = [{text: 'Product Seek', likes: 0}];       
 
@@ -32,7 +32,7 @@ define(['productSeek', 'services/restService'], function(productSeek, restServic
 				console.log(data);
 			})
 			.catch(function(data) {
-				console.log('ERROR GETTING PRODUCTS');
+				console.log('ERROR GETTING PRODUCT 33');
 			});
 		}
     }]);

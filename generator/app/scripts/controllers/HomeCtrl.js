@@ -3,14 +3,14 @@ define(['productSeek', 'services/restService', 'directives/productItem'], functi
 
 	productSeek.controller('HomeCtrl', ['$scope', 'restService', function($scope, restService) {
 		$scope.homePageText = 'NICE HOMEPAGE';
-		// TODO: categoría, orden, sort, pageSize
-		restService.getProducts(undefined, 1, 20, undefined, undefined,
-		function(data) {
+
+        restService.getProducts({page: 1, pageSize: 20})
+        .then(function(data) {
 			console.log(data);
 			$scope.productsData = data;	
-		}, 
-		function(data) {
-			$scope.error = true; // Algo para comunicar mensaje de problema de conexión
 		})
+        .catch(function(data) {
+			$scope.error = true; // Algo para comunicar mensaje de problema de conexión
+		});
 	}]);
 });

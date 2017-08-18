@@ -2,7 +2,9 @@ define(['services/restService', 'angular-mocks'], function() {
 
     describe('Rest Service', function() {
     	var restService, url, $httpBackend, $q;
-    	var DUMMY_USER = {name: 'tomaco', id: '1'};
+    	var DUMMY_USER = {id: '1', name: 'tomaco'};
+        var DUMMY_PRODUCTS = [{id: '1', name: 'slime rancher', category: 'game'}, 
+                              {id: '2', name: 'apple watch', category: 'gadget'}];
         var RESPONSE_ERROR = {detail: 'Not found.'};
 
     	beforeEach(module('productSeek'));
@@ -23,7 +25,7 @@ define(['services/restService', 'angular-mocks'], function() {
 
  			it('should be defined', function() {
 				expect(restService.getUser).toBeDefined();
-			})
+			});
 
         	it('should return a valid user given an id', function() {
 
@@ -50,7 +52,40 @@ define(['services/restService', 'angular-mocks'], function() {
                 $httpBackend.flush(); // Performs the http response
 
                 expect(response).toEqual(RESPONSE_ERROR);
+            });
+        });
+        
+        describe('.getProducts()', function() {
+            var response;
 
+ 			it('should be defined', function() {
+				expect(restService.getProducts).toBeDefined();
+			});
+           
+            it('should return a valid list of products given no parameters', function() {
+        		$httpBackend.whenGET(url + '/products').respond(200, $q.when(DUMMY_PRODUCTS));
+
+        		restService.getProducts()
+        		.then(function(res) {
+        			response = res;
+        		});
+
+        		$httpBackend.flush(); // Performs the http response
+
+        		expect(response).toEqual(DUMMY_PRODUCTS);
+            });
+            
+            it('should return a valid list of products given query parameters', function() {
+        		$httpBackend.whenGET(url + '/products?per_page=1&page=1&sorted_by=votes&category=game&order=asc').respond(200, $q.when(DUMMY_PRODUCTS[0]));
+
+        		restService.getProducts({pageSize: 1, page: 1, orderBy: 'votes', category: 'game', order: 'asc'})
+        		.then(function(res) {
+        			response = res;
+        		});
+
+        		$httpBackend.flush(); // Performs the http response
+
+        		expect(response).toEqual(DUMMY_PRODUCTS[0]);
             });
         });
     });
