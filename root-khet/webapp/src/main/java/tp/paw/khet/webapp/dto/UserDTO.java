@@ -27,7 +27,7 @@ public class UserDTO {
     private URI createdProductsURL;
 
 	public UserDTO() {
-	};
+	}
 
 	public UserDTO(final User user, final URI baseUri) {
 		id = user.getUserId();

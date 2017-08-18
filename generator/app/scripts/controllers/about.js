@@ -18,22 +18,23 @@ define(['productSeek', 'services/restService'], function(productSeek, restServic
                 about.likes -= 1;
         }
 				
-				$scope.test = function() {
-					restService.getProducts(
-					/* category */undefined, 2 /* page */ , 3 /* per-page */, undefined /*sort*/ , undefined /* order */,  
-					function(data) { // success
-						console.log(data);
-					}, function(data) { // error
-						console.log('ERROR GETTING PRODUCTS');
-					});
-					
-					restService.getProduct(33, 
-					function(data) { // success
-						console.log(data);
-					}, function(data) { // error
-						console.log('ERROR GETTING PRODUCTS');
-					});
-				}
+		$scope.test = function() {
+			restService.getProducts({page: 2, per_page: 3})
+			.then(function(data) { // success
+				console.log(data);
+			})
+			.catch(function(data) { // error
+				console.log('ERROR GETTING PRODUCTS');
+			});
+			
+			restService.getProduct(33)
+			.then(function(data) {
+				console.log(data);
+			})
+			.catch(function(data) {
+				console.log('ERROR GETTING PRODUCTS');
+			});
+		}
     }]);
 
 });

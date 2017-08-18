@@ -104,7 +104,7 @@ public class ProductsController {
 			return Response.status(Status.NOT_FOUND).build();
 		} 
 		else {
-			return Response.ok(new ProductDTO(product, uriContext.getBaseUri())).build();
+			return Response.ok(new ProductDTO(product, uriContext.getBaseUri(), Optional.ofNullable(securityUserService.getLoggedInUser()))).build();
 		}
 	}
 	
@@ -155,7 +155,8 @@ public class ProductsController {
 		final Link[] linkArray = links.values().toArray(new Link[0]);
 
 		LOGGER.debug("Links: {}", links);
-		return Response.ok(new ProductListDTO(products, uriContext.getBaseUri())).links(linkArray).build();
+		return Response.ok(new ProductListDTO(products, uriContext.getBaseUri(), 
+				Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
 	}
 
 	@GET
@@ -247,7 +248,8 @@ public class ProductsController {
 				creator.getUserId(), formPictures.getPicturesBytes(), Arrays.asList((formProduct.getVideoIds())));
 		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(product.getId())).build();
 		
-    	return Response.created(location).entity(new ProductDTO(product, uriContext.getBaseUri())).build();
+    	return Response.created(location).entity(new ProductDTO(product, uriContext.getBaseUri(), 
+    			Optional.ofNullable(securityUserService.getLoggedInUser()))).build();
 	}
 
 	private void performFormValidations(final FormProduct formProduct, final FormProductPictures formPictures) throws DTOValidationException {

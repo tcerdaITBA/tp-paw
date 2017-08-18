@@ -1,6 +1,7 @@
 package tp.paw.khet.webapp.rest;
 
 import java.net.URI;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -68,7 +69,8 @@ public class FavListController {
 		
 		LOGGER.debug("Retrieved favList {}", favList);
 		
-		return Response.ok(new CollectionDTO(favList, uriContext.getBaseUri())).build();
+		return Response.ok(new CollectionDTO(favList, uriContext.getBaseUri(), 
+				Optional.ofNullable(securityUserService.getLoggedInUser()))).build();
 	}
 	
 	@POST
@@ -83,7 +85,8 @@ public class FavListController {
 		final FavList favList = favListService.createFavList(collection.getName(), creator.getUserId());
 		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(favList.getId())).build();
 				
-		return Response.created(location).entity(new CollectionDTO(favList, uriContext.getBaseUri())).build();
+		return Response.created(location).entity(new CollectionDTO(favList, uriContext.getBaseUri(), 
+				Optional.ofNullable(securityUserService.getLoggedInUser()))).build();
 	}
 	
 	@DELETE

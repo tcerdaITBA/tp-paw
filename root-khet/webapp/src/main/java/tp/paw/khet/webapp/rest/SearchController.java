@@ -1,6 +1,7 @@
 package tp.paw.khet.webapp.rest;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import tp.paw.khet.controller.auth.SecurityUserService;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 import tp.paw.khet.service.ProductService;
@@ -34,6 +36,9 @@ public class SearchController {
 
     @Autowired
     private ProductService productService;
+    
+    @Autowired
+    private SecurityUserService securityUserService;
     
     @Autowired
     private UserService userService;
@@ -69,7 +74,8 @@ public class SearchController {
         final Link[] linkArray = links.values().toArray(new Link[0]);
 
         LOGGER.debug("Links: {}", links);
-        return Response.ok(new ProductListDTO(products, uriContext.getBaseUri())).links(linkArray).build();
+        return Response.ok(new ProductListDTO(products, uriContext.getBaseUri(), 
+        		Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
     
     @GET

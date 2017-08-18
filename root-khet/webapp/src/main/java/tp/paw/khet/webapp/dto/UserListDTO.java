@@ -11,7 +11,7 @@ public class UserListDTO {
 	private int count;
 	
 	public UserListDTO() {
-	};
+	}
 
 	public UserListDTO(final List<User> users, final URI baseUri) {
 		this.users = new LinkedList<>();

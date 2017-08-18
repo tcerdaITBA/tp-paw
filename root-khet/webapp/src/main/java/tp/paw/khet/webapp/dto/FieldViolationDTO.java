@@ -6,7 +6,7 @@ public class FieldViolationDTO {
 	private String field;
 	private String violation;
 	
-	public FieldViolationDTO() {};
+	public FieldViolationDTO() {}
 	
 	public FieldViolationDTO(final ConstraintViolation<?> constraintViolation) {
 		this.setField(constraintViolation.getPropertyPath().toString());

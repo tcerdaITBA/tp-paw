@@ -19,7 +19,8 @@ define(['routes',
 				'$filterProvider',
 				'$provide',
 				'$translateProvider',
-				function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $translateProvider) {
+				'$qProvider',
+				function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $translateProvider, $qProvider) {
 
 					productSeek.controller = $controllerProvider.register;
 					productSeek.directive = $compileProvider.directive;
@@ -38,6 +39,8 @@ define(['routes',
 
 					$translateProvider.translations('preferredLanguage', i18n);
 					$translateProvider.preferredLanguage('preferredLanguage');
+
+					$qProvider.errorOnUnhandledRejections(false);
 				}])
 			.value('url', 'http://localhost:8080');
 		return productSeek;

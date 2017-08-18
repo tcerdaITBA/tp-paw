@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,6 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import tp.paw.khet.model.FavList;
 import tp.paw.khet.model.Product;
+import tp.paw.khet.model.User;
 
 @XmlRootElement
 public class CollectionDTO {
@@ -33,9 +35,9 @@ public class CollectionDTO {
 	@XmlElement(name = "creation_date")
 	private Date creationDate;
 	
-	public CollectionDTO() {};
+	public CollectionDTO() {}
 	
-	public CollectionDTO(final FavList favList, final URI baseUri) {
+	public CollectionDTO(final FavList favList, final URI baseUri, final Optional<User> loggedUser) {
 		id = favList.getId();
 		creationDate = favList.getCreationDate();
 		name = favList.getName();
@@ -44,7 +46,7 @@ public class CollectionDTO {
 		creatorURL = baseUri.resolve("users/" + favList.getCreator().getUserId());
 
 		for (Product p: favList.getProductList())
-			products.add(new PlainProductDTO(p, baseUri));
+			products.add(new PlainProductDTO(p, baseUri, loggedUser));
 		
 		count = products.size();
 	}
