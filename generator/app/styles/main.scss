@@ -4,17 +4,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // endbower
 
 @import 'partials/home';
-
-.product-logo {
-	align-self: center;
-	width: inherit;
-
-    img {
-        height: 100px;
-        width: 100px;
-        object-fit: contain;
-    }
-}
+@import 'partials/product-item';
 
 .browsehappy {
   margin: 0.2em 0;
