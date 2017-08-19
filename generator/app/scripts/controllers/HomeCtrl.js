@@ -1,10 +1,8 @@
 'use strict';
-define(['productSeek', 'services/restService', 'directives/productItem'], function(productSeek, restService, productItem) {
+define(['productSeek', 'services/restService', 'directives/productItem'], function(productSeek) {
 
 	productSeek.controller('HomeCtrl', ['$scope', 'restService', function($scope, restService) {
-		$scope.homePageText = 'NICE HOMEPAGE';
-
-        restService.getProducts({page: 1, pageSize: 20})
+        restService.getProducts({page: 1, pageSize: 15})
         .then(function(data) {
 			console.log(data);
 			$scope.productsData = data;	
