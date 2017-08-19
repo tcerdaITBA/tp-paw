@@ -1,10 +1,12 @@
 'use strict';
-define(['productSeek'], function(productSeek) {
-	console.log("ASFASDFASDFASDFASDFASDF");
+define(['productSeek', 'controllers/ProductItemCtrl'], function(productSeek) {
     productSeek.directive('productItem', function() {
         return {
             restrict: 'E',
-            template: '<div>Directive ajsdhbfjhasbdf</div>'
+            replace: 'true',
+            templateUrl: '/views/productItem.html',
+            scope: {product: '='},
+            controllerUrl: '/controllers/ProductItemCtrl.js'
         }
     });
 });
