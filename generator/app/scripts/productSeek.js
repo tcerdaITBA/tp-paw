@@ -49,8 +49,21 @@ define(['routes',
 
 					$qProvider.errorOnUnhandledRejections(false);
                     $locationProvider.hashPrefix('');
+                    
 				}])
-			.value('url', 'http://localhost:8080');
-		return productSeek;
-	}
+            .run(['$rootScope', function($rootScope) {
+                    $rootScope.isViewLoading = false;
+                    $rootScope.$on('$routeChangeStart', function() {
+                        $rootScope.isViewLoading = true;
+                    });
+                    $rootScope.$on('$routeChangeSuccess', function() {
+                        $rootScope.isViewLoading = false;
+                    });
+                    $rootScope.$on('$routeChangeError', function() {
+                        $rootScope.isViewLoading = false;
+                    });            
+            }])
+            .value('url', 'http://localhost:8080');
+                return productSeek;
+            }
 );
