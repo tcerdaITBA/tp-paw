@@ -28,6 +28,12 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 			session.destroy();
 		};
 		
+		AuthService.getLoggedUser = function() {
+			if (this.isLoggedIn()) {
+				$http.post(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
+			}
+		}
+		
 		return AuthService;
 	}]);
 

@@ -64,7 +64,12 @@ define(['routes',
                     });            
             }])
             .value('url', 'http://localhost:8080')
-            .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other']);
+            .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
+			.filter('urlencode', function() {
+				return function(input) {
+					return window.encodeURIComponent(input);
+				}
+			});
                 return productSeek;
             }
 );
