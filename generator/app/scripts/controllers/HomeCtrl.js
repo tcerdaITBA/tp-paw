@@ -1,7 +1,7 @@
 'use strict';
 define(['productSeek', 'directives/productItem', 'services/restService'], function(productSeek) {
 
-	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', '$location', 'productsData', 'categories', function($scope, $routeParams, $location, productsData, categories) {
+	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'productsData', 'categories', function($scope, $routeParams, productsData, categories) {
         $scope.products = productsData.products;
         $scope.category = $routeParams.category;
         $scope.categories = [];
