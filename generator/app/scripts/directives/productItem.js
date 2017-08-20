@@ -5,9 +5,11 @@ define(['productSeek'], function(productSeek) {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
-            scope: {product: '='},
+            scope: {product: '=', hideCategory: '='},
             controller: ['$scope', '$location', function($scope, $location) {
                 var product = $scope.product;
+                
+                $scope.offset = $scope.hideCategory ? 6 : 3;
                 
                 $scope.directToCategory = function() {
                     $location.url('/?category=' + product.category);

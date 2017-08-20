@@ -9,8 +9,7 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
         $scope.categories.push({
             name: 'all', 
             active: $scope.category ? false : true,
-            url: '/',
-            hasImage: false,
+            url: '/'
         });
         
         angular.forEach(categories, function(category) {
@@ -18,7 +17,7 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
                 name: category,
                 active: $scope.category === category,
                 url: '/?category=' + category,
-                hasImage: true,
+                imageUrl: 'images/' + category + '.svg'
             });
         });
         
