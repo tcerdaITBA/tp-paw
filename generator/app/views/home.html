@@ -1,6 +1,13 @@
 <div class="container">
 	<div class="row title-row">
 		<div class="col-md-8 col-md-offset-3 title-col">
+            <div class="content-title">
+                <h2 ng-hide="category">{{'all' | translate}}</h2>
+                <div ng-show="category">
+                    <h2>{{category | translate}}</h2>
+                    <div class="categoryDescription">{{'description.' + category | translate}}</div>
+                </div>
+            </div>
 		</div>
 	</div>
 	<div class="row">
@@ -8,10 +15,20 @@
 			<div class="row">
 				<div class="col-md-9">
 					<div class="row">
+                        <ul class="nav nav-pills nav-stacked categoryBox">
+                            <li role="presentation" ng-repeat="c in categories" ng-class="{active: c.active}">
+                                <a ng-href="#{{c.url}}" ng-click="setActiveCategory(c)">
+                                    <div class="col-md-5">
+                                        <img ng-show="c.hasImage">
+                                    </div>
+                                    {{c.name | translate}}
+                                </a>
+                            </li>
+                        </ul>
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 
 		<div class="col-md-8">
 			<div class="row">

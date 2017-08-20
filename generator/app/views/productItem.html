@@ -15,7 +15,7 @@
         </div>
         <div class="row product-category">
             <div class="col-md-3 categoryTag" ng-click="directToCategory();$event.stopPropagation()">
-                <p>{{product.category}}</p>
+                <p>{{product.category | translate}}</p>
             </div>
             <div class="col-md-6 col-md-offset-3">
                 <button class="btn btn-default upvote-btn" ng-class="{voted: product.voted}">
