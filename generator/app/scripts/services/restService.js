@@ -1,6 +1,5 @@
 'use strict';
-define(['productSeek', 'jquery'], 
-	function(productSeek) {
+define(['productSeek', 'jquery'], function(productSeek) {
 		return productSeek.factory('restService', function($http, url) {
             
             var translateTable = {

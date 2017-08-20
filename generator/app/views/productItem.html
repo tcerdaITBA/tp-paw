@@ -14,9 +14,11 @@
             </div>
         </div>
         <div class="row product-category">
-            <div class="col-md-3 categoryTag">
-                <p>{{product.category}}</p>
-            </div>
+            <a ng-href="#/?category={{product.category}}">
+                <div class="col-md-3 categoryTag" ng-click="directToCategory()">
+                    <p>{{product.category}}</p>
+                </div>
+            </a>
             <div class="col-md-6 col-md-offset-3">
                 <button class="btn btn-default upvote-btn" ng-class="{voted: product.voted}">
                     <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>{{product.voters_count}}</p>

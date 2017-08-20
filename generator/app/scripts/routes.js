@@ -1,12 +1,20 @@
 'use strict';
 
-define([], function() {
+define(function() {
     return {
         defaultRoutePath: '/',
         routes: {
             '/': {
                 templateUrl: '/views/home.html',
-                controller: 'HomeCtrl'
+                controller: 'HomeCtrl',
+                resolve: {
+                    productsData: ['$route', 'restService', function($route, restService) {
+                        var params = $route.current.params;
+                        params.page = params.page || 1;
+                        params.pageSize = params.pageSize || 10;
+                        return restService.getProducts($route.current.params);
+                    }]
+                }
             },
             '/about': {
                 templateUrl: '/views/about.html',

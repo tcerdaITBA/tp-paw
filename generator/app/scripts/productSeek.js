@@ -20,20 +20,27 @@ define(['routes',
 				'$provide',
 				'$translateProvider',
 				'$qProvider',
-				function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $translateProvider, $qProvider) {
+                '$locationProvider',
+				function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $translateProvider, $qProvider,  $locationProvider) {
 
 					productSeek.controller = $controllerProvider.register;
 					productSeek.directive = $compileProvider.directive;
 					productSeek.filter = $filterProvider.register;
 					productSeek.factory = $provide.factory;
 					productSeek.service = $provide.service;
-
-					if (config.routes !== undefined) {
+                    
+					if (config.routes) {
 						angular.forEach(config.routes, function(route, path) {
-							$routeProvider.when(path, {templateUrl: route.templateUrl, resolve: dependencyResolverFor(['controllers/' + route.controller]), controller: route.controller, gaPageTitle: route.gaPageTitle});
+                            var resolved = dependencyResolverFor(['controllers/' + route.controller]);
+                            angular.forEach(route.resolve, function(resolver, name) {
+                                resolved[name] = resolver;
+                            });
+
+                            $routeProvider.when(path, {templateUrl: route.templateUrl, resolve: resolved, controller: route.controller, gaPageTitle: route.gaPageTitle});
 						});
 					}
-					if (config.defaultRoutePath !== undefined) {
+                    
+					if (config.defaultRoutePath) {
 						$routeProvider.otherwise({redirectTo: config.defaultRoutePath});
 					}
 
@@ -41,6 +48,7 @@ define(['routes',
 					$translateProvider.preferredLanguage('preferredLanguage');
 
 					$qProvider.errorOnUnhandledRejections(false);
+                    $locationProvider.hashPrefix('');
 				}])
 			.value('url', 'http://localhost:8080');
 		return productSeek;
