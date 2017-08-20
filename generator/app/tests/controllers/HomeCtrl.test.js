@@ -28,8 +28,17 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
                     return categories[i];
         };
         
-        describe('.categories', function() {
-            it('should have every category defined in the categories dependency and the category "all" alpha sorted', function() {
+        describe('$scope.products', function() {
+            it('should be defined with the resolved "productsData" products', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+                
+                expect($scope.products).toEqual(DUMMY_PRODUCTS.products);
+            });
+        });
+        
+        describe('$scope.categories', function() {
+            it('should have every category defined in the "categories" dependency and the category "all" preppended and alpha sorted', function() {
                 var $scope = {};
                 var controller = buildController($scope);
                 var expectedNames = ['all'].concat(categories);
@@ -42,19 +51,18 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
                 var $scope = {};
                 var controller = buildController($scope);
                 var all = findCategory($scope.categories, 'all');
+                
                 expect(all.active).toBe(true);
             });
 
-            it('should have every category not active given no category in $routeParams', function() {
+            it('should have every category (except "all") not active given no category in $routeParams', function() {
                 var $scope = {};
                 var controller = buildController($scope);
 
-                for (var i = 0; i < $scope.categories.length; i++) {
-                    var c = $scope.categories[i];
-                    
+                angular.forEach($scope.categories, function(c) {
                     if (c.name !== 'all')
                         expect(c.active).toBe(false);
-                }
+                });
             });
             
             it('should have the given category in $routeParams active and the rest not active', function() {
@@ -63,15 +71,25 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
                     var $scope = {};
                     var controller = buildController($scope, categoryName);
                     
-                    for (var i = 0; i < $scope.categories.length; i++) {
-                        var c = $scope.categories[i];
-                        
-                        if (c.name === categoryName)
-                            expect(c.active).toBe(true);
-                        else
-                            expect(c.active).toBe(false);
-                    }
+                    angular.forEach($scope.categories, function(c) {
+                        c.name === categoryName ? expect(c.active).toBe(true) : expect(c.active).toBe(false);
+                    });
                 }
+            });
+        });
+        
+        describe('$scope.setActiveCategory()', function() {
+            it('should set the given category (or "all") to active and the others should not be active', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+                
+                angular.forEach($scope.categories, function(category) {
+                    $scope.setActiveCategory(category);
+                    
+                    angular.forEach($scope.categories, function(c) {
+                        category === c ? expect(c.active).toBe(true) : expect(c.active).toBe(false);
+                    });
+                });
             });
         });
     });

@@ -25,7 +25,7 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
         $scope.setActiveCategory = function(category) {
             for (var i = 0; i < $scope.categories.length; i++) {
                 var c = $scope.categories[i];
-                c.active = c.name === category;
+                c.active = c === category;
             }
         }
 	}]);
