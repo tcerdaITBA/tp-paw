@@ -1,0 +1,17 @@
+<div>
+    <product-item product="product"></product-item>
+    <div>
+        <img src="{{creator.picture_url}}">
+        <p>{{creator.name}}</p>
+        <p>{{creator.email}}</p>
+    </div>
+    <div ng-repeat="c in comments">
+        <div>
+            <p>{{c.author.name}}</p>
+            <p>{{c.author.email}}</p>
+        </div>
+        <div>
+            <p>{{c.content}}</p>
+        </div>
+    </div>
+</div>

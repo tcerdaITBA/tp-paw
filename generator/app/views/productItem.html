@@ -1,4 +1,4 @@
-<div class="row product-list-item product-item-height" id="{{product.id}}">
+<div class="row product-list-item product-item-height" id="{{product.id}}" ng-click="directToProduct()">
     <div class="col-md-3 product-logo">
         <img src="{{product.logo_url}}">
     </div>
@@ -14,11 +14,9 @@
             </div>
         </div>
         <div class="row product-category">
-            <a ng-href="#/?category={{product.category}}">
-                <div class="col-md-3 categoryTag" ng-click="directToCategory()">
-                    <p>{{product.category}}</p>
-                </div>
-            </a>
+            <div class="col-md-3 categoryTag" ng-click="directToCategory();$event.stopPropagation()">
+                <p>{{product.category}}</p>
+            </div>
             <div class="col-md-6 col-md-offset-3">
                 <button class="btn btn-default upvote-btn" ng-class="{voted: product.voted}">
                     <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>{{product.voters_count}}</p>
