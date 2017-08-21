@@ -373,6 +373,37 @@ footer p {
   margin-top: 5px;
 }
 
+.ps-btn {
+  background-color: #39C6A6;
+  color: #fff;
+  border-color: #39C6C6;
+  &:hover {
+    background-color: #33bb9c !important;
+    color: #fff;
+    border-color: #33bb9c !important;
+    transition: all .2s ease-in;
+  }
+  &:focus {
+    color: #fff;
+  }
+}
+
+ps-btn-red:focus {
+  color: #fff;
+}
+
+.ps-btn-red {
+  background-color: #F64763;
+  color: #fff;
+  border-color: #F64763;
+  &:hover {
+    background-color: #d6354f !important;
+    color: #fff;
+    border-color: #d6354f !important;
+    transition: all .2s ease-in;
+  }
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 
