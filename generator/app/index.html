@@ -16,7 +16,7 @@
 			<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 					aria-expanded="false">
-				<span class="sr-only">navbar toggle</span>
+				<span class="sr-only"></span>
 				<!--	Tres rayitas del burguer button -->
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>	
@@ -52,7 +52,7 @@
 					</div>	
 					<div class="row">
 						<div class="col-md-12">
-							<p class="most-popular-title">mas popular</p>
+							<p class="most-popular-title">{{'navbar.mostPopular' | translate}}</p>
 						</div>
 					</div>
 
@@ -90,10 +90,10 @@
 		<div class="collapse navbar-collapse">
 			<ul ng-show="{{!auth.loggedIn()}}" class="nav navbar-nav navbar-right">
 				<li>
-					<a href="/register" class="navbar-link">signup</a>
+					<a href="/register" class="navbar-link">{{'navbar.signup' | translate}}</a>
 				</li>	
 				<li>
-					<a href="/login" class="navbar-link">login</a>	
+					<a href="/login" class="navbar-link">{{'navbar.signin' | translate}}</a>	
 				</li>
 
 				<li>
@@ -107,7 +107,7 @@
 						 <a href='/register'> 
 						 <span>sign up</span>
 						 </a>
-						 </p>" id="upload-popover">post
+						 </p>" id="upload-popover">{{'navbar.post' | translate}}
 						</a>
 					</p>
 				</li>
@@ -125,12 +125,12 @@
 					</a>
 				</li>
 				<li>
-					<a href="/logout" class="navbar-link"> logout</a>
+					<a href="/logout" class="navbar-link">{{'navbar.logout' | translate}}</a>
 				</li>
 				<li>
 					<p class="navbar-btn">
 						<a ng-show="{{auth.isLoggedIn()}}" ng-href="/upload" class="ps-btn btn upload-btn">
-							Post
+							{{'navbar.post' | translate}}
 						</a>
 					</p>
 				</li>

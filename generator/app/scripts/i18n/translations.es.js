@@ -30,6 +30,12 @@ define([], function() {
         'description.music': '¿Estás teniendo un día duro? Es hora de escuchar música que te hace sentir como el mejor.',
         'description.other': '¿Ninguna categoría corresponde con el producto que buscas? Puede que lo encuentres aquí.',
         'description.all': 'Aquí encontrarás productos de cualquier categoría.',
+		
+		'navbar.mostPopular':'Más populares',
+		'navbar.signup':'Registrarse',
+		'navbar.signin':'Ingresar',
+		'navbar.post':'Publicar Producto',
+		'navbar.logout':'Cerrar Sesión',
         
         mostRecent: 'Productos más recientes',
         allProducts: 'Todos los productos',

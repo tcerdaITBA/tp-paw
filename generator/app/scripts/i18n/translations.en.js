@@ -31,10 +31,18 @@ define([], function() {
         'description.other': 'Can\u2019t find a category that matches the product you seek? You may find it here.',
         'description.all': 'Here you will find all the products of any category.',
                 
+		'navbar.mostPopular':'Most Popular',
+		'navbar.signup':'Sign Up',
+		'navbar.signin':'Sign In',
+		'navbar.post':'Post Product',
+		'navbar.logout':'Logout',
+		
         mostRecent: 'Most recent products',
         allProducts: 'All',
         recent: 'Recent',
         popular: 'Most voted',
         atoz: 'a-z'
+		
+		
 	};
 });
