@@ -31,6 +31,16 @@ define(function() {
                         return restService.getProduct(params.id);
                     }]
                 }
+            },
+            '/profile/:id': {
+                templateUrl: '/views/profile.html',
+                controller: 'ProfileCtrl',
+                resolve: {
+                    product: ['$route', 'restService', function($route, restService){
+                        var params = $route.current.params;
+                        return restService.getUser(params.id);
+                    }]
+                }
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */
