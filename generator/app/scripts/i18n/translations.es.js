@@ -35,7 +35,11 @@ define([], function() {
         allProducts: 'Todos los productos',
         recent: 'Recientes',
         popular: 'Más Votados',
-        atoz: 'a-z'
+        atoz: 'a-z',
+
+        'Profile.Tab.uploadedProducts': 'Publicados',
+        'Profile.Tab.votedProducts': 'Votados',
+        'Profile.Tab.favlist': 'Colecciones'
         
 	};
 });

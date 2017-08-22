@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 profile-info-box">
+            <div class="row img-row">
+                <div class="col-md-12">
+                    <img class="profile-img" src="{{user.picture_url}}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-username">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <p>{{user.name}}</p>
+                    </div>	
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="profile-mail" href="mailto:{{user.email}}">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <p>{{user.email}}</p>
+                    </a>	
+                </div>
+            </div>    
+        </div>
+
+        <div class="col-md-7 col-md-offser-1">
+            <div class="row">
+                <div class="col-md-10 col-ms-offset-1">
+                    <div class="row tabs-row">
+                        <div class="">
+                                <ul class="nav nav-pills nav-justified profile-tabs">
+                                <!--Cosas de tabs-->
+                                <li role="presentation" class="{{firstActiveTab == 1 ? 'active' : 'none' }}"><a href="#favList-pane" data-toggle="tab">{{'Profile.Tab.favlist' | translate}}<span class="badge tab-badge">{{collections.count}}</span></a></li>
+                                <li role="presentation" class="{{firstActiveTab == 2 ? 'active' : 'none' }}"><a href="#uploadedProducts-pane" data-toggle="tab">{{'Profile.Tab.uploadedProducts' | translate}}<span class="badge">{{createdProducts.count}}</span></a></li>
+                                <li role="presentation" class="{{firstActiveTab == 3 ? 'active' : 'none' }}"><a href="#votedProducts-pane" data-toggle="tab">{{'Profile.Tab.votedProducts' | translate}}<span class="badge tab-badge">{{votedProducts.count}}</span></a></li>
+                                </ul>
+                        </div>
+                    </div>
+            
+                    <div class="tab-content">
+                        <div id="uploadedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab == 2 ? 'active in' : 'none' }}">
+                            <div class="col-md-12 product-list">
+                                <div ng-repeat="c in createdProducts.products">
+                                        <product-item product="c" hide-category="category"></product-item>
+                                </div>    
+                            </div>
+                        </div>
+                        <div id="votedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab == 3 ? 'active in' : 'none'}}">
+                            <div class="col-md-12 product-list">
+                                <div ng-repeat="p in votedProducts.products">
+                                    <product-item product="p" hide-category="category"></product-item>
+                                </div>
+                            </div>
+                        </div>  
+                        <div id="favList-pane" class="tab-pane fade row result-for-products none {{firstActiveTab == 1 ? 'active in' : 'none'}}">
+                            <div class="col-md-12 product-list">
+                                <div ng-repeat="p in collections.products">
+                                    <product-item product="p" hide-category="category"></product-item>
+                                </div>
+                            </div>
+                        </div>                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -36,9 +36,21 @@ define(function() {
                 templateUrl: '/views/profile.html',
                 controller: 'ProfileCtrl',
                 resolve: {
-                    product: ['$route', 'restService', function($route, restService){
+                    user: ['$route', 'restService', function($route, restService){
                         var params = $route.current.params;
                         return restService.getUser(params.id);
+                    }],
+                    collections: ['$route', 'restService', function($route, restService){
+                        var params = $route.current.params;
+                        return restService.getCollectionsForUser(params.id);
+                    }],
+                    createdProducts: ['$route', 'restService', function($route, restService){
+                        var params = $route.current.params;
+                        return restService.getPostedByUser(params.id);
+                    }],
+                    votedProducts: ['$route', 'restService', function($route, restService){
+                        var params = $route.current.params;
+                        return restService.getVotedByUser(params.id);
                     }]
                 }
             }

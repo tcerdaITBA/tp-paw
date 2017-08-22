@@ -35,6 +35,9 @@ define([], function() {
         allProducts: 'All',
         recent: 'Recent',
         popular: 'Most voted',
-        atoz: 'a-z'
+        atoz: 'a-z',
+        'Profile.Tab.uploadedProducts': 'Uploaded',
+        'Profile.Tab.votedProducts': 'Voted',
+        'Profile.Tab.favlist': 'Collections'
 	};
 });
