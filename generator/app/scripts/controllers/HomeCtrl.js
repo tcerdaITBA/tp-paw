@@ -8,7 +8,7 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
         
         $scope.categories.push({
             name: 'all', 
-            active: $scope.category ? false : true,
+            active: $scope.category ? false : true, // 'all' active if not in category page
             url: '/'
         });
         
@@ -27,5 +27,6 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
                 c.active = c === category;
             }
         }
+        
 	}]);
 });
