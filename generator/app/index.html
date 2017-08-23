@@ -86,17 +86,17 @@
 		<div class="collapse navbar-collapse">
 			<ul ng-show="{{!isLoggedIn()}}" class="nav navbar-nav navbar-right">
 				<li>
-					<a href="/register" class="navbar-link">{{'navbar.signup' | translate}}</a>
+					<a ng-href="#" class="navbar-link" ng-click="signUpModal()">{{'navbar.signup' | translate}}</a>
 				</li>	
 				<li>
-					<a href="/login" class="navbar-link">{{'navbar.signin' | translate}}</a>	
+					<a ng-href="#" class="navbar-link" ng-click="signInModal()">{{'navbar.signin' | translate}}</a>	
 				</li>
 
 				<li>
 					<p class="navbar-btn">
 						<a tabindex="0" popover-placement="bottom"
-						   uib-popover-html="'<span>post</span>'" 
-						   class="ps-btn btn upload-btn" role="button" popover-trigger="focus" id="upload-popover">{{'navbar.post' | translate}}
+						   uib-popover-html="'<span>post</span>'"
+						   class="ps-btn btn upload-btn" role="button" popover-trigger="'focus'" id="upload-popover">{{'navbar.post' | translate}}
 						</a>
 					</p>
 				</li>

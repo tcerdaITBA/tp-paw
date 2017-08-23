@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'jquery', 'services/authService', 'services/sessionService'], function(productSeek) {
+define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl'], function(productSeek) {
 
-	productSeek.controller('IndexCtrl', ['sessionService', 'authService', '$scope', '$location', function(session, auth, $scope, $location, $sce) {
+	productSeek.controller('IndexCtrl', ['sessionService', 'authService', '$scope', '$location', '$uibModal', function(session, auth, $scope, $location, $uibModal) {
 		$location.path('#/');
 
 		$scope.isLoggedIn = auth.isLoggedIn;
@@ -15,6 +15,20 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 				session.saveToSearchHistory($scope.query);
 				//				$location.url('/search/products?q=' + $scope.query.text);
 			}
+		};
+
+		$scope.signInModal = function() {
+			$uibModal.open({
+				templateUrl: 'views/modals/signInModal.html',
+				controller: 'SignInModalCtrl',
+			});
+		};
+		
+		$scope.signUpModal = function() {
+			$uibModal.open({
+				templateUrl: 'views/modals/signUpModal.html',
+				controller: 'SignUpModalCtrl',
+			});
 		}
 
 	}]);

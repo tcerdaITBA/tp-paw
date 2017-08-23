@@ -1,0 +1,7 @@
+<div class="modal-body" id="login-modal">
+	<form ng-submit="loginSubmit()">
+		<input type="text" name="username" ng-model="loginForm.username.text" ng-pattern="loginForm.username.emailPattern" required ng-trim="false">
+		<input type="password" name="password" ng-model="loginForm.password.text" ng-pattern="loginForm.password.passwordPattern" required>
+		<button type="submit" name="submit">login</button>
+	</form>
+</div>

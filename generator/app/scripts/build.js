@@ -27,7 +27,8 @@ require.config({
         'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
         ngstorage: '../../bower_components/ngstorage/ngStorage',
         'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-        'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize'
+        'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
+        ngSanitize: '../../bower_components/ngSanitize/index'
     },
     shim: {
         angular: {
@@ -61,11 +62,11 @@ require.config({
                 'angular'
             ]
         },
-		'angular-sanitize': {
-			deps: [
-				'angular'
-			]	
-		},
+        'angular-sanitize': {
+            deps: [
+                'angular'
+            ]
+        },
         'angular-bootstrap': {
             deps: [
                 'angular'

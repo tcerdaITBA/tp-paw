@@ -1,0 +1,7 @@
+<div class="modal-body" id="signup-modal">
+	<form ng-submit="signUpSubmit()">
+		<input type="text" name="username" ng-model="loginForm.username.text" ng-pattern="loginForm.username.emailPattern" required ng-trim="false">
+		<input type="password" name="password" ng-model="loginForm.password.text" ng-pattern="loginForm.password.passwordPattern" required>
+		<button type="submit" name="submit">sign up</button>
+	</form>
+</div>
