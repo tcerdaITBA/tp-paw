@@ -1,9 +1,10 @@
 'use strict';
 define(['productSeek', 'jquery', 'services/authService', 'services/sessionService'], function(productSeek) {
 
-	productSeek.controller('IndexCtrl', ['sessionService', '$scope', '$location', function(session, $scope, $location) {
-		$scope.welcomeText = 'Welcome to your productSeek page';
+	productSeek.controller('IndexCtrl', ['sessionService', 'authService', '$scope', '$location', function(session, auth, $scope, $location) {
         $location.path('#/');
+		
+		$scope.isLoggedIn = auth.isLoggedIn;
 		
 		// y si cambia la historia? Se actualiza? VER
 		$scope.searchHistory = session.getSearchHistory();

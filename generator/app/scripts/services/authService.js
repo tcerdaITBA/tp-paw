@@ -1,37 +1,38 @@
 'use strict';
 define(['productSeek', 'services/sessionService'], function(productSeek) {
 
+	var logInError = function(error) {
+		session.destroy();
+	} 
+	
 	return productSeek.factory('authService', ['$http', 'url', 'sessionService', function($http, url, session) {
 		var AuthService = {};
 
-		// TODO ver lo de onStateChange para comunicar si la autenticación fue exitosa o no
-		// o devolver la promise para que se encargue de todo el controller
 		AuthService.logIn = function(username, password) {
 			var credentials = { j_username: username, j_password: password };
-			$http.post(url + '/login', credentials)
-			.then(
-				function success(response) {
+			return $http.post(url + '/login', credentials)
+				.then(function(response) {
 					session.setAccessToken(response.headers('X-AUTH-TOKEN'));
-				},
-				function error(response) {
-					// Error stuff
-					session.destroy();
-				}
-			);
+					return $http.post(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
+				})
+				.then(function(response) {
+					this.loggedUser = response.data;
+					return this.loggedUser;
+				})
+				.catch(logInError);
 		};
 
 		AuthService.isLoggedIn = function() {
-			return session.getAccessToken() !== null;
+			return this.loggedUser !== null;
 		};
 
 		AuthService.logOut = function() {
 			session.destroy();
+			this.loggedUser = null;
 		};
 		
 		AuthService.getLoggedUser = function() {
-			if (this.isLoggedIn()) {
-				$http.post(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
-			}
+			return this.loggedUser;
 		}
 		
 		return AuthService;

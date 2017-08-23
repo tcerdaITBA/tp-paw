@@ -29,7 +29,7 @@
 		<form ng-submit="search()" class="navbar-form navbar-left">
 			<div class="search-form-container">
 				<div class="form-group">
-					<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" placeholder="Buscar"/>
+					<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" placeholder="{{'navbar.search' | translate}}"/>
 					<button type="submit" class="search-button">
 						<span class="glyphicon glyphicon-search search-icn"></span>
 					</button>
@@ -56,31 +56,27 @@
 						</div>
 					</div>
 
-					<!--
-<c:forEach items="${topProducts}" var="product" varStatus="loop">
-<c:if test="${loop.index < 3}">
-<a class="suggestion-list-item" href="<c:url value="/product/${product.id}"/>"  data-list-index="${loop.index + sessionScope.searchHistory.size()}" id="suggestion-${loop.index + sessionScope.searchHistory.size()}">
-<c:url value="/vote/product/${product.id}" var="vote"/>
-<div class="row center-flex">
-<div class="col-md-2 suggestion-product-logo center-flex">
-<img src="<c:url value="/product/${product.id}/logo"/>">
-</div>
-<div class="col-md-7">
-<span class="suggestion-product-name capitalize-firstLetter">
-<c:out value="${product.name}"/>
-</span>
-</div>
-<div class="col-md-3">
-<span class="upvote-info">
-<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-<c:out value="${product.votesCount}"/>
-</span>
-</div>
-</div>
-</a>
-</c:if>
-</c:forEach>
--->
+					<ng-repeat ng-repeat="product in topProducts">
+						<a class="suggestion-list-item" ng-href="#/product/{{product.id}}"  data-list-index="{{$$index + searchHistory.length}}" id="suggestion-{{$$index + searchHistory.length}">
+							<div class="row center-flex">
+								<div class="col-md-2 suggestion-product-logo center-flex">
+									<img src="{{product.logo_url}}">
+								</div>
+							</div>
+							<div class="col-md-7">
+								<span class="suggestion-product-name capitalize-firstLetter">
+									{{product.name}}
+								</span>
+							</div>
+							<div class="col-md-3">
+								<span class="upvote-info">
+								<span class="glyphicon glyphicon-arrow-up upvote-icon"/>
+								{{product.votesCount}}
+								</span>
+							</div>
+						</a>
+					</ng-repeat>
+
 				</div>
 				</div>
 			</div>
@@ -88,7 +84,7 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse">
-			<ul ng-show="{{!auth.loggedIn()}}" class="nav navbar-nav navbar-right">
+			<ul ng-show="{{!isLoggedIn()}}" class="nav navbar-nav navbar-right">
 				<li>
 					<a href="/register" class="navbar-link">{{'navbar.signup' | translate}}</a>
 				</li>	
@@ -113,7 +109,7 @@
 				</li>
 			</ul>
 
-			<ul ng-show="{{auth.isLoggedIn()}}" class="nav navbar-nav navbar-right">
+			<ul ng-show="{{isLoggedIn()}}" class="nav navbar-nav navbar-right">
 				<li>
 					<a class="user-nav-img" href="/profile/${loggedUser.userId}">
 						<img class="img-contain" src="{{loggedUser.picture_url}}">
@@ -129,7 +125,7 @@
 				</li>
 				<li>
 					<p class="navbar-btn">
-						<a ng-show="{{auth.isLoggedIn()}}" ng-href="/upload" class="ps-btn btn upload-btn">
+						<a ng-show="{{isLoggedIn()}}" ng-href="/upload" class="ps-btn btn upload-btn">
 							{{'navbar.post' | translate}}
 						</a>
 					</p>
@@ -150,7 +146,7 @@
 		<div ng-view=""></div>
 
 		<div class="footer">
-			<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+			<p>Product Seek. 2017.</p>
 		</div>
 	</div>
 
@@ -158,9 +154,9 @@
 
 	<!-- build:js(.) scripts/oldieshim.js -->
 	<!--[if lt IE 9]>
-<script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/json3/lib/json3.js"></script>
-<![endif]-->
+		<script src="bower_components/es5-shim/es5-shim.js"></script>
+		<script src="bower_components/json3/lib/json3.js"></script>
+		<![endif]-->
 	<!-- endbuild -->
 	<script src="/scripts/paths.js"></script>
 	<script src="bower_components/requirejs/require.js" data-main="/scripts/build.js"></script>

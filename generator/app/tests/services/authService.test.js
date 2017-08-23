@@ -16,6 +16,11 @@ define(['services/authService', 'angular-mocks'], function() {
     		url = _url_;
     		$httpBackend = _$httpBackend_;
     		$q = _$q_;
+			
+			$httpBackend.whenPOST(url + '/login', CREDENTIALS)
+				.respond(200, $q.when({headers: {'X-AUTH-TOKEN': DUMMY_TOKEN}}));
+			$httpBackend.whenPOST(url + '/user', CREDENTIALS)
+				.respond(200, $q.when({data: DUMMY_USER, headers: {'X-AUTH-TOKEN': DUMMY_TOKEN}}));
     	}));
 		
 		it('should be defined', function() {
@@ -28,26 +33,30 @@ define(['services/authService', 'angular-mocks'], function() {
 			});
 			
 			it('should log in given a correct user and password', function() {
-				$httpBackend.whenPOST(url + '/login', CREDENTIALS)
-					.respond(function(method, url, data, headers){
-						return [200, {}, {'X-AUTH-TOKEN': DUMMY_TOKEN}];
-					});
+				var logged = false;
 				
-				authService.logIn(USERNAME, PASSWORD);
+				authService.logIn(USERNAME, PASSWORD)
+				.then(function(response) {
+					logged = authService.isLoggedIn();
+				});
 				
 				$httpBackend.flush();
-				
-				expect(authService.isLoggedIn()).toBe(true);
+				expect(logged).toBe(true);
 			});
 			
 			it('should NOT log in given an incorrect user or password', function() {
-				$httpBackend.whenPOST(url + '/login', CREDENTIALS)
+				var logged = true;
+				var WRONG_CREDENTIALS = {j_username: USERNAME, j_password: PASSWORD + 'wrong'}
+				$httpBackend.expectPOST(url + '/login', WRONG_CREDENTIALS)
         			.respond(401, $q.reject({details: 'Authentication Failed'}));
 				
-				authService.logIn(USERNAME, PASSWORD);
-				$httpBackend.flush();
+				authService.logIn(USERNAME, PASSWORD + 'wrong')
+				.then(function(response) {
+					logged = authService.isLoggedIn();
+				});
 				
-				expect(authService.isLoggedIn()).toBe(false);
+				$httpBackend.flush();
+				expect(logged).toBe(false);
 			});
 		});
 		
@@ -57,26 +66,47 @@ define(['services/authService', 'angular-mocks'], function() {
 			});
 			
 			it('should log out a logged session', function() {
-				$httpBackend.whenPOST(url + '/login', CREDENTIALS)
-					.respond(function(method, url, data, headers){
-						return [200, {}, {'X-AUTH-TOKEN': DUMMY_TOKEN}];
-					});
+				var wasLoggedIn;
 
-				authService.logIn(USERNAME, PASSWORD);
+				authService.logIn(USERNAME, PASSWORD)
+				.then(function(response) {
+					wasLoggedIn = authService.isLoggedIn();
+					authService.logOut();
+				});
+				
 				$httpBackend.flush();
-				var wasLoggedIn = authService.isLoggedIn();
-				authService.logOut();
 				expect(wasLoggedIn && !authService.isLoggedIn()).toBe(true);
 			})
 		});
 		
-		describe('.isLoggedIn()', function() {
+		describe('.getLoggedUser()', function() {
 			it('should be defined', function() {
-				expect(authService.isLoggedIn).toBeDefined();
+				expect(authService.getLoggedUser).toBeDefined();
 			});
 			
-			it('should not be true before logging in', function() {
-				expect(authService.isLoggedIn()).toBe(false);
+			it('should return a valid user after logging in', function() {
+				var user;
+
+				authService.logIn(USERNAME, PASSWORD)
+				.then(function(response) {
+					user = authService.getLoggedUser();
+				});
+				
+				$httpBackend.flush();
+				expect(user).toEqual(DUMMY_USER);
+			});
+			
+			it('should not return a user after logging out', function() {
+				var user;
+
+				authService.logIn(USERNAME, PASSWORD)
+				.then(function(response) {
+					authService.logOut();
+					user = authService.getLoggedUser();
+				});
+				
+				$httpBackend.flush();
+				expect(user).toBeNull();
 			});
 		});
 		

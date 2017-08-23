@@ -36,6 +36,7 @@ define([], function() {
 		'navbar.signin':'Sign In',
 		'navbar.post':'Post Product',
 		'navbar.logout':'Logout',
+		'navbar.search':'Search',
 		
         mostRecent: 'Most recent products',
         allProducts: 'All',
