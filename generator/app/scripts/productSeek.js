@@ -4,12 +4,16 @@ define(['routes',
 	'i18n/i18nLoader!',
 	'angular',
 	'angular-route',
+	'angular-bootstrap',
+	'angular-sanitize',
 	'bootstrap',
 	'angular-translate'],
 	function(config, dependencyResolverFor, i18n) {
 		var productSeek = angular.module('productSeek', [
 			'ngRoute',
-			'pascalprecht.translate'
+			'pascalprecht.translate',
+			'ngSanitize',
+			'ui.bootstrap'
 		]);
 		productSeek
 			.config(
