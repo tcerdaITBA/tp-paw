@@ -7,6 +7,7 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 	
 	return productSeek.factory('authService', ['$http', 'url', 'sessionService', function($http, url, session) {
 		var AuthService = {};
+		AuthService.loggedUser = null;
 
 		AuthService.logIn = function(username, password) {
 			var credentials = { j_username: username, j_password: password };
@@ -23,7 +24,7 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 		};
 
 		AuthService.isLoggedIn = function() {
-			return this.loggedUser !== null;
+			return !!this.loggedUser;
 		};
 
 		AuthService.logOut = function() {

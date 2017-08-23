@@ -94,16 +94,9 @@
 
 				<li>
 					<p class="navbar-btn">
-						<a tabindex="0" class="ps-btn btn upload-btn" role="button" data-toggle="popover" data-trigger="focus" data-content="<p class='popover-msg'>
-						 <span>post</span>
-						 <a href='/login'> 
-						 <span>sign in</span>
-						 </a>
-						 <span>to post bis</span>
-						 <a href='/register'> 
-						 <span>sign up</span>
-						 </a>
-						 </p>" id="upload-popover">{{'navbar.post' | translate}}
+						<a tabindex="0" popover-placement="bottom"
+						   uib-popover-html="'<span>post</span>'" 
+						   class="ps-btn btn upload-btn" role="button" popover-trigger="focus" id="upload-popover">{{'navbar.post' | translate}}
 						</a>
 					</p>
 				</li>

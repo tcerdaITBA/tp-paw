@@ -106,7 +106,7 @@ define(['services/authService', 'angular-mocks'], function() {
 				});
 				
 				$httpBackend.flush();
-				expect(user).toBeNull();
+				expect(user).not.toBeTruthy();
 			});
 		});
 		
