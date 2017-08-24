@@ -18,9 +18,9 @@ define(['services/authService', 'angular-mocks'], function() {
     		$q = _$q_;
 			
 			$httpBackend.whenPOST(url + '/login', CREDENTIALS)
-				.respond(200, $q.when({headers: {'X-AUTH-TOKEN': DUMMY_TOKEN}}));
-			$httpBackend.whenPOST(url + '/user', CREDENTIALS)
-				.respond(200, $q.when({data: DUMMY_USER, headers: {'X-AUTH-TOKEN': DUMMY_TOKEN}}));
+				.respond(200, $q.when(''), {headers: {'X-AUTH-TOKEN': DUMMY_TOKEN}});
+			$httpBackend.whenGET(url + '/user', undefined, {'X-AUTH-TOKEN': DUMMY_TOKEN})
+				.respond(200, $q.when(DUMMY_USER));
     	}));
 		
 		it('should be defined', function() {
@@ -41,17 +41,19 @@ define(['services/authService', 'angular-mocks'], function() {
 				});
 				
 				$httpBackend.flush();
+
 				expect(logged).toBe(true);
 			});
 			
 			it('should NOT log in given an incorrect user or password', function() {
 				var logged = true;
 				var WRONG_CREDENTIALS = {j_username: USERNAME, j_password: PASSWORD + 'wrong'}
+
 				$httpBackend.expectPOST(url + '/login', WRONG_CREDENTIALS)
         			.respond(401, $q.reject({details: 'Authentication Failed'}));
 				
 				authService.logIn(USERNAME, PASSWORD + 'wrong')
-				.then(function(response) {
+				.catch(function(response) {
 					logged = authService.isLoggedIn();
 				});
 				

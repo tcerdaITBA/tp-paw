@@ -25,10 +25,8 @@ require.config({
         tooltip: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip',
         transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
         'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
-        ngstorage: '../../bower_components/ngstorage/ngStorage',
         'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
-        ngSanitize: '../../bower_components/ngSanitize/index'
     },
     shim: {
         angular: {
