@@ -5,10 +5,13 @@ define(['services/authService', 'angular-mocks'], function() {
 		var DUMMY_USER = {id: '4', name: 'Pedro'};
 		var USERNAME = 'pedro@gmail.com'; 
 		var PASSWORD = 'passpass';
-		var CREDENTIALS = {j_username: USERNAME, j_password: PASSWORD};
+		var CREDENTIALS = 'j_username='+encodeURIComponent(USERNAME)+'&j_password='+encodeURIComponent(PASSWORD);
+		// var CREDENTIALS = 'j_password='+encodeURIComponent(PASSWORD) + '&j_username='+encodeURIComponent(USERNAME);
 		var DUMMY_TOKEN = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
 		var RESPONSE_ERROR = {detail: 'Not found.'};
 		
+		console.log(CREDENTIALS);
+
 		beforeEach(module('productSeek'));
 
     	beforeEach(inject(function(_authService_, _url_, _$httpBackend_, _$q_) {
@@ -47,7 +50,7 @@ define(['services/authService', 'angular-mocks'], function() {
 			
 			it('should NOT log in given an incorrect user or password', function() {
 				var logged = true;
-				var WRONG_CREDENTIALS = {j_username: USERNAME, j_password: PASSWORD + 'wrong'}
+				var WRONG_CREDENTIALS = 'j_username='+encodeURIComponent(USERNAME)+'&j_password='+encodeURIComponent(PASSWORD + 'wrong');
 
 				$httpBackend.expectPOST(url + '/login', WRONG_CREDENTIALS)
         			.respond(401, $q.reject({details: 'Authentication Failed'}));
