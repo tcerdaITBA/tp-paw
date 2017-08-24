@@ -1,6 +1,30 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 profile-info-box">
+            <div ng-show="auth.isLoggedIn()">
+                <!-- <div ng-if="{{user.id == session.getUser().id}}"> -->
+                    <div class="row setting-row">
+                        <div class="col-md-offset-10">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li class="pointer-cursor"><a
+                                        data-toggle="modal" data-target="#changePictureModal">
+                                        {{'Profile.settings.changePicture' | translate}}
+                                    </a></li>
+                                    <li class="pointer-cursor"><a data-toggle="modal" data-target="#changePassModal">
+                                        {{'Profile.settings.changePassword' | translate}}
+                                        </a></li>
+                                 </ul>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+
             <div class="row img-row">
                 <div class="col-md-12">
                     <img class="profile-img" src="{{user.picture_url}}">
@@ -26,7 +50,7 @@
             </div>    
         </div>
 
-        <div class="col-md-7 col-md-offser-1">
+        <div class="col-md-7 col-md-offset-1">
             <div class="row">
                 <div class="col-md-10 col-ms-offset-1">
                     <div class="row tabs-row">

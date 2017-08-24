@@ -38,6 +38,8 @@ define([], function() {
         atoz: 'a-z',
         'Profile.Tab.uploadedProducts': 'Uploaded',
         'Profile.Tab.votedProducts': 'Voted',
-        'Profile.Tab.favlist': 'Collections'
+        'Profile.Tab.favlist': 'Collections',
+        'Profile.settings.changePicture':'Change profile picture',
+        'Profile.settings.changePassword': 'Change password'
 	};
 });

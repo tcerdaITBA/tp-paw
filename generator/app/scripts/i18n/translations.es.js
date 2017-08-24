@@ -39,7 +39,9 @@ define([], function() {
 
         'Profile.Tab.uploadedProducts': 'Publicados',
         'Profile.Tab.votedProducts': 'Votados',
-        'Profile.Tab.favlist': 'Colecciones'
+        'Profile.Tab.favlist': 'Colecciones',
+        'Profile.settings.changePicture':'Cambiar foto de perfil',
+        'Profile.settings.changePassword': 'Cambiar contraseña'
         
 	};
 });
