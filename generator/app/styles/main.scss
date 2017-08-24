@@ -5,6 +5,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 @import 'partials/home';
 @import 'partials/product-item';
+@import 'partials/sign-modals';
+@import 'partials/buttons';
 
 .browsehappy {
   margin: 0.2em 0;
@@ -89,9 +91,8 @@ body {
 }
 
 .navbar-default {
-  background-color: #fff !important;
+  background-color: #fff;
   border-radius: 0;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
   background-image: none;
 }
 
@@ -149,6 +150,11 @@ textarea {
   resize: none;
 }
 
+.modal-backdrop {
+	bottom: 0;
+	z-index: 2000 !important;
+}
+
 footer p {
   text-align: right;
   padding: 25px;
@@ -194,10 +200,6 @@ footer p {
 
 .pointer-cursor {
   cursor: pointer;
-}
-
-.modal-backdrop.in {
-  z-index: auto !important;
 }
 
 .modal {

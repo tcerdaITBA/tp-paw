@@ -21,6 +21,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			$uibModal.open({
 				templateUrl: 'views/modals/signInModal.html',
 				controller: 'SignInModalCtrl',
+				size: 'sm',
 			});
 		};
 		
@@ -28,6 +29,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			$uibModal.open({
 				templateUrl: 'views/modals/signUpModal.html',
 				controller: 'SignUpModalCtrl',
+				size: 'sm'
 			});
 		}
 

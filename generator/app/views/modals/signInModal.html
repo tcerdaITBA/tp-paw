@@ -1,7 +1,19 @@
-<div class="modal-body" id="login-modal">
+<div class="login-modal-body" id="login-modal">
+	<h3 class="login-title">{{'modal.signIn.signToAccount' | translate}}</h3>
 	<form ng-submit="loginSubmit()">
-		<input type="text" name="username" ng-model="loginForm.username.text" ng-pattern="loginForm.username.emailPattern" required ng-trim="false">
-		<input type="password" name="password" ng-model="loginForm.password.text" ng-pattern="loginForm.password.passwordPattern" required>
-		<button type="submit" name="submit">login</button>
+		<div class="input-field">
+			<input type="text" placeholder="{{'modal.signIn.usernamePlaceholder' | translate}}" name="username" ng-model="loginForm.username.text" ng-pattern="loginForm.username.emailPattern" class="form-control" required>
+		</div>
+		<div class="input-field">
+			<input type="password" placeholder="{{'modal.signIn.passwordPlaceholder' | translate}}" name="password" ng-model="loginForm.password.text" ng-pattern="loginForm.password.passwordPattern" class="form-control" required>
+		</div>
+		<div class="input-field checkbox">
+			<label><input type="checkbox" ng-model="loginForm.rememberMe">
+				<span class="checkbox-text">{{'modal.signIn.rememberMe' | translate}}</span>
+			</label>
+		</div>
+		<div class="submit-field">
+			<button class="btn btn-default ps-btn" type="submit" name="submit">{{'modal.signIn.signIn' | translate}}</button>
+		</div>
 	</form>
 </div>

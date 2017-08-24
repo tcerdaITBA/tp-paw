@@ -38,6 +38,12 @@ define([], function() {
 		'navbar.logout':'Logout',
 		'navbar.search':'Search',
 		
+		'modal.signIn.signToAccount':'Sign in to your account',
+		'modal.signIn.usernamePlaceholder':'hello@productseek.com',
+		'modal.signIn.passwordPlaceholder':'Password',
+		'modal.signIn.rememberMe':'Remember me',
+		'modal.signIn.signIn':'Sign In',
+		
         mostRecent: 'Most recent products',
         allProducts: 'All',
         recent: 'Recent',
