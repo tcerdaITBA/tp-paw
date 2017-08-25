@@ -5,6 +5,9 @@ define(['productSeek'], function(productSeek) {
 		var Session = {}
 		Session._user = JSON.parse($window.localStorage.getItem('session.user'));
 		Session._accessToken = JSON.parse($window.localStorage.getItem('session.accessToken'));
+		Session._searchHistory = JSON.parse($window.localStorage.getItem('session.history'));
+		if (!Session._searchHistory)
+			Session._searchHistory = [];
 
 		Session.getUser = function(){
 			return this._user;
@@ -29,6 +32,22 @@ define(['productSeek'], function(productSeek) {
 		Session.destroy = function destroy(){
 			this.setUser(null);
 			this.setAccessToken(null);
+			this.cleanSearchHistory();
+		};
+		
+		Session.getSearchHistory = function() {
+			return this._searchHistory;
+		}
+		
+		Session.saveToSearchHistory = function (query) {
+			if (this._searchHistory.indexOf(query))
+				this._searchHistory.unshift(query);
+			$window.localStorage.setItem('session.history', JSON.stringify(this._searchHistory));
+		};
+		
+		Session.cleanSearchHistory = function() {
+			this._searchHistory = [];
+			$window.localStorage.setItem('session.history', JSON.stringify(this._searchHistory));
 		};
 
 		return Session;

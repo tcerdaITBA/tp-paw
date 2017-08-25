@@ -1,44 +1,156 @@
 <!doctype html>
 <html class="no-js">
 <head>
-  <meta charset="utf-8">
-  <title>Product Seek</title>
-  <meta name="description" content="">
+	<meta charset="utf-8">
+	<title>Product Seek</title>
+	<meta name="description" content="">
 
-  <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
-  <!-- endbuild -->
-
+	<!-- build:css(.tmp) styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- endbuild -->
 </head>
-	
-
 <body ng-controller="IndexCtrl">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+					<span class="sr-only"></span>
+					<!--	Tres rayitas del burguer button -->
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>	
 
+				<a class="navbar-brand" ng-href="#/">
+					<img src="images/logo-wide.svg"/>
+				</a>
+			</div>
+
+			<form ng-submit="search()" class="navbar-form navbar-left">
+				<div class="search-form-container">
+					<div class="form-group">
+						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" placeholder="{{'navbar.search' | translate}}"/>
+						<button type="submit" class="search-button">
+							<span class="glyphicon glyphicon-search search-icn"></span>
+						</button>
+					</div>
+					<div class="suggestions-box">
+						<div ng-show="searchHistory" class="search-history">
+							<div ng-repeat="item in searchHistory">
+								<div class="row">
+									<div class="col-md-12">
+										<a ng-href="/search?q={{item | urlencode}}" id="suggestion-{{$$index + 1}}" class="history-item" data-list-index="{{$$index + 1}}">
+											<span class="glyphicon glyphicon-time"></span>
+											<span>{{item}}</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div ng-show="searchHistory" class="row">
+							<div class="col-md-12"><div class="divider"/></div>
+						</div>	
+						<div class="row">
+							<div class="col-md-12">
+								<p class="most-popular-title">{{'navbar.mostPopular' | translate}}</p>
+							</div>
+						</div>
+
+						<ng-repeat ng-repeat="product in topProducts">
+							<a class="suggestion-list-item" ng-href="#/product/{{product.id}}"  data-list-index="{{$$index + searchHistory.length}}" id="suggestion-{{$$index + searchHistory.length}">
+								<div class="row center-flex">
+									<div class="col-md-2 suggestion-product-logo center-flex">
+										<img src="{{product.logo_url}}">
+									</div>
+								</div>
+								<div class="col-md-7">
+									<span class="suggestion-product-name capitalize-firstLetter">
+										{{product.name}}
+									</span>
+								</div>
+								<div class="col-md-3">
+									<span class="upvote-info">
+									<span class="glyphicon glyphicon-arrow-up upvote-icon"/>
+									{{product.votesCount}}
+									</span>
+								</div>
+							</a>
+						</ng-repeat>
+
+					</div>
+					</div>
+				</div>
+			</form>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse">
+				<ul ng-show="{{!isLoggedIn()}}" class="nav navbar-nav navbar-right">
+					<li>
+						<a ng-href="#" class="navbar-link" ng-click="signUpModal()">{{'navbar.signup' | translate}}</a>
+					</li>	
+					<li>
+						<a ng-href="#" class="navbar-link" ng-click="signInModal()">{{'navbar.signin' | translate}}</a>	
+					</li>
+
+					<li>
+						<p class="navbar-btn">
+							<a tabindex="0" popover-placement="bottom"
+							   uib-popover-html="'<span>post</span>'"
+							   class="ps-btn btn upload-btn" role="button" popover-trigger="'focus'" id="upload-popover">{{'navbar.post' | translate}}
+							</a>
+						</p>
+					</li>
+				</ul>
+
+				<ul ng-show="{{isLoggedIn()}}" class="nav navbar-nav navbar-right">
+					<li>
+						<a class="user-nav-img" href="/profile/${loggedUser.userId}">
+							<img class="img-contain" src="{{loggedUser.picture_url}}">
+						</a>
+					</li>
+					<li>
+						<a class="user-nav-name" href="/profile/${loggedUser.userId}">
+							<span>{{loggedUser.name}}</span>
+						</a>
+					</li>
+					<li>
+						<a href="/logout" class="navbar-link">{{'navbar.logout' | translate}}</a>
+					</li>
+					<li>
+						<p class="navbar-btn">
+							<a ng-show="{{isLoggedIn()}}" ng-href="/upload" class="ps-btn btn upload-btn">
+								{{'navbar.post' | translate}}
+							</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 	<div class="container">
-    <div class="header">
-      <ul class="nav nav-pills pull-right">
-        <li><a ng-href="#/">Home</a></li>
-        <li><a ng-href="#/about">About</a></li>
-        <li><a ng-href="#">Contact</a></li>
-      </ul>
-      <h3 class="text-muted">productSeek</h3>
-    </div>
-    <div ng-view=""></div>
 
-    <div class="footer">
-      <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-    </div>
-  </div>
-	
-	
+		<div>
+				<li><a ng-href="#/">Home</a></li>
+				<li><a ng-href="#/about">About</a></li>
+				<li><a ng-href="#">Contact</a></li>
+			<h3 class="text-muted">productSeek</h3>
+		</div>
+		<div ng-view=""></div>
 
- <!-- build:js(.) scripts/oldieshim.js -->
-  <!--[if lt IE 9]>
-  <script src="bower_components/es5-shim/es5-shim.js"></script>
-  <script src="bower_components/json3/lib/json3.js"></script>
-  <![endif]-->
-  <!-- endbuild -->
-  <script src="/scripts/paths.js"></script>
-  <script src="bower_components/requirejs/require.js" data-main="/scripts/build.js"></script>
+		<div class="footer">
+			<p>Product Seek. 2017.</p>
+		</div>
+	</div>
+
+
+
+	<!-- build:js(.) scripts/oldieshim.js -->
+	<!--[if lt IE 9]>
+		<script src="bower_components/es5-shim/es5-shim.js"></script>
+		<script src="bower_components/json3/lib/json3.js"></script>
+		<![endif]-->
+	<!-- endbuild -->
+	<script src="/scripts/paths.js"></script>
+	<script src="bower_components/requirejs/require.js" data-main="/scripts/build.js"></script>
 </body>
 </html>
