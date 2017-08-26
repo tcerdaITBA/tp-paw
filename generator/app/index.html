@@ -29,19 +29,19 @@
 			<form ng-submit="search()" class="navbar-form navbar-left">
 				<div class="search-form-container">
 					<div class="form-group">
-						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" placeholder="{{'navbar.search' | translate}}"/>
+						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown="searchKeyDown($event)" focus-if="searchFieldFocus"/>
 						<button type="submit" class="search-button">
 							<span class="glyphicon glyphicon-search search-icn"></span>
 						</button>
 					</div>
-					<div class="suggestions-box">
+					<div ng-show="showSuggestions" class="suggestions-box">
 						<div ng-show="searchHistory" class="search-history">
 							<div ng-repeat="item in searchHistory">
 								<div class="row">
 									<div class="col-md-12">
-										<a ng-href="/search?q={{item | urlencode}}" id="suggestion-{{$$index + 1}}" class="history-item" data-list-index="{{$$index + 1}}">
+										<a ng-href="#/search?q={{item | urlencode}}" id="suggestion-{{$index + 1}}" class="history-item" data-list-index="{{$index + 1}}" focus-if="focusElems[{{$index}}]" ng-keydown="searchKeyDown($event)">
 											<span class="glyphicon glyphicon-time"></span>
-											<span>{{item}}</span>
+											<span ng-bind="item"></span>
 										</a>
 									</div>
 								</div>
@@ -52,7 +52,7 @@
 						</div>	
 						<div class="row">
 							<div class="col-md-12">
-								<p class="most-popular-title">{{'navbar.mostPopular' | translate}}</p>
+								<p class="most-popular-title" ng-bind="'navbar.mostPopular' | translate"></p>
 							</div>
 						</div>
 
@@ -64,14 +64,13 @@
 									</div>
 								</div>
 								<div class="col-md-7">
-									<span class="suggestion-product-name capitalize-firstLetter">
-										{{product.name}}
+									<span class="suggestion-product-name capitalize-firstLetter" ng-bind="product.name">
 									</span>
 								</div>
 								<div class="col-md-3">
 									<span class="upvote-info">
 									<span class="glyphicon glyphicon-arrow-up upvote-icon"/>
-									{{product.votesCount}}
+										<span ng-bind="product.votesCount"></span>
 									</span>
 								</div>
 							</a>
@@ -86,17 +85,17 @@
 			<div class="collapse navbar-collapse">
 				<ul ng-show="{{!isLoggedIn()}}" class="nav navbar-nav navbar-right">
 					<li>
-						<a ng-href="#" class="navbar-link" ng-click="signUpModal()">{{'navbar.signup' | translate}}</a>
+						<a class="navbar-link" ng-click="signUpModal()" ng-bind="'navbar.signup' | translate"></a>
 					</li>	
 					<li>
-						<a ng-href="#" class="navbar-link" ng-click="signInModal()">{{'navbar.signin' | translate}}</a>	
+						<a class="navbar-link" ng-click="signInModal()" ng-bind="'navbar.signin' | translate"></a>	
 					</li>
 
 					<li>
 						<p class="navbar-btn">
 							<a tabindex="0" popover-placement="bottom"
 							   uib-popover-html="'<span>post</span>'"
-							   class="ps-btn btn upload-btn" role="button" popover-trigger="'focus'" id="upload-popover">{{'navbar.post' | translate}}
+							   class="ps-btn btn upload-btn" role="button" popover-trigger="'focus'" id="upload-popover" ng-bind="'navbar.post' | translate">
 							</a>
 						</p>
 					</li>
@@ -110,16 +109,15 @@
 					</li>
 					<li>
 						<a class="user-nav-name" href="/profile/${loggedUser.userId}">
-							<span>{{loggedUser.name}}</span>
+							<span ng-bind="loggedUser.name"></span>
 						</a>
 					</li>
 					<li>
-						<a href="/logout" class="navbar-link">{{'navbar.logout' | translate}}</a>
+						<a href="/logout" class="navbar-link" ng-bind="'navbar.logout' | translate"></a>
 					</li>
 					<li>
 						<p class="navbar-btn">
-							<a ng-show="{{isLoggedIn()}}" ng-href="/upload" class="ps-btn btn upload-btn">
-								{{'navbar.post' | translate}}
+							<a ng-show="{{isLoggedIn()}}" ng-href="/upload" class="ps-btn btn upload-btn" ng-bind="'navbar.post' | translate">
 							</a>
 						</p>
 					</li>
@@ -128,12 +126,9 @@
 		</div>
 	</nav>
 	<div class="container">
-
 		<div>
 				<li><a ng-href="#/">Home</a></li>
 				<li><a ng-href="#/about">About</a></li>
-				<li><a ng-href="#">Contact</a></li>
-			<h3 class="text-muted">productSeek</h3>
 		</div>
 		<div ng-view=""></div>
 
