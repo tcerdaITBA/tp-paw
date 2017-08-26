@@ -53,6 +53,12 @@ define([], function() {
         'Profile.Tab.votedProducts': 'Voted',
         'Profile.Tab.favlist': 'Collections',
         'Profile.settings.changePicture':'Change profile picture',
-        'Profile.settings.changePassword': 'Change password'
+        'Profile.settings.changePassword': 'Change password',
+    
+        'changePassword.currentPasswordConf': 'Current Password',
+        'changePassword.newPassword':'New Password',
+        'changePassword': 'Change Password',
+        'passwordForm.cancel': 'Cancel',
+
     };
 });
