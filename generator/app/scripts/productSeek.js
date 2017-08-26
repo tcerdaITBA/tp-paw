@@ -4,12 +4,16 @@ define(['routes',
 	'i18n/i18nLoader!',
 	'angular',
 	'angular-route',
+	'angular-bootstrap',
+	'angular-sanitize',
 	'bootstrap',
 	'angular-translate'],
 	function(config, dependencyResolverFor, i18n) {
 		var productSeek = angular.module('productSeek', [
 			'ngRoute',
-			'pascalprecht.translate'
+			'pascalprecht.translate',
+			'ngSanitize',
+			'ui.bootstrap'
 		]);
 		productSeek
 			.config(
@@ -64,7 +68,12 @@ define(['routes',
                     });            
             }])
             .value('url', 'http://localhost:8080')
-            .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other']);
+            .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
+			.filter('urlencode', function() {
+				return function(input) {
+					return window.encodeURIComponent(input);
+				}
+			});
                 return productSeek;
             }
 );

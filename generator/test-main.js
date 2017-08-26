@@ -35,7 +35,11 @@ require.config({
         tab: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab',
         tooltip: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip',
         transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
-        'angular-mocks': '../../bower_components/angular-mocks/angular-mocks'
+        'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
+        ngstorage: '../../bower_components/ngstorage/ngStorage',
+        'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+        'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
+        ngSanitize: '../../bower_components/ngSanitize/index'
     },
     shim: {
         angular: {
@@ -65,6 +69,16 @@ require.config({
             ]
         },
         'angular-translate': {
+            deps: [
+                'angular'
+            ]
+        },
+        'angular-sanitize': {
+            deps: [
+                'angular'
+            ]
+        },
+        'angular-bootstrap': {
             deps: [
                 'angular'
             ]

@@ -30,6 +30,19 @@ define([], function() {
         'description.music': '¿Estás teniendo un día duro? Es hora de escuchar música que te hace sentir como el mejor.',
         'description.other': '¿Ninguna categoría corresponde con el producto que buscas? Puede que lo encuentres aquí.',
         'description.all': 'Aquí encontrarás productos de cualquier categoría.',
+		
+		'navbar.mostPopular':'Más populares',
+		'navbar.signup':'Registrarse',
+		'navbar.signin':'Ingresar',
+		'navbar.post':'Publicar Producto',
+		'navbar.logout':'Cerrar Sesión',
+		'navbar.search':'Buscar',
+		
+		'modal.signIn.signToAccount':'Ingresa a tu cuenta',
+		'modal.signIn.usernamePlaceholder':'hola@productseek.com',
+		'modal.signIn.passwordPlaceholder':'Contraseña',
+		'modal.signIn.rememberMe':'Recuérdame',
+		'modal.signIn.signIn':'Iniciar sesión',
         
         mostRecent: 'Productos más recientes',
         allProducts: 'Todos los productos',
