@@ -36,7 +36,7 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'contr
 			$uibModal.open({
 				templateUrl: 'views/changePictureModal.html',
 				controller: 'ChangePictureModalCtrl',
-				size: 'sm',
+				size: 'md',
 			});
 		};
 	}]);
