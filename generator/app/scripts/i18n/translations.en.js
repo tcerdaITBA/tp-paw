@@ -41,5 +41,5 @@ define([], function() {
         'Profile.Tab.favlist': 'Collections',
         'Profile.settings.changePicture':'Change profile picture',
         'Profile.settings.changePassword': 'Change password'
-	};
+    };
 });

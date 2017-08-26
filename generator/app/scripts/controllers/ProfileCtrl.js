@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/sessionService', 'controllers/ChangePictureModalCtrl'], function(productSeek) {
 
-	productSeek.controller('ProfileCtrl', function($scope, user, collections, createdProducts, votedProducts) {
+	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'sessionService', 'authService','$uibModal', function($scope, user, collections, createdProducts, votedProducts, session, auth, $uibModal) {
 		$scope.user = user;
 		$scope.collections = collections;
 		$scope.createdProducts = createdProducts;
@@ -23,6 +23,21 @@ define(['productSeek'], function(productSeek) {
 			else
 				return 1;
 		}
-	
-	});
+
+		$scope.isProfileOwner = function() {
+			if(!auth.isLoggedIn())
+				return false;
+			else if (session.getUser().id != user.id)
+				return false;
+			return true;
+		}
+
+		$scope.changePictureModal = function() {
+			$uibModal.open({
+				templateUrl: 'views/changePictureModal.html',
+				controller: 'ChangePictureModalCtrl',
+				size: 'sm',
+			});
+		};
+	}]);
 });
