@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/sessionService', 'controllers/ChangePictureModalCtrl'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/sessionService', 'controllers/ChangePasswordModalCtrl'], function(productSeek) {
 
 	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'sessionService', 'authService','$uibModal', function($scope, user, collections, createdProducts, votedProducts, session, auth, $uibModal) {
 		$scope.user = user;
@@ -34,8 +34,16 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'contr
 
 		$scope.changePictureModal = function() {
 			$uibModal.open({
-				templateUrl: 'views/changePictureModal.html',
+				templateUrl: 'views/modals/changePictureModal.html',
 				controller: 'ChangePictureModalCtrl',
+				size: 'md',
+			});
+		};
+
+		$scope.changePasswordModal = function() {
+			$uibModal.open({
+				templateUrl: 'views/modals/changePasswordModal.html',
+				controller: 'ChangePasswordModalCtrl',
 				size: 'md',
 			});
 		};
