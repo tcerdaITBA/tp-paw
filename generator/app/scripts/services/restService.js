@@ -1,6 +1,6 @@
 'use strict';
-define(['productSeek', 'jquery'], function(productSeek) {
-		return productSeek.factory('restService', function($http, url) {
+define(['productSeek', 'jquery', 'services/sessionService'], function(productSeek) {
+		return productSeek.factory('restService', ['$http', 'url', 'sessionService', function($http, url, session) {
             
             var translateTable = {
                     category: 'category',
@@ -23,12 +23,16 @@ define(['productSeek', 'jquery'], function(productSeek) {
                 return translated;
             }
 			
+            function authHeaders() {
+                var accessToken = session.getAccessToken();
+                return accessToken ? {headers: {'X-AUTH-TOKEN': accessToken}} : undefined;
+            }
             
 			function doGet(baseUrl, params) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
                 
-				return  $http.get(baseUrl + params)
+				return  $http.get(baseUrl + params, authHeaders())
 						.then(function(response) {
 							return response.data;
 						})
@@ -37,11 +41,11 @@ define(['productSeek', 'jquery'], function(productSeek) {
 						});
 			}
             
-            function doPut(baseUrl, params) {
+            function doPut(baseUrl, params, data) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
 
-                return $http.put(baseUrl + params)
+                return $http.put(baseUrl + params, data, authHeaders())
                         .then(function(response) {
                             return response.data;
                         })
@@ -54,7 +58,7 @@ define(['productSeek', 'jquery'], function(productSeek) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
 
-                return $http.delete(baseUrl + params)
+                return $http.delete(baseUrl + params, authHeaders())
                         .then(function(response) {
                             return response.data;
                         })
@@ -112,7 +116,7 @@ define(['productSeek', 'jquery'], function(productSeek) {
                     return doDelete(url + '/products/' + id + '/votes');
                 }
 			}
-		});
+		}]);
 	}
 );
 

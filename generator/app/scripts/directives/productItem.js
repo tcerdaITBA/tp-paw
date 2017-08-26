@@ -19,18 +19,22 @@ define(['productSeek', 'services/authService'], function(productSeek) {
                     $location.url('/product/' + product.id);
                 };
                 
-                $scope.isLoggedIn = authService.isLoggedIn;
+                $scope.loggedUser = authService.loggedUser;
                 
-                if ($scope.isLoggedIn()) {
-                    $scope.toggleVote = function() {
+                $scope.$watch('loggedUser', function() {
+                    $scope.isLoggedIn = authService.isLoggedIn();
+                });
+                
+                $scope.toggleVote = function() {
+                    if ($scope.isLoggedIn) {
                         $scope.product.voted = !$scope.product.voted;
-                        
+
                         if ($scope.product.voted) {
                             $scope.product.voters_count += 1;
                             restService.voteProduct(product.id);
                         }
                         else {
-                            $scope.product.voter_count -= 1;
+                            $scope.product.voters_count -= 1;
                             restService.unvoteProduct(product.id);
                         }
                     }
