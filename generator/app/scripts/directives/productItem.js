@@ -1,12 +1,12 @@
 'use strict';
-define(['productSeek', 'services/authService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'directives/loginRequiredPopover'], function(productSeek) {
     productSeek.directive('productItem', function() {
         return {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
             scope: {product: '=', hideCategory: '='},
-            controller: ['$scope', '$location', '$route', 'authService', 'restService', function($scope, $location, $route, authService, restService) {
+            controller: ['$scope', '$location', '$route', 'authService', 'modalService', 'restService', function($scope, $location, $route, authService, modalService, restService) {
                 var product = $scope.product;
                 
                 $scope.offset = $scope.hideCategory ? 6 : 3;
@@ -44,6 +44,9 @@ define(['productSeek', 'services/authService'], function(productSeek) {
                         }
                     }
                 }
+                
+                $scope.signInModal = modalService.signInModal;
+                $scope.signUpModal = modalService.signUpModal;
             }]
         }
     });

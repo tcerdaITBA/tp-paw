@@ -48,8 +48,11 @@ define([], function() {
         allProducts: 'All',
         recent: 'Recent',
         popular: 'Most voted',
-        atoz: 'a-z'
+        atoz: 'a-z',
 		
-		
+		'upVote.toPost': 'In order to vote a product you have to',
+        'upVote.signIn': 'sign in',
+        'upVote.toPostBis': 'or',
+        'upVote.signUp': 'sign up.'
 	};
 });

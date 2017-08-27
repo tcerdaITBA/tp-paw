@@ -18,7 +18,7 @@
                 <p>{{product.category | translate}}</p>
             </div>
             <div class="col-md-6 col-md-offset-{{offset}}">
-                <button class="pull-right btn btn-default upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()">
+                <button class="pull-right btn btn-default upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()" login-required-popover="!isLoggedIn">
                     <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>{{product.voters_count}}</p>
                 </button>
                 <button ng-show="isLoggedIn" class="btn btn-default add-to-collection-btn pull-right categoryTag" data-target="#add-to-collection-modal-{{product.id}}" data-toggle="modal">
