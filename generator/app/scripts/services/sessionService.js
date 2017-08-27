@@ -3,9 +3,12 @@ define(['productSeek'], function(productSeek) {
 
 	productSeek.factory('sessionService', function($window) {
 		var Session = {}
-		Session._user = JSON.parse($window.localStorage.getItem('session.user'));
-		Session._accessToken = JSON.parse($window.localStorage.getItem('session.accessToken'));
-		Session._searchHistory = JSON.parse($window.localStorage.getItem('session.history'));
+		Session._user = JSON.parse($window.localStorage.getItem('session.user')) || JSON.parse($window.sessionStorage.getItem('session.user'));
+		
+        Session._accessToken = JSON.parse($window.localStorage.getItem('session.accessToken')) || JSON.parse($window.sessionStorage.getItem('session.accessToken'));
+		
+        Session._searchHistory = JSON.parse($window.localStorage.getItem('session.history'));
+        
 		if (!Session._searchHistory)
 			Session._searchHistory = [];
 
@@ -13,9 +16,12 @@ define(['productSeek'], function(productSeek) {
 			return this._user;
 		};
 
-		Session.setUser = function(user){
+		Session.setUser = function(user, isLocalStorage){
 			this._user = user;
-			$window.localStorage.setItem('session.user', JSON.stringify(user));
+            if (isLocalStorage)
+                $window.localStorage.setItem('session.user', JSON.stringify(user));
+            else
+                $window.sessionStorage.setItem('session.user', JSON.stringify(user));
 			return this;
 		};
 
@@ -23,9 +29,12 @@ define(['productSeek'], function(productSeek) {
 			return this._accessToken;
 		};
 
-		Session.setAccessToken = function(token){
+		Session.setAccessToken = function(token, isLocalStorage){
 			this._accessToken = token;
-			$window.localStorage.setItem('session.accessToken', JSON.stringify(token));
+            if (isLocalStorage)
+                $window.localStorage.setItem('session.accessToken', JSON.stringify(token));
+            else
+                $window.sessionStorage.setItem('session.accessToken', JSON.stringify(token));
 			return this;
 		};
 

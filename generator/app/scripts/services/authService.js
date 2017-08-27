@@ -22,15 +22,14 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 					data: {j_username: username, j_password: password}
 				})
 				.then(function(response) {
-                    session.setAccessToken(response.headers('X-AUTH-TOKEN'));
+                    session.setAccessToken(response.headers('X-AUTH-TOKEN'), saveToSession);
                     return $http.get(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
                 })
 				.then(function(response) {
                     return response.data;
                 })
 				.then(function(data) {
-                    if (saveToSession)
-                        session.setUser(data);
+                    session.setUser(data, saveToSession);
                     self.loggedUser = data;
                     $rootScope.$broadcast('user:updated');
                     return data;
