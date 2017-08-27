@@ -26,7 +26,6 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
                 var c = $scope.categories[i];
                 c.active = c === category;
             }
-        }
-        
+        }        
 	}]);
 });

@@ -2,7 +2,7 @@
 define(['productSeek', 'services/sessionService'], function(productSeek) {
 
 
-	return productSeek.factory('authService', ['$http', 'url', 'sessionService', '$q', function($http, url, session, $q) {
+	return productSeek.factory('authService', ['$http', 'url', 'sessionService', '$q', '$rootScope', function($http, url, session, $q, $rootScope) {
 		var AuthService = {};
 		AuthService.loggedUser = session.getUser();
 
@@ -31,11 +31,11 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 				.then(function(data) {
 				self.loggedUser = data;
                 session.setUser(data);
+                $rootScope.$broadcast('user:updated');
 				return data;
 			})
 				.catch(function(response) {
-				session.destroy();
-                self.loggedUser = null;
+                self.logOut();
 				return $q.reject(response.data);
 			});
 		};
@@ -47,6 +47,7 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 		AuthService.logOut = function() {
 			session.destroy();
 			this.loggedUser = null;
+            $rootScope.$broadcast('user:updated');
 		};
 
 		AuthService.getLoggedUser = function() {
