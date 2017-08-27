@@ -6,7 +6,7 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 		var AuthService = {};
 		AuthService.loggedUser = session.getUser();
 
-		AuthService.logIn = function(username, password) {
+		AuthService.logIn = function(username, password, saveToSession) {
 			var credentials = { j_username: username, j_password: password };
 			var self = this;
 			return $http({
@@ -22,22 +22,23 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 					data: {j_username: username, j_password: password}
 				})
 				.then(function(response) {
-				session.setAccessToken(response.headers('X-AUTH-TOKEN'));
-				return $http.get(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
-			})
+                    session.setAccessToken(response.headers('X-AUTH-TOKEN'));
+                    return $http.get(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
+                })
 				.then(function(response) {
-				return response.data;
-			})
+                    return response.data;
+                })
 				.then(function(data) {
-				self.loggedUser = data;
-                session.setUser(data);
-                $rootScope.$broadcast('user:updated');
-				return data;
-			})
+                    if (saveToSession)
+                        session.setUser(data);
+                    self.loggedUser = data;
+                    $rootScope.$broadcast('user:updated');
+                    return data;
+                })
 				.catch(function(response) {
-                self.logOut();
-				return $q.reject(response.data);
-			});
+                    self.logOut();
+                    return $q.reject(response.data);
+                });
 		};
 
 		AuthService.isLoggedIn = function() {

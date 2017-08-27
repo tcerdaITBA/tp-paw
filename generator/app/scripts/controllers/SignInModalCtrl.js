@@ -13,7 +13,7 @@ define(['productSeek', 'services/authService'], function(productSeek) {
 				
 		$scope.loginSubmit = function() {
 			console.log($scope.loginForm);
-			auth.logIn($scope.loginForm.username.text, $scope.loginForm.password.text)
+			auth.logIn($scope.loginForm.username.text, $scope.loginForm.password.text, $scope.loginForm.rememberMe)
 			.then(function(response) {
 				alert('Logged In!')
 				console.log(auth.getLoggedUser());
