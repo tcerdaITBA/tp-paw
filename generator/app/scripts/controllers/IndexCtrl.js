@@ -2,10 +2,14 @@
 define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf'], function(productSeek) {
 
 	productSeek.controller('IndexCtrl', ['sessionService', 'authService', '$scope', '$location', '$uibModal', function(session, auth, $scope, $location, $uibModal) {
-		$location.path('#/');
-
 		$scope.showSuggestions = false;
-		$scope.isLoggedIn = auth.isLoggedIn;
+		$scope.isLoggedIn = auth.isLoggedIn();
+        $scope.loggedUser = auth.getLoggedUser();
+        
+        // No me anduvo con $scope.logOut = auth.logOut
+        $scope.logOut = function() {
+            auth.logOut();
+        };
 	
 		var focusIndex = -1;
 		$scope.searchFieldFocus = false;
@@ -23,6 +27,11 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			}
 		};
 
+        $scope.$on('user:updated', function() {
+            $scope.isLoggedIn = auth.isLoggedIn();
+            $scope.loggedUser = auth.getLoggedUser();
+        });
+        
 		$scope.searchFocus = function() {
 			$scope.showSuggestions = true;
 		};
