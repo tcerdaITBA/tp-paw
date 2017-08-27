@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf'], function(productSeek) {
+define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf'], function(productSeek) {
 
-	productSeek.controller('IndexCtrl', ['sessionService', 'authService', '$scope', '$location', '$uibModal', function(session, auth, $scope, $location, $uibModal) {
+	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', '$scope', '$location', function(session, auth, modal, $scope, $location) {
 		$scope.showSuggestions = false;
 		$scope.isLoggedIn = auth.isLoggedIn();
         $scope.loggedUser = auth.getLoggedUser();
@@ -62,21 +62,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			// console.log($scope.focusElems);
 		}
 
-		$scope.signInModal = function() {
-			$uibModal.open({
-				templateUrl: 'views/modals/signInModal.html',
-				controller: 'SignInModalCtrl',
-				size: 'sm',
-			});
-		};
-
-		$scope.signUpModal = function() {
-			$uibModal.open({
-				templateUrl: 'views/modals/signUpModal.html',
-				controller: 'SignUpModalCtrl',
-				size: 'sm'
-			});
-		};
-
+		$scope.signInModal = modal.signInModal;
+		$scope.signUpModal = modal.signUpModal;
 	}]);
 });

@@ -40,7 +40,9 @@ define(['productSeek'], function(productSeek) {
 
 		Session.destroy = function destroy(){
 			this.setUser(null);
+            this.setUser(null, true);
 			this.setAccessToken(null);
+			this.setAccessToken(null, true);
 			this.cleanSearchHistory();
 		};
 		
