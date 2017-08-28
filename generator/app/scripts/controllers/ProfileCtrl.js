@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/sessionService', 'controllers/ChangePasswordModalCtrl'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/sessionService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl'], function(productSeek) {
 
 	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'sessionService', 'authService','$uibModal', function($scope, user, collections, createdProducts, votedProducts, session, auth, $uibModal) {
 		$scope.user = user;

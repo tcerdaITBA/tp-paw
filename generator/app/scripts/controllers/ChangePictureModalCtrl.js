@@ -1,7 +1,7 @@
-define(['productSeek', 'services/authService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/sessionService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('ChangePictureModalCtrl', ['authService', '$scope', function(auth, $scope) {
+    productSeek.controller('ChangePictureModalCtrl', ['authService', 'sessionService', '$scope', function(auth, session, $scope) {
 		
     }]);
 
