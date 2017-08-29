@@ -79,8 +79,8 @@
                         </div>  
                         <div id="favList-pane" class="tab-pane fade row result-for-products none {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
                             <div class="col-md-12 product-list">
-                                <div ng-repeat="p in collections.products">
-                                    <product-item product="p" hide-category="category"></product-item>
+                                <div ng-repeat="f in collections">
+                                    <collection-item fav-list="f"></collection-item>
                                 </div>
                             </div>
                         </div>                                

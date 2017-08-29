@@ -1,0 +1,31 @@
+<div class="panel panel-default collection-panel">
+    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{favList.id}}" aria-expanded="false" aria-controls="collapse-{{favList.id}}">
+        <div class="panel-heading" role="tab" id="heading-{{favList.id}}">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="collection-title capitalize-firstLetter">
+                            <span ng-bind="favList.name"></span>
+                        </div>
+                        <div class="collection-info">
+                            <span ng-bind="favListLength"></span>
+                            <div ng-if="favListLength == 1">
+                                Producto
+                            </div>
+                            <div ng-if="favListLength != 1">
+                                Productos
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-2">
+                        <sec:authorize access="isAuthenticated()">
+                            <c:if test="${loggedUser.userId == profileUser.userId}">
+                                <button class="btn btn-default collection-delete-btn pull-right" type="submit" data-favlist-id="${favList.id}">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </c:if>
+                        </sec:authorize>
+                    </div> -->
+                </div>
+            </div>
+    </a>
+</div>

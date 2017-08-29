@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/sessionService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/sessionService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'directives/collectionItem'], function(productSeek) {
 
 	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'sessionService', 'authService','$uibModal', function($scope, user, collections, createdProducts, votedProducts, session, auth, $uibModal) {
 		$scope.user = user;
@@ -7,8 +7,8 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'contr
 		$scope.createdProducts = createdProducts;
 		$scope.votedProducts = votedProducts;
 
+
 		var isEmpty = function(set) {
-			console.log(set);
 			return set.count == 0;
 			
 		}	
@@ -49,5 +49,5 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'contr
 			});
 		};
 	}]);
-	
+
 });
