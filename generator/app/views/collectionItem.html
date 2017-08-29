@@ -28,4 +28,50 @@
                 </div>
             </div>
     </a>
+	<div id="collapse-{{favList.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{favList.id}}">
+		<div class="panel-body">
+            <!-- ZRP -->
+            <h4 ng-if="favListLength == 0">No hay productos en la colección STUB</h4>
+            <div ng-if="favListLength > 0" ng-repeat="product in favList.products" class="row">
+<!--                   <c:set var="collectionOffset" value="12"></c:set>
+                <sec:authorize access="isAuthenticated()">
+                    <c:if test="${loggedUser.userId == profileUser.userId}">
+                        <c:set var="collectionOffset" value="11"></c:set>
+                    </c:if>
+                </sec:authorize> -->
+                    <div class="col-md-{{collectionOffset}}">
+                        <a class="collection-product-list-item" ng-href="#/product/{{product.id}}" >
+                            <div class="row center-flex">
+                                <div class="col-md-2 collection-product-logo center-flex">
+                                    <img src={{product.logo_url}}>
+                                </div>
+                                <div class="col-md-7">
+                                    <span class="collection-product-name capitalize-firstLetter">
+                                        {{product.name}}
+                                    </span>
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="collection-upvote-info pull-right">
+                                        <span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+                                        {{product.voters_count}}
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <div class="col-md-{{12 - collectionOffset}} button-delete-col">
+<!--                    <c:url value="/favlist/delete/${favList.id}/${product.id}" var="removeFromList"/>
+                    <sec:authorize access="isAuthenticated()">
+                    <c:if test="${loggedUser.userId == profileUser.userId}">
+                        <form:form class="pull-right" action="${removeFromList}" method="post">
+                                <button class="btn collection-delete-product" type="submit">
+                                    <span class="glyphicon glyphicon-remove collection-remove-product-icon"></span>
+                                </button>
+                        </form:form>
+                    </c:if>
+                    </sec:authorize> -->
+                </div>
+            </div>
+		</div>
+	</div>
 </div>

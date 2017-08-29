@@ -7,7 +7,8 @@ define(['productSeek'], function(productSeek) {
             templateUrl: '/views/collectionItem.html',
             scope: {favList: '='},
             controller: ['$scope', '$location', function($scope, $location) {
-                console.log($scope.favList);
+                $scope.collectionOffset = 12; // TODO: si el usuario está loggeado y es su colección vale 11
+                
                 $scope.directToProduct = function() {
                     $location.url('/product/' + product.id);
                 };
@@ -21,8 +22,7 @@ define(['productSeek'], function(productSeek) {
                     
                 }
 
-                $scope.favListLength = $scope.favList.length;
-
+                $scope.favListLength = $scope.favList.count;
             }]
         }
     });

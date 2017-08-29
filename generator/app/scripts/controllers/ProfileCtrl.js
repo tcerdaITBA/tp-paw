@@ -7,7 +7,8 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'contr
 		$scope.createdProducts = createdProducts;
 		$scope.votedProducts = votedProducts;
 
-
+        console.log(collections);
+        
 		var isEmpty = function(set) {
 			return set.count == 0;
 			
