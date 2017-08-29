@@ -25,6 +25,7 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'contr
 		}
 
 		$scope.isProfileOwner = function() {
+			console.log("entra a esta funcion");
 			if(!auth.isLoggedIn())
 				return false;
 			else if (session.getUser().id != user.id)
@@ -48,4 +49,5 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'contr
 			});
 		};
 	}]);
+	
 });

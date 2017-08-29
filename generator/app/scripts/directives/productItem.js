@@ -5,7 +5,7 @@ define(['productSeek'], function(productSeek) {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
-            scope: {product: '=', hideCategory: '='},
+            scope: {product: '=', hideCategory: '=', hideDelete: '='},
             controller: ['$scope', '$location', function($scope, $location) {
                 var product = $scope.product;
                 
@@ -18,6 +18,12 @@ define(['productSeek'], function(productSeek) {
                 $scope.directToProduct = function() {
                     $location.url('/product/' + product.id);
                 };
+
+                $scope.deleteProduct = function() {
+                    console.log("Esto deberia borrar el producto");
+                }
+
+
             }]
         }
     });
