@@ -8,7 +8,7 @@
                 <p>{{product.name}}</p>
             </div>
             <div class="col-md-2" ng-click="deleteProduct();$event.stopPropagation()" ng-if="!hideDelete">
-                <span class="glyphicon glyphicon-trash delete-product-button pull-right"></span>
+                <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteModal()"></span>
             </div>
         </div>
         <div class="row product-short-description">
