@@ -13,7 +13,10 @@ define(['productSeek', 'services/authService', 'services/sessionService'], funct
             // user.password = $scope.passwordForm.newPassword.text;
 			
         };
-
+        
+        $scope.cancel = function(){
+            $scope.$dismiss();
+        };
     }]);
 
 });

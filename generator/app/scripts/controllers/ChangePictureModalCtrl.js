@@ -2,7 +2,11 @@ define(['productSeek', 'services/authService', 'services/sessionService'], funct
 
     'use strict';
     productSeek.controller('ChangePictureModalCtrl', ['authService', 'sessionService', '$scope', function(auth, session, $scope) {
-		
+        
+        $scope.cancel = function(){
+            $scope.$dismiss();
+        };
+        
     }]);
 
 });

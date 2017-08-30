@@ -54,11 +54,15 @@ define([], function() {
         'Profile.Tab.favlist': 'Collections',
         'Profile.settings.changePicture':'Change profile picture',
         'Profile.settings.changePassword': 'Change password',
+        'userFormLabel.passwordConfirm': 'Confirm Password',
     
         'changePassword.currentPasswordConf': 'Current Password',
         'changePassword.newPassword':'New Password',
         'changePassword': 'Change Password',
         'passwordForm.cancel': 'Cancel',
+
+        'userFormLabel.newProfilePicture': 'New Profile Picture',
+        
 
     };
 });
