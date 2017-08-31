@@ -5,12 +5,9 @@
         <slick dots=true infinite=false speed=300 slides-to-show=1 touch-move=false slides-to-scroll=1 enabled=true>
             <div ng-repeat="image_url in image_urls">
                 <div class="image-holder">
+                    <!-- para ver si el .js de slick se importo correctamente -->
                     <img class="image-item" src="{{image_url}}" >
-                    <img class="image-item" src="http://localhost:8080/products/28/images/0">
-                    <img class="image-item" src="http://localhost:8080/products/28/images/0">
-                    <img class="image-item" src="http://localhost:8080/products/28/images/0">
-                    <img class="image-item" src="http://localhost:8080/products/28/images/0">
-                    <img class="image-item" src="http://localhost:8080/products/28/images/0">
+                    <img class="image-item" src="{{image_url}}" >
                 </div>
             </div>
         </slick>
