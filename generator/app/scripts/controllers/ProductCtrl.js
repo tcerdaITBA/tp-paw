@@ -5,5 +5,15 @@ define(['productSeek'], function(productSeek) {
 		$scope.product = product;
         $scope.creator = product.creator;
         $scope.comments = product.comments;
+        $scope.video_ids = product.video_ids;
+        $scope.image_urls = product.image_urls;
+
+        $scope.slickConfig = {
+		  enabled: true,
+		  dots: true,
+		  infinite: false,
+		  slidesToScroll : 1,
+		  slidesToShow: 1,
+		};
     }]);
 });
