@@ -1,8 +1,9 @@
 'use strict';
 define(['productSeek'], function(productSeek) {
-
+	
 	productSeek.factory('sessionService', function($window) {
-		var Session = {}
+		var Session = {};
+		var MAX_SEARCH_COUNT = 4;
 		Session._user = JSON.parse($window.localStorage.getItem('session.user')) || JSON.parse($window.sessionStorage.getItem('session.user'));
 		
         Session._accessToken = JSON.parse($window.localStorage.getItem('session.accessToken')) || JSON.parse($window.sessionStorage.getItem('session.accessToken'));
@@ -53,6 +54,7 @@ define(['productSeek'], function(productSeek) {
 		Session.saveToSearchHistory = function (query) {
 			if (this._searchHistory.indexOf(query))
 				this._searchHistory.unshift(query);
+			this._searchHistory = this._searchHistory.slice(0, MAX_SEARCH_COUNT);
 			$window.localStorage.setItem('session.history', JSON.stringify(this._searchHistory));
 		};
 		

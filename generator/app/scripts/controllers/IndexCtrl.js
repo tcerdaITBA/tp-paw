@@ -15,15 +15,14 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		$scope.searchFieldFocus = false;
 		$scope.focusElems = [];
 
-		// y si cambia la historia? No se actualiza. VER. Hay que hacer get de nuevo al 
-		// guardar una nueva cosa
 		$scope.searchHistory = session.getSearchHistory();
 
 		$scope.search = function() {
 			// TODO: error message if empty, too short, too long...
 			if ($scope.query && 3 <= $scope.query.length && $scope.query.length <= 64) {
 				session.saveToSearchHistory($scope.query);
-				//$location.url('/search/products?q=' + $scope.query.text);
+				$scope.searchHistory = session.getSearchHistory();
+				$location.url('#/search?q=' + $scope.query);
 			}
 		};
 
@@ -50,6 +49,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 					$scope.focusElems[focusIndex--] = false;
 					$scope.focusElems[focusIndex] = true;
 				}
+				e.preventDefault();
 			} 
 			else if (e.keyCode == 40) { // arrow down
 				$scope.searchFieldFocus = false;
@@ -57,9 +57,8 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 				// TODO: agregar most popular products
 				focusIndex = (focusIndex < $scope.searchHistory.length - 1 ? focusIndex + 1 : focusIndex);
 				$scope.focusElems[focusIndex] = true;
+				e.preventDefault();
 			}
-			// console.log(focusIndex);
-			// console.log($scope.focusElems);
 		}
 
 		$scope.signInModal = modal.signInModal;

@@ -30,6 +30,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
             
 			function doGet(baseUrl, params) {
                 var params = translate(params);
+				console.log(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
                 
 				return  $http.get(baseUrl + params, authHeaders())
@@ -100,12 +101,12 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 					return doGet(url + '/product/' + id + '/voters', params);
 				},
                 
-				searchProducts: function(query, params) {
-					return doGet(url + '/search/products', params);
+				searchProducts: function(query) {
+					return doGet(url + '/search/products', {query: query});
 				},
                 
-				searchUsers: function(query, params) {
-					return doGet(url + '/search/users', params);
+				searchUsers: function(query) {
+					return doGet(url + '/search/users', {query: query});
 				},
                 
                 voteProduct: function(id) {

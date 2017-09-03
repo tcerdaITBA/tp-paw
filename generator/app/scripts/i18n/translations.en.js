@@ -44,6 +44,14 @@ define([], function() {
 		'modal.signIn.rememberMe':'Remember me',
 		'modal.signIn.signIn':'Sign In',
 		
+		'searchResults.products':'Products',
+		'searchResults.users':'Users',
+		
+		'searchZRP.notFound':'\uD83D\uDD0E',
+		'searchZRP.tryDifferentSearch':'Try a different search',
+		'searchZRP.noUsers':'No users found containing {{keyword}}',
+		'searchZRP.noProducts':'No products found containing {{keyword}}',
+		
         mostRecent: 'Most recent products',
         allProducts: 'All',
         recent: 'Recent',

@@ -43,7 +43,7 @@
 						<ul class="nav nav-pills nav-justified search-tabs">
 							<c:set var="activeTab" value="${products.size() == 0 && users.size() != 0 }"></c:set>
 
-			
+
 							<li role="presentation" class="${!activeTab ? 'active' : 'none' }"><a href="#products-pane" data-toggle="tab"><spring:message code="searchResults.products"/><span class="badge"><c:out value="${products.size()}"/></span></a></li>
 							<li role="presentation" class="${activeTab ? 'active' : 'none' }"><a href="#users-pane" data-toggle="tab"><spring:message code="searchResults.users"/><span class="badge tab-badge"><c:out value="${users.size()}"/></span></a></li>
 						</ul>
@@ -57,7 +57,7 @@
 									<div id="product-search-zrp" class="zrp">
 										<h2><spring:message code="searchZRP.notFound"/></h2>
 										<h3 class="result-text"><spring:message code="searchZRP.noProducts" arguments="${fn:escapeXml(queryText)}"/></h3>
-										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>	
+										<p><spring:message code="searchZRP.tryDifferentSearch"/></p>
 									</div>
 								</div>
 							</c:when>
@@ -138,9 +138,9 @@
 		</div>
 	</div>
 
-	<%@include file="includes/scripts.jsp"%>	
+	<%@include file="includes/scripts.jsp"%>
 	<script src="<c:url value="/resources/js/product-list.js"/>"></script>
 	<script src="<c:url value="/resources/js/search-results.js"/>"></script>
-	
+
 </body>
 </html>

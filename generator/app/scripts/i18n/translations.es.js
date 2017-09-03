@@ -43,6 +43,14 @@ define([], function() {
 		'modal.signIn.passwordPlaceholder':'Contraseña',
 		'modal.signIn.rememberMe':'Recuérdame',
 		'modal.signIn.signIn':'Iniciar sesión',
+		
+		'searchResults.products':'Productos',
+		'searchResults.users':'Usuarios',
+		
+		'searchZRP.notFound':'\uD83D\uDD0E',
+		'searchZRP.tryDifferentSearch':'Intenta una búsqueda diferente',
+		'searchZRP.noUsers':'No se encontraron usuarios que contengan {{keyword}}',
+		'searchZRP.noProducts':'No se encontraron productos que contengan {{keyword}}',
         
         mostRecent: 'Productos más recientes',
         allProducts: 'Todos los productos',
