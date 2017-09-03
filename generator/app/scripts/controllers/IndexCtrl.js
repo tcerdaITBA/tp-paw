@@ -4,13 +4,13 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', '$scope', '$location', function(session, auth, modal, $scope, $location) {
 		$scope.showSuggestions = false;
 		$scope.isLoggedIn = auth.isLoggedIn();
-        $scope.loggedUser = auth.getLoggedUser();
-        
-        // No me anduvo con $scope.logOut = auth.logOut
-        $scope.logOut = function() {
-            auth.logOut();
-        };
-	
+		$scope.loggedUser = auth.getLoggedUser();
+
+		// No me anduvo con $scope.logOut = auth.logOut
+		$scope.logOut = function() {
+			auth.logOut();
+		};
+
 		var focusIndex = -1;
 		$scope.searchFieldFocus = false;
 		$scope.focusElems = [];
@@ -26,18 +26,24 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			}
 		};
 
-        $scope.$on('user:updated', function() {
-            $scope.isLoggedIn = auth.isLoggedIn();
-            $scope.loggedUser = auth.getLoggedUser();
-        });
-        
+		$scope.$on('user:updated', function() {
+			$scope.isLoggedIn = auth.isLoggedIn();
+			$scope.loggedUser = auth.getLoggedUser();
+		});
+
 		$scope.searchFocus = function() {
 			$scope.showSuggestions = true;
 		};
-
-		$scope.searchBlur = function() {
-			$scope.showSuggestions = false;
-		};
+		
+		$(document).click(function(e) {
+			console.log(e);
+			var container = $('.search-form-container');
+			if (!container.is(event.target) && container.has(event.target).length === 0) {
+				$scope.showSuggestions = false;
+				focusIndex = -1;	
+				$scope.$apply();
+			}
+		});
 
 		$scope.searchKeyDown = function(e) {
 			if (e.keyCode == 38) { // arrow up
