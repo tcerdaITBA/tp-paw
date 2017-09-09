@@ -2,32 +2,19 @@
 
 <div class="container">
     <div class="row col-md-6 col-md-offset-3">
-        <slick dots=true infinite=false speed=300 slides-to-show=1 touch-move=false slides-to-scroll=1 enabled=true>
+        <slick settings="slickConfig">
+            <div ng-repeat ="video_id in video_ids">
+                <div class="embed-responsive embed-responsive-16by9 video-holder">
+                        <iframe class="embed-responsive-item video-item" src="//www.youtube.com/embed/{{video_id}}"allowfullscreen></iframe>
+                    </div>
+                </div>
             <div ng-repeat="image_url in image_urls">
                 <div class="image-holder">
-                    <!-- para ver si el .js de slick se importo correctamente -->
-                    <img class="image-item" src="{{image_url}}" >
                     <img class="image-item" src="{{image_url}}" >
                 </div>
             </div>
         </slick>
     </div>
-<!--     <div class="row" id="carouselHolder">
-        <div class="col-md-6 col-md-offset-3">
-            <slick dots=true infinite=false speed=300 slides-to-show=5 touch-move=false slides-to-scroll=1>
-                <div ng-repeat ="video_id in video_ids">
-                    <div class="embed-responsive embed-responsive-16by9 video-holder">
-                        <iframe class="embed-responsive-item video-item" src="//www.youtube.com/embed/{{video_id}}"allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div ng-repeat="image_url in image_urls">
-                    <div class="image-holder">
-                        <img src="{{image_url}}" >
-                    </div>
-                </div>
-            </slick>
-        </div>
-    </div> -->
 
     <div class="row">
         <div class="col-md-6">

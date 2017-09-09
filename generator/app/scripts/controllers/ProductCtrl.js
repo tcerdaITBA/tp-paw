@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek'], function(productSeek) {
+define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 
 	productSeek.controller('ProductCtrl', ['$scope', 'product', function($scope, product) {
 		$scope.product = product;
@@ -9,11 +9,12 @@ define(['productSeek'], function(productSeek) {
         $scope.image_urls = product.image_urls;
 
         $scope.slickConfig = {
+		  draggable: true,
 		  enabled: true,
 		  dots: true,
 		  infinite: false,
 		  slidesToScroll : 1,
-		  slidesToShow: 1,
+		  slidesToShow: 1
 		};
     }]);
 });
