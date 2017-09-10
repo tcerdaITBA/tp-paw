@@ -1,7 +1,7 @@
 .carousel {
   background-color: white;
-  height: 340px;
-  padding: 0px;
+  padding: 10px;
+  margin-bottom: 30px;
 }
 
 .highlighted {
@@ -15,22 +15,27 @@
 }
 
 .slick-next:before {
+  content: url('../../images/carrow-right.png') no-repeat;
   color: grey;
-  font-size: 50px;
+  height: 20px;
+  width: 20px;
   position: relative;
   bottom: 12px;
+  margin-left: 25px;
 }
 
 .slick-prev:before {
+  content: url('../../images/carrow-left.png') no-repeat;
   color: grey;
-  font-size: 50px;
+  height: 20px;
+  width: 20px;
   position: relative;
-  right: 30px;
+  right: 70px;
   bottom: 12px;
 }
 
 .slick-dotes {
-  font-size: 50px;
+  bottom: -43px;
 }
 
 .slick-list, .slick-slide {
@@ -38,7 +43,7 @@
 }
 
 .slick-dots li button:before {
-  font-size: 15px;
+  font-size: 45px;
 }
 
 .image-holder {
@@ -245,6 +250,7 @@
 }
 
 .profile-name {
+  margin-bottom: 0px;
   color: #333;
   font-weight: bold;
   position: relative;
@@ -369,8 +375,4 @@
   border-radius: 50%;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   object-fit: contain;
-}
-
-.product-list-item:hover {
-  border-color: #f3f3f3 !important;
 }

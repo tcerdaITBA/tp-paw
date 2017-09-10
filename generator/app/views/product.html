@@ -1,13 +1,11 @@
-
-
 <div class="container">
-    <div class="row col-md-6 col-md-offset-3">
+    <div class="carousel row col-md-6 col-md-offset-3">
         <slick settings="slickConfig">
             <div ng-repeat ="video_id in video_ids">
                 <div class="embed-responsive embed-responsive-16by9 video-holder">
                         <iframe class="embed-responsive-item video-item" src="//www.youtube.com/embed/{{video_id}}"allowfullscreen></iframe>
-                    </div>
                 </div>
+            </div>
             <div ng-repeat="image_url in image_urls">
                 <div class="image-holder">
                     <img class="image-item" src="{{image_url}}" >
@@ -37,8 +35,8 @@
                         </div>
                         <div class="col-md-10">
                             <div class="row col-md-12 profile-name-holder">
-                                <a class="profile-name" href=""> 
-                                    <p>{{creator.name}} </p>
+                                <a href=""> 
+                                    <p class="profile-name">{{creator.name}}</p>
                                 </a>
                             </div>
                                 <div class="row col-md-12">
