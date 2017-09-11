@@ -48,8 +48,9 @@ define([], function() {
         allProducts: 'All',
         recent: 'Recent',
         popular: 'Most voted',
-        atoz: 'a-z'
-		
-		
+        atoz: 'a-z',
+
+        'product.creator': 'Creator',
+        'product.comment': 'Comment'
 	};
 });

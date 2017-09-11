@@ -48,7 +48,9 @@ define([], function() {
         allProducts: 'Todos los productos',
         recent: 'Recientes',
         popular: 'Más Votados',
-        atoz: 'a-z'
-        
+        atoz: 'a-z',
+
+        'product.creator': 'Creador',
+        'product.comment': 'Comentar'
 	};
 });

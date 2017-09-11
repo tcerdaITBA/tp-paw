@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="row creator-first-row-holder">
                         <div class="col-md-5 product-name creator-name">
-                            <p>Creator</p>
+                            <p>{{'product.creator' | translate}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -54,6 +54,40 @@
     <div class="row long-description">
         <div class="col-md-12">
             <p>{{description}}</p>
+        </div>
+    </div>
+    <div ng-show="isLoggedIn">
+        <div class="row" id="formparent">
+            <div class="col-md-7 highlighted parent-form-comment">
+                <div class="row">
+                    <div class="col-md-1">
+                        <a href="">
+                            <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+                        </a>
+                    </div>
+                    <div class="col-md-10 parent-name-mail-holder">
+                        <div class="row col-md-12 profile-name-holder">
+                            <a href=""> 
+                                <p class="profile-name">{{loggedUser.name}}</p>
+                            </a>
+                        </div>
+                        <div class="row col-md-12">
+                            <a class="creator-mail" href="mailto:{{loggedUser.email}}">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                                <p>{{loggedUser.email}}</p>
+                            </a>
+                        </div>                                      
+                    </div>
+                </div>  
+                <form ng-submit="commentSubmit()">
+                    <div class="input-field">
+                        <input type="text" ng-model="commentForm.comment.text" class="form-control" required>
+                    </div>
+                    <div class="submit-field">
+                        <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
