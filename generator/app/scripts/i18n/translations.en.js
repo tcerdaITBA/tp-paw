@@ -50,7 +50,12 @@ define([], function() {
         popular: 'Most voted',
         atoz: 'a-z',
 
-        'product.creator': 'Creator',
-        'product.comment': 'Comment'
+        'product.creator':'Creator',
+        'product.comment':'Comment',
+        'product.discussion':'Join discussion',
+        'product.anonymousComment.beginning':'In order to comment a product you need to',
+        'product.anonymousComment.signIn':'sign in',
+        'product.anonymousComment.or':'or',
+        'product.anonymousComment.signUp':'sign up.'
 	};
 });

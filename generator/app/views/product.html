@@ -56,6 +56,9 @@
             <p>{{description}}</p>
         </div>
     </div>
+    <p class="join-discussion" >
+        {{'product.discussion' | translate}}
+    </p>
     <div ng-show="isLoggedIn">
         <div class="row" id="formparent">
             <div class="col-md-7 highlighted parent-form-comment">
@@ -81,12 +84,23 @@
                 </div>  
                 <form ng-submit="commentSubmit()">
                     <div class="input-field">
-                        <input type="text" ng-model="commentForm.comment.text" class="form-control" required>
+                        <input type="text" ng-model="commentForm.comment.text" class="form-control comment-box" required>
                     </div>
                     <div class="submit-field">
                         <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div ng-show="!isLoggedIn">
+        <div class="row">
+            <div class="col-md-7 highlighted anonymous-holder">
+                <p>{{'product.anonymousComment.beginning' | translate}}
+                <a ng-click="signInModal()">{{'product.anonymousComment.signIn' | translate}}</a>
+                {{'product.anonymousComment.or' | translate}}
+                <a ng-click="signUpModal()">{{'product.anonymousComment.signUp' | translate}}</a>
+                </p>
             </div>
         </div>
     </div>
