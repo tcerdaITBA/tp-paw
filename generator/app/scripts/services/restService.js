@@ -41,11 +41,11 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 						});
 			}
             
-            function doPut(baseUrl, params, data) {
+            function doPut(baseUrl, data, params) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
 
-                return $http.put(baseUrl + params, data, authHeaders())
+                return $http.put(baseUrl + params, JSON.stringify(data), authHeaders())
                         .then(function(response) {
                             return response.data;
                         })
@@ -54,6 +54,19 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         });
             }
 
+            function doPost(baseUrl, data, params) {
+                var params = translate(params);
+				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
+
+                return $http.post(baseUrl + params, JSON.stringify(data), authHeaders())
+                        .then(function(response) {
+                            return response.data;
+                        })
+                        .catch(function(response) {
+                            return response.data;
+                        });                
+            }
+            
             function doDelete(baseUrl, params) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
@@ -114,6 +127,14 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 
                 unvoteProduct: function(id) {
                     return doDelete(url + '/products/' + id + '/votes');
+                },
+                
+                commentProduct: function(id, comment) {
+                    return doPost(url + '/products/' + id + '/comments', {content: comment})
+                },
+                
+                commentParentProduct: function(id, comment, parentCommentId) {
+                    return doPost(url + '/products/' + id + '/comments', {content: comment, parent_id: parentCommentId})
                 }
 			}
 		}]);
