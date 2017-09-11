@@ -5,7 +5,7 @@ define(['productSeek', 'services/authService'], function(productSeek) {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
-            scope: {product: '=', hideCategory: '='},
+            scope: {product: '=', hideCategory: '=', borderHover: '='},
             controller: ['$scope', '$location', '$route', 'authService', 'restService', function($scope, $location, $route, authService, restService) {
                 var product = $scope.product;
                 
@@ -43,6 +43,14 @@ define(['productSeek', 'services/authService'], function(productSeek) {
                             restService.unvoteProduct(product.id);
                         }
                     }
+                }
+                
+                if ($scope.borderHover) {
+                    $(".product-list-item").hover(function(){
+                        $(this).css("border-color", "#33bb9c");
+                        }, function(){
+                        $(this).css("border-color", "#f3f3f3");
+                    });
                 }
             }]
         }
