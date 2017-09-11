@@ -56,9 +56,11 @@
             <p>{{description}}</p>
         </div>
     </div>
+
     <p class="join-discussion" >
         {{'product.discussion' | translate}}
     </p>
+
     <div ng-show="isLoggedIn">
         <div class="row" id="formparent">
             <div class="col-md-7 highlighted parent-form-comment">
@@ -93,6 +95,7 @@
             </div>
         </div>
     </div>
+
     <div ng-show="!isLoggedIn">
         <div class="row">
             <div class="col-md-7 highlighted anonymous-holder">
@@ -101,6 +104,45 @@
                 {{'product.anonymousComment.or' | translate}}
                 <a ng-click="signUpModal()">{{'product.anonymousComment.signUp' | translate}}</a>
                 </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7 comments-holder highlighted">
+            <div ng-repeat ="commentFamily in comments">
+                <div class="comment-and-replies">
+                    <div class="parent-comment" id="comment{{commentFamily.id}}">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <a href="">
+                                    <img class="profile-img-circle" src="{{commentFamily.author.picture_url}}">
+                                </a>
+                            </div>
+                            <div class="col-md-10 parent-name-mail-holder">
+                                <div class="row col-md-12 profile-name-holder">
+                                    <a href=""> 
+                                        <p class="profile-name">{{commentFamily.author.name}}</p>
+                                    </a>                                                           
+                                </div>
+                                <div class="row col-md-12">
+                                    <a class="creator-mail" href="mailto:{{commentFamily.author.email}}">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                        <p>{{commentFamily.author.email}}</p>
+                                    </a>
+                                </div>                                      
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 comment-content">
+                                <p>{{commentFamily.content}}</p>
+                            </div>
+                        </div>
+                        <div class="row comment-divider">
+                            <div class="col-md-12"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
