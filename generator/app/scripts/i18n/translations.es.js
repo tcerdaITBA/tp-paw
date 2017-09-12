@@ -56,6 +56,7 @@ define([], function() {
         'product.anonymousComment.beginning':'Para comentar un producto debes',
         'product.anonymousComment.signIn':'iniciar sesiÃ³n',
         'product.anonymousComment.or':'o',
-        'product.anonymousComment.signUp':'registrarte.'
+        'product.anonymousComment.signUp':'registrarte.',
+        'product.reply':'Responder'
 	};
 });

@@ -56,6 +56,7 @@ define([], function() {
         'product.anonymousComment.beginning':'In order to comment a product you need to',
         'product.anonymousComment.signIn':'sign in',
         'product.anonymousComment.or':'or',
-        'product.anonymousComment.signUp':'sign up.'
+        'product.anonymousComment.signUp':'sign up.',
+        'product.reply':'Reply'
 	};
 });
