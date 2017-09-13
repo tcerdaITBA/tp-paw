@@ -84,9 +84,9 @@
                         </div>                                      
                     </div>
                 </div>  
-                <form ng-submit="commentSubmit()">
+                <form ng-submit="parentCommentSubmit()">
                     <div class="input-field">
-                        <input type="text" ng-model="commentForm.comment.text" class="form-control comment-box" required>
+                        <input type="text" ng-model="parentComment.text" class="form-control comment-box" required>
                     </div>
                     <div class="submit-field">
                         <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
@@ -171,6 +171,109 @@
                         </div>
                         <div class="row comment-divider">
                             <div class="col-md-12"></div>
+                        </div>
+                    </div>
+                    <div ng-repeat ="childComment in commentFamily.children">
+                        <div class="row child-comment" id="comment{{childComment.id}}">
+                            <div class="col-md-10 col-md-offset-2">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <a href="">
+                                            <img class="profile-img-circle" src="{{childComment.author.picture_url}}">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-10 child-name-mail-holder">
+                                        <div class="row col-md-12">
+                                            <a href=""> 
+                                                <p class="profile-name">{{childComment.author.name}}<p>
+                                            </a>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <a class="creator-mail" href="mailto:{{childComment.author.email}}">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <p>{{childComment.author.email}}</p>
+                                            </a>
+                                        </div>                                      
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 comment-content">
+                                        <p>{{childComment.content}}</p>
+                                    </div>
+                                </div>
+                                <div class="row reply-button-holder">
+                                    <div class="col-md-4">
+                                        <div ng-show="!isLoggedIn">
+                                            <!--Popover (not working)-->                                        <!-- <a tabindex="0" popover-placement="bottom" class="reply-btn" role="button" data-trigger="'focus'" id="reply-popover"
+                                             uib-popover-html="'<p class='popover-msg'>
+                                             <span>{{'product.anonymousComment.beginning' | translate}}</span>
+                                             <a ng-click="signInModal()">
+                                             <span>{{'product.anonymousComment.signIn' | translate}}</span>
+                                            </a>
+                                            <span>{{'product.anonymousComment.or' | translate}}</span>
+                                             <a ng-click="signUpModal()">
+                                             <span>{{'product.anonymousComment.signUp' | translate}}</span>
+                                            </a>
+                                            </p>'">
+                                            <span class="glyphicon glyphicon-share-alt"></span>
+                                            {{'product.reply' | translate}}
+                                            </a>
+                                            -->
+                                            <a class="reply-btn">
+                                                <span class="glyphicon glyphicon-share-alt"></span>
+                                                {{'product.reply' | translate}}
+                                            </a>
+                                        </div>
+                                        <div ng-show="isLoggedIn">
+                                            <p class="reply-btn reply-btn-fn">
+                                                <span class="glyphicon glyphicon-share-alt"></span>
+                                                {{'product.reply' | translate}}
+                                            </p>
+                                        </div>        
+                                    </div>
+                                </div>
+                                <div class="row comment-divider">
+                                    <div class="col-md-12"></div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+
+                    <div ng-show="isLoggedIn">
+                        <div class="row child-comment-row">
+                            <div class="col-md-10 col-md-offset-2">
+                                <div class="row">   
+                                    <div class="col-md-1">
+                                        <a href="">
+                                            <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-10 child-name-mail-holder">
+                                        <div class="row col-md-12 profile-name-holder">
+                                            <a href=""> 
+                                                <p class="profile-name">{{loggedUser.name}}</p>
+                                            </a>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <a class="creator-mail" href="mailto:{{loggedUser.email}}">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <p>{{loggedUser.email}}</p>
+                                             </a>
+                                        </div>                                      
+                                    </div>
+                                </div>
+                                <form ng-submit="childCommentSubmit(commentFamily.id)">
+                                    <div class="input-field">
+                                        <input type="text" ng-model="childComment[commentFamily.id].text" class="form-control comment-box" required>
+                                    </div>
+                                    <div class="submit-field">
+                                        <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
+                                    </div>
+                                </form>
+                                <div class="row comment-divider">
+                                    <div class="col-md-12"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

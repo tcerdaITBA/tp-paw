@@ -21,11 +21,16 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		  slidesToShow: 1
 		};
 
-		$scope.commentForm = {};
-		$scope.commentForm.comment = {};
+		$scope.parentComment = {};
 
-		$scope.commentSubmit = function() {
-			restService.commentProduct($scope.product.id, $scope.commentForm.comment.text);	
+		$scope.childComment = [];
+
+		$scope.parentCommentSubmit = function() {
+			restService.commentProduct($scope.product.id, $scope.parentComment.text);	
+		};
+
+		$scope.childCommentSubmit = function(parentCommentId) {
+			restService.commentParentProduct($scope.product.id, $scope.childComment[parentCommentId].text, parentCommentId);	
 		};
     }]);
 });
