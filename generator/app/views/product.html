@@ -86,7 +86,7 @@
                 </div>  
                 <form ng-submit="parentCommentSubmit()">
                     <div class="input-field">
-                        <input type="text" ng-model="parentComment.text" class="form-control comment-box" required>
+                        <input type="text" ng-model="parentCommentForm.text" class="form-control comment-box" required>
                     </div>
                     <div class="submit-field">
                         <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
@@ -265,7 +265,7 @@
                                     </div>
                                     <form ng-submit="childCommentSubmit(commentFamily.id, $index)">
                                         <div class="input-field">
-                                            <input type="text" ng-model="childComment[$index].text" class="form-control comment-box" required>
+                                            <input type="text" ng-model="childCommentForm[$index].text" class="form-control comment-box" required>
                                         </div>
                                         <div class="submit-field">
                                             <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>

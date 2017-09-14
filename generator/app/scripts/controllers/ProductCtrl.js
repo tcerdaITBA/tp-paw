@@ -21,9 +21,9 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		  slidesToShow: 1
 		};
 
-		$scope.parentComment = {};
+		$scope.parentCommentForm = {};
 
-		$scope.childComment = [];
+		$scope.childCommentForm = [];
 
 		$.fn.goTo = function() {
 	 		var offset = 100;
@@ -44,11 +44,11 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		};
 
 		$scope.parentCommentSubmit = function() {
-			restService.commentProduct($scope.product.id, $scope.parentComment.text);	
+			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text);
 		};
 
 		$scope.childCommentSubmit = function(parentCommentId, index) {
-			restService.commentParentProduct($scope.product.id, $scope.childComment[index].text, parentCommentId);	
+			restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId);	
 		};
     }]);
 });
