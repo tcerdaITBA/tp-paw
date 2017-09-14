@@ -44,11 +44,19 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		};
 
 		$scope.parentCommentSubmit = function() {
-			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text);
+			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
+			then(function(data) {
+				$scope.comments.push(data);
+			});	
 		};
 
 		$scope.childCommentSubmit = function(parentCommentId, index) {
-			restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId);	
+			restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
+			then(function(data) {
+				$scope.comments[index].children.push(data);
+			});
 		};
     }]);
 });
+
+//angular-scroll-glue
