@@ -25,6 +25,24 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 
 		$scope.childComment = [];
 
+		$.fn.goTo = function() {
+	 		var offset = 100;
+	        $('html, body').animate({
+	            scrollTop: $(this).offset().top + - offset + 'px'
+	        }, 'fast');
+	        return this; // for chaining...
+	    };
+
+	    $scope.showReplyForm = function(target) {
+			// Hide all other open comment forms.
+			$('.reply-comment').hide();
+			
+			var replyform = angular.element(target).closest('.comment-and-replies').find('.reply-comment');
+			replyform.css('display', 'inline');
+			
+			replyform.goTo();
+		};
+
 		$scope.parentCommentSubmit = function() {
 			restService.commentProduct($scope.product.id, $scope.parentComment.text);	
 		};

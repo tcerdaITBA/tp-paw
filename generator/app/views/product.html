@@ -162,7 +162,7 @@
                                         </a>
                                     </div>
                                     <div ng-show="isLoggedIn">
-                                        <p class="reply-btn reply-btn-fn">
+                                        <p class="reply-btn" ng-click="showReplyForm($event.currentTarget)">
                                             <span class="glyphicon glyphicon-share-alt"></span>
                                             {{'product.reply' | translate}}
                                         </p>
@@ -225,7 +225,7 @@
                                             </a>
                                         </div>
                                         <div ng-show="isLoggedIn">
-                                            <p class="reply-btn reply-btn-fn">
+                                            <p class="reply-btn" ng-click="showReplyForm($event.currentTarget)">
                                                 <span class="glyphicon glyphicon-share-alt"></span>
                                                 {{'product.reply' | translate}}
                                             </p>
@@ -242,36 +242,38 @@
                     <div ng-show="isLoggedIn">
                         <div class="row child-comment-row">
                             <div class="col-md-10 col-md-offset-2">
-                                <div class="row">   
-                                    <div class="col-md-1">
-                                        <a href="">
-                                            <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
-                                        </a>
-                                    </div>
-                                    <div class="col-md-10 child-name-mail-holder">
-                                        <div class="row col-md-12 profile-name-holder">
-                                            <a href=""> 
-                                                <p class="profile-name">{{loggedUser.name}}</p>
+                                <div class="comment-form reply-comment">
+                                    <div class="row">   
+                                        <div class="col-md-1">
+                                            <a href="">
+                                                <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
                                             </a>
                                         </div>
-                                        <div class="row col-md-12">
-                                            <a class="creator-mail" href="mailto:{{loggedUser.email}}">
-                                                <span class="glyphicon glyphicon-envelope"></span>
-                                                <p>{{loggedUser.email}}</p>
-                                             </a>
-                                        </div>                                      
+                                        <div class="col-md-10 child-name-mail-holder">
+                                            <div class="row col-md-12 profile-name-holder">
+                                                <a href=""> 
+                                                    <p class="profile-name">{{loggedUser.name}}</p>
+                                                </a>
+                                            </div>
+                                            <div class="row col-md-12">
+                                                <a class="creator-mail" href="mailto:{{loggedUser.email}}">
+                                                    <span class="glyphicon glyphicon-envelope"></span>
+                                                    <p>{{loggedUser.email}}</p>
+                                                 </a>
+                                            </div>                                      
+                                        </div>
                                     </div>
-                                </div>
-                                <form ng-submit="childCommentSubmit(commentFamily.id, $index)">
-                                    <div class="input-field">
-                                        <input type="text" ng-model="childComment[$index].text" class="form-control comment-box" required>
+                                    <form ng-submit="childCommentSubmit(commentFamily.id, $index)">
+                                        <div class="input-field">
+                                            <input type="text" ng-model="childComment[$index].text" class="form-control comment-box" required>
+                                        </div>
+                                        <div class="submit-field">
+                                            <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
+                                        </div>
+                                    </form>
+                                    <div class="row comment-divider">
+                                        <div class="col-md-12"></div>
                                     </div>
-                                    <div class="submit-field">
-                                        <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
-                                    </div>
-                                </form>
-                                <div class="row comment-divider">
-                                    <div class="col-md-12"></div>
                                 </div>
                             </div>
                         </div>
