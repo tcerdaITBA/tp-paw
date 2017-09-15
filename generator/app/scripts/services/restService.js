@@ -30,7 +30,6 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
             
 			function doGet(baseUrl, params) {
                 var params = translate(params);
-				console.log(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
                 
 				return  $http.get(baseUrl + params, authHeaders())

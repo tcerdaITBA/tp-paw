@@ -24,12 +24,15 @@ define(function() {
 				resolve: {
                     productsData: ['$route', 'restService', function($route, restService) {
                         var params = $route.current.params;
-						console.log(params);
                         return restService.searchProducts(params.q);
                     }],
 					usersData: ['$route', 'restService', function($route, restService) {
 						var params = $route.current.params;
                         return restService.searchUsers(params.q);
+					}],
+					query: ['$route', function($route) {
+						var params = $route.current.params;
+						return params.q;
 					}]
                 }
 			},

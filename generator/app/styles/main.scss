@@ -374,10 +374,6 @@ footer p {
   float: right;
 }
 
-.panel {
-  margin-top: 5px;
-}
-
 .ps-btn {
   background-color: #39C6A6;
   color: #fff;
@@ -407,6 +403,10 @@ ps-btn-red:focus {
     border-color: #d6354f !important;
     transition: all .2s ease-in;
   }
+}
+
+.search-content {
+  padding: 1% 0 5% 0
 }
 
 /* Responsive: Portrait tablets and up */

@@ -36,7 +36,6 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		};
 		
 		$(document).click(function(e) {
-			console.log(e);
 			var container = $('.search-form-container');
 			if (!container.is(event.target) && container.has(event.target).length === 0) {
 				$scope.showSuggestions = false;

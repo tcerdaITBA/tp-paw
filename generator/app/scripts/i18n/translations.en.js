@@ -46,6 +46,9 @@ define([], function() {
 		
 		'searchResults.products':'Products',
 		'searchResults.users':'Users',
+		'searchResults.resultsFor': 'Search results for ',
+		'searchResults.filterByCategory': 'Filters',
+		'searchResults.resetFilters': 'Reset filters',
 		
 		'searchZRP.notFound':'\uD83D\uDD0E',
 		'searchZRP.tryDifferentSearch':'Try a different search',
