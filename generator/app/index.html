@@ -26,7 +26,7 @@
 				</a>
 			</div>
 
-			<form ng-submit="search()" class="navbar-form navbar-left">
+			<form ng-submit="search(query)" class="navbar-form navbar-left">
 				<div class="search-form-container">
 					<div class="form-group">
 						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown="searchKeyDown($event)" focus-if="searchFieldFocus"/>
@@ -39,7 +39,7 @@
 							<div ng-repeat="item in searchHistory">
 								<div class="row">
 									<div class="col-md-12">
-										<a ng-href="#/search?q={{item | urlencode}}" id="suggestion-{{$index + 1}}" class="history-item" data-list-index="{{$index + 1}}" focus-if="focusElems[{{$index}}]" ng-keydown="searchKeyDown($event)">
+										<a ng-href="" ng-click=search(item) id="suggestion-{{$index + 1}}" class="history-item" data-list-index="{{$index + 1}}" focus-if="focusElems[{{$index}}]" ng-keydown="searchKeyDown($event)">
 											<span class="glyphicon glyphicon-time"></span>
 											<span ng-bind="item"></span>
 										</a>

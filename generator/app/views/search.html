@@ -51,7 +51,7 @@
 					</div>
 				</div>
 				<div id="users-pane" ng-class="tabs[1] ? 'active in' : 'none'" class="tab-pane fade row result-for-users">
-					<div ng-if="users.isEmpty()">
+					<div ng-if="users.length == 0">
 						<div class="col-md-6 col-md-offset-3">
 							<div id="user-search-zrp" class="zrp">
 								<h2>{{'searchZRP.notFound' | translate}}</h2>
@@ -60,33 +60,10 @@
 							</div>
 						</div>
 					</div>
-					<div ng-if="!users.isEmpty()">
+					<div ng-if="users.length > 0">
 						<div class="col-md-6 col-md-offset-3">
 							<ng-repeat ng-repeat="user in users">
-								<a class="user-ref" ng-href="#/profile/{{user.id}}">
-									<div class="row user-info-box">
-										<div class="col-md-3 img-col">
-											<img class="profile-img-circle" src="{{user.picture_url}}">
-										</div>
-										<div class="col-md-9">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="profile-name-holder capitalize-firstLetter">
-														<span class="profile-name result-text" ng-bind="user.name"></span>
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<div class="creator-mail" data-href="mailto:${user.email}">
-														<span class="glyphicon glyphicon-envelope"></span>
-														<p ng-bind="user.email"></p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</a>
+								<user-item user="user"></user-item>
 							</ng-repeat>
 						</div>
 					</div>

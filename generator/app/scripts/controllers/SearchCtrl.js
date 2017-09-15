@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'directives/productItem'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'directives/userItem'], function(productSeek) {
 
 	productSeek.controller('SearchCtrl', ['$scope', 'productsData', 'usersData', 'query', function($scope, productsData, usersData, query) {
     	$scope.query = query;

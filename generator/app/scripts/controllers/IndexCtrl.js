@@ -17,12 +17,14 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 
 		$scope.searchHistory = session.getSearchHistory();
 
-		$scope.search = function() {
+		$scope.search = function(q) {
+			console.log(q);
 			// TODO: error message if empty, too short, too long...
-			if ($scope.query && 3 <= $scope.query.length && $scope.query.length <= 64) {
-				session.saveToSearchHistory($scope.query);
+			if (q && 3 <= q.length && q.length <= 64) {
+				$scope.showSuggestions = false;
+				session.saveToSearchHistory(q);
 				$scope.searchHistory = session.getSearchHistory();
-				$location.url('#/search?q=' + $scope.query);
+				$location.url('/search?q=' + q);
 			}
 		};
 
@@ -33,6 +35,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 
 		$scope.searchFocus = function() {
 			$scope.showSuggestions = true;
+			focusIndex = -1;
 		};
 		
 		$(document).click(function(e) {
@@ -46,6 +49,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 
 		$scope.searchKeyDown = function(e) {
 			if (e.keyCode == 38) { // arrow up
+				console.log("Arrow up")
 				if (focusIndex <= 0) { // Focus back to input
 					focusIndex = -1;
 					$scope.focusElems[0] = false;
@@ -57,8 +61,10 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 				e.preventDefault();
 			} 
 			else if (e.keyCode == 40) { // arrow down
+				console.log("Arrow down")
 				$scope.searchFieldFocus = false;
-				$scope.focusElems[focusIndex] = false;
+				if (focusIndex >= 0)
+					$scope.focusElems[focusIndex] = false;
 				// TODO: agregar most popular products
 				focusIndex = (focusIndex < $scope.searchHistory.length - 1 ? focusIndex + 1 : focusIndex);
 				$scope.focusElems[focusIndex] = true;
