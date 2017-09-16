@@ -62,13 +62,14 @@ define(['services/sessionService', 'angular-mocks'], function() {
 			});
 			
 			it ('should not save repeated items', function() {
-				var history = [HISTORY_1, HISTORY_1, HISTORY_1];
+				var history = [HISTORY_1, HISTORY_2, HISTORY_1];
 				
 				history.forEach(function (elem) {
 					sessionService.saveToSearchHistory(elem);
 				});
 				
-				expect(sessionService.getSearchHistory()).toEqual([HISTORY_1]);
+				console.log(sessionService.getSearchHistory())
+				expect(sessionService.getSearchHistory()).toEqual([HISTORY_1, HISTORY_2]);
 			})
 			
 			it('should not save more than 4 items', function() {

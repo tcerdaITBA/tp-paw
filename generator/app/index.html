@@ -39,7 +39,7 @@
 							<div ng-repeat="item in searchHistory">
 								<div class="row">
 									<div class="col-md-12">
-										<a ng-href="" ng-click=search(item) id="suggestion-{{$index + 1}}" class="history-item" data-list-index="{{$index + 1}}" focus-if="focusElems[{{$index}}]" ng-keydown="searchKeyDown($event)">
+										<a ng-href="" ng-click=search(item) class="history-item" focus-if="focusElems[{{$index}}]" ng-keydown="searchKeyDown($event)">
 											<span class="glyphicon glyphicon-time"></span>
 											<span ng-bind="item"></span>
 										</a>

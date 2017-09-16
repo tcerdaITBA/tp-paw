@@ -51,9 +51,8 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			if (e.keyCode == 38) { // arrow up
 				console.log("Arrow up")
 				if (focusIndex <= 0) { // Focus back to input
-					focusIndex = -1;
 					$scope.focusElems[0] = false;
-					$scope.searchFieldFocus = true;
+					$scope.searchFocus();
 				} else {
 					$scope.focusElems[focusIndex--] = false;
 					$scope.focusElems[focusIndex] = true;
@@ -70,6 +69,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 				$scope.focusElems[focusIndex] = true;
 				e.preventDefault();
 			}
+			console.log($scope.focusElems);
 		}
 
 		$scope.signInModal = modal.signInModal;

@@ -52,8 +52,12 @@ define(['productSeek'], function(productSeek) {
 		}
 		
 		Session.saveToSearchHistory = function (query) {
-			if (this._searchHistory.indexOf(query))
-				this._searchHistory.unshift(query);
+			var index = this._searchHistory.indexOf(query);
+			
+			if (index != -1) // Do not save repeated, delete and save on top.
+				this._searchHistory.splice(index, 1);
+			
+			this._searchHistory.unshift(query);
 			this._searchHistory = this._searchHistory.slice(0, MAX_SEARCH_COUNT);
 			$window.localStorage.setItem('session.history', JSON.stringify(this._searchHistory));
 		};
