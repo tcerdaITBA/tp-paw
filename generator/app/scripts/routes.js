@@ -49,7 +49,11 @@ define(function() {
                         return restService.getProduct(params.id);
                     }]
                 }
-            }
+            },
+			'/post': {
+				templateUrl: '/views/post.html',
+                controller: 'PostCtrl'
+			}
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */
         }

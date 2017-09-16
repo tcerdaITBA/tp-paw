@@ -32,6 +32,13 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			$scope.isLoggedIn = auth.isLoggedIn();
 			$scope.loggedUser = auth.getLoggedUser();
 		});
+		
+		$scope.$on('$locationChangeStart', function(event) {
+			if ($location.path() == '/post')
+				$scope.hidePost = true;
+			else
+				$scope.hidePost = false;
+		});
 
 		$scope.searchFocus = function() {
 			$scope.showSuggestions = true;

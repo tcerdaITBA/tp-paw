@@ -83,7 +83,7 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse">
-				<ul ng-show="!isLoggedIn" class="nav navbar-nav navbar-right">
+				<ul ng-if="!isLoggedIn" class="nav navbar-nav navbar-right">
 					<li>
 						<a class="navbar-link" ng-click="signUpModal()" ng-bind="'navbar.signup' | translate"></a>
 					</li>	
@@ -101,7 +101,7 @@
 					</li>
 				</ul>
 
-				<ul ng-show="isLoggedIn" class="nav navbar-nav navbar-right">
+				<ul ng-if="isLoggedIn" class="nav navbar-nav navbar-right">
 					<li>
 						<a class="user-nav-img" ng-href="#/profile/{{loggedUser.id}}">
 							<img class="img-contain" src="{{loggedUser.picture_url}}">
@@ -116,9 +116,8 @@
 						<a ng-click="logOut()" class="navbar-link" ng-bind="'navbar.logout' | translate"></a>
 					</li>
 					<li>
-						<p class="navbar-btn">
-							<a ng-show="isLoggedIn" ng-href="#/upload" class="ps-btn btn upload-btn" ng-bind="'navbar.post' | translate">
-							</a>
+						<p ng-style="{'visibility': hidePost? 'hidden' : 'visible'}" class="navbar-btn">
+							<a ng-href="#/post" class="ps-btn btn upload-btn" ng-bind="'navbar.post' | translate"></a>
 						</p>
 					</li>
 				</ul>
