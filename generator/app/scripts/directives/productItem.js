@@ -47,12 +47,9 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                     }
                 };
                 
-                $scope.showCollectionModal = modalService.collectionModal;
-                /*
                 $scope.showCollectionModal = function() {
                     modalService.collectionModal($scope.product, authService.loggedUser.collections);
                 }
-                */
             }]
         }
     });

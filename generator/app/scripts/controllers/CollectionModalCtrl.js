@@ -1,31 +1,55 @@
-define(['productSeek', 'services/restService'], function(productSeek) {
+define(['productSeek', 'services/restService', 'services/authService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('CollectionModalCtrl', ['$scope', 'product', 'collections', 'restService', function($scope, product, collections, restService) {
+    productSeek.controller('CollectionModalCtrl', ['$scope', '$uibModalInstance', 'product', 'collections', 'restService', function($scope, $uibModalInstance, product, collectionObject, restService) {
         $scope.product = product;
-        $scope.collections = collections;
-        $scope.emptyCollection = collections.length == 0;
+        $scope.collections = collectionObject.collections;
+        $scope.emptyCollections = $scope.collections.length == 0;
         $scope.showWell = false;
 
-        console.log(collections);
-        
-        $scope.addToCollection = function(collection) {
-            collection.push(product);
-            restService.addProductToCollection(product.id, collection.id);
-            // TODO: feedback
+        var collectionContainsProduct = function(collection) {
+            for (var i = 0; i < collection.products.length && collection.containsProduct === undefined; i++)
+                if (collection.products[i].id === $scope.product.id)
+                    collection.containsProduct = true;
+            
+            if (!collection.containsProduct)
+                collection.containsProduct = false;
+            
+            return collection.containsProduct;
         };
         
-        // TODO: manejo de errores
+        for (var i = 0; i < $scope.collections.length; i++)
+            collectionContainsProduct($scope.collections[i]);
+                
+        $scope.dismiss = function() {
+            $uibModalInstance.dismiss('close');            
+        };
+        
+        // TODO: feedback
+        $scope.addToCollection = function(collection) {
+            collection.products.push(collection);
+            collection.count = collection.products.length;
+            collection.containsProduct = true;
+            restService.addProductToCollection(product.id, collection.id);
+        };
+        
+        // TODO: manejo de errores de input
+        // TODO: scrollear a la nueva collecion
+        // TODO: feedback
         $scope.createAndAdd = function() {
             if ($scope.collectionName) {
                 restService.createCollection($scope.collectionName)
                 .then(function(data) {
                     $scope.collections.push(data);
-                    return restService.addProductToCollection(product);
+                    return restService.addProductToCollection(product.id, data.id);
                 })
-                .then(function(data){
-                    len = $scope.collections.lenght;
-                    $scope.collections[len - 1].push(product);
+                .then(function(data) {
+                    var len = $scope.collections.length;
+                    var coll = $scope.collections[len - 1];
+                    $scope.toggleWell();  // close well
+                    coll.products.push(product);
+                    coll.count = 1;
+                    coll.containsProduct = true;
                 });
             }
         };

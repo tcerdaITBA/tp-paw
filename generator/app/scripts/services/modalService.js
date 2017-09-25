@@ -1,6 +1,6 @@
 'use strict';
-define(['productSeek', 'services/restService', 'services/sessionService'], function(productSeek) {
-    productSeek.service('modalService', ['$uibModal', 'restService', 'sessionService', function($uibModal, restService, sessionService) {
+define(['productSeek', 'services/restService', 'services/authService'], function(productSeek) {
+    productSeek.service('modalService', ['$uibModal', 'restService', 'authService', function($uibModal, restService, authService) {
 		this.signInModal = function() {
 			$uibModal.open({
 				templateUrl: 'views/modals/signInModal.html',
@@ -21,15 +21,13 @@ define(['productSeek', 'services/restService', 'services/sessionService'], funct
 			$uibModal.open({
 				templateUrl: 'views/modals/collectionModal.html',
 				controller: 'CollectionModalCtrl',
-				size: 'sm',
+				size: 'md',
                 resolve: {
                     product: function() {
                         return product;
                     },
                     collections: function() {
-                        console.log('asdasdas');
-                        console.log(collections);
-                        return collections.collections;
+                        return restService.getCollectionsForUser(authService.loggedUser.id);
                     }
                 }
 			});            

@@ -1,104 +1,97 @@
-<div class="modal fade" id="collection-modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<div class="product-preview">
-					<div class="row center-flex">
-						<div class="col-md-2 preview-product-logo center-flex">
-							<img src="{{product.logo_url}}">
-						</div>
-						<div class="col-md-7">
-							<span class="preview-product-name capitalize-firstLetter">
-								{{product.name}}
-							</span>
-						</div>
-						<div class="col-md-3">
-							<span class="preview-upvote-info pull-right">
-								<span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-								{{product.voters_count}}
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-body">
-                <div ng-if="emptyCollection" class="row">
-                    <div class="col-md-12">
-                        <h4>{{'ownerUserZRP.noFavLists' | translate}}</h4>
-                    </div>
-                </div>
-                <div ng-if="!emptyCollection" class="collection-modal-body">
-                    <div ng-repeat="collection in collections" class="row">
-                        <div class="col-md-12 collection-column">
-                            <form ng-submit="addToCollection(collection)" >
-                                <span ng-if="collection.includes(product)" class="tool-tip" tooltip-placement="right" uib-tooltip="{{'collections.alreadyInCollection' | translate}}">
-                                    <button class="add-to-list-item" type="submit" disabled>
-                                        <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
-                                        <div class="collection-info">
-                                            <p>
-                                                {{collection.products.length}}
-                                                <span ng-if="collection.products.length == 1">{{'product.singular' | translate}}</span>
-                                                <span ng-if="collection.products.length != 1">{{'product.plural' | translate}}</span>
-                                            </p>
-                                        </div>
-                                    </button>
-                                </span>
-                                <button ng-if="!collection.includes(product)" class="add-to-list-item" type="submit">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
-                                            <div class="collection-info">
-                                                <p>
-                                                    {{collection.products.length}}
-                                                    <span ng-if="collection.products.length == 1">{{'product.singular' | translate}}</span>
-                                                    <span ng-if="collection.products.length != 1">{{'product.plural' | translate}}</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 hint-col">
-                                            <div class="adding-hint pull-right">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                                <span>{{'collections.add' | translate}}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </button>		
-                            </form>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="dismiss()" aria-hidden="true">&times;</button>
+    <div class="product-preview">
+        <div class="row center-flex">
+            <div class="col-md-2 preview-product-logo center-flex">
+                <img src="{{product.logo_url}}">
+            </div>
+            <div class="col-md-7">
+                <span class="preview-product-name capitalize-firstLetter">
+                    {{product.name}}
+                </span>
+            </div>
+            <div class="col-md-3">
+                <span class="preview-upvote-info pull-right">
+                    <span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+                    {{product.voters_count}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div ng-if="emptyCollections" class="row">
+        <div class="col-md-12">
+            <h4>{{'ownerUserZRP.noFavLists' | translate}}</h4>
+        </div>
+    </div>
+    <div ng-if="!emptyCollections" class="collection-modal-body">
+        <div ng-repeat="collection in collections | orderBy:'name'" class="row">
+            <div class="col-md-12 collection-column">
+                <form ng-submit="addToCollection(collection)" >
+                    <span ng-if="collection.containsProduct" tooltip-placement="right" uib-tooltip="{{'collections.alreadyInCollection' | translate}}" class="tool-tip">
+                        <button class="add-to-list-item" type="submit" disabled>
+                            <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
+                            <div class="collection-info">
+                                <p>
+                                    {{collection.products.length}}
+                                    <span ng-if="collection.products.length == 1">{{'product.singular' | translate}}</span>
+                                    <span ng-if="collection.products.length != 1">{{'product.plural' | translate}}</span>
+                                </p>
+                            </div>
+                        </button>
+                    </span>
+                    <button ng-if="!collection.containsProduct" class="add-to-list-item" type="submit">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
+                                <div class="collection-info">
+                                    <p>
+                                        {{collection.products.length}}
+                                        <span ng-if="collection.products.length == 1">{{'product.singular' | translate}}</span>
+                                        <span ng-if="collection.products.length != 1">{{'product.plural' | translate}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 hint-col">
+                                <div class="adding-hint pull-right">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <span>{{'collections.add' | translate}}</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </button>		
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="new-collection-holder">
+        <div ng-hide="showWell" class="row">
+            <div class="col-md-12">
+                <div class="new-collection-button-row">
+                    <button class="btn btn-default add-to-new-list-btn" ng-click="toggleWell()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        {{'collections.addInNewCollection' | translate}}
+                    </button>
                 </div>
-				<div class="new-collection-holder">
-					<div ng-hide="showWell" class="row">
-						<div class="col-md-12">
-							<div class="new-collection-button-row">
-								<button class="btn btn-default add-to-new-list-btn" ng-click="toggleWell()">
-									<span class="glyphicon glyphicon-plus"></span>
-                                    {{'collections.addInNewCollection' | translate}}
-								</button>
-							</div>
-						</div>
-					</div>
-					<div ng-show="showWell" class="row">
-						<div class="col-md-12">
-							<div class="new-collection-form well">
-								<span ng-click="toggleWell()" class="glyphicon glyphicon-remove close-well-icn"></span>
-								<form class="favlist-form" ng-submit="createAndAdd()">
-									<h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
-									<div class="form-group">
-										<input type="text" ng-model="collectionName" class="form-control" rows="1" placeholder="{{'collection.collectionNamePlaceholder' | translate}}" maxlength="64"/>
-									</div>
-									<button class="btn btn-default create-and-add-btn" type="submit">
-										<span class="glyphicon glyphicon-plus"></span>
-                                        {{'collections.createAndAdd' | translate}}
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>	
-
+            </div>
+        </div>
+        <div ng-show="showWell" class="row">
+            <div class="col-md-12">
+                <div class="new-collection-form well">
+                    <span ng-click="toggleWell()" class="glyphicon glyphicon-remove close-well-icn"></span>
+                    <form class="favlist-form" ng-submit="createAndAdd()">
+                        <h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
+                        <div class="form-group">
+                            <input type="text" ng-model="collectionName" class="form-control" rows="1" placeholder="{{'collection.collectionNamePlaceholder' | translate}}" maxlength="64"/>
+                        </div>
+                        <button class="btn btn-default create-and-add-btn" type="submit">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            {{'collections.createAndAdd' | translate}}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
