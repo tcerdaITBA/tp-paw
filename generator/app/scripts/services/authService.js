@@ -1,8 +1,8 @@
 'use strict';
-define(['productSeek', 'services/sessionService'], function(productSeek) {
+define(['productSeek', 'services/sessionService', 'services/restService'], function(productSeek) {
 
 
-	return productSeek.factory('authService', ['$http', 'url', 'sessionService', '$q', '$rootScope', function($http, url, session, $q, $rootScope) {
+	return productSeek.factory('authService', ['$http', 'url', 'sessionService', '$q', '$rootScope', 'restService', function($http, url, session, $q, $rootScope, restService) {
 		var AuthService = {};
 		AuthService.loggedUser = session.getUser();
 
@@ -31,6 +31,14 @@ define(['productSeek', 'services/sessionService'], function(productSeek) {
 				.then(function(data) {
                     session.setUser(data, saveToSession);
                     self.loggedUser = data;
+                    console.log(data);
+                
+                    restService.getCollectionsForUser(data.id)
+                        .then(function(data) {
+                            self.loggedUser.collections = data;
+                            session.setUser(self.loggedUser, saveToSession);
+                        });
+                
                     $rootScope.$broadcast('user:updated');
                     return data;
                 })

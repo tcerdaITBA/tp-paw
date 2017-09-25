@@ -59,7 +59,22 @@ define([], function() {
         allProducts: 'Todos los productos',
         recent: 'Recientes',
         popular: 'Más Votados',
-        atoz: 'a-z'
+        atoz: 'a-z',
         
+        'collection.collectionNamePlaceholder': 'Nombre',
+        'collections.newCollection': 'Nueva Colección',
+        'collections.add': 'Agregar',
+        'collections.toCollection': 'a una Colección',
+        'collections.noCollectionsYet': 'No has creado ninguna Colección.',
+        'collections.createAndAdd': 'Crear Colección y agregar',
+        'collections.addInNewCollection': 'Agregar en una nueva Colección',
+        'collections.createCollection': 'Crear nueva Colección',
+        'collections.create': 'Crear',
+        'collections.alreadyInCollection': 'Ya está en la Colección',
+        
+        'ownerUserZRP.noFavLists': 'No has creado ninguna Colección aún.',
+        
+        'product.singular': 'product',
+        'product.plural': 'products'
 	};
 });
