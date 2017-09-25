@@ -74,8 +74,12 @@ define([], function() {
         
         'ownerUserZRP.noFavLists': 'You have not created any Collection yet.',
         
-        'product.singular': 'producto',
-        'product.plural': 'productos'
+        'product.singular': 'product',
+        'product.plural': 'products',
+        
+        'collection.error.nameTooShort': 'Collection name should have at least 4 characters',
+        'collection.error.nameTooLong': 'Collection name cannot exceed 64 characters'
+
 		
 	};
 });

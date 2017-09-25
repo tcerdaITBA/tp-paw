@@ -29,8 +29,8 @@
         <div ng-repeat="collection in collections | orderBy:'name'" class="row">
             <div class="col-md-12 collection-column">
                 <form ng-submit="addToCollection(collection)" >
-                    <span ng-if="collection.containsProduct" tooltip-placement="right" uib-tooltip="{{'collections.alreadyInCollection' | translate}}" class="tool-tip">
-                        <button class="add-to-list-item" type="submit" disabled>
+                    <span tooltip-enable="collection.containsProduct" tooltip-placement="right" uib-tooltip="{{'collections.alreadyInCollection' | translate}}" class="tool-tip">
+                        <button class="add-to-list-item" type="submit" ng-disabled="collection.containsProduct">
                             <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
                             <div class="collection-info">
                                 <p>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                    </button>		
+                    </button>
                 </form>
             </div>
         </div>
@@ -80,10 +80,12 @@
             <div class="col-md-12">
                 <div class="new-collection-form well">
                     <span ng-click="toggleWell()" class="glyphicon glyphicon-remove close-well-icn"></span>
-                    <form class="favlist-form" ng-submit="createAndAdd()">
+                    <form class="favlist-form" novalidate ng-submit="createAndAdd()" name="form">
                         <h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
                         <div class="form-group">
-                            <input type="text" ng-model="collectionName" class="form-control" rows="1" placeholder="{{'collection.collectionNamePlaceholder' | translate}}" maxlength="64"/>
+                            <input type="text" ng-model="collectionName" name="collectionName" class="form-control" rows="1" placeholder="{{'collection.collectionNamePlaceholder' | translate}}" ng-minlength="4" ng-maxlength="64" required/>
+                            <p class="form-error collection-error" ng-show="(form.collectionName.$error.minlength || form.collectionName.$error.required) && form.$submitted">{{'collection.error.nameTooShort' | translate}}</p>
+                            <p class="form-error collection-error" ng-show="form.collectionName.$error.maxlength && form.$submitted">{{'collection.error.nameTooLong' | translate}}</p>
                         </div>
                         <button class="btn btn-default create-and-add-btn" type="submit">
                             <span class="glyphicon glyphicon-plus"></span>
