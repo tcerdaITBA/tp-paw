@@ -4,7 +4,7 @@ define(['productSeek'], function(productSeek) {
         
         $scope.product = product;
 
-        $scope.cancel = function(){
+        $scope.cancel = function() {
             console.log(product);
             $scope.$dismiss();
         };
