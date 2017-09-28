@@ -1,4 +1,4 @@
-define(['productSeek', 'services/restService', 'services/snackbarService', 'directives/snackbar'], function(productSeek) {
+define(['productSeek', 'services/restService', 'services/snackbarService', 'directives/snackbar', 'directives/loading'], function(productSeek) {
 
     'use strict';
     productSeek.controller('CollectionModalCtrl', ['$scope', '$uibModalInstance', 'product', 'collections', 'restService', 'snackbarService', function($scope, $uibModalInstance, product, collectionObject, restService, snackbarService) {
