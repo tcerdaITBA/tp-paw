@@ -18,6 +18,24 @@ define(function() {
                     }]
                 }
             },
+			'/search': {
+				templateUrl: '/views/search.html',
+				controller: 'SearchCtrl',
+				resolve: {
+                    productsData: ['$route', 'restService', function($route, restService) {
+                        var params = $route.current.params;
+                        return restService.searchProducts(params.q);
+                    }],
+					usersData: ['$route', 'restService', function($route, restService) {
+						var params = $route.current.params;
+                        return restService.searchUsers(params.q);
+					}],
+					query: ['$route', function($route) {
+						var params = $route.current.params;
+						return params.q;
+					}]
+                }
+			},
             '/about': {
                 templateUrl: '/views/about.html',
                 controller: 'about'
@@ -53,7 +71,11 @@ define(function() {
                         return restService.getVotedByUser(params.id);
                     }]
                 }
-            }
+            },
+			'/post': {
+				templateUrl: '/views/post.html',
+                controller: 'PostCtrl'
+			}
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */
         }

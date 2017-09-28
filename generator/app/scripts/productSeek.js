@@ -35,7 +35,7 @@ define(['routes',
                     
 					if (config.routes) {
 						angular.forEach(config.routes, function(route, path) {
-                            var resolved = dependencyResolverFor(['controllers/' + route.controller]);
+                            var resolved = dependencyResolverFor(['controllers/' + route.controller]);                            
                             angular.forEach(route.resolve, function(resolver, name) {
                                 resolved[name] = resolver;
                             });

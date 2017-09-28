@@ -43,6 +43,17 @@ define([], function() {
 		'modal.signIn.passwordPlaceholder':'Contraseña',
 		'modal.signIn.rememberMe':'Recuérdame',
 		'modal.signIn.signIn':'Iniciar sesión',
+		
+		'searchResults.products':'Productos',
+		'searchResults.users':'Usuarios',
+		'searchResults.resultsFor': 'Resultados de búsqueda para ',
+		'searchResults.filterByCategory': 'Filtros',
+		'searchResults.resetFilters': 'Reestablecer filtros',
+		
+		'searchZRP.notFound':'\uD83D\uDD0E',
+		'searchZRP.tryDifferentSearch':'Intenta una búsqueda diferente',
+		'searchZRP.noUsers':'No se encontraron usuarios que contengan {{keyword}}',
+		'searchZRP.noProducts':'No se encontraron productos que contengan {{keyword}}',
         
         mostRecent: 'Productos más recientes',
         allProducts: 'Todos los productos',
@@ -54,7 +65,48 @@ define([], function() {
         'Profile.Tab.votedProducts': 'Votados',
         'Profile.Tab.favlist': 'Colecciones',
         'Profile.settings.changePicture':'Cambiar foto de perfil',
-        'Profile.settings.changePassword': 'Cambiar contraseña'
+        'Profile.settings.changePassword': 'Cambiar contraseña',
+        'userFormLabel.passwordConfirm': 'Confirmar Contraseña',
+    
+        'changePassword.currentPasswordConf': 'Contraseña Actual',
+        'changePassword.newPassword':'Nueva Contraseña',
+        'changePassword': 'Cambiar Contraseña',
+        'passwordForm.cancel': 'Cancelar',
+
+        'userFormLabel.newProfilePicture': 'Nueva Foto de Perfil',
+
+        'Profile.modal.deleteProduct': 'Eliminar Producto',
+        'Profile.modal.textBeginning': '¿Estás seguro de que deseas eliminar',
+        'Profile.modal.textEnd': '? Esta acción no puede ser revertida.',
+        'Profile.modal.leftButton': 'Eliminar',
+        'Profile.modal.rightButton': 'Cancelar',
+
+        'Profile.Tab.uploadedProducts': 'Publicados',
+        'Profile.Tab.votedProducts': 'Votados',
+        'Profile.Tab.favlist': 'Colecciones',
+        'Profile.settings.changePicture':'Cambiar foto de perfil',
+        'Profile.settings.changePassword': 'Cambiar contraseña',
         
+        'collection.collectionNamePlaceholder': 'Nombre',
+        'collections.newCollection': 'Nueva Colección',
+        'collections.add': 'Agregar',
+        'collections.toCollection': 'a una Colección',
+        'collections.noCollectionsYet': 'No has creado ninguna Colección.',
+        'collections.createAndAdd': 'Crear Colección y agregar',
+        'collections.addInNewCollection': 'Agregar en una nueva Colección',
+        'collections.createCollection': 'Crear nueva Colección',
+        'collections.create': 'Crear',
+        'collections.alreadyInCollection': 'Ya está en la Colección',
+        
+        'ownerUserZRP.noFavLists': 'No has creado ninguna Colección aún.',
+        
+        'product.singular': 'producto',
+        'product.plural': 'productos',
+        
+        'collection.error.nameTooShort': 'Nombre de la Colección debe por lo menos contener 4 caracteres',
+        'collection.error.nameTooLong': 'Nombre de la Colección no puede exceder los 64 caracteres',
+        
+        'feedback.favListCreated.textEnd': 'fue creada',
+        'feedback.productAddedToFavList.text': 'fue agregado a'
 	};
 });

@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'services/restService'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'services/restService', 'directives/loading'], function(productSeek) {
 
 	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'productsData', 'categories', function($scope, $routeParams, productsData, categories) {
         $scope.products = productsData.products;
@@ -8,7 +8,7 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
         
         $scope.categories.push({
             name: 'all', 
-            active: $scope.category ? false : true,
+            active: $scope.category ? false : true, // 'all' active if not in category page
             url: '/'
         });
         
@@ -26,6 +26,6 @@ define(['productSeek', 'directives/productItem', 'services/restService'], functi
                 var c = $scope.categories[i];
                 c.active = c === category;
             }
-        }
+        }        
 	}]);
 });

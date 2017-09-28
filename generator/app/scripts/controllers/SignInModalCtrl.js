@@ -1,8 +1,7 @@
 define(['productSeek', 'services/authService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('SignInModalCtrl', ['authService', '$scope', function(auth, $scope) {
-		// TODO: no me lei un effective javascript, capaz esto no se hace asi
+    productSeek.controller('SignInModalCtrl', ['authService', '$scope', '$uibModalInstance', function(auth, $scope, $signInModal) {
         $scope.loginForm = {};
 		
 		$scope.loginForm.username = {};
@@ -14,14 +13,14 @@ define(['productSeek', 'services/authService'], function(productSeek) {
 				
 		$scope.loginSubmit = function() {
 			console.log($scope.loginForm);
-			auth.logIn($scope.loginForm.username.text, $scope.loginForm.password.text)
+			auth.logIn($scope.loginForm.username.text, $scope.loginForm.password.text, $scope.loginForm.rememberMe)
 			.then(function(response) {
-				console.log("LOGGED IN!");
+				alert('Logged In!')
 				console.log(auth.getLoggedUser());
-				console.log(auth.isLoggedIn());
+				$signInModal.dismiss();
 			})
 			.catch(function(response) {
-				console.log("Invalid user");
+				alert('Invalid user');
 				console.log(response);
 			});
 		};

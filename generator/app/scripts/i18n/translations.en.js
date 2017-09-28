@@ -44,11 +44,23 @@ define([], function() {
 		'modal.signIn.rememberMe':'Remember me',
 		'modal.signIn.signIn':'Sign In',
 		
+		'searchResults.products':'Products',
+		'searchResults.users':'Users',
+		'searchResults.resultsFor': 'Search results for ',
+		'searchResults.filterByCategory': 'Filters',
+		'searchResults.resetFilters': 'Reset filters',
+		
+		'searchZRP.notFound':'\uD83D\uDD0E',
+		'searchZRP.tryDifferentSearch':'Try a different search',
+		'searchZRP.noUsers':'No users found containing {{keyword}}',
+		'searchZRP.noProducts':'No products found containing {{keyword}}',
+		
         mostRecent: 'Most recent products',
         allProducts: 'All',
         recent: 'Recent',
         popular: 'Most voted',
         atoz: 'a-z',
+
         'Profile.Tab.uploadedProducts': 'Uploaded',
         'Profile.Tab.votedProducts': 'Voted',
         'Profile.Tab.favlist': 'Collections',
@@ -67,8 +79,28 @@ define([], function() {
         'Profile.modal.textBeginning': 'Are you sure you want to delete',
         'Profile.modal.textEnd': '? This action can\u2019t be undone.',
         'Profile.modal.rightButton': 'Cancel',
-        'Profile.modal.leftButton': 'Delete',
+        'Profile.modal.leftButton': 'Delete',    
+		
+        'collection.collectionNamePlaceholder':'Name',
+        'collections.newCollection':'New Collection',
+        'collections.add':'Add',
+        'collections.toCollection':'to Collection',
+        'collections.noCollectionsYet':'No Collections created yet.',
+        'collections.createAndAdd':'Create Collection and add',
+        'collections.addInNewCollection':'Add to new Collection',
+        'collections.createCollection':'Create new Collection',
+        'collections.create':'Create',
+        'collections.alreadyInCollection':'Already in this Collection',
         
-
-    };
+        'ownerUserZRP.noFavLists': 'You have not created any Collection yet.',
+        
+        'product.singular': 'product',
+        'product.plural': 'products',
+        
+        'collection.error.nameTooShort': 'Collection name should have at least 4 characters',
+        'collection.error.nameTooLong': 'Collection name cannot exceed 64 characters',
+        
+        'feedback.favListCreated.textEnd': 'was created',
+        'feedback.productAddedToFavList.text': 'was added to'
+	};
 });

@@ -1,0 +1,24 @@
+<a class="user-ref" ng-href="#/profile/{{user.id}}">
+	<div class="row user-info-box">
+		<div class="col-md-3 img-col">
+			<img class="profile-img-circle" src="{{user.picture_url}}">
+		</div>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="profile-name-holder capitalize-firstLetter">
+						<span class="profile-name result-text" ng-bind="user.name"></span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="creator-mail" ng-click="sendMail($event);">
+						<span class="glyphicon glyphicon-envelope"></span>
+						<p ng-bind="user.email"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</a>

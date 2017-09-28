@@ -1,37 +1,85 @@
 'use strict';
-define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl'], function(productSeek) {
+define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf'], function(productSeek) {
 
-	productSeek.controller('IndexCtrl', ['sessionService', 'authService', '$scope', '$location', '$uibModal', function(session, auth, $scope, $location, $uibModal) {
-		$location.path('#/');
+	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', '$scope', '$location', function(session, auth, modal, $scope, $location) {
+		$scope.showSuggestions = false;
+		$scope.isLoggedIn = auth.isLoggedIn();
+		$scope.loggedUser = auth.getLoggedUser();
 
-		$scope.isLoggedIn = auth.isLoggedIn;
+		// No me anduvo con $scope.logOut = auth.logOut
+		$scope.logOut = function() {
+			auth.logOut();
+		};
 
-		// y si cambia la historia? Se actualiza? VER
+		var focusIndex = -1;
+		$scope.searchFieldFocus = false;
+		$scope.focusElems = [];
+
 		$scope.searchHistory = session.getSearchHistory();
 
-		$scope.search = function() {
+		$scope.search = function(q) {
+			console.log(q);
 			// TODO: error message if empty, too short, too long...
-			if ($scope.query && 3 <= $scope.query.length && $scope.query.length <= 64) {
-				session.saveToSearchHistory($scope.query);
-				//				$location.url('/search/products?q=' + $scope.query.text);
+			if (q && 3 <= q.length && q.length <= 64) {
+				$scope.showSuggestions = false;
+				session.saveToSearchHistory(q);
+				$scope.searchHistory = session.getSearchHistory();
+				$location.url('/search?q=' + q);
 			}
 		};
 
-		$scope.signInModal = function() {
-			$uibModal.open({
-				templateUrl: 'views/modals/signInModal.html',
-				controller: 'SignInModalCtrl',
-				size: 'sm',
-			});
+		$scope.$on('user:updated', function() {
+			$scope.isLoggedIn = auth.isLoggedIn();
+			$scope.loggedUser = auth.getLoggedUser();
+		});
+		
+		$scope.$on('$locationChangeStart', function(event) {
+			if ($location.path() == '/post')
+				$scope.hidePost = true;
+			else
+				$scope.hidePost = false;
+		});
+
+		$scope.searchFocus = function() {
+			$scope.showSuggestions = true;
+			focusIndex = -1;
 		};
 		
-		$scope.signUpModal = function() {
-			$uibModal.open({
-				templateUrl: 'views/modals/signUpModal.html',
-				controller: 'SignUpModalCtrl',
-				size: 'sm'
-			});
+		$(document).click(function(e) {
+			var container = $('.search-form-container');
+			if (!container.is(event.target) && container.has(event.target).length === 0) {
+				$scope.showSuggestions = false;
+				focusIndex = -1;	
+				$scope.$apply();
+			}
+		});
+
+		$scope.searchKeyDown = function(e) {
+			if (e.keyCode == 38) { // arrow up
+				console.log("Arrow up")
+				if (focusIndex <= 0) { // Focus back to input
+					$scope.focusElems[0] = false;
+					$scope.searchFocus();
+				} else {
+					$scope.focusElems[focusIndex--] = false;
+					$scope.focusElems[focusIndex] = true;
+				}
+				e.preventDefault();
+			} 
+			else if (e.keyCode == 40) { // arrow down
+				console.log("Arrow down")
+				$scope.searchFieldFocus = false;
+				if (focusIndex >= 0)
+					$scope.focusElems[focusIndex] = false;
+				// TODO: agregar most popular products
+				focusIndex = (focusIndex < $scope.searchHistory.length - 1 ? focusIndex + 1 : focusIndex);
+				$scope.focusElems[focusIndex] = true;
+				e.preventDefault();
+			}
+			console.log($scope.focusElems);
 		}
 
+		$scope.signInModal = modal.signInModal;
+		$scope.signUpModal = modal.signUpModal;
 	}]);
 });
