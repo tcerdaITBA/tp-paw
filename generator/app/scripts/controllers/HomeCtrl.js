@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'services/restService'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'services/restService', 'directives/loading'], function(productSeek) {
 
 	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'productsData', 'categories', function($scope, $routeParams, productsData, categories) {
         $scope.products = productsData.products;

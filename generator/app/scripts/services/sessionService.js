@@ -19,6 +19,7 @@ define(['productSeek'], function(productSeek) {
 
 		Session.setUser = function(user, isLocalStorage){
 			this._user = user;
+            
             if (isLocalStorage)
                 $window.localStorage.setItem('session.user', JSON.stringify(user));
             else

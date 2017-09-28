@@ -21,7 +21,7 @@
                 <button class="pull-right btn btn-default upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()">
                     <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>{{product.voters_count}}</p>
                 </button>
-                <button ng-show="isLoggedIn" class="btn btn-default add-to-collection-btn pull-right categoryTag" data-target="#add-to-collection-modal-{{product.id}}" data-toggle="modal">
+                <button ng-show="isLoggedIn" class="btn btn-default add-to-collection-btn pull-right categoryTag" ng-click="showCollectionModal(); $event.stopPropagation()">
                     <p>
                         <span class="glyphicon glyphicon-plus"></span>
                     </p>

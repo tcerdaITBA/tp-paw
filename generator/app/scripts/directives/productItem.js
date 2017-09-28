@@ -1,15 +1,16 @@
 'use strict';
-define(['productSeek', 'services/authService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'services/sessionService', 'controllers/CollectionModalCtrl'], function(productSeek) {
     productSeek.directive('productItem', function() {
         return {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
             scope: {product: '=', hideCategory: '='},
-            controller: ['$scope', '$location', '$route', 'authService', 'restService', function($scope, $location, $route, authService, restService) {
+            controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', function($scope, $location, $route, authService, restService, modalService, sessionService) {
                 var product = $scope.product;
                 
                 $scope.offset = $scope.hideCategory ? 6 : 3;
+                $scope.loggedUser = authService.loggedUser;
                 
                 $scope.directToCategory = function() {
                     $location.url('/?category=' + product.category);
@@ -25,6 +26,7 @@ define(['productSeek', 'services/authService'], function(productSeek) {
                     if (!authService.isLoggedIn()) {
                         $scope.product.voted = false;
                         $scope.isLoggedIn = false;
+                        $scope.loggedUser = null;
                     }
                     else
                         $route.reload(); // Must retrieve product again in order to know whether it was voted by the new user or not
@@ -43,6 +45,10 @@ define(['productSeek', 'services/authService'], function(productSeek) {
                             restService.unvoteProduct(product.id);
                         }
                     }
+                };
+                
+                $scope.showCollectionModal = function() {
+                    modalService.collectionModal($scope.product, authService.loggedUser.collections);
                 }
             }]
         }

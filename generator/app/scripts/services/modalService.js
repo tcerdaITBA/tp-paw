@@ -1,6 +1,6 @@
 'use strict';
-define(['productSeek'], function(productSeek) {
-    productSeek.service('modalService', ['$uibModal', function($uibModal) {
+define(['productSeek', 'services/restService', 'services/authService'], function(productSeek) {
+    productSeek.service('modalService', ['$uibModal', 'restService', 'authService', function($uibModal, restService, authService) {
 		this.signInModal = function() {
 			$uibModal.open({
 				templateUrl: 'views/modals/signInModal.html',
@@ -16,5 +16,21 @@ define(['productSeek'], function(productSeek) {
 				size: 'sm'
 			});
 		};
+        
+        this.collectionModal = function(product, collections) {
+			$uibModal.open({
+				templateUrl: 'views/modals/collectionModal.html',
+				controller: 'CollectionModalCtrl',
+				size: 'md',
+                resolve: {
+                    product: function() {
+                        return product;
+                    },
+                    collections: function() {
+                        return restService.getCollectionsForUser(authService.loggedUser.id);
+                    }
+                }
+			});            
+        }
     }]);
 });

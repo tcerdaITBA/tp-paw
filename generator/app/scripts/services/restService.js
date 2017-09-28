@@ -28,6 +28,19 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 return accessToken ? {headers: {'X-AUTH-TOKEN': accessToken}} : undefined;
             }
             
+            function doPost(baseUrl, data, params) {
+            	var params = translate(params);
+ 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
+ 
+                 return $http.post(baseUrl + params, JSON.stringify(data), authHeaders())
+                        .then(function(response) {
+                             return response.data;
+                        })
+                        .catch(function(response) {
+                             return response.data;
+                        });                
+            }
+            
 			function doGet(baseUrl, params) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
@@ -114,6 +127,14 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 
                 unvoteProduct: function(id) {
                     return doDelete(url + '/products/' + id + '/votes');
+                },
+                
+                addProductToCollection: function(productId, collectionId) {
+                    return doPut(url + '/collections/' + collectionId + '/products/' + productId);
+                },
+                
+                createCollection: function(name) {
+                    return doPost(url + '/collections', {'name': name});
                 }
 			}
 		}]);

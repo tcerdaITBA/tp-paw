@@ -1,0 +1,120 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="dismiss()" aria-hidden="true">&times;</button>
+    <div class="product-preview">
+        <div class="row center-flex">
+            <div class="col-md-2 preview-product-logo center-flex">
+                <img src="{{product.logo_url}}">
+            </div>
+            <div class="col-md-7">
+                <span class="preview-product-name capitalize-firstLetter">
+                    {{product.name}}
+                </span>
+            </div>
+            <div class="col-md-3">
+                <span class="preview-upvote-info pull-right">
+                    <span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+                    {{product.voters_count}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div ng-if="emptyCollections" class="row">
+        <div class="col-md-12">
+            <h4>{{'ownerUserZRP.noFavLists' | translate}}</h4>
+        </div>
+    </div>
+    <div ng-if="!emptyCollections" class="collection-modal-body">
+        <div ng-repeat="collection in collections | orderBy:'name'" class="row">
+            <div class="col-md-12 collection-column">
+                <form ng-submit="addToCollection(collection)" >
+                    <span ng-if="collection.containsProduct" tooltip-enable="collection.containsProduct" tooltip-placement="right" uib-tooltip="{{'collections.alreadyInCollection' | translate}}" class="tool-tip">
+                        <button class="add-to-list-item" type="submit" ng-disabled="collection.containsProduct">
+                            <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
+                            <div class="collection-info">
+                                <p>
+                                    {{collection.products.length}}
+                                    <span ng-if="collection.products.length == 1">{{'product.singular' | translate}}</span>
+                                    <span ng-if="collection.products.length != 1">{{'product.plural' | translate}}</span>
+                                </p>
+                            </div>
+                        </button>
+                    </span>
+                    <button ng-if="!collection.containsProduct" class="add-to-list-item" type="submit">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
+                                <div class="collection-info">
+                                    <p>
+                                        {{collection.products.length}}
+                                        <span ng-if="collection.products.length == 1">{{'product.singular' | translate}}</span>
+                                        <span ng-if="collection.products.length != 1">{{'product.plural' | translate}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 hint-col">
+                                <div class="adding-hint pull-right">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <span>{{'collections.add' | translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="new-collection-holder">
+        <div ng-hide="showWell" class="row">
+            <div class="col-md-12">
+                <div class="new-collection-button-row">
+                    <button class="btn btn-default add-to-new-list-btn" ng-click="toggleWell()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        {{'collections.addInNewCollection' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div ng-show="showWell" class="row">
+            <div class="col-md-12">
+                <div class="new-collection-form well">
+                    <span ng-click="toggleWell()" class="glyphicon glyphicon-remove close-well-icn"></span>
+                    <form class="favlist-form" novalidate ng-submit="createAndAdd()" name="form">
+                        <h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
+                        <div class="form-group">
+                            <input type="text" ng-model="collectionName" name="collectionName" class="form-control" rows="1" placeholder="{{'collection.collectionNamePlaceholder' | translate}}" ng-minlength="4" ng-maxlength="64" required/>
+                            <p class="form-error collection-error" ng-show="(form.collectionName.$error.minlength || form.collectionName.$error.required) && form.$submitted">{{'collection.error.nameTooShort' | translate}}</p>
+                            <p class="form-error collection-error" ng-show="form.collectionName.$error.maxlength && form.$submitted">{{'collection.error.nameTooLong' | translate}}</p>
+                        </div>
+                        <button class="btn btn-default create-and-add-btn" type="submit">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            {{'collections.createAndAdd' | translate}}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<snackbar id="collectionCreated">
+    <div class="alert alert-success row-centered">
+        <strong>
+            <span class="glyphicon glyphicon-plus"></span>
+            <span class="snackbar-product-name">{{collectionName}}</span>
+        </strong>
+        {{'feedback.favListCreated.textEnd' | translate}}
+    </div>
+</snackbar>
+<snackbar id="productAdded">
+    <div class="alert alert-success row-centered">
+        <strong>
+            <span class="glyphicon glyphicon-plus"></span>
+            <span class="snackbar-product-name">{{product.name}}</span>
+        </strong>
+        {{'feedback.productAddedToFavList.text' | translate}}
+        <strong>
+            <span class="snackbar-product-name">{{collectionAddedTo}}</span>
+        </strong>
+    </div>
+</snackbar>
