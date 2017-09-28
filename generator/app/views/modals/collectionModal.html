@@ -29,7 +29,7 @@
         <div ng-repeat="collection in collections | orderBy:'name'" class="row">
             <div class="col-md-12 collection-column">
                 <form ng-submit="addToCollection(collection)" >
-                    <span tooltip-enable="collection.containsProduct" tooltip-placement="right" uib-tooltip="{{'collections.alreadyInCollection' | translate}}" class="tool-tip">
+                    <span ng-if="collection.containsProduct" tooltip-enable="collection.containsProduct" tooltip-placement="right" uib-tooltip="{{'collections.alreadyInCollection' | translate}}" class="tool-tip">
                         <button class="add-to-list-item" type="submit" ng-disabled="collection.containsProduct">
                             <div class="collection-name capitalize-firstLetter">{{collection.name}}</div>
                             <div class="collection-info">
@@ -97,3 +97,24 @@
         </div>
     </div>
 </div>
+<snackbar id="collectionCreated">
+    <div class="alert alert-success row-centered">
+        <strong>
+            <span class="glyphicon glyphicon-plus"></span>
+            <span class="snackbar-product-name">{{collectionName}}</span>
+        </strong>
+        {{'feedback.favListCreated.textEnd' | translate}}
+    </div>
+</snackbar>
+<snackbar id="productAdded">
+    <div class="alert alert-success row-centered">
+        <strong>
+            <span class="glyphicon glyphicon-plus"></span>
+            <span class="snackbar-product-name">{{product.name}}</span>
+        </strong>
+        {{'feedback.productAddedToFavList.text' | translate}}
+        <strong>
+            <span class="snackbar-product-name">{{collectionAddedTo}}</span>
+        </strong>
+    </div>
+</snackbar>

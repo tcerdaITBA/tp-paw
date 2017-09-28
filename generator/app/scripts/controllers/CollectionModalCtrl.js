@@ -1,7 +1,7 @@
-define(['productSeek', 'services/restService', 'services/authService'], function(productSeek) {
+define(['productSeek', 'services/restService', 'services/snackbarService', 'directives/snackbar'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('CollectionModalCtrl', ['$scope', '$uibModalInstance', 'product', 'collections', 'restService', function($scope, $uibModalInstance, product, collectionObject, restService) {
+    productSeek.controller('CollectionModalCtrl', ['$scope', '$uibModalInstance', 'product', 'collections', 'restService', 'snackbarService', function($scope, $uibModalInstance, product, collectionObject, restService, snackbarService) {
         $scope.product = product;
         $scope.collections = collectionObject.collections;
         $scope.emptyCollections = $scope.collections.length == 0;
@@ -25,17 +25,17 @@ define(['productSeek', 'services/restService', 'services/authService'], function
             $uibModalInstance.dismiss('close');            
         };
         
-        // TODO: feedback
         $scope.addToCollection = function(collection) {
             collection.products.push(collection);
             collection.count = collection.products.length;
             collection.containsProduct = true;
             restService.addProductToCollection(product.id, collection.id);
+            
+            snackbarService.showSnackbar('productAdded');
+            $scope.collectionAddedTo = collection.name;
+            $scope.dismiss();
         };
         
-        // TODO: manejo de errores de input
-        // TODO: scrollear a la nueva collecion
-        // TODO: feedback
         $scope.createAndAdd = function() {
             if ($scope.collectionName) {
                 restService.createCollection($scope.collectionName)
@@ -50,6 +50,10 @@ define(['productSeek', 'services/restService', 'services/authService'], function
                     coll.products.push(product);
                     coll.count = 1;
                     coll.containsProduct = true;
+                    
+                    snackbarService.showSnackbars(['collectionCreated', 'productAdded']);
+                    $scope.collectionAddedTo = coll.name;
+                    $scope.dismiss();
                 });
             }
         };

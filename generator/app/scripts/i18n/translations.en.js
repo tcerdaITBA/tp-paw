@@ -78,8 +78,9 @@ define([], function() {
         'product.plural': 'products',
         
         'collection.error.nameTooShort': 'Collection name should have at least 4 characters',
-        'collection.error.nameTooLong': 'Collection name cannot exceed 64 characters'
-
-		
+        'collection.error.nameTooLong': 'Collection name cannot exceed 64 characters',
+        
+        'feedback.favListCreated.textEnd': 'was created',
+        'feedback.productAddedToFavList.text': 'was added to'
 	};
 });
