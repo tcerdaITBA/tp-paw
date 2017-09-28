@@ -10,6 +10,7 @@ out-tsc/
 bower_components/
 node_modules/
 .sass-cache/
+package-lock.json
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
