@@ -45,5 +45,21 @@ define(['productSeek', 'services/restService', 'services/authService'], function
                 }
             });
         };
+        
+		this.changePictureModal = function() {
+			return $uibModal.open({
+				templateUrl: 'views/modals/changePictureModal.html',
+				controller: 'ChangePictureModalCtrl',
+				size: 'md',
+			});
+		};
+
+		this.changePasswordModal = function() {
+			return $uibModal.open({
+				templateUrl: 'views/modals/changePasswordModal.html',
+				controller: 'ChangePasswordModalCtrl',
+				size: 'md',
+			});
+		};
     }]);
 });

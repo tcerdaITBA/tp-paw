@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'services/authService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'directives/collectionItem', 'directives/productItem'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'directives/collectionItem', 'directives/productItem'], function(productSeek) {
 
-	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService','$uibModal', function($scope, user, collections, createdProducts, votedProducts, authService, $uibModal) {
+	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', '$uibModal', function($scope, user, collections, createdProducts, votedProducts, authService, modalService, $uibModal) {
 		$scope.user = user;
 		$scope.collections = collections.collections;
 		$scope.createdProducts = createdProducts.products;
@@ -25,13 +25,17 @@ define(['productSeek', 'services/authService', 'controllers/ChangePasswordModalC
             }
         };
         
-        var removeProductFrom = function(product, array) {
-            var idx = -1;
+        var findIndexById = function(item, array) {
+            for (var i = 0; i < array.length; i++)
+                if (array[i].id === item.id)
+                    return i;
             
-            for (var i = 0; i < array.length && idx === -1; i++)
-                if (array[i].id === product.id)
-                    idx = i;
-            
+            return -1;
+        };
+        
+        var removeItemFrom = function(item, array) {
+            var idx = findIndexById(item, array);
+
             if (idx != -1)
                 array.splice(idx, 1);
         };
@@ -41,8 +45,23 @@ define(['productSeek', 'services/authService', 'controllers/ChangePasswordModalC
         updateProductOwner($scope.votedProducts);
         
         $scope.removeProduct = function(product) {
-            removeProductFrom(product, $scope.createdProducts);
-            removeProductFrom(product, $scope.votedProducts);
+            removeItemFrom(product, $scope.createdProducts);
+            removeItemFrom(product, $scope.votedProducts);
+            
+            for (var i = 0; i < $scope.collections.length; i++)
+                removeItemFrom(product, $scope.collections[i].products);
+        };
+        
+        $scope.productVoted = function(product, voted) {
+            if ($scope.isProfileOwner)
+                voted ? $scope.votedProducts.push(product) : removeItemFrom(product, $scope.votedProducts);
+        };
+        
+        $scope.addedToCollection = function(product, collection) {  // note that the collection already has the product added
+            if ($scope.isProfileOwner) {
+                var idx = findIndexById(collection, $scope.collections);
+                idx === -1 ? $scope.collections.push(collection) : $scope.collections[idx] = collection;
+            }
         };
         
 		var isEmpty = function(set) {
@@ -66,20 +85,7 @@ define(['productSeek', 'services/authService', 'controllers/ChangePasswordModalC
 				return 1;
 		};
 
-		$scope.changePictureModal = function() {
-			$uibModal.open({
-				templateUrl: 'views/modals/changePictureModal.html',
-				controller: 'ChangePictureModalCtrl',
-				size: 'md',
-			});
-		};
-
-		$scope.changePasswordModal = function() {
-			$uibModal.open({
-				templateUrl: 'views/modals/changePasswordModal.html',
-				controller: 'ChangePasswordModalCtrl',
-				size: 'md',
-			});
-		};
+        $scope.changePictureModal = modalService.changePictureModal;
+        $scope.changePasswordModal = modalService.changePasswordModal;        
 	}]);
 });
