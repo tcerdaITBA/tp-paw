@@ -5,7 +5,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
-            scope: {product: '=', hideCategory: '=', hideDelete: '='},
+            scope: {product: '=', hideCategory: '=', hideDelete: '=', onDelete: '&'},
             controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', function($scope, $location, $route, authService, restService, modalService, sessionService) {
 
                 var product = $scope.product;
@@ -52,8 +52,14 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                     modalService.collectionModal($scope.product, authService.loggedUser.collections);
                 };
                 
-                $scope.deleteProduct = function() {
-                    modalService.deleteModal($scope.product);
+                $scope.deleteModal = function() {
+                    var modal = modalService.deleteModal($scope.product);
+                    console.log(modal);
+                    console.log(modal.results);
+                    modal.result.then(function(isDeleted) {
+                        if (isDeleted)
+                            $scope.onDelete();
+                    });
                 };
             }]
         }

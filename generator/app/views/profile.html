@@ -52,9 +52,9 @@
                         <div class="">
                             <ul class="nav nav-pills nav-justified profile-tabs">
                             <!--Cosas de tabs-->
-                                <li role="presentation" class="{{firstActiveTab() == 1 ? 'active' : 'none' }}"><a href="#favList-pane" data-toggle="tab">{{'Profile.Tab.favlist' | translate}}<span class="badge tab-badge">{{collections.count}}</span></a></li>
-                                <li role="presentation" class="{{firstActiveTab() == 2 ? 'active' : 'none' }}"><a href="#uploadedProducts-pane" data-toggle="tab">{{'Profile.Tab.uploadedProducts' | translate}}<span class="badge">{{createdProducts.count}}</span></a></li>
-                                <li role="presentation" class="{{firstActiveTab() == 3 ? 'active' : 'none' }}"><a href="#votedProducts-pane" data-toggle="tab">{{'Profile.Tab.votedProducts' | translate}}<span class="badge tab-badge">{{votedProducts.count}}</span></a></li>
+                                <li role="presentation" class="{{firstActiveTab() == 1 ? 'active' : 'none' }}"><a href="#favList-pane" data-toggle="tab">{{'Profile.Tab.favlist' | translate}}<span class="badge tab-badge">{{collections.length}}</span></a></li>
+                                <li role="presentation" class="{{firstActiveTab() == 2 ? 'active' : 'none' }}"><a href="#uploadedProducts-pane" data-toggle="tab">{{'Profile.Tab.uploadedProducts' | translate}}<span class="badge">{{createdProducts.length}}</span></a></li>
+                                <li role="presentation" class="{{firstActiveTab() == 3 ? 'active' : 'none' }}"><a href="#votedProducts-pane" data-toggle="tab">{{'Profile.Tab.votedProducts' | translate}}<span class="badge tab-badge">{{votedProducts.length}}</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -62,22 +62,22 @@
                     <div class="tab-content">
                         <div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
                             <div class="product-list">
-                                <div ng-repeat="f in collections.collections">
+                                <div ng-repeat="f in collections">
                                     <collection-item fav-list="f"></collection-item>
                                 </div>
                             </div>
                         </div>
                         <div id="uploadedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 2 ? 'active in' : 'none' }}">
                             <div class="col-md-12 product-list">
-                                <div ng-repeat="c in createdProducts.products">
-                                    <product-item product="c" hide-delete="!isProfileOwner"></product-item>
+                                <div ng-repeat="c in createdProducts">
+                                    <product-item product="c" on-delete="removeProduct(c)" hide-delete="!isProfileOwner || !c.isOwnerLogged"></product-item>
                                 </div>    
                             </div>
                         </div>
                         <div id="votedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 3 ? 'active in' : 'none'}}">
                             <div class="col-md-12 product-list">
-                                <div ng-repeat="p in votedProducts.products">
-                                    <product-item product="p" hide-delete="!isProfileOwner"></product-item>
+                                <div ng-repeat="p in votedProducts">
+                                    <product-item product="p" on-delete="removeProduct(p)" hide-delete="!isProfileOwner || !p.isOwnerLogged"></product-item>
                                 </div>
                             </div>
                         </div>  

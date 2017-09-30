@@ -7,13 +7,12 @@ define(['productSeek', 'services/restService'], function(productSeek) {
         $scope.delete = function() {
             restService.deleteProduct(product.id)
             .then(function() {
-                // feedback
+                // TODO: feedback
                 $uibModalInstance.close(true);
             });
         };
         
         $scope.cancel = function() {
-            console.log(product);
             $uibModalInstance.dismiss('cancel');            
         };
         
