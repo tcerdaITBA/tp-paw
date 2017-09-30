@@ -60,6 +60,26 @@ define([], function() {
         recent: 'Recent',
         popular: 'Most voted',
         atoz: 'a-z',
+
+        'Profile.Tab.uploadedProducts': 'Uploaded',
+        'Profile.Tab.votedProducts': 'Voted',
+        'Profile.Tab.favlist': 'Collections',
+        'Profile.settings.changePicture':'Change profile picture',
+        'Profile.settings.changePassword': 'Change password',
+        'userFormLabel.passwordConfirm': 'Confirm Password',
+    
+        'changePassword.currentPasswordConf': 'Current Password',
+        'changePassword.newPassword':'New Password',
+        'changePassword': 'Change Password',
+        'passwordForm.cancel': 'Cancel',
+
+        'userFormLabel.newProfilePicture': 'New Profile Picture',
+
+        'Profile.modal.deleteProduct': 'Delete Product',
+        'Profile.modal.textBeginning': 'Are you sure you want to delete',
+        'Profile.modal.textEnd': '? This action can\u2019t be undone.',
+        'Profile.modal.rightButton': 'Cancel',
+        'Profile.modal.leftButton': 'Delete',    
 		
         'collection.collectionNamePlaceholder':'Name',
         'collections.newCollection':'New Collection',

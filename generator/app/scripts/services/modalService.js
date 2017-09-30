@@ -2,7 +2,7 @@
 define(['productSeek', 'services/restService', 'services/authService'], function(productSeek) {
     productSeek.service('modalService', ['$uibModal', 'restService', 'authService', function($uibModal, restService, authService) {
 		this.signInModal = function() {
-			$uibModal.open({
+			return $uibModal.open({
 				templateUrl: 'views/modals/signInModal.html',
 				controller: 'SignInModalCtrl',
 				size: 'sm'
@@ -10,7 +10,7 @@ define(['productSeek', 'services/restService', 'services/authService'], function
 		};
 
 		this.signUpModal = function() {
-			$uibModal.open({
+			return $uibModal.open({
 				templateUrl: 'views/modals/signUpModal.html',
 				controller: 'SignUpModalCtrl',
 				size: 'sm'
@@ -18,7 +18,7 @@ define(['productSeek', 'services/restService', 'services/authService'], function
 		};
         
         this.collectionModal = function(product, collections) {
-			$uibModal.open({
+			return $uibModal.open({
 				templateUrl: 'views/modals/collectionModal.html',
 				controller: 'CollectionModalCtrl',
 				size: 'md',
@@ -31,6 +31,35 @@ define(['productSeek', 'services/restService', 'services/authService'], function
                     }
                 }
 			});            
-        }
+        };
+        
+        this.deleteModal = function(product) {
+            return $uibModal.open({
+                templateUrl: 'views/modals/deleteModal.html',
+                controller: 'DeleteModalCtrl',
+                size: 'sm',
+                resolve: {
+                    product: function() {
+                        return product;
+                    }
+                }
+            });
+        };
+        
+		this.changePictureModal = function() {
+			return $uibModal.open({
+				templateUrl: 'views/modals/changePictureModal.html',
+				controller: 'ChangePictureModalCtrl',
+				size: 'md',
+			});
+		};
+
+		this.changePasswordModal = function() {
+			return $uibModal.open({
+				templateUrl: 'views/modals/changePasswordModal.html',
+				controller: 'ChangePasswordModalCtrl',
+				size: 'md',
+			});
+		};
     }]);
 });

@@ -17,7 +17,7 @@
 						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 						aria-expanded="false">
 					<span class="sr-only"></span>
-					<!--	Tres rayitas del burguer button -->
+					<!-- Tres rayitas del burguer button -->
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>	
 
@@ -75,7 +75,6 @@
 								</div>
 							</a>
 						</ng-repeat>
-
 					</div>
 					</div>
 				</div>
@@ -125,10 +124,12 @@
 		</div>
 	</nav>
 	<div class="container">
-		<div>
-				<li><a ng-href="#/">Home</a></li>
-				<li><a ng-href="#/about">About</a></li>
-		</div>
+		<ul>
+            <li><a ng-href="#/">Home</a></li>
+            <li><a ng-href="#/about">About</a></li>
+            <li><a ng-href="#/profile/2">Contact</a></li>
+			<h3 class="text-muted">productSeek</h3>
+		</ul>
 		<div ng-view=""></div>
 
 		<div class="footer">

@@ -60,6 +60,32 @@ define([], function() {
         recent: 'Recientes',
         popular: 'Más Votados',
         atoz: 'a-z',
+
+        'Profile.Tab.uploadedProducts': 'Publicados',
+        'Profile.Tab.votedProducts': 'Votados',
+        'Profile.Tab.favlist': 'Colecciones',
+        'Profile.settings.changePicture':'Cambiar foto de perfil',
+        'Profile.settings.changePassword': 'Cambiar contraseña',
+        'userFormLabel.passwordConfirm': 'Confirmar Contraseña',
+    
+        'changePassword.currentPasswordConf': 'Contraseña Actual',
+        'changePassword.newPassword':'Nueva Contraseña',
+        'changePassword': 'Cambiar Contraseña',
+        'passwordForm.cancel': 'Cancelar',
+
+        'userFormLabel.newProfilePicture': 'Nueva Foto de Perfil',
+
+        'Profile.modal.deleteProduct': 'Eliminar Producto',
+        'Profile.modal.textBeginning': '¿Estás seguro de que deseas eliminar',
+        'Profile.modal.textEnd': '? Esta acción no puede ser revertida.',
+        'Profile.modal.leftButton': 'Eliminar',
+        'Profile.modal.rightButton': 'Cancelar',
+
+        'Profile.Tab.uploadedProducts': 'Publicados',
+        'Profile.Tab.votedProducts': 'Votados',
+        'Profile.Tab.favlist': 'Colecciones',
+        'Profile.settings.changePicture':'Cambiar foto de perfil',
+        'Profile.settings.changePassword': 'Cambiar contraseña',
         
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',

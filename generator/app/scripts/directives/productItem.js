@@ -1,12 +1,13 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/modalService', 'services/sessionService', 'controllers/CollectionModalCtrl'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'services/sessionService', 'controllers/DeleteModalCtrl', 'controllers/CollectionModalCtrl'], function(productSeek) {
     productSeek.directive('productItem', function() {
         return {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
-            scope: {product: '=', hideCategory: '='},
+            scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&'},
             controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', function($scope, $location, $route, authService, restService, modalService, sessionService) {
+
                 var product = $scope.product;
                 
                 $scope.offset = $scope.hideCategory ? 6 : 3;
@@ -35,7 +36,8 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                 $scope.toggleVote = function() {
                     if ($scope.isLoggedIn) {
                         $scope.product.voted = !$scope.product.voted;
-
+                        $scope.onVote({voted: $scope.product.voted});
+                        
                         if ($scope.product.voted) {
                             $scope.product.voters_count += 1;
                             restService.voteProduct(product.id);
@@ -48,8 +50,21 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                 };
                 
                 $scope.showCollectionModal = function() {
-                    modalService.collectionModal($scope.product, authService.loggedUser.collections);
-                }
+                    var modal = modalService.collectionModal($scope.product, authService.loggedUser.collections);
+                    
+                    modal.result.then(function(collection) {
+                        if (collection)
+                            $scope.onAdd({'collection': collection});
+                    });
+                };
+                
+                $scope.deleteModal = function() {
+                    var modal = modalService.deleteModal($scope.product);
+                    modal.result.then(function(isDeleted) {
+                        if (isDeleted)
+                            $scope.onDelete();
+                    });
+                };
             }]
         }
     });

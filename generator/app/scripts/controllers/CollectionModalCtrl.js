@@ -22,18 +22,18 @@ define(['productSeek', 'services/restService', 'services/snackbarService', 'dire
             collectionContainsProduct($scope.collections[i]);
                 
         $scope.dismiss = function() {
-            $uibModalInstance.dismiss('close');            
+            $uibModalInstance.dismiss('close');        
         };
         
         $scope.addToCollection = function(collection) {
-            collection.products.push(collection);
+            collection.products.push(product);
             collection.count = collection.products.length;
             collection.containsProduct = true;
             restService.addProductToCollection(product.id, collection.id);
             
             snackbarService.showSnackbar('productAdded');
             $scope.collectionAddedTo = collection.name;
-            $scope.dismiss();
+            $uibModalInstance.close(collection);
         };
         
         $scope.createAndAdd = function() {
@@ -53,7 +53,7 @@ define(['productSeek', 'services/restService', 'services/snackbarService', 'dire
                     
                     snackbarService.showSnackbars(['collectionCreated', 'productAdded']);
                     $scope.collectionAddedTo = coll.name;
-                    $scope.dismiss();
+                    $uibModalInstance.close(coll);
                 });
             }
         };

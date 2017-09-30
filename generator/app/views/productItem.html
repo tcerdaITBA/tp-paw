@@ -7,6 +7,9 @@
             <div class="col-md-10 capitalize-firstLetter">
                 <p>{{product.name}}</p>
             </div>
+            <div class="col-md-2" ng-if="!hideDelete">
+                <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteModal(); $event.stopPropagation()"></span>
+            </div>
         </div>
         <div class="row product-short-description">
             <div class="col-md-12 capitalize-firstLetter">

@@ -23,6 +23,9 @@ public class PlainProductDTO {
 	private URI url;
 	private boolean voted;
 	
+	@XmlElement(name = "creator_id")
+	private int creatorId;
+	
 	@XmlElement(name = "logo_url")
 	private URI logoURL;
 	
@@ -38,6 +41,7 @@ public class PlainProductDTO {
 	@XmlElement(name = "voters_count")
 	private int votersCount;
 	
+	
 	public PlainProductDTO() {}
 	
 	public PlainProductDTO(final Product product, final URI baseUri, final Optional<User> loggedUser) {
@@ -47,10 +51,11 @@ public class PlainProductDTO {
 		category = product.getCategory().getLowerName();
 		uploadDate = product.getUploadDate();
 		votersCount = product.getVotesCount();
+		creatorId = product.getCreator().getUserId();
 		setVoted(loggedUser.filter(product::isVotedBy).isPresent());
 		
 		url = baseUri.resolve("products/" + id);
-		creatorURL = baseUri.resolve("users/" + id);
+		creatorURL = baseUri.resolve("users/" + creatorId);
 		logoURL = baseUri.resolve("products/" + id + "/logo");
 		votersURL = baseUri.resolve("products/" + id + "/voters");
 	}

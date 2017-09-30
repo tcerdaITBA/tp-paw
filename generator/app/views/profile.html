@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 profile-info-box">
+            <div class="row setting-row" ng-show="isProfileOwner">
+                <div class="col-md-offset-10">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li class="pointer-cursor">
+                                <a ng-click="changePictureModal()" ng-bind="'Profile.settings.changePicture' | translate"></a>
+                            </li>
+                            <li class="pointer-cursor">
+                                <a ng-click="changePasswordModal()" ng-bind="'Profile.settings.changePassword' | translate"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row img-row">
+                <div class="col-md-12">
+                    <img class="profile-img" src="{{user.picture_url}}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-username">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <p>{{user.name}}</p>
+                    </div>	
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="profile-mail" href="mailto:{{user.email}}">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <p>{{user.email}}</p>
+                    </a>	
+                </div>
+            </div>    
+        </div>
+
+        <div class="col-md-7 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-10 col-ms-offset-1">
+                    <div class="row tabs-row">
+                        <div class="">
+                            <ul class="nav nav-pills nav-justified profile-tabs">
+                            <!--Cosas de tabs-->
+                                <li role="presentation" class="{{firstActiveTab() == 1 ? 'active' : 'none' }}"><a href="#favList-pane" data-toggle="tab">{{'Profile.Tab.favlist' | translate}}<span class="badge tab-badge">{{collections.length}}</span></a></li>
+                                <li role="presentation" class="{{firstActiveTab() == 2 ? 'active' : 'none' }}"><a href="#uploadedProducts-pane" data-toggle="tab">{{'Profile.Tab.uploadedProducts' | translate}}<span class="badge">{{createdProducts.length}}</span></a></li>
+                                <li role="presentation" class="{{firstActiveTab() == 3 ? 'active' : 'none' }}"><a href="#votedProducts-pane" data-toggle="tab">{{'Profile.Tab.votedProducts' | translate}}<span class="badge tab-badge">{{votedProducts.length}}</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
+                            <div class="product-list">
+                                <div ng-repeat="f in collections | orderBy: 'name'">
+                                    <collection-item fav-list="f"></collection-item>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="uploadedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 2 ? 'active in' : 'none' }}">
+                            <div class="col-md-12 product-list">
+                                <div ng-repeat="c in createdProducts | orderBy: 'name'">
+                                    <product-item product="c" on-delete="removeProduct(c)" on-add="addedToCollection(c, collection)" on-vote="productVoted(c, voted)" hide-delete="!isProfileOwner || !c.isOwnerLogged"></product-item>
+                                </div>    
+                            </div>
+                        </div>
+                        <div id="votedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 3 ? 'active in' : 'none'}}">
+                            <div class="col-md-12 product-list">
+                                <div ng-repeat="p in votedProducts | orderBy: 'name'">
+                                    <product-item product="p" on-delete="removeProduct(p)" on-add="addedToCollection(p, collection)" on-vote="productVoted(p, voted)" hide-delete="!isProfileOwner || !p.isOwnerLogged"></product-item>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

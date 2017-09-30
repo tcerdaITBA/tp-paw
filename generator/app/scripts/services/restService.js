@@ -124,13 +124,17 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 voteProduct: function(id) {
                     return doPut(url + '/products/' + id + '/votes');
                 },
+
+                addProductToCollection: function(productId, collectionId) {
+                    return doPut(url + '/collections/' + collectionId + '/products/' + productId);
+                },
                 
                 unvoteProduct: function(id) {
                     return doDelete(url + '/products/' + id + '/votes');
                 },
                 
-                addProductToCollection: function(productId, collectionId) {
-                    return doPut(url + '/collections/' + collectionId + '/products/' + productId);
+                deleteProduct: function(id) {
+                    return doDelete(url + '/products/' + id);
                 },
                 
                 createCollection: function(name) {
