@@ -4,12 +4,7 @@ define(['productSeek', 'directives/ngFileRead'], function(productSeek) {
 	productSeek.controller('PostCtrl', ['$scope', function($scope) {
 		$scope.product = {};
 		
-		$scope.product.images = []; // TODO image count en service constante
-		for (var i = 0; i < 4; i++)
-			$scope.product.images[i] = {
-				data: '#',
-				show: false
-			};	
+		$scope.product.images = new Array(4); // TODO image count en service constante
 				
 		$scope.post = function() {
 			console.log($scope.product);
@@ -19,9 +14,8 @@ define(['productSeek', 'directives/ngFileRead'], function(productSeek) {
 			console.log(data);
 		};
 		
-		$scope.deleteImage = function(input, index) {
-			input.value = "";
-			$scope.product.images[index].data = '#';
+		$scope.deleteImage = function(index) {
+			$scope.product.images[index] = null;
 		};
 	}]);
 });

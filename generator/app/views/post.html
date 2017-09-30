@@ -47,19 +47,19 @@
 			</div>
 		</div>
 		<div class="col-md-8 col-md-offset-2">
-<!--			<ng-repeat ng-repeat="img in product.images">-->
-				<input class="image-input" type="file" accept="image/*" ng-file-read="fileRead(data)" />
+			<ng-repeat ng-repeat="img in product.images track by $index">
+				<input class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" />
 				<label>
 					<div class="preview-container">
-						<img class="preview-image" src="{{product.images[0].data}}" ng-show="product.images[0].show">
-						<span class="add-img-text" ng-show="!product.images[0].show">
+						<img class="preview-image" src="{{product.images[$index]}}" ng-show="product.images[$index]">
+						<span class="add-img-text" ng-show="!product.images[$index]">
 							<span class="glyphicon glyphicon-plus"></span>
 							Add image
 						</span>
-						<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage(this, 0)" ng-show="product.images[0].show"></div>
+						<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage($index)" ng-show="product.images[$index]"></div>
 					</div>
 				</label>
-<!--			</ng-repeat> -->
+			</ng-repeat> 
 		</div>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
