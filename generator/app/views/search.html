@@ -44,9 +44,7 @@
 					</div>
 					<div class="col-md-6 product-list">
 						<ng-repeat ng-repeat="product in products | categoryFilter:categories">
-							<a class="product-item" ng-href="#/product/{{product.id}}">
-								<product-item product="product" hide-category="category"></product-item>
-							</a>
+							<product-item product="product" hide-delete="true" hide-category="false"></product-item>
 						</ng-repeat>
 					</div>
 				</div>

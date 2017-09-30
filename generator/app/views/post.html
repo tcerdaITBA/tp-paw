@@ -1,3 +1,89 @@
-<h1>
-Post
-</h1>
+<div class="form-container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h2>Publicar Producto</h2>
+			<h2>Danos información de tu producto</h2>
+		</div>
+	</div>
+	<form class="form-horizontal">
+		<div class="form-group row">
+			<label for="productName" class="col-md-3 control-label">Nombre del producto</label>
+			<div class="col-md-6">
+			  <input type="text" class="form-control" id="productName" placeholder="Nombre" ng-model="product.name">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="slogan" class="col-md-3 control-label">Eslogan</label>
+			<div class="col-md-6">
+			  <textarea type="text" class="form-control" id="slogan" placeholder="Una descripción rápida del producto" rows="2" ng-model="product.slogan"/>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="description" class="col-md-3 control-label">Descripción</label>
+			<div class="col-md-6">
+			  <textarea type="text" class="form-control" id="description" placeholder="Descripción completa" rows="4" ng-model="product.description"/>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="webpage" class="col-md-3 control-label">Página Web (Opcional)</label>
+			<div class="col-md-6">
+			  <input type="text" class="form-control" id="webpage" placeholder="www.productseek.com" ng-model="product.webpage">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="productName" class="col-md-3 control-label">Categoría</label>
+			<div class="col-md-6">
+			  <select id="disabledSelect" class="form-control">
+				<option>cat 1</option>
+				<option>cat 2</option>
+				<option>cat 3</option>
+				<option>cat 4</option>
+			  </select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+			  <h1>Agrega al menos una imagen o video</h1>
+			</div>
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+<!--			<ng-repeat ng-repeat="img in product.images">-->
+				<input class="image-input" type="file" accept="image/*" ng-file-read="fileRead(data)" />
+				<label>
+					<div class="preview-container">
+						<img class="preview-image" src="{{product.images[0].data}}" ng-show="product.images[0].show">
+						<span class="add-img-text" ng-show="!product.images[0].show">
+							<span class="glyphicon glyphicon-plus"></span>
+							Add image
+						</span>
+						<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage(this, 0)" ng-show="product.images[0].show"></div>
+					</div>
+				</label>
+<!--			</ng-repeat> -->
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+			  <h1>Videos de Youtube</h1>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="link1" class="col-md-3 control-label">Link</label>
+			<div class="col-md-6">
+			  <input type="url" class="form-control" id="link1" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.link1">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="link2" class="col-md-3 control-label">Link</label>
+			<div class="col-md-6">
+			  <input type="url" class="form-control" id="link2" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.link2">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<input type="submit" ng-click="post()" value="Publicar">
+			</div>
+		</div>
+		
+		
+	</form>
+</div>
