@@ -12,7 +12,7 @@ import tp.paw.khet.webapp.exception.DTOValidationException;
 @Provider
 public class ValidationMapper implements ExceptionMapper<DTOValidationException>{
 	
-	private final static StatusType UNPROCESSABLE_ENTITY = new StatusType() {
+	public final static StatusType UNPROCESSABLE_ENTITY = new StatusType() {
 		
 		@Override
 		public int getStatusCode() {
