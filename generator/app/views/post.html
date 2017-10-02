@@ -33,11 +33,10 @@
 		<div class="form-group row">
 			<label for="productName" class="col-md-3 control-label" ng-bind="'post.category' | translate"></label>
 			<div class="col-md-6">
-				<select id="disabledSelect" class="form-control">
-					<option>cat 1</option>
-					<option>cat 2</option>
-					<option>cat 3</option>
-					<option>cat 4</option>
+				<select id="categorySelect" class="form-control">
+					<ng-repeat ng-repeat="cat in categories">
+						<option ng-bind="cat"></option>
+					</ng-repeat>
 				</select>
 			</div>
 		</div>

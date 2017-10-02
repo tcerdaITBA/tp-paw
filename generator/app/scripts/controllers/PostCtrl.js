@@ -1,10 +1,10 @@
 'use strict';
 define(['productSeek', 'directives/ngFileRead'], function(productSeek) {
 
-	productSeek.controller('PostCtrl', ['$scope', 'productImagesCount', 'productVideosCount', function($scope, productImagesCount, productVideosCount) {
+	productSeek.controller('PostCtrl', ['$scope', 'categories', 'productImagesCount', 'productVideosCount', function($scope, categories, productImagesCount, productVideosCount) {
 		$scope.product = {};
-		
-		$scope.product.images = new Array(productImagesCount); // TODO image count en service constante
+		$scope.categories = categories;
+		$scope.product.images = new Array(productImagesCount);
         $scope.product.videoLinks = new Array(productVideosCount);
 				
 		$scope.post = function() {
