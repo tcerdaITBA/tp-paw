@@ -99,7 +99,25 @@ define([], function() {
         'collections.alreadyInCollection': 'Ya está en la Colección',
         
         'ownerUserZRP.noFavLists': 'No has creado ninguna Colección aún.',
-        
+		
+		'post.postProduct': 'Publicar producto',
+		'post.giveUsInformation': 'Danos información de tu producto',
+		'post.productName': 'Nombre del producto',
+		'post.placeholder.productName': 'Product Seek',
+		'post.slogan': 'Eslogan',
+		'post.placeholder.slogan': 'Una descripción rápida del producto',
+		'post.description': 'Descripción',
+		'post.placeholder.description': 'Descripción completa',
+		'post.webpageOptional': 'Página Web (Opcional)',
+		'post.placeholder.webpage': 'www.productseek.com',
+		'post.category': 'Categoría',
+		'post.addImageOrVideo': 'Agrega al menos una imagen o video',
+        'post.videos': 'Videos de Youtube',
+		'post.link': 'Link',
+		'post.postButton': 'Publicar',
+		
+		'button.addImage':'Agregar Imagen',
+		
         'product.singular': 'producto',
         'product.plural': 'productos',
         
