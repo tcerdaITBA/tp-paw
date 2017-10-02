@@ -5,6 +5,7 @@ define(['productSeek', 'directives/ngFileRead'], function(productSeek) {
 		$scope.product = {};
 		
 		$scope.product.images = new Array(4); // TODO image count en service constante
+        $scope.product.videoLinks = new Array(2);
 				
 		$scope.post = function() {
 			console.log($scope.product);
