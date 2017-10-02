@@ -46,19 +46,21 @@
 			  <h3 ng-bind="'post.addImageOrVideo' | translate"></h3>
 			</div>
 		</div>
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-8 col-md-offset-2 image-buttons">
 			<ng-repeat ng-repeat="img in product.images track by $index">
-				<input class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" />
-				<label>
-					<div class="preview-container">
-						<img class="preview-image" src="{{product.images[$index]}}" ng-show="product.images[$index]">
-						<span class="add-img-text" ng-show="!product.images[$index]">
-							<span class="glyphicon glyphicon-plus"></span>
-							<span ng-bind="'button.addImage' | translate"></span>
-						</span>
-						<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage($index)" ng-show="product.images[$index]"></div>
-					</div>
-				</label>
+                <span>
+                  <input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" />
+                  <label for="imageUpload-{{$index}}" class="image-upload-btn">
+                      <div class="preview-container">
+                          <img class="preview-image" src="{{product.images[$index]}}" ng-show="product.images[$index]">
+                          <div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage($index); $event.preventDefault();" ng-show="product.images[$index]"></div>
+                          <span class="add-img-text" ng-show="!product.images[$index]">
+                              <span class="glyphicon glyphicon-plus"></span>
+                              <span ng-bind="'button.addImage' | translate"></span>
+                          </span>
+                      </div>
+                  </label>
+                </span>
 			</ng-repeat> 
 		</div>
 		<div class="row">
