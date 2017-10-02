@@ -10,6 +10,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import 'partials/buttons';
 @import 'partials/user-item';
 @import 'partials/snackbar';
+@import 'partials/post';
+@import 'partials/search-results';
 
 .browsehappy {
   margin: 0.2em 0;
@@ -419,6 +421,7 @@ ps-btn-red:focus {
   .header,
   .marketing,
   .footer {
+	margin-top: 3em;
     padding-left: 0;
     padding-right: 0;
   }
@@ -431,5 +434,4 @@ ps-btn-red:focus {
     border-bottom: 0;
   }
 }
-
 

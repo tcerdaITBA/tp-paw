@@ -68,6 +68,8 @@ define(['routes',
                     });            
             }])
             .value('url', 'http://localhost:8080')
+			.value('productImagesCount', 4)
+			.value('productVideosCount', 2)
             .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
 			.filter('urlencode', function() {
 				return function(input) {

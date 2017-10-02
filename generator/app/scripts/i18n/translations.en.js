@@ -94,6 +94,24 @@ define([], function() {
         
         'ownerUserZRP.noFavLists': 'You have not created any Collection yet.',
         
+		'post.postProduct': 'Post product',
+		'post.giveUsInformation': 'Give us some information about your product',
+		'post.productName': 'Product name',
+		'post.placeholder.productName': 'Product Seek',
+		'post.slogan': 'Slogan',
+		'post.placeholder.slogan': 'A quick description of your product',
+		'post.description': 'Description',
+		'post.placeholder.description': 'Complete description',
+		'post.webpageOptional': 'Web Page (Optional)',
+		'post.placeholder.webpage': 'www.productseek.com',
+		'post.category': 'Category',
+		'post.addImageOrVideo': 'Add at least an image or video',
+        'post.videos': 'Youtube Videos',
+		'post.link': 'Link',
+		'post.postButton': 'Post',
+		
+		'button.addImage':'Add Image',
+		
         'product.singular': 'product',
         'product.plural': 'products',
         
