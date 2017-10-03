@@ -39,7 +39,9 @@ require.config({
         ngstorage: '../../bower_components/ngstorage/ngStorage',
         'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
-        ngSanitize: '../../bower_components/ngSanitize/index'
+        ngSanitize: '../../bower_components/ngSanitize/index',
+        'livereload-js': '../../bower_components/livereload-js/dist/livereload',
+        'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick'
     },
     shim: {
         angular: {

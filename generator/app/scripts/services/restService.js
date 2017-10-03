@@ -28,6 +28,16 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 return accessToken ? {headers: {'X-AUTH-TOKEN': accessToken}} : undefined;
             }
             
+            function multipartMetadata() {
+                return {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                        'X-AUTH-TOKEN': session.getAccessToken()                       
+                    }
+                };
+            }
+            
             function doPost(baseUrl, data, params) {
             	var params = translate(params);
  				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
@@ -139,6 +149,45 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 
                 createCollection: function(name) {
                     return doPost(url + '/collections', {'name': name});
+                },
+                
+                createUser: function(data) {
+                    var userData = {name: data.name, password: data.password, email: data.email};
+                    var picture = data.picture;
+                    var formData = new FormData();
+                    
+                    formData.append('picture', picture);
+                    formData.append('user', JSON.stringify(userData));
+                    
+                    return $http.post(url + '/users', formData, multipartMetadata())
+                    .then(function(response) {
+                        return response.data;
+                    })
+                    .catch(function(response) {
+                        return response.data;
+                    })
+                },
+                
+                postProduct: function(data) {
+                    var productData = {name: data.name, tagline: data.tagline, description: data.description, category: data.category, video_ids: data.videos};
+                    var logo = data.logo;
+                    var images = data.images;
+                    var formData = new FormData();
+                    
+                    angular.forEach(images, function(img) {
+                        formData.append('picture', img);
+                    });
+                    
+                    formData.append('logo', logo);
+                    formData.append('product', JSON.stringify(productData));
+                    
+                    return $http.post(url + '/products', formData, multipartMetadata())
+                    .then(function(response) {
+                        return response.data;
+                    })
+                    .catch(function(response) {
+                        return response.data;
+                    });
                 }
 			}
 		}]);
