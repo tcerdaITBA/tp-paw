@@ -64,11 +64,11 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 						});
 			}
             
-            function doPut(baseUrl, params, data) {
+            function doPut(baseUrl, data, params) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
 
-                return $http.put(baseUrl + params, data, authHeaders())
+                return $http.put(baseUrl + params, JSON.stringify(data), authHeaders())
                         .then(function(response) {
                             return response.data;
                         })
@@ -149,6 +149,11 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 
                 createCollection: function(name) {
                     return doPost(url + '/collections', {'name': name});
+                },
+
+                changePassword: function(currentPass, newPass) {
+                    return doPut(url + '/user/password', 
+                            {'current_password': currentPass, 'new_password': newPass});
                 },
                 
                 createUser: function(data) {
