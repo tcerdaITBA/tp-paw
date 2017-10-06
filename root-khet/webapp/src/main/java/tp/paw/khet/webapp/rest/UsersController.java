@@ -186,7 +186,9 @@ public class UsersController {
     	DTOValidator.validate(formUser, "Failed to validate user");
     	DTOValidator.validate(formPicture, "Failed to validate picture");
     	
-    	final User user = userService.createUser(formUser.getName(), formUser.getEmail(), formUser.getPassword(), formPicture.getPictureBytes());
+    	LOGGER.debug("{}", formUser.getPassword());
+    	
+    	final User user = securityUserService.registerUser(formUser.getName(), formUser.getEmail(), formUser.getPassword(), formPicture.getPictureBytes());
 		final URI location = uriContext.getAbsolutePathBuilder().path(String.valueOf(user.getUserId())).build();
 
     	return Response.created(location).entity(new UserDTO(user, uriContext.getBaseUri())).build();
