@@ -1,7 +1,10 @@
 'use strict';
 define(['productSeek', 'jquery'], function(productSeek) {
     productSeek.service('snackbarService', [function() {
-        this.showSnackbar = function(id, timeout = 3000, wait = 0) {
+        this.showSnackbar = function(id, timeout, wait) {
+            timeout = timeout || 3000;
+            wait = wait || 0;
+            
             var x = document.getElementById(id);
             var elem = jQuery('#' + id);
             var parent = elem.parent();
@@ -18,7 +21,10 @@ define(['productSeek', 'jquery'], function(productSeek) {
             }, timeout);
         };
         
-        this.showSnackbars = function(ids, timeout = 3000, wait = 500) {
+        this.showSnackbars = function(ids, timeout, wait) {
+            timeout = timeout || 3000;
+            wait = wait || 500;            
+            
             for (var i = 0; i < ids.length; i++)
                 this.showSnackbar(ids[i], timeout * (i+1) + wait * i, timeout * i + wait * i);
         }
