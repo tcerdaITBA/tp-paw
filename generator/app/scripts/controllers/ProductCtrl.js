@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
+define(['productSeek', 'angular-slick-carousel', 'directives/loading'], function(productSeek) {
 
 	productSeek.controller('ProductCtrl', ['authService', 'restService', '$scope', 'product', function(auth, restService, $scope, product) {
 		$scope.product = product;
@@ -28,7 +28,7 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		$.fn.goTo = function() {
 	 		var offset = 100;
 	        $('html, body').animate({
-	            scrollTop: $(this).offset().top + - offset + 'px'
+	            scrollTop: $(this).offset().top - offset + 'px'
 	        }, 'fast');
 	        return this; // for chaining...
 	    };
@@ -47,6 +47,8 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
 			then(function(data) {
 				$scope.comments.push(data);
+				var lastComment = angular.element('#parentComment' + ($scope.comments.length - 1));
+				lastComment.goTo();			
 			});	
 		};
 
@@ -58,5 +60,3 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		};
     }]);
 });
-
-//angular-scroll-glue
