@@ -17,14 +17,13 @@
   border-radius: 2px;
   margin: 0 0.5em;
   background-color: white;
-  
-  cursor: pointer; /* "hand" cursor */
-
+  width: 100%;
+  cursor: pointer;
   border: 1px solid rgba(0,0,0,.09);
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
   
   .add-img-text {
-    padding: 3em 2.5em;
+    align-self: center;
   }
   
   .remove-btn {
@@ -36,10 +35,16 @@
   
   .preview-container {
     position: relative;
-	width: 100%;
-	height: 100%;
 	display: flex;
 	justify-content: center;
+    height: 8em;
+    padding: 5px;
+  }
+	
+  .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 }
 
@@ -68,4 +73,7 @@
       padding: 0.4em 1.4em;
     }
   }
+}
+.preview-image {
+	
 }

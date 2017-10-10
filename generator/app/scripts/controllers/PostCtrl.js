@@ -2,8 +2,10 @@
 define(['productSeek', 'directives/ngFileRead'], function(productSeek) {
 
 	productSeek.controller('PostCtrl', ['$scope', 'categories', 'productImagesCount', 'productVideosCount', function($scope, categories, productImagesCount, productVideosCount) {
-		$scope.product = {};
 		$scope.categories = categories;
+		
+		$scope.product = {};
+		$scope.product.category = $scope.categories[categories.indexOf('other')]; // Medio hardcodeado
 		$scope.product.images = new Array(productImagesCount);
         $scope.product.videoLinks = new Array(productVideosCount);
 				

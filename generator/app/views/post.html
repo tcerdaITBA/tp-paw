@@ -33,10 +33,7 @@
 		<div class="form-group row">
 			<label for="productName" class="col-md-3 control-label" ng-bind="'post.category' | translate"></label>
 			<div class="col-md-6">
-				<select id="categorySelect" class="form-control">
-					<ng-repeat ng-repeat="cat in categories">
-						<option ng-bind="cat"></option>
-					</ng-repeat>
+				<select id="categorySelect" ng-options="c | translate for c in categories" ng-model="product.category" class="form-control">
 				</select>
 			</div>
 		</div>
@@ -46,21 +43,23 @@
 			</div>
 		</div>
 		<div class="col-md-8 col-md-offset-2 image-buttons">
-			<ng-repeat ng-repeat="img in product.images track by $index">
-				<span>
-					<input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" />
-					<label for="imageUpload-{{$index}}" class="image-upload-btn">
-						<div class="preview-container">
-							<img class="preview-image" src="{{product.images[$index]}}" ng-show="product.images[$index]">
-							<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage($index); $event.preventDefault();" ng-show="product.images[$index]"></div>
-							<span class="add-img-text" ng-show="!product.images[$index]">
-								<span class="glyphicon glyphicon-plus"></span>
-								<span ng-bind="'button.addImage' | translate"></span>
-							</span>
-						</div>
-					</label>
-				</span>
-			</ng-repeat> 
+			<div class="row">
+				<ng-repeat ng-repeat="img in product.images track by $index">
+					<div class="col-md-3">
+						<input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" />
+						<label for="imageUpload-{{$index}}" class="image-upload-btn">
+							<div class="preview-container">
+								<img class="preview-image" src="{{product.images[$index]}}" ng-show="product.images[$index]">
+								<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage($index); $event.preventDefault();" ng-show="product.images[$index]"></div>
+								<div class="add-img-text" ng-show="!product.images[$index]">
+									<span class="glyphicon glyphicon-plus"></span>
+									<span ng-bind="'button.addImage' | translate"></span>
+								</div>
+							</div>
+						</label>
+					</div>
+				</ng-repeat> 
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
