@@ -119,6 +119,8 @@ define([], function() {
         'collection.error.nameTooLong': 'Collection name cannot exceed 64 characters',
         
         'feedback.favListCreated.textEnd': 'was created',
-        'feedback.productAddedToFavList.text': 'was added to'
+        'feedback.productAddedToFavList.text': 'was added to',
+        
+        'modal.signUp.title': 'Sign Up'
 	};
 });

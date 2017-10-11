@@ -125,6 +125,8 @@ define([], function() {
         'collection.error.nameTooLong': 'Nombre de la Colección no puede exceder los 64 caracteres',
         
         'feedback.favListCreated.textEnd': 'fue creada',
-        'feedback.productAddedToFavList.text': 'fue agregado a'
+        'feedback.productAddedToFavList.text': 'fue agregado a',
+        
+        'modal.signUp.title': 'Registrarse'
 	};
 });
