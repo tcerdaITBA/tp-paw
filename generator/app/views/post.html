@@ -25,14 +25,14 @@
 			<label for="productName" class="col-md-3 control-label" ng-bind="'post.productName' | translate"></label>
 			<div class="col-md-6">
 				<input type="text" class="form-control" id="productName" placeholder="{{'post.placeholder.productName' | translate}}" ng-model="product.name" name="name" required>
-				<span ng-show="postForm.name.$invalid && postForm.$submitted" class="help-block">Debe introducir un nombre</span>
+				<span ng-show="postForm.name.$invalid && postForm.$submitted" class="help-block" ng-bind="'post.error.addName' | translate"></span>
 			</div>
 		</div>
 		<div class="form-group row" ng-class="{'has-error': postForm.tagline.$invalid && postForm.$submitted}">
 			<label for="tagline" class="col-md-3 control-label" ng-bind="'post.tagline' | translate"></label>
 			<div class="col-md-6">
 				<textarea type="text" class="form-control" id="tagline" placeholder="{{'post.placeholder.tagline' | translate}}" rows="2" ng-model="product.tagline" name="tagline" required/>
-				<span ng-show="postForm.tagline.$invalid && postForm.$submitted" class="help-block">Debe introducir un tagline</span>
+				<span ng-show="postForm.tagline.$invalid && postForm.$submitted" class="help-block" ng-bind="'post.error.addTagline' | translate"></span>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -44,7 +44,7 @@
 		<div class="form-group row">
 			<label for="webpage" class="col-md-3 control-label" ng-bind="'post.webpageOptional' | translate"></label>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="webpage" placeholder="{{'post.placeholder.webpage' | translate}}" ng-model="product.webpage" name="webiste">
+				<input type="url" class="form-control" id="webpage" placeholder="{{'post.placeholder.webpage' | translate}}" ng-model="product.webpage" name="webiste">
 			</div>
 		</div>
 		<div class="form-group row">
@@ -57,7 +57,7 @@
 		<div class="row has-error">
 			<div class="col-md-6 col-md-offset-3">
 				<h3 ng-bind="'post.addImageOrVideo' | translate"></h3>
-				<h4 class="help-block add-img-help" ng-show="noImagesError">Should add an image or video</h4>
+				<h4 class="help-block add-img-help" ng-show="noImagesError" ng-bind="'post.error.addImageOrVideo' | translate"></h4>
 			</div>
 		</div>
 		<div class="col-md-8 col-md-offset-2 image-buttons">
@@ -89,7 +89,7 @@
 				<label for="link-{{$index}}" class="col-md-3 control-label" ng-bind="'post.link' | translate"></label>
 				<div class="col-md-6">
 					<input type="url" id="link-{{$index}}" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.videos[$index]" name="link{{$index}}" ng-pattern="youtubeRegex">
-					<span class="help-block" ng-show="postForm.link{{$index}}.$invalid && postForm.$submitted">Link inválido skdfngkj</span>
+					<span class="help-block" ng-show="postForm.link{{$index}}.$invalid && postForm.$submitted" ng-bind="'post.error.invalidYoutube' | translate"></span>
 				</div>
 			</div>
 		</ng-repeat>

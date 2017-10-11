@@ -23,7 +23,14 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService'], functio
 			});
 			$scope.noImagesError = empty;
 			
-			restService.postProduct($scope.product);
+			if ($scope.postForm.$valid && !$scope.noImagesError) {
+				// TODO: pasar los links a solo ids
+				// Formulario validado.
+				console.log("Valid form");
+				restService.postProduct($scope.product);
+			} else {
+				console.log("Invalid form");
+			}
 		};
 		
 		$scope.deleteImage = function(index) {
