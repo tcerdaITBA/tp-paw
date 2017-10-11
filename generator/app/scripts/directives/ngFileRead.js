@@ -6,6 +6,11 @@ define(['productSeek'], function(productSeek) {
 				ngFileRead: '='
 			},
             link: function(scope, element, attrs) {
+				element.bind("click", function (click) {
+					// Sin esto no se triggerea el fileRead cuando 
+					// se selecciona la misma imagen y anda mal el delete.
+					click.target.value = null;
+				});
 				element.bind("change", function (changeEvent) {
 					var reader = new FileReader();
 					reader.onload = function (loadEvent) {

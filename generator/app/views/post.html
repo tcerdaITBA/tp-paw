@@ -5,48 +5,51 @@
 			<h4 ng-bind="'post.giveUsInformation' | translate"></h4>
 		</div>
 	</div>
-	<form class="form-horizontal">
-		<div class="form-group row">
+	<form name="postForm" class="form-horizontal" novalidate>
+		<div class="form-group row" ng-class="{'has-error': postForm.name.$invalid && postForm.$submitted}">
 			<label for="productName" class="col-md-3 control-label" ng-bind="'post.productName' | translate"></label>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="productName" placeholder="{{'post.placeholder.productName' | translate}}" ng-model="product.name">
+				<input type="text" class="form-control" id="productName" placeholder="{{'post.placeholder.productName' | translate}}" ng-model="product.name" name="name" required>
+				<span ng-show="postForm.name.$invalid && postForm.$submitted" class="help-block">Debe introducir un nombre</span>
 			</div>
 		</div>
-		<div class="form-group row">
+		<div class="form-group row" ng-class="{'has-error': postForm.slogan.$invalid && postForm.$submitted}">
 			<label for="slogan" class="col-md-3 control-label" ng-bind="'post.slogan' | translate"></label>
 			<div class="col-md-6">
-				<textarea type="text" class="form-control" id="slogan" placeholder="{{'post.placeholder.slogan' | translate}}" rows="2" ng-model="product.slogan"/>
+				<textarea type="text" class="form-control" id="slogan" placeholder="{{'post.placeholder.slogan' | translate}}" rows="2" ng-model="product.slogan" name="slogan" required/>
+				<span ng-show="postForm.slogan.$invalid && postForm.$submitted" class="help-block">Debe introducir un slogan</span>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="description" class="col-md-3 control-label" ng-bind="'post.description' | translate"></label>
 			<div class="col-md-6">
-				<textarea type="text" class="form-control" id="description" placeholder="{{'post.placeholder.description' | translate}}" rows="4" ng-model="product.description"/>
+				<textarea type="text" class="form-control" id="description" placeholder="{{'post.placeholder.description' | translate}}" rows="4" ng-model="product.description" name="description"/>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="webpage" class="col-md-3 control-label" ng-bind="'post.webpageOptional' | translate"></label>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="webpage" placeholder="{{'post.placeholder.webpage' | translate}}" ng-model="product.webpage">
+				<input type="text" class="form-control" id="webpage" placeholder="{{'post.placeholder.webpage' | translate}}" ng-model="product.webpage" name="webiste">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="productName" class="col-md-3 control-label" ng-bind="'post.category' | translate"></label>
 			<div class="col-md-6">
-				<select id="categorySelect" ng-options="c | translate for c in categories" ng-model="product.category" class="form-control">
+				<select id="categorySelect" ng-options="c | translate for c in categories" ng-model="product.category" class="form-control" name="category">
 				</select>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row has-error">
 			<div class="col-md-6 col-md-offset-3">
 				<h3 ng-bind="'post.addImageOrVideo' | translate"></h3>
+				<h4 class="help-block add-img-help" ng-show="noImagesError">Should add an image or video</h4>
 			</div>
 		</div>
 		<div class="col-md-8 col-md-offset-2 image-buttons">
 			<div class="row">
 				<ng-repeat ng-repeat="img in product.images track by $index">
 					<div class="col-md-3">
-						<input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" />
+						<input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" name="image-{{$index}}"/>
 						<label for="imageUpload-{{$index}}" class="image-upload-btn">
 							<div class="preview-container">
 								<img class="preview-image" src="{{product.images[$index]}}" ng-show="product.images[$index]">
@@ -67,16 +70,17 @@
 			</div>
 		</div>
 		<ng-repeat ng-repeat="link in product.videoLinks track by $index">
-			<div class="form-group row">
+			<div class="form-group row" ng-class="{'has-error': postForm.link{{$index}}.$invalid && postForm.$submitted}">
 				<label for="link-{{$index}}" class="col-md-3 control-label" ng-bind="'post.link' | translate"></label>
 				<div class="col-md-6">
-					<input type="url" id="link-{{$index}}" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.videoLinks[$index]">
+					<input type="url" id="link-{{$index}}" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.videoLinks[$index]" name="link{{$index}}" ng-pattern="youtubeRegex">
+					<span class="help-block" ng-show="postForm.link{{$index}}.$invalid && postForm.$submitted">Link inválido skdfngkj</span>
 				</div>
 			</div>
 		</ng-repeat>
 		<div class="row post-btn-row">
 			<div class="col-md-6 col-md-offset-3">
-				<input class="ps-btn-red btn post-btn" type="submit" ng-click="post()" value="{{'post.postButton' | translate}}">
+				<input class="ps-btn-red btn post-btn" type="submit" ng-click="doSubmit()" value="{{'post.postButton' | translate}}">
 			</div>
 		</div>
 
