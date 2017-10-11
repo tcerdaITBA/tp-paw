@@ -26,16 +26,37 @@
 				</a>
 			</div>
 
-			<form ng-submit="search(query)" class="navbar-form navbar-left">
+			<form name="searchForm" ng-submit="search(query)" class="navbar-form navbar-left" novalidate>
 				<div class="search-form-container">
 					<div class="form-group">
-						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown="searchKeyDown($event)" focus-if="searchFieldFocus"/>
+						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown="searchKeyDown($event)" ng-keyup="autocompleteSearch()" focus-if="searchFieldFocus">
 						<button type="submit" class="search-button">
 							<span class="glyphicon glyphicon-search search-icn"></span>
 						</button>
 					</div>
-					<div ng-show="showSuggestions" class="suggestions-box">
+					<!-- Autocomplete -->
+					<div ng-show="showSuggestions && query.length" class="suggestions-box">
+						<div ng-repeat="item in searchSuggestions">
+							<div class="row">
+								<div class="col-md-12">
+									<a ng-href="" ng-click=search(item) class="autocomplete-item" focus-if="focusElems[{{$index}}]" ng-keydown="searchKeyDown($event)">
+										<span ng-bind="item.name"></span>
+									</a>
+								</div>
+							</div>
+							<div ng-if="!searchSuggestions.length">
+								<span>No hay sugerencias</span>
+							</div>
+						</div>
+					</div>
+					<!-- Historial -->
+					<div ng-show="showSuggestions && !query.length" class="suggestions-box">
 						<div ng-show="searchHistory" class="search-history">
+							<div class="row">
+								<div class="col-md-12">
+									Historial de búsqueda
+								</div>
+							</div>
 							<div ng-repeat="item in searchHistory">
 								<div class="row">
 									<div class="col-md-12">
@@ -47,37 +68,8 @@
 								</div>
 							</div>
 						</div>
-						<div ng-show="searchHistory" class="row">
-							<div class="col-md-12"><div class="divider"/></div>
-						</div>	
-						<div class="row">
-							<div class="col-md-12">
-								<p class="most-popular-title" ng-bind="'navbar.mostPopular' | translate"></p>
-							</div>
-						</div>
-
-						<ng-repeat ng-repeat="product in topProducts">
-							<a class="suggestion-list-item" ng-href="#/product/{{product.id}}"  data-list-index="{{$$index + searchHistory.length}}" id="suggestion-{{$$index + searchHistory.length}">
-								<div class="row center-flex">
-									<div class="col-md-2 suggestion-product-logo center-flex">
-										<img src="{{product.logo_url}}">
-									</div>
-								</div>
-								<div class="col-md-7">
-									<span class="suggestion-product-name capitalize-firstLetter" ng-bind="product.name">
-									</span>
-								</div>
-								<div class="col-md-3">
-									<span class="upvote-info">
-									<span class="glyphicon glyphicon-arrow-up upvote-icon"/>
-										<span ng-bind="product.votesCount"></span>
-									</span>
-								</div>
-							</a>
-						</ng-repeat>
 					</div>
-					</div>
-				</div>
+				</div> 
 			</form>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->

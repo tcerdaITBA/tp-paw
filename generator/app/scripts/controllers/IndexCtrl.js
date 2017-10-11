@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf'], function(productSeek) {
+define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf', 'services/restService'], function(productSeek) {
 
-	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', '$scope', '$location', function(session, auth, modal, $scope, $location) {
+	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', 'restService', '$scope', '$location', function(session, auth, modal, restService, $scope, $location) {
 		$scope.showSuggestions = false;
 		$scope.isLoggedIn = auth.isLoggedIn();
 		$scope.loggedUser = auth.getLoggedUser();
@@ -16,6 +16,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		$scope.focusElems = [];
 
 		$scope.searchHistory = session.getSearchHistory();
+		$scope.searchSuggestions = [];
 
 		$scope.search = function(q) {
 			console.log(q);
@@ -81,5 +82,16 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 
 		$scope.signInModal = modal.signInModal;
 		$scope.signUpModal = modal.signUpModal;
+		
+		var timeoutSearch;
+		$scope.autocompleteSearch = function() {
+			// TODO: Puede haber problemas de concurrencia, una búsqueda vieja 
+			// sobreescribe una más nueva
+			if ($scope.query && $scope.query.length >= 3) {
+				restService.searchProducts($scope.query).then(function(data) {
+					$scope.searchSuggestions = data.products;
+				});
+			}
+		};
 	}]);
 });

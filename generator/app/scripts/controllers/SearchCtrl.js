@@ -5,8 +5,6 @@ define(['productSeek', 'directives/productItem', 'directives/userItem'], functio
     	$scope.query = query;
 		$scope.tabs = [false, false];
 
-//		console.log(productsData);
-//		console.log(usersData);
 		$scope.products = productsData.products;
 		$scope.users = usersData.users;
 		
