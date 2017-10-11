@@ -31,7 +31,6 @@ define(['productSeek', 'services/sessionService', 'services/restService'], funct
 				.then(function(data) {
                     session.setUser(data, saveToSession);
                     self.loggedUser = data;
-                    console.log(data);                
                     $rootScope.$broadcast('user:updated');
                     return data;
                 })
