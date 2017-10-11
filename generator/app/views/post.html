@@ -6,6 +6,21 @@
 		</div>
 	</div>
 	<form name="postForm" class="form-horizontal" novalidate>
+		<div class="form-group row">
+			<div class="col-md-2 col-md-offset-5">
+				<input id="logoUpload" class="image-input" type="file" accept="image/*" ng-file-read="product.logo" name="logo"/>
+				<label for="logoUpload" class="image-upload-btn">
+					<div class="preview-container">
+						<img class="preview-image" src="{{product.logo}}" ng-show="product.logo">
+						<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteLogo(); $event.preventDefault();" ng-show="product.logo"></div>
+						<div class="add-img-text" ng-show="!product.logo">
+							<span class="glyphicon glyphicon-plus"></span>
+							<span ng-bind="'button.addLogo' | translate"></span>
+						</div>
+					</div>
+				</label>
+			</div>
+		</div>
 		<div class="form-group row" ng-class="{'has-error': postForm.name.$invalid && postForm.$submitted}">
 			<label for="productName" class="col-md-3 control-label" ng-bind="'post.productName' | translate"></label>
 			<div class="col-md-6">
@@ -13,11 +28,11 @@
 				<span ng-show="postForm.name.$invalid && postForm.$submitted" class="help-block">Debe introducir un nombre</span>
 			</div>
 		</div>
-		<div class="form-group row" ng-class="{'has-error': postForm.slogan.$invalid && postForm.$submitted}">
-			<label for="slogan" class="col-md-3 control-label" ng-bind="'post.slogan' | translate"></label>
+		<div class="form-group row" ng-class="{'has-error': postForm.tagline.$invalid && postForm.$submitted}">
+			<label for="tagline" class="col-md-3 control-label" ng-bind="'post.tagline' | translate"></label>
 			<div class="col-md-6">
-				<textarea type="text" class="form-control" id="slogan" placeholder="{{'post.placeholder.slogan' | translate}}" rows="2" ng-model="product.slogan" name="slogan" required/>
-				<span ng-show="postForm.slogan.$invalid && postForm.$submitted" class="help-block">Debe introducir un slogan</span>
+				<textarea type="text" class="form-control" id="tagline" placeholder="{{'post.placeholder.tagline' | translate}}" rows="2" ng-model="product.tagline" name="tagline" required/>
+				<span ng-show="postForm.tagline.$invalid && postForm.$submitted" class="help-block">Debe introducir un tagline</span>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -69,11 +84,11 @@
 				<h3 ng-bind="'post.videos' | translate"></h3>
 			</div>
 		</div>
-		<ng-repeat ng-repeat="link in product.videoLinks track by $index">
+		<ng-repeat ng-repeat="link in product.videos track by $index">
 			<div class="form-group row" ng-class="{'has-error': postForm.link{{$index}}.$invalid && postForm.$submitted}">
 				<label for="link-{{$index}}" class="col-md-3 control-label" ng-bind="'post.link' | translate"></label>
 				<div class="col-md-6">
-					<input type="url" id="link-{{$index}}" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.videoLinks[$index]" name="link{{$index}}" ng-pattern="youtubeRegex">
+					<input type="url" id="link-{{$index}}" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.videos[$index]" name="link{{$index}}" ng-pattern="youtubeRegex">
 					<span class="help-block" ng-show="postForm.link{{$index}}.$invalid && postForm.$submitted">Link inválido skdfngkj</span>
 				</div>
 			</div>
