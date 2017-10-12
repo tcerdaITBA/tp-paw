@@ -68,7 +68,6 @@ define(['services/sessionService', 'angular-mocks'], function() {
 					sessionService.saveToSearchHistory(elem);
 				});
 				
-				console.log(sessionService.getSearchHistory())
 				expect(sessionService.getSearchHistory()).toEqual([HISTORY_1, HISTORY_2]);
 			})
 			

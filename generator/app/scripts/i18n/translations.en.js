@@ -98,8 +98,8 @@ define([], function() {
 		'post.giveUsInformation': 'Give us some information about your product',
 		'post.productName': 'Product name',
 		'post.placeholder.productName': 'Product Seek',
-		'post.slogan': 'Slogan',
-		'post.placeholder.slogan': 'A quick description of your product',
+		'post.tagline': 'Tagline',
+		'post.placeholder.tagline': 'A quick description of your product',
 		'post.description': 'Description',
 		'post.placeholder.description': 'Complete description',
 		'post.webpageOptional': 'Web Page (Optional)',
@@ -110,6 +110,12 @@ define([], function() {
 		'post.link': 'Link',
 		'post.postButton': 'Post',
 		
+		'post.error.addImageOrVideo': 'You should add an image or Youtube video',
+		'post.error.invalidYoutube': 'Not a valid Youtube link',
+		'post.error.addTagline': 'Add a tagline',
+		'post.error.addName': 'Add product name',
+		
+        'button.addLogo': 'Add Logo',
 		'button.addImage':'Add Image',
 		
         'product.singular': 'product',

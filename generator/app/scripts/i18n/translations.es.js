@@ -104,8 +104,8 @@ define([], function() {
 		'post.giveUsInformation': 'Danos información de tu producto',
 		'post.productName': 'Nombre del producto',
 		'post.placeholder.productName': 'Product Seek',
-		'post.slogan': 'Eslogan',
-		'post.placeholder.slogan': 'Una descripción rápida del producto',
+		'post.tagline': 'Eslogan',
+		'post.placeholder.tagline': 'Una descripción rápida del producto',
 		'post.description': 'Descripción',
 		'post.placeholder.description': 'Descripción completa',
 		'post.webpageOptional': 'Página Web (Opcional)',
@@ -116,6 +116,7 @@ define([], function() {
 		'post.link': 'Link',
 		'post.postButton': 'Publicar',
 		
+        'button.addLogo':'Agregar Logo',
 		'button.addImage':'Agregar Imagen',
 		
         'product.singular': 'producto',
