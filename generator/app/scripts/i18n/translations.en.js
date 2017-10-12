@@ -115,6 +115,7 @@ define([], function() {
 		'post.error.addTagline': 'Add a tagline',
 		'post.error.addName': 'Add product name',
 		
+        'button.addLogo': 'Add Logo',
 		'button.addImage':'Add Image',
 		
         'product.singular': 'product',
