@@ -14,6 +14,7 @@ import tp.paw.khet.model.Category;
 import tp.paw.khet.webapp.form.constraints.NoDuplicates;
 
 public class FormProduct {
+	@NotBlank
 	@Size(max = 64, min = 4)
 	private String name;
 
@@ -77,7 +78,19 @@ public class FormProduct {
 	}
 
 	public String[] getVideoIds() {
-		return videoIds == null ? ArrayUtils.EMPTY_STRING_ARRAY : videoIds;
+		int count = 0;
+		
+		for (int i = 0; i < videoIds.length; i++)
+			if (videoIds[i] != null)
+				count++;
+		
+		final String[] ans = new String[count];
+		
+		for (int i = 0; i < videoIds.length; i++)
+			if (videoIds[i] != null)
+				ans[i] = videoIds[i];
+		
+		return videoIds == null ? ArrayUtils.EMPTY_STRING_ARRAY : ans;
 	}
 
 	public void setVideoIds(String[] videos) {

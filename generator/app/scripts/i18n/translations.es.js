@@ -116,6 +116,7 @@ define([], function() {
 		'post.link': 'Link',
 		'post.postButton': 'Publicar',
 		
+        'button.addLogo':'Agregar Logo',
 		'button.addImage':'Agregar Imagen',
 		
         'product.singular': 'producto',
