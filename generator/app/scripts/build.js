@@ -30,8 +30,10 @@ require.config({
         ngSanitize: '../../bower_components/ngSanitize/index',
         ngstorage: '../../bower_components/ngstorage/ngStorage',
         'livereload-js': '../../bower_components/livereload-js/dist/livereload',
-        'slick-carousel': '../../bower_components/slick-carousel/slick/slick.min',
-        'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick'
+        'slick-carousel': '../../bower_components/slick-carousel/slick/slick',
+        'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick',
+        ngInfiniteScroll: '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
+        'angular-slick': '../../bower_components/angular-slick/dist/slick'
     },
     shim: {
         angular: {
