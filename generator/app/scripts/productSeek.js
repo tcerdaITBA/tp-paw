@@ -8,8 +8,7 @@ define(['routes',
 	'angular-sanitize',
 	'bootstrap',
 	'angular-translate',
-	'angular-slick-carousel',
-	'angular-spinner'],
+	'angular-slick-carousel'],
 	function(config, dependencyResolverFor, i18n) {
 		var productSeek = angular.module('productSeek', [
 			'ngRoute',
@@ -17,7 +16,6 @@ define(['routes',
 			'ngSanitize',
 			'ui.bootstrap',
 			'slickCarousel',
-			'angularSpinner'
 		]);
 		productSeek
 			.config(
