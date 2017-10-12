@@ -115,7 +115,12 @@ define([], function() {
         'post.videos': 'Videos de Youtube',
 		'post.link': 'Link',
 		'post.postButton': 'Publicar',
-		
+
+		'post.error.addImageOrVideo': 'Agrega al menos una imagen o video',
+		'post.error.invalidYoutube': 'Link de Youtube inválido',
+		'post.error.addTagline': 'El eslogan no puede estar vacío',
+		'post.error.addName': 'El nombre del producto no puede estar vacío',
+        
         'button.addLogo':'Agregar Logo',
 		'button.addImage':'Agregar Imagen',
 		
@@ -128,6 +133,11 @@ define([], function() {
         'feedback.favListCreated.textEnd': 'fue creada',
         'feedback.productAddedToFavList.text': 'fue agregado a',
         
-        'modal.signUp.title': 'Registrarse'
+        'button.addProfilePicture' : 'Foto de Perfil',
+        'modal.signUp.title': 'Registrarse',
+        'modal.signUp.passwordConfPlaceholder': 'Confirmar Contraseña',
+        'modal.signUp.usernamePlaceholder': 'Nombre',
+        'modal.signUp.emailPlaceholder': 'Email',
+        'modal.signUp.signUp': 'Registrarse'
 	};
 });

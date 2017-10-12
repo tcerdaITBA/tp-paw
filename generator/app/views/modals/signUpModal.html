@@ -1,28 +1,35 @@
-<div class="modal-body" id="signup-modal">
-	<form ng-submit="signUpSubmit()">
-		<input type="text" name="email" ng-model="email.text" ng-pattern="email.emailPattern" required ng-trim="false">
-		<input type="password" name="password" ng-model="password.text" ng-pattern="password.passwordPattern" required>
-		<button type="submit" name="submit">sign up</button>
-	</form>
-</div>
-
-
 <div class="login-modal-body" id="login-modal">
 	<h3 class="login-title" ng-bind="'modal.signUp.title' | translate"></h3>
-	<form ng-submit="loginSubmit()">
+	<form ng-submit="signUpSubmit()" novalidate>
+        <div class="form-group row">
+			<div class="col-md-2 col-md-offset-5">
+				<input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="user.picture" name="picture"/>
+				<label for="prictureUpload" class="image-upload-btn">
+					<div class="preview-container">
+						<img class="preview-image" src="{{user.picture}}" ng-show="user.picture">
+						<div class="remove-btn glyphicon glyphicon-remove" ng-click="deletePicture(); $event.preventDefault();" ng-show="user.picture"></div>
+						<div class="add-img-text" ng-show="!user.picture">
+							<span class="glyphicon glyphicon-plus"></span>
+							<span ng-bind="'button.addProfilePicture' | translate"></span>
+						</div>
+					</div>
+				</label>
+			</div>
+		</div>
+        <div class="input-field">
+            <input type="text" placeholder="{{'modal.signUp.usernamePlaceholder' | translate}}" name="username" ng-model="user.username.text" ng-pattern="user.username.pattern" class="form-control" required>
+        </div>
 		<div class="input-field">
-			<input type="text" placeholder="{{'modal.signIn.usernamePlaceholder' | translate}}" name="username" ng-model="loginForm.username.text" ng-pattern="loginForm.username.emailPattern" class="form-control" required>
+			<input type="text" placeholder="{{'modal.signUp.emailPlaceholder' | translate}}" name="email" ng-model="user.email.text" ng-pattern="user.email.pattern" class="form-control" required>
 		</div>
 		<div class="input-field">
-			<input type="password" placeholder="{{'modal.signIn.passwordPlaceholder' | translate}}" name="password" ng-model="loginForm.password.text" ng-pattern="loginForm.password.passwordPattern" class="form-control" required>
+			<input type="password" placeholder="{{'modal.signIn.passwordPlaceholder' | translate}}" name="password" ng-model="user.password.text" ng-pattern="user.password.pattern" class="form-control" required>
 		</div>
-		<div class="input-field checkbox">
-			<label><input type="checkbox" ng-model="loginForm.rememberMe">
-				<span class="checkbox-text" ng-bind="'modal.signIn.rememberMe' | translate"></span>
-			</label>
-		</div>
-		<div class="submit-field">
-			<button class="btn btn-default ps-btn" type="submit" name="submit" ng-bind="'modal.signIn.signIn' | translate"></button>
+        <div class="input-field">
+            <input type="password" placeholder="{{'modal.signUp.passwordConfPlaceholder' | translate}}" name="passwordConf" ng-model="user.passwordConf.text" ng-pattern="user.password.pattern" class="form-control" required>
+        </div>
+        <div class="submit-field">
+			<button class="btn btn-default ps-btn" type="submit" name="submit" ng-bind="'modal.signUp.signUp' | translate"></button>
 		</div>
 	</form>
 </div>

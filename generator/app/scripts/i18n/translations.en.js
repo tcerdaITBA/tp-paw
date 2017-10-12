@@ -127,6 +127,11 @@ define([], function() {
         'feedback.favListCreated.textEnd': 'was created',
         'feedback.productAddedToFavList.text': 'was added to',
         
-        'modal.signUp.title': 'Sign Up'
+        'button.addProfilePicture' : 'Profile Picture',
+        'modal.signUp.title': 'Sign Up',
+        'modal.signUp.passwordConfPlaceholder': 'Confirm Password',
+        'modal.signUp.usernamePlaceholder': 'Name',
+        'modal.signUp.emailPlaceholder': 'Email',
+        'modal.signUp.signUp': 'Sign Up'
 	};
 });
