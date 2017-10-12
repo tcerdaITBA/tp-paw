@@ -53,20 +53,25 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
             }
             
             function multipartMetadata() {
-                return {
+                var accessToken = session.getAccessToken();
+                var metadata = {
                     transformRequest: angular.identity,
                     headers: {
-                        'Content-Type': undefined,
-                        'X-AUTH-TOKEN': session.getAccessToken()                       
+                        'Content-Type': undefined
                     }
                 };
+                
+                if (accessToken)
+                    metadata.headers['X-AUTH-TOKEN'] = session.getAccessToken();
+                
+                return metadata;
             }
             
             function doPost(baseUrl, data, params) {
             	var params = translate(params);
  				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
  
-                 return $http.post(baseUrl + params, JSON.stringify(data), authHeaders())
+                return $http.post(baseUrl + params, JSON.stringify(data), authHeaders())
                         .then(function(response) {
                              return response.data;
                         })
