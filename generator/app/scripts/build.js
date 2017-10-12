@@ -30,7 +30,10 @@ require.config({
         ngSanitize: '../../bower_components/ngSanitize/index',
         ngstorage: '../../bower_components/ngstorage/ngStorage',
         'slick-carousel': '../../bower_components/slick-carousel/slick/slick.min',
-        'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick'
+        'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick',
+        spin: '../../bower_components/spin.js/spin',
+        'angular-spinner': '../../bower_components/angular-spinner/dist/angular-spinner.min'
+
     },
     shim: {
         angular: {
@@ -82,6 +85,17 @@ require.config({
         'angular-slick-carousel': {
             deps: [
                 'slick-carousel',
+                'angular'
+            ]
+        },
+        spin: {
+            deps: [
+                'jquery'
+            ]
+        },
+        'angular-spinner': {
+            deps: [
+                'spin',
                 'angular'
             ]
         }
