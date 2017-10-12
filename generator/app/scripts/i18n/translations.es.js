@@ -127,5 +127,14 @@ define([], function() {
         
         'feedback.favListCreated.textEnd': 'fue creada',
         'feedback.productAddedToFavList.text': 'fue agregado a'
+        
+        'product.creator':'Creador',
+        'product.comment':'Comentar',
+        'product.discussion':'Forma parte de la discusión',
+        'product.anonymousComment.beginning':'Para comentar un producto debes',
+        'product.anonymousComment.signIn':'iniciar sesiÃ³n',
+        'product.anonymousComment.or':'o',
+        'product.anonymousComment.signUp':'registrarte.',
+        'product.reply':'Responder'
 	};
 });

@@ -1,8 +1,7 @@
 define(['productSeek'], function(productSeek) {
-
     'use strict';
 	productSeek.directive('loading', ['$http', function($http) {
-		return {
+        return {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 scope.isLoading = function () {
