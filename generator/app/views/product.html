@@ -85,11 +85,14 @@
                     </div>
                 </div>  
                 <form ng-submit="parentCommentSubmit()">
-                    <div class="input-field">
-                        <input type="text" ng-model="parentCommentForm.text" class="form-control comment-box" required>
+                    <div class="row input-field">
+                        <div class="col-md-10">
+                            <input type="text" ng-model="parentCommentForm.text" class="form-control 
+                            comment-box" required>
+                        </div>
                     </div>
-                    <div class="submit-field">
-                        <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
+                    <div class="row submit-field">
+                        <button class="btn btn-default ps-btn post-comment-btn parent-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
                     </div>
                 </form>
             </div>
@@ -238,7 +241,10 @@
                             </div>
                         </div>
                     </div>
-
+<!--                     <div class="spinner">
+                        <div class="dot1"></div>
+                        <div class="dot2"></div>
+                    </div> -->
                     <div ng-show="isLoggedIn">
                         <div class="row child-comment-row">
                             <div class="col-md-10 col-md-offset-2">
@@ -280,6 +286,10 @@
                     </div>
                 </div>
             </div>
+<!--             <div class="spinner">
+              <div class="dot1"></div>
+              <div class="dot2"></div>
+            </div> -->
         </div>
     </div>
 </div>
