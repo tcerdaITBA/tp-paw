@@ -204,11 +204,10 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                     var formData = new FormData();
                     
                     angular.forEach(images, function(img) {
-                        formData.append('picture', dataURItoBlob(img));
+                        if (img)
+                            formData.append('picture', dataURItoBlob(img));
                     });
-                    
-                    console.log(logo);
-                    
+                                        
                     formData.append('logo', dataURItoBlob(logo));
                     formData.append('product', new Blob([JSON.stringify(productData)], {type: "application/json"}));
                     

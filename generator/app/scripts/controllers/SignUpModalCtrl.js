@@ -1,4 +1,4 @@
-define(['productSeek', 'directives/ngFileRead', 'services/restService', 'services/authService'], function(productSeek) {
+define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'services/restService', 'services/authService'], function(productSeek) {
 
     'use strict';
     productSeek.controller('SignUpModalCtrl', ['$scope', 'authService', 'restService', function($scope, authService, restService) {

@@ -120,6 +120,8 @@ define([], function() {
 		'post.error.invalidYoutube': 'Link de Youtube inválido',
 		'post.error.addTagline': 'El eslogan no puede estar vacío',
 		'post.error.addName': 'El nombre del producto no puede estar vacío',
+		'post.error.addDescription': 'La descripción no puede estar vacía',
+        'post.error.addLogo': 'El logo no puede estar vacío',
         
         'button.addLogo':'Agregar Logo',
 		'button.addImage':'Agregar Imagen',

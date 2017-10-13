@@ -113,7 +113,9 @@ define([], function() {
 		'post.error.addImageOrVideo': 'You should add an image or Youtube video',
 		'post.error.invalidYoutube': 'Not a valid Youtube link',
 		'post.error.addTagline': 'Add a tagline',
-		'post.error.addName': 'Add product name',
+		'post.error.addName': 'Add a product name',
+		'post.error.addDescription': 'Add a description',
+        'post.error.addLogo': 'Add a logo',
 		
         'button.addLogo': 'Add Logo',
 		'button.addImage':'Add Image',

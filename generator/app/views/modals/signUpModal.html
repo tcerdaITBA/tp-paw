@@ -4,7 +4,7 @@
         <div class="row">
 			<div class="col-md-6 col-md-offset-3">
                 <div class="form-group">
-                    <input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="user.picture" name="picture"/>
+                    <input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="user.picture" name="picture" valid-file/>
                     <label for="pictureUpload" class="image-upload-btn">
                         <div class="preview-container">
                             <img class="preview-image" src="{{user.picture}}" ng-show="user.picture">

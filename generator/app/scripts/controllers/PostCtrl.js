@@ -10,9 +10,9 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService'], functio
 		$scope.product.category = $scope.categories[categories.indexOf('other')]; // Medio hardcodeado
 		$scope.product.images = new Array(productImagesCount);
         $scope.product.videos = new Array(productVideosCount);
-				
-		$scope.doSubmit = function() {
-			var empty = true;
+
+        var checkNoImagesError = function() {
+ 			var empty = true;
             
 			angular.forEach($scope.product.images, function(img) {
 				if (img) {
@@ -26,7 +26,14 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService'], functio
                 }
 			});
             
-			$scope.noImagesError = empty;
+			$scope.noImagesError = empty;           
+        };
+        
+        $scope.$watchCollection('product.images', checkNoImagesError);
+        $scope.$watchCollection('product.videos', checkNoImagesError);
+        
+		$scope.doSubmit = function() {
+            checkNoImagesError();
 			
 			if ($scope.postForm.$valid && !$scope.noImagesError) {
 				// TODO: pasar los links a solo ids
