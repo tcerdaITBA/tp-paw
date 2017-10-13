@@ -6,8 +6,16 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
         $scope.user = {};
         
 		$scope.emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        
+        var checkPasswordsMatch = function() {
+            $scope.passwordsMatch = $scope.user.password === $scope.user.passwordConf;
+        };
+        
+        $scope.$watch('user.password', checkPasswordsMatch);
+        $scope.$watch('user.passwordConf', checkPasswordsMatch);
 		
 		$scope.signUpSubmit = function() {
+            checkPasswordsMatch();
             if ($scope.signUpForm.$valid) {
   				console.log("Valid form");
 				restService.createUser($scope.user)

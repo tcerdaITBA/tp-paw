@@ -135,6 +135,12 @@ define([], function() {
         'modal.signUp.usernamePlaceholder': 'Name',
         'modal.signUp.emailPlaceholder': 'Email',
         'modal.signUp.signUp': 'Sign Up',
+        
+        'signUp.error.addPicture': 'Add profile picture',
+        'signUp.error.addName': 'Add name',
+        'signUp.error.addPassword': 'Add password',
+        'signUp.error.addPasswordConf': 'Add password confirmation',
+        'signUp.error.addEmail': 'Add valid email',
 
         'product.creator':'Creator',
         'product.comment':'Comment',

@@ -2,9 +2,9 @@
 	<h3 class="login-title" ng-bind="'modal.signUp.title' | translate"></h3>
 	<form ng-submit="signUpSubmit()" name="signUpForm" novalidate>
         <div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-6 col-md-offset-3" ng-class="{'has-error': signUpForm.picture.$invalid && signUpForm.$submitted}" >
                 <div class="form-group">
-                    <input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="user.picture" name="picture" valid-file/>
+                    <input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="user.picture" ng-model="__" name="picture" valid-file required/>
                     <label for="pictureUpload" class="image-upload-btn">
                         <div class="preview-container">
                             <img class="preview-image" src="{{user.picture}}" ng-show="user.picture">
@@ -15,20 +15,25 @@
                             </div>
                         </div>
                     </label>
+                    <span ng-show="signUpForm.picture.$invalid && signUpForm.$submitted" class="help-block" ng-bind="'signUp.error.addPicture' | translate"></span>
                 </div>
 			</div>
 		</div>
-        <div class="input-field">
+        <div class="input-field" ng-class="{'has-error': signUpForm.name.$invalid && signUpForm.$submitted}">
             <input type="text" placeholder="{{'modal.signUp.usernamePlaceholder' | translate}}" name="name" ng-model="user.name" class="form-control" required>
+            <span ng-show="signUpForm.name.$invalid && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.addName' | translate"></span>
         </div>
-		<div class="input-field">
+		<div class="input-field" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}">
 			<input type="text" placeholder="{{'modal.signUp.emailPlaceholder' | translate}}" name="email" ng-model="user.email" ng-pattern="user.emailPattern" class="form-control" required>
+            <span ng-show="signUpForm.email.$invalid && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.addEmail' | translate"></span>
 		</div>
-		<div class="input-field">
+		<div class="input-field" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}">
 			<input type="password" placeholder="{{'modal.signIn.passwordPlaceholder' | translate}}" name="password" ng-model="user.password"  class="form-control" required>
+            <span ng-show="signUpForm.password.$invalid && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.addPassword' | translate"></span>
 		</div>
-        <div class="input-field">
+        <div class="input-field" ng-class="{'has-error': signUpForm.passwordConf.$invalid && signUpForm.$submitted}">
             <input type="password" placeholder="{{'modal.signUp.passwordConfPlaceholder' | translate}}" name="passwordConf" ng-model="user.passwordConf" class="form-control" required>
+            <span ng-show="!passwordsMatch && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.addPasswordConf' | translate"></span>
         </div>
         <div class="submit-field">
 			<button class="btn btn-default ps-btn" type="submit" name="submit" ng-bind="'modal.signUp.signUp' | translate"></button>

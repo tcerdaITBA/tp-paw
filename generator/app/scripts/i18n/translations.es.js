@@ -134,7 +134,13 @@ define([], function() {
         'modal.signUp.passwordConfPlaceholder': 'Confirmar Contraseña',
         'modal.signUp.usernamePlaceholder': 'Nombre',
         'modal.signUp.emailPlaceholder': 'Email',
-        'modal.signUp.signUp': 'Registrarse', 
+        'modal.signUp.signUp': 'Registrarse',
+        
+        'signUp.error.addPicture': 'Agregue imagen de perfil',
+        'signUp.error.addName': 'El nombre no puede estar vacío',
+        'signUp.error.addPassword': 'La contraseña no puede estar vacía',
+        'signUp.error.addPasswordConf': 'Las contraseñas no son iguales',
+        'signUp.error.addEmail': 'El email no puede estar vacío',
         
         'product.creator':'Creador',
         'product.comment':'Comentar',
