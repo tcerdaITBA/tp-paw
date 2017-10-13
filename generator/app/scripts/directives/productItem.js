@@ -5,7 +5,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
-            scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&'},
+            scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&', borderHover: '='},
             controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', function($scope, $location, $route, authService, restService, modalService, sessionService) {
 
                 var product = $scope.product;
@@ -65,6 +65,14 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                             $scope.onDelete();
                     });
                 };
+                
+                if ($scope.borderHover) {
+                    $(".product-list-item").hover(function(){
+                        $(this).css("border-color", "#33bb9c");
+                        }, function(){
+                        $(this).css("border-color", "#f3f3f3");
+                    });
+                }
             }]
         }
     });

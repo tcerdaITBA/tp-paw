@@ -81,12 +81,6 @@ define([], function() {
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
 
-        'Profile.Tab.uploadedProducts': 'Publicados',
-        'Profile.Tab.votedProducts': 'Votados',
-        'Profile.Tab.favlist': 'Colecciones',
-        'Profile.settings.changePicture':'Cambiar foto de perfil',
-        'Profile.settings.changePassword': 'Cambiar contraseña',
-        
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',
         'collections.add': 'Agregar',
@@ -140,6 +134,15 @@ define([], function() {
         'modal.signUp.passwordConfPlaceholder': 'Confirmar Contraseña',
         'modal.signUp.usernamePlaceholder': 'Nombre',
         'modal.signUp.emailPlaceholder': 'Email',
-        'modal.signUp.signUp': 'Registrarse'
+        'modal.signUp.signUp': 'Registrarse', 
+        
+        'product.creator':'Creador',
+        'product.comment':'Comentar',
+        'product.discussion':'Forma parte de la discusión',
+        'product.anonymousComment.beginning':'Para comentar un producto debes',
+        'product.anonymousComment.signIn':'iniciar sesiÃ³n',
+        'product.anonymousComment.or':'o',
+        'product.anonymousComment.signUp':'registrarte.',
+        'product.reply':'Responder'
 	};
 });

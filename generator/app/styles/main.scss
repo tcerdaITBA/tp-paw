@@ -1,6 +1,11 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+
+@import '../bower_components/slick-carousel/slick/slick.scss';
+@import '../bower_components/slick-carousel/slick/slick-theme.scss';
+
 // bower:scss
 @import 'bootstrap-sass-official/assets/stylesheets/_bootstrap.scss';
+@import 'slick-carousel/slick/slick.scss';
 // endbower
 
 @import 'partials/home';
@@ -12,6 +17,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import 'partials/snackbar';
 @import 'partials/post';
 @import 'partials/search-results';
+@import 'partials/spinner';
+@import 'partials/product';
 
 .browsehappy {
   margin: 0.2em 0;

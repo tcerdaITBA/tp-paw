@@ -128,12 +128,22 @@ define([], function() {
         
         'feedback.favListCreated.textEnd': 'was created',
         'feedback.productAddedToFavList.text': 'was added to',
-        
+
         'button.addProfilePicture' : 'Profile Picture',
         'modal.signUp.title': 'Sign Up',
         'modal.signUp.passwordConfPlaceholder': 'Confirm Password',
         'modal.signUp.usernamePlaceholder': 'Name',
         'modal.signUp.emailPlaceholder': 'Email',
-        'modal.signUp.signUp': 'Sign Up'
+        'modal.signUp.signUp': 'Sign Up',
+
+        'product.creator':'Creator',
+        'product.comment':'Comment',
+        'product.discussion':'Join discussion',
+        'product.anonymousComment.beginning':'In order to comment a product you need to',
+        'product.anonymousComment.signIn':'sign in',
+        'product.anonymousComment.or':'or',
+        'product.anonymousComment.signUp':'sign up.',
+        'product.reply':'Reply'
+
 	};
 });
