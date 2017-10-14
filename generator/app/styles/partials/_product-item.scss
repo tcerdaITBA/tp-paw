@@ -37,23 +37,31 @@
 	font-size: 1.1em;
 }
 
-.categoryTag {
+.product-button {
 	color: #8c8c8c;
 	text-align: center;
 	border: 2px solid #c4c4c4;
 	border-radius: 4px;
-	padding: 5px 1.4em;
 	display: inline-block;
 	cursor: pointer;
 	font-weight: 500;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	font-size: 0.9em;
+	padding: 5px 0;
+	
+	.glyphicon {
+		display: inline;
+	}
 
     &:hover {
 	   background-color: #c4c4c4 !important;
        color: #fff;
     }
+}
+
+.category-btn {
+	padding: 5px 1.4em;	
 }
 
 .row.product-item-height {
@@ -67,50 +75,22 @@
 }
 
 .upvote-btn {
-	text-align: center;
-	border: 2px solid #c4c4c4;
-	border-radius: 4px;
 	padding: 5px 1em;
-	word-wrap: break-word;
-	margin: 1px;
-	display: inline-block;
-    
-    p {
-        margin: auto auto;
-        color: #8a8a8a;
-        font-weight: 500;
-        letter-spacing: 1px;
-        text-transform: uppercase;        
-    }
-    
+	margin-left: 3px;
+	
     &.voted {
         background-color: #F64763;
         border-color: #F64763;
-        
-        p {
-            color: #fff;
-            background-color: #F64763;
-        }
-        
+		color: #fff;
+		
         &:hover {
-            background-color: #d03c54;
-            border-color: #d03c54;
-            
-            p {
-                background-color: #d03c54 !important;
-                color: #fff;               
-            }
+            background-color: #d03c54 !important;
+            border-color: #d03c54 !important;
         }
     }
     
     &:hover {
-        background-color: #c4c4c4;
-        border-color: #c4c4c4;
-        
-        p {
-            background-color: #c4c4c4 !important;
-            color: #F64763;            
-        }
+        color: #F64763 !important;
     }
 }
 
@@ -140,18 +120,9 @@
 }
 
 .add-to-collection-btn {
-	text-align: center;
-	align-content: center;
 	padding: 5px 10px;
 }
 
-.add-to-collection-btn .glyphicon {
-	margin-left: 3px;
-}
-
-.add-to-collection-btn .glyphicon {
-	line-height: inherit;
-}
 .new-collection-form {
 	text-align: right;
 	margin-bottom: 0;
@@ -413,3 +384,5 @@
 	cursor: pointer;
 	opacity: 1;
 }
+
+
