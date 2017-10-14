@@ -38,6 +38,7 @@ define([], function() {
 		'modal.signIn.passwordPlaceholder':'Contraseña',
 		'modal.signIn.rememberMe':'Recuérdame',
 		'modal.signIn.signIn':'Iniciar sesión',
+        'modal.signIn.error.invalidUser': 'Email o contraseña inválidos',
 		
 		'searchResults.products':'Productos',
 		'searchResults.users':'Usuarios',
@@ -146,7 +147,7 @@ define([], function() {
         'product.comment':'Comentar',
         'product.discussion':'Forma parte de la discusión',
         'product.anonymousComment.beginning':'Para comentar un producto debes',
-        'product.anonymousComment.signIn':'iniciar sesiÃ³n',
+        'product.anonymousComment.signIn':'iniciar sesión',
         'product.anonymousComment.or':'o',
         'product.anonymousComment.signUp':'registrarte.',
         'product.reply':'Responder'

@@ -38,6 +38,7 @@ define([], function() {
 		'modal.signIn.passwordPlaceholder':'Password',
 		'modal.signIn.rememberMe':'Remember me',
 		'modal.signIn.signIn':'Sign In',
+        'modal.signIn.error.invalidUser': 'Invalid email or password',
 		
 		'searchResults.products':'Products',
 		'searchResults.users':'Users',
