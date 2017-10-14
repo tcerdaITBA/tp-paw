@@ -51,7 +51,7 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 			$scope.showParentSpinner = true;
 
 			//scroll to bottom of page
-			window.scrollTo(0,document.body.scrollHeight);
+			angular.element(document.getElementsByClassName('footer')).goTo();
 
 			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
 			then(function(data) {
@@ -73,13 +73,13 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		};
 
 		// debugging
-		function sleep(milliseconds) {
-		  var start = new Date().getTime();
-		  for (var i = 0; i < 1e7; i++) {
-		    if ((new Date().getTime() - start) > milliseconds){
-		      break;
-		    }
-		  }
-		}
+		// function sleep(milliseconds) {
+		//   var start = new Date().getTime();
+		//   for (var i = 0; i < 1e7; i++) {
+		//     if ((new Date().getTime() - start) > milliseconds){
+		//       break;
+		//     }
+		//   }
+		// }
     }]);
 });
