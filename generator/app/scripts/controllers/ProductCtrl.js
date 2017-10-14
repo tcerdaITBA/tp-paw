@@ -25,6 +25,10 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 
 		$scope.childCommentForm = [];
 
+		$scope.showParentSpinner = false;
+
+		$scope.showChildSpinner = [];
+
 		$.fn.goTo = function() {
 	 		var offset = 100;
 	        $('html, body').animate({
@@ -44,19 +48,38 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		};
 
 		$scope.parentCommentSubmit = function() {
+			$scope.showParentSpinner = true;
+
+			//scroll to bottom of page
+			window.scrollTo(0,document.body.scrollHeight);
+
 			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
 			then(function(data) {
-				$scope.comments.push(data);
-				var lastComment = angular.element('#parentComment' + ($scope.comments.length - 1));
-				lastComment.goTo();			
+				//sleep(2000);
+				$scope.showParentSpinner = false;
+				$scope.comments.push(data);		
 			});	
 		};
 
 		$scope.childCommentSubmit = function(parentCommentId, index) {
+			$scope.showChildSpinner[index] = true;
+
 			restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
 			then(function(data) {
+				//sleep(2000);
+				$scope.showChildSpinner[index] = false;
 				$scope.comments[index].children.push(data);
 			});
 		};
+
+		// debugging
+		function sleep(milliseconds) {
+		  var start = new Date().getTime();
+		  for (var i = 0; i < 1e7; i++) {
+		    if ((new Date().getTime() - start) > milliseconds){
+		      break;
+		    }
+		  }
+		}
     }]);
 });
