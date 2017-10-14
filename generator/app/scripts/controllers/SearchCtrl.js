@@ -1,13 +1,16 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'directives/userItem'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'directives/userItem', 'services/sessionService'], function(productSeek) {
 
-	productSeek.controller('SearchCtrl', ['$scope', 'productsData', 'usersData', 'query', function($scope, productsData, usersData, query) {
+	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', 'productsData', 'usersData', 'query', 'sessionService', function($scope, $rootScope, productsData, usersData, query, session) {
     	$scope.query = query;
 		$scope.tabs = [false, false];
 
 		$scope.products = productsData.products;
 		$scope.users = usersData.users;
 		
+		session.saveToSearchHistory(query);
+		$rootScope.$broadcast('searchHistory:updated');
+
 		if (productsData.count > 0)
 			$scope.tabs[0] = true;
 		else if (usersData.count > 0)

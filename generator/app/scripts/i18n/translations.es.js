@@ -32,6 +32,7 @@ define([], function() {
 		'navbar.post':'Publicar Producto',
 		'navbar.logout':'Cerrar Sesión',
 		'navbar.search':'Buscar',
+		'navbar.searchHistory': 'Historial de búsqueda',
 		
 		'modal.signIn.signToAccount':'Ingresa a tu cuenta',
 		'modal.signIn.usernamePlaceholder':'hola@productseek.com',

@@ -265,39 +265,17 @@ footer p {
   width: 100%;
 }
 
-.history-item {
+.history-item, .autocomplete-item {
   color: #8c8c8c;
   display: block;
   padding: 5px;
   border-radius: 4px;
+  font-weight: 500;
+	
   .glyphicon {
     margin-right: 1em;
   }
-}
-
-.suggestion-row {
-  height: 3em;
-}
-
-.center-flex {
-  display: flex;
-  align-items: center;
-}
-
-.suggestion-list-item {
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    background-color: #f3f3f3;
-    text-decoration: none;
-    color: #333;
-    border-radius: 4px;
-    outline: none;
-  }
-}
-
-.history-item {
+	
   &:hover, &:focus {
     background-color: #f3f3f3;
     text-decoration: none;
@@ -305,6 +283,11 @@ footer p {
     border-radius: 4px;
     outline: none;
   }
+}
+
+.center-flex {
+  display: flex;
+  align-items: center;
 }
 
 .suggestion-list-item:focus {
@@ -332,7 +315,7 @@ footer p {
 
 .suggestions-box .divider {
   border: 1px solid #f3f3f3;
-  margin: 0.5em;
+  margin: 0.5em 0;
 }
 
 .suggestion-list-item .upvote-btn {
@@ -428,6 +411,9 @@ ps-btn-red:focus {
 .align-center {
   text-align: center;
 }
+
+
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {

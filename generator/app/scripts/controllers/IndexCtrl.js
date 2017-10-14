@@ -1,30 +1,32 @@
 'use strict';
 define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf', 'services/restService'], function(productSeek) {
-
+	
 	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', 'restService', '$scope', '$location', function(session, auth, modal, restService, $scope, $location) {
+		var searchMinLength = 3;
 		$scope.showSuggestions = false;
 		$scope.isLoggedIn = auth.isLoggedIn();
 		$scope.loggedUser = auth.getLoggedUser();
+		$scope.emptyResults = false;
 
-		// No me anduvo con $scope.logOut = auth.logOut
 		$scope.logOut = function() {
 			auth.logOut();
 		};
 
-		var focusIndex = -1;
-		$scope.searchFieldFocus = false;
-		$scope.focusElems = [];
+//		var focusIndex = -1;
+//		$scope.searchFieldFocus = false;
+//		$scope.focusElems = [];
 
 		$scope.searchHistory = session.getSearchHistory();
 		$scope.searchSuggestions = [];
 
+		$scope.$on('searchHistory:updated', function() {
+			$scope.searchHistory = session.getSearchHistory();
+		});
+		
 		$scope.search = function(q) {
-			console.log(q);
 			// TODO: error message if empty, too short, too long...
-			if (q && 3 <= q.length && q.length <= 64) {
+			if (q && searchMinLength <= q.length && q.length <= 64) {
 				$scope.showSuggestions = false;
-				session.saveToSearchHistory(q);
-				$scope.searchHistory = session.getSearchHistory();
 				$location.url('/search?q=' + q);
 			}
 		};
@@ -43,55 +45,51 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 
 		$scope.searchFocus = function() {
 			$scope.showSuggestions = true;
-			focusIndex = -1;
 		};
 		
 		$(document).click(function(e) {
-			var container = $('.search-form-container');
+			var container = $('#search-box');
 			if (!container.is(event.target) && container.has(event.target).length === 0) {
 				$scope.showSuggestions = false;
-				focusIndex = -1;	
 				$scope.$apply();
 			}
 		});
 
-		$scope.searchKeyDown = function(e) {
-			if (e.keyCode == 38) { // arrow up
-				console.log("Arrow up")
-				if (focusIndex <= 0) { // Focus back to input
-					$scope.focusElems[0] = false;
-					$scope.searchFocus();
-				} else {
-					$scope.focusElems[focusIndex--] = false;
-					$scope.focusElems[focusIndex] = true;
-				}
-				e.preventDefault();
-			} 
-			else if (e.keyCode == 40) { // arrow down
-				console.log("Arrow down")
-				$scope.searchFieldFocus = false;
-				if (focusIndex >= 0)
-					$scope.focusElems[focusIndex] = false;
-				// TODO: agregar most popular products
-				focusIndex = (focusIndex < $scope.searchHistory.length - 1 ? focusIndex + 1 : focusIndex);
-				$scope.focusElems[focusIndex] = true;
-				e.preventDefault();
-			}
-			console.log($scope.focusElems);
-		}
+//		$scope.searchKeyDown = function(e) {
+//			if (e.keyCode == 38) { // arrow up
+//				console.log("Arrow up")
+//				if (focusIndex <= 0) { // Focus back to input
+//					$scope.focusElems[0] = false;
+//					$scope.searchFocus();
+//				} else {
+//					$scope.focusElems[focusIndex--] = false;
+//					$scope.focusElems[focusIndex] = true;
+//				}
+//				e.preventDefault();
+//			} 
+//			else if (e.keyCode == 40) { // arrow down
+//				console.log("Arrow down")
+//				$scope.searchFieldFocus = false;
+//				if (focusIndex >= 0)
+//					$scope.focusElems[focusIndex] = false;
+//				// TODO: agregar most popular products
+//				focusIndex = (focusIndex < $scope.searchHistory.length - 1 ? focusIndex + 1 : focusIndex);
+//				$scope.focusElems[focusIndex] = true;
+//				e.preventDefault();
+//			}
+//			console.log($scope.focusElems);
+//		}
 
-		$scope.signInModal = modal.signInModal;
-		$scope.signUpModal = modal.signUpModal;
-		
-		var timeoutSearch;
 		$scope.autocompleteSearch = function() {
-			// TODO: Puede haber problemas de concurrencia, una búsqueda vieja 
-			// sobreescribe una más nueva
-			if ($scope.query && $scope.query.length >= 3) {
+			if ($scope.query && $scope.query.length >= searchMinLength) {
 				restService.searchProducts($scope.query).then(function(data) {
+					$scope.emptyResults = data.products.length == 0;
 					$scope.searchSuggestions = data.products;
 				});
 			}
 		};
+		
+		$scope.signInModal = modal.signInModal;
+		$scope.signUpModal = modal.signUpModal;
 	}]);
 });
