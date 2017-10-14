@@ -25,6 +25,10 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
             return $sce.trustAsResourceUrl('//www.youtube.com/embed/' + video_id + '?rel=0');
         };
         
+        $scope.isOwnerLogged = function() {
+            return $scope.isLoggedIn ? $scope.loggedUser.id === $scope.creator.id : false;
+        };
+        
 		$scope.parentCommentForm = {};
 
 		$scope.childCommentForm = [];
