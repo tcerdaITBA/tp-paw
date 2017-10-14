@@ -25,7 +25,7 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 
 		$scope.childCommentForm = [];
 
-		$scope.showParentSpinner = {};
+		$scope.showParentSpinner = false;
 
 		$scope.showChildSpinner = [];
 
