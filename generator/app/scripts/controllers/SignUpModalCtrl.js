@@ -1,7 +1,7 @@
 define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'services/restService', 'services/authService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('SignUpModalCtrl', ['$scope', 'authService', 'restService', function($scope, authService, restService) {
+    productSeek.controller('SignUpModalCtrl', ['$scope', '$uibModalInstance', 'authService', 'restService', function($scope, $uibModalInstance, authService, restService) {
 		
         $scope.user = {};
         
@@ -20,7 +20,10 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
   				console.log("Valid form");
 				restService.createUser($scope.user)
                 .then(function(data) {
-                    authService.logIn($scope.user.email, $scope.user.password, true);
+                    return authService.logIn($scope.user.email, $scope.user.password, true);
+                })
+                .then(function() {
+                    $uibModalInstance.dismiss('close');
                 });              
             }
             else {

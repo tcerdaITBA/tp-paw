@@ -2,11 +2,6 @@
 define([], function() {
 
 	return {
-		WELCOME_MESSAGE: 'Always a pleasure scaffolding your apps',
-
-		WELCOME_CONTROLLER: 'A new and shiny controller has been made!',
-		WELCOME_CONTROLLER_FOLLOWUP: 'This is the default view for your controlller. Change it (if you want, of course)!',
-        
         app: 'Apps',
         art: 'Arte',
         book: 'Libros',
@@ -123,8 +118,8 @@ define([], function() {
         'product.singular': 'producto',
         'product.plural': 'productos',
         
-        'collection.error.nameTooShort': 'Nombre de la Colección debe por lo menos contener 4 caracteres',
-        'collection.error.nameTooLong': 'Nombre de la Colección no puede exceder los 64 caracteres',
+        'collection.error.nameTooShort': 'El nombre de la Colección debe contener al menos 4 caracteres',
+        'collection.error.nameTooLong': 'El nombre de la Colección no puede exceder los 64 caracteres',
         
         'feedback.favListCreated.textEnd': 'fue creada',
         'feedback.productAddedToFavList.text': 'fue agregado a',
@@ -138,9 +133,14 @@ define([], function() {
         
         'signUp.error.addPicture': 'Agregue imagen de perfil',
         'signUp.error.addName': 'El nombre no puede estar vacío',
+        'signUp.error.nameTooLong': 'El nombre no puede exceder los 30 caracteres',
+        'signUp.error.nameTooShort': 'El nombre debe contener al menos 4 caracteres',
         'signUp.error.addPassword': 'La contraseña no puede estar vacía',
-        'signUp.error.addPasswordConf': 'Las contraseñas no son iguales',
-        'signUp.error.addEmail': 'El email no puede estar vacío',
+        'signUp.error.passwordTooLong': 'La contraseña no puede exceder los 60 caracteres',
+        'signUp.error.passwordTooShort': 'La contraseña debe contener al menos 6 caracteres',
+        'signUp.error.passwordMatch': 'Las contraseñas deben ser iguales',
+        'signUp.error.addEmail': 'El no puede estar vacío',
+        'signUp.error.invalidEmail': 'El email provisto no es válido',
         
         'product.creator':'Creador',
         'product.comment':'Comentar',

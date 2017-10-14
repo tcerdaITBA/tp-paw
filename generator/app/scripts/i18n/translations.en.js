@@ -2,11 +2,6 @@
 define([], function() {
 
 	return {
-		WELCOME_MESSAGE: 'Always a pleasure scaffolding your apps',
-
-		WELCOME_CONTROLLER: 'A new and shiny controller has been made!',
-		WELCOME_CONTROLLER_FOLLOWUP: 'This is the default view for your controlller. Change it (if you want, of course)!',
-        
         app: 'Apps',
         art: 'Art',
         book: 'Books',
@@ -138,9 +133,14 @@ define([], function() {
         
         'signUp.error.addPicture': 'Add profile picture',
         'signUp.error.addName': 'Add name',
+        'signUp.error.nameTooLong': 'Name cannot exceed 30 characters',
+        'signUp.error.nameTooShort': 'Name must be at least 4 characters long',
         'signUp.error.addPassword': 'Add password',
-        'signUp.error.addPasswordConf': 'Add password confirmation',
-        'signUp.error.addEmail': 'Add valid email',
+        'signUp.error.passwordTooLong': 'Password cannot exceed 60 characters',
+        'signUp.error.passwordTooShort': 'Password must be at least 6 characters long',
+        'signUp.error.passwordMatch': 'Passwords do not match',
+        'signUp.error.addEmail': 'Add email',
+        'signUp.error.invalidEmail': 'Invalid email',
 
         'product.creator':'Creator',
         'product.comment':'Comment',
