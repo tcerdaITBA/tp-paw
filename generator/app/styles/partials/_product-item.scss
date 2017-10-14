@@ -53,6 +53,10 @@
 	.glyphicon {
 		display: inline;
 	}
+	
+	.glyphicon-plus {
+		margin-right: -2px;
+	}
 
     &:hover {
 	   background-color: #c4c4c4 !important;
@@ -86,6 +90,7 @@
         &:hover {
             background-color: #d03c54 !important;
             border-color: #d03c54 !important;
+			color: #fff !important;
         }
     }
     
