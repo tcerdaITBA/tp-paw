@@ -69,6 +69,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                 if ($scope.borderHover) {
                     $(".product-list-item").hover(function(){
                         $(this).css("border-color", "#33bb9c");
+                        $(this).css("cursor", "pointer");
                         }, function(){
                         $(this).css("border-color", "#f3f3f3");
                     });
