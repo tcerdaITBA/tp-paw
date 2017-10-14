@@ -57,6 +57,8 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 			then(function(data) {
 				//sleep(2000);
 				$scope.showParentSpinner = false;
+
+				$scope.parentCommentForm.text = '';
 				$scope.comments.push(data);		
 			});	
 		};
@@ -68,6 +70,8 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 			then(function(data) {
 				//sleep(2000);
 				$scope.showChildSpinner[index] = false;
+
+				$scope.childCommentForm[index].text = '';
 				$scope.comments[index].children.push(data);
 			});
 		};
