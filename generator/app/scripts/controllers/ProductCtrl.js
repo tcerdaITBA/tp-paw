@@ -1,7 +1,7 @@
 'use strict';
 define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 
-	productSeek.controller('ProductCtrl', ['authService', 'restService', '$scope', 'product', function(auth, restService, $scope, product) {
+	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', '$scope', 'product', function(auth, $sce, restService, $scope, product) {
 		$scope.product = product;
 		$scope.description = product.description;
         $scope.creator = product.creator;
@@ -21,6 +21,10 @@ define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
 		  slidesToShow: 1
 		};
 
+        $scope.trustedVideoUrl = function(video_id) {
+            return $sce.trustAsResourceUrl('//www.youtube.com/embed/' + video_id + '?rel=0');
+        };
+        
 		$scope.parentCommentForm = {};
 
 		$scope.childCommentForm = [];

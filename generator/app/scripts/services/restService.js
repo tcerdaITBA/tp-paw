@@ -212,7 +212,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 },
                 
                 postProduct: function(data) {
-                    var productData = {name: data.name, tagline: data.tagline, description: data.description, website: data.website, category: data.category, video_ids: data.videos};
+                    var productData = {name: data.name, tagline: data.tagline, description: data.description, website: data.website, category: data.category, video_ids: data.videoIds};
                     var logo = data.logo;
                     var images = data.images;
                     var formData = new FormData();

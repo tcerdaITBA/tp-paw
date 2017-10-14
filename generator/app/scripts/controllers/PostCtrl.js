@@ -4,7 +4,7 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService'], functio
 	productSeek.controller('PostCtrl', ['$scope', '$location', 'categories', 'productImagesCount', 'productVideosCount', 'restService', function($scope, $location, categories, productImagesCount, productVideosCount, restService) {
 		$scope.categories = categories;
 		
-		$scope.youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+		$scope.youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
         
         $scope.URLregex = "#([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\xE000-\xF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?#iS"
 		
@@ -24,11 +24,22 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService'], functio
             
 			angular.forEach($scope.product.videos, function(video) {
 				if (video) {
-					empty = false;  // TODO: extraer ID del video con la regex
+					empty = false;
                 }
 			});
             
 			$scope.noImagesError = empty;           
+        };
+        
+        var extractIds = function() {
+            $scope.product.videoIds = [];
+            
+            angular.forEach($scope.product.videos, function(video) {
+                if (video) {
+                    var id = $scope.youtubeRegex.exec(video)[1];
+                    $scope.product.videoIds.push(id);
+                }
+            });
         };
         
         $scope.$watchCollection('product.images', checkNoImagesError);
@@ -38,9 +49,8 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService'], functio
             checkNoImagesError();
 			
 			if ($scope.postForm.$valid && !$scope.noImagesError) {
-				// TODO: pasar los links a solo ids
-				// Formulario validado.
 				console.log("Valid form");
+                extractIds();
 				restService.postProduct($scope.product)
                 .then(function(data) {
                     $location.url('/product/' + data.id);
