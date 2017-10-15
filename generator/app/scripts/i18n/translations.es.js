@@ -126,10 +126,11 @@ define([], function() {
         'collection.error.nameTooLong': 'Nombre de la Colección no puede exceder los 64 caracteres',
         
         'feedback.favListCreated.textEnd': 'fue creada',
-        'feedback.productAddedToFavList.text': 'fue agregado a'
+        'feedback.productAddedToFavList.text': 'fue agregado a',
         
         'product.creator':'Creador',
         'product.comment':'Comentar',
+        'product.comment.placeholder':'Escriba su comentario aqui..',
         'product.discussion':'Forma parte de la discusión',
         'product.anonymousComment.beginning':'Para comentar un producto debes',
         'product.anonymousComment.signIn':'iniciar sesiÃ³n',

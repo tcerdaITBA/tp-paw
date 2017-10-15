@@ -126,8 +126,10 @@ define([], function() {
         
         'feedback.favListCreated.textEnd': 'was created',
         'feedback.productAddedToFavList.text': 'was added to',
+
         'product.creator':'Creator',
         'product.comment':'Comment',
+        'product.comment.placeholder':'Write your comment here..',
         'product.discussion':'Join discussion',
         'product.anonymousComment.beginning':'In order to comment a product you need to',
         'product.anonymousComment.signIn':'sign in',
