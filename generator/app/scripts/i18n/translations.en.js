@@ -14,6 +14,10 @@ define([], function() {
         other: 'Other',
         all: 'All',
         
+        'date': 'Recent',
+        'alpha': 'a-z',
+        'votes': 'Most Voted',
+        
         'description.app': 'Here you will find the best apps for all your needs.',
         'description.art': 'If you are seeking inspiration, this is the right place to come. Take a moment to let your emotions flow.',
         'description.book': 'There is nothing like a good book. Expand your knowledge or just feel the excitement of a great adventure.',

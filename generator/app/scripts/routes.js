@@ -8,13 +8,13 @@ define(function() {
                 templateUrl: '/views/home.html',
                 controller: 'HomeCtrl',
                 resolve: {
-                    productsData: ['$route', 'restService', function($route, restService) {
+                    productsData: ['$route', 'restService', 'defaultSortCriteria', function($route, restService, defaultSortCriteria) {
                         var params = $route.current.params;
                         params.page = params.page || 1;
                         params.pageSize = params.pageSize || 10;
-                        params.orderBy = params.orderBy || 'date';
-                        params.order = params.order || 'desc';
-                        return restService.getProducts($route.current.params);
+                        params.orderBy = params.orderBy || defaultSortCriteria.orderBy;
+                        params.order = params.order || defaultSortCriteria.order;
+                        return restService.getProducts(params);
                     }]
                 }
             },

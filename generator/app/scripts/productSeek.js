@@ -73,6 +73,8 @@ define(['routes',
 			.value('productImagesCount', 4)
 			.value('productVideosCount', 2)
             .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
+            .value('sortCriterias', [{orderBy: 'date', order: 'desc'}, {orderBy: 'votes', order: 'desc'}, {orderBy: 'alpha', order: 'asc'}])
+            .value('defaultSortCriteria', {orderBy: 'date', order: 'desc'})
 			.filter('urlencode', function() {
 				return function(input) {
 					return window.encodeURIComponent(input);
