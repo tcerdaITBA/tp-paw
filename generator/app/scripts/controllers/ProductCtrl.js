@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'angular-slick-carousel'], function(productSeek) {
+define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], function(productSeek) {
 
 	productSeek.controller('ProductCtrl', ['authService', 'restService', '$scope', 'product', function(auth, restService, $scope, product) {
 		$scope.product = product;
