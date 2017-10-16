@@ -1,7 +1,7 @@
 'use strict';
 define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], function(productSeek) {
 
-	productSeek.controller('ProductCtrl', ['authService', 'restService', '$scope', 'product', function(auth, restService, $scope, product) {
+	productSeek.controller('ProductCtrl', ['authService', 'restService', '$scope', '$location', 'product', function(auth, restService, $scope, $location, product) {
 		$scope.product = product;
 		$scope.description = product.description;
         $scope.creator = product.creator;
@@ -55,7 +55,6 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 
 			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
 			then(function(data) {
-				//sleep(2000);
 				$scope.showParentSpinner = false;
 
 				$scope.parentCommentForm.text = '';
@@ -68,13 +67,24 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 
 			restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
 			then(function(data) {
-				//sleep(2000);
 				$scope.showChildSpinner[index] = false;
 
 				$scope.childCommentForm[index].text = '';
 				$scope.comments[index].children.push(data);
 			});
 		};
+
+		$scope.directToCreatorProfile = function() {
+                    $location.url('/profile/' + $scope.creator.id);
+        };
+
+        $scope.directToLoggedProfile = function() {
+                    $location.url('/profile/' + $scope.loggedUser.id);
+        };
+
+        $scope.directToAuthorProfile = function(id) {
+                    $location.url('/profile/' + id);
+        };
 
 		// debugging
 		// function sleep(milliseconds) {
