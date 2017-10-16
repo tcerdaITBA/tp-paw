@@ -247,41 +247,39 @@
                             <div class="dot2"></div>
                         </div>
                     </div>
-                    <div ng-show="isLoggedIn">
-                        <div class="row child-comment-row">
-                            <div class="col-md-10 col-md-offset-2">
-                                <div class="comment-form reply-comment">
-                                    <div class="row">   
-                                        <div class="col-md-1">
-                                            <a href="">
-                                                <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+                    <div class="row reply-comment" ng-show="isLoggedIn">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div class="comment-form">
+                                <div class="row">   
+                                    <div class="col-md-1">
+                                        <a href="">
+                                            <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-10 child-name-mail-holder">
+                                        <div class="row col-md-12 profile-name-holder">
+                                            <a href=""> 
+                                                <p class="profile-name">{{loggedUser.name}}</p>
                                             </a>
                                         </div>
-                                        <div class="col-md-10 child-name-mail-holder">
-                                            <div class="row col-md-12 profile-name-holder">
-                                                <a href=""> 
-                                                    <p class="profile-name">{{loggedUser.name}}</p>
-                                                </a>
-                                            </div>
-                                            <div class="row col-md-12">
-                                                <a class="creator-mail" href="mailto:{{loggedUser.email}}">
-                                                    <span class="glyphicon glyphicon-envelope"></span>
-                                                    <p>{{loggedUser.email}}</p>
-                                                 </a>
-                                            </div>                                      
-                                        </div>
+                                        <div class="row col-md-12">
+                                            <a class="creator-mail" href="mailto:{{loggedUser.email}}">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <p>{{loggedUser.email}}</p>
+                                             </a>
+                                        </div>                                      
                                     </div>
-                                    <form ng-submit="childCommentSubmit(commentFamily.id, $index)">
-                                        <div class="input-field">
-                                            <input type="text" ng-model="childCommentForm[$index].text" class="form-control comment-box" placeholder="{{'product.comment.placeholder' | translate}}" required>
-                                        </div>
-                                        <div class="submit-field">
-                                            <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
-                                        </div>
-                                    </form>
-                                    <div class="row comment-divider">
-                                        <div class="col-md-12"></div>
+                                </div>
+                                <form ng-submit="childCommentSubmit(commentFamily.id, $index)">
+                                    <div class="input-field">
+                                        <input type="text" ng-model="childCommentForm[$index].text" class="form-control comment-box" placeholder="{{'product.comment.placeholder' | translate}}" required>
                                     </div>
+                                    <div class="submit-field">
+                                        <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
+                                    </div>
+                                </form>
+                                <div class="row comment-divider">
+                                    <div class="col-md-12"></div>
                                 </div>
                             </div>
                         </div>
