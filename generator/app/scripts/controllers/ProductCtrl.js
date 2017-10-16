@@ -25,6 +25,10 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 
 		$scope.childCommentForm = [];
 
+		$scope.parentCommentLengthError = false;
+
+		$scope.childCommentLengthError = [];
+
 		$scope.showParentSpinner = false;
 
 		$scope.showChildSpinner = [];
@@ -35,6 +39,44 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 	            scrollTop: $(this).offset().top - offset + 'px'
 	        }, 'fast');
 	        return this; // for chaining...
+	    };
+
+	    function validChildCommentSubmit(index) {
+			return $scope.childCommentForm[index].text.length < 512;
+	    };
+
+	    function validParentCommentSubmit(index) {
+			return $scope.parentCommentForm.text.length < 512;
+	    };
+
+	    function childCommentSubmitNoError(parentCommentId, index) {
+	    	$scope.showChildSpinner[index] = true;
+
+	    	restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
+			then(function(data) {
+				$scope.showChildSpinner[index] = false;
+				$scope.childCommentLengthError[index] = false;
+
+				$scope.childCommentForm[index].text = '';
+				$scope.comments[index].children.push(data);
+			});
+
+	    };
+
+	   	function parentCommentSubmitNoError() {
+			$scope.showParentSpinner = true;
+
+			//scroll to bottom of page
+			angular.element(document.getElementsByClassName('footer')).goTo();
+
+			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
+			then(function(data) {
+				$scope.showParentSpinner = false;
+				$scope.parentCommentLengthError = false;
+
+				$scope.parentCommentForm.text = '';
+				$scope.comments.push(data);		
+			});	
 	    };
 
 	    $scope.showReplyForm = function(target) {
@@ -48,30 +90,19 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 		};
 
 		$scope.parentCommentSubmit = function() {
-			$scope.showParentSpinner = true;
 
-			//scroll to bottom of page
-			angular.element(document.getElementsByClassName('footer')).goTo();
-
-			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
-			then(function(data) {
-				$scope.showParentSpinner = false;
-
-				$scope.parentCommentForm.text = '';
-				$scope.comments.push(data);		
-			});	
+			if (validParentCommentSubmit())
+				parentCommentSubmitNoError();
+			else
+				$scope.parentCommentLengthError = true;
 		};
 
 		$scope.childCommentSubmit = function(parentCommentId, index) {
-			$scope.showChildSpinner[index] = true;
-
-			restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
-			then(function(data) {
-				$scope.showChildSpinner[index] = false;
-
-				$scope.childCommentForm[index].text = '';
-				$scope.comments[index].children.push(data);
-			});
+			
+			if (validChildCommentSubmit(index))
+				childCommentSubmitNoError(parentCommentId, index);
+			else
+				$scope.childCommentLengthError[index] = true;
 		};
 
 		$scope.directToCreatorProfile = function() {

@@ -83,11 +83,12 @@
                         </div>                                      
                     </div>
                 </div>  
-                <form ng-submit="parentCommentSubmit()">
+                <form ng-submit="parentCommentSubmit()" ng-class="{'has-error': parentCommentLengthError}">
                     <div class="row input-field">
                         <div class="col-md-10">
                             <input type="text" ng-model="parentCommentForm.text" class="form-control 
                             comment-box" placeholder="{{'product.comment.placeholder' | translate}}" required>
+                            <span ng-show="parentCommentLengthError" class="help-block" ng-bind="'product.comment.error' | translate"></span>
                         </div>
                     </div>
                     <div class="row submit-field">
@@ -269,9 +270,10 @@
                                         </div>                                      
                                     </div>
                                 </div>
-                                <form ng-submit="childCommentSubmit(commentFamily.id, $index)">
+                                <form ng-submit="childCommentSubmit(commentFamily.id, $index)" ng-class="{'has-error': childCommentLengthError[$index]}">
                                     <div class="input-field">
                                         <input type="text" ng-model="childCommentForm[$index].text" class="form-control comment-box" placeholder="{{'product.comment.placeholder' | translate}}" required>
+                                        <span ng-show="childCommentLengthError[$index]" class="help-block" ng-bind="'product.comment.error' | translate"></span>
                                     </div>
                                     <div class="submit-field">
                                         <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
