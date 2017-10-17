@@ -203,7 +203,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                     var picture = data.picture;
                     var formData = new FormData();
 
-                    formData.append('picture', picture);
+                    formData.append('picture', dataURItoBlob(picture));
                     return $http.put(url + '/user/picture', formData, multipartMetadata())
                     .then(function(response){
                         return response.data;

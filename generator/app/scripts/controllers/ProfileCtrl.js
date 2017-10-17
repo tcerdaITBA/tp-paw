@@ -86,6 +86,11 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
 		};
 
         $scope.changePictureModal = modalService.changePictureModal;
+
+        $scope.$on('user:picture', function(event, picture) {
+			$scope.user.picture_url = picture;
+        });
+        
         $scope.changePasswordModal = modalService.changePasswordModal;        
 	}]);
 });

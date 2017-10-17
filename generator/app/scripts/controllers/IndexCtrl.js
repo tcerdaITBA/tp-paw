@@ -23,6 +23,10 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			$scope.searchHistory = session.getSearchHistory();
 		});
 		
+		$scope.$on('user:picture', function(event, picture) {
+			$scope.loggedUser.picture_url = picture;
+		});
+
 		$scope.search = function(q) {
 			// TODO: error message if empty, too short, too long...
 			if (q && searchMinLength <= q.length && q.length <= 64) {

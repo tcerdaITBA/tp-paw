@@ -1,6 +1,5 @@
 <div id="change-picture-modal" class="">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true ng-click="cancel()"">&times;</button>
             <h4 class="modal-title">
                 <span class="glyphicon glyphicon-cog"></span>
                 <span ng-bind="'Profile.settings.changePicture' | translate"></span>
@@ -9,16 +8,34 @@
     </div>
     
     <div class="modal-body">
+        <form ng-submit="uploadPicture()" name="pictureForm" novalidate>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3" ng-class="{'has-error': pictureForm.picture.$invalid && pictureForm.$submitted}" >
+                    <div class="form-group">
+                        <input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="profilePicture.picture" ng-model="__" name="picture" valid-file required/>
+                        <label for="pictureUpload" class="image-upload-btn">
+                            <div class="preview-container">
+                                <img class="preview-image" src="{{profilePicture.picture}}" ng-show="profilePicture.picture">
+                                <div class="remove-btn glyphicon glyphicon-remove" ng-click="deletePicture(); $event.preventDefault();" ng-show="profilePicture.picture"></div>
+                                <div class="add-img-text prof-img-text" ng-show="!profilePicture.picture">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <span ng-bind="'button.addProfilePicture' | translate"></span>
+                                </div>
+                            </div>
+                        </label>
+                        <span ng-show="pictureForm.picture.$invalid && pictureForm.$submitted" class="help-block align-center" ></span>
+                    </div>
+                </div>
 
-
-        <div class="row row-centered">
-            <div class="col-md-12">
-                <div class="col-sm-12">
-                        <button class="btn btn-default ps-btn" type="submit" name="submit" ng-bind="'Profile.settings.changePicture' | translate"></button>
-                        <button type="button" class="btn btn-default modal-btn" data-dismiss="modal" ng-bind="'passwordForm.cancel' | translate" ng-click="cancel()"></button>
+            <div class="row row-centered">
+                <div class="col-md-12">
+                    <div class="col-sm-12">
+                            <button class="btn btn-default ps-btn" type="submit" name="submit" ng-bind="'Profile.settings.changePicture' | translate"></button>
+                            <button type="button" class="btn btn-default modal-btn" data-dismiss="modal" ng-bind="'passwordForm.cancel' | translate" ng-click="cancel()"></button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
              
         
