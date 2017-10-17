@@ -156,6 +156,20 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             {'current_password': currentPass, 'new_password': newPass});
                 },
                 
+                changeProfilePicture: function(data){
+                    var picture = data.picture;
+                    var formData = new FormData();
+
+                    formData.append('picture', picture);
+                    return $http.put(url + '/user/picture', formData, multipartMetadata())
+                    .then(function(response){
+                        return response.data;
+                    })
+                    .catch(function(response){
+                        return response.data;
+                    })
+                },
+
                 createUser: function(data) {
                     var userData = {name: data.name, password: data.password, email: data.email};
                     var picture = data.picture;

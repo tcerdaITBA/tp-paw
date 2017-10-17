@@ -7,6 +7,8 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'servi
         $scope.passwordForm.newPassword = {};
         $scope.passwordForm.confirmPassword = {};
         
+        //Falta el password Pattern
+
         $scope.cancel = function(){
             $scope.$dismiss();
         };
@@ -26,7 +28,7 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'servi
                     console.log(response);
                 });
             } else {
-                    console.log("Son distintas");
+                    console.log("Son distintas la nueva contraseña y la confirmación");
                 };	
 		};
 
