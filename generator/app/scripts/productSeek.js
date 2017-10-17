@@ -7,13 +7,15 @@ define(['routes',
 	'angular-bootstrap',
 	'angular-sanitize',
 	'bootstrap',
-	'angular-translate'],
+	'angular-translate',
+	'angular-slick-carousel'],
 	function(config, dependencyResolverFor, i18n) {
 		var productSeek = angular.module('productSeek', [
 			'ngRoute',
 			'pascalprecht.translate',
 			'ngSanitize',
-			'ui.bootstrap'
+			'ui.bootstrap',
+			'slickCarousel',
 		]);
 		productSeek
 			.config(
@@ -71,6 +73,8 @@ define(['routes',
 			.value('productImagesCount', 4)
 			.value('productVideosCount', 2)
             .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
+            .value('sortCriterias', [{orderBy: 'date', order: 'desc'}, {orderBy: 'votes', order: 'desc'}, {orderBy: 'alpha', order: 'asc'}])
+            .value('defaultSortCriteria', {orderBy: 'date', order: 'desc'})
 			.filter('urlencode', function() {
 				return function(input) {
 					return window.encodeURIComponent(input);

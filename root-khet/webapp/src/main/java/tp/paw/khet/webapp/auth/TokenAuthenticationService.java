@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Jwts;
+
 @Service
 public class TokenAuthenticationService {
 
@@ -23,7 +25,7 @@ public class TokenAuthenticationService {
 	public Authentication getAuthentication(final HttpServletRequest request) {
 		final String token = request.getHeader(AUTH_HEADER_NAME);
 
-		if (token != null) {
+		if (token != null && Jwts.parser().isSigned(token)) {
 			final UserDetails user = tokenHandler.parseUserFromToken(token);
 
 			if (user != null)

@@ -237,8 +237,10 @@ public class ProductsController {
 		LOGGER.debug("Accessed createProduct");
 		
 		// @FormDataParam parameter is optional --> it may be null
-		if (formProduct == null)
+		if (formProduct == null) {
+			LOGGER.warn("FormDataParam null in createProduct");
 			return Response.status(Status.BAD_REQUEST).build();
+		}
 		
 		performFormValidations(formProduct, formPictures);
 		

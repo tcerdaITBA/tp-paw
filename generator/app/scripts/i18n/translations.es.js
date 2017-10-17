@@ -2,11 +2,6 @@
 define([], function() {
 
 	return {
-		WELCOME_MESSAGE: 'Always a pleasure scaffolding your apps',
-
-		WELCOME_CONTROLLER: 'A new and shiny controller has been made!',
-		WELCOME_CONTROLLER_FOLLOWUP: 'This is the default view for your controlller. Change it (if you want, of course)!',
-        
         app: 'Apps',
         art: 'Arte',
         book: 'Libros',
@@ -18,6 +13,10 @@ define([], function() {
         music: 'Música',
         other: 'Otros',
         all: 'Todo',
+        
+        'date': 'Recientes',
+        'alpha': 'a-z',
+        'votes': 'Más Votados',
         
         'description.app': 'Aquí encontrarás las mejores apps para todo lo que necesites.',
         'description.art': 'Si buscas inspiración, este es el lugar indicado. Tómate un momento para que tus emociones fluyan.',
@@ -37,12 +36,14 @@ define([], function() {
 		'navbar.post':'Publicar Producto',
 		'navbar.logout':'Cerrar Sesión',
 		'navbar.search':'Buscar',
+		'navbar.searchHistory': 'Historial de búsqueda',
 		
 		'modal.signIn.signToAccount':'Ingresa a tu cuenta',
 		'modal.signIn.usernamePlaceholder':'hola@productseek.com',
 		'modal.signIn.passwordPlaceholder':'Contraseña',
 		'modal.signIn.rememberMe':'Recuérdame',
 		'modal.signIn.signIn':'Iniciar sesión',
+        'modal.signIn.error.invalidUser': 'Email o contraseña inválidos',
 		
 		'searchResults.products':'Productos',
 		'searchResults.users':'Usuarios',
@@ -81,12 +82,6 @@ define([], function() {
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
 
-        'Profile.Tab.uploadedProducts': 'Publicados',
-        'Profile.Tab.votedProducts': 'Votados',
-        'Profile.Tab.favlist': 'Colecciones',
-        'Profile.settings.changePicture':'Cambiar foto de perfil',
-        'Profile.settings.changePassword': 'Cambiar contraseña',
-        
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',
         'collections.add': 'Agregar',
@@ -104,8 +99,8 @@ define([], function() {
 		'post.giveUsInformation': 'Danos información de tu producto',
 		'post.productName': 'Nombre del producto',
 		'post.placeholder.productName': 'Product Seek',
-		'post.slogan': 'Eslogan',
-		'post.placeholder.slogan': 'Una descripción rápida del producto',
+		'post.tagline': 'Eslogan',
+		'post.placeholder.tagline': 'Una descripción rápida del producto',
 		'post.description': 'Descripción',
 		'post.placeholder.description': 'Descripción completa',
 		'post.webpageOptional': 'Página Web (Opcional)',
@@ -115,16 +110,56 @@ define([], function() {
         'post.videos': 'Videos de Youtube',
 		'post.link': 'Link',
 		'post.postButton': 'Publicar',
-		
+
+		'post.error.addImageOrVideo': 'Agrega al menos una imagen o video',
+		'post.error.invalidYoutube': 'Link de Youtube inválido',
+		'post.error.addTagline': 'El eslogan no puede estar vacío',
+        'post.error.taglineTooLong': 'El eslogan no puede exceder los 140 caracteres',
+		'post.error.addName': 'El nombre del producto no puede estar vacío',
+        'post.error.nameTooShort': 'El nombre del producto debe contener al menos 4 caracteres',
+        'post.error.nameTooLong': 'El nombre del producto no puede exceder los 64 caracteres',
+		'post.error.addDescription': 'La descripción no puede estar vacía',
+        'post.error.descriptionTooLong': 'La descripción no puede exceder los 8000 caracteres',
+        'post.error.addLogo': 'El logo no puede estar vacío',
+        'post.error.invalidWebpage': 'La página web no es válida',
+        
+        'button.addLogo':'Agregar Logo',
 		'button.addImage':'Agregar Imagen',
 		
         'product.singular': 'producto',
         'product.plural': 'productos',
         
-        'collection.error.nameTooShort': 'Nombre de la Colección debe por lo menos contener 4 caracteres',
-        'collection.error.nameTooLong': 'Nombre de la Colección no puede exceder los 64 caracteres',
+        'collection.error.nameTooShort': 'El nombre de la Colección debe contener al menos 4 caracteres',
+        'collection.error.nameTooLong': 'El nombre de la Colección no puede exceder los 64 caracteres',
         
         'feedback.favListCreated.textEnd': 'fue creada',
-        'feedback.productAddedToFavList.text': 'fue agregado a'
+        'feedback.productAddedToFavList.text': 'fue agregado a',
+        
+        'button.addProfilePicture' : 'Foto de Perfil',
+        'modal.signUp.title': 'Registrarse',
+        'modal.signUp.passwordConfPlaceholder': 'Confirmar Contraseña',
+        'modal.signUp.usernamePlaceholder': 'Nombre',
+        'modal.signUp.emailPlaceholder': 'Email',
+        'modal.signUp.signUp': 'Registrarse',
+        
+        'signUp.error.addPicture': 'Agregue imagen de perfil',
+        'signUp.error.addName': 'El nombre no puede estar vacío',
+        'signUp.error.nameTooLong': 'El nombre no puede exceder los 30 caracteres',
+        'signUp.error.nameTooShort': 'El nombre debe contener al menos 4 caracteres',
+        'signUp.error.addPassword': 'La contraseña no puede estar vacía',
+        'signUp.error.passwordTooLong': 'La contraseña no puede exceder los 60 caracteres',
+        'signUp.error.passwordTooShort': 'La contraseña debe contener al menos 6 caracteres',
+        'signUp.error.passwordMatch': 'Las contraseñas deben ser iguales',
+        'signUp.error.addEmail': 'El no puede estar vacío',
+        'signUp.error.invalidEmail': 'El email provisto no es válido',
+        
+        'product.creator':'Creador',
+        'product.comment':'Comentar',
+        'product.discussion':'Forma parte de la discusión',
+        'product.anonymousComment.beginning':'Para comentar un producto debes',
+        'product.anonymousComment.signIn':'iniciar sesión',
+        'product.anonymousComment.or':'o',
+        'product.anonymousComment.signUp':'registrarte.',
+        'product.reply':'Responder'
 	};
 });

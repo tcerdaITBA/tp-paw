@@ -1,6 +1,7 @@
 package tp.paw.khet.webapp.dto.form;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,6 +15,7 @@ import tp.paw.khet.model.Category;
 import tp.paw.khet.webapp.form.constraints.NoDuplicates;
 
 public class FormProduct {
+	@NotBlank
 	@Size(max = 64, min = 4)
 	private String name;
 
@@ -32,6 +34,7 @@ public class FormProduct {
 	@Valid
 	@NoDuplicates
 	@XmlElement(name = "video_ids")
+	@NotNull
 	private String[] videoIds;
 
 	@Pattern(regexp="app|art|book|fashion|film|food|gadget|game|music|other", flags = Pattern.Flag.CASE_INSENSITIVE)
@@ -77,7 +80,22 @@ public class FormProduct {
 	}
 
 	public String[] getVideoIds() {
-		return videoIds == null ? ArrayUtils.EMPTY_STRING_ARRAY : videoIds;
+		int count = 0;
+		
+		if (videoIds == null)
+			return ArrayUtils.EMPTY_STRING_ARRAY;
+		
+		for (int i = 0; i < videoIds.length; i++)
+			if (videoIds[i] != null)
+				count++;
+		
+		final String[] ans = new String[count];
+		
+		for (int i = 0; i < videoIds.length; i++)
+			if (videoIds[i] != null)
+				ans[i] = videoIds[i];
+		
+		return ans;
 	}
 
 	public void setVideoIds(String[] videos) {

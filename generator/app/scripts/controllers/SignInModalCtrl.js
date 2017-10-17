@@ -7,22 +7,20 @@ define(['productSeek', 'services/authService'], function(productSeek) {
 		$scope.loginForm.username = {};
 		$scope.loginForm.password = {};
 
-		$scope.loginForm.username.emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-		
-		$scope.loginForm.password.passwordPattern; // TODO
+        $scope.invalidUser = false;
 				
 		$scope.loginSubmit = function() {
 			console.log($scope.loginForm);
-			auth.logIn($scope.loginForm.username.text, $scope.loginForm.password.text, $scope.loginForm.rememberMe)
-			.then(function(response) {
-				alert('Logged In!')
-				console.log(auth.getLoggedUser());
-				$signInModal.dismiss();
-			})
-			.catch(function(response) {
-				alert('Invalid user');
-				console.log(response);
-			});
+            if($scope.form.$valid) {
+                auth.logIn($scope.loginForm.username.text, $scope.loginForm.password.text, $scope.loginForm.rememberMe)
+                .then(function(response) {
+                    $scope.invalidUser = false;
+                    $signInModal.dismiss();
+                })
+                .catch(function(response) {
+                    $scope.invalidUser = true;
+                });
+            }
 		};
     }]);
 

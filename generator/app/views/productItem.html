@@ -17,18 +17,18 @@
             </div>
         </div>
         <div class="row product-category">
-            <div class="col-md-3 categoryTag" ng-hide="hideCategory" ng-click="directToCategory(); $event.stopPropagation()">
-                <p>{{product.category | translate}}</p>
+            <div class="col-md-3">
+				<div ng-hide="hideCategory" class="product-button category-btn" ng-click="directToCategory(); $event.stopPropagation()">
+					{{product.category | translate}}
+				</div>
             </div>
             <div class="col-md-6 col-md-offset-{{offset}}">
-                <button class="pull-right btn btn-default upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()">
-                    <p><span class="glyphicon glyphicon-arrow-up upvote-icon"></span>{{product.voters_count}}</p>
-                </button>
-                <button ng-show="isLoggedIn" class="btn btn-default add-to-collection-btn pull-right categoryTag" ng-click="showCollectionModal(); $event.stopPropagation()">
-                    <p>
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </p>
-                </button>
+                <div class="pull-right product-button upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()">
+                    <span class="glyphicon glyphicon-arrow-up"></span>{{product.voters_count}}
+                </div>
+                <div ng-show="isLoggedIn" class="product-button pull-right add-to-collection-btn" ng-click="showCollectionModal(); $event.stopPropagation()">
+					<span class="glyphicon glyphicon-plus"></span>
+                </div>
             </div>
         </div>
     </div>

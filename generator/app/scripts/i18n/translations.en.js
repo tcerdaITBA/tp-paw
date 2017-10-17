@@ -2,11 +2,6 @@
 define([], function() {
 
 	return {
-		WELCOME_MESSAGE: 'Always a pleasure scaffolding your apps',
-
-		WELCOME_CONTROLLER: 'A new and shiny controller has been made!',
-		WELCOME_CONTROLLER_FOLLOWUP: 'This is the default view for your controlller. Change it (if you want, of course)!',
-        
         app: 'Apps',
         art: 'Art',
         book: 'Books',
@@ -18,6 +13,10 @@ define([], function() {
         music: 'Music',
         other: 'Other',
         all: 'All',
+        
+        'date': 'Recent',
+        'alpha': 'a-z',
+        'votes': 'Most Voted',
         
         'description.app': 'Here you will find the best apps for all your needs.',
         'description.art': 'If you are seeking inspiration, this is the right place to come. Take a moment to let your emotions flow.',
@@ -37,12 +36,14 @@ define([], function() {
 		'navbar.post':'Post Product',
 		'navbar.logout':'Logout',
 		'navbar.search':'Search',
+		'navbar.searchHistory': 'Search history',
 		
 		'modal.signIn.signToAccount':'Sign in to your account',
 		'modal.signIn.usernamePlaceholder':'hello@productseek.com',
 		'modal.signIn.passwordPlaceholder':'Password',
 		'modal.signIn.rememberMe':'Remember me',
 		'modal.signIn.signIn':'Sign In',
+        'modal.signIn.error.invalidUser': 'Invalid email or password',
 		
 		'searchResults.products':'Products',
 		'searchResults.users':'Users',
@@ -98,8 +99,8 @@ define([], function() {
 		'post.giveUsInformation': 'Give us some information about your product',
 		'post.productName': 'Product name',
 		'post.placeholder.productName': 'Product Seek',
-		'post.slogan': 'Slogan',
-		'post.placeholder.slogan': 'A quick description of your product',
+		'post.tagline': 'Tagline',
+		'post.placeholder.tagline': 'A quick description of your product',
 		'post.description': 'Description',
 		'post.placeholder.description': 'Complete description',
 		'post.webpageOptional': 'Web Page (Optional)',
@@ -110,6 +111,19 @@ define([], function() {
 		'post.link': 'Link',
 		'post.postButton': 'Post',
 		
+		'post.error.addImageOrVideo': 'You should add an image or Youtube video',
+		'post.error.invalidYoutube': 'Not a valid Youtube link',
+		'post.error.addTagline': 'Add a tagline',
+        'post.error.taglineTooLong': 'Tagline cannot exceed 140 characters',
+		'post.error.addName': 'Add a product name',
+        'post.error.nameTooShort': 'Product name must be at least 4 characters long',
+        'post.error.nameTooLong': 'Product name cannot exceed 64 characters',
+		'post.error.addDescription': 'Add a description',
+        'post.error.descriptionTooLong': 'Description cannot exceed 8000 characters',
+        'post.error.addLogo': 'Add a logo',
+        'post.error.invalidWebpage': 'Invalid webpage',
+		
+        'button.addLogo': 'Add Logo',
 		'button.addImage':'Add Image',
 		
         'product.singular': 'product',
@@ -119,6 +133,34 @@ define([], function() {
         'collection.error.nameTooLong': 'Collection name cannot exceed 64 characters',
         
         'feedback.favListCreated.textEnd': 'was created',
-        'feedback.productAddedToFavList.text': 'was added to'
+        'feedback.productAddedToFavList.text': 'was added to',
+
+        'button.addProfilePicture' : 'Profile Picture',
+        'modal.signUp.title': 'Sign Up',
+        'modal.signUp.passwordConfPlaceholder': 'Confirm Password',
+        'modal.signUp.usernamePlaceholder': 'Name',
+        'modal.signUp.emailPlaceholder': 'Email',
+        'modal.signUp.signUp': 'Sign Up',
+        
+        'signUp.error.addPicture': 'Add profile picture',
+        'signUp.error.addName': 'Add name',
+        'signUp.error.nameTooLong': 'Name cannot exceed 30 characters',
+        'signUp.error.nameTooShort': 'Name must be at least 4 characters long',
+        'signUp.error.addPassword': 'Add password',
+        'signUp.error.passwordTooLong': 'Password cannot exceed 60 characters',
+        'signUp.error.passwordTooShort': 'Password must be at least 6 characters long',
+        'signUp.error.passwordMatch': 'Passwords do not match',
+        'signUp.error.addEmail': 'Add email',
+        'signUp.error.invalidEmail': 'Invalid email',
+
+        'product.creator':'Creator',
+        'product.comment':'Comment',
+        'product.discussion':'Join discussion',
+        'product.anonymousComment.beginning':'In order to comment a product you need to',
+        'product.anonymousComment.signIn':'sign in',
+        'product.anonymousComment.or':'or',
+        'product.anonymousComment.signUp':'sign up.',
+        'product.reply':'Reply'
+
 	};
 });

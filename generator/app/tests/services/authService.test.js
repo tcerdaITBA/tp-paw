@@ -10,8 +10,6 @@ define(['services/authService', 'angular-mocks'], function() {
 		var DUMMY_TOKEN = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
 		var RESPONSE_ERROR = {detail: 'Not found.'};
 		
-		console.log(CREDENTIALS);
-
 		beforeEach(module('productSeek'));
 
     	beforeEach(inject(function(_authService_, _url_, _$httpBackend_, _$q_) {

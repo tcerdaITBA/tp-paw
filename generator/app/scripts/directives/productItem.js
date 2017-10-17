@@ -1,12 +1,12 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/modalService', 'services/sessionService', 'controllers/DeleteModalCtrl', 'controllers/CollectionModalCtrl'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'controllers/DeleteModalCtrl', 'controllers/CollectionModalCtrl'], function(productSeek) {
     productSeek.directive('productItem', function() {
         return {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/productItem.html',
-            scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&'},
-            controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', function($scope, $location, $route, authService, restService, modalService, sessionService) {
+            scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&', borderHover: '=', order: '=', orderBy: '='},
+            controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', 'defaultSortCriteria', function($scope, $location, $route, authService, restService, modalService, defaultSortCriteria) {
 
                 var product = $scope.product;
                 
@@ -14,7 +14,10 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                 $scope.loggedUser = authService.loggedUser;
                 
                 $scope.directToCategory = function() {
-                    $location.url('/?category=' + product.category);
+                    console.log($scope.orderBy);
+                    var orderBy = $scope.orderBy || defaultSortCriteria.orderBy;
+                    var order = $scope.order || defaultSortCriteria.order;
+                    $location.url('/?category=' + product.category + '&orderBy=' + orderBy + '&order=' + order);
                 };
         
                 $scope.directToProduct = function() {
@@ -65,6 +68,15 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
                             $scope.onDelete();
                     });
                 };
+                
+                if ($scope.borderHover) {
+                    $(".product-list-item").hover(function(){
+                        $(this).css("border-color", "#33bb9c");
+                        $(this).css("cursor", "pointer");
+                        }, function(){
+                        $(this).css("border-color", "#f3f3f3");
+                    });
+                }
             }]
         }
     });
