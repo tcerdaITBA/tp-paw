@@ -17,7 +17,6 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'servi
             console.log($scope.passwordForm);
             
             if($scope.passwordForm.newPassword.text === $scope.passwordForm.confirmPassword.text) {
-                console.log("Son iguales");
                 restService.changePassword($scope.passwordForm.oldPassword.text,$scope.passwordForm.newPassword.text)
                 .then(function(response) {
                     alert('Password Changed')

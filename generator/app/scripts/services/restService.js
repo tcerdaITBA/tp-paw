@@ -47,7 +47,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                              return response.data;
                         })
                         .catch(function(response) {
-                             return response.data;
+                             return $q.reject(response.data);
                         });                
             }
             
@@ -60,7 +60,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 							return response.data;
 						})
 						.catch(function(response) {
-							return response.data;
+							return $q.reject(response.data);
 						});
 			}
             
@@ -73,7 +73,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             return response.data;
                         })
                         .catch(function(response) {
-                            return response.data;
+                            return $q.reject(response.data);
                         });
             }
 
@@ -86,7 +86,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             return response.data;
                         })
                         .catch(function(response) {
-                            return response.data;
+                            return $q.reject(response.data);
                         });
             }            
             
@@ -166,8 +166,8 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response){
-                        return response.data;
-                    })
+                        return $q.reject(response.data);
+                    });
                 },
 
                 createUser: function(data) {
@@ -183,8 +183,8 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response) {
-                        return response.data;
-                    })
+                        return $q.reject(response.data);
+                    });
                 },
                 
                 postProduct: function(data) {
@@ -205,7 +205,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response) {
-                        return response.data;
+                        return $q.reject(response.data);
                     });
                 }
 			}
