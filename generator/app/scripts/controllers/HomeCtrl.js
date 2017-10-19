@@ -1,11 +1,13 @@
 'use strict';
 define(['productSeek', 'directives/productItem', 'services/restService', 'directives/loading'], function(productSeek) {
 
-	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'productsData', 'categories', 'sortCriterias', 'defaultSortCriteria', function($scope, $routeParams, productsData, categories, sortCriterias, defaultSortCriteria) {
+	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'restService','productsData', 'categories', 'sortCriterias', 'defaultSortCriteria', function($scope, $routeParams, restService, productsData, categories, sortCriterias, defaultSortCriteria) {
         $scope.products = productsData.products;
         $scope.category = $routeParams.category;
         $scope.orderBy = $routeParams.orderBy || defaultSortCriteria.orderBy;
         $scope.order = $routeParams.order || defaultSortCriteria.order;
+		$scope.page = $routeParams.page || 1;
+		$scope.pageSize = $routeParams.pageSize || 10;
         $scope.sortCriterias = sortCriterias;
         $scope.categories = [];
         
@@ -48,13 +50,31 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
                 sc.active = sc === sortCriteria;
             }
                 
-        }
+        };
         
         $scope.setActiveCategory = function(category) {
             for (var i = 0; i < $scope.categories.length; i++) {
                 var c = $scope.categories[i];
                 c.active = c === category;
             }
-        }        
+        };
+		
+		$scope.loadMoreProducts = function() {
+			$scope.scrollBusy = true;
+			var params = {};
+			$scope.page++;
+			params.page = $scope.page;
+			params.pageSize = $scope.pageSize;
+			params.orderBy = $scope.orderBy;
+			params.order = $scope.order;
+
+			restService.getProducts(params)
+			.then(function(productsData) {
+				if (productsData.count != 0) {
+					$scope.scrollBusy = false;
+					$scope.products.push.apply($scope.products, productsData.products); 
+				}  
+			});
+		};
 	}]);
 });

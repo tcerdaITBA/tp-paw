@@ -10,7 +10,7 @@ define(function() {
                 resolve: {
                     productsData: ['$route', 'restService', 'defaultSortCriteria', function($route, restService, defaultSortCriteria) {
                         var params = $route.current.params;
-                        params.page = params.page || 1;
+                        params.page = 1;
                         params.pageSize = params.pageSize || 10;
                         params.orderBy = params.orderBy || defaultSortCriteria.orderBy;
                         params.order = params.order || defaultSortCriteria.order;
