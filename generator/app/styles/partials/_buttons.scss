@@ -1,18 +1,18 @@
 .ps-btn {
-	background-color: #39C6A6;
-	color: #fff;
-	border-color: #39C6C6;
+	background-color: #39C6A6 !important;
+	color: #fff !important;
+	border-color: #39C6C6 !important;
 }
 
 .ps-btn:hover {
 	background-color: #33bb9c !important;
-	color: #fff;
+	color: #fff !important;
 	border-color: #33bb9c !important;
 	transition: all .2s ease-in;
 }
 
 .ps-btn:focus, ps-btn-red:focus {
-	color: #fff;
+	color: #fff !important;
 }
 
 .ps-btn-red {

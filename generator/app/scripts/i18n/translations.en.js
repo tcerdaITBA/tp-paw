@@ -14,6 +14,10 @@ define([], function() {
         other: 'Other',
         all: 'All',
         
+        'date': 'Recent',
+        'alpha': 'a-z',
+        'votes': 'Most Voted',
+        
         'description.app': 'Here you will find the best apps for all your needs.',
         'description.art': 'If you are seeking inspiration, this is the right place to come. Take a moment to let your emotions flow.',
         'description.book': 'There is nothing like a good book. Expand your knowledge or just feel the excitement of a great adventure.',
@@ -151,6 +155,8 @@ define([], function() {
 
         'product.creator':'Creator',
         'product.comment':'Comment',
+        'product.comment.placeholder':'Write your comment here..',
+        'product.comment.error':'Comment length must be lower or equal than 512',
         'product.discussion':'Join discussion',
         'product.anonymousComment.beginning':'In order to comment a product you need to',
         'product.anonymousComment.signIn':'sign in',

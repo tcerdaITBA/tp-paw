@@ -42,7 +42,7 @@ define(['services/restService', 'angular-mocks'], function() {
         	});
 
             it('should return with a 404 when called with an non-existent user id', function() {
-                $httpBackend.whenGET(url + '/users/' + DUMMY_USER.id).respond(404, $q.reject(RESPONSE_ERROR));
+                $httpBackend.whenGET(url + '/users/' + DUMMY_USER.id).respond(404, RESPONSE_ERROR);
 
                 restService.getUser(DUMMY_USER.id)
                 .catch(function(res) {

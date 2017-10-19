@@ -1,6 +1,6 @@
 'use strict';
 define(['productSeek', 'jquery', 'services/sessionService'], function(productSeek) {
-		return productSeek.factory('restService', ['$http', 'url', 'sessionService', function($http, url, session) {
+		return productSeek.factory('restService', ['$http', '$q', 'url', 'sessionService', function($http, $q, url, session) {
             
             var translateTable = {
                     category: 'category',
@@ -76,7 +76,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                              return response.data;
                         })
                         .catch(function(response) {
-                             return response.data;
+                             return $q.reject(response.data);
                         });                
             }
             
@@ -89,7 +89,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 							return response.data;
 						})
 						.catch(function(response) {
-							return response.data;
+							return $q.reject(response.data);
 						});
 			}
             
@@ -102,7 +102,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             return response.data;
                         })
                         .catch(function(response) {
-                            return response.data;
+                            return $q.reject(response.data);
                         });
             }
 
@@ -129,7 +129,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             return response.data;
                         })
                         .catch(function(response) {
-                            return response.data;
+                            return $q.reject(response.data);
                         });
             }            
             
@@ -193,7 +193,26 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 createCollection: function(name) {
                     return doPost(url + '/collections', {'name': name});
                 },
+
+                changePassword: function(currentPass, newPass) {
+                    return doPut(url + '/user/password', 
+                            {'current_password': currentPass, 'new_password': newPass});
+                },
                 
+                changeProfilePicture: function(data){
+                    var picture = data.picture;
+                    var formData = new FormData();
+
+                    formData.append('picture', dataURItoBlob(picture));
+                    return $http.put(url + '/user/picture', formData, multipartMetadata())
+                    .then(function(response){
+                        return response.data;
+                    })
+                    .catch(function(response){
+                        return $q.reject(response.data);
+                    });
+                },
+
                 createUser: function(data) {
                     var userData = {name: data.name, password: data.password, email: data.email};
                     var picture = data.picture;
@@ -207,8 +226,8 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response) {
-                        return response.data;
-                    })
+                        return $q.reject(response.data);
+                    });
                 },
                 
                 postProduct: function(data) {
@@ -230,7 +249,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response) {
-                        return response.data;
+                        return $q.reject(response.data);
                     });
                 },
 
