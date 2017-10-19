@@ -15,7 +15,6 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'direc
 
         $scope.uploadPicture = function(){
             if ($scope.pictureForm.$valid) {
-                console.log("Valid form");
                 restService.changeProfilePicture($scope.profilePicture)
               .then(function(data) {
                 $rootScope.$broadcast('user:picture', $scope.profilePicture.picture);
