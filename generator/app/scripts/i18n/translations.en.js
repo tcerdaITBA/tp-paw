@@ -142,6 +142,8 @@ define([], function() {
         'modal.signUp.emailPlaceholder': 'Email',
         'modal.signUp.signUp': 'Sign Up',
         
+        'modal.password.notMatchOldPassword' : 'Password does not match the current password',
+
         'signUp.error.addPicture': 'Add profile picture',
         'signUp.error.addName': 'Add name',
         'signUp.error.nameTooLong': 'Name cannot exceed 30 characters',

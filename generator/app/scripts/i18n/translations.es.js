@@ -142,6 +142,8 @@ define([], function() {
         'modal.signUp.emailPlaceholder': 'Email',
         'modal.signUp.signUp': 'Registrarse',
         
+        'modal.password.notMatchOldPassword' : 'La contraseña ingresada no coincide con la actual',
+        
         'signUp.error.addPicture': 'Agregue imagen de perfil',
         'signUp.error.addName': 'El nombre no puede estar vacío',
         'signUp.error.nameTooLong': 'El nombre no puede exceder los 30 caracteres',

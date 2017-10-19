@@ -2,34 +2,37 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'servi
 
     'use strict';
     productSeek.controller('ChangePasswordModalCtrl', ['authService', 'sessionService', 'restService', '$scope', '$uibModalInstance', function(auth,session,restService, $scope, $modal) {
-        $scope.passwordForm = {};
-        $scope.passwordForm.oldPassword = {};
-        $scope.passwordForm.newPassword = {};
-        $scope.passwordForm.confirmPassword = {};
-        
+        $scope.password = {};
+
         //Falta el password Pattern
 
         $scope.cancel = function(){
             $scope.$dismiss();
         };
 
+        var checkPasswordsMatch = function() {
+            $scope.passwordsMatch = $scope.password.newPassword === $scope.password.confirmPassword;
+        }
+
+        $scope.$watch('password.newPassword', checkPasswordsMatch);
+        $scope.$watch('password.confirmPassword', checkPasswordsMatch);
+        
         $scope.passwordSubmit = function() {
-            console.log($scope.passwordForm);
-            
-            if($scope.passwordForm.newPassword.text === $scope.passwordForm.confirmPassword.text) {
-                restService.changePassword($scope.passwordForm.oldPassword.text,$scope.passwordForm.newPassword.text)
+            checkPasswordsMatch();
+            if($scope.passwordForm.$valid) {
+                restService.changePassword($scope.password.oldPassword,$scope.password.newPassword)
                 .then(function(response) {
-                    alert('Password Changed')
+                    $scope.invalidPassword = false;                    
+                    alert('Password Changed') 
+                    //SnackBar                   
                     $modal.dismiss();
                 })
                 .catch(function(response) {
-                    alert('La contraseña actual no es la correcta');
-                    console.log(response);
+                    $scope.invalidPassword = true;
                 });
-            } else {
-                    console.log("Son distintas la nueva contraseña y la confirmación");
-                };	
-		};
+            }
+        }
+
 
     }]);
 
