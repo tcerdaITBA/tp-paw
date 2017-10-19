@@ -18,7 +18,6 @@
         <div class="col-md-6">
             <product-item border-hover="false" hide-delete="!isOwnerLogged()" product="product"></product-item>
         </div>  
-            <!-- href vacios son las referencias al perfil del creador, tanto en el nombre como en su imágen de perfil !-->
         <div class="col-md-4 col-md-offset-1 creator-item highlighted">
             <div class="row">
                 <div class="col-md-12">
@@ -29,13 +28,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <a href="">
+                            <a ng-click="directToCreatorProfile()">
                                 <img class="profile-img-circle" src="{{creator.picture_url}}">
                             </a>
                         </div>
                         <div class="col-md-10">
                             <div class="row col-md-12 profile-name-holder">
-                                <a href=""> 
+                                <a ng-click="directToCreatorProfile()"> 
                                     <p class="profile-name">{{creator.name}}</p>
                                 </a>
                             </div>
@@ -66,13 +65,13 @@
             <div class="col-md-7 highlighted parent-form-comment">
                 <div class="row">
                     <div class="col-md-1">
-                        <a href="">
+                        <a ng-click="directToLoggedProfile()">
                             <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
                         </a>
                     </div>
                     <div class="col-md-10 parent-name-mail-holder">
                         <div class="row col-md-12 profile-name-holder">
-                            <a href=""> 
+                            <a ng-click="directToLoggedProfile()"> 
                                 <p class="profile-name">{{loggedUser.name}}</p>
                             </a>
                         </div>
@@ -84,11 +83,12 @@
                         </div>                                      
                     </div>
                 </div>  
-                <form ng-submit="parentCommentSubmit()">
+                <form ng-submit="parentCommentSubmit()" ng-class="{'has-error': parentCommentLengthError}">
                     <div class="row input-field">
                         <div class="col-md-10">
                             <input type="text" ng-model="parentCommentForm.text" class="form-control 
-                            comment-box" required>
+                            comment-box" placeholder="{{'product.comment.placeholder' | translate}}" required>
+                            <span ng-show="parentCommentLengthError" class="help-block" ng-bind="'product.comment.error' | translate"></span>
                         </div>
                     </div>
                     <div class="row submit-field">
@@ -115,16 +115,16 @@
         <div class="col-md-7 comments-holder highlighted">
             <div ng-repeat ="commentFamily in comments">
                 <div class="comment-and-replies">
-                    <div class="parent-comment" id="parentComment{{$index + 1}}">
+                    <div class="parent-comment">
                         <div class="row">
                             <div class="col-md-1">
-                                <a href="">
+                                <a ng-click="directToAuthorProfile(commentFamily.author.id)">
                                     <img class="profile-img-circle" src="{{commentFamily.author.picture_url}}">
                                 </a>
                             </div>
                             <div class="col-md-10 parent-name-mail-holder">
                                 <div class="row col-md-12 profile-name-holder">
-                                    <a href=""> 
+                                    <a ng-click="directToAuthorProfile(commentFamily.author.id)"> 
                                         <p class="profile-name">{{commentFamily.author.name}}</p>
                                     </a>                                                           
                                 </div>
@@ -181,13 +181,13 @@
                             <div class="col-md-10 col-md-offset-2">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <a href="">
+                                        <a ng-click="directToAuthorProfile(childComment.author.id)">
                                             <img class="profile-img-circle" src="{{childComment.author.picture_url}}">
                                         </a>
                                     </div>
                                     <div class="col-md-10 child-name-mail-holder">
                                         <div class="row col-md-12">
-                                            <a href=""> 
+                                            <a ng-click="directToAuthorProfile(childComment.author.id)"> 
                                                 <p class="profile-name">{{childComment.author.name}}<p>
                                             </a>
                                         </div>
@@ -241,55 +241,58 @@
                             </div>
                         </div>
                     </div>
-<!--                     <div class="spinner">
-                        <div class="dot1"></div>
-                        <div class="dot2"></div>
-                    </div> -->
-                    <div ng-show="isLoggedIn">
-                        <div class="row child-comment-row">
-                            <div class="col-md-10 col-md-offset-2">
-                                <div class="comment-form reply-comment">
-                                    <div class="row">   
-                                        <div class="col-md-1">
-                                            <a href="">
-                                                <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+                    <div class="row spinner-holder" ng-show="showChildSpinner[$index]">
+                        <div class="spinner">
+                            <div class="dot1"></div>
+                            <div class="dot2"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="reply-comment col-md-10 col-md-offset-2" ng-show="isLoggedIn">
+                            <div class="comment-form">
+                                <div class="row">   
+                                    <div class="col-md-1">
+                                        <a ng-click="directToLoggedProfile()">
+                                            <img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-10 child-name-mail-holder">
+                                        <div class="row col-md-12 profile-name-holder">
+                                            <a ng-click="directToLoggedProfile()"> 
+                                                <p class="profile-name">{{loggedUser.name}}</p>
                                             </a>
                                         </div>
-                                        <div class="col-md-10 child-name-mail-holder">
-                                            <div class="row col-md-12 profile-name-holder">
-                                                <a href=""> 
-                                                    <p class="profile-name">{{loggedUser.name}}</p>
-                                                </a>
-                                            </div>
-                                            <div class="row col-md-12">
-                                                <a class="creator-mail" href="mailto:{{loggedUser.email}}">
-                                                    <span class="glyphicon glyphicon-envelope"></span>
-                                                    <p>{{loggedUser.email}}</p>
-                                                 </a>
-                                            </div>                                      
-                                        </div>
+                                        <div class="row col-md-12">
+                                            <a class="creator-mail" href="mailto:{{loggedUser.email}}">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <p>{{loggedUser.email}}</p>
+                                             </a>
+                                        </div>                                      
                                     </div>
-                                    <form ng-submit="childCommentSubmit(commentFamily.id, $index)">
-                                        <div class="input-field">
-                                            <input type="text" ng-model="childCommentForm[$index].text" class="form-control comment-box" required>
-                                        </div>
-                                        <div class="submit-field">
-                                            <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
-                                        </div>
-                                    </form>
-                                    <div class="row comment-divider">
-                                        <div class="col-md-12"></div>
+                                </div>
+                                <form ng-submit="childCommentSubmit(commentFamily.id, $index)" ng-class="{'has-error': childCommentLengthError[$index]}">
+                                    <div class="input-field">
+                                        <input type="text" ng-model="childCommentForm[$index].text" class="form-control comment-box" placeholder="{{'product.comment.placeholder' | translate}}" required>
+                                        <span ng-show="childCommentLengthError[$index]" class="help-block" ng-bind="'product.comment.error' | translate"></span>
                                     </div>
+                                    <div class="submit-field">
+                                        <button class="btn btn-default ps-btn post-comment-btn" type="submit" name="submit" ng-bind="'product.comment' | translate"></button>
+                                    </div>
+                                </form>
+                                <div class="row comment-divider">
+                                    <div class="col-md-12"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-<!--             <div class="spinner">
-              <div class="dot1"></div>
-              <div class="dot2"></div>
-            </div> -->
+            <div class="row spinner-holder" ng-show="showParentSpinner">
+                <div class="spinner">
+                  <div class="dot1"></div>
+                  <div class="dot2"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
