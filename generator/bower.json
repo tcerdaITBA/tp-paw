@@ -14,7 +14,8 @@
     "angular-bootstrap": "^2.5.0",
     "slick-carousel": "~1.6.0",
     "angular-slick": "^0.2.1",
-    "angular-slick-carousel": "^3.1.7"
+    "angular-slick-carousel": "^3.1.7",
+    "ngInfiniteScroll": "1.2.2"
   },
   "devDependencies": {
     "bootstrap": "~3.3.1",

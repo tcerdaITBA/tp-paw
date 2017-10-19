@@ -87,6 +87,11 @@ require.config({
                 'slick-carousel',
                 'angular'
             ]
+        },
+        ngInfiniteScroll: {
+            deps: [
+                'angular'
+            ]
         }
     },
     packages: [

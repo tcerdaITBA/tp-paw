@@ -8,7 +8,8 @@ define(['routes',
 	'angular-sanitize',
 	'bootstrap',
 	'angular-translate',
-	'angular-slick-carousel'],
+	'angular-slick-carousel',
+	'ngInfiniteScroll'],
 	function(config, dependencyResolverFor, i18n) {
 		var productSeek = angular.module('productSeek', [
 			'ngRoute',
@@ -16,6 +17,7 @@ define(['routes',
 			'ngSanitize',
 			'ui.bootstrap',
 			'slickCarousel',
+			'infinite-scroll'
 		]);
 		productSeek
 			.config(
