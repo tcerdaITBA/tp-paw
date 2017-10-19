@@ -1,6 +1,6 @@
 'use strict';
 define(['productSeek', 'jquery', 'services/sessionService'], function(productSeek) {
-		return productSeek.factory('restService', ['$http', 'url', 'sessionService', function($http, url, session) {
+		return productSeek.factory('restService', ['$http', '$q', 'url', 'sessionService', function($http, $q, url, session) {
             
             var translateTable = {
                     category: 'category',
