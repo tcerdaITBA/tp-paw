@@ -63,6 +63,7 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
 			$scope.scrollBusy = true;
 			var params = {};
 			$scope.page++;
+			params.category = $scope.category;
 			params.page = $scope.page;
 			params.pageSize = $scope.pageSize;
 			params.orderBy = $scope.orderBy;
