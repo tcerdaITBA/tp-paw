@@ -1,7 +1,7 @@
-define(['productSeek', 'services/authService', 'services/sessionService', 'directives/validFile', 'directives/ngFileRead', 'services/restService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/sessionService', 'services/snackbarService','directives/validFile', 'directives/ngFileRead', 'services/restService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('ChangePictureModalCtrl', ['authService', 'sessionService','restService','$uibModalInstance', '$scope', '$rootScope', function(auth, session, restService, $uibModalInstance, $scope, $rootScope) {
+    productSeek.controller('ChangePictureModalCtrl', ['authService', 'sessionService','restService','$uibModalInstance', '$scope', '$rootScope','snackbarService', function(auth, session, restService, $uibModalInstance, $scope, $rootScope, snackbarService) {
         
         $scope.profilePicture = {};
 
@@ -18,8 +18,8 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'direc
                 restService.changeProfilePicture($scope.profilePicture)
               .then(function(data) {
                 $rootScope.$broadcast('user:picture', $scope.profilePicture.picture);
+                snackbarService.showSnackbar('pictureChanged'); 
                 $uibModalInstance.close();
-                //SnackBar
               });              
           }
           else {

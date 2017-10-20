@@ -1,7 +1,7 @@
-define(['productSeek', 'services/authService', 'services/sessionService', 'services/restService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/sessionService', 'services/restService', 'services/snackbarService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('ChangePasswordModalCtrl', ['authService', 'sessionService', 'restService', '$scope', '$uibModalInstance', function(auth,session,restService, $scope, $modal) {
+    productSeek.controller('ChangePasswordModalCtrl', ['authService', 'sessionService', 'restService', '$scope', '$uibModalInstance', 'snackbarService', function(auth,session,restService, $scope, $modal, snackbarService) {
         $scope.password = {};
 
         //Falta el password Pattern
@@ -22,9 +22,8 @@ define(['productSeek', 'services/authService', 'services/sessionService', 'servi
             if($scope.passwordForm.$valid) {
                 restService.changePassword($scope.password.oldPassword,$scope.password.newPassword)
                 .then(function(response) {
-                    $scope.invalidPassword = false;                    
-                    alert('Password Changed') 
-                    //SnackBar                   
+                    $scope.invalidPassword = false;    
+                    snackbarService.showSnackbar('passwordChanged');                    
                     $modal.dismiss();
                 })
                 .catch(function(response) {
