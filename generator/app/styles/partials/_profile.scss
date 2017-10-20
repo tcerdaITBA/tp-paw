@@ -27,6 +27,7 @@
 }
 
 .profile-info-box {
+	padding-top: 15px;
 	background-color: white;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .04);
 }
@@ -129,4 +130,12 @@
 	.panel-heading:hover {
 		border-color: #ddd !important; 
 	}
+}
+
+.setting-row {
+	text-align: right;
+}
+
+.profile-change-preview-container {
+	height: 15em !important;
 }
