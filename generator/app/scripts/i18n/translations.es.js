@@ -134,6 +134,9 @@ define([], function() {
         
         'feedback.favListCreated.textEnd': 'fue creada',
         'feedback.productAddedToFavList.text': 'fue agregado a',
+
+        'feedback.passwordChanged.text' : 'Contraseña cambiada exitosamente',
+        'feedback.pictureChanged.text' : 'Foto de perfil cambiada exitosamente',
         
         'button.addProfilePicture' : 'Foto de Perfil',
         'modal.signUp.title': 'Registrarse',

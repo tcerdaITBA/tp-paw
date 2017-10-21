@@ -12,9 +12,9 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			auth.logOut();
 		};
 
-//		var focusIndex = -1;
-//		$scope.searchFieldFocus = false;
-//		$scope.focusElems = [];
+		var focusIndex = -1;
+		$scope.searchFieldFocus = false;
+		$scope.focus = [];
 
 		$scope.searchHistory = session.getSearchHistory();
 		$scope.searchSuggestions = [];
@@ -48,7 +48,9 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		});
 
 		$scope.searchFocus = function() {
+			$scope.searchFieldFocus = true;
 			$scope.showSuggestions = true;
+			focusIndex = -1;
 		};
 		
 		$(document).click(function(e) {
@@ -59,30 +61,27 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			}
 		});
 
-//		$scope.searchKeyDown = function(e) {
-//			if (e.keyCode == 38) { // arrow up
-//				console.log("Arrow up")
-//				if (focusIndex <= 0) { // Focus back to input
-//					$scope.focusElems[0] = false;
-//					$scope.searchFocus();
-//				} else {
-//					$scope.focusElems[focusIndex--] = false;
-//					$scope.focusElems[focusIndex] = true;
-//				}
-//				e.preventDefault();
-//			} 
-//			else if (e.keyCode == 40) { // arrow down
-//				console.log("Arrow down")
-//				$scope.searchFieldFocus = false;
-//				if (focusIndex >= 0)
-//					$scope.focusElems[focusIndex] = false;
-//				// TODO: agregar most popular products
-//				focusIndex = (focusIndex < $scope.searchHistory.length - 1 ? focusIndex + 1 : focusIndex);
-//				$scope.focusElems[focusIndex] = true;
-//				e.preventDefault();
-//			}
-//			console.log($scope.focusElems);
-//		}
+		$scope.arrowControl = function(e) {
+			if (e.keyCode == 38) { // arrow up
+				e.preventDefault();
+				if (focusIndex <= 0) { // Focus back to input
+					$scope.focus[0] = false;
+					$scope.searchFocus();
+				} else {
+					$scope.focus[focusIndex--] = false;
+					$scope.focus[focusIndex] = true;
+				}
+			}
+			else if (e.keyCode == 40) { // arrow down
+				e.preventDefault();
+				$scope.searchFieldFocus = false;
+				if (focusIndex >= 0)
+					$scope.focus[focusIndex] = false;
+
+				focusIndex = (focusIndex < $scope.searchHistory.length - 1 ? focusIndex + 1 : focusIndex);
+				$scope.focus[focusIndex] = true;
+			}
+		};
 
 		$scope.autocompleteSearch = function() {
 			if ($scope.query && $scope.query.length >= searchMinLength) {

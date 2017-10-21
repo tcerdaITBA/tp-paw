@@ -135,6 +135,10 @@ define([], function() {
         'feedback.favListCreated.textEnd': 'was created',
         'feedback.productAddedToFavList.text': 'was added to',
 
+        'feedback.passwordChanged.text' : 'Password changed successfully',
+        'feedback.pictureChanged.text' : 'Profile picture changed successfully',
+        
+
         'button.addProfilePicture' : 'Profile Picture',
         'modal.signUp.title': 'Sign Up',
         'modal.signUp.passwordConfPlaceholder': 'Confirm Password',

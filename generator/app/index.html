@@ -29,7 +29,7 @@
 			<form name="searchForm" ng-submit="search(query)" class="navbar-form navbar-left" novalidate>
 				<div class="search-form-container">
 					<div class="form-group">
-						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keyup="autocompleteSearch()">
+						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown="autocompleteSearch(); arrowControl($event)" focus-if="searchFieldFocus">
 						<button type="submit" class="search-button">
 							<span class="glyphicon glyphicon-search search-icn"></span>
 						</button>
@@ -41,7 +41,8 @@
 								<div class="row">
 									<div class="col-md-12">
 										<!--TODO:  hacer esto bien, asi no se puede ni buscar dos palabras-->
-										<a ng-href="#/search?q={{item.name}}" class="autocomplete-item">
+										<a ng-href="#/search?q={{item.name}}" class="autocomplete-item"
+										   focus-if="focus[$index]" ng-keydown="arrowControl($event)">
 											<span ng-bind="item.name"></span>
 										</a>
 									</div>
@@ -59,7 +60,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<!--TODO:  hacer esto bien, asi no se puede ni buscar dos palabras-->
-										<a ng-href="#/search?q={{item}}" class="history-item">
+										<a ng-href="#/search?q={{item}}" class="history-item" focus-if="focus[$index + searchSuggestions.length]" ng-keydown="arrowControl($event)">
 											<span class="glyphicon glyphicon-time"></span>
 											<span ng-bind="item"></span>
 										</a>
