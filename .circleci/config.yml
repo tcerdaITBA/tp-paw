@@ -3,8 +3,9 @@ jobs:
     build:
         working_directory: ~/tmp
         docker:
-            - image: circleci/openjdk:8-jdk-browsers
+            - image: circleci/openjdk:8-jdk
         steps:
             - checkout
+            - run: cd root-khet
             - run: mvn eclipse:eclipse
             - run: mvn package
