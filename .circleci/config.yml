@@ -1,11 +1,10 @@
 version: 2
 jobs:
     build:
-        working_directory: ~/tmp
+        working_directory: ~/root-khet
         docker:
             - image: circleci/openjdk:8-jdk
         steps:
             - checkout
-            - run: cd root-khet
             - run: mvn eclipse:eclipse
             - run: mvn package
