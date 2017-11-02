@@ -1,8 +1,6 @@
 package tp.paw.khet.persistence;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static tp.paw.khet.model.CommentTestUtils.assertEqualsComments;
 import static tp.paw.khet.model.CommentTestUtils.dummyComment;
 import static tp.paw.khet.model.CommentTestUtils.dummyCommentList;
@@ -98,6 +96,8 @@ public class CommentHibernateDaoTest {
 			comments.add(comment);
 
 		assertCommentsOrder(comments);
+		
+		fail();
 	}
 
 	private void insertCommentList(List<Comment> comments, int productId) {
