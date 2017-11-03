@@ -95,9 +95,7 @@ public class CommentHibernateDaoTest {
 		for (Comment comment : actual)
 			comments.add(comment);
 
-		assertCommentsOrder(comments);
-		
-		fail();
+		assertCommentsOrder(comments);		
 	}
 
 	private void insertCommentList(List<Comment> comments, int productId) {
