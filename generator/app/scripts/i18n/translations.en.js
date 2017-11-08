@@ -29,7 +29,10 @@ define([], function() {
         'description.music': 'Having a tough day? It\u2019s time to listen the music that makes you feel like a boss.',
         'description.other': 'Can\u2019t find a category that matches the product you seek? You may find it here.',
         'description.all': 'Here you will find all the products of any category.',
-                
+		
+		'categoryZRP.sorry': '\uD83D\uDE14',
+		'categoryZRP.noProducts': 'There are no products in this category yet.',
+		
 		'navbar.mostPopular':'Most Popular',
 		'navbar.signup':'Sign Up',
 		'navbar.signin':'Sign In',

@@ -330,17 +330,22 @@ footer p {
 .search-icn {
   line-height: 20px;
   color: #e3e3e3;
-  padding-left: 5px;
+  margin-left: 5px;
+  
+  &:hover {
+    color: #33bb9c !important;
+    transition: all .1s ease-in;
+    cursor: pointer !important;
+  }
 }
 
 .search-button {
   background: rgba(255, 255, 255, 0);
   border: transparent;
-}
-
-.search-icn:hover {
-  color: #33bb9c;
-  transition: all .1s ease-in;
+  
+  &:hover {
+    cursor: default;
+  }
 }
 
 .modal-btn {
@@ -433,3 +438,30 @@ ps-btn-red:focus {
   }
 }
 
+.zrp {
+	text-align: center;
+	padding: 10%;
+	box-shadow: 0 0 3px 0 rgba(0,0,0,.2);
+	margin-top: 10px;
+    margin-bottom: 1em;
+}
+
+.zrp h2 {
+	font-size: 4em;
+}
+
+.zrp h3 {
+	color: black;
+	font-weight: 400;
+}
+
+.zrp p {
+	margin-top: 2em;	
+	font-size: 1.5em;
+	font-weight: 300;
+	color: #737373;
+}
+
+.zrp a {
+	color: #39c6a6;
+}
