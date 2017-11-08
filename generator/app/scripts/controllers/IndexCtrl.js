@@ -4,9 +4,9 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', 'restService', '$scope', '$location', function(session, auth, modal, restService, $scope, $location) {
 		var searchMinLength = 3;
 		$scope.showSuggestions = false;
+		$scope.emptyResults = false;
 		$scope.isLoggedIn = auth.isLoggedIn();
 		$scope.loggedUser = auth.getLoggedUser();
-		$scope.emptyResults = false;
 
 		$scope.logOut = function() {
 			auth.logOut();

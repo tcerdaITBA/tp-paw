@@ -35,6 +35,8 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 				item.checked = true;
 			});
 		};
+		
+		//TODO: función para checkCategory en lugar de modificar desde afuera? 
 	}]);
 	
 	productSeek.filter('categoryFilter', function() {

@@ -6,7 +6,6 @@ define(['services/authService', 'angular-mocks'], function() {
 		var USERNAME = 'pedro@gmail.com'; 
 		var PASSWORD = 'passpass';
 		var CREDENTIALS = 'j_username='+encodeURIComponent(USERNAME)+'&j_password='+encodeURIComponent(PASSWORD);
-		// var CREDENTIALS = 'j_password='+encodeURIComponent(PASSWORD) + '&j_username='+encodeURIComponent(USERNAME);
 		var DUMMY_TOKEN = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
 		var RESPONSE_ERROR = {detail: 'Not found.'};
 		
