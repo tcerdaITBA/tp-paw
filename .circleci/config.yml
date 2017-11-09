@@ -1,14 +1,14 @@
 version: 2
 jobs:
     build:
-    working_directory: ~/root-khet
-    docker:
-        - image: circleci/openjdk:8-jdk
-        - image: circleci/node:7
-    steps:
-        - checkout
-        - run: cd root-khet;mvn eclipse:eclipse
-        - run: cd root-khet;mvn package
-        - run: cd generator;npm install
-        - run: cd generator;bower install
-        - run: cd generator;karma start
+        working_directory: ~/root-khet
+        docker:
+            - image: circleci/openjdk:8-jdk
+            - image: circleci/node:7
+        steps:
+            - checkout
+            - run: cd root-khet;mvn eclipse:eclipse
+            - run: cd root-khet;mvn package
+            - run: cd generator;npm install
+            - run: cd generator;bower install
+            - run: cd generator;karma start
