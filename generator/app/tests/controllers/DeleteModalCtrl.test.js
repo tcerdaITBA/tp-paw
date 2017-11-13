@@ -25,7 +25,7 @@ define(['controllers/DeleteModalCtrl', 'angular-mocks'], function() {
 		}));
 
 		describe('$scope.product', function() {
-			it('should have $scope.product defined', function() {
+			it('should be defined', function() {
 				expect($scope.product).toBeDefined();
 			});
 
@@ -45,11 +45,11 @@ define(['controllers/DeleteModalCtrl', 'angular-mocks'], function() {
 				expect($scope.delete).toBeDefined();
 			});
 
-			it('should call restService.delete() with the resolved product id', function() {
+			it('should call delete the product through the API', function() {
 				expect(restService.deleteProduct).toHaveBeenCalledWith(DUMMY_PRODUCT.id);
 			});
 
-			it('should call $uibModalInstance.close() with true', function() {
+			it('should call close the modal indicating the product has been deleted', function() {
 				expect(DUMMY_MODAL_INSTANCE.close).toHaveBeenCalledWith(true);
 			});
 		});
@@ -64,9 +64,9 @@ define(['controllers/DeleteModalCtrl', 'angular-mocks'], function() {
 				expect($scope.cancel).toBeDefined();
 			});
 
-			it('should call $uibModalInstance.dismiss() with "cancel"', function() {
+			it('should call dismiss the modal with the "cancel" message', function() {
 				expect(DUMMY_MODAL_INSTANCE.dismiss).toHaveBeenCalledWith('cancel');
 			});
-		})
+		});
 	});
 });

@@ -5,7 +5,7 @@ define(['controllers/SearchCtrl', 'angular-mocks'], function() {
                               products: [
                                   {id: '1', name: 'slime rancher', category: 'game'}, 
                                   {id: '2', name: 'slime watch', category: 'gadget'},
-								  {id: '3', name: 'slime song', category: 'music'}
+								  {id: '3', name: 'slime jingle', category: 'music'}
                               ]};
 		var DUMMY_USERS = {count: 3, 
                               users: [
