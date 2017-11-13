@@ -1,6 +1,6 @@
 define(['controllers/HomeCtrl', 'angular-mocks'], function() {
     describe('Home Controller', function() {
-        var $controller, categories;
+        var $controller, categories, sortCriterias, defaultSortCriteria;
         var DUMMY_PRODUCTS = {count: 2, 
                               products: [
                                   {id: '1', name: 'slime rancher', category: 'game'}, 
@@ -9,17 +9,21 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
         
         beforeEach(module('productSeek'));
         
-        beforeEach(inject(function(_$controller_, _categories_) {
+        beforeEach(inject(function(_$controller_, _categories_, _sortCriterias_, _defaultSortCriteria_) {
             $controller = _$controller_;
             categories = _categories_;
+            sortCriterias = _sortCriterias_;
+            defaultSortCriteria = _defaultSortCriteria_;
         }));
 
-        var buildController = function($scope, category) {
-            var $routeParams = {}
-            if (category)
-                $routeParams.category = category;
+        var buildController = function($scope, routeParams) {
+            var $routeParams = {};
+
+            if (routeParams)
+                $routeParams = routeParams;
             
-            return $controller('HomeCtrl', {$scope: $scope, $routeParams: $routeParams, productsData: DUMMY_PRODUCTS, categories: categories});
+            return $controller('HomeCtrl', {$scope: $scope, $routeParams: $routeParams, 
+                productsData: DUMMY_PRODUCTS, categories: categories, sortCriteria: sortCriterias, defaultSortCriteria: defaultSortCriteria});
         };
         
         var findCategory = function(categories, name) {
@@ -38,6 +42,13 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
         });
         
         describe('$scope.categories', function() {
+            it('should be defined', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+
+                expect($scope.categories).toBeDefined();
+            });
+
             it('should have every category defined in the "categories" dependency and the category "all" preppended and alpha sorted', function() {
                 var $scope = {};
                 var controller = buildController($scope);
@@ -50,18 +61,9 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
             it('should have "all" active given no category in $routeParams', function() {
                 var $scope = {};
                 var controller = buildController($scope);
-                var all = findCategory($scope.categories, 'all');
-                
-                expect(all.active).toBe(true);
-            });
-
-            it('should have every category (except "all") not active given no category in $routeParams', function() {
-                var $scope = {};
-                var controller = buildController($scope);
 
                 angular.forEach($scope.categories, function(c) {
-                    if (c.name !== 'all')
-                        expect(c.active).toBe(false);
+                    expect(c.active).toBe(c.name === 'all');
                 });
             });
             
@@ -69,12 +71,51 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
                 for (var i = 0; i < categories.length; i++) {
                     var categoryName = categories[i];
                     var $scope = {};
-                    var controller = buildController($scope, categoryName);
+                    var controller = buildController($scope, {category: categoryName});
                     
                     angular.forEach($scope.categories, function(c) {
-                        c.name === categoryName ? expect(c.active).toBe(true) : expect(c.active).toBe(false);
+                        expect(c.active).toBe(c.name === categoryName);
                     });
                 }
+            });
+        });
+
+        describe('$scope.sortCriterias', function() {
+            it('should be defined', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+
+                expect($scope.sortCriterias).toBeDefined();
+            });
+
+            it('should have every sortCriteria defined in the "sortCriteria" dependency', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+
+                for (var i = 0; i < $scope.sortCriterias.length; i++) {
+                    expect(sortCriterias[i].orderBy).toEqual($scope.sortCriterias[i].orderBy);
+                    expect(sortCriterias[i].order).toEqual($scope.sortCriterias[i].order);
+                }
+            });
+
+            it('should have the default sortCriteria active given no order nor orderBy in $routeParams', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+
+                angular.forEach($scope.sortCriterias, function(sc) {
+                    expect(sc.active).toBe(sc.orderBy === defaultSortCriteria.orderBy);
+                });
+            });
+
+            it('should have the corresponding sortCriteria active given order and orderBy in $routeParams', function() {
+                angular.forEach(sortCriterias, function(sortCriteria) {
+                    var $scope = {};
+                    var controller = buildController($scope, {order: sortCriteria.order, orderBy: sortCriteria.orderBy});
+
+                    angular.forEach($scope.sortCriterias, function(sc) {
+                        expect(sc.active).toBe(sc.order === sortCriteria.order && sc.orderBy === sortCriteria.orderBy);
+                    });
+                });              
             });
         });
         
@@ -87,7 +128,22 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
                     $scope.setActiveCategory(category);
                     
                     angular.forEach($scope.categories, function(c) {
-                        category === c ? expect(c.active).toBe(true) : expect(c.active).toBe(false);
+                         expect(c.active).toBe(category === c);
+                    });
+                });
+            });
+        });
+
+        describe('$scope.setActiveSortCriteria()', function() {
+            it('should set the given sort criteria to active and the others should no be active', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+
+                angular.forEach($scope.sortCriterias, function(sortCriteria) {
+                    $scope.setActiveSortCriteria(sortCriteria);
+
+                    angular.forEach($scope.sortCriterias, function(sc) {
+                        expect(sc.active).toBe(sc === sortCriteria);
                     });
                 });
             });
