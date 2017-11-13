@@ -13,13 +13,16 @@ Object.keys(window.__karma__.files).forEach(function (file) {
 })
 
 require.config({
-  // Karma serves files under /base, which is the basePath from your config file
-  baseUrl: '/base/app/scripts',
+    // Karma serves files under /base, which is the basePath from your config file
+    baseUrl: '/base/app/scripts',
 
     paths: {
+        affix: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix',
+        alert: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert',
         angular: '../../bower_components/angular/angular',
         'angular-route': '../../bower_components/angular-route/angular-route',
         'angular-translate': '../../bower_components/angular-translate/angular-translate',
+        button: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button',
         bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
         carousel: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel',
         collapse: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse',
@@ -36,19 +39,25 @@ require.config({
         tooltip: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip',
         transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
         'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
-        ngstorage: '../../bower_components/ngstorage/ngStorage',
         'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
         ngSanitize: '../../bower_components/ngSanitize/index',
+        ngstorage: '../../bower_components/ngstorage/ngStorage',
         'livereload-js': '../../bower_components/livereload-js/dist/livereload',
-        'slick-carousel': '../../bower_components/slick-carousel/slick/slick.min',
+        'slick-carousel': '../../bower_components/slick-carousel/slick/slick',
         'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick',
-        ngInfiniteScroll: '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll'
+        ngInfiniteScroll: '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
+        'angular-slick': '../../bower_components/angular-slick/dist/slick'
     },
     shim: {
         angular: {
             deps: [
                 'jquery'
+            ]
+        },
+        'angular-mocks': {
+            deps: [
+                'angular'
             ]
         },
         'angular-route': {
@@ -87,11 +96,6 @@ require.config({
                 'angular'
             ]
         },
-        'angular-mocks': {
-            deps: [
-                'angular'
-            ]
-        },
         'slick-carousel': {
             deps: [
                 'jquery'
@@ -109,9 +113,12 @@ require.config({
             ]
         }
     },
-  // dynamically load all test files
-  deps: allTestFiles,
+    packages: [
 
-  // we have to kickoff jasmine, as it is asynchronous
-  callback: window.__karma__.start
+    ],
+    // dynamically load all test files
+    deps: allTestFiles,
+
+    // we have to kickoff jasmine, as it is asynchronous
+    callback: window.__karma__.start
 })

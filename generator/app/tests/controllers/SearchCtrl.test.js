@@ -12,7 +12,7 @@ define(['controllers/SearchCtrl', 'angular-mocks'], function() {
 								  // TODO
                               ]};
 		
-        var QUERY = 'slime'
+        var QUERY = 'slime';
 		
         beforeEach(module('productSeek'));
         

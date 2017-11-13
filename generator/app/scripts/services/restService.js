@@ -106,20 +106,6 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         });
             }
 
-            function doPost(baseUrl, data, params) {
-            	var params = translate(params);
- 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
- 
-                 return $http.post(baseUrl + params, JSON.stringify(data), authHeaders())
-                        .then(function(response) {
-                             return response.data;
-                        })
-                        .catch(function(response) {
-                             return response.data;
-                        });                
-            }
-        
-
             function doDelete(baseUrl, params) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';

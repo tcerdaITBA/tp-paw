@@ -33,6 +33,13 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
         };
         
         describe('$scope.products', function() {
+            it('should be defined', function() {
+                var $scope = {};
+                var controller = buildController($scope);
+                
+                expect($scope.products).toBeDefined();                
+            });
+
             it('should be defined with the resolved "productsData" products', function() {
                 var $scope = {};
                 var controller = buildController($scope);
