@@ -50,7 +50,7 @@ define(['productSeek', 'services/restService', 'services/authService'], function
 			return $uibModal.open({
 				templateUrl: 'views/modals/changePictureModal.html',
 				controller: 'ChangePictureModalCtrl',
-				size: 'md',
+				size: 'sm',
 			});
 		};
 
@@ -58,7 +58,7 @@ define(['productSeek', 'services/restService', 'services/authService'], function
 			return $uibModal.open({
 				templateUrl: 'views/modals/changePasswordModal.html',
 				controller: 'ChangePasswordModalCtrl',
-				size: 'md',
+				size: 'sm',
 			});
 		};
     }]);
