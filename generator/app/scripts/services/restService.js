@@ -70,14 +70,15 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
             function doPost(baseUrl, data, params) {
             	var params = translate(params);
  				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
- 
+
                 return $http.post(baseUrl + params, JSON.stringify(data), authHeaders())
                         .then(function(response) {
-                             return response.data;
+                            return response.data;
                         })
                         .catch(function(response) {
-                             return $q.reject(response.data);
-                        });                
+                            console.log(response.data);
+                            return $q.reject(response.data);
+                        });   
             }
             
 			function doGet(baseUrl, params) {
@@ -235,6 +236,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response) {
+                        console.log(response.data);
                         return $q.reject(response.data);
                     });
                 },

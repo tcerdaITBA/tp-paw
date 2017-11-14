@@ -1,7 +1,6 @@
 package tp.paw.khet.webapp.dto.form;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,7 +33,6 @@ public class FormProduct {
 	@Valid
 	@NoDuplicates
 	@XmlElement(name = "video_ids")
-	@NotNull
 	private String[] videoIds;
 
 	@Pattern(regexp="app|art|book|fashion|film|food|gadget|game|music|other", flags = Pattern.Flag.CASE_INSENSITIVE)
