@@ -115,15 +115,19 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
         };
 
 		$scope.directToCreatorProfile = function() {
-                    $location.url('/profile/' + $scope.creator.id);
+            $location.url('/profile/' + $scope.creator.id);
         };
 
         $scope.directToLoggedProfile = function() {
-                    $location.url('/profile/' + $scope.loggedUser.id);
+            $location.url('/profile/' + $scope.loggedUser.id);
         };
 
         $scope.directToAuthorProfile = function(id) {
-                    $location.url('/profile/' + id);
+            $location.url('/profile/' + id);
+        };
+
+        $scope.directToHome = function() {
+        	$location.url('/');
         };
     }]);
 });
