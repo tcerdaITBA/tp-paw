@@ -4,7 +4,7 @@ define(['productSeek', 'services/restService', 'services/snackbarService', 'dire
     productSeek.controller('CollectionModalCtrl', ['$scope', '$uibModalInstance', 'product', 'collections', 'restService', 'snackbarService', function($scope, $uibModalInstance, product, collectionObject, restService, snackbarService) {
         $scope.product = product;
         $scope.collections = collectionObject.collections;
-        $scope.emptyCollections = $scope.collections.length == 0;
+        $scope.emptyCollections = $scope.collections.length === 0;
         $scope.showWell = false;
 
         var collectionContainsProduct = function(collection) {

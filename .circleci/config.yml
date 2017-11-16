@@ -1,0 +1,14 @@
+version: 2
+jobs:
+    build:
+        working_directory: ~/paw
+        docker:
+            - image: tcerda/node-jdk-8-primary-container:1.0.0
+        steps:
+            - checkout
+            - run: cd generator;npm install karma-jasmine --save-dev
+            - run: cd generator;rm -r node_modules;rm package-lock.json; npm install
+            - run: cd generator;bower --allow-root install
+            - run: cd generator;karma start
+            - run: cd root-khet;mvn eclipse:eclipse
+            - run: cd root-khet;mvn package

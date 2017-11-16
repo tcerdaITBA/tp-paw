@@ -48,8 +48,7 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
             for (var i = 0; i < $scope.sortCriterias.length; i++) {
                 var sc = $scope.sortCriterias[i];
                 sc.active = sc === sortCriteria;
-            }
-                
+            }  
         };
         
         $scope.setActiveCategory = function(category) {

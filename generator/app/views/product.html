@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <product-item border-hover="false" hide-delete="!isOwnerLogged()" product="product"></product-item>
+            <product-item border-hover="false" hide-delete="!isOwnerLogged()" on-delete="directToHome()" product="product"></product-item>
         </div>  
         <div class="col-md-4 col-md-offset-1 creator-item highlighted">
             <div class="row">
@@ -227,12 +227,6 @@
                                                 {{'product.reply' | translate}}
                                             </a>
                                         </div>
-                                        <div ng-show="isLoggedIn">
-                                            <p class="reply-btn" ng-click="showReplyForm($event.currentTarget)">
-                                                <span class="glyphicon glyphicon-share-alt"></span>
-                                                {{'product.reply' | translate}}
-                                            </p>
-                                        </div>        
                                     </div>
                                 </div>
                                 <div class="row comment-divider">
