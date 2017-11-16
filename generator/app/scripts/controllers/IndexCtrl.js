@@ -25,10 +25,10 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			$scope.loggedUser.picture_url = picture;
 		});
 
-		$scope.search = function(q) {
+		$scope.search = function() {
 			if ($scope.searchForm.$valid) {
 				$scope.searchFieldFocus = false;
-				$location.url('/search?q=' + q);
+				$location.url('/search?q=' + $scope.searchForm.query);
 			}
 		};
 
