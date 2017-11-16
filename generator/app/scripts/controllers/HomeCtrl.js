@@ -7,7 +7,7 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
         $scope.orderBy = $routeParams.orderBy || defaultSortCriteria.orderBy;
         $scope.order = $routeParams.order || defaultSortCriteria.order;
 		$scope.page = $routeParams.page || 1;
-		$scope.pageSize = 3;// $routeParams.pageSize || 10;
+		$scope.pageSize = $routeParams.pageSize || 10;
         $scope.sortCriterias = sortCriterias;
         $scope.categories = [];
         
