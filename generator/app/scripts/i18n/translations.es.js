@@ -157,6 +157,8 @@ define([], function() {
         'signUp.error.passwordMatch': 'Las contraseñas deben ser iguales',
         'signUp.error.addEmail': 'El no puede estar vacío',
         'signUp.error.invalidEmail': 'El email provisto no es válido',
+		'signIn.error.addEmail': 'Indica tu email',
+		'signIn.error.addPassword': 'Indica tu contraseña',
         
         'product.creator':'Creador',
         'product.comment':'Comentar',

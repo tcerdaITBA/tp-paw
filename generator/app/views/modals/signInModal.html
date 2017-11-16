@@ -3,11 +3,11 @@
 	<form ng-submit="loginSubmit()" name="form" novalidate>
 		<div class="input-field" ng-class="{'has-error': form.username.$invalid && form.$submitted}">
 			<input type="text" placeholder="{{'modal.signIn.usernamePlaceholder' | translate}}" name="username" ng-model="loginForm.username.text" class="form-control" required>
-            <span ng-show="form.username.$error.required && form.$submitted" class="help-block align-left" ng-bind="'signUp.error.addEmail' | translate"></span>
+            <span ng-show="form.username.$error.required && form.$submitted" class="help-block align-left" ng-bind="'signIn.error.addEmail' | translate"></span>
 		</div>
 		<div class="input-field" ng-class="{'has-error': form.password.$invalid && form.$submitted}">
 			<input type="password" placeholder="{{'modal.signIn.passwordPlaceholder' | translate}}" name="password" ng-model="loginForm.password.text" class="form-control" required>
-            <span ng-show="form.password.$error.required && form.$submitted" class="help-block align-left" ng-bind="'signUp.error.addPassword' | translate"></span>
+            <span ng-show="form.password.$error.required && form.$submitted" class="help-block align-left" ng-bind="'signIn.error.addPassword' | translate"></span>
 		</div>
 		<div class="input-field checkbox">
 			<label><input type="checkbox" ng-model="loginForm.rememberMe">

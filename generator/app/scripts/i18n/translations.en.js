@@ -161,6 +161,8 @@ define([], function() {
         'signUp.error.passwordMatch': 'Passwords do not match',
         'signUp.error.addEmail': 'Add email',
         'signUp.error.invalidEmail': 'Invalid email',
+		'signIn.error.addEmail': 'Insert your email',
+		'signIn.error.addPassword': 'Insert your password',
 
         'product.creator':'Creator',
         'product.comment':'Comment',
