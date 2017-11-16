@@ -159,6 +159,8 @@ define([], function() {
         'signUp.error.addEmail': 'El no puede estar vacío',
         'signUp.error.invalidEmail': 'El email provisto no es válido',
         
+        'modal.changePicture.empty': 'Agregue imagen',
+
         'product.creator':'Creador',
         'product.comment':'Comentar',
         'product.comment.placeholder':'Escriba su comentario aqui',

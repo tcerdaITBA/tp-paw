@@ -47,7 +47,7 @@ define([], function() {
 	'modal.signIn.rememberMe':'Remember me',
 	'modal.signIn.signIn':'Sign In',
         'modal.signIn.error.invalidUser': 'Invalid email or password',
-		
+
 	'searchResults.products':'Products',
 	'searchResults.users':'Users',
 	'searchResults.resultsFor': 'Search results for ',
@@ -162,6 +162,8 @@ define([], function() {
         'signUp.error.passwordMatch': 'Passwords do not match',
         'signUp.error.addEmail': 'Add email',
         'signUp.error.invalidEmail': 'Invalid email',
+
+        'modal.changePicture.empty': 'Add image',
 
         'product.creator':'Creator',
         'product.comment':'Comment',
