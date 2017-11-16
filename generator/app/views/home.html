@@ -47,6 +47,12 @@
 					<div ng-repeat="p in products">
 						<product-item order="order" order-by="orderBy" product="p" hide-delete="true" hide-category="category" border-hover="true"></product-item>
 					</div>
+					<div ng-show="scrollBusy && !disableScroll" class="infinite-scroll-spinner">
+						<div class="spinner">
+                            <div class="dot1"></div>
+                            <div class="dot2"></div>
+                        </div>
+					</div>
 				</div>
               	<div ng-if="products.length == 0">
 					<div class="zrp" id="category-zrp">

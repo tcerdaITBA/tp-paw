@@ -29,7 +29,7 @@
 			<form name="searchForm" ng-submit="search(query)" class="navbar-form navbar-left" novalidate>
 				<div class="search-form-container">
 					<div class="form-group">
-						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown="autocompleteSearch(); arrowControl($event)" focus-if="searchFieldFocus">
+						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown="autocompleteSearch(); arrowControl($event)" focus-if="searchFieldFocus" ng-minlength="3" ng-maxlength="64" required>
 						<button type="submit" class="search-button">
 							<span class="glyphicon glyphicon-search search-icn"></span>
 						</button>

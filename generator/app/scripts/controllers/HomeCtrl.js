@@ -7,7 +7,7 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
         $scope.orderBy = $routeParams.orderBy || defaultSortCriteria.orderBy;
         $scope.order = $routeParams.order || defaultSortCriteria.order;
 		$scope.page = $routeParams.page || 1;
-		$scope.pageSize = $routeParams.pageSize || 10;
+		$scope.pageSize = 3;// $routeParams.pageSize || 10;
         $scope.sortCriterias = sortCriterias;
         $scope.categories = [];
         
@@ -73,7 +73,9 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
 				if (productsData.count != 0) {
 					$scope.scrollBusy = false;
 					$scope.products.push.apply($scope.products, productsData.products); 
-				}  
+				} else {
+					$scope.disableScroll = true;
+				}
 			});
 		};
 	}]);

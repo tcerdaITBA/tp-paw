@@ -28,8 +28,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		});
 
 		$scope.search = function(q) {
-			// TODO: error message if empty, too short, too long...
-			if (q && searchMinLength <= q.length && q.length <= 64) {
+			if ($scope.searchForm.$valid) {
 				$scope.showSuggestions = false;
 				$location.url('/search?q=' + q);
 			}
