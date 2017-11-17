@@ -82,6 +82,7 @@ define(['routes',
 					return window.encodeURIComponent(input);
 				}
 			});
-                return productSeek;
-            }
+                
+		return productSeek;
+	}
 );

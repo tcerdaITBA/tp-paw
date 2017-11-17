@@ -40,7 +40,7 @@
 							<div ng-repeat="item in searchSuggestions">
 								<div class="row">
 									<div class="col-md-12">
-										<a ng-href="#/search?q={{item.name}}" class="autocomplete-item"
+										<a ng-href="#/search?q={{item.name | urlencode}}" class="autocomplete-item"
 										   focus-if="autocompleteFocus($index)" ng-keydown="arrowControl($event)">
 											<span ng-bind="item.name"></span>
 										</a>
@@ -58,7 +58,7 @@
 							<div ng-repeat="item in searchHistory">
 								<div class="row">
 									<div class="col-md-12">
-										<a ng-href="#/search?q={{item}}" class="history-item" focus-if="historyFocus($index)" ng-keydown="arrowControl($event)">
+										<a ng-href="#/search?q={{item | urlencode}}" class="history-item" focus-if="historyFocus($index)" ng-keydown="arrowControl($event)">
 											<span class="glyphicon glyphicon-time"></span>
 											<span ng-bind="item"></span>
 										</a>
