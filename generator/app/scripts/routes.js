@@ -5,7 +5,7 @@ define(function() {
         defaultRoutePath: '/',
         routes: {
             '/': {
-                templateUrl: '/views/home.html',
+                templateUrl: 'views/home.html',
                 controller: 'HomeCtrl',
                 resolve: {
                     productsData: ['$route', 'restService', 'defaultSortCriteria', function($route, restService, defaultSortCriteria) {
@@ -19,7 +19,7 @@ define(function() {
                 }
             },
 			'/search': {
-				templateUrl: '/views/search.html',
+				templateUrl: 'views/search.html',
 				controller: 'SearchCtrl',
 				resolve: {
                     productsData: ['$route', 'restService', function($route, restService) {
@@ -37,11 +37,11 @@ define(function() {
                 }
 			},
             '/about': {
-                templateUrl: '/views/about.html',
+                templateUrl: 'views/about.html',
                 controller: 'about'
             },
             '/product/:id': {
-                templateUrl: '/views/product.html',
+                templateUrl: 'views/product.html',
                 controller: 'ProductCtrl',
                 resolve: {
                     product: ['$route', 'restService', function($route, restService) {
@@ -51,7 +51,7 @@ define(function() {
                 }
             },
             '/profile/:id': {
-                templateUrl: '/views/profile.html',
+                templateUrl: 'views/profile.html',
                 controller: 'ProfileCtrl',
                 resolve: {
                     user: ['$route', 'restService', function($route, restService){
@@ -73,7 +73,7 @@ define(function() {
                 }
             },
 			'/post': {
-				templateUrl: '/views/post.html',
+				templateUrl: 'views/post.html',
                 controller: 'PostCtrl'
 			}
             /* ===== yeoman hook ===== */

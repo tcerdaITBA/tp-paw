@@ -4,7 +4,7 @@ define(['productSeek'], function(productSeek) {
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/views/userItem.html',
+            templateUrl: 'views/userItem.html',
             scope: {user: '='},
             controller: ['$scope', '$window', function($scope, $window) {
                 var user = $scope.user;

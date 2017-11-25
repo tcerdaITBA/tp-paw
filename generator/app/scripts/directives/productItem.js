@@ -4,7 +4,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/views/productItem.html',
+            templateUrl: 'views/productItem.html',
             scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&', borderHover: '=', order: '=', orderBy: '='},
             controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', 'defaultSortCriteria', function($scope, $location, $route, authService, restService, modalService, defaultSortCriteria) {
 

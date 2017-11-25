@@ -1,7 +1,7 @@
 /* global paths */
 'use strict';
 require.config({
-    baseUrl: '/scripts',
+    baseUrl: 'scripts',
     paths: {
         affix: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix',
         alert: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert',
@@ -27,9 +27,6 @@ require.config({
         'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
         'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
-        ngSanitize: '../../bower_components/ngSanitize/index',
-        ngstorage: '../../bower_components/ngstorage/ngStorage',
-        'livereload-js': '../../bower_components/livereload-js/dist/livereload',
         'slick-carousel': '../../bower_components/slick-carousel/slick/slick',
         'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick',
         ngInfiniteScroll: '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',

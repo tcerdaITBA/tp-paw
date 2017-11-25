@@ -2,6 +2,7 @@
   "name": "productSeek",
   "version": "0.0.0",
   "dependencies": {
+    "grunt-cli": "^1.2.0",
     "klaw": "^2.1.0"
   },
   "devDependencies": {

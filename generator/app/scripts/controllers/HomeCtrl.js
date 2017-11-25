@@ -40,7 +40,7 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
                 name: category,
                 active: $scope.category === category,
                 url: urlBuilder({category: category}),
-                imageUrl: 'images/' + category + '.svg'
+                imageUrl: 'images/static/' + category + '.svg'
             });
         });
         

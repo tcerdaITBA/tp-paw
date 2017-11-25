@@ -181,7 +181,7 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/views/**/*.html',
           '<%= yeoman.dist %>/scripts/**/*.js',
           '<%= yeoman.dist %>/bower_components/**/*.js',
-          '!<%= yeoman.dist %>/images/static/*.jpg'
+          '!<%= yeoman.dist %>/images/static/*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       },
       paths: {
@@ -213,7 +213,7 @@ module.exports = function (grunt) {
         assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images'],
         patterns: {
           imagesAndViews: [
-            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp))/gm, 'Update the JS to reference our revved images'],
+            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images'],
             [/(views\/.*?\.(?:html))/gm, 'Update the JS to reference our revved html views']
           ]
         }
@@ -485,8 +485,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', 'Compiles app for production or release candidate', function () {
     grunt.task.run([
-      'karma',
       // test
+      'karma',
       'clean:dist',
       // copy stylesheets, in: app/styles/ out: .tmp/styles
       'copy:styles',

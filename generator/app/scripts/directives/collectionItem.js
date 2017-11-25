@@ -4,7 +4,7 @@ define(['productSeek'], function(productSeek) {
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/views/collectionItem.html',
+            templateUrl: 'views/collectionItem.html',
             scope: {favList: '='},
             controller: ['$scope', '$location', function($scope, $location) {
                 $scope.collectionOffset = 12; // TODO: si el usuario está loggeado y es su colección vale 11
