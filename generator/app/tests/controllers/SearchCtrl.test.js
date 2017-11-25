@@ -1,6 +1,6 @@
 define(['controllers/SearchCtrl', 'angular-mocks'], function() {
     describe('Search Controller', function() {
-        var controller, scope, $controller;
+        var controller, scope, $controller, $rootScope;
         var DUMMY_PRODUCTS = {count: 2, 
                               products: [
                                   {id: '1', name: 'slime rancher', category: 'game'}, 
@@ -16,7 +16,9 @@ define(['controllers/SearchCtrl', 'angular-mocks'], function() {
 		
         beforeEach(module('productSeek'));
         
-        beforeEach(inject(function($injector, $rootScope, _$controller_) {
+        beforeEach(inject(function($injector, _$rootScope_, _$controller_) {
+			$rootScope = _$rootScope_;
+    		spyOn($rootScope, '$broadcast');
 			scope = $rootScope.$new();
 			$controller = _$controller_;
 			controller = $controller('SearchCtrl', { $scope: scope, productsData: DUMMY_PRODUCTS, query: QUERY, 
@@ -83,6 +85,8 @@ define(['controllers/SearchCtrl', 'angular-mocks'], function() {
 			});
 		});
 		
-		// TODO: testear el update de searchHistory
+		it('should broadcast update to searchHistory', function() {
+			expect($rootScope.$broadcast).toHaveBeenCalledWith('searchHistory:updated');
+		});
     });
 });

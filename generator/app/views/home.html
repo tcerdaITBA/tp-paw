@@ -5,7 +5,6 @@
                 <h2 ng-if="!category" ng-bind="'all' | translate"></h2>
                 <div ng-if="category">
                     <h2 ng-bind="category | translate"></h2>
-                    <div class="categoryDescription" ng-bind="'description.' + category | translate"></div>
                 </div>
                 <div ng-if="products.length > 0" class="row">
                     <div class="col-md-10 col-md-offset-1">
@@ -46,6 +45,12 @@
 				<div ng-if="products.length > 0" class="col-md-10 col-md-offset-1 product-list" infinite-scroll='loadMoreProducts()' infinite-scroll-disabled="scrollBusy">
 					<div ng-repeat="p in products">
 						<product-item order="order" order-by="orderBy" product="p" hide-delete="true" hide-category="category" border-hover="true"></product-item>
+					</div>
+					<div ng-show="scrollBusy && !disableScroll" class="infinite-scroll-spinner">
+						<div class="spinner">
+                            <div class="dot1"></div>
+                            <div class="dot2"></div>
+                        </div>
 					</div>
 				</div>
               	<div ng-if="products.length == 0">

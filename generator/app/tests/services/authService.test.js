@@ -111,7 +111,5 @@ define(['services/authService', 'angular-mocks'], function() {
 				expect(user).not.toBeTruthy();
 			});
 		});
-		
-		// TODO: testear que se guarda bien el access token
 	});
 });

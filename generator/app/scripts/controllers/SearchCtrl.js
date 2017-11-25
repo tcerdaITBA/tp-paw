@@ -36,7 +36,10 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 			});
 		};
 		
-		//TODO: función para checkCategory en lugar de modificar desde afuera? 
+		$scope.sendMail = function(event) {
+			window.location.href = "mailto:" + user.email;
+			event.stopPropagation();
+		};
 	}]);
 	
 	productSeek.filter('categoryFilter', function() {

@@ -73,7 +73,9 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
 				if (productsData.count != 0) {
 					$scope.scrollBusy = false;
 					$scope.products.push.apply($scope.products, productsData.products); 
-				}  
+				} else {
+					$scope.disableScroll = true;
+				}
 			});
 		};
 	}]);

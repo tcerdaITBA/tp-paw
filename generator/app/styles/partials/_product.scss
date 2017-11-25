@@ -160,14 +160,11 @@
 .post-comment-btn {
   font-size: 1.1em;
   font-weight: 700;
-  padding: 5px 25px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.parent-comment-btn {
-  margin-left: 13px;
-}
+
 
 .reply-comment {
   margin-top: 1.5em;
@@ -316,8 +313,7 @@
 
 .parent-form-comment {
   background-color: white;
-  padding-top: 20px;
-  padding-left: 30px;
+  padding: 25px;
   word-wrap: break-word;
 }
 
@@ -400,4 +396,19 @@
   margin-top: 10px;
   margin-bottom: 0px;
   color: #a94442;
+}
+
+
+.comment-col {
+	text-align: right;
+}
+
+.parent-comment-btn {
+	  font-size: 1.1em;
+  font-weight: 700;
+	margin-top: 10px;
+}
+
+.product-col {
+	margin-left: 15px;
 }
