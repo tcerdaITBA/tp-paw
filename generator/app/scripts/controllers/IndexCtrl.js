@@ -49,7 +49,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			focusIndex = -1;
 		};
 		
-		$(document).click(function(e) {
+		$(document).click(function(event) {
 			var container = $('#search-box');
 			if (!container.is(event.target) && container.has(event.target).length === 0) {
 				// blur search suggestions
@@ -59,10 +59,10 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			}
 		});
 
-		$scope.arrowControl = function(e) {
-			switch (e.keyCode) {
+		$scope.arrowControl = function(event) {
+			switch (event.keyCode) {
 				case 38: // arrow up
-					e.preventDefault();
+					event.preventDefault();
 					if (focusIndex <= 0) // Focus back to input
 						$scope.searchFocus();
 					else
@@ -70,7 +70,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 					break;
 					
 				case 40: // arrow down
-					e.preventDefault();
+					event.preventDefault();
 					$scope.searchFieldFocus = false;
 					focusIndex = (focusIndex < $scope.searchHistory.length + $scope.searchSuggestions.length - 1 ? focusIndex + 1 : focusIndex);
 					break;
