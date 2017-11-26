@@ -3,7 +3,7 @@
 		<slick settings="slickConfig">
 			<div ng-repeat="image_url in image_urls">
 				<div class="image-holder">
-					<img class="image-item" src="{{image_url}}" >
+					<img class="image-item" ng-src="{{image_url}}" >
 				</div>
 			</div>
 			<div ng-repeat ="video_id in video_ids">
@@ -29,7 +29,7 @@
 					<div class="row">
 						<div class="col-md-2">
 							<a ng-click="directToCreatorProfile()">
-								<img class="profile-img-circle" src="{{creator.picture_url}}">
+								<img class="profile-img-circle" ng-src="{{creator.picture_url}}">
 							</a>
 						</div>
 						<div class="col-md-10">
@@ -68,7 +68,7 @@
 					<div class="row">
 						<div class="col-md-1">
 							<a ng-click="directToLoggedProfile()">
-								<img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+								<img class="profile-img-circle" ng-src="{{loggedUser.picture_url}}">
 							</a>
 						</div>
 						<div class="col-md-10 parent-name-mail-holder">
@@ -126,7 +126,7 @@
 							<div class="row">
 								<div class="col-md-1">
 									<a ng-click="directToAuthorProfile(commentFamily.author.id)">
-										<img class="profile-img-circle" src="{{commentFamily.author.picture_url}}">
+										<img class="profile-img-circle" ng-src="{{commentFamily.author.picture_url}}">
 									</a>
 								</div>
 								<div class="col-md-10 parent-name-mail-holder">
@@ -189,7 +189,7 @@ uib-popover-html="'<p class='popover-msg'>
 									<div class="row">
 										<div class="col-md-1">
 											<a ng-click="directToAuthorProfile(childComment.author.id)">
-												<img class="profile-img-circle" src="{{childComment.author.picture_url}}">
+												<img class="profile-img-circle" ng-src="{{childComment.author.picture_url}}">
 											</a>
 										</div>
 										<div class="col-md-10 child-name-mail-holder">
@@ -254,7 +254,7 @@ uib-popover-html="'<p class='popover-msg'>
 									<div class="row">   
 										<div class="col-md-1">
 											<a ng-click="directToLoggedProfile()">
-												<img class="profile-img-circle" src="{{loggedUser.picture_url}}">
+												<img class="profile-img-circle" ng-src="{{loggedUser.picture_url}}">
 											</a>
 										</div>
 										<div class="col-md-10 child-name-mail-holder">

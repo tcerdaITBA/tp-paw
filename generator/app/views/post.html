@@ -11,7 +11,7 @@
 				<input id="logoUpload" class="image-input" type="file" accept="image/*" ng-file-read="product.logo" name="logo" ng-model="__" valid-file required/>
 				<label for="logoUpload" class="image-upload-btn">
 					<div class="preview-container">
-						<img class="preview-image" src="{{product.logo}}" ng-show="product.logo">
+						<img class="preview-image" ng-src="{{product.logo}}" ng-show="product.logo">
 						<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteLogo(); $event.preventDefault();" ng-show="product.logo"></div>
 						<div class="add-img-text" ng-show="!product.logo">
 							<span class="glyphicon glyphicon-plus"></span>
@@ -74,7 +74,7 @@
 						<input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" name="image-{{$index}}"/>
 						<label for="imageUpload-{{$index}}" class="image-upload-btn">
 							<div class="preview-container">
-								<img class="preview-image" src="{{product.images[$index]}}" ng-show="product.images[$index]">
+								<img class="preview-image" ng-src="{{product.images[$index]}}" ng-show="product.images[$index]">
 								<div class="remove-btn glyphicon glyphicon-remove" ng-click="deleteImage($index); $event.preventDefault();" ng-show="product.images[$index]"></div>
 								<div class="add-img-text" ng-show="!product.images[$index]">
 									<span class="glyphicon glyphicon-plus"></span>

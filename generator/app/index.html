@@ -93,7 +93,7 @@
 				<ul ng-if="isLoggedIn" class="nav navbar-nav navbar-right">
 					<li>
 						<a class="user-nav-img" ng-href="#/profile/{{loggedUser.id}}">
-							<img class="img-contain" src="{{loggedUser.picture_url}}">
+							<img class="img-contain" ng-src="{{loggedUser.picture_url}}">
 						</a>
 					</li>
 					<li>
