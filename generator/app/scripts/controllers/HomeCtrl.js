@@ -1,7 +1,9 @@
 'use strict';
 define(['productSeek', 'directives/productItem', 'services/restService', 'directives/loading'], function(productSeek) {
 
-	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'restService','productsData', 'categories', 'sortCriterias', 'defaultSortCriteria', function($scope, $routeParams, restService, productsData, categories, sortCriterias, defaultSortCriteria) {
+	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'restService','productsData', 'categories', 'categoriesImage', 'sortCriterias', 'defaultSortCriteria', 
+        function($scope, $routeParams, restService, productsData, categories, categoriesImage, sortCriterias, defaultSortCriteria) {
+        
         $scope.products = productsData.products;
         $scope.category = $routeParams.category;
         $scope.orderBy = $routeParams.orderBy || defaultSortCriteria.orderBy;
@@ -40,7 +42,7 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
                 name: category,
                 active: $scope.category === category,
                 url: urlBuilder({category: category}),
-                imageUrl: 'images/static/' + category + '.svg'
+                imageUrl: categoriesImage[category]
             });
         });
         
