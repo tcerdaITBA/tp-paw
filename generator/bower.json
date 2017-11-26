@@ -2,7 +2,7 @@
   "name": "productSeek",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.2.0",
+    "angular": "~1.6.6",
     "angular-route": "~1.2.0",
     "angular-translate": "~2.4.2",
     "bootstrap-sass-official": "~3.2.0",
@@ -19,7 +19,6 @@
   },
   "resolutions": {
     "angular-slick": "0.2.1",
-    "angular": "1.6.6",
     "slick-carousel": "1.6.0"
   },
   "devDependencies": {
