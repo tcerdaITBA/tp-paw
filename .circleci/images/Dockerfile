@@ -41,3 +41,30 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 RUN npm install -g karma
 RUN npm install -g karma-cli
 RUN npm install -g bower
+
+# Install Ruby.
+RUN \
+  apt-get update && \
+  apt-get install -y ruby ruby-dev ruby-bundler && \
+  rm -rf /var/lib/apt/lists/*
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && \
+    apt-get -y install gcc mono-mcs && \
+        rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install make
+
+RUN echo "deb http://archive.ubuntu.com/ubuntu vivid main restricted universe"
+RUN apt-get update && apt-get install libffi-dev
+RUN apt-get install libffi6
+RUN gem install ffi
+
+# Install Compass.
+RUN gem install compass
+
+# Set encoding for SASS
+RUN locale-gen en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
+USER circleci
