@@ -2,7 +2,6 @@
 define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf', 'services/restService'], function(productSeek) {
 	
 	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', 'restService', '$scope', '$location', function(session, auth, modal, restService, $scope, $location) {
-		var searchMinLength = 3;
 		$scope.showSuggestions = false;
 		$scope.isLoggedIn = auth.isLoggedIn();
 		$scope.loggedUser = auth.getLoggedUser();
@@ -25,10 +24,12 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			$scope.loggedUser.picture_url = picture;
 		});
 
-		$scope.search = function() {
-			if ($scope.searchForm.$valid) {
+		$scope.search = function(query) {
+			// TODO constantes en service
+			if (query && query.length >= 3 &&  query.length <= 64) {
+				focusIndex = -1;
 				$scope.searchFieldFocus = false;
-				$location.url('/search?q=' + $scope.searchForm.query);
+				$location.url('/search?q=' + query);
 			}
 		};
 
@@ -59,7 +60,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			}
 		});
 
-		$scope.arrowControl = function(event) {
+		$scope.arrowControl = function(event, item) {
 			switch (event.keyCode) {
 				case 38: // arrow up
 					event.preventDefault();
@@ -74,7 +75,12 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 					$scope.searchFieldFocus = false;
 					focusIndex = (focusIndex < $scope.searchHistory.length + $scope.searchSuggestions.length - 1 ? focusIndex + 1 : focusIndex);
 					break;
-				
+					
+				case 13: // enter
+					event.preventDefault();
+					$scope.search(item);
+					break;
+					
 				default: // vuelve a escribir en el cuadro de busqueda
 					$scope.searchFocus();
 					break;
