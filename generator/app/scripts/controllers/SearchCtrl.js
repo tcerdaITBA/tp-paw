@@ -3,6 +3,7 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 
 	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', 'productsData', 'usersData', 'query', 'sessionService', function($scope, $rootScope, productsData, usersData, query, session) {
     	$scope.query = query;
+		console.log("Q: " + query);
 		$scope.tabs = [false, false];
 
 		$scope.products = productsData.products;
