@@ -1,12 +1,12 @@
 'use strict';
-define(['productSeek'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService'], function(productSeek) {
     productSeek.directive('collectionItem', function() {
         return {
             restrict: 'E',
             replace: 'true',
             templateUrl: 'views/collectionItem.html',
             scope: {favList: '=', hideDelete: "="},
-            controller: ['$scope', '$location', function($scope, $location) {                
+            controller: ['$scope', '$location','$route', 'authService', 'restService', 'modalService', 'snackbarService', function($scope, $location, $route, authService, restService, modalService, snackbarService) {                
                 
                 if($scope.hideDelete) {
                     $scope.collectionOffset = 12;
