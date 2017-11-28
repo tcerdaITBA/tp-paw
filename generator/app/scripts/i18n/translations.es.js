@@ -78,7 +78,7 @@ define([], function() {
 
         'Profile.modal.deleteProduct': 'Eliminar Producto',
         'Profile.modal.textBeginning': '¿Estás seguro de que deseas eliminar',
-        'Profile.modal.textEnd': '? Esta acción no puede ser revertida.',
+        'Profile.modal.textEnd': 'Esta acción no puede ser revertida.',
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
 
