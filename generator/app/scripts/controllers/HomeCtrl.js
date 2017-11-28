@@ -34,7 +34,8 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
         $scope.categories.push({
             name: 'all', 
             active: $scope.category ? false : true, // 'all' active if not in category page
-            url: urlBuilder({category: 'all'})
+            url: urlBuilder({category: 'all'}), 
+			imageUrl: categoriesImage['all']
         });
         
         angular.forEach(categories, function(category) {

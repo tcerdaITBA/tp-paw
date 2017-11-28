@@ -20,7 +20,7 @@
 					<div ng-if="products.length == 0" class="col-md-6 col-md-offset-3">
 						<div id="product-search-zrp" class="zrp">
 							<h2>{{'searchZRP.notFound' | translate}}</h2>
-							<h3 class="result-text">{{'searchZRP.noProducts' | translate:'{keyword: query}'}}</h3>
+							<h3 class="result-text">{{'searchZRP.noProducts' | translate:'{keyword: $scope.query}'}}</h3>
 							<p>{{'searchZRP.tryDifferentSearch' | translate}}</p>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 						<div class="col-md-6 col-md-offset-3">
 							<div id="user-search-zrp" class="zrp">
 								<h2>{{'searchZRP.notFound' | translate}}</h2>
-								<h3 class="result-text">{{'searchZRP.noUsers' | translate:'{keyword: query}'}}</h3>
+								<h3 class="result-text">{{'searchZRP.noUsers' | translate:'{keyword: $scope.query}' }}</h3>
 								<p>{{'searchZRP.tryDifferentSearch' | translate}}</p>
 							</div>
 						</div>

@@ -23,19 +23,16 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="row">
-				<div class="col-md-9">
-					<div class="row">
-                        <ul class="nav nav-pills nav-stacked categoryBox">
-                            <li role="presentation" ng-repeat="c in categories" ng-class="{active: c.active}">
-                                <a ng-href="#{{c.url}}" ng-click="setActiveCategory(c)">
-                                    <div class="col-md-5">
-                                        <img class="icon" ng-show="c.imageUrl" ng-src="{{c.imageUrl}}">
-                                    </div>
-                                    {{c.name | translate}}
-                                </a>
-                            </li>
-                        </ul>
-					</div>
+				<div class="col-md-12">
+						<ul class="nav nav-pills nav-stacked categoryBox affix">
+							<li role="presentation" ng-repeat="c in categories" ng-class="{active: c.active}">
+								<a ng-href="#{{c.url}}" ng-click="setActiveCategory(c)">
+									<img class="icon" ng-src="{{c.imageUrl}}">
+									{{c.name | translate}}
+								</a>
+							</li>
+						</ul>
+
 				</div>
 			</div>
 		</div>

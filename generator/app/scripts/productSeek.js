@@ -66,6 +66,7 @@ define(['routes',
                     });
                     $rootScope.$on('$routeChangeSuccess', function() {
                         $rootScope.isViewLoading = false;
+						document.body.scrollTop = document.documentElement.scrollTop = 0;
                     });
                     $rootScope.$on('$routeChangeError', function() {
                         $rootScope.isViewLoading = false;
@@ -76,7 +77,7 @@ define(['routes',
 			.value('productVideosCount', 2)
             .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
             // Explicitly setting paths in other to be revved
-            .value('categoriesImage', {app: 'images/app.svg', art: 'images/art.svg', book: 'images/book.svg', fashion: 'images/fashion.svg', film: 'images/film.svg',
+            .value('categoriesImage', {all: 'images/all.svg', app: 'images/app.svg', art: 'images/art.svg', book: 'images/book.svg', fashion: 'images/fashion.svg', film: 'images/film.svg',
         							   food: 'images/food.svg', gadget: 'images/gadget.svg', game: 'images/game.svg', music: 'images/music.svg', other:' images/other.svg'})
             .value('sortCriterias', [{orderBy: 'date', order: 'desc'}, {orderBy: 'votes', order: 'desc'}, {orderBy: 'alpha', order: 'asc'}])
             .value('defaultSortCriteria', {orderBy: 'date', order: 'desc'})
