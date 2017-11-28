@@ -169,6 +169,14 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                     return doPut(url + '/collections/' + collectionId + '/products/' + productId);
                 },
                 
+                deleteCollection: function(id) {
+                    return doDelete(url + '/collections/' + id);
+                },
+                
+                deleteProductFromCollection: function(collectionId, productId) {
+                    return doDelete(url + 'collections/' + collectionId + '/products/' + productId);
+                },
+                
                 unvoteProduct: function(id) {
                     return doDelete(url + '/products/' + id + '/votes');
                 },
