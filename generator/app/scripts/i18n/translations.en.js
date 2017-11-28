@@ -65,6 +65,13 @@ define([], function() {
         popular: 'Most voted',
         atoz: 'a-z',
 
+        'popover.toPost': 'In order to post a product you need to',
+        'popover.toVote': 'In order to vote a product you need to',
+        'popover.toComment': 'In order to comment a product you need to',
+        'popover.signIn': 'sign in',
+        'popover.toPostBis': 'or',
+        'popover.signUp': 'sign up.',
+
         'Profile.Tab.uploadedProducts': 'Uploaded',
         'Profile.Tab.votedProducts': 'Voted',
         'Profile.Tab.favlist': 'Collections',

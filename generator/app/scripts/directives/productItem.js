@@ -87,6 +87,9 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                         $(this).css("border-color", "#f3f3f3");
                     });
                 }
+
+                $scope.signInModal = modalService.signInModal;
+                $scope.signUpModal = modalService.signUpModal;
             }]
         }
     });

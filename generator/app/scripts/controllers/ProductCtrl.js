@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], function(productSeek) {
+define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'services/restService', 'services/modalService'], function(productSeek) {
 
-	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', '$scope', '$location', 'product', function(auth, $sce, restService, $scope, $location, product) {
+	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', 'modalService', '$scope', '$location', 'product', function(auth, $sce, restService, modalService, $scope, $location, product) {
 
 		$scope.product = product;
 		$scope.description = product.description;
@@ -82,12 +82,14 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 
 	    $scope.showReplyForm = function(target) {
 			// Hide all other open comment forms.
-			$('.reply-comment').hide();
-			
-			var replyform = angular.element(target).closest('.comment-and-replies').find('.reply-comment');
-			replyform.css('display', 'inline');
-			
-			replyform.goTo();
+			if ($scope.isLoggedIn) {
+				$('.reply-comment').hide();
+				
+				var replyform = angular.element(target).closest('.comment-and-replies').find('.reply-comment');
+				replyform.css('display', 'inline');
+				
+				replyform.goTo();
+			}
 		};
 
 		$scope.parentCommentSubmit = function() {
@@ -129,5 +131,8 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
         $scope.directToHome = function() {
         	$location.url('/');
         };
+
+        $scope.signInModal = modalService.signInModal;
+        $scope.signUpModal = modalService.signUpModal;
     }]);
 });

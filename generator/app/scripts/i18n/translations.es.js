@@ -29,6 +29,9 @@ define([], function() {
         'description.music': '¿Estás teniendo un día duro? Es hora de escuchar música que te hace sentir como el mejor.',
         'description.other': '¿Ninguna categoría corresponde con el producto que buscas? Puede que lo encuentres aquí.',
         'description.all': 'Aquí encontrarás productos de cualquier categoría.',
+
+        'categoryZRP.sorry': '\uD83D\uDE14',
+        'categoryZRP.noProducts': 'Aún no hay productos en esta categoría.',
 		
 	'navbar.mostPopular':'Más populares',
 	'navbar.signup':'Registrarse',
@@ -61,6 +64,13 @@ define([], function() {
         recent: 'Recientes',
         popular: 'Más Votados',
         atoz: 'a-z',
+
+        'popover.toPost': 'Para publicar un producto debes',
+        'popover.toVote': 'Para votar un producto debes',
+        'popover.toComment': 'Para comentar un producto debes',
+        'popover.signIn': 'iniciar sesión',
+        'popover.toPostBis': 'o',
+        'popover.signUp': 'registrarte.',
 
         'Profile.Tab.uploadedProducts': 'Publicados',
         'Profile.Tab.votedProducts': 'Votados',
