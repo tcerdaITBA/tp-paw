@@ -6,9 +6,9 @@ define(['productSeek', 'services/restService', 'services/snackbarService'], func
         $scope.favList = favList;
 
         $scope.delete = function() {
-            restService.deleteProductFromCollection(product.id, favList.id)
+            restService.deleteProductFromCollection(favList.id, product.id)
             .then(function() {
-                snackbarService.showSnackbar('productDeleted');
+                snackbarService.showSnackbar('ProductFormCollectionDeleted');
                 $uibModalInstance.close(true);
             });
         };

@@ -19,10 +19,8 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                     $location.url('/product/' + product.id);
                 };
 
-                $scope.deleteProduct = function() {
-                    console.log("Esto deberia borrar el producto");
-            
-                    var modal = modalService.deleteProductFromCollection($scope.product);
+                $scope.deleteProduct = function(product) {   
+                    var modal = modalService.deleteProductFromCollection(product, $scope.favList);
                     modal.result.then(function(isDeleted) {
                         if (isDeleted)
                             $scope.onDelete();
@@ -35,7 +33,6 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                 }
                 
                 $scope.deleteCollection = function() {
-                    console.log("Esto deberia borrar la coleccion");
                     var modal = modalService.deleteCollectionModal($scope.favList);
                     modal.result.then(function(isDeleted) {
                         if (isDeleted)
