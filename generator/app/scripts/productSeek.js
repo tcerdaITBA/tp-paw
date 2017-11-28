@@ -66,6 +66,7 @@ define(['routes',
                     });
                     $rootScope.$on('$routeChangeSuccess', function() {
                         $rootScope.isViewLoading = false;
+						document.body.scrollTop = document.documentElement.scrollTop = 0;
                     });
                     $rootScope.$on('$routeChangeError', function() {
                         $rootScope.isViewLoading = false;
