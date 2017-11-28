@@ -174,7 +174,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 },
                 
                 deleteProductFromCollection: function(collectionId, productId) {
-                    return doDelete(url + 'collections/' + collectionId + '/products/' + productId);
+                    return doDelete(url + '/collections/' + collectionId + '/products/' + productId);
                 },
                 
                 unvoteProduct: function(id) {
