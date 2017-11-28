@@ -46,6 +46,19 @@ define(['productSeek', 'services/restService', 'services/authService'], function
             });
         };
         
+        this.deleteCollectionModal = function(product) {
+            return $uibModal.open({
+                templateUrl: 'views/modals/deleteCollectionModal.html',
+                controller: 'DeleteCollectionModalCtrl',
+                size: 'sm',
+                resolve: {
+                    product: function() {
+                        return product;
+                    }
+                }
+            });
+        };
+        
 		this.changePictureModal = function() {
 			return $uibModal.open({
 				templateUrl: 'views/modals/changePictureModal.html',
