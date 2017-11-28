@@ -16,7 +16,7 @@
                                 </span>
                         </div>
                     </div>
-                    <div class="col-md-2" ng-if="hideDelete">
+                    <div class="col-md-2" ng-if="!hideDelete">
                         <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteCollection(); $event.stopPropagation()"></span>
                     </div>
 
@@ -54,7 +54,8 @@
                             </div>
                         </a>
                     </div>
-                <div class="col-md-{{12 - collectionOffset}}">
+                <div class="col-md-{{12 - collectionOffset}} collection-delete-product" ng-if="!hideDelete">
+                        <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteProduct(); $event.stopPropagation()"></span>
 <!--                    <c:url value="/favlist/delete/${favList.id}/${product.id}" var="removeFromList"/>
                     <sec:authorize access="isAuthenticated()">
                     <c:if test="${loggedUser.userId == profileUser.userId}">

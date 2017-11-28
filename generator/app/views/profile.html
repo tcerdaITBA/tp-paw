@@ -61,7 +61,7 @@
                         <div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
                             <div class="product-list">
                                 <div ng-repeat="f in collections | orderBy: 'name'">
-                                    <collection-item fav-list="f" hide-delete="!isProfileOwner || !f.isOwnerLogged"></collection-item>
+                                    <collection-item fav-list="f" hide-delete="!isProfileOwner"></collection-item>
                                 </div>
                             </div>
                         </div>

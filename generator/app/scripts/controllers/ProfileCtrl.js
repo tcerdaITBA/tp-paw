@@ -8,9 +8,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
 		$scope.votedProducts = votedProducts.products;
 
 		var updateProfileOwner = function() {
-			if (!authService.isLoggedIn())
-				return false;
-			else if (authService.loggedUser.id !== user.id)
+			if (!authService.isLoggedIn() || authService.loggedUser.id !== user.id)
 				return false;
 			return true;
 		};
@@ -24,17 +22,6 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                     p.isOwnerLogged = true;                
             }
         };
-        
-        var updateCollectionOwner = function(collections) {
-            for(var i = 0; i< collections.length; i++) {
-                var c = collections[i]
-                if (!authService.isLoggedIn())
-//                    Falta ver si el usuario loggeado es el creador
-                    c.isOwnerLogged = false;
-                else
-                    c.isOwnerLogged = true;  
-            }
-        }
         
         var findIndexById = function(item, array) {
             for (var i = 0; i < array.length; i++)

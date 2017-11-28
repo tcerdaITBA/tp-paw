@@ -6,8 +6,14 @@ define(['productSeek'], function(productSeek) {
             replace: 'true',
             templateUrl: 'views/collectionItem.html',
             scope: {favList: '=', hideDelete: "="},
-            controller: ['$scope', '$location', function($scope, $location) {
-                $scope.collectionOffset = 12; // TODO: si el usuario está loggeado y es su colección vale 11
+            controller: ['$scope', '$location', function($scope, $location) {                
+                
+                if($scope.hideDelete) {
+                    $scope.collectionOffset = 12;
+                } else {
+                    $scope.collectionOffset = 11;
+                }
+                
                 $scope.products = $scope.favList.products;
                 $scope.directToProduct = function() {
                     $location.url('/product/' + product.id);
