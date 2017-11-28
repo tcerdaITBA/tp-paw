@@ -138,6 +138,8 @@ define([], function() {
 
         'feedback.passwordChanged.text' : 'Contraseña cambiada exitosamente',
         'feedback.pictureChanged.text' : 'Foto de perfil cambiada exitosamente',
+
+        'feedback.warning.noConnection': 'Oops, parece que has perdido la conexión',
         
         'button.addProfilePicture' : 'Foto de Perfil',
         'modal.signUp.title': 'Registrarse',
@@ -158,9 +160,9 @@ define([], function() {
         'signUp.error.passwordMatch': 'Las contraseñas deben ser iguales',
         'signUp.error.addEmail': 'El no puede estar vacío',
         'signUp.error.invalidEmail': 'El email provisto no es válido',
-		'signIn.error.addEmail': 'Indica tu email',
-		'signIn.error.addPassword': 'Indica tu contraseña',
-        
+	'signIn.error.addEmail': 'Indica tu email',
+	'signIn.error.addPassword': 'Indica tu contraseña',
+
         'modal.changePicture.empty': 'Agregue imagen',
 
         'product.creator':'Creador',

@@ -114,16 +114,25 @@
 			</div>
 		</div>
 	</nav>
+
 	<div class="container main-container">
 		<div ng-view="" autoscroll="true"></div>
+
+		<div class="snackbar" id="noConnection">
+		    <div class="alert alert-warning row-centered">
+		        <strong>
+		            <span class="glyphicon glyphicon-flash"></span>
+		        </strong>
+		        {{'feedback.warning.noConnection' | translate}}
+		    </div>		
+		</div>
 	</div>
+
 	<div class="container">
 		<div class="footer">
 			<p>Product Seek. 2017.</p>
 		</div>
 	</div>
-
-
 
 	<!-- build:js(.) scripts/oldieshim.js -->
 	<!--[if lt IE 9]>

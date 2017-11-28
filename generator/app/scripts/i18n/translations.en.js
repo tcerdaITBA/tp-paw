@@ -139,8 +139,10 @@ define([], function() {
         'feedback.productAddedToFavList.text': 'was added to',
         'feedback.productDeleted.textEnd': 'was deleted',
 
-        'feedback.passwordChanged.text' : 'Password changed successfully',
-        'feedback.pictureChanged.text' : 'Profile picture changed successfully',
+        'feedback.passwordChanged.text': 'Password changed successfully',
+        'feedback.pictureChanged.text': 'Profile picture changed successfully',
+
+        'feedback.warning.noConnection': 'Oops, looks like you lost connection',
         
 
         'button.addProfilePicture' : 'Profile Picture',
@@ -162,8 +164,8 @@ define([], function() {
         'signUp.error.passwordMatch': 'Passwords do not match',
         'signUp.error.addEmail': 'Add email',
         'signUp.error.invalidEmail': 'Invalid email',
-		'signIn.error.addEmail': 'Insert your email',
-		'signIn.error.addPassword': 'Insert your password',
+	'signIn.error.addEmail': 'Insert your email',
+	'signIn.error.addPassword': 'Insert your password',
 
         'modal.changePicture.empty': 'Add image',
 
