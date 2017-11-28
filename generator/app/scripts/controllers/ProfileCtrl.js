@@ -25,6 +25,17 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
             }
         };
         
+        var updateCollectionOwner = function(collections) {
+            for(var i = 0; i< collections.length; i++) {
+                var c = collections[i]
+                if (!authService.isLoggedIn())
+//                    Falta ver si el usuario loggeado es el creador
+                    c.isOwnerLogged = false;
+                else
+                    c.isOwnerLogged = true;  
+            }
+        }
+        
         var findIndexById = function(item, array) {
             for (var i = 0; i < array.length; i++)
                 if (array[i].id === item.id)
