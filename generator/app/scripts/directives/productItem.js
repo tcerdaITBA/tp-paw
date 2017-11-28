@@ -6,7 +6,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
             replace: 'true',
             templateUrl: 'views/productItem.html',
             scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&', borderHover: '=', order: '=', orderBy: '='},
-            controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', 'defaultSortCriteria', function($scope, $location, $route, authService, restService, modalService, defaultSortCriteria) {
+            controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', 'snackbarService', 'defaultSortCriteria', function($scope, $location, $route, authService, restService, modalService, snackbarService, defaultSortCriteria) {
 
                 var product = $scope.product;
                 
@@ -43,11 +43,21 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                         
                         if ($scope.product.voted) {
                             $scope.product.voters_count += 1;
-                            restService.voteProduct(product.id);
+                            restService.voteProduct(product.id)
+                            .catch(function() {
+                                snackbarService.showNoConnection();
+                                $scope.product.voters_count -= 1;
+                                $scope.product.voted = !$scope.product.voted;
+                            });
                         }
                         else {
                             $scope.product.voters_count -= 1;
-                            restService.unvoteProduct(product.id);
+                            restService.unvoteProduct(product.id)
+                            .catch(function() {
+                                snackbarService.showNoConnection();
+                                $scope.product.voters_count += 1;
+                                $scope.product.voted = !$scope.product.voted;
+                            });;
                         }
                     }
                 };
