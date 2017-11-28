@@ -46,18 +46,35 @@ define(['productSeek', 'services/restService', 'services/authService'], function
             });
         };
         
-        this.deleteCollectionModal = function(product) {
+        this.deleteCollectionModal = function(favList) {
             return $uibModal.open({
                 templateUrl: 'views/modals/deleteCollectionModal.html',
                 controller: 'DeleteCollectionModalCtrl',
                 size: 'sm',
                 resolve: {
-                    product: function() {
-                        return product;
+                    favList: function() {
+                        return favList;
                     }
                 }
             });
         };
+        
+        //TODO: cambiar el modal por el específico
+        this.deleteProductFromCollection = function(product, favList) {
+            return $uibModal.open({
+                templateUrl: 'views/modals/deleteProductFromCollectionModal.html',
+                controller: 'DeleteProductFromCollectionCtrl',
+                size: 'sm',
+                resolve: {
+                    product: function() {
+                        return product;
+                    },
+                    favList: function() {
+                        return favList;
+                    }
+                }
+            });
+        }
         
 		this.changePictureModal = function() {
 			return $uibModal.open({

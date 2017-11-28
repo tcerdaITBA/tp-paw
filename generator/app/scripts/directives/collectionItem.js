@@ -21,6 +21,12 @@ define(['productSeek', 'services/authService', 'services/modalService'], functio
 
                 $scope.deleteProduct = function() {
                     console.log("Esto deberia borrar el producto");
+            
+                    var modal = modalService.deleteProductFromCollection($scope.product);
+                    modal.result.then(function(isDeleted) {
+                        if (isDeleted)
+                            $scope.onDelete();
+                    });
                 }
 
                 $scope.shouldExpand = function() {
@@ -30,6 +36,11 @@ define(['productSeek', 'services/authService', 'services/modalService'], functio
                 
                 $scope.deleteCollection = function() {
                     console.log("Esto deberia borrar la coleccion");
+                    var modal = modalService.deleteCollectionModal($scope.favList);
+                    modal.result.then(function(isDeleted) {
+                        if (isDeleted)
+                            $scope.onDelete();
+                    });
                 }
             }]
         }

@@ -81,6 +81,9 @@ define([], function() {
         'Profile.modal.textEnd': 'Esta acción no puede ser revertida.',
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
+        
+                
+        'Profile.modal.deleteCollection': 'Eliminar colección',
 
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',

@@ -28,12 +28,7 @@
             <!-- ZRP -->
             <h4 ng-if="products.length == 0">No hay productos en la colección STUB</h4>
             <div ng-if="products.length > 0" ng-repeat="product in products" class="row">
-<!--                   <c:set var="collectionOffset" value="12"></c:set>
-                <sec:authorize access="isAuthenticated()">
-                    <c:if test="${loggedUser.userId == profileUser.userId}">
-                        <c:set var="collectionOffset" value="11"></c:set>
-                    </c:if>
-                </sec:authorize> -->
+
                     <div class="col-md-{{collectionOffset}}">
                         <a class="collection-product-list-item" ng-href="#/product/{{product.id}}" >
                             <div class="row center-flex">
@@ -56,16 +51,7 @@
                     </div>
                 <div class="col-md-{{12 - collectionOffset}} collection-delete-product" ng-if="!hideDelete">
                         <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteProduct(); $event.stopPropagation()"></span>
-<!--                    <c:url value="/favlist/delete/${favList.id}/${product.id}" var="removeFromList"/>
-                    <sec:authorize access="isAuthenticated()">
-                    <c:if test="${loggedUser.userId == profileUser.userId}">
-                        <form:form class="pull-right" action="${removeFromList}" method="post">
-                                <button class="btn collection-delete-product" type="submit">
-                                    <span class="glyphicon glyphicon-remove collection-remove-product-icon"></span>
-                                </button>
-                        </form:form>
-                    </c:if>
-                    </sec:authorize> -->
+
                 </div>
             </div>
 		</div>
