@@ -16,15 +16,10 @@
                                 </span>
                         </div>
                     </div>
-                    <!-- <div class="col-md-2">
-                        <sec:authorize access="isAuthenticated()">
-                            <c:if test="${loggedUser.userId == profileUser.userId}">
-                                <button class="btn btn-default collection-delete-btn pull-right" type="submit" data-favlist-id="${favList.id}">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </c:if>
-                        </sec:authorize>
-                    </div> -->
+                    <div class="col-md-2" ng-if="hideDelete">
+                        <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteCollection(); $event.stopPropagation()"></span>
+                    </div>
+
                 </div>
             </div>
     </a>
@@ -59,7 +54,7 @@
                             </div>
                         </a>
                     </div>
-                <div class="col-md-{{12 - collectionOffset}} button-delete-col">
+                <div class="col-md-{{12 - collectionOffset}}">
 <!--                    <c:url value="/favlist/delete/${favList.id}/${product.id}" var="removeFromList"/>
                     <sec:authorize access="isAuthenticated()">
                     <c:if test="${loggedUser.userId == profileUser.userId}">
