@@ -107,12 +107,14 @@
 
 	<div ng-show="!isLoggedIn">
 		<div class="row">
-			<div class="col-md-7 highlighted anonymous-holder">
+			<div class="col-md-7">
+				<div class="highlighted anonymous-holder">
 				<p>{{'product.anonymousComment.beginning' | translate}}
 					<a ng-click="signInModal()">{{'product.anonymousComment.signIn' | translate}}</a>
 					{{'product.anonymousComment.or' | translate}}
 					<a ng-click="signUpModal()">{{'product.anonymousComment.signUp' | translate}}</a>
 				</p>
+				</div>
 			</div>
 		</div>
 	</div>

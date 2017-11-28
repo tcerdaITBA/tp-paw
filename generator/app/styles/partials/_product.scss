@@ -225,6 +225,7 @@
   font-weight: 500;
   margin-bottom: 5px;
   margin-top: 1em;
+	margin-left: 5px;
 }
 
 .spinner-holder {
@@ -319,7 +320,12 @@
 
 .anonymous-holder {
   background-color: white;
-  padding-top: 10px;
+  padding: 10px;
+	
+	p {
+		margin: 0;
+		font-size: 1.1em;
+	}
 }
 
 .child-text-anonymous {
