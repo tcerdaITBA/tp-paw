@@ -1,0 +1,402 @@
+.product-list-item {
+	border: 1px solid #f3f3f3;
+	background-color: white;
+	padding: 15px 10px;
+	position: relative;
+    
+    form {
+        margin-bottom: 0 !important;
+    }
+}
+
+.product-logo {
+	align-self: center;
+	width: inherit;
+    
+    img {
+        height: 100px;
+        width: 100px;
+        object-fit: contain;        
+    }
+}
+
+.product-info-box {
+	padding-right: 0;
+}
+
+.product-name {
+	color: #000000;
+	font-weight: 400;
+	font-size: 1.3em;
+}
+
+.product-short-description p {
+	color: #8c8c8c;
+	font-weight: 400;	
+	word-wrap: break-word;
+	font-size: 1.1em;
+}
+
+.product-button {
+	color: #8c8c8c;
+	text-align: center;
+	border: 2px solid #c4c4c4;
+	border-radius: 4px;
+	display: inline-block;
+	cursor: pointer;
+	font-weight: 500;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-size: 0.9em;
+	padding: 5px 0;
+	
+	.glyphicon {
+		display: inline;
+	}
+	
+	.glyphicon-plus {
+		margin-right: -2px;
+	}
+
+    &:hover {
+	   background-color: #c4c4c4 !important;
+       color: #fff;
+    }
+}
+
+.category-btn {
+	padding: 5px 1.4em;	
+}
+
+.row.product-item-height {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.product-item-height > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.upvote-btn {
+	padding: 5px 1em;
+	margin-left: 3px;
+	
+    &.voted {
+        background-color: #F64763;
+        border-color: #F64763;
+		color: #fff;
+		
+        &:hover {
+            background-color: #d03c54 !important;
+            border-color: #d03c54 !important;
+			color: #fff !important;
+        }
+    }
+    
+    &:hover {
+        color: #F64763 !important;
+    }
+}
+
+.pull-right {
+	float: right !important;
+}
+
+
+.delete-product-button {
+	font-size: 1.1em;
+	margin-top: 3px;
+	color: #737373;
+}
+
+.delete-product-button:hover, .delete-product-button:focus {
+	color: crimson;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.adjust-right {
+	padding-right: 0;
+}
+
+.voters-popover-btn {
+	display: inline-block;
+}
+
+.add-to-collection-btn {
+	padding: 5px 10px;
+}
+
+.new-collection-form {
+	text-align: right;
+	margin-bottom: 0;
+}
+
+.add-to-list-item {
+	border: 0;
+	background-color: #fff;
+	font-weight: 600;
+	font-size: 1.7em;
+	display: block;
+	width: 100%;
+	text-align: left;
+	border-radius: 3px;
+}
+
+.add-to-list-item[disabled] {
+	color: #b8b8b8;
+}
+
+.add-to-list-item p {
+	margin: 0;
+	padding: 5px 0;
+	display: inline;
+}
+
+.add-to-list-item .collection-info {
+	color: #737373;
+	font-weight: 400;
+}
+
+.collection-info p {
+	font-size: 0.7em;
+}
+
+.add-to-list-item:hover {
+	background-color: #f3f3f3;
+}
+
+.add-to-list-item:hover .adding-hint {
+	visibility: visible;
+}
+
+.add-to-list-item .row {
+	display: flex;
+}
+
+.add-to-list-item .hint-col {
+	margin: auto auto;
+}
+
+.adding-hint {
+	visibility: hidden;
+	color: #fff;
+	font-size: 0.7em;
+	background-color: #d6354f;
+	border-radius: 4px;
+	padding: 10px;
+	display: inline-block;
+}
+
+.already-added-msg {
+	font-weight: 600;
+	color: #333;
+	font-size: 0.6em;
+}
+
+
+.add-to-new-list-btn, .create-and-add-btn {
+	font-size: 1.1em;
+	font-weight: 700;
+	padding: 5px 25px;
+}
+
+.new-collection-holder {
+	margin-top: 1em;
+}
+
+.new-collection-button-row {
+	text-align: center;
+}
+
+.delete-collection-form {
+	margin: 0;
+}
+
+.collection-panel .panel-heading{
+	background-color: #fff;
+	padding: 20px 25px;
+}
+
+.collection-panel a, .collection-panel a:hover {
+	color: #333;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 1.5em;
+}
+
+.collection-panel .collection-info {
+	color: #8a8a8a;
+	font-weight: 400;
+	margin-top: -5px;
+	font-size: 0.8em;
+}
+
+.collection-panel .row {
+	display: flex;
+}
+
+.collection-panel .col-md-2, 
+.collection-panel .col-md-10 {
+	align-self: center;
+} 
+
+.collection-panel .panel-heading:hover{
+	border-color: #333;
+	background-color: #f3f3f3;
+}
+
+.collection-panel .panel-body {
+	background-color: #f9f9f9;
+}
+
+.collection-delete-btn {
+	border: 0;
+	padding: 0;
+	background: none;
+    font-size: 0.8em;
+}
+
+.collection-product-list-item {
+	padding: 5px 1em;
+	display: block;
+	margin-top: 3px;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid #f3f3f3;
+}
+
+.collection-product-list-item:hover {
+	border-color: #33bb9c;
+	text-decoration: none;
+	outline: none;
+}
+
+.collection-delete-btn:hover, 
+.collection-delete-btn:active {
+	color: crimson;
+	background: none;
+}
+
+.collection-product-logo img {
+	max-width: 100%;
+	height: 50px;
+	object-fit: contain;
+}
+
+.preview-product-logo img {
+	max-width: 100%;
+	height: 50px;
+	object-fit: contain;
+}
+
+.collection-product-name {
+	font-size: 1em;	
+	font-weight: 400;
+} 
+
+.preview-product-name {
+	font-size: 1.7em;	
+	font-weight: 600;
+}
+
+.collection-upvote-info {
+	font-weight: 400;
+	font-size: 0.7em;
+}
+
+.preview-upvote-info {
+	font-weight: 500;
+	font-size: 1.2em;
+}
+
+.tool-tip {
+  display: inline-block;
+}
+
+.tool-tip [disabled] {
+  pointer-events: none;
+}
+
+#new-collection-section {
+	display: none;
+	
+}
+
+.new-collection-form input {
+	text-align: center;
+	font-weight:500;
+}
+
+.favlist-form-title {
+	color: #333;
+	text-align: center;
+	margin: 0 0 10px 2px;
+	font-size: 1.2em;
+}
+
+.product-to-add {
+	font-weight: 600;
+	color: #d03c54;
+}
+
+.delete-product-btn {
+	font-size: 1.2em;
+}
+
+.delete-modal-text {
+	text-align: center;
+	font-size: 1.15em;
+}
+
+.collection-modal-title {
+	font-weight: 400;
+}
+
+.collection-modal-body {
+	max-height: 20em;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.collection-delete-product {
+	border: transparent;
+	background: transparent;
+	padding: 0;
+}
+
+.collection-remove-product-icon:hover {
+	color: crimson;
+}
+
+.collection-remove-product-icon {
+	color: #7b7b7b;
+}
+
+.product-preview {
+	padding: 0 3em 0 1em;
+}
+
+
+.button-delete-col {
+	display: flex;
+    margin-left: -0.55em;
+}
+
+.button-delete-col form {
+	margin: 0;
+	align-self: center;
+}
+
+.close-well-icn {
+	color: #000;
+	opacity: .5;
+}
+
+.close-well-icn:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+
