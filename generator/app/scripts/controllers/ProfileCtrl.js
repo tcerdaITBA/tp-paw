@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/modalService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'directives/collectionItem', 'directives/productItem'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'directives/collectionItem', 'directives/productItem'], function(productSeek) {
 
-	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', '$uibModal', function($scope, user, collections, createdProducts, votedProducts, authService, modalService, $uibModal) {
+	productSeek.controller('ProfileCtrl', ['$scope', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', 'restService','$uibModal', function($scope, user, collections, createdProducts, votedProducts, authService, modalService, restService, $uibModal) {
 		$scope.user = user;
 		$scope.collections = collections.collections;
 		$scope.createdProducts = createdProducts.products;
@@ -91,6 +91,59 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
 			$scope.user.picture_url = picture;
         });
         
-        $scope.changePasswordModal = modalService.changePasswordModal;        
+        $scope.changePasswordModal = modalService.changePasswordModal;   
+		
+		// TODO: repiten codigo.
+		var collectionsPage = 1, uploadedPage = 1, votedPage = 1;
+		
+		$scope.loadMoreCollections = function() {
+			$scope.collectionScrollBusy = true;
+			collectionsPage++;
+			var params = {page: collectionsPage};
+			
+			restService.getCollectionsForUser(user.id, params)
+			.then(function(data) {
+				$scope.collectionScrollBusy = false;
+				if (data.count != 0) {
+					$scope.collections.push.apply($scope.collections, data.collections); 
+				} else {
+					$scope.collectionsDisable = true;
+				}
+			});
+		};
+		
+		$scope.loadMoreUploaded = function() {
+			$scope.uploadedScrollBusy = true;
+			uploadedPage++;
+			var params = {page: uploadedPage};
+			
+			restService.getPostedByUser(user.id, params)
+			.then(function(data) {
+				$scope.uploadedScrollBusy = false;
+				if (data.count != 0) {
+					$scope.createdProducts.push.apply($scope.createdProducts, data.products); 
+				} else {
+					$scope.uploadedDisable = true;
+				}
+			});
+		};
+		
+		$scope.loadMoreVoted = function() {
+			$scope.votedScrollBusy = true;
+			votedPage++;
+			var params = {page: votedPage};
+			
+			restService.getVotedByUser(user.id, params)
+			.then(function(data) {
+				$scope.votedScrollBusy = false;
+				if (data.count != 0) {
+					$scope.votedProducts.push.apply($scope.votedProducts, data.products); 
+				} else {
+					$scope.votedDisable = true;
+				}
+			});
+		};
+		
+		
 	}]);
 });

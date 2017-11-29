@@ -59,24 +59,42 @@
 
                     <div class="tab-content">
                         <div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
-                            <div class="product-list">
+                            <div class="product-list" infinite-scroll='loadMoreCollections()' infinite-scroll-disabled="collectionsDisable">
                                 <div ng-repeat="f in collections | orderBy: 'name'">
                                     <collection-item fav-list="f" hide-delete="!isProfileOwner || !f.isOwnerLogged"></collection-item>
                                 </div>
+								<div ng-show="collectionScrollBusy && !collectionsDisable" class="infinite-scroll-spinner">
+									<div class="spinner">
+										<div class="dot1"></div>
+										<div class="dot2"></div>
+									</div>
+								</div>
                             </div>
                         </div>
                         <div id="uploadedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 2 ? 'active in' : 'none' }}">
-                            <div class="col-md-12 product-list">
+                            <div class="col-md-12 product-list" infinite-scroll='loadMoreUploaded()' infinite-scroll-disabled="uploadedDisable">
                                 <div ng-repeat="c in createdProducts | orderBy: 'name'">
                                     <product-item product="c" on-delete="removeProduct(c)" on-add="addedToCollection(c, collection)" on-vote="productVoted(c, voted)" hide-delete="!isProfileOwner || !c.isOwnerLogged" border-hover="true"></product-item>
-                                </div>    
+                                </div> 
+								<div ng-show="uploadedScrollBusy && !uploadedDisable" class="infinite-scroll-spinner">
+									<div class="spinner">
+										<div class="dot1"></div>
+										<div class="dot2"></div>
+									</div>
+								</div>
                             </div>
                         </div>
                         <div id="votedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 3 ? 'active in' : 'none'}}">
-                            <div class="col-md-12 product-list">
+                            <div class="col-md-12 product-list" infinite-scroll='loadMoreVoted()' infinite-scroll-disabled="votedDisable">
                                 <div ng-repeat="p in votedProducts | orderBy: 'name'">
                                     <product-item product="p" on-delete="removeProduct(p)" on-add="addedToCollection(p, collection)" on-vote="productVoted(p, voted)" hide-delete="!isProfileOwner || !p.isOwnerLogged" border-hover="true"></product-item>
                                 </div>
+								<div ng-show="votedScrollBusy && !votedDisable" class="infinite-scroll-spinner">
+									<div class="spinner">
+										<div class="dot1"></div>
+										<div class="dot2"></div>
+									</div>
+								</div>
                             </div>
                         </div>  
                     </div>
