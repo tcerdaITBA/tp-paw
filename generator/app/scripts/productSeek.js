@@ -72,7 +72,7 @@ define(['routes',
                         $rootScope.isViewLoading = false;
                     });            
             }])
-            .value('url', 'http://localhost:8080/webapp/api')
+            .value('url', 'http://localhost:8080/api')
 			.value('productImagesCount', 4)
 			.value('productVideosCount', 2)
             .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])

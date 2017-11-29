@@ -10,6 +10,8 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			auth.logOut();
 		};
 
+		$scope.popoverTemplate = 'views/popovers/loginRequiredPost.html';
+
 		var focusIndex = -1;
 		$scope.searchFieldFocus = false;
 
