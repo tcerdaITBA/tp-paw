@@ -39,18 +39,29 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                 $scope.toggleVote = function() {
                     if ($scope.isLoggedIn) {
                         $scope.product.voted = !$scope.product.voted;
+						var voteSum = $scope.product.voted ? 1 : -1;
+						$scope.product.voters_count += voteSum;
                         $scope.onVote({voted: $scope.product.voted});
                         
                         if ($scope.product.voted) {
-                            $scope.product.voters_count += 1;
-                            restService.voteProduct(product.id);
+                            restService
+								.voteProduct(product.id)
+								.catch(function() {revertVote(voteSum)});
                         }
                         else {
-                            $scope.product.voters_count -= 1;
-                            restService.unvoteProduct(product.id);
+                            restService
+								.unvoteProduct(product.id)
+								.catch(function() {revertVote(voteSum)});
                         }
                     }
                 };
+				
+				function revertVote(voteSum) {
+					$scope.product.voters_count -= voteSum;
+					$scope.product.voted = !$scope.product.voted;
+					// TODO snackbar
+					console.log("no se pudo votar/desvotar");
+				}
                 
                 $scope.showCollectionModal = function() {
                     var modal = modalService.collectionModal($scope.product, authService.loggedUser.collections);
