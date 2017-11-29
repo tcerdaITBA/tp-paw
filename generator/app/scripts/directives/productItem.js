@@ -59,8 +59,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
 				function revertVote(voteSum) {
 					$scope.product.voters_count -= voteSum;
 					$scope.product.voted = !$scope.product.voted;
-					// TODO snackbar
-					console.log("no se pudo votar/desvotar");
+                    snackbarService.showNoConnection();
 				}
                 
                 $scope.showCollectionModal = function() {
