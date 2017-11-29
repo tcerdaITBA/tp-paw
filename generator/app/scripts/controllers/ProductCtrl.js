@@ -1,7 +1,7 @@
 'use strict';
 define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'services/restService', 'services/modalService'], function(productSeek) {
 
-	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', 'modalService', '$scope', '$location', 'product', function(auth, $sce, restService, modalService, $scope, $location, product) {
+	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', 'modalService', 'snackbarService', '$scope', '$location', 'product', function(auth, $sce, restService, modalService, snackbarService, $scope, $location, product) {
 
 		$scope.product = product;
 		$scope.description = product.description;
@@ -61,7 +61,11 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 				$scope.comments[index].children[len].date = data.date;
 				$scope.comments[index].children[len].parent_id = data.parent_id;
 
-			});
+			})
+			.catch(function() {
+				snackbarService.showNoConnection();
+				$scope.comments[index].children.pop();
+			});	;
 
 	    };
 
@@ -79,6 +83,10 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 				$scope.comments[$scope.comments.length - 1].id = data.id;
 				$scope.comments[$scope.comments.length - 1].date = data.date;		
 
+			})
+			.catch(function() {
+				snackbarService.showNoConnection();
+				$scope.comments.pop();
 			});	
 	    };
 
