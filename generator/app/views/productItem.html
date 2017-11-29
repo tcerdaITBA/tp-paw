@@ -23,7 +23,7 @@
 				</div>
             </div>
             <div class="col-md-6 col-md-offset-{{offset}}">
-                <div class="pull-right product-button upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()">
+                <div class="pull-right product-button upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()" uib-popover-template="'views/popovers/loginRequiredVote.html'" popover-enable="!isLoggedIn" popover-trigger="'outsideClick'">
                     <span class="glyphicon glyphicon-arrow-up"></span>{{product.voters_count}}
                 </div>
                 <div ng-show="isLoggedIn" class="product-button pull-right add-to-collection-btn" ng-click="showCollectionModal(); $event.stopPropagation()">

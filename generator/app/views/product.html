@@ -152,33 +152,10 @@
 							</div>
 							<div class="row reply-button-holder">
 								<div class="col-md-4">
-									<div ng-show="!isLoggedIn">
-										<!--Popover (not working)-->                                        <!-- <a tabindex="0" popover-placement="bottom" class="reply-btn" role="button" data-trigger="'focus'" id="reply-popover"
-uib-popover-html="'<p class='popover-msg'>
-<span>{{'product.anonymousComment.beginning' | translate}}</span>
-<a ng-click="signInModal()">
-<span>{{'product.anonymousComment.signIn' | translate}}</span>
-</a>
-<span>{{'product.anonymousComment.or' | translate}}</span>
-<a ng-click="signUpModal()">
-<span>{{'product.anonymousComment.signUp' | translate}}</span>
-</a>
-</p>'">
-<span class="glyphicon glyphicon-share-alt"></span>
-{{'product.reply' | translate}}
-</a>
--->
-										<a class="reply-btn">
-											<span class="glyphicon glyphicon-share-alt"></span>
-											{{'product.reply' | translate}}
-										</a>
-									</div>
-									<div ng-show="isLoggedIn">
-										<p class="reply-btn" ng-click="showReplyForm($event.currentTarget)">
-											<span class="glyphicon glyphicon-share-alt"></span>
-											{{'product.reply' | translate}}
-										</p>
-									</div>        
+									<p uib-popover-template="'views/popovers/loginRequiredComment.html'" popover-enable="!isLoggedIn" popover-trigger="'outsideClick'" class="reply-btn" ng-click="showReplyForm($event.currentTarget)">
+										<span class="glyphicon glyphicon-share-alt"></span>
+										{{'product.reply' | translate}}
+									</p>
 								</div>
 							</div>
 							<div class="row comment-divider">
@@ -217,12 +194,6 @@ uib-popover-html="'<p class='popover-msg'>
 										<div class="col-md-12"></div>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="row spinner-holder" ng-show="showChildSpinner[$index]">
-							<div class="spinner">
-								<div class="dot1"></div>
-								<div class="dot2"></div>
 							</div>
 						</div>
 						<div class="row">
@@ -265,14 +236,7 @@ uib-popover-html="'<p class='popover-msg'>
 						</div>
 					</div>
 				</div>
-				<div class="row spinner-holder" ng-show="showParentSpinner">
-					<div class="spinner">
-						<div class="dot1"></div>
-						<div class="dot2"></div>
-					</div>
-				</div>
 			</div>
-
 		</div>
 	</div>
 </div>

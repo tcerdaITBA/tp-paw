@@ -163,7 +163,7 @@ public class UsersController {
 
     	final byte[] picture = userService.getProfilePictureByUserId(id);
 		
-		if (picture.length == 0) {
+		if (picture == null || picture.length == 0) {
 			LOGGER.warn("Cannot render user profile picture, user with id {} not found", id);
 			return Response.status(Status.NOT_FOUND).build();
 		}

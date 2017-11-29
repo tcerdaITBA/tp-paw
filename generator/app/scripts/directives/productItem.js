@@ -6,7 +6,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
             replace: 'true',
             templateUrl: 'views/productItem.html',
             scope: {product: '=', hideCategory: '=', hideDelete: '=', onVote: '&', onAdd: '&', onDelete: '&', borderHover: '=', order: '=', orderBy: '='},
-            controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', 'defaultSortCriteria', function($scope, $location, $route, authService, restService, modalService, defaultSortCriteria) {
+            controller: ['$scope', '$location', '$route', 'authService', 'restService', 'modalService', 'snackbarService', 'defaultSortCriteria', function($scope, $location, $route, authService, restService, modalService, snackbarService, defaultSortCriteria) {
 
                 var product = $scope.product;
                 
@@ -88,6 +88,9 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                         $(this).css("border-color", "#f3f3f3");
                     });
                 }
+
+                $scope.signInModal = modalService.signInModal;
+                $scope.signUpModal = modalService.signUpModal;
             }]
         }
     });

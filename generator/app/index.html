@@ -4,11 +4,44 @@
 	<meta charset="utf-8">
 	<title>Product Seek</title>
 	<meta name="description" content="">
-	<link rel="shortcut icon" type="image/svg" href="/images/favicon.svg"/>
+	<link rel="shortcut icon" type="image/svg" href="images/favicon.svg"/>
 
 	<!-- build:css(.tmp) styles/main.css -->
-	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/main.css">	
 	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/home.css -->
+	<link rel="stylesheet" href="styles/home.css">	
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/post.css -->
+	<link rel="stylesheet" href="styles/post.css">	
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/product-item.css -->
+	<link rel="stylesheet" href="styles/product-item.css">
+	<!-- endbuild -->
+	
+	<!-- build:css(.tmp) styles/product.css -->
+	<link rel="stylesheet" href="styles/product.css">	
+	<!--endbuild -->
+	
+	<!-- build:css(.tmp) styles/profile.css -->
+	<link rel="stylesheet" href="styles/profile.css">	
+	<!--endbuild -->
+	
+	<!--build:css(.tmp) styles/search-results.css -->
+	<link rel="stylesheet" href="styles/search-results.css">
+	<!-- endbuild -->
+	
+	<!-- build:css(.tmp) styles/sign-modals.css -->
+	<link rel="stylesheet" href="styles/sign-modals.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/user-item.css -->
+	<link rel="stylesheet" href="styles/user-item.css">	
+	<!-- endbuild -->
+	
 </head>
 <body ng-controller="IndexCtrl">
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -84,8 +117,8 @@
 					<li>
 						<p class="navbar-btn">
 							<a tabindex="0" popover-placement="bottom"
-							   uib-popover-html="'<span>post</span>'"
-							   class="ps-btn btn upload-btn" role="button" popover-trigger="'focus'" id="upload-popover" ng-bind="'navbar.post' | translate">
+							   uib-popover-template="popoverTemplate"
+							   class="ps-btn btn upload-btn" role="button" popover-enable="!isLoggedIn" popover-trigger="'outsideClick'" id="upload-popover" ng-bind="'navbar.post' | translate">
 							</a>
 						</p>
 					</li>
@@ -114,16 +147,25 @@
 			</div>
 		</div>
 	</nav>
+
 	<div class="container main-container">
 		<div ng-view="" autoscroll="true"></div>
+
+		<div class="snackbar" id="noConnection">
+		    <div class="alert alert-warning row-centered">
+		        <strong>
+		            <span class="glyphicon glyphicon-flash"></span>
+		        </strong>
+		        {{'feedback.warning.noConnection' | translate}}
+		    </div>		
+		</div>
 	</div>
+
 	<div class="container">
 		<div class="footer">
 			<p>Product Seek. 2017.</p>
 		</div>
 	</div>
-
-
 
 	<!-- build:js(.) scripts/oldieshim.js -->
 	<!--[if lt IE 9]>

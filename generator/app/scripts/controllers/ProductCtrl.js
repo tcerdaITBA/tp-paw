@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], function(productSeek) {
+define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'services/restService', 'services/modalService'], function(productSeek) {
 
-	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', '$scope', '$location', 'product', function(auth, $sce, restService, $scope, $location, product) {
+	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', 'modalService', 'snackbarService', '$scope', '$location', 'product', function(auth, $sce, restService, modalService, snackbarService, $scope, $location, product) {
 
 		$scope.product = product;
 		$scope.description = product.description;
@@ -30,10 +30,6 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 
 		$scope.childCommentLengthError = [];
 
-		$scope.showParentSpinner = false;
-
-		$scope.showChildSpinner = [];
-
 		$.fn.goTo = function() {
 	 		var offset = 100;
 	        $('html, body').animate({
@@ -51,43 +47,70 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
 	    };
 
 	    function childCommentSubmitNoError(parentCommentId, index) {
-	    	$scope.showChildSpinner[index] = true;
+	    	
+	    	$scope.comments[index].children.push(jsonFromComment($scope.childCommentForm[index]));
 
 	    	restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
-			then(function(data) {
-				$scope.showChildSpinner[index] = false;
+			then(function(data) {		
 				$scope.childCommentLengthError[index] = false;
-
 				$scope.childCommentForm[index].text = '';
-				$scope.comments[index].children.push(data);
-			});
+
+				var len = $scope.comments[index].children.length -1;
+				
+				$scope.comments[index].children[len].id = data.id;
+				$scope.comments[index].children[len].date = data.date;
+				$scope.comments[index].children[len].parent_id = data.parent_id;
+
+			})
+			.catch(function() {
+				snackbarService.showNoConnection();
+				$scope.comments[index].children.pop();
+			});	;
 
 	    };
 
 	   	function parentCommentSubmitNoError() {
-			$scope.showParentSpinner = true;
+
+	   		$scope.comments.push(jsonFromComment($scope.parentCommentForm));
 
 			//scroll to bottom of page
 			angular.element(document.getElementsByClassName('footer')).goTo();
 
 			restService.commentProduct($scope.product.id, $scope.parentCommentForm.text).
 			then(function(data) {
-				$scope.showParentSpinner = false;
 				$scope.parentCommentLengthError = false;
-
 				$scope.parentCommentForm.text = '';
-				$scope.comments.push(data);		
+				$scope.comments[$scope.comments.length - 1].id = data.id;
+				$scope.comments[$scope.comments.length - 1].date = data.date;		
+
+			})
+			.catch(function() {
+				snackbarService.showNoConnection();
+				$scope.comments.pop();
 			});	
 	    };
 
+	    function jsonFromComment(form) {
+
+	    	var newParentComment = {};
+
+	    	newParentComment.author = $scope.loggedUser;
+	    	newParentComment.children = [];
+	    	newParentComment.content = form.text;
+
+	    	return newParentComment;
+	    }
+
 	    $scope.showReplyForm = function(target) {
 			// Hide all other open comment forms.
-			$('.reply-comment').hide();
-			
-			var replyform = angular.element(target).closest('.comment-and-replies').find('.reply-comment');
-			replyform.css('display', 'inline');
-			
-			replyform.goTo();
+			if ($scope.isLoggedIn) {
+				$('.reply-comment').hide();
+				
+				var replyform = angular.element(target).closest('.comment-and-replies').find('.reply-comment');
+				replyform.css('display', 'inline');
+				
+				replyform.goTo();
+			}
 		};
 
 		$scope.parentCommentSubmit = function() {
@@ -129,5 +152,14 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem'], func
         $scope.directToHome = function() {
         	$location.url('/');
         };
+
+        $scope.$on('user:updated', function() {
+	   		if (!auth.isLoggedIn()) {
+	   			$scope.isLoggedIn = false;
+	  		}
+		});
+
+        $scope.signInModal = modalService.signInModal;
+        $scope.signUpModal = modalService.signUpModal;
     }]);
 });

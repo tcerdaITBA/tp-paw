@@ -28,5 +28,9 @@ define(['productSeek', 'jquery'], function(productSeek) {
             for (var i = 0; i < ids.length; i++)
                 this.showSnackbar(ids[i], timeout * (i+1) + wait * i, timeout * i + wait * i);
         }
+
+        this.showNoConnection = function(timeout, wait) {
+            this.showSnackbar('noConnection', timeout, wait);
+        }
     }]);
 });

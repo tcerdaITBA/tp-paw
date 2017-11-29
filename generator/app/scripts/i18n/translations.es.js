@@ -29,6 +29,9 @@ define([], function() {
         'description.music': '¿Estás teniendo un día duro? Es hora de escuchar música que te hace sentir como el mejor.',
         'description.other': '¿Ninguna categoría corresponde con el producto que buscas? Puede que lo encuentres aquí.',
         'description.all': 'Aquí encontrarás productos de cualquier categoría.',
+
+        'categoryZRP.sorry': '\uD83D\uDE14',
+        'categoryZRP.noProducts': 'Aún no hay productos en esta categoría.',
 		
 	'navbar.mostPopular':'Más populares',
 	'navbar.signup':'Registrarse',
@@ -62,6 +65,13 @@ define([], function() {
         popular: 'Más Votados',
         atoz: 'a-z',
 
+        'popover.toPost': 'Para publicar un producto debes',
+        'popover.toVote': 'Para votar un producto debes',
+        'popover.toComment': 'Para comentar un producto debes',
+        'popover.signIn': 'iniciar sesión',
+        'popover.toPostBis': 'o',
+        'popover.signUp': 'registrarte.',
+
         'Profile.Tab.uploadedProducts': 'Publicados',
         'Profile.Tab.votedProducts': 'Votados',
         'Profile.Tab.favlist': 'Colecciones',
@@ -78,7 +88,7 @@ define([], function() {
 
         'Profile.modal.deleteProduct': 'Eliminar Producto',
         'Profile.modal.textBeginning': '¿Estás seguro de que deseas eliminar',
-        'Profile.modal.textEnd': '? Esta acción no puede ser revertida.',
+        'Profile.modal.textEnd': 'Esta acción no puede ser revertida.',
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
 
@@ -138,6 +148,8 @@ define([], function() {
 
         'feedback.passwordChanged.text' : 'Contraseña cambiada exitosamente',
         'feedback.pictureChanged.text' : 'Foto de perfil cambiada exitosamente',
+
+        'feedback.warning.noConnection': 'Oops, parece que has perdido la conexión',
         
         'button.addProfilePicture' : 'Foto de Perfil',
         'modal.signUp.title': 'Registrarse',
@@ -158,9 +170,9 @@ define([], function() {
         'signUp.error.passwordMatch': 'Las contraseñas deben ser iguales',
         'signUp.error.addEmail': 'El no puede estar vacío',
         'signUp.error.invalidEmail': 'El email provisto no es válido',
-		'signIn.error.addEmail': 'Indica tu email',
-		'signIn.error.addPassword': 'Indica tu contraseña',
-        
+	'signIn.error.addEmail': 'Indica tu email',
+	'signIn.error.addPassword': 'Indica tu contraseña',
+
         'modal.changePicture.empty': 'Agregue imagen',
 
         'product.creator':'Creador',

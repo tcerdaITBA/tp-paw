@@ -65,6 +65,13 @@ define([], function() {
         popular: 'Most voted',
         atoz: 'a-z',
 
+        'popover.toPost': 'In order to post a product you need to',
+        'popover.toVote': 'In order to vote a product you need to',
+        'popover.toComment': 'In order to comment a product you need to',
+        'popover.signIn': 'sign in',
+        'popover.toPostBis': 'or',
+        'popover.signUp': 'sign up.',
+
         'Profile.Tab.uploadedProducts': 'Uploaded',
         'Profile.Tab.votedProducts': 'Voted',
         'Profile.Tab.favlist': 'Collections',
@@ -81,7 +88,7 @@ define([], function() {
 
         'Profile.modal.deleteProduct': 'Delete Product',
         'Profile.modal.textBeginning': 'Are you sure you want to delete',
-        'Profile.modal.textEnd': '? This action can\u2019t be undone.',
+        'Profile.modal.textEnd': 'This action can\u2019t be undone.',
         'Profile.modal.rightButton': 'Cancel',
         'Profile.modal.leftButton': 'Delete',    
 		
@@ -139,8 +146,10 @@ define([], function() {
         'feedback.productAddedToFavList.text': 'was added to',
         'feedback.productDeleted.textEnd': 'was deleted',
 
-        'feedback.passwordChanged.text' : 'Password changed successfully',
-        'feedback.pictureChanged.text' : 'Profile picture changed successfully',
+        'feedback.passwordChanged.text': 'Password changed successfully',
+        'feedback.pictureChanged.text': 'Profile picture changed successfully',
+
+        'feedback.warning.noConnection': 'Oops, looks like you lost connection',
         
 
         'button.addProfilePicture' : 'Profile Picture',
@@ -162,8 +171,8 @@ define([], function() {
         'signUp.error.passwordMatch': 'Passwords do not match',
         'signUp.error.addEmail': 'Add email',
         'signUp.error.invalidEmail': 'Invalid email',
-		'signIn.error.addEmail': 'Insert your email',
-		'signIn.error.addPassword': 'Insert your password',
+	'signIn.error.addEmail': 'Insert your email',
+	'signIn.error.addPassword': 'Insert your password',
 
         'modal.changePicture.empty': 'Add image',
 
