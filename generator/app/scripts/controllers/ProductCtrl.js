@@ -153,6 +153,12 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
         	$location.url('/');
         };
 
+        $scope.$on('user:updated', function() {
+	   		if (!auth.isLoggedIn()) {
+	   			$scope.isLoggedIn = false;
+	  		}
+		});
+
         $scope.signInModal = modalService.signInModal;
         $scope.signUpModal = modalService.signUpModal;
     }]);
