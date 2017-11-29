@@ -1,7 +1,7 @@
 'use strict';
 define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf', 'services/restService'], function(productSeek) {
 	
-	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', 'restService', '$scope', '$location', function(session, auth, modal, restService, $scope, $location) {
+	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', 'restService', '$scope', '$location', 'searchMinLength', 'searchMaxLength', function(session, auth, modal, restService, $scope, $location, searchMinLength, searchMaxLength) {
 		$scope.showSuggestions = false;
 		$scope.isLoggedIn = auth.isLoggedIn();
 		$scope.loggedUser = auth.getLoggedUser();
@@ -20,6 +20,11 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 
 		$scope.$on('searchHistory:updated', function() {
 			$scope.searchHistory = session.getSearchHistory();
+			
+			if ($scope.searchHistory.length) {
+				// Llena el cuadro de búsqueda.
+				$scope.query = $scope.searchHistory[0];
+			}
 		});
 		
 		$scope.$on('user:picture', function(event, picture) {
@@ -27,8 +32,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		});
 
 		$scope.search = function(query) {
-			// TODO constantes en service
-			if (query && query.length >= 3 &&  query.length <= 64) {
+			if (query && query.length >= searchMinLength &&  query.length <= searchMaxLength) {
 				focusIndex = -1;
 				$scope.searchFieldFocus = false;
 				$location.url('/search?q=' + query);
@@ -79,6 +83,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 					break;
 					
 				case 13: // enter
+					console.log(item);
 					event.preventDefault();
 					$scope.search(item);
 					break;
@@ -90,8 +95,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		};
 
 		$scope.autocompleteSearch = function() {
-			//tODO constante
-			if ($scope.query && $scope.query.length >= 3) {
+			if ($scope.query && $scope.query.length >= searchMinLength) {
 				restService.searchProducts($scope.query).then(function(data) {
 					$scope.searchSuggestions = data.products;
 				});
