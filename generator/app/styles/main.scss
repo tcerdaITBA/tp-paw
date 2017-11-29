@@ -8,17 +8,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import 'slick-carousel/slick/slick.scss';
 // endbower
 
-@import 'partials/home';
-@import 'partials/product-item';
-@import 'partials/profile';
-@import 'partials/sign-modals';
 @import 'partials/buttons';
-@import 'partials/user-item';
 @import 'partials/snackbar';
-@import 'partials/post';
-@import 'partials/search-results';
 @import 'partials/spinner';
-@import 'partials/product';
 
 .delete-product-btn {
   font-size: 1.2em;
