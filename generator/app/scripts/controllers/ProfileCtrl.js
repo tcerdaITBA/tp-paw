@@ -10,9 +10,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 		$scope.votedProducts = votedProducts.products;
 
 		var updateProfileOwner = function() {
-			if (!authService.isLoggedIn())
-				return false;
-			else if (authService.loggedUser.id !== user.id)
+			if (!authService.isLoggedIn() || authService.loggedUser.id !== user.id)
 				return false;
 			return true;
 		};

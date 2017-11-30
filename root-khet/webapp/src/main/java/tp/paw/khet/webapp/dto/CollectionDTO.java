@@ -29,6 +29,9 @@ public class CollectionDTO {
 	
 	private URI url;
 	
+	@XmlElement(name = "creator_id")
+	private int creatorId;
+	
 	@XmlElement(name = "creator_url")
 	private URI creatorURL;
 	
@@ -43,6 +46,7 @@ public class CollectionDTO {
 		name = favList.getName();
 		products = new ArrayList<>();
 		setUrl(baseUri.resolve("collections/" + id));
+		creatorId = favList.getCreator().getUserId();
 		creatorURL = baseUri.resolve("users/" + favList.getCreator().getUserId());
 
 		for (Product p: favList.getProductList())
@@ -97,5 +101,21 @@ public class CollectionDTO {
 
 	public void setUrl(URI url) {
 		this.url = url;
+	}
+	
+	public int getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(int creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public URI getCreatorURL() {
+		return creatorURL;
+	}
+
+	public void setCreatorURL(URI creatorURL) {
+		this.creatorURL = creatorURL;
 	}
 }

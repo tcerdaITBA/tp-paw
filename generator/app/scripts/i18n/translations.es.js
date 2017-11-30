@@ -91,9 +91,13 @@ define([], function() {
 
         'Profile.modal.deleteProduct': 'Eliminar Producto',
         'Profile.modal.textBeginning': '¿Estás seguro de que deseas eliminar',
+        'Profile.modal.collectionTextBeginning': '¿Estás seguro que deseas eliminar la colecciòn ',
         'Profile.modal.textEnd': 'Esta acción no puede ser revertida.',
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
+        
+                
+        'Profile.modal.deleteCollection': 'Eliminar colección',
 
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',
@@ -187,7 +191,7 @@ define([], function() {
         'product.anonymousComment.signIn':'iniciar sesión',
         'product.anonymousComment.or':'o',
         'product.anonymousComment.signUp':'registrarte.',
-        'product.reply':'Responder'
-        
+        'ZRP.noProductsInCollection': 'No hay productos en esta colección'
+
 	};
 });

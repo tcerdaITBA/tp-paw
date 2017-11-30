@@ -91,9 +91,12 @@ define([], function() {
 
         'Profile.modal.deleteProduct': 'Delete Product',
         'Profile.modal.textBeginning': 'Are you sure you want to delete',
+        'Profile.modal.collectionTextBeginning': 'Are you sure you want to delete the collection ',
         'Profile.modal.textEnd': 'This action can\u2019t be undone.',
         'Profile.modal.rightButton': 'Cancel',
-        'Profile.modal.leftButton': 'Delete',    
+        'Profile.modal.leftButton': 'Delete', 
+        
+        'Profile.modal.deleteCollection': 'Delete collection',
 		
         'collection.collectionNamePlaceholder':'Name',
         'collections.newCollection':'New Collection',
@@ -187,7 +190,8 @@ define([], function() {
         'product.anonymousComment.signIn':'sign in',
         'product.anonymousComment.or':'or',
         'product.anonymousComment.signUp':'sign up.',
-        'product.reply':'Reply'
+        'product.reply':'Reply',
+        'ZRP.noProductsInCollection': 'No products in this collection'
 
 	};
 });
