@@ -15,23 +15,25 @@
 }
 
 .slick-next:before {
-  content: url('../images/carrow-right.png') no-repeat !important;
+  content: " ";
+  background: url('../images/carrow-right.png') no-repeat !important;
   color: grey;
-  height: 20px;
-  width: 20px;
-  position: relative;
-  bottom: 12px;
-  margin-left: 25px;
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  margin-left: 20px;
+  top: -10px;
 }
 
 .slick-prev:before {
-  content: url('../images/carrow-left.png') no-repeat !important;
+  content: " ";
+  background: url('../images/carrow-left.png') no-repeat !important;
   color: grey;
-  height: 20px;
-  width: 20px;
-  position: relative;
-  right: 70px;
-  bottom: 12px;
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  right: 25px;
+  top: -10px;
 }
 
 .slick-dots {
