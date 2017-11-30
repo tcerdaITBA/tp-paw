@@ -66,7 +66,7 @@ define(['controllers/SearchCtrl', 'angular-mocks'], function() {
 			
 			it('should show products tab if there are no products or users', function() {
 				scope = {};
-				controller = $controller('SearchCtrl', { $scope: scope, productsData: {count: 0, products: []}, query: 		QUERY, usersData: {count: 0, users: []}});
+				controller = $controller('SearchCtrl', { $scope: scope, productsData: {count: 0, products: []}, query: QUERY, usersData: {count: 0, users: []}});
 				expect(productsTab(scope)).toBe(true);
 				expect(userTab(scope)).toBe(false);
 			});
@@ -78,9 +78,9 @@ define(['controllers/SearchCtrl', 'angular-mocks'], function() {
 				expect(scope.categories.map(function(a){ return a.name }).sort()).toEqual(presentCategories.sort());
 			});
 			
-			it('should have all categories checked', function() {
+			it('should have all categories unchecked', function() {
 				angular.forEach(scope.categories, function(c) {
-					expect(c.checked).toBe(true);
+					expect(c.checked).toBe(false);
                 });
 			});
 		});
