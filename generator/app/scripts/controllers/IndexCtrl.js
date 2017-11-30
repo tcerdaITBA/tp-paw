@@ -35,7 +35,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			if (query && query.length >= searchMinLength &&  query.length <= searchMaxLength) {
 				focusIndex = -1;
 				$scope.searchFieldFocus = false;
-				$location.url('/search?q=' + query);
+				$location.url('search?q=' + query);
 			}
 		};
 
@@ -45,7 +45,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		});
 		
 		$scope.$on('$locationChangeStart', function(event) {
-			if ($location.path() == '/post')
+			if ($location.path() == 'post')
 				$scope.hidePost = true;
 			else
 				$scope.hidePost = false;

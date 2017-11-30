@@ -17,11 +17,11 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                     console.log($scope.orderBy);
                     var orderBy = $scope.orderBy || defaultSortCriteria.orderBy;
                     var order = $scope.order || defaultSortCriteria.order;
-                    $location.url('/?category=' + product.category + '&orderBy=' + orderBy + '&order=' + order);
+                    $location.url('?category=' + product.category + '&orderBy=' + orderBy + '&order=' + order);
                 };
         
                 $scope.directToProduct = function() {
-                    $location.url('/product/' + product.id);
+                    $location.url('product/' + product.id);
                 };
                 
                 $scope.isLoggedIn = authService.isLoggedIn();

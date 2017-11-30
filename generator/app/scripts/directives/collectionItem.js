@@ -10,7 +10,7 @@ define(['productSeek'], function(productSeek) {
                 $scope.collectionOffset = 12; // TODO: si el usuario está loggeado y es su colección vale 11
                 $scope.products = $scope.favList.products;
                 $scope.directToProduct = function() {
-                    $location.url('/product/' + product.id);
+                    $location.url('product/' + product.id);
                 };
 
                 $scope.deleteProduct = function() {

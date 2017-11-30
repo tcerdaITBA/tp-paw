@@ -64,7 +64,7 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService', 'service
                 extractIds();
 				restService.postProduct($scope.product)
                 .then(function(data) {
-                    $location.url('/product/' + data.id);
+                    $location.url('product/' + data.id);
                 });
 			} else {
 				console.log("Invalid form");
