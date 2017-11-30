@@ -59,23 +59,6 @@ define(['productSeek', 'services/restService', 'services/authService'], function
             });
         };
         
-        //TODO: cambiar el modal por el específico
-        this.deleteProductFromCollection = function(product, favList) {
-            return $uibModal.open({
-                templateUrl: 'views/modals/deleteProductFromCollectionModal.html',
-                controller: 'DeleteProductFromCollectionCtrl',
-                size: 'sm',
-                resolve: {
-                    product: function() {
-                        return product;
-                    },
-                    favList: function() {
-                        return favList;
-                    }
-                }
-            });
-        }
-        
 		this.changePictureModal = function() {
 			return $uibModal.open({
 				templateUrl: 'views/modals/changePictureModal.html',
