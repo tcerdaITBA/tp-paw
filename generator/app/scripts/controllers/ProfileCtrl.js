@@ -53,6 +53,13 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         };
         
         $scope.productVoted = function(product, voted) {
+        	angular.forEach($scope.collections, function(collection) {
+        		var idx = findIndexById(product, collection.products);
+
+        		if (idx !== -1)
+        			collection.products[idx].voters_count += voted ? 1 : -1;
+        	});
+
             if ($scope.isProfileOwner)
                 voted ? $scope.votedProducts.push(product) : removeItemFrom(product, $scope.votedProducts);
         };
