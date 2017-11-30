@@ -1,9 +1,19 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'services/restService', 'directives/loading'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'services/restService', 'directives/loading', 'services/titleService'], function(productSeek) {
 
-	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', 'restService','productsData', 'categories', 'categoriesImage', 'sortCriterias', 'defaultSortCriteria', 
-        function($scope, $routeParams, restService, productsData, categories, categoriesImage, sortCriterias, defaultSortCriteria) {
+	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', '$translate', 'titleService', 'restService','productsData', 'categories', 'categoriesImage', 'sortCriterias', 'defaultSortCriteria', 
+        function($scope, $routeParams, $translate, titleService, restService, productsData, categories, categoriesImage, sortCriterias, defaultSortCriteria) {
         
+        if ($routeParams.category) {
+            $translate($routeParams.category).then(function(title) {
+                console.log(title);
+                titleService.setTitle(title);
+            });
+        }
+        else {
+            titleService.setDefaultTitle();
+        }
+
         $scope.products = productsData.products;
         $scope.category = $routeParams.category;
         $scope.orderBy = $routeParams.orderBy || defaultSortCriteria.orderBy;

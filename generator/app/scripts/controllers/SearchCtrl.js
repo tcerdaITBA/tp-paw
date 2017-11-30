@@ -1,7 +1,11 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'directives/userItem', 'services/sessionService'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'directives/userItem', 'services/sessionService', 'services/titleService'], function(productSeek) {
 
-	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', 'productsData', 'usersData', 'query', 'sessionService', function($scope, $rootScope, productsData, usersData, query, session) {
+	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', '$translate', 'titleService', 'productsData', 'usersData', 'query', 'sessionService', function($scope, $rootScope, $translate, titleService, productsData, usersData, query, session) {
+		$translate('title.search').then(function(title) {
+			titleService.setTitle(title);
+		});
+
     	$scope.query = query;
 		$scope.tabs = [false, false];
 

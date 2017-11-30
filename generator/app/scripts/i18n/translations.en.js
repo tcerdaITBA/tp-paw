@@ -13,6 +13,9 @@ define([], function() {
         music: 'Music',
         other: 'Other',
         all: 'All',
+
+        'title.search': 'Search Results',
+        'title.post': 'Post',
         
         'date': 'Recent',
         'alpha': 'a-z',

@@ -1,7 +1,9 @@
 'use strict';
-define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'services/restService', 'services/modalService'], function(productSeek) {
+define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'services/restService', 'services/modalService', 'services/titleService'], function(productSeek) {
 
-	productSeek.controller('ProductCtrl', ['authService', '$sce', 'restService', 'modalService', 'snackbarService', '$scope', '$location', 'product', function(auth, $sce, restService, modalService, snackbarService, $scope, $location, product) {
+	productSeek.controller('ProductCtrl', ['authService', '$sce', 'titleService', 'restService', 'modalService', 'snackbarService', '$scope', '$location', 'product', function(auth, $sce, titleService, restService, modalService, snackbarService, $scope, $location, product) {
+
+		titleService.setTitle(product.name.charAt(0).toUpperCase() + product.name.slice(1));
 
 		$scope.product = product;
 		$scope.description = product.description;

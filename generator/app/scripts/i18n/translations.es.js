@@ -14,6 +14,9 @@ define([], function() {
         other: 'Otros',
         all: 'Todo',
         
+        'title.search': 'Resultados de Búsqueda',
+        'title.post': 'Publicar',
+
         'date': 'Recientes',
         'alpha': 'a-z',
         'votes': 'Más Votados',

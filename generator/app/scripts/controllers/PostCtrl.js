@@ -1,7 +1,12 @@
 'use strict';
-define(['productSeek', 'directives/ngFileRead', 'services/restService'], function(productSeek) {
+define(['productSeek', 'directives/ngFileRead', 'services/restService', 'services/titleService'], function(productSeek) {
 
-	productSeek.controller('PostCtrl', ['$scope', '$location', 'categories', 'productImagesCount', 'productVideosCount', 'restService', function($scope, $location, categories, productImagesCount, productVideosCount, restService) {
+	productSeek.controller('PostCtrl', ['$scope', '$location', '$translate', 'titleService', 'categories', 'productImagesCount', 'productVideosCount', 'restService', function($scope, $location, $translate, titleService, categories, productImagesCount, productVideosCount, restService) {
+		
+		$translate('title.post').then(function(title) {
+			titleService.setTitle(title);
+		});
+
 		$scope.categories = categories;
 		
 		$scope.youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
