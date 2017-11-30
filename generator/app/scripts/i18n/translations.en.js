@@ -81,6 +81,7 @@ define([], function() {
 
         'Profile.modal.deleteProduct': 'Delete Product',
         'Profile.modal.textBeginning': 'Are you sure you want to delete',
+        'Profile.modal.collectionTextBeginning': 'Are you sure you want to delete the collection ',
         'Profile.modal.textEnd': 'This action can\u2019t be undone.',
         'Profile.modal.rightButton': 'Cancel',
         'Profile.modal.leftButton': 'Delete', 

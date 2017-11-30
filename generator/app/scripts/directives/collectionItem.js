@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/modalService', 'controllers/DeleteCollectionModalCtrl', 'controllers/DeleteProductFromCollectionCtrl'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService','services/snackbarService' ,'controllers/DeleteCollectionModalCtrl', 'controllers/DeleteProductFromCollectionCtrl'], function(productSeek) {
     productSeek.directive('collectionItem', function() {
         return {
             restrict: 'E',
@@ -35,12 +35,13 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                 };
 
                 $scope.deleteProduct = function(product) {   
-                    var modal = modalService.deleteProductFromCollection(product, $scope.favList);
-                    modal.result.then(function(isDeleted) {
-                        if (isDeleted)
-                            removeItemFrom(product, $scope.products);
+                    restService.deleteProductFromCollection($scope.favList.id, product.id)
+                    .then(function() {
+                    snackbarService.showSnackbar('ProductFormCollectionDeleted');
+                    $uibModalInstance.close(true);
                     });
-                }
+                };
+                
 
                 $scope.shouldExpand = function() {
                     // <c:set var="expand" value="${not empty favListRemovedId && favListRemovedId == favList.id}"></c:set>

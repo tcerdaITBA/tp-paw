@@ -49,6 +49,15 @@
                         <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteProduct(product); $event.stopPropagation()"></span>
 
                 </div>
+                <snackbar id="ProductFormCollectionDeleted">
+                    <div class="alert alert-success row-centered">
+                        <strong>
+                            <span class="glyphicon glyphicon-trash"></span>
+                            <span class="snackbar-product-name">{{product.name}}</span>
+                        </strong>
+                        {{'feedback.productDeleted.textEnd' | translate}}
+                    </div>
+                </snackbar>
             </div>
 		</div>
 	</div>
