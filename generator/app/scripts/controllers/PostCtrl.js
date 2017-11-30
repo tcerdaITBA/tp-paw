@@ -1,11 +1,17 @@
 'use strict';
-define(['productSeek', 'directives/ngFileRead', 'services/restService', 'services/titleService'], function(productSeek) {
+define(['productSeek', 'directives/ngFileRead', 'services/restService', 'services/titleService', 'services/authService'], function(productSeek) {
 
-	productSeek.controller('PostCtrl', ['$scope', '$location', '$translate', 'titleService', 'categories', 'productImagesCount', 'productVideosCount', 'restService', function($scope, $location, $translate, titleService, categories, productImagesCount, productVideosCount, restService) {
+	productSeek.controller('PostCtrl', ['$scope', '$location', '$window', '$translate', 'titleService', 'authService', 'categories', 'productImagesCount', 'productVideosCount', 'restService', function($scope, $location, $window, $translate, titleService, authService, categories, productImagesCount, productVideosCount, restService) {
 		
 		$translate('title.post').then(function(title) {
 			titleService.setTitle(title);
 		});
+
+		/* User logged out, redirecting to last visited page */
+        $scope.$on('user:updated', function() {
+        	if (!authService.isLoggedIn())
+        		$window.history.back();
+        });
 
 		$scope.categories = categories;
 		
