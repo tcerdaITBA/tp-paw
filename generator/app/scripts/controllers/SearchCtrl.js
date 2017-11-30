@@ -18,20 +18,20 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 		else
 			$scope.tabs[0] = true;
       
-    	$scope.categories = []
+    	$scope.categories = [];
 		
 		// Fill present categories
 		var products = productsData.products;
 		for (var i = 0; i < products.length; i++) {
-			var newCategory = {name: products[i].category, checked: true};
-			if (!listHasCategory($scope.categories, newCategory.name)) {
+			var newCategory = {name: products[i].category, checked: false};
+			if (!listHasCategory($scope.categories, newCategory.name, true)) {
 				$scope.categories.push(newCategory);
 			}
 		}
 		
 		$scope.resetFilters = function() {
 			angular.forEach($scope.categories, function(item) {
-				item.checked = true;
+				item.checked = false;
 			});
 		};
 		
@@ -45,16 +45,18 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 		return function(items, categories) {
 			var filtered = [];
 			angular.forEach(items, function(item) {
-				if (listHasCategory(categories, item.category))
+				if (listHasCategory(categories, item.category)) {
 					filtered.push(item);
+				}
 			});
-			return filtered;
+
+			return filtered.length ? filtered : items;
 		}
 	});
 	
-	function listHasCategory(categories, cName) {
+	function listHasCategory(categories, cName, ignoreCheck) {
 		for (var j = 0; j < categories.length; j++) {
-			if (categories[j].name == cName && categories[j].checked)
+			if (categories[j].name == cName && (categories[j].checked || ignoreCheck))
 				return true;
 		}
 		return false;
