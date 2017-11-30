@@ -15,7 +15,7 @@
 }
 
 .slick-next:before {
-  content: url('../../images/carrow-right.png') no-repeat;
+  content: url('../images/carrow-right.png') no-repeat;
   color: grey;
   height: 20px;
   width: 20px;
@@ -25,7 +25,7 @@
 }
 
 .slick-prev:before {
-  content: url('../../images/carrow-left.png') no-repeat;
+  content: url('../images/carrow-left.png') no-repeat;
   color: grey;
   height: 20px;
   width: 20px;
@@ -35,7 +35,7 @@
 }
 
 .slick-dots {
-  bottom: -40px;
+  bottom: -32px;
 }
 
 .slick-list, .slick-slide {
