@@ -28,7 +28,7 @@
 						<div class="panel filter-panel">
 							<div class="panel-body">
 								<h4 class="filter-title">{{'searchResults.filterByCategory' | translate}}</h4>
-								<div ng-repeat="category in categories">
+								<div ng-repeat="category in categories | orderBy: 'name'">
 									<div class="filter-item">
 										<label class="filter-checkbox">
 											<input type="checkbox" name="category" ng-model="category.checked" data-ng-true-value="'{{category.name}}'" data-ng-false-value=''>
