@@ -8,12 +8,8 @@
                         </div>
                         <div class="collection-info">
                             <span ng-bind="products.length"></span>
-                                <span ng-if="products.length == 1">
-                                    Producto
-                                </span>
-                                <span ng-if="products.length != 1">
-                                    Productos
-                                </span>
+                            <span ng-if="products.length == 1" ng-bind="'product.singular' | translate"></span>
+                            <span ng-if="products.length != 1" ng-bind="'product.plural' | translate"></span>
                         </div>
                     </div>
                     <div class="col-md-2" ng-if="!hideDelete">
