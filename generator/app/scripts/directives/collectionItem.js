@@ -16,14 +16,29 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                 
                 $scope.products = $scope.favList.products;
                 $scope.directToProduct = function() {
-                    $location.url('/product/' + product.id);
+                    $location.url('product/' + product.id);
+                };
+
+                var findIndexById = function(item, array) {
+                    for (var i = 0; i < array.length; i++)
+                        if (array[i].id === item.id)
+                            return i;
+                    
+                    return -1;
+                };
+                
+                var removeItemFrom = function(item, array) {
+                    var idx = findIndexById(item, array);
+
+                    if (idx != -1)
+                        array.splice(idx, 1);
                 };
 
                 $scope.deleteProduct = function(product) {   
                     var modal = modalService.deleteProductFromCollection(product, $scope.favList);
                     modal.result.then(function(isDeleted) {
                         if (isDeleted)
-                            $scope.onDelete();
+                            removeItemFrom(product, $scope.products);
                     });
                 }
 
