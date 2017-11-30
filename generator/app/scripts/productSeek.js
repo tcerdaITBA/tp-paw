@@ -75,6 +75,8 @@ define(['routes',
             .value('url', 'http://localhost:8080/api')
 			.value('productImagesCount', 4)
 			.value('productVideosCount', 2)
+			.value('searchMinLength', 3)
+			.value('searchMaxLength', 64)
             .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
             // Explicitly setting paths in other to be revved
             .value('categoriesImage', {all: 'images/all.svg', app: 'images/app.svg', art: 'images/art.svg', book: 'images/book.svg', fashion: 'images/fashion.svg', film: 'images/film.svg',
