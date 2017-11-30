@@ -185,5 +185,6 @@ define([], function() {
         'product.anonymousComment.or':'o',
         'product.anonymousComment.signUp':'registrarte.',
         'product.reply':'Responder'
+        
 	};
 });

@@ -150,7 +150,6 @@ define([], function() {
         'feedback.pictureChanged.text': 'Profile picture changed successfully',
 
         'feedback.warning.noConnection': 'Oops, looks like you lost connection',
-        
 
         'button.addProfilePicture' : 'Profile Picture',
         'modal.signUp.title': 'Sign Up',
