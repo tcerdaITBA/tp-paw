@@ -178,6 +178,7 @@ define([], function() {
         'product.anonymousComment.signIn':'iniciar sesión',
         'product.anonymousComment.or':'o',
         'product.anonymousComment.signUp':'registrarte.',
-        'product.reply':'Responder'
+        'product.reply':'Responder',
+        'ZRP.noProductsInCollection': 'No hay productos en esta colección'
 	};
 });

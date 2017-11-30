@@ -181,7 +181,8 @@ define([], function() {
         'product.anonymousComment.signIn':'sign in',
         'product.anonymousComment.or':'or',
         'product.anonymousComment.signUp':'sign up.',
-        'product.reply':'Reply'
+        'product.reply':'Reply',
+        'ZRP.noProductsInCollection': 'No products in this collection'
 
 	};
 });
