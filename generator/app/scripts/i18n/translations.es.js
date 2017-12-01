@@ -95,7 +95,6 @@ define([], function() {
         'Profile.modal.textEnd': 'Esta acción no puede ser revertida.',
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
-        
                 
         'Profile.modal.deleteCollection': 'Eliminar colección',
 
@@ -152,6 +151,7 @@ define([], function() {
         'feedback.favListCreated.textEnd': 'fue creada',
         'feedback.productAddedToFavList.text': 'fue agregado a',
         'feedback.productDeleted.textEnd': 'fue eliminado',
+        'feedback.collectionDeleted.textEnd': 'fue eliminada',
 
         'feedback.passwordChanged.text' : 'Contraseña cambiada exitosamente',
         'feedback.pictureChanged.text' : 'Foto de perfil cambiada exitosamente',
