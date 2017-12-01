@@ -6,6 +6,10 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 			titleService.setTitle(title);
 		});
 
+		$scope.translationData = {
+			keyword: query
+		};
+
     	$scope.query = query;
 		$scope.tabs = [false, false];
 
