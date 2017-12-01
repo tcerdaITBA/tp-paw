@@ -46,7 +46,7 @@ define(['services/restService', 'angular-mocks'], function() {
 
                 restService.getUser(DUMMY_USER.id)
                 .catch(function(res) {
-                    response = res;
+                    response = res.data;
                 });
 
                 $httpBackend.flush(); // Performs the http response

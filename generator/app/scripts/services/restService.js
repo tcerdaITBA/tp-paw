@@ -76,8 +76,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             return response.data;
                         })
                         .catch(function(response) {
-                            console.log(response.data);
-                            return $q.reject(response.data);
+                            return $q.reject(response);
                         });   
             }
             
@@ -90,7 +89,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 							return response.data;
 						})
 						.catch(function(response) {
-							return $q.reject(response.data);
+							return $q.reject(response);
 						});
 			}
             
@@ -103,7 +102,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             return response.data;
                         })
                         .catch(function(response) {
-                            return $q.reject(response.data);
+                            return $q.reject(response);
                         });
             }
 
@@ -116,7 +115,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             return response.data;
                         })
                         .catch(function(response) {
-                            return $q.reject(response.data);
+                            return $q.reject(response);
                         });
             }            
             
@@ -244,8 +243,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response) {
-                        console.log(response.data);
-                        return $q.reject(response.data);
+                        return $q.reject(response);
                     });
                 },
 
