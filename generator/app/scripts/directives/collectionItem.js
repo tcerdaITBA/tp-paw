@@ -34,11 +34,18 @@ define(['productSeek', 'services/authService', 'services/modalService','services
                         array.splice(idx, 1);
                 };
 
-                $scope.deleteProduct = function(product) {   
+                $scope.deleteProduct = function(product) {
+                    var idx = findIndexById(product, $scope.products);
+                    removeItemFrom(product, $scope.products);
+
                     restService.deleteProductFromCollection($scope.favList.id, product.id)
                     .then(function() {
-                    snackbarService.showSnackbar('ProductFormCollectionDeleted');
-                    $uibModalInstance.close(true);
+                        $scope.product = product;
+                        snackbarService.showSnackbar('ProductFormCollectionDeleted');
+                    })
+                    .catch(function(data) {
+                        snackbarService.showNoConnection();
+                        $scope.products.splice(idx, 0, product); // reinsert item into collection
                     });
                 };
                 

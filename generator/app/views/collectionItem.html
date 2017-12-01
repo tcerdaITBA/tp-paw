@@ -1,64 +1,62 @@
 <div class="panel panel-default collection-panel">
     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{favList.id}}" aria-expanded="false" aria-controls="collapse-{{favList.id}}">
         <div class="panel-heading" role="tab" id="heading-{{favList.id}}">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="collection-title capitalize-firstLetter">
-                            <span ng-bind="favList.name"></span>
-                        </div>
-                        <div class="collection-info">
-                            <span ng-bind="products.length"></span>
-                            <span ng-if="products.length == 1" ng-bind="'product.singular' | translate"></span>
-                            <span ng-if="products.length != 1" ng-bind="'product.plural' | translate"></span>
-                        </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="collection-title capitalize-firstLetter">
+                        <span ng-bind="favList.name"></span>
                     </div>
-                    <div class="col-md-2" ng-if="!hideDelete">
-                        <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteCollection(); $event.stopPropagation()"></span>
+                    <div class="collection-info">
+                        <span ng-bind="products.length"></span>
+                        <span ng-if="products.length == 1" ng-bind="'product.singular' | translate"></span>
+                        <span ng-if="products.length != 1" ng-bind="'product.plural' | translate"></span>
                     </div>
-
                 </div>
+                <div class="col-md-2" ng-if="!hideDelete">
+                    <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteCollection(); $event.stopPropagation()"></span>
+                </div>
+
             </div>
+        </div>
     </a>
-	<div id="collapse-{{favList.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{favList.id}}">
-		<div class="panel-body">
+    <div id="collapse-{{favList.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{favList.id}}">
+        <div class="panel-body">
             <!-- ZRP -->
             <h4 ng-if="products.length == 0" ng-bind="'ZRP.noProductsInCollection' | translate"></h4>
             <div ng-if="products.length > 0" ng-repeat="product in products" class="row">
-
-                    <div class="col-md-{{collectionOffset}}">
-                        <a class="collection-product-list-item" ng-href="#/product/{{product.id}}" >
-                            <div class="row center-flex">
-                                <div class="col-md-2 collection-product-logo center-flex">
-                                    <img ng-src={{product.logo_url}}>
-                                </div>
-                                <div class="col-md-7">
-                                    <span class="collection-product-name capitalize-firstLetter">
-                                        {{product.name}}
-                                    </span>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="collection-upvote-info pull-right">
-                                        <span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
-                                        {{product.voters_count}}
-                                    </span>
-                                </div>
+                <div class="col-md-{{collectionOffset}}">
+                    <a class="collection-product-list-item" ng-href="#/product/{{product.id}}" >
+                        <div class="row center-flex">
+                            <div class="col-md-2 collection-product-logo center-flex">
+                                <img ng-src={{product.logo_url}}>
                             </div>
-                        </a>
-                    </div>
+                            <div class="col-md-7">
+                                <span class="collection-product-name capitalize-firstLetter">
+                                    {{product.name}}
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="collection-upvote-info pull-right">
+                                    <span class="glyphicon glyphicon-arrow-up upvote-icon"></span>
+                                    {{product.voters_count}}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 <div class="col-md-{{12 - collectionOffset}} collection-delete-product" ng-if="!hideDelete">
                         <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteProduct(product); $event.stopPropagation()"></span>
-
                 </div>
-                <snackbar id="ProductFormCollectionDeleted">
-                    <div class="alert alert-success row-centered">
-                        <strong>
-                            <span class="glyphicon glyphicon-trash"></span>
-                            <span class="snackbar-product-name">{{product.name}}</span>
-                        </strong>
-                        {{'feedback.productDeleted.textEnd' | translate}}
-                    </div>
-                </snackbar>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
+    <snackbar id="ProductFormCollectionDeleted">
+        <div class="alert alert-success row-centered">
+            <strong>
+                <span class="glyphicon glyphicon-trash"></span>
+                <span class="snackbar-product-name">{{product.name}}</span>
+            </strong>
+            {{'feedback.productDeleted.textEnd' | translate}}
+        </div>
+    </snackbar>
 </div>
