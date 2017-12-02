@@ -45,18 +45,21 @@
                     </a>
                 </div>
                 <div class="col-md-{{12 - collectionOffset}} collection-delete-product" ng-if="!hideDelete">
-                        <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteProduct(product); $event.stopPropagation()"></span>
+                        <span class="glyphicon glyphicon-remove delete-product-button pull-right" ng-click="removeProduct(product); $event.stopPropagation()"></span>
                 </div>
             </div>
         </div>
     </div>
-    <snackbar id="ProductFormCollectionDeleted">
+    <snackbar id="ProductRemoved{{favList.id}}">
         <div class="alert alert-success row-centered">
             <strong>
-                <span class="glyphicon glyphicon-trash"></span>
+                <span class="glyphicon glyphicon-remove"></span>
                 <span class="snackbar-product-name">{{product.name}}</span>
             </strong>
-            {{'feedback.productDeleted.textEnd' | translate}}
+            {{'feedback.productRemoved.textEnd' | translate}}
+            <strong>
+                <span class="snackbar-product-name">{{favList.name}}</span>
+            </strong>
         </div>
     </snackbar>
 </div>

@@ -34,14 +34,14 @@ define(['productSeek', 'services/authService', 'services/modalService','services
                         array.splice(idx, 1);
                 };
 
-                $scope.deleteProduct = function(product) {
+                $scope.removeProduct = function(product) {
                     var idx = findIndexById(product, $scope.products);
                     removeItemFrom(product, $scope.products);
 
-                    restService.deleteProductFromCollection($scope.favList.id, product.id)
+                    restService.removeProductFromCollection($scope.favList.id, product.id)
                     .then(function() {
                         $scope.product = product;
-                        snackbarService.showSnackbar('ProductFormCollectionDeleted');
+                        snackbarService.showSnackbar('ProductRemoved' + $scope.favList.id);
                     })
                     .catch(function(data) {
                         snackbarService.showNoConnection();

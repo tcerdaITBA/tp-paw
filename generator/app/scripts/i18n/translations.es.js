@@ -151,6 +151,7 @@ define([], function() {
         'feedback.favListCreated.textEnd': 'fue creada',
         'feedback.productAddedToFavList.text': 'fue agregado a',
         'feedback.productDeleted.textEnd': 'fue eliminado',
+        'feedback.productRemoved.textEnd': 'fue quitado de',
         'feedback.collectionDeleted.textEnd': 'fue eliminada',
 
         'feedback.passwordChanged.text' : 'Contraseña cambiada exitosamente',
