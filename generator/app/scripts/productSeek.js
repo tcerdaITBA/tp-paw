@@ -73,7 +73,7 @@ define(['routes',
                         $location.path('/404');
                     });            
             }])
-            .value('url', 'http://localhost:8080/webapp/api')
+            .value('url', 'http://localhost:8080/api')
 			.value('productImagesCount', 4)
 			.value('productVideosCount', 2)
 			.value('searchMinLength', 3)
