@@ -59,7 +59,7 @@ define(['routes',
                     $locationProvider.hashPrefix('');
                     
 				}])
-            .run(['$rootScope', function($rootScope) {
+            .run(['$rootScope', '$state', function($rootScope, $state) {
                     $rootScope.isViewLoading = false;
                     $rootScope.$on('$routeChangeStart', function() {
                         $rootScope.isViewLoading = true;
@@ -70,6 +70,7 @@ define(['routes',
                     });
                     $rootScope.$on('$routeChangeError', function() {
                         $rootScope.isViewLoading = false;
+                        $state.go('404');
                     });            
             }])
             .value('url', 'http://localhost:8080/api')
