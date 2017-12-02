@@ -41,7 +41,7 @@ define([], function() {
 	'navbar.signin':'Sign In',
 	'navbar.post':'Post Product',
 	'navbar.logout':'Logout',
-	'navbar.search':'Search',
+	'navbar.search':'Search products and users',
 	'navbar.searchHistory': 'Search history',
 	
 	'modal.signIn.signToAccount':'Sign in to your account',

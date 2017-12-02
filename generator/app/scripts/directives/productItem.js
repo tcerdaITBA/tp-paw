@@ -14,10 +14,9 @@ define(['productSeek', 'services/authService', 'services/modalService', 'control
                 $scope.loggedUser = authService.loggedUser;
                 
                 $scope.directToCategory = function() {
-                    console.log($scope.orderBy);
                     var orderBy = $scope.orderBy || defaultSortCriteria.orderBy;
                     var order = $scope.order || defaultSortCriteria.order;
-                    $location.url('?category=' + product.category + '&orderBy=' + orderBy + '&order=' + order);
+                    $location.url('/?category=' + product.category + '&orderBy=' + orderBy + '&order=' + order);
                 };
         
                 $scope.directToProduct = function() {

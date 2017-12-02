@@ -41,7 +41,7 @@ define([], function() {
 	'navbar.signin':'Ingresar',
 	'navbar.post':'Publicar Producto',
 	'navbar.logout':'Cerrar Sesión',
-	'navbar.search':'Buscar',
+	'navbar.search':'Buscar productos y usuarios',
 	'navbar.searchHistory': 'Historial de búsqueda',
 	
 	'modal.signIn.signToAccount':'Ingresa a tu cuenta',
@@ -91,7 +91,7 @@ define([], function() {
 
         'Profile.modal.deleteProduct': 'Eliminar Producto',
         'Profile.modal.textBeginning': '¿Estás seguro de que deseas eliminar',
-        'Profile.modal.collectionTextBeginning': '¿Estás seguro que deseas eliminar la colecciòn ',
+        'Profile.modal.collectionTextBeginning': '¿Estás seguro que deseas eliminar la colección ',
         'Profile.modal.textEnd': 'Esta acción no puede ser revertida.',
         'Profile.modal.leftButton': 'Eliminar',
         'Profile.modal.rightButton': 'Cancelar',
@@ -192,6 +192,7 @@ define([], function() {
         'product.anonymousComment.signIn':'iniciar sesión',
         'product.anonymousComment.or':'o',
         'product.anonymousComment.signUp':'registrarte.',
+        'product.reply':'Responder',
         'ZRP.noProductsInCollection': 'No hay productos en esta colección'
 
 	};

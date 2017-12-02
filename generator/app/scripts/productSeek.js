@@ -59,7 +59,7 @@ define(['routes',
                     $locationProvider.hashPrefix('');
                     
 				}])
-            .run(['$rootScope', '$state', function($rootScope, $state) {
+            .run(['$rootScope', '$location', function($rootScope, $location) {
                     $rootScope.isViewLoading = false;
                     $rootScope.$on('$routeChangeStart', function() {
                         $rootScope.isViewLoading = true;
@@ -70,10 +70,10 @@ define(['routes',
                     });
                     $rootScope.$on('$routeChangeError', function() {
                         $rootScope.isViewLoading = false;
-                        $state.go('404');
+                        $location.path('/404');
                     });            
             }])
-            .value('url', 'http://localhost:8080/api')
+            .value('url', 'http://localhost:8080/webapp/api')
 			.value('productImagesCount', 4)
 			.value('productVideosCount', 2)
 			.value('searchMinLength', 3)
