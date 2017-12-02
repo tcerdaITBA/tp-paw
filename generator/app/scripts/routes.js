@@ -36,10 +36,6 @@ define(function() {
 					}]
                 }
 			},
-            '/about': {
-                templateUrl: 'views/about.html',
-                controller: 'about'
-            },
             '/product/:id': {
                 templateUrl: 'views/product.html',
                 controller: 'ProductCtrl',
