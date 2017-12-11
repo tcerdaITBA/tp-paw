@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="col-md-2" ng-if="!hideDelete">
-                    <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteCollection(); $event.stopPropagation()"></span>
+                    <span class="glyphicon glyphicon-trash delete-product-button pull-right collection-delete" ng-click="deleteCollection(); $event.stopPropagation()"></span>
                 </div>
 
             </div>
@@ -24,7 +24,7 @@
             <!-- ZRP -->
             <h4 ng-if="products.length == 0" ng-bind="'ZRP.noProductsInCollection' | translate"></h4>
             <div ng-if="products.length > 0" ng-repeat="product in products" class="row">
-                <div class="col-md-{{collectionOffset}}">
+                <div class="col-md-{{collectionOffset}} collection-product-col">
                     <a class="collection-product-list-item" ng-href="#/product/{{product.id}}" >
                         <div class="row center-flex">
                             <div class="col-md-2 collection-product-logo center-flex">
@@ -44,8 +44,8 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-{{12 - collectionOffset}} collection-delete-product" ng-if="!hideDelete">
-                        <span class="glyphicon glyphicon-remove delete-product-button pull-right" ng-click="removeProduct(product); $event.stopPropagation()"></span>
+                <div class="col-md-{{12 - collectionOffset}} delete-col" ng-if="!hideDelete">
+                        <span class="glyphicon glyphicon-remove delete-product-button collection-delete-product" ng-click="removeProduct(product); $event.stopPropagation()"></span>
                 </div>
             </div>
         </div>

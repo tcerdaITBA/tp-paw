@@ -30,6 +30,7 @@
 	padding-top: 15px;
 	background-color: white;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .04);
+	position: fixed;
 }
 
 .profile-username, .profile-mail {
@@ -138,4 +139,25 @@
 
 .profile-change-preview-container {
 	height: 15em !important;
+}
+
+.inner-container {
+	width: 100% !important;
+}
+
+.collection-delete {
+	font-size: 0.9em;
+}
+
+.delete-col {
+	display: flex;
+}
+
+.collection-delete-product {
+	display: flex;
+	align-self: center;
+}
+
+.collection-product-col {
+	padding-right: 0;
 }
