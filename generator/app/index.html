@@ -68,7 +68,7 @@
 				<div class="search-form-container">
 					<div class="form-group">
 						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown= "arrowControl($event, query)" ng-keyup="autocompleteSearch()" focus-if="searchFieldFocus">
-						<button type="submit" class="search-button" ng-click="search(query | urlencode)">
+						<button type="submit" class="search-button" ng-click="query && search(query | urlencode)">
 							<span class="glyphicon glyphicon-search search-icn"></span>
 						</button>
 					</div>
