@@ -65,10 +65,15 @@ define([], function() {
 	'searchZRP.noUsers':'No se encontraron usuarios que contengan {{keyword}}',
 	'searchZRP.noProducts':'No se encontraron productos que contengan {{keyword}}',
 		
-		'profileZRP.sadCat':'😿',
-		'profileZRP.noVoted':'{{user}} no ha votado ningún producto',
-		'profileZRP.noUploaded':'{{user}} no ha publicado ningún producto',
-		'profileZRP.noCollections':'{{user}} no ha creado ninguna colección',
+	'profileZRP.sadCat':'😿',
+	'profileZRP.noVoted':'{{user}} no ha votado ningún producto',
+	'profileZRP.noUploaded':'{{user}} no ha publicado ningún producto',
+	'profileZRP.noCollections':'{{user}} no ha creado ninguna colección',
+
+        'profileZRP.personalNoVoted': 'No has votado ningún producto',
+        'profileZRP.personalNoUploaded': 'No has publicado ningún producto',
+        'profileZRP.personalUploadProduct': 'Publicar producto',
+        'profileZRP.personalNoCollections': 'No has creado ninguna colección',
         
         mostRecent: 'Productos más recientes',
         allProducts: 'Todos los productos',
@@ -173,7 +178,7 @@ define([], function() {
         'modal.signUp.usernamePlaceholder': 'Nombre',
         'modal.signUp.emailPlaceholder': 'Email',
         'modal.signUp.signUp': 'Registrarse',
-		'modal.signUp.signingUp': 'Registrándose',
+	'modal.signUp.signingUp': 'Registrándose',
         
         'modal.password.notMatchOldPassword' : 'La contraseña ingresada no coincide con la actual',
         
@@ -185,8 +190,9 @@ define([], function() {
         'signUp.error.passwordTooLong': 'La contraseña no puede exceder los 60 caracteres',
         'signUp.error.passwordTooShort': 'La contraseña debe contener al menos 6 caracteres',
         'signUp.error.passwordMatch': 'Las contraseñas deben ser iguales',
-        'signUp.error.addEmail': 'El no puede estar vacío',
+        'signUp.error.addEmail': 'El no email puede estar vacío',
         'signUp.error.invalidEmail': 'El email provisto no es válido',
+        'signUp.error.duplicateEmail': 'El email provisto ya está registrado',
 	'signIn.error.addEmail': 'Indica tu email',
 	'signIn.error.addPassword': 'Indica tu contraseña',
 

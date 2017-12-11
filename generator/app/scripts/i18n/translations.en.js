@@ -65,10 +65,15 @@ define([], function() {
 	'searchZRP.noUsers':'No users found containing {{keyword}}',
 	'searchZRP.noProducts':'No products found containing {{keyword}}',
 		
-				'profileZRP.sadCat':'😿',
-		'profileZRP.noVoted':'{{user}} has not voted any product',
-		'profileZRP.noUploaded':'{{user}} has not posted any product',
-		'profileZRP.noCollections':'{{user}} has not created any collection',
+	'profileZRP.sadCat':'😿',
+	'profileZRP.noVoted':'{{user}} has not voted any product',
+	'profileZRP.noUploaded':'{{user}} has not posted any product',
+	'profileZRP.noCollections':'{{user}} has not created any collection',
+
+        'profileZRP.personalNoVoted': 'You have not voted any product',
+        'profileZRP.personalNoUploaded': 'You have not uploaded any product',
+        'profileZRP.personalUploadProduct': 'Post product',
+        'profileZRP.personalNoCollections': 'You have not created any collection',
 		
         mostRecent: 'Most recent products',
         allProducts: 'All',
@@ -187,6 +192,7 @@ define([], function() {
         'signUp.error.passwordMatch': 'Passwords do not match',
         'signUp.error.addEmail': 'Add email',
         'signUp.error.invalidEmail': 'Invalid email',
+        'signUp.error.duplicateEmail': 'Email already taken',
 	'signIn.error.addEmail': 'Insert your email',
 	'signIn.error.addPassword': 'Insert your password',
 

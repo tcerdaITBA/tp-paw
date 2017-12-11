@@ -29,6 +29,7 @@
 			<input type="text" placeholder="{{'modal.signUp.emailPlaceholder' | translate}}" name="email" ng-model="user.email" ng-pattern="emailPattern" class="form-control" required>
             <span ng-show="signUpForm.email.$error.required && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.addEmail' | translate"></span>
             <span ng-show="signUpForm.email.$error.pattern && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.invalidEmail' | translate"></span>
+            <span ng-show="duplicateEmailError && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.duplicateEmail' | translate"></span>
 		</div>
 		<div class="input-field" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}">
 			<input type="password" placeholder="{{'modal.signIn.passwordPlaceholder' | translate}}" name="password" ng-model="user.password"  class="form-control" required ng-minlength="6" ng-maxlength="60">
