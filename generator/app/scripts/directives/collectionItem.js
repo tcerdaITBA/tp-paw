@@ -14,6 +14,11 @@ define(['productSeek', 'services/authService', 'services/modalService','services
                     $scope.collectionOffset = 11;
                 }
                 
+                // toggle manual pues href con # redirecciona al abrir modal de eliminar coleccion debido al stopPropagation 
+                $scope.collapse = function() {
+                    $('#collapse-' + $scope.favList.id).collapse('toggle');
+                }
+
                 $scope.products = $scope.favList.products;
                 $scope.directToProduct = function() {
                     $location.url('product/' + product.id);
