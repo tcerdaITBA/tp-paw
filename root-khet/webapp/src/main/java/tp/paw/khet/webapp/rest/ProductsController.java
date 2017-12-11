@@ -63,8 +63,6 @@ import tp.paw.khet.webapp.validators.DTOConstraintValidator;
 @Produces(value = {MediaType.APPLICATION_JSON}) 
 public class ProductsController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductsController.class);
-	
-	// TODO: poner en algun lado
 	public static final int MAX_PAGE_SIZE = 100;
 	public static final int DEFAULT_PAGE_SIZE = 20;
 

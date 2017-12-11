@@ -99,6 +99,24 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				return 1;
 		};
 
+		$scope.enableAddCollection = function() {
+			$scope.addCollectionEnabled = true;
+		};
+		
+		$scope.submitNewCollection = function(form) {
+			if (form.$invalid)
+				return;
+			console.log($scope.newCollectionName);
+			
+			restService.createCollection($scope.newCollectionName)
+			.then(function() {
+				console.log("Collection created");
+			})
+			.catch(function() {
+				console.log("errrorrr colleciton");
+			});
+		};
+		
         $scope.changePictureModal = modalService.changePictureModal;
 
         $scope.$on('user:picture', function(event, picture) {
@@ -107,7 +125,6 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         
         $scope.changePasswordModal = modalService.changePasswordModal;   
 		
-		// TODO: repiten codigo.
 		var collectionsPage = 1, uploadedPage = 1, votedPage = 1;
 		
 		$scope.loadMoreCollections = function() {
