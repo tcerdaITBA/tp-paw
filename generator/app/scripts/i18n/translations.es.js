@@ -47,7 +47,7 @@ define([], function() {
 	'navbar.searchHistory': 'Historial de búsqueda',
 	
 	'modal.signIn.signToAccount':'Ingresar',
-	'modal.signIn.usernamePlaceholder':'hola@productseek.com',
+	'modal.signIn.usernamePlaceholder':'nombre@productseek.com',
 	'modal.signIn.passwordPlaceholder':'Contraseña',
 	'modal.signIn.rememberMe':'Recuérdame',
 	'modal.signIn.signIn':'Iniciar sesión',

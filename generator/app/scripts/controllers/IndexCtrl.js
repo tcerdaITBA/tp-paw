@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl', 'directives/focusIf', 'services/restService'], function(productSeek) {
+define(['productSeek', 'jquery', 'services/authService', 'services/sessionService', 'services/modalService', 'directives/focusIf', 'services/restService'], function(productSeek) {
 	
 	productSeek.controller('IndexCtrl', ['sessionService', 'authService', 'modalService', 'restService', '$scope', '$location', 'searchMinLength', 'searchMaxLength', function(session, auth, modal, restService, $scope, $location, searchMinLength, searchMaxLength) {
 		$scope.showSuggestions = false;
@@ -120,5 +120,22 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		
 		$scope.signInModal = modal.signInModal;
 		$scope.signUpModal = modal.signUpModal;
+
+		$scope.signInPostModal = function() {
+			var instance = modal.signInModal();
+			instance.result.then(function(signedIn) {
+				if (signedIn)
+					$location.url('post');
+			});
+		};
+
+		$scope.signUpPostModal = function() {
+			var instance = modal.signUpModal();
+			instance.result.then(function(signedUp) {
+				if (signedUp)
+					$location.url('post');
+			});
+		};
+
 	}]);
 });

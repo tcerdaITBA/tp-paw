@@ -23,7 +23,7 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
                     return authService.logIn($scope.user.email, $scope.user.password, true);
                 })
                 .then(function() {
-                    $uibModalInstance.dismiss('close');
+                    $uibModalInstance.close(true);
                 });              
             }
             else {
