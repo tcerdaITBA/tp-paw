@@ -64,6 +64,11 @@ define([], function() {
 	'searchZRP.noUsers':'No users found containing {{keyword}}',
 	'searchZRP.noProducts':'No products found containing {{keyword}}',
 		
+				'profileZRP.sadCat':'😿',
+		'profileZRP.noVoted':'{{user}} has not voted any product',
+		'profileZRP.noUploaded':'{{user}} has not posted any product',
+		'profileZRP.noCollections':'{{user}} has not created any collection',
+		
         mostRecent: 'Most recent products',
         allProducts: 'All',
         recent: 'Recent',

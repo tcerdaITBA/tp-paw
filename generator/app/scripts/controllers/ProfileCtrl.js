@@ -8,7 +8,10 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 		$scope.collections = collections.collections;
 		$scope.createdProducts = createdProducts.products;
 		$scope.votedProducts = votedProducts.products;
-
+		$scope.zrpTranslation = {
+			user: $scope.user.name
+		};
+		
 		var updateProfileOwner = function() {
 			if (!authService.isLoggedIn() || authService.loggedUser.id !== user.id)
 				return false;

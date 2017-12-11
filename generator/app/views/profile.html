@@ -62,6 +62,12 @@
 									<div ng-repeat="f in collections | orderBy: 'name'">
 										<collection-item fav-list="f" hide-delete="!isProfileOwner" on-delete="removeCollection(f)"></collection-item>
 									</div>
+									<div ng-if="collectionsDisable && collections.length == 0">
+										<div class="zrp">
+											<h2>{{'profileZRP.sadCat' | translate}}</h2>
+											<h3 class="result-text">{{'profileZRP.noCollections' | translate: zrpTranslation}}</h3>
+										</div>
+									</div>
 									<div ng-show="collectionScrollBusy && !collectionsDisable" class="infinite-scroll-spinner">
 										<div class="spinner">
 											<div class="dot1"></div>
@@ -75,6 +81,12 @@
 									<div ng-repeat="c in createdProducts | orderBy: 'name'">
 										<product-item product="c" on-delete="removeProduct(c)" on-add="addedToCollection(c, collection)" on-vote="productVoted(c, voted)" hide-delete="!isProfileOwner || !c.isOwnerLogged" border-hover="true"></product-item>
 									</div> 
+									<div ng-if="uploadedDisable && createdProducts.length == 0">
+										<div class="zrp">
+											<h2>{{'profileZRP.sadCat' | translate}}</h2>
+											<h3 class="result-text">{{'profileZRP.noUploaded' | translate: zrpTranslation}}</h3>
+										</div>
+									</div>
 									<div ng-show="uploadedScrollBusy && !uploadedDisable" class="infinite-scroll-spinner">
 										<div class="spinner">
 											<div class="dot1"></div>
@@ -87,6 +99,12 @@
 								<div class="col-md-12 product-list" infinite-scroll='loadMoreVoted()' infinite-scroll-disabled="votedDisable">
 									<div ng-repeat="p in votedProducts | orderBy: 'name'">
 										<product-item product="p" on-delete="removeProduct(p)" on-add="addedToCollection(p, collection)" on-vote="productVoted(p, voted)" hide-delete="!isProfileOwner || !p.isOwnerLogged" border-hover="true"></product-item>
+									</div>
+									<div ng-if="votedDisable && votedProducts.length == 0">
+										<div class="zrp">
+											<h2>{{'profileZRP.sadCat' | translate}}</h2>
+											<h3 class="result-text">{{'profileZRP.noVoted' | translate: zrpTranslation}}</h3>
+										</div>
 									</div>
 									<div ng-show="votedScrollBusy && !votedDisable" class="infinite-scroll-spinner">
 										<div class="spinner">
