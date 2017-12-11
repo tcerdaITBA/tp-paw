@@ -1,6 +1,6 @@
 define(['controllers/HomeCtrl', 'angular-mocks'], function() {
     describe('Home Controller', function() {
-        var $controller, categories, sortCriterias, defaultSortCriteria;
+        var $controller, $rootScope, categories, sortCriterias, defaultSortCriteria;
         var DUMMY_PRODUCTS = {count: 2, 
                               products: [
                                   {id: '1', name: 'slime rancher', category: 'game'}, 
@@ -9,8 +9,9 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
         
         beforeEach(module('productSeek'));
         
-        beforeEach(inject(function(_$controller_, _categories_, _sortCriterias_, _defaultSortCriteria_) {
+        beforeEach(inject(function(_$controller_, _$rootScope_, _categories_, _sortCriterias_, _defaultSortCriteria_) {
             $controller = _$controller_;
+            $rootScope = _$rootScope_;
             categories = _categories_;
             sortCriterias = _sortCriterias_;
             defaultSortCriteria = _defaultSortCriteria_;
@@ -18,6 +19,7 @@ define(['controllers/HomeCtrl', 'angular-mocks'], function() {
 
         var buildController = function($scope, routeParams) {
             var $routeParams = {};
+            $scope.$on = function(){};
 
             if (routeParams)
                 $routeParams = routeParams;
