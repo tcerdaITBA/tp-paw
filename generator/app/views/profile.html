@@ -61,7 +61,7 @@
                         <div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
                             <div class="product-list" infinite-scroll='loadMoreCollections()' infinite-scroll-disabled="collectionsDisable">
                                 <div ng-repeat="f in collections | orderBy: 'name'">
-                                    <collection-item fav-list="f" hide-delete="!isProfileOwner"></collection-item>
+                                    <collection-item fav-list="f" hide-delete="!isProfileOwner" on-delete="removeCollection(f)"></collection-item>
                                 </div>
 								<div ng-show="collectionScrollBusy && !collectionsDisable" class="infinite-scroll-spinner">
 									<div class="spinner">

@@ -44,6 +44,10 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         updateProductOwner($scope.createdProducts);
         updateProductOwner($scope.votedProducts);
         
+        $scope.removeCollection = function(collection) {
+        	removeItemFrom(collection, $scope.collections);
+        };
+
         $scope.removeProduct = function(product) {
             removeItemFrom(product, $scope.createdProducts);
             removeItemFrom(product, $scope.votedProducts);

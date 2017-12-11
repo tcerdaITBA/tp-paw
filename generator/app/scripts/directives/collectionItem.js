@@ -5,7 +5,7 @@ define(['productSeek', 'services/authService', 'services/modalService','services
             restrict: 'E',
             replace: 'true',
             templateUrl: 'views/collectionItem.html',
-            scope: {favList: '=', hideDelete: "="},
+            scope: {favList: '=', hideDelete: "=", onDelete: "&"},
             controller: ['$scope', '$location','$route', 'authService', 'restService', 'modalService', 'snackbarService', function($scope, $location, $route, authService, restService, modalService, snackbarService) {                
                 
                 if($scope.hideDelete) {
