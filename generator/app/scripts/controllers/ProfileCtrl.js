@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'directives/collectionItem', 'directives/productItem', 'services/titleService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'directives/collectionItem', 'directives/productItem', 'services/titleService'], function(productSeek) {
 
 	productSeek.controller('ProfileCtrl', ['$scope', 'titleService', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', 'restService','$uibModal', function($scope, titleService, user, collections, createdProducts, votedProducts, authService, modalService, restService, $uibModal) {
 		titleService.setTitle(user.name.charAt(0).toUpperCase() + user.name.slice(1));

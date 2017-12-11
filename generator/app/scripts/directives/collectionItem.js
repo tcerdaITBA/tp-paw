@@ -54,12 +54,6 @@ define(['productSeek', 'services/authService', 'services/modalService','services
                     });
                 };
                 
-
-                $scope.shouldExpand = function() {
-                    // <c:set var="expand" value="${not empty favListRemovedId && favListRemovedId == favList.id}"></c:set>
-                    
-                }
-                
                 $scope.deleteCollection = function() {
                     var modal = modalService.deleteCollectionModal($scope.favList);
                     modal.result.then(function(isDeleted) {

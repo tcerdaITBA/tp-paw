@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'services/restService', 'services/authService'], function(productSeek) {
+define(['productSeek', 'services/restService', 'services/authService', 'controllers/DeleteCollectionModalCtrl', 'controllers/CollectionModalCtrl', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'controllers/DeleteModalCtrl', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl'], function(productSeek) {
     productSeek.service('modalService', ['$uibModal', 'restService', 'authService', function($uibModal, restService, authService) {
 		this.signInModal = function() {
 			return $uibModal.open({
