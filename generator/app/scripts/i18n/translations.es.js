@@ -65,10 +65,15 @@ define([], function() {
 	'searchZRP.noUsers':'No se encontraron usuarios que contengan {{keyword}}',
 	'searchZRP.noProducts':'No se encontraron productos que contengan {{keyword}}',
 		
-		'profileZRP.sadCat':'😿',
-		'profileZRP.noVoted':'{{user}} no ha votado ningún producto',
-		'profileZRP.noUploaded':'{{user}} no ha publicado ningún producto',
-		'profileZRP.noCollections':'{{user}} no ha creado ninguna colección',
+	'profileZRP.sadCat':'😿',
+	'profileZRP.noVoted':'{{user}} no ha votado ningún producto',
+	'profileZRP.noUploaded':'{{user}} no ha publicado ningún producto',
+	'profileZRP.noCollections':'{{user}} no ha creado ninguna colección',
+
+        'profileZRP.personalNoVoted': 'No has votado ningún producto',
+        'profileZRP.personalNoUploaded': 'No has publicado ningún producto',
+        'profileZRP.personalUploadProduct': 'Publicar producto',
+        'profileZRP.personalNoCollections': 'No has creado ninguna colección',
         
         mostRecent: 'Productos más recientes',
         allProducts: 'Todos los productos',

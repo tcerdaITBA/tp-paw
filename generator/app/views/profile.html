@@ -65,7 +65,8 @@
 									<div ng-if="collectionsDisable && collections.length == 0">
 										<div class="zrp">
 											<h2>{{'profileZRP.sadCat' | translate}}</h2>
-											<h3 class="result-text">{{'profileZRP.noCollections' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noCollections' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="isProfileOwner">{{'profileZRP.personalNoCollections' | translate}}</h3>
 										</div>
 									</div>
 									<div ng-show="collectionScrollBusy && !collectionsDisable" class="infinite-scroll-spinner">
@@ -84,7 +85,9 @@
 									<div ng-if="uploadedDisable && createdProducts.length == 0">
 										<div class="zrp">
 											<h2>{{'profileZRP.sadCat' | translate}}</h2>
-											<h3 class="result-text">{{'profileZRP.noUploaded' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noUploaded' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="isProfileOwner">{{'profileZRP.personalNoUploaded' | translate}}</h3>
+											<a ng-if="isProfileOwner" class="zrp-post-link" ng-href="#/post">{{'profileZRP.personalUploadProduct' | translate}}</a>
 										</div>
 									</div>
 									<div ng-show="uploadedScrollBusy && !uploadedDisable" class="infinite-scroll-spinner">
@@ -103,7 +106,8 @@
 									<div ng-if="votedDisable && votedProducts.length == 0">
 										<div class="zrp">
 											<h2>{{'profileZRP.sadCat' | translate}}</h2>
-											<h3 class="result-text">{{'profileZRP.noVoted' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noVoted' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="isProfileOwner">{{'profileZRP.personalNoVoted' | translate}}</h3>
 										</div>
 									</div>
 									<div ng-show="votedScrollBusy && !votedDisable" class="infinite-scroll-spinner">
