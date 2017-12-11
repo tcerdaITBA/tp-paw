@@ -14,7 +14,6 @@ define(['controllers/IndexCtrl', 'angular-mocks'], function() {
 				expect(scope.isLoggedIn).toBe(false);
 			});
 			
-			// TODO: esta complicado testear este controller.
 		});
 	});
 });
