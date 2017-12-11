@@ -1,6 +1,9 @@
 'use strict';
-define(['productSeek'], function(productSeek) {
-	productSeek.controller('NotFoundCtrl', function() {
+define(['productSeek', 'services/titleService'], function(productSeek) {
 
-	});
+	productSeek.controller('NotFoundCtrl', ['$translate', 'titleService', function($translate, titleService) {
+		$translate('error.title').then(function(title) {
+			titleService.setTitle(title);
+		});
+	}]);
 });

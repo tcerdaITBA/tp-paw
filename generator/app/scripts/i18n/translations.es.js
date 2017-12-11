@@ -193,7 +193,12 @@ define([], function() {
         'product.anonymousComment.or':'o',
         'product.anonymousComment.signUp':'registrarte.',
         'product.reply':'Responder',
-        'ZRP.noProductsInCollection': 'No hay productos en esta colección'
+        'ZRP.noProductsInCollection': 'No hay productos en esta colección',
 
+        'error.title': 'Página no encontrada',
+        'error.header': '404 - Página no encontrada',
+        'error.subheader': '\uD83D\uDE3F',
+        'error.cause': 'La página a que intentas acceder es inalcanzable.',
+        'error.description': 'Usualmente esto es causado por intentar acceder a un perfil o producto inexistente.'
 	};
 });

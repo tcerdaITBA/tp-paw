@@ -193,7 +193,12 @@ define([], function() {
         'product.anonymousComment.or':'or',
         'product.anonymousComment.signUp':'sign up.',
         'product.reply':'Reply',
-        'ZRP.noProductsInCollection': 'No products in this collection'
+        'ZRP.noProductsInCollection': 'No products in this collection',
 
+        'error.title': 'Page not found',
+        'error.header': '404 - Page not found',
+        'error.subheader': '\uD83D\uDE3F',
+        'error.cause': 'The page you are trying to access is unreachable.',
+        'error.description': 'Usually this is caused by trying to access to a non-existent profile or product.'
 	};
 });
