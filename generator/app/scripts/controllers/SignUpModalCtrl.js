@@ -17,14 +17,15 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
 		$scope.signUpSubmit = function() {
             checkPasswordsMatch();
             if ($scope.signUpForm.$valid) {
-  				console.log("Valid form");
+  				$scope.loggingIn = true;
 				restService.createUser($scope.user)
                 .then(function(data) {
                     return authService.logIn($scope.user.email, $scope.user.password, true);
                 })
                 .then(function() {
+					$scope.loggingIn = false;
                     $uibModalInstance.close(true);
-                });              
+                });
             }
             else {
                 console.log("Invalid form");
@@ -34,6 +35,8 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
         $scope.deletePicture = function() {
             $scope.user.picture = null;
         }
+		
+		
     }]);
 
 });

@@ -93,3 +93,14 @@
 .prof-img-text {
     text-align: center;
 }
+.sign-in-spinner {
+	display: inline-block;
+	margin: 0;
+	height: 1em;
+	width: 1em;
+	margin-right: 1em;
+	
+	.dot1, .dot2 {
+		background-color: #fff;
+	}
+}

@@ -41,7 +41,19 @@
             <span ng-show="!passwordsMatch && signUpForm.$submitted" class="help-block align-left" ng-bind="'signUp.error.passwordMatch' | translate"></span>
         </div>
         <div class="submit-field">
-			<button class="btn btn-default ps-btn" type="submit" name="submit" ng-bind="'modal.signUp.signUp' | translate"></button>
+			<div ng-if="loggingIn">
+				<button class="btn btn-default ps-btn disabled">
+					<div class="spinner sign-in-spinner">
+						<div class="dot1"></div>
+						<div class="dot2"></div>
+					</div>
+					<span ng-bind="'modal.signUp.signingUp' | translate"></span>
+				</button>			
+			</div>
+
+			<div ng-if="!loggingIn">
+				<button class="btn btn-default ps-btn" type="submit" name="submit" ng-bind="'modal.signUp.signUp' | translate"></button>
+			</div>
 		</div>
 	</form>
 </div>

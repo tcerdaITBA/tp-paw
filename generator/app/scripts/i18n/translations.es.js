@@ -51,6 +51,7 @@ define([], function() {
 	'modal.signIn.passwordPlaceholder':'Contraseña',
 	'modal.signIn.rememberMe':'Recuérdame',
 	'modal.signIn.signIn':'Iniciar sesión',
+	'modal.signIn.signingIn':'Iniciando Sesión',
         'modal.signIn.error.invalidUser': 'Email o contraseña inválidos',
 		
 	'searchResults.products':'Productos',
@@ -172,6 +173,7 @@ define([], function() {
         'modal.signUp.usernamePlaceholder': 'Nombre',
         'modal.signUp.emailPlaceholder': 'Email',
         'modal.signUp.signUp': 'Registrarse',
+		'modal.signUp.signingUp': 'Registrándose',
         
         'modal.password.notMatchOldPassword' : 'La contraseña ingresada no coincide con la actual',
         
