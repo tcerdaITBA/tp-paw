@@ -4,6 +4,7 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
     productSeek.controller('SignUpModalCtrl', ['$scope', '$uibModalInstance', 'authService', 'restService', function($scope, $uibModalInstance, authService, restService) {
 		
         $scope.user = {};
+        $scope.duplicateEmailError = false;
         
 		$scope.emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         
@@ -13,11 +14,16 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
         
         $scope.$watch('user.password', checkPasswordsMatch);
         $scope.$watch('user.passwordConf', checkPasswordsMatch);
+        $scope.$watch('user.email', function() {
+            $scope.duplicateEmailError = false;
+        });
 		
 		$scope.signUpSubmit = function() {
             checkPasswordsMatch();
             if ($scope.signUpForm.$valid) {
+                $scope.duplicateEmailError = false;
   				$scope.loggingIn = true;
+
 				restService.createUser($scope.user)
                 .then(function(data) {
                     return authService.logIn($scope.user.email, $scope.user.password, true);
@@ -25,10 +31,12 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
                 .then(function() {
 					$scope.loggingIn = false;
                     $uibModalInstance.close(true);
+                })
+                .catch(function() {
+                    $scope.duplicateEmailError = true;
+                    $scope.signUpForm.email.$invalid = true;
+                    $scope.loggingIn = false;
                 });
-            }
-            else {
-                console.log("Invalid form");
             }
         };
         
