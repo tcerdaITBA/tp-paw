@@ -35,6 +35,8 @@ define([], function() {
 		
 	'categoryZRP.sorry': '\uD83D\uDE14',
 	'categoryZRP.noProducts': 'There are no products in this category yet.',
+        'categoryZRP.description': 'Check out other categories or ',
+        'categoryZRP.post': 'post your own product.',
 	
 	'navbar.mostPopular':'Most Popular',
 	'navbar.signup':'Sign Up',
@@ -44,7 +46,7 @@ define([], function() {
 	'navbar.search':'Search products and users',
 	'navbar.searchHistory': 'Search history',
 	
-	'modal.signIn.signToAccount':'Sign in to your account',
+	'modal.signIn.signToAccount':'Sign in',
 	'modal.signIn.usernamePlaceholder':'hello@productseek.com',
 	'modal.signIn.passwordPlaceholder':'Password',
 	'modal.signIn.rememberMe':'Remember me',

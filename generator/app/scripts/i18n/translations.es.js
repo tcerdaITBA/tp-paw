@@ -35,6 +35,8 @@ define([], function() {
 
         'categoryZRP.sorry': '\uD83D\uDE14',
         'categoryZRP.noProducts': 'Aún no hay productos en esta categoría.',
+        'categoryZRP.description': 'Explora otras categorías o',
+        'categoryZRP.post': ' publica tu propio producto.',
 		
 	'navbar.mostPopular':'Más populares',
 	'navbar.signup':'Registrarse',
@@ -44,7 +46,7 @@ define([], function() {
 	'navbar.search':'Buscar productos y usuarios',
 	'navbar.searchHistory': 'Historial de búsqueda',
 	
-	'modal.signIn.signToAccount':'Ingresa a tu cuenta',
+	'modal.signIn.signToAccount':'Ingresar',
 	'modal.signIn.usernamePlaceholder':'hola@productseek.com',
 	'modal.signIn.passwordPlaceholder':'Contraseña',
 	'modal.signIn.rememberMe':'Recuérdame',
@@ -71,7 +73,7 @@ define([], function() {
         'popover.toPost': 'Para publicar un producto debes',
         'popover.toVote': 'Para votar un producto debes',
         'popover.toComment': 'Para comentar un producto debes',
-        'popover.signIn': 'iniciar sesión',
+        'popover.signIn': 'ingresar',
         'popover.toPostBis': 'o',
         'popover.signUp': 'registrarte.',
 
@@ -189,7 +191,7 @@ define([], function() {
         'product.comment.error':'La longitud del comentario debe ser menor o igual a 512',
         'product.discussion':'Únete a la discusión',
         'product.anonymousComment.beginning':'Para comentar un producto debes',
-        'product.anonymousComment.signIn':'iniciar sesión',
+        'product.anonymousComment.signIn':'ingresar',
         'product.anonymousComment.or':'o',
         'product.anonymousComment.signUp':'registrarte.',
         'product.reply':'Responder',
