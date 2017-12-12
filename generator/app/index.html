@@ -80,7 +80,10 @@
 									<div class="col-md-12">
 										<a ng-href="#/search?q={{item.name | urlencode}}" class="autocomplete-item"
 										   focus-if="autocompleteFocus($index)" ng-keydown="arrowControl($event, item.name)">
-											<span ng-bind="item.name"></span>
+											<span>
+												<img ng-src="{{item.logo_url}}">
+												<span ng-bind="item.name"></span>
+											</span>
 											<span class="autocomplete-upvote-info">
 												<span class="glyphicon glyphicon-arrow-up"></span>
 												<span class="upvote-number" ng-bind="item.voters_count"></span>
