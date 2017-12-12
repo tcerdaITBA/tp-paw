@@ -59,16 +59,26 @@
 						<div class="tab-content">
 							<div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
 								<div class="product-list" infinite-scroll='loadMoreCollections()' infinite-scroll-disabled="collectionsDisable">
-									<div class="add-collection">
-										<a ng-if="!addCollectionEnabled" ng-click="enableAddCollection()" class="enable-add-collection">
+									<div class="add-collection" ng-click="enableAddCollection()" ng-class="{'add-enabled': addCollectionEnabled}">
+										<div ng-if="!addCollectionEnabled" class="enable-add-collection">
 											<span class="glyphicon glyphicon-plus"></span><span ng-bind="'profile.addCollection' | translate"></span>
-										</a>
-										<div ng-if="addCollectionEnabled">
-											<form ng-submit="submitNewCollection(newCollectionName)" name="form" novalidate>
+										</div>
+										<div ng-if="addCollectionEnabled" class="add-collection-enabled">
+											<form ng-submit="form.$valid && submitNewCollection(newCollectionName)" name="form" novalidate>
 												<div class="input-field" ng-class="{'has-error': form.$invalid && form.$submitted}">
-													<input id="collection-name" ng-model="newCollectionName" class="form-control" name="name" ng-attr-placeholder="{{'profile.addNewCollection.placeholder' | translate}}" type="text" required>
-													<button type="submit" class="btn btn-default"  ng-bind="'profile.addNewCollection.addButton' | translate"></button>
-													<span ng-show="form.name.$error.required && form.$submitted" class="help-block" ng-bind="'profile.addNewCollection.error' | translate"></span>
+													<input id="collection-name" ng-model="newCollectionName" class="form-control" name="name" ng-attr-placeholder="{{'profile.addCollection.placeholder' | translate}}" type="text" ng-minlength=4 ng-maxlength=64 required>
+													<button type="submit" class="ps-btn btn btn-default" ng-class="{'.disabled': submittingCollection}">
+														<span ng-show="!submittingCollection" ng-bind="'profile.addCollection.addButton' | translate"></span>
+														<span ng-show="submittingCollection">
+															<div class="spinner button-spinner">
+																<div class="dot1"></div>
+																<div class="dot2"></div>
+															</div>
+															<span ng-bind="'profile.addCollection.submitting'"></span>
+														</span>
+													</button>
+													<span ng-show="form.$invalid && form.$submitted" class="help-block" ng-bind="'profile.addNewCollection.error' | translate"></span>
+													<span ng-show="repeatedCollectionError" class="help-block" ng-bind="'profile.addNewCollection.repeated' | translate"></span>
 												</div>
 											</form>
 										</div>

@@ -94,6 +94,11 @@ define([], function() {
         'Profile.settings.changePicture':'Change profile picture',
         'Profile.settings.changePassword': 'Change password',
         'userFormLabel.passwordConfirm': 'Confirm Password',
+		
+		'profile.addCollection': 'Create New Collection',
+		'profile.addCollection.placeholder': 'Name',
+		'profile.addCollection.addButton': 'Create Collection',
+		'profile.addCollection.submitting': 'Creating',
     
         'changePassword.currentPasswordConf': 'Current Password',
         'changePassword.newPassword':'New Password',

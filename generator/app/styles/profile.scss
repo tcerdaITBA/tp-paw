@@ -162,3 +162,51 @@
 .collection-product-col {
 	padding-right: 0;
 }
+
+.add-collection {
+	padding: 1em;
+	text-align: center;
+	border: 1px solid #dddddd;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	background-color: #efefef;
+	
+	.glyphicon {
+		margin-right: 10px;
+		top: 2px;
+	}
+	
+	&:hover {
+		background-color: #dddddd;
+		cursor: pointer;
+	}
+	
+	.enable-add-collection {
+		color: #8a8a8a;
+		font-size: 1.2em;
+		
+		&:hover {
+			color: #8a8a8a;
+			text-decoration: none;
+		}
+	}
+	
+	input {
+		text-align: center;
+	}
+}
+
+.add-enabled {
+	background-color: #efefef;
+	
+	&:hover {
+		background-color: #efefef;
+		cursor: inherit;
+	}
+}
+
+.add-collection-enabled {
+	button {
+		margin-top: 1em;
+	}
+}

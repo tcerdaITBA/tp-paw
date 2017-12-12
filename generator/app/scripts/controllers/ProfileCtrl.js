@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'directives/collectionItem', 'directives/productItem', 'services/titleService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'directives/collectionItem', 'directives/productItem', 'services/titleService', 'services/snackbarService'], function(productSeek) {
 
-	productSeek.controller('ProfileCtrl', ['$scope', 'titleService', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', 'restService','$uibModal', function($scope, titleService, user, collections, createdProducts, votedProducts, authService, modalService, restService, $uibModal) {
+	productSeek.controller('ProfileCtrl', ['$scope', 'titleService', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', 'restService', 'snackbarService', '$uibModal', function($scope, titleService, user, collections, createdProducts, votedProducts, authService, modalService, restService, snackbarService, $uibModal) {
 		titleService.setTitle(user.name.charAt(0).toUpperCase() + user.name.slice(1));
 
 		$scope.user = user;
@@ -103,17 +103,27 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 			$scope.addCollectionEnabled = true;
 		};
 		
-		$scope.submitNewCollection = function(form) {
-			if (form.$invalid)
+		$scope.submitNewCollection = function(name) {
+			$scope.repeatedCollectionError = false;
+			if (!(name && name.length >= 4 && name.length <= 64))
 				return;
-			console.log($scope.newCollectionName);
-			
-			restService.createCollection($scope.newCollectionName)
-			.then(function() {
-				console.log("Collection created");
+			$scope.submittingCollection = true;
+			restService.createCollection(name)
+			.then(function(collection) {
+				$scope.addCollectionEnabled = false;
+				$scope.collections.push(collection)
+				$scope.submittingCollection = false;
 			})
-			.catch(function() {
-				console.log("errrorrr colleciton");
+			.catch(function(error) {
+				switch (error.status) {
+					case -1: // Sin conexión
+						snackbarService.showNoConnection();
+						break;
+					case 409: // Conflict - Nombre repetido
+						$scope.repeatedCollectionError = true;
+						break;
+				}
+				$scope.submittingCollection = false;
 			});
 		};
 		

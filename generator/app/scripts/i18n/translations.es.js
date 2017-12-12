@@ -111,6 +111,11 @@ define([], function() {
                 
         'Profile.modal.deleteCollection': 'Eliminar colección',
 
+		'profile.addCollection': 'Crear Nueva Colección',
+		'profile.addCollection.placeholder': 'Nombre',
+		'profile.addCollection.addButton': 'Crear Colección',
+		'profile.addCollection.submitting': 'Creando',
+		
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',
         'collections.add': 'Agregar',
