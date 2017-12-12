@@ -209,8 +209,9 @@ define([], function() {
 
         'product.creator':'Creador',
         'product.comment':'Comentar',
-        'product.comment.placeholder':'Escriba su comentario aqui',
-        'product.comment.error':'La longitud del comentario debe ser menor o igual a 512',
+        'product.comment.placeholder':'Comentario...',
+        'product.reply.placeholder':'Responder a',
+        'product.comment.error':'La longitud del comentario debe ser menor o igual a 512 caracteres',
         'product.discussion':'Únete a la discusión',
         'product.anonymousComment.beginning':'Para comentar un producto debes',
         'product.anonymousComment.signIn':'ingresar',
