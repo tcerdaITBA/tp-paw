@@ -78,6 +78,7 @@ define(['routes',
 			.value('productVideosCount', 2)
 			.value('searchMinLength', 3)
 			.value('searchMaxLength', 64)
+			.value('pageSize', 20)
             .value('categories', ['app', 'art', 'book', 'fashion', 'film', 'food', 'gadget', 'game', 'music', 'other'])
             // Explicitly setting paths in other to be revved
             .value('categoriesImage', {all: 'images/all.svg', app: 'images/app.svg', art: 'images/art.svg', book: 'images/book.svg', fashion: 'images/fashion.svg', film: 'images/film.svg',

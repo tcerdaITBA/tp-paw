@@ -50,16 +50,16 @@
 						<div class="row tabs-row">
 							<ul class="nav nav-pills nav-justified profile-tabs">
 							<!--Cosas de tabs-->
-								<li role="presentation" class="{{firstActiveTab() == 1 ? 'active' : 'none' }}"><a href="#favList-pane" data-toggle="tab">{{'Profile.Tab.favlist' | translate}}<span class="badge tab-badge">{{collections.length}}</span></a></li>
-								<li role="presentation" class="{{firstActiveTab() == 2 ? 'active' : 'none' }}"><a href="#uploadedProducts-pane" data-toggle="tab">{{'Profile.Tab.uploadedProducts' | translate}}<span class="badge">{{createdProducts.length}}</span></a></li>
-								<li role="presentation" class="{{firstActiveTab() == 3 ? 'active' : 'none' }}"><a href="#votedProducts-pane" data-toggle="tab">{{'Profile.Tab.votedProducts' | translate}}<span class="badge tab-badge">{{votedProducts.length}}</span></a></li>
+								<li role="presentation" ng-click="setTab(1)" class="{{firstActiveTab() == 1 ? 'active' : 'none' }}"><a href="#favList-pane" data-toggle="tab">{{'Profile.Tab.favlist' | translate}}<span class="badge tab-badge">{{collections.length}}</span></a></li>
+								<li role="presentation" ng-click="setTab(2)" class="{{firstActiveTab() == 2 ? 'active' : 'none' }}"><a href="#uploadedProducts-pane" data-toggle="tab">{{'Profile.Tab.uploadedProducts' | translate}}<span class="badge">{{createdProducts.length}}</span></a></li>
+								<li role="presentation" ng-click="setTab(3)" class="{{firstActiveTab() == 3 ? 'active' : 'none' }}"><a href="#votedProducts-pane" data-toggle="tab">{{'Profile.Tab.votedProducts' | translate}}<span class="badge tab-badge">{{votedProducts.length}}</span></a></li>
 							</ul>
 						</div>
 
 						<div class="tab-content">
 							<div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
-								<div class="product-list" infinite-scroll='loadMoreCollections()' infinite-scroll-disabled="collectionsDisable">
-									<div class="add-collection">
+								<div class="product-list" infinite-scroll-use-document-bottom="true" infinite-scroll='loadMoreCollections()' infinite-scroll-disabled="collectionsDisable || collectionScrollBusy || collections.length == 0 || activeTab != 1">
+									<div ng-if="isProfileOwner" class="add-collection">
 										<a ng-if="!addCollectionEnabled" ng-click="enableAddCollection()" class="enable-add-collection">
 											<span class="glyphicon glyphicon-plus"></span><span ng-bind="'profile.addCollection' | translate"></span>
 										</a>
@@ -76,7 +76,7 @@
 									<div ng-repeat="f in collections | orderBy: 'name'">
 										<collection-item fav-list="f" hide-delete="!isProfileOwner" on-delete="removeCollection(f)"></collection-item>
 									</div>
-									<div ng-if="collectionsDisable && collections.length == 0">
+									<div ng-if="collections.length == 0">
 										<div class="zrp">
 											<h2>{{'profileZRP.sadCat' | translate}}</h2>
 											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noCollections' | translate: zrpTranslation}}</h3>
@@ -92,11 +92,11 @@
 								</div>
 							</div>
 							<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 2 ? 'active in' : 'none' }}">
-								<div class="col-md-12 product-list" infinite-scroll='loadMoreUploaded()' infinite-scroll-disabled="uploadedDisable">
+								<div class="col-md-12 product-list" infinite-scroll='loadMoreUploaded()' infinite-scroll-disabled="uploadedDisable || uploadedScrollBusy || createdProducts.length == 0 || activeTab != 2" infinite-scroll-use-document-bottom="true">
 									<div ng-repeat="c in createdProducts | orderBy: 'name'">
 										<product-item product="c" on-delete="removeProduct(c)" on-add="addedToCollection(c, collection)" on-vote="productVoted(c, voted)" hide-delete="!isProfileOwner || !c.isOwnerLogged" border-hover="true"></product-item>
 									</div> 
-									<div ng-if="uploadedDisable && createdProducts.length == 0">
+									<div ng-if="createdProducts.length == 0">
 										<div class="zrp">
 											<h2>{{'profileZRP.sadCat' | translate}}</h2>
 											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noUploaded' | translate: zrpTranslation}}</h3>
@@ -113,11 +113,11 @@
 								</div>
 							</div>
 							<div id="votedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 3 ? 'active in' : 'none'}}">
-								<div class="col-md-12 product-list" infinite-scroll='loadMoreVoted()' infinite-scroll-disabled="votedDisable">
+								<div class="col-md-12 product-list" infinite-scroll='loadMoreVoted()' infinite-scroll-disabled="votedDisable || votedScrollBusy || votedProducts.length == 0 || activeTab != 3" infinite-scroll-use-document-bottom="true">
 									<div ng-repeat="p in votedProducts | orderBy: 'name'">
 										<product-item product="p" on-delete="removeProduct(p)" on-add="addedToCollection(p, collection)" on-vote="productVoted(p, voted)" hide-delete="!isProfileOwner || !p.isOwnerLogged" border-hover="true"></product-item>
 									</div>
-									<div ng-if="votedDisable && votedProducts.length == 0">
+									<div ng-if="votedProducts.length == 0">
 										<div class="zrp">
 											<h2>{{'profileZRP.sadCat' | translate}}</h2>
 											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noVoted' | translate: zrpTranslation}}</h3>
