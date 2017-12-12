@@ -8,7 +8,7 @@
 	<form name="postForm" class="form-horizontal" novalidate>
 		<div class="form-group row">
 			<div class="col-md-2 col-md-offset-5" ng-class="{'has-error': postForm.logo.$invalid && postForm.$submitted}" >
-				<input id="logoUpload" class="image-input" type="file" accept="image/*" ng-file-read="product.logo" name="logo" ng-model="__" valid-file required/>
+				<input id="logoUpload" class="image-input" type="file" accept="image/*" ng-file-read="product.logo" name="logo" ng-model="__" valid-file required>
 				<label for="logoUpload" class="image-upload-btn">
 					<div class="preview-container">
 						<img class="preview-image" ng-src="{{product.logo}}" ng-show="product.logo">
@@ -71,7 +71,7 @@
 			<div class="row">
 				<ng-repeat ng-repeat="img in product.images track by $index">
 					<div class="col-md-3">
-						<input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" name="image-{{$index}}"/>
+						<input id="imageUpload-{{$index}}" class="image-input" type="file" accept="image/*" ng-file-read="product.images[$index]" name="image-{{$index}}">
 						<label for="imageUpload-{{$index}}" class="image-upload-btn">
 							<div class="preview-container">
 								<img class="preview-image" ng-src="{{product.images[$index]}}" ng-show="product.images[$index]">

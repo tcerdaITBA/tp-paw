@@ -83,7 +83,7 @@
                     <form class="favlist-form" novalidate ng-submit="createAndAdd()" name="form">
                         <h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
                         <div class="form-group">
-                            <input type="text" ng-model="collectionName" name="collectionName" class="form-control" rows="1" placeholder="{{'collection.collectionNamePlaceholder' | translate}}" ng-minlength="4" ng-maxlength="64" required/>
+                            <input type="text" ng-model="collectionName" name="collectionName" class="form-control" rows="1" placeholder="{{'collection.collectionNamePlaceholder' | translate}}" ng-minlength="4" ng-maxlength="64" required>
                             <p class="form-error collection-error" ng-show="(form.collectionName.$error.minlength || form.collectionName.$error.required) && form.$submitted">{{'collection.error.nameTooShort' | translate}}</p>
                             <p class="form-error collection-error" ng-show="form.collectionName.$error.maxlength && form.$submitted">{{'collection.error.nameTooLong' | translate}}</p>
                         </div>
