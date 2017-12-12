@@ -1,7 +1,7 @@
 'use strict';
 define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'directives/collectionItem', 'directives/productItem', 'services/titleService', 'services/snackbarService'], function(productSeek) {
 
-	productSeek.controller('ProfileCtrl', ['$scope', 'titleService', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', 'restService', 'snackbarService', '$uibModal', function($scope, titleService, user, collections, createdProducts, votedProducts, authService, modalService, restService, snackbarService, $uibModal) {
+	productSeek.controller('ProfileCtrl', ['$scope', 'titleService', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', 'restService', 'snackbarService', '$uibModal', 'pageSize', function($scope, titleService, user, collections, createdProducts, votedProducts, authService, modalService, restService, snackbarService, $uibModal, pageSize) {
 		titleService.setTitle(user.name.charAt(0).toUpperCase() + user.name.slice(1));
 
 		$scope.user = user;
@@ -12,6 +12,8 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 			user: $scope.user.name
 		};
 		
+		$scope.element = angular.element;
+
 		var updateProfileOwner = function() {
 			if (!authService.isLoggedIn() || authService.loggedUser.id !== user.id)
 				return false;
@@ -20,7 +22,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         
         var updateProductOwner = function(products) {
             for (var i = 0; i < products.length; i++) {
-                var p = products[i]
+                var p = products[i];
                 if (!authService.isLoggedIn() || authService.loggedUser.id !== p.creator_id)
                     p.isOwnerLogged = false;
                 else
@@ -44,8 +46,15 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         };
         
         $scope.isProfileOwner = updateProfileOwner();
-        updateProductOwner($scope.createdProducts);
-        updateProductOwner($scope.votedProducts);
+
+
+        $scope.$watchCollection('createdProducts', function() {
+	        updateProductOwner($scope.createdProducts);
+        });
+
+        $scope.$watchCollection('votedProducts', function() {
+	        updateProductOwner($scope.votedProducts);
+        });
         
         $scope.removeCollection = function(collection) {
         	removeItemFrom(collection, $scope.collections);
@@ -86,7 +95,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
             $scope.isProfileOwner = updateProfileOwner();
             updateProductOwner($scope.createdProducts);
             updateProductOwner($scope.votedProducts);
-        });        
+        });
 
 		$scope.firstActiveTab = function() {
 			if (!isEmpty(collections))
@@ -101,7 +110,15 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 
 		$scope.enableAddCollection = function() {
 			$scope.addCollectionEnabled = true;
+			console.log("enable")
 		};
+		
+		$scope.disableAddCollection = function() {
+			console.log($scope.addCollectionEnabled);
+			console.log($scope.newCollectionName);
+			$scope.addCollectionEnabled = false;
+			$scope.newCollectionName = undefined;
+		}
 		
 		$scope.submitNewCollection = function(name) {
 			$scope.repeatedCollectionError = false;
@@ -132,37 +149,48 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         $scope.$on('user:picture', function(event, picture) {
 			$scope.user.picture_url = picture;
         });
+
+		$scope.activeTab = $scope.firstActiveTab();
         
+		$scope.setTab = function(tab) {
+			console.log(tab);
+			$scope.activeTab = tab;
+		};
+
         $scope.changePasswordModal = modalService.changePasswordModal;   
-		
+		$scope.collectionScrollBusy = $scope.uploadedScrollBusy = $scope.votedScrollBusy = false;
+		$scope.collectionsDisable = $scope.uploadedDisable = $scope.votedDisable = false;
+
 		var collectionsPage = 1, uploadedPage = 1, votedPage = 1;
-		
+
 		$scope.loadMoreCollections = function() {
 			$scope.collectionScrollBusy = true;
 			collectionsPage++;
-			var params = {page: collectionsPage};
+			var params = {page: collectionsPage, 'pageSize': pageSize};
 			
 			restService.getCollectionsForUser(user.id, params)
 			.then(function(data) {
 				$scope.collectionScrollBusy = false;
 				if (data.count != 0) {
-					$scope.collections.push.apply($scope.collections, data.collections); 
+					$scope.collections.push.apply($scope.collections, data.collections);
+					$scope.collectionsDisable = data.count < pageSize;
 				} else {
 					$scope.collectionsDisable = true;
 				}
 			});
 		};
-		
+
 		$scope.loadMoreUploaded = function() {
 			$scope.uploadedScrollBusy = true;
 			uploadedPage++;
-			var params = {page: uploadedPage};
+			var params = {page: uploadedPage, 'pageSize': pageSize};
 			
 			restService.getPostedByUser(user.id, params)
 			.then(function(data) {
 				$scope.uploadedScrollBusy = false;
 				if (data.count != 0) {
 					$scope.createdProducts.push.apply($scope.createdProducts, data.products); 
+					$scope.uploadedDisable = data.count < pageSize;
 				} else {
 					$scope.uploadedDisable = true;
 				}
@@ -172,13 +200,14 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 		$scope.loadMoreVoted = function() {
 			$scope.votedScrollBusy = true;
 			votedPage++;
-			var params = {page: votedPage};
+			var params = {page: votedPage, 'pageSize': pageSize};
 			
 			restService.getVotedByUser(user.id, params)
 			.then(function(data) {
 				$scope.votedScrollBusy = false;
 				if (data.count != 0) {
 					$scope.votedProducts.push.apply($scope.votedProducts, data.products); 
+					$scope.votedDisable = data.count < pageSize;
 				} else {
 					$scope.votedDisable = true;
 				}

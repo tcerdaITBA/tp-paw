@@ -164,6 +164,7 @@
 }
 
 .add-collection {
+	position: relative;
 	padding: 1em;
 	text-align: center;
 	border: 1px solid #dddddd;
@@ -193,6 +194,20 @@
 	
 	input {
 		text-align: center;
+		margin-top: 2em;
+	}
+	
+	.disable-add-btn {
+		position: absolute;
+		top: 1em;
+		right: 1em;
+		margin: 0;
+		color: #8a8a8a;
+		
+		&:hover {
+			color: #000;
+			cursor: pointer;
+		}
 	}
 }
 
@@ -210,3 +225,5 @@
 		margin-top: 1em;
 	}
 }
+
+

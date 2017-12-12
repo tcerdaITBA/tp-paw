@@ -115,6 +115,8 @@ define([], function() {
 		'profile.addCollection.placeholder': 'Nombre',
 		'profile.addCollection.addButton': 'Crear Colección',
 		'profile.addCollection.submitting': 'Creando',
+		'profile.addCollection.error': 'El nombre debe tener entre 4 y 64 caracteres',
+		'profile.addCollection.repeated': 'Ya creaste una Colección con ese nombre',
 		
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',
@@ -147,6 +149,7 @@ define([], function() {
 
 	'post.error.addImageOrVideo': 'Agrega al menos una imagen o video',
 	'post.error.invalidYoutube': 'Link de Youtube inválido',
+        'post.error.duplicateYoutube': 'Los videos no pueden ser iguales',
 	'post.error.addTagline': 'El eslogan no puede estar vacío',
         'post.error.taglineTooLong': 'El eslogan no puede exceder los 140 caracteres',
 	'post.error.addName': 'El nombre del producto no puede estar vacío',

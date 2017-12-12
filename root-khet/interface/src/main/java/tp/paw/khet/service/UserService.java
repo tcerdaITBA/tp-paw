@@ -151,5 +151,5 @@ public interface UserService {
 	 * @param pageSize - amount of products per page
 	 * @return The list of products corresponding to the creator and page requested.
 	 */
-	public List<Product> getCreatedProductsByUserId(int id, int page, int pageSize);
+	public List<Product> getCreatedProductsByUserId(int userId, int page, int pageSize);
 }

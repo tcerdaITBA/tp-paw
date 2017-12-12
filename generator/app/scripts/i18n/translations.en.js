@@ -99,6 +99,8 @@ define([], function() {
 		'profile.addCollection.placeholder': 'Name',
 		'profile.addCollection.addButton': 'Create Collection',
 		'profile.addCollection.submitting': 'Creating',
+		'profile.addCollection.error': 'The length of the name should be between 4 and 64 characters',
+		'profile.addCollection.repeated': 'You already created a Collection with that name',
     
         'changePassword.currentPasswordConf': 'Current Password',
         'changePassword.newPassword':'New Password',
@@ -115,7 +117,7 @@ define([], function() {
         'Profile.modal.leftButton': 'Delete', 
         
         'Profile.modal.deleteCollection': 'Delete collection',
-		
+	
         'collection.collectionNamePlaceholder':'Name',
         'collections.newCollection':'New Collection',
         'collections.add':'Add',
@@ -147,6 +149,7 @@ define([], function() {
 	
 	'post.error.addImageOrVideo': 'You should add an image or Youtube video',
 	'post.error.invalidYoutube': 'Not a valid Youtube link',
+        'post.error.duplicateYoutube': 'Videos must be different',
 	'post.error.addTagline': 'Add a tagline',
         'post.error.taglineTooLong': 'Tagline cannot exceed 140 characters',
 	'post.error.addName': 'Add a product name',

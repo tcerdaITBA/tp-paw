@@ -11,7 +11,7 @@
         <form ng-submit="uploadPicture()" name="pictureForm" novalidate>
             <div class="preview-container-centered" ng-class="{'has-error': pictureForm.picture.$invalid && pictureForm.$submitted}" >
                 <div class="form-group">
-                    <input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="profilePicture.picture" ng-model="__" name="picture" valid-file required/>
+                    <input id="pictureUpload" class="image-input" type="file" accept="image/*" ng-file-read="profilePicture.picture" ng-model="__" name="picture" valid-file required>
                     <label for="pictureUpload" class="image-upload-btn">
                         <div class="preview-container profile-change-preview-container">
                             <img class="preview-image" ng-src="{{profilePicture.picture}}" ng-show="profilePicture.picture">
