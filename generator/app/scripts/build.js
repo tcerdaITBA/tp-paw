@@ -31,8 +31,6 @@ require.config({
         'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick',
         ngInfiniteScroll: '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
         'angular-slick': '../../bower_components/angular-slick/dist/slick',
-        ngSanitize: '../../bower_components/ngSanitize/index',
-        ngstorage: '../../bower_components/ngstorage/ngStorage'
     },
     shim: {
         angular: {

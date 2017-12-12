@@ -34,7 +34,7 @@
 		<div class="form-group row" ng-class="{'has-error': postForm.tagline.$invalid && postForm.$submitted}">
 			<label for="tagline" class="col-md-3 control-label" ng-bind="'post.tagline' | translate"></label>
 			<div class="col-md-6">
-				<textarea type="text" class="form-control" id="tagline" placeholder="{{'post.placeholder.tagline' | translate}}" rows="2" ng-model="product.tagline" name="tagline" required ng-maxlength="140"/>
+				<textarea type="text" class="form-control" id="tagline" placeholder="{{'post.placeholder.tagline' | translate}}" rows="2" ng-model="product.tagline" name="tagline" required ng-maxlength="140"></textarea>
 				<span ng-show="postForm.tagline.$error.required && postForm.$submitted" class="help-block" ng-bind="'post.error.addTagline' | translate"></span>
 				<span ng-show="postForm.tagline.$error.maxlength && postForm.$submitted" class="help-block" ng-bind="'post.error.taglineTooLong' | translate"></span>
 			</div>
@@ -42,7 +42,7 @@
 		<div class="form-group row" ng-class="{'has-error': postForm.description.$invalid && postForm.$submitted}">
 			<label for="description" class="col-md-3 control-label" ng-bind="'post.description' | translate"></label>
 			<div class="col-md-6">
-				<textarea type="text" class="form-control" id="description" placeholder="{{'post.placeholder.description' | translate}}" rows="4" ng-model="product.description" name="description" required ng-maxlength="8000"/>
+				<textarea type="text" class="form-control" id="description" placeholder="{{'post.placeholder.description' | translate}}" rows="4" ng-model="product.description" name="description" required ng-maxlength="8000"></textarea>
                 <span ng-show="postForm.description.$error.required && postForm.$submitted" class="help-block" ng-bind="'post.error.addDescription' | translate"></span>
                 <span ng-show="postForm.description.$error.maxlength && postForm.$submitted" class="help-block" ng-bind="'post.error.descriptionTooLong' | translate"></span>
 			</div>
