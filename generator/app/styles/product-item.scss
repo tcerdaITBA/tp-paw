@@ -129,8 +129,9 @@
 }
 
 .new-collection-form {
-	text-align: right;
 	margin-bottom: 0;
+	text-align: center;
+	position: relative;
 }
 
 .add-to-list-item {
@@ -332,7 +333,7 @@
 .favlist-form-title {
 	color: #333;
 	text-align: center;
-	margin: 0 0 10px 2px;
+	margin: 0.5em;
 	font-size: 1.2em;
 }
 
@@ -388,6 +389,9 @@
 .close-well-icn {
 	color: #000;
 	opacity: .5;
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
 }
 
 .close-well-icn:hover {

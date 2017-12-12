@@ -67,9 +67,13 @@
 											<span class="glyphicon glyphicon-remove disable-add-btn" ng-click="disableAddCollection(); $event.stopPropagation();"></span>
 											<form ng-submit="form.$valid && submitNewCollection(newCollectionName)" name="form" novalidate>
 												<div class="input-field" ng-class="{'has-error': form.$invalid && form.$submitted}">
+													<h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
 													<input id="collection-name" ng-model="newCollectionName" class="form-control" name="name" ng-attr-placeholder="{{'profile.addCollection.placeholder' | translate}}" type="text" ng-minlength=4 ng-maxlength=64 required>
 													<button type="submit" class="ps-btn btn btn-default" ng-class="{'.disabled': submittingCollection}">
-														<span ng-show="!submittingCollection" ng-bind="'profile.addCollection.addButton' | translate"></span>
+														<span ng-show="!submittingCollection">	
+															<span class="glyphicon glyphicon-plus"></span>
+															{{'profile.addCollection.addButton' | translate}}
+														</span>
 														<span ng-show="submittingCollection">
 															<div class="spinner button-spinner">
 																<div class="dot1"></div>
