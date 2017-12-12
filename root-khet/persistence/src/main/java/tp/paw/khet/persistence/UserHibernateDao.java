@@ -160,7 +160,7 @@ public class UserHibernateDao implements UserDao {
 
 	@Override
 	public List<Product> getCreatedProductsRange(final int userId, final int offset, final int length) {
-		final TypedQuery<Product> query = em.createQuery("from Product as p where p.creator.userId = :userId ORDER BY p.uploadDate DESC", Product.class);
+		final TypedQuery<Product> query = em.createQuery("from Product as p where p.creator.userId = :userId order by lower(p.name)", Product.class);
 		query.setParameter("userId", userId);
 
 		return pagedResult(query, offset, length);

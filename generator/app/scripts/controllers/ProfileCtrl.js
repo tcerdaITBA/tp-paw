@@ -2,6 +2,7 @@
 define(['productSeek', 'services/authService', 'services/modalService', 'services/restService', 'directives/collectionItem', 'directives/productItem', 'services/titleService'], function(productSeek) {
 
 	productSeek.controller('ProfileCtrl', ['$scope', 'titleService', 'user', 'collections', 'createdProducts', 'votedProducts', 'authService', 'modalService', 'restService','$uibModal', function($scope, titleService, user, collections, createdProducts, votedProducts, authService, modalService, restService, $uibModal) {
+
 		titleService.setTitle(user.name.charAt(0).toUpperCase() + user.name.slice(1));
 
 		$scope.user = user;
@@ -20,7 +21,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         
         var updateProductOwner = function(products) {
             for (var i = 0; i < products.length; i++) {
-                var p = products[i]
+                var p = products[i];
                 if (!authService.isLoggedIn() || authService.loggedUser.id !== p.creator_id)
                     p.isOwnerLogged = false;
                 else
@@ -44,8 +45,15 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
         };
         
         $scope.isProfileOwner = updateProfileOwner();
-        updateProductOwner($scope.createdProducts);
-        updateProductOwner($scope.votedProducts);
+
+
+        $scope.$watchCollection('createdProducts', function() {
+	        updateProductOwner($scope.createdProducts);
+        });
+
+        $scope.$watchCollection('votedProducts', function() {
+	        updateProductOwner($scope.votedProducts);
+        });
         
         $scope.removeCollection = function(collection) {
         	removeItemFrom(collection, $scope.collections);
@@ -86,7 +94,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
             $scope.isProfileOwner = updateProfileOwner();
             updateProductOwner($scope.createdProducts);
             updateProductOwner($scope.votedProducts);
-        });        
+        });
 
 		$scope.firstActiveTab = function() {
 			if (!isEmpty(collections))

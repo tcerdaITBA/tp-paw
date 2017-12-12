@@ -7,7 +7,7 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService', 'service
 			titleService.setTitle(title);
 		});
 
-		/* User logged out, redirecting to home */
+		// User logged out, redirecting to home 
         $scope.$on('user:updated', function() {
         	if (!authService.isLoggedIn())
         		$location.url('/');
@@ -33,15 +33,13 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService', 'service
  			var empty = true;
             
 			angular.forEach($scope.product.images, function(img) {
-				if (img) {
+				if (img)
 					empty = false;
-                }
 			});
             
 			angular.forEach($scope.product.videos, function(video) {
-				if (video) {
+				if (video)
 					empty = false;
-                }
 			});
             
 			$scope.noImagesError = empty;           
