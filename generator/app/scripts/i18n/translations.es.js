@@ -94,7 +94,14 @@ define([], function() {
         'Profile.settings.changePicture':'Cambiar foto de perfil',
         'Profile.settings.changePassword': 'Cambiar contraseña',
         'userFormLabel.passwordConfirm': 'Confirmar Contraseña',
-    
+ 
+        'profile.addCollection': 'Crear Nueva Colección',
+        'profile.addCollection.placeholder': 'Nombre',
+        'profile.addCollection.addButton': 'Crear Colección',
+        'profile.addCollection.submitting': 'Creando',
+        'profile.addCollection.error': 'El nombre debe tener entre 4 y 64 caracteres',
+        'profile.addCollection.repeated': 'Ya creaste una Colección con ese nombre',
+
         'changePassword.currentPasswordConf': 'Contraseña Actual',
         'changePassword.newPassword':'Nueva Contraseña',
         'changePassword': 'Cambiar Contraseña',
@@ -110,13 +117,6 @@ define([], function() {
         'Profile.modal.rightButton': 'Cancelar',
                 
         'Profile.modal.deleteCollection': 'Eliminar colección',
-
-		'profile.addCollection': 'Crear Nueva Colección',
-		'profile.addCollection.placeholder': 'Nombre',
-		'profile.addCollection.addButton': 'Crear Colección',
-		'profile.addCollection.submitting': 'Creando',
-		'profile.addCollection.error': 'El nombre debe tener entre 4 y 64 caracteres',
-		'profile.addCollection.repeated': 'Ya creaste una Colección con ese nombre',
 		
         'collection.collectionNamePlaceholder': 'Nombre',
         'collections.newCollection': 'Nueva Colección',
@@ -162,7 +162,8 @@ define([], function() {
         
         'button.addLogo':'Agregar Logo',
 	'button.addImage':'Agregar Imagen',
-		
+
+        'collection.empty': 'Ningún producto',
         'product.singular': 'producto',
         'product.plural': 'productos',
         

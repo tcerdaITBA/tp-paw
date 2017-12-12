@@ -95,12 +95,12 @@ define([], function() {
         'Profile.settings.changePassword': 'Change password',
         'userFormLabel.passwordConfirm': 'Confirm Password',
 		
-		'profile.addCollection': 'Create New Collection',
-		'profile.addCollection.placeholder': 'Name',
-		'profile.addCollection.addButton': 'Create Collection',
-		'profile.addCollection.submitting': 'Creating',
-		'profile.addCollection.error': 'The length of the name should be between 4 and 64 characters',
-		'profile.addCollection.repeated': 'You already created a Collection with that name',
+	'profile.addCollection': 'Create New Collection',
+	'profile.addCollection.placeholder': 'Name',
+	'profile.addCollection.addButton': 'Create Collection',
+	'profile.addCollection.submitting': 'Creating',
+	'profile.addCollection.error': 'The length of the name should be between 4 and 64 characters',
+	'profile.addCollection.repeated': 'You already created a Collection with that name',
     
         'changePassword.currentPasswordConf': 'Current Password',
         'changePassword.newPassword':'New Password',
@@ -162,7 +162,8 @@ define([], function() {
 		
         'button.addLogo': 'Add Logo',
 	'button.addImage':'Add Image',
-		
+	
+        'collection.empty': 'No products',
         'product.singular': 'product',
         'product.plural': 'products',
         
