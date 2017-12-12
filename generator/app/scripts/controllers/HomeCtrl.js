@@ -78,6 +78,8 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
 			}
 		};
 		
+		$scope.disableScroll = $scope.products.length < $scope.pageSize;
+
 		$scope.loadMoreProducts = function() {
 			$scope.scrollBusy = true;
 			var params = {};
