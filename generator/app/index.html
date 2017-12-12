@@ -78,8 +78,8 @@
 							<div ng-repeat="item in searchSuggestions">
 								<div class="row">
 									<div class="col-md-12">
-										<a ng-href="#/search?q={{item.name | urlencode}}" class="autocomplete-item"
-										   focus-if="autocompleteFocus($index)" ng-keydown="arrowControl($event, item.name)">
+										<a ng-href="#/product/{{item.id}}" class="autocomplete-item"
+										   focus-if="autocompleteFocus($index)" ng-keydown="arrowControl($event, item.id, true)">
 											<span>
 												<img ng-src="{{item.logo_url}}">
 												<span ng-bind="item.name"></span>

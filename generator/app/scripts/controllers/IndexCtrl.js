@@ -66,7 +66,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			}
 		});
 
-		$scope.arrowControl = function(event, item) {
+		$scope.arrowControl = function(event, item, isAutocomplete) {
 			switch (event.keyCode) {
 				case 38: // arrow up
 					event.preventDefault();
@@ -85,7 +85,14 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 				case 13: // enter
 					console.log(item);
 					event.preventDefault();
-					$scope.search(item);
+
+					if (isAutocomplete) {
+						focusIndex = -1;
+						$scope.searchFieldFocus = false;
+						$location.url('product/' + item);
+					}
+					else
+						$scope.search(item);
 					break;
 					
 				default: // vuelve a escribir en el cuadro de busqueda
