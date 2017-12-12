@@ -110,7 +110,7 @@ define([], function() {
         'Profile.modal.leftButton': 'Delete', 
         
         'Profile.modal.deleteCollection': 'Delete collection',
-		
+	
         'collection.collectionNamePlaceholder':'Name',
         'collections.newCollection':'New Collection',
         'collections.add':'Add',
@@ -142,6 +142,7 @@ define([], function() {
 	
 	'post.error.addImageOrVideo': 'You should add an image or Youtube video',
 	'post.error.invalidYoutube': 'Not a valid Youtube link',
+        'post.error.duplicateYoutube': 'Videos must be different',
 	'post.error.addTagline': 'Add a tagline',
         'post.error.taglineTooLong': 'Tagline cannot exceed 140 characters',
 	'post.error.addName': 'Add a product name',

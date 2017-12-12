@@ -142,6 +142,7 @@ define([], function() {
 
 	'post.error.addImageOrVideo': 'Agrega al menos una imagen o video',
 	'post.error.invalidYoutube': 'Link de Youtube inválido',
+        'post.error.duplicateYoutube': 'Los videos no pueden ser iguales',
 	'post.error.addTagline': 'El eslogan no puede estar vacío',
         'post.error.taglineTooLong': 'El eslogan no puede exceder los 140 caracteres',
 	'post.error.addName': 'El nombre del producto no puede estar vacío',

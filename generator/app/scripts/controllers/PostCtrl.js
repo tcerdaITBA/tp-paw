@@ -1,17 +1,20 @@
 'use strict';
-define(['productSeek', 'directives/ngFileRead', 'services/restService', 'services/titleService', 'services/authService'], function(productSeek) {
+define(['productSeek', 'directives/ngFileRead', 'services/restService', 'services/titleService', 'services/authService', 'services/snackbarService'], function(productSeek) {
 
-	productSeek.controller('PostCtrl', ['$scope', '$location', '$window', '$translate', 'titleService', 'authService', 'categories', 'productImagesCount', 'productVideosCount', 'restService', function($scope, $location, $window, $translate, titleService, authService, categories, productImagesCount, productVideosCount, restService) {
+	productSeek.controller('PostCtrl', ['$scope', '$location', '$window', '$translate', 'titleService', 'authService', 'categories', 'productImagesCount', 'productVideosCount', 'restService', 'snackbarService', function($scope, $location, $window, $translate, titleService, authService, categories, productImagesCount, productVideosCount, restService, snackbarService) {
 		
 		$translate('title.post').then(function(title) {
 			titleService.setTitle(title);
 		});
 
-		/* User logged out, redirecting to last visited page */
+		/* User logged out, redirecting to home */
         $scope.$on('user:updated', function() {
         	if (!authService.isLoggedIn())
-        		$window.history.back();
+        		$location.url('/');
         });
+
+        if (!authService.isLoggedIn())
+        	$location.url('/');
 
 		$scope.categories = categories;
 		
@@ -20,9 +23,11 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService', 'service
         $scope.URLregex = "#([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\xE000-\xF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\x00A0-\xD7FF\xF900-\xFDCF\xFDF0-\xFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?#iS"
 		
 		$scope.product = {};
-		$scope.product.category = $scope.categories[categories.indexOf('other')]; // Medio hardcodeado
+		$scope.product.category = $scope.categories[categories.indexOf('other')];
 		$scope.product.images = new Array(productImagesCount);
         $scope.product.videos = new Array(productVideosCount);
+
+		$scope.duplicateVideosError = false;
 
         var checkNoImagesError = function() {
  			var empty = true;
@@ -53,21 +58,38 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService', 'service
             });
         };
         
+        var checkDuplicateVideosError = function() {
+        	if ($scope.product.videoIds[0] && $scope.product.videoIds[1] && $scope.product.videoIds[0] === $scope.product.videoIds[1])
+        		$scope.duplicateVideosError = true;
+        	else
+        		$scope.duplicateVideosError = false;
+        };
+
         $scope.$watchCollection('product.images', checkNoImagesError);
         $scope.$watchCollection('product.videos', checkNoImagesError);
+        $scope.$watchCollection('product.videos', function() {
+        	if ($scope.postForm.$submitted && !postForm.link0.$invalid && !postForm.link1.$invalid) {
+        		extractIds();
+        		checkDuplicateVideosError();
+        	}
+        })
         
 		$scope.doSubmit = function() {
             checkNoImagesError();
-			
-			if ($scope.postForm.$valid && !$scope.noImagesError) {
-				console.log("Valid form");
+
+            if ($scope.postForm.$valid) {
                 extractIds();
+            	checkDuplicateVideosError();
+            }
+			
+			if ($scope.postForm.$valid && !$scope.noImagesError && !$scope.duplicateVideosError) {
 				restService.postProduct($scope.product)
                 .then(function(data) {
                     $location.url('product/' + data.id);
+                })
+                .catch(function() {
+                	snackbarService.showNoConnection();
                 });
-			} else {
-				console.log("Invalid form");
 			}
 		};
 		

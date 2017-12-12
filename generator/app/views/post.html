@@ -92,7 +92,7 @@
 			</div>
 		</div>
 		<ng-repeat ng-repeat="link in product.videos track by $index">
-			<div class="form-group row" ng-class="{'has-error': postForm.link{{$index}}.$invalid && postForm.$submitted}">
+			<div class="form-group row" ng-class="{'has-error': (postForm.link{{$index}}.$invalid || duplicateVideosError) && postForm.$submitted}">
 				<label for="link-{{$index}}" class="col-md-3 control-label" ng-bind="'post.link' | translate"></label>
 				<div class="col-md-6">
 					<input type="url" id="link-{{$index}}" class="form-control" placeholder="https://www.youtube.com/watch?v=zw47_q9wbBE" ng-model="product.videos[$index]" name="link{{$index}}" ng-pattern="youtubeRegex">
@@ -100,6 +100,9 @@
 				</div>
 			</div>
 		</ng-repeat>
+		<div class="row">
+			<span class="help-block col-md-offset-3 col-md-6" ng-show="duplicateVideosError" ng-bind="'post.error.duplicateYoutube' | translate"></span>
+		</div>
 		<div class="row post-btn-row">
 			<div class="col-md-6 col-md-offset-3">
 				<input class="ps-btn-red btn post-btn" type="submit" ng-click="doSubmit()" value="{{'post.postButton' | translate}}">
