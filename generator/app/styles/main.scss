@@ -263,13 +263,13 @@ footer p {
 
 .history-item, .autocomplete-item {
   color: #8c8c8c;
-  display: block;
   padding: 5px;
+  display: block;
   border-radius: 4px;
   font-weight: 500;
 	
   .glyphicon {
-    margin-right: 1em;
+    margin-right: 0.5em;
   }
 	
   &:hover, &:focus {
@@ -278,6 +278,15 @@ footer p {
     color: #333;
     border-radius: 4px;
     outline: none;
+  }
+}
+
+.autocomplete-item {
+  display: flex !important;
+  justify-content: space-between;	
+	
+  .glyphicon {
+    margin-right: 5px !important;
   }
 }
 
