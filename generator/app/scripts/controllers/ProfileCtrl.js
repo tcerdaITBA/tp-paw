@@ -159,7 +159,9 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 
         $scope.changePasswordModal = modalService.changePasswordModal;   
 		$scope.collectionScrollBusy = $scope.uploadedScrollBusy = $scope.votedScrollBusy = false;
-		$scope.collectionsDisable = $scope.uploadedDisable = $scope.votedDisable = false;
+		$scope.collectionsDisable = $scope.collections.length < pageSize;
+		$scope.uploadedDisable = $scope.createdProducts.length < pageSize;
+		$scope.votedDisable = $scope.votedProducts.length < pageSize;
 
 		var collectionsPage = 1, uploadedPage = 1, votedPage = 1;
 

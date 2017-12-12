@@ -54,17 +54,17 @@ define(function() {
                         var params = $route.current.params;
                         return restService.getUser(params.id);
                     }],
-                    collections: ['$route', 'restService', function($route, restService){
+                    collections: ['$route', 'restService', 'pageSize', function($route, restService, ps){
                         var params = $route.current.params;
-                        return restService.getCollectionsForUser(params.id);
+                        return restService.getCollectionsForUser(params.id, {pageSize: ps});
                     }],
-                    createdProducts: ['$route', 'restService', function($route, restService){
+                    createdProducts: ['$route', 'restService', 'pageSize', function($route, restService, ps){
                         var params = $route.current.params;
-                        return restService.getPostedByUser(params.id);
+                        return restService.getPostedByUser(params.id, {pageSize: ps});
                     }],
-                    votedProducts: ['$route', 'restService', function($route, restService){
+                    votedProducts: ['$route', 'restService', 'pageSize', function($route, restService, ps){
                         var params = $route.current.params;
-                        return restService.getVotedByUser(params.id);
+                        return restService.getVotedByUser(params.id, {pageSize: ps});
                     }]
                 }
             },
