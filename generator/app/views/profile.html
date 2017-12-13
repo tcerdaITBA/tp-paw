@@ -64,11 +64,11 @@
 											<span class="glyphicon glyphicon-plus"></span><span ng-bind="'profile.addCollection' | translate"></span>
 										</div>
 										<div ng-show="addCollectionEnabled" class="add-collection-enabled">
-											<span class="glyphicon glyphicon-remove disable-add-btn" ng-click="disableAddCollection(); $event.stopPropagation();"></span>
-											<form ng-submit="form.$valid && submitNewCollection(newCollectionName)" name="form" novalidate>
+											<span class="glyphicon glyphicon-remove disable-add-btn" ng-click="disableAddCollection(form); $event.stopPropagation();"></span>
+											<form ng-submit="form.$valid && submitNewCollection(newCollection.name, form)" name="form" novalidate>
 												<div class="input-field" ng-class="{'has-error': form.$invalid && form.$submitted}">
 													<h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
-													<input id="collection-name" ng-model="newCollectionName" class="form-control" name="name" ng-attr-placeholder="{{'profile.addCollection.placeholder' | translate}}" type="text" ng-minlength=4 ng-maxlength=64 required>
+													<input id="collection-name" ng-model="newCollection.name" class="form-control" name="name" ng-attr-placeholder="{{'profile.addCollection.placeholder' | translate}}" type="text" ng-minlength=4 ng-maxlength=64 required>
 													<button type="submit" class="ps-btn btn btn-default" ng-class="{'.disabled': submittingCollection}">
 														<span ng-show="!submittingCollection">	
 															<span class="glyphicon glyphicon-plus"></span>
@@ -79,7 +79,7 @@
 																<div class="dot1"></div>
 																<div class="dot2"></div>
 															</div>
-															<span ng-bind="'profile.addCollection.submitting'"></span>
+															<span ng-bind="'profile.addCollection.submitting' | translate"></span>
 														</span>
 													</button>
 													<span ng-show="form.$invalid && form.$submitted" class="help-block" ng-bind="'profile.addCollection.error' | translate"></span>
