@@ -61,7 +61,7 @@ public class ProfileController {
 		}
 
 		mav.addObject("profileUser", user);
-		mav.addObject("products", productService.getPlainProductsByUserId(userId));
+		mav.addObject("products", userService.getCreatedProductsByUserId(userId, 0, 20));
 		mav.addObject("votedProducts", user.getVotedProducts());
 		mav.addObject("favlistSet", user.getFavLists());
 		return mav;
@@ -107,7 +107,7 @@ public class ProfileController {
 	@RequestMapping(value = "/profile/{userId}/profilePicture", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	public byte[] deliverProfilePicture(@PathVariable(value = "userId") final int userId) throws UserNotFoundException {
 
-		User user = userService.getUserById(userId);
+		final User user = userService.getUserById(userId);
 
 		if (user == null) {
 			LOGGER.warn("Cannot render user profile picture: user ID not found: {}", userId);

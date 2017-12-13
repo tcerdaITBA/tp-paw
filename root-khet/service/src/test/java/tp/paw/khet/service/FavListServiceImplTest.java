@@ -86,11 +86,6 @@ public class FavListServiceImplTest {
 	}
 
 	@Test
-	public void getFavListByIdWithCreatorTest() {
-		assertEquals(dummyFavList, favListService.getFavListByIdWithCreator(dummyFavList.getId()));
-	}
-
-	@Test
 	public void addProductToFavListTest() {
 		final Set<Product> productList = dummyFavList.getProductList();
 		assertTrue(productList.isEmpty());

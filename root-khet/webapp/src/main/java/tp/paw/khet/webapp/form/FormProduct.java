@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import tp.paw.khet.model.Category;
 import tp.paw.khet.webapp.form.constraints.FileMediaType;
 import tp.paw.khet.webapp.form.constraints.FileSize;
-import tp.paw.khet.webapp.form.constraints.NoDuplicateVideos;
+import tp.paw.khet.webapp.form.constraints.NoDuplicates;
 import tp.paw.khet.webapp.form.wrapper.MultipartFileImageWrapper;
 import tp.paw.khet.webapp.form.wrapper.VideoStringWrapper;
 
@@ -43,7 +43,7 @@ public class FormProduct {
 	private MultipartFileImageWrapper[] images;
 
 	@Valid
-	@NoDuplicateVideos
+	@NoDuplicates
 	private VideoStringWrapper[] videos;
 
 	private Category category = Category.OTHER;

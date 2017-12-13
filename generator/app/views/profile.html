@@ -1,0 +1,158 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 profile-info-box">
+            <div class="setting-row" ng-show="isProfileOwner">
+				<span class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<span class="glyphicon glyphicon-cog"></span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li class="pointer-cursor">
+							<a ng-click="changePictureModal()" ng-bind="'Profile.settings.changePicture' | translate"></a>
+						</li>
+						<li class="pointer-cursor">
+							<a ng-click="changePasswordModal()" ng-bind="'Profile.settings.changePassword' | translate"></a>
+						</li>
+					</ul>
+				</span>
+            </div>
+
+            <div class="row img-row">
+                <div class="col-md-12">
+                    <img class="profile-img" ng-src="{{user.picture_url}}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-username">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <p>{{user.name}}</p>
+                    </div>	
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="profile-mail" href="mailto:{{user.email}}">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <p>{{user.email}}</p>
+                    </a>	
+                </div>
+            </div>    
+        </div>
+
+        <div class="col-md-7 col-md-offset-4">
+            <div class="row">
+                <div class="col-md-10 col-ms-offset-1">
+					<div class="">
+						<div class="row tabs-row">
+							<ul class="nav nav-pills nav-justified profile-tabs">
+							<!--Cosas de tabs-->
+								<li role="presentation" ng-click="setTab(1)" class="{{firstActiveTab() == 1 ? 'active' : 'none' }}"><a href="#favList-pane" data-toggle="tab">{{'Profile.Tab.favlist' | translate}}<span class="badge tab-badge">{{collections.length + unretrievedCollections}}</span></a></li>
+								<li role="presentation" ng-click="setTab(2)" class="{{firstActiveTab() == 2 ? 'active' : 'none' }}"><a href="#uploadedProducts-pane" data-toggle="tab">{{'Profile.Tab.uploadedProducts' | translate}}<span class="badge">{{createdProducts.length + unretrievedCreatedProducts}}</span></a></li>
+								<li role="presentation" ng-click="setTab(3)" class="{{firstActiveTab() == 3 ? 'active' : 'none' }}"><a href="#votedProducts-pane" data-toggle="tab">{{'Profile.Tab.votedProducts' | translate}}<span class="badge tab-badge">{{votedProducts.length + unretrievedVotedProducts}}</span></a></li>
+							</ul>
+						</div>
+
+						<div class="tab-content">
+							<div id="favList-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 1 ? 'active in' : 'none'}}">
+								<div class="product-list" infinite-scroll-use-document-bottom="true" infinite-scroll='loadMoreCollections()' infinite-scroll-disabled="collectionsDisable || collectionScrollBusy || collections.length == 0 || activeTab != 1">
+									<div ng-if="isProfileOwner" class="add-collection" ng-click="enableAddCollection(); event.stopPropagation();" ng-class="{'add-enabled': addCollectionEnabled}">
+										<div ng-show="!addCollectionEnabled" class="enable-add-collection">
+											<span class="glyphicon glyphicon-plus"></span><span ng-bind="'profile.addCollection' | translate"></span>
+										</div>
+										<div ng-show="addCollectionEnabled" class="add-collection-enabled">
+											<span class="glyphicon glyphicon-remove disable-add-btn" ng-click="disableAddCollection(form); $event.stopPropagation();"></span>
+											<form ng-submit="form.$valid && submitNewCollection(newCollection.name, form)" name="form" novalidate>
+												<div class="input-field" ng-class="{'has-error': form.$invalid && form.$submitted}">
+													<h3 class="favlist-form-title">{{'collections.newCollection' | translate}}</h3>
+													<input id="collection-name" ng-model="newCollection.name" class="form-control" name="name" ng-attr-placeholder="{{'profile.addCollection.placeholder' | translate}}" type="text" ng-minlength=4 ng-maxlength=64 required>
+													<span ng-show="form.$invalid && form.$submitted" class="help-block" ng-bind="'profile.addCollection.error' | translate"></span>
+													<span ng-show="repeatedCollectionError" class="help-block" ng-bind="'profile.addCollection.repeated' | translate"></span>
+													<button type="submit" class="ps-btn btn btn-default" ng-class="{'.disabled': submittingCollection}">
+														<span ng-show="!submittingCollection">	
+															<span class="glyphicon glyphicon-plus"></span>
+															{{'profile.addCollection.addButton' | translate}}
+														</span>
+														<span ng-show="submittingCollection">
+															<div class="spinner button-spinner">
+																<div class="dot1"></div>
+																<div class="dot2"></div>
+															</div>
+															<span ng-bind="'profile.addCollection.submitting' | translate"></span>
+														</span>
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+									<div ng-repeat="f in collections | orderBy: 'name'">
+										<collection-item fav-list="f" hide-delete="!isProfileOwner" on-delete="removeCollection(f)"></collection-item>
+									</div>
+									<div ng-if="collections.length == 0">
+										<div class="zrp">
+											<h2>{{'profileZRP.sadCat' | translate}}</h2>
+											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noCollections' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="isProfileOwner">{{'profileZRP.personalNoCollections' | translate}}</h3>
+										</div>
+									</div>
+									<div ng-show="collectionScrollBusy && !collectionsDisable" class="infinite-scroll-spinner">
+										<div class="spinner">
+											<div class="dot1"></div>
+											<div class="dot2"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="uploadedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 2 ? 'active in' : 'none' }}">
+								<div class="col-md-12 product-list" infinite-scroll='loadMoreUploaded()' infinite-scroll-disabled="uploadedDisable || uploadedScrollBusy || createdProducts.length == 0 || activeTab != 2" infinite-scroll-use-document-bottom="true">
+									<div ng-repeat="c in createdProducts | orderBy: 'name'">
+										<product-item product="c" on-delete="removeProduct(c)" on-add="addedToCollection(c, collection)" on-vote="productVoted(c, voted)" hide-delete="!isProfileOwner || !c.isOwnerLogged" border-hover="true"></product-item>
+									</div> 
+									<div ng-if="createdProducts.length == 0">
+										<div class="zrp">
+											<h2>{{'profileZRP.sadCat' | translate}}</h2>
+											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noUploaded' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="isProfileOwner">{{'profileZRP.personalNoUploaded' | translate}}</h3>
+											<a ng-if="isProfileOwner" class="zrp-post-link" ng-href="#/post">{{'profileZRP.personalUploadProduct' | translate}}</a>
+										</div>
+									</div>
+									<div ng-show="uploadedScrollBusy && !uploadedDisable" class="infinite-scroll-spinner">
+										<div class="spinner">
+											<div class="dot1"></div>
+											<div class="dot2"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="votedProducts-pane" class="tab-pane fade row result-for-products {{firstActiveTab() == 3 ? 'active in' : 'none'}}">
+								<div class="col-md-12 product-list" infinite-scroll='loadMoreVoted()' infinite-scroll-disabled="votedDisable || votedScrollBusy || votedProducts.length == 0 || activeTab != 3" infinite-scroll-use-document-bottom="true">
+									<div ng-repeat="p in votedProducts | orderBy: 'name'">
+										<product-item product="p" on-delete="removeProduct(p)" on-add="addedToCollection(p, collection)" on-vote="productVoted(p, voted)" hide-delete="!isProfileOwner || !p.isOwnerLogged" border-hover="true"></product-item>
+									</div>
+									<div ng-if="votedProducts.length == 0">
+										<div class="zrp">
+											<h2>{{'profileZRP.sadCat' | translate}}</h2>
+											<h3 ng-if="!isProfileOwner" class="result-text">{{'profileZRP.noVoted' | translate: zrpTranslation}}</h3>
+											<h3 ng-if="isProfileOwner">{{'profileZRP.personalNoVoted' | translate}}</h3>
+										</div>
+									</div>
+									<div ng-show="votedScrollBusy && !votedDisable" class="infinite-scroll-spinner">
+										<div class="spinner">
+											<div class="dot1"></div>
+											<div class="dot2"></div>
+										</div>
+									</div>
+								</div>
+							</div>  
+						</div>
+					</div>
+					
+					
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

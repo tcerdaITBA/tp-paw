@@ -1,0 +1,40 @@
+.search-title-col {
+	margin-bottom: 1.5em;
+	text-align: center;
+	color: #333;
+
+	.search-title {
+		font-size: 1.5em;
+	}
+
+	.result-text {
+		font-size: 2em;
+		font-weight: 600;
+	}
+}
+
+.search-profile-img-circle {
+	width: 6em;
+	height: 6em;
+	border-radius: 50%;
+	object-fit: contain;
+	border-radius: 50%;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.search-user {
+	.creator-mail {
+		margin-top: 0.6em;	
+	}
+	
+	.creator-name, .creator-mail {
+		font-weight: 400;
+		font-size: 1.3em;
+	}
+}
+
+.search-tabs a {
+	color: #39c6a6;
+	font-size: 1.2em;
+	border: 2px solid #eee;
+}

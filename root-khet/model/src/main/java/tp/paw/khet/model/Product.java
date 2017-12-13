@@ -65,7 +65,7 @@ public class Product {
 	@Column(nullable = false, columnDefinition = "bytea")
 	private byte[] logo;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "userid", nullable = false, updatable = false)
 	private User creator;
 
@@ -175,6 +175,10 @@ public class Product {
 
 	public boolean removeVoter(final User user) {
 		return votingUsers.remove(notNull(user, "Voter to remove from product " + this + " cannot be null"));
+	}
+	
+	public boolean isVotedBy(final User user) {
+		return votingUsers.contains(user);
 	}
 
 	public int getVotesCount() {

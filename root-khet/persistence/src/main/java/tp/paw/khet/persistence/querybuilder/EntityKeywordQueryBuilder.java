@@ -9,6 +9,7 @@ public abstract class EntityKeywordQueryBuilder implements KeywordQueryBuilder {
 
 	public String buildQuery(final Set<String> keywords, final Map<String, String> keyWordsRegExp, String[] fields) {
 		final StringBuilder whereQueryBuilder = new StringBuilder();
+		int keywordIdentifier = 0;
 		boolean queryPutAnd = false;
 
 		for (final String keyword : keywords) {
@@ -18,8 +19,8 @@ public abstract class EntityKeywordQueryBuilder implements KeywordQueryBuilder {
 			for (int i = 0; i < fields.length; i++) {
 
 				final String candidateKeyWord = keyword.toLowerCase();
-				final String firstKeyWord = "first" + candidateKeyWord;
-				final String otherKeyWord = "other" + candidateKeyWord;
+				final String firstKeyWord = "first" + keywordIdentifier;
+				final String otherKeyWord = "other" + keywordIdentifier;
 				final String firstKeyWordRegExp = candidateKeyWord + "%";
 				final String otherKeyWordRegExp = "% " + candidateKeyWord + "%";
 
@@ -48,6 +49,8 @@ public abstract class EntityKeywordQueryBuilder implements KeywordQueryBuilder {
 				queryPutAnd = true;
 			}
 		}
+		
+		keywordIdentifier++;
 
 		return whereQueryBuilder.toString();
 	}

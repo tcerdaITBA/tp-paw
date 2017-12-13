@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.exception.DuplicateEmailException;
+import tp.paw.khet.model.FavList;
+import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 import tp.paw.khet.persistence.UserDao;
 
@@ -33,14 +35,32 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional // In order to fetch lazy attributes
 	public User getUserById(final int userId) {
 		return userDao.getUserById(userId);
 	}
 
 	@Override
-	public List<User> getUsersByKeyword(final String keyword, final int page, final int pageSize) {
+	public int getMaxUsersPageByKeyword(final String keyword, final int pageSize) {
+		final Set<String> validKeywords = buildValidKeywords(keyword);
 
+		if (validKeywords.isEmpty())
+			return 0;
+		
+		final int total = userDao.getTotalUsersByKeyword(validKeywords);
+		return maxPage(total, pageSize);
+	}
+	
+	@Override
+	public List<User> getUsersByKeyword(final String keyword, final int page, final int pageSize) {
+		final Set<String> validKeywords = buildValidKeywords(keyword);
+		
+		if (validKeywords.isEmpty())
+			return new ArrayList<User>();
+
+		return userDao.getUsersByKeyword(validKeywords, (page - 1) * pageSize, pageSize);
+	}
+	
+	private Set<String> buildValidKeywords(final String keyword) {
 		final String[] keywords = keyword.trim().split(" ");
 		final Set<String> validKeywords = new HashSet<>();
 
@@ -48,10 +68,7 @@ public class UserServiceImpl implements UserService {
 			if (word.length() >= MIN_WORD_SIZE)
 				validKeywords.add(word);
 
-		if (validKeywords.isEmpty())
-			return new ArrayList<User>();
-
-		return userDao.getUsersByKeyword(validKeywords, (page - 1) * pageSize, pageSize);
+		return validKeywords;
 	}
 
 	@Override
@@ -69,5 +86,71 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User changeProfilePicture(final int userId, final byte[] profilePicture) {
 		return userDao.changeProfilePicture(userId, profilePicture);
+	}
+
+	@Override
+	@Transactional
+	public int getMaxFavListsPageWithSize(int userId, int pageSize) {
+		final User user = getUserById(userId);
+		return maxPage(user.getFavLists().size(), pageSize);
+	}
+
+	@Override	
+	public List<FavList> getFavListsByUserId(int userId, int page, int pageSize) {
+		return userDao.getFavListsRange(userId, offset(page, pageSize), pageSize);
+	}
+
+	@Override
+	@Transactional
+	public int getMaxVotedProductsPageWithSize(int userId, int pageSize) {
+		final User user = getUserById(userId);
+		return maxPage(user.getVotedProducts().size(), pageSize);
+	}
+
+	@Override
+	public List<Product> getVotedProductsByUserId(int userId, int page, int pageSize) {
+		return userDao.getVotedProductsRange(userId, offset(page, pageSize), pageSize);
+	}
+
+	@Override
+	public int getMaxCreatedProductsPageWithSize(int userId, int pageSize) {
+		return maxPage(userDao.getTotalCreatedProductsByUserId(userId), pageSize);
+	}
+
+	@Override
+	public List<Product> getCreatedProductsByUserId(int userId, int page, int pageSize) {
+		return userDao.getCreatedProductsRange(userId, offset(page, pageSize), pageSize);
+	}
+	
+	private int maxPage(final int total, final int pageSize) {
+		return (int) Math.ceil((float) total / pageSize);
+	}
+	
+	private int offset(final int page, final int pageSize) {
+		return (page - 1) * pageSize;
+	}
+
+	@Override
+	@Transactional
+	public int getTotalFavLists(int userId) {
+		final User user = getUserById(userId);
+		return user.getFavLists().size();
+	}
+
+	@Override
+	@Transactional
+	public int getTotalVotedProducts(int userId) {
+		final User user = getUserById(userId);
+		return user.getVotedProducts().size();
+	}
+
+	@Override
+	public int getTotalCreatedProducts(int userId) {
+		return userDao.getTotalCreatedProductsByUserId(userId);
+	}
+
+	@Override
+	public int getTotalUsersByKeyword(String keyword) {
+		return userDao.getTotalUsersByKeyword(buildValidKeywords(keyword));
 	}
 }

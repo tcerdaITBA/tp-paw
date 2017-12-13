@@ -1,0 +1,106 @@
+.login-modal-body {
+	padding: 8% 5%;
+	
+	.input-field {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		text-align: center;
+	}
+	
+	.login-title {
+		text-align: center;
+		margin: 0;
+		margin-bottom: 20px;
+		font-weight: 500;
+	}
+	
+	input[type=checkbox] {
+		transform: scale(2);
+		margin-right: 10px;
+	}
+	
+	.checkbox-text {
+		margin-left: 5px;
+		color: #333;
+		font-size: 1.1em;
+		font-weight: 500;
+	}
+	
+	.submit-field {
+		text-align: center;
+		margin-top: 1.5em;
+		
+		button {
+			font-size: 1.2em;
+			padding: 10px 35px;
+			font-weight: 500;
+		}
+	}
+}
+
+.edit-modal-body {
+	padding: 4% 5%;
+	.input-field {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		text-align: center;
+	}
+	
+	.login-title {
+		text-align: center;
+		margin: 0;
+		margin-bottom: 20px;
+		font-weight: 500;
+	}
+	
+	input[type=checkbox] {
+		transform: scale(2);
+		margin-right: 10px;
+	}
+	
+	.checkbox-text {
+		margin-left: 5px;
+		color: #333;
+		font-size: 1.1em;
+		font-weight: 500;
+	}
+	
+	.submit-field {
+		text-align: center;
+		margin-top: 1.5em;
+		
+		button {
+			font-size: 1.2em;
+			padding: 10px 35px;
+			font-weight: 500;
+		}
+	}
+}
+
+.preview-container-centered {
+	width: 80%;
+	margin-left: 10%;
+}
+
+.modal-sm {
+	width: 380px !important;
+}
+
+.modal-dialog {
+	margin: 100px auto;
+}
+
+.prof-img-text {
+    text-align: center;
+}
+.button-spinner {
+	display: inline-block;
+	margin: 0;
+	height: 1em;
+	width: 1em;
+	margin-right: 1em;
+	
+	.dot1, .dot2 {
+		background-color: #fff;
+	}
+}

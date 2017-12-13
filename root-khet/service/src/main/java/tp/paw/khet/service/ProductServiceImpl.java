@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.Product.ProductBuilder;
 import tp.paw.khet.model.ProductSortCriteria;
@@ -53,11 +54,6 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getPlainProductById(productId);
 	}
 
-	@Override
-	public List<Product> getPlainProductsByUserId(final int userId) {
-		return productDao.getPlainProductsByUserId(userId);
-	}
-
 	@Transactional
 	@Override
 	public Product createProduct(final String name, final String description, final String shortDescription,
@@ -88,13 +84,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getPlainProductsByKeyword(final String keyword, final int page, final int pageSize) {
-		final String[] keywords = keyword.trim().split(" ");
-		final Set<String> validKeywords = new HashSet<>();
-
-		for (final String word : keywords)
-			if (word.length() >= MIN_WORD_SIZE)
-				validKeywords.add(word);
-
+		final Set<String> validKeywords = buildValidKeywords(keyword);
+		
 		if (validKeywords.isEmpty())
 			return new ArrayList<Product>();
 
@@ -102,19 +93,47 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public int getMaxProductsPageByKeyword(final String keyword, final int pageSize) {
+		final Set<String> validKeywords = buildValidKeywords(keyword);
+		final int total = productDao.getTotalProductsByKeyword(validKeywords);
+		
+		return (int) Math.ceil((float) total / pageSize);
+	}
+	
+	private Set<String> buildValidKeywords(final String keyword) {
+		final String[] keywords = keyword.trim().split(" ");
+		final Set<String> validKeywords = new HashSet<>();
+
+		for (final String word : keywords)
+			if (word.length() >= MIN_WORD_SIZE)
+				validKeywords.add(word);
+		
+		return validKeywords;
+	}
+	
+	@Override
 	public List<Product> getPlainProductsPaged(final Optional<Category> category, final ProductSortCriteria sortCriteria, 
-			final int page, final int pageSize) {
+			final OrderCriteria order, final int page, final int pageSize) {
 		
 		if (category.isPresent())
-			return productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, (page - 1) * pageSize, pageSize);
+			return productDao.getPlainProductsRangeByCategory(category.get(), sortCriteria, order, (page - 1) * pageSize, pageSize);
 
-		return productDao.getPlainProductsRange(sortCriteria, (page - 1) * pageSize, pageSize);
+		return productDao.getPlainProductsRange(sortCriteria, order, (page - 1) * pageSize, pageSize);
 	}
 
 	@Override
 	public int getMaxProductPageWithSize(final Optional<Category> category, final int pageSize) {
-		int total = category.isPresent() ? productDao.getTotalProductsInCategory(category.get()) : productDao.getTotalProducts();
-
+		int total = getTotalProducts(category);
 		return (int) Math.ceil((float) total / pageSize);
+	}
+
+	@Override
+	public int getTotalProductsByKeyword(final String keyword) {
+		return productDao.getTotalProductsByKeyword(buildValidKeywords(keyword));		
+	}
+
+	@Override
+	public int getTotalProducts(final Optional<Category> category) {
+		return category.isPresent() ? productDao.getTotalProductsInCategory(category.get()) : productDao.getTotalProducts();		
 	}
 }

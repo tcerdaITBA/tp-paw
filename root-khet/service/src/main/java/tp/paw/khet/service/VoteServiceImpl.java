@@ -62,15 +62,24 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
-	public SortedSet<User> getAlphabeticallySortedVotersFromProduct(final Product product, final int votersToShow) {
+	public int getMaxVotersPageWithSize(final Product product, final int pageSize) {
+		return (int) Math.ceil((float) product.getVotesCount() / pageSize);
+	}
+	
+	@Override
+	public SortedSet<User> getAlphabeticallySortedVotersFromProduct(final Product product, final int page, final int pageSize) {
 		final SortedSet<User> voters = new TreeSet<>(new UserAlphaComparator());
 
 		int i = 0;
-		for (User user : product.getVotingUsers()) {
-			if (i++ == votersToShow)
+		final int start = (page - 1) * pageSize;
+		final int end = page * pageSize;
+		
+		for (final User user : product.getVotingUsers()) {
+			if (i++ == end)
 				break;
-
-			voters.add(user);
+			
+			if (i > start)
+				voters.add(user);
 		}
 
 		return voters;

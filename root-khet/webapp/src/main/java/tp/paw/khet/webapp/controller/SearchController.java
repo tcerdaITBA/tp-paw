@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +17,6 @@ import tp.paw.khet.service.ProductService;
 import tp.paw.khet.service.UserService;
 import tp.paw.khet.webapp.exception.InvalidQueryException;
 
-@Controller
 public class SearchController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);

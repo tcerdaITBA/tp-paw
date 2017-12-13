@@ -29,6 +29,9 @@ public class FavListServiceImpl implements FavListService {
 	public FavList createFavList(final String name, final int creatorId) throws DuplicateFavListException {
 		final User creator = userService.getUserById(creatorId);
 		final Set<FavList> favLists = creator.getFavLists();
+		
+		favLists.iterator(); // lazy fetch
+		
 		final FavList favList = new FavList(name, creator);
 
 		if (favLists.contains(favList))
@@ -55,11 +58,6 @@ public class FavListServiceImpl implements FavListService {
 	@Override
 	public FavList getFavListById(final int favListId) {
 		return favListDao.getFavListById(favListId);
-	}
-
-	@Override
-	public FavList getFavListByIdWithCreator(final int favListId) {
-		return favListDao.getFavListByIdWithCreator(favListId);
 	}
 
 	@Override

@@ -39,23 +39,13 @@ public interface FavListService {
 	public FavList getFavListById(int favListId);
 
 	/**
-	 * Retrieves a {@link FavList} given it's ID populated with the
-	 * corresponding {@link User} creator.
-	 * 
-	 * @param favListId
-	 *            - ID of the favList
-	 * @return FavList with the associated ID or null if it doesn't exist
-	 */
-	public FavList getFavListByIdWithCreator(int favListId);
-
-	/**
 	 * Adds a {@link Product} to a {@link FavList}
 	 * 
 	 * @param favListId
 	 *            - ID of the favList
 	 * @param productId
 	 *            - ID of the product which should be added to favList
-	 * @return
+	 * @return true if product was succesfully added, false otherwise
 	 */
 	public boolean addProductToFavList(int favListId, int productId);
 
@@ -66,7 +56,7 @@ public interface FavListService {
 	 *            - ID of the favList
 	 * @param productId
 	 *            - ID of the product to remove from favList
-	 * @return
+	 * @return true if product was succesfully removed, false otherwise
 	 */
 	public boolean removeProductFromFavList(int favListId, int productId);
 }

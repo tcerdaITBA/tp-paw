@@ -1,0 +1,191 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Product Seek</title>
+	<meta name="description" content="">
+
+	<link rel="icon" href="images/icon.png" sizes="16x16 32x32" type="image/png" >
+
+	<!-- build:css(.tmp) styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/home.css -->
+	<link rel="stylesheet" href="styles/home.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/post.css -->
+	<link rel="stylesheet" href="styles/post.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/product-item.css -->
+	<link rel="stylesheet" href="styles/product-item.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/product.css -->
+	<link rel="stylesheet" href="styles/product.css">
+	<!--endbuild -->
+
+	<!-- build:css(.tmp) styles/profile.css -->
+	<link rel="stylesheet" href="styles/profile.css">
+	<!--endbuild -->
+
+	<!--build:css(.tmp) styles/search-results.css -->
+	<link rel="stylesheet" href="styles/search-results.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/sign-modals.css -->
+	<link rel="stylesheet" href="styles/sign-modals.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/user-item.css -->
+	<link rel="stylesheet" href="styles/user-item.css">
+	<!-- endbuild -->
+
+	<!-- build:css(.tmp) styles/error-codes.css -->
+	<link rel="stylesheet" href="styles/error-codes.css">
+	<!-- endbuild -->
+
+</head>
+<body ng-controller="IndexCtrl">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+					<span class="sr-only"></span>
+					<!-- Tres rayitas del burguer button -->
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+
+				<a class="navbar-brand" ng-href="#/">
+					<img src="images/logo-wide.svg">
+				</a>
+			</div>
+
+			<form name="searchForm" class="navbar-form navbar-left" novalidate>
+				<div class="search-form-container">
+					<div class="form-group">
+						<input id="search-box" ng-model="query" name="query" type="text" autocomplete="off" class="form-control" ng-attr-placeholder="{{'navbar.search' | translate}}" ng-focus="searchFocus()" ng-keydown= "arrowControl($event, query)" ng-keyup="autocompleteSearch()" focus-if="searchFieldFocus">
+						<button type="submit" class="search-button" ng-click="query && search(query | urlencode)">
+							<span class="glyphicon glyphicon-search search-icn"></span>
+						</button>
+					</div>
+					<div class="suggestions-box" ng-show="showSuggestions()">
+						<!-- Autocomplete -->
+						<div ng-if="searchSuggestions.length">
+							<div ng-repeat="item in searchSuggestions">
+								<div class="row">
+									<div class="col-md-12">
+										<a ng-href="#/product/{{item.id}}" class="autocomplete-item"
+										   focus-if="autocompleteFocus($index)" ng-keydown="arrowControl($event, item.id, true)">
+											<span>
+												<img ng-src="{{item.logo_url}}">
+												<span ng-bind="item.name"></span>
+											</span>
+											<span class="autocomplete-upvote-info">
+												<span class="glyphicon glyphicon-arrow-up"></span>
+												<span class="upvote-number" ng-bind="item.voters_count"></span>
+											</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div ng-if="searchSuggestions.length" class="row">
+								<div class="col-md-12">
+									<div class="divider"></div>
+								</div>
+							</div>
+						</div>
+						<!-- Historial -->
+						<div ng-if="searchHistory.length" class="search-history">
+							<div ng-repeat="item in searchHistory">
+								<div class="row">
+									<div class="col-md-12">
+										<a ng-href="#/search?q={{item | urlencode}}" class="history-item" focus-if="historyFocus($index)" ng-keydown="arrowControl($event, item)">
+											<span class="glyphicon glyphicon-time"></span>
+											<span ng-bind="item"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse">
+				<ul ng-if="!isLoggedIn" class="nav navbar-nav navbar-right">
+					<li>
+						<a class="navbar-link" ng-click="signUpModal()" ng-bind="'navbar.signup' | translate"></a>
+					</li>
+					<li>
+						<a class="navbar-link" ng-click="signInModal()" ng-bind="'navbar.signin' | translate"></a>
+					</li>
+
+					<li>
+						<p class="navbar-btn">
+							<a tabindex="0" popover-placement="bottom"
+							   uib-popover-template="popoverTemplate"
+							   class="ps-btn btn upload-btn" role="button" popover-enable="!isLoggedIn" popover-trigger="'outsideClick'" id="upload-popover" ng-bind="'navbar.post' | translate">
+							</a>
+						</p>
+					</li>
+				</ul>
+
+				<ul ng-if="isLoggedIn" class="nav navbar-nav navbar-right">
+					<li>
+						<a class="user-nav-img" ng-href="#/profile/{{loggedUser.id}}">
+							<img class="img-contain" ng-src="{{loggedUser.picture_url}}">
+						</a>
+					</li>
+					<li>
+						<a class="user-nav-name" ng-href="#/profile/{{loggedUser.id}}">
+							<span ng-bind="loggedUser.name"></span>
+						</a>
+					</li>
+					<li>
+						<a ng-click="logOut()" class="navbar-link" ng-bind="'navbar.logout' | translate"></a>
+					</li>
+					<li>
+						<p ng-style="{'visibility': hidePost? 'hidden' : 'visible'}" class="navbar-btn">
+							<a ng-href="#/post" class="ps-btn btn upload-btn" ng-bind="'navbar.post' | translate"></a>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container main-container">
+		<div ng-view="" autoscroll="true"></div>
+
+		<div class="snackbar" id="noConnection">
+		    <div class="alert alert-warning row-centered">
+		        <strong>
+		            <span class="glyphicon glyphicon-flash"></span>
+		        </strong>
+		        {{'feedback.warning.noConnection' | translate}}
+		    </div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="footer">
+			<p>Product Seek. 2017.</p>
+		</div>
+	</div>
+
+	<!-- build:js(.) scripts/oldieshim.js -->
+	<!--[if lt IE 9]>
+		<script src="bower_components/es5-shim/es5-shim.js"></script>
+		<script src="bower_components/json3/lib/json3.js"></script>
+		<![endif]-->
+	<!-- endbuild -->
+	<script src="scripts/paths.js"></script>
+	<script src="bower_components/requirejs/require.js" data-main="scripts/build.js"></script>
+</body>
+</html>

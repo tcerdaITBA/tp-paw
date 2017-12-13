@@ -1,5 +1,19 @@
 *.class
 
+.editorconfig
+.eslintrc
+
+# compiled output
+dist/
+tmp/
+out-tsc/
+bower_components/
+node_modules/
+.sass-cache/
+package-lock.json
+localdeploy.sh
+node/
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -82,3 +96,7 @@ buildNumber.properties
 
 # Mac
 .DS_Store
+
+# IntelliJ
+.idea
+*.iml

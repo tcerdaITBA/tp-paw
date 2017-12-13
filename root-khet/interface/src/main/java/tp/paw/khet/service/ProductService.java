@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import tp.paw.khet.model.Category;
+import tp.paw.khet.model.OrderCriteria;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.ProductSortCriteria;
-import tp.paw.khet.model.User;
 
 public interface ProductService {
 
@@ -45,37 +45,20 @@ public interface ProductService {
 	 * <p>
 	 * Optionally, the range may be filtered by a {@link Category}.
 	 * 
-	 * @param category
-	 *            - optional category the products belong to. See
-	 *            {@link Optional}.
-	 * @param sortCriteria
-	 *            - product sort criteria to be used.
-	 * @param page
-	 *            - index of the page to be retrieved.
-	 * @param pageSize
-	 *            - amount of products per page.
-	 * @return Sorted {@link List} of the products belonging to the category if
-	 *         given. Otherwise, products belong to any category.
-	 *         <p>
+	 * @param category - optional category the products belong to. See {@link Optional}.
+	 * @param sortCriteria - product sort criteria to be used.
+	 * @param order - whether should be ascendent or descendent sorted. See {@link OrderCriteria}.
+	 * @param page - index of the page to be retrieved.
+	 * @param pageSize - amount of products per page.
+	 * @return Sorted {@link List} of the products belonging to the category if given. Otherwise, products belong to any category.<p>
 	 *         Could be empty if there are no products registered.
 	 */
-	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, int page,
+	public List<Product> getPlainProductsPaged(Optional<Category> category, ProductSortCriteria sortCriteria, OrderCriteria order, int page,
 			int pageSize);
 
 	/**
-	 * Lists products created by {@link User} as a {@link Product} with the
-	 * given userId.
-	 * 
-	 * @param userId
-	 *            - ID of the creator
-	 * @return List of products. Empty in case the user did not create any
-	 *         product
-	 */
-	public List<Product> getPlainProductsByUserId(int userId);
-
-	/**
-	 * Returns the amount of product pages available for a given page size.
-	 * Optionally, a {@link Category} may be given to aquire max page size only
+	 * Retrieves the amount of {@link Product} pages available for a given page size.
+	 * Optionally, a {@link Category} may be given to aquire the max page size only
 	 * for products belonging in it.
 	 * 
 	 * @param category
@@ -131,10 +114,38 @@ public interface ProductService {
 	 * @param keyword
 	 *            - The keyword which should be matched
 	 * @param page
-	 *            - index of the page to be retrieved
+	 *            - Index of the page to be retrieved
 	 * @param pageSize
-	 *            - amount of products per page
+	 *            - Amount of products per page
 	 * @return The list of plain products that match with the keyword.
 	 */
 	public List<Product> getPlainProductsByKeyword(String keyword, int page, int pageSize);
+
+	/**
+	 * Retrieves the amount of {@link Product} pages available for a given page size 
+	 * corresponding with the products which matched with the given keyword.
+	 * @param keyword - The keyword which should be matched
+	 * @param pageSize - Amount of products per page
+	 * @return the maximum page number, which is the total number of pages for
+	 *         the given size.
+	 */
+	public int getMaxProductsPageByKeyword(String keyword, int pageSize);
+
+	/**
+	 * Retrieves the total amount of {@link Product} which matched with the given keyword.
+	 * @param keyword - The keyword which should be matched
+	 * @return the total amount of products which matched with the given keyword.
+	 */
+	public int getTotalProductsByKeyword(String keyword);
+
+	/**
+	 * Retrieves the total amount of {@link Product}.
+	 * Optionally, a {@link Category} may be given to aquire the amount of
+	 * products belonging in it.
+	 * 
+	 * @param category
+	 *            - optional category the products belong to. See {@link Optional}.
+	 * @return the total amount of products.
+	 */
+	public int getTotalProducts(Optional<Category> category);
 }
