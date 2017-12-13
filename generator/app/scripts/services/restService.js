@@ -68,11 +68,13 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 return metadata;
             }
             
-            function doPost(baseUrl, data, params) {
+            function doPost(baseUrl, data, params, ignoreLoadingBar) {
             	var params = translate(params);
  				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
+                var config = authHeaders();
+                config['ignoreLoadingBar'] = !!ignoreLoadingBar;
 
-                return $http.post(baseUrl + params, JSON.stringify(data), authHeaders())
+                return $http.post(baseUrl + params, JSON.stringify(data), config)
                         .then(function(response) {
                             return response.data;
                         })
@@ -81,10 +83,13 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         });   
             }
             
-			function doGet(baseUrl, params) {
+			function doGet(baseUrl, params, ignoreLoadingBar) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
-				return  $http.get(baseUrl + params, authHeaders())
+                var config = authHeaders();
+                config['ignoreLoadingBar'] = !!ignoreLoadingBar;
+
+				return  $http.get(baseUrl + params, config)
 						.then(function(response) {
 							return response.data;
 						})
@@ -93,11 +98,13 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 						});
 			}
             
-            function doPut(baseUrl, data, params) {
+            function doPut(baseUrl, data, params, ignoreLoadingBar) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
+                var config = authHeaders();
+                config['ignoreLoadingBar'] = !!ignoreLoadingBar;
 
-                return $http.put(baseUrl + params, JSON.stringify(data), authHeaders())
+                return $http.put(baseUrl + params, JSON.stringify(data), config)
                         .then(function(response) {
                             return response.data;
                         })
@@ -106,11 +113,13 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         });
             }
 
-            function doDelete(baseUrl, params) {
+            function doDelete(baseUrl, params, ignoreLoadingBar) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
+                var config = authHeaders();
+                config['ignoreLoadingBar'] = !!ignoreLoadingBar;
 
-                return $http.delete(baseUrl + params, authHeaders())
+                return $http.delete(baseUrl + params, config)
                         .then(function(response) {
                             return response.data;
                         })
@@ -161,11 +170,11 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 				},
                 
                 voteProduct: function(id) {
-                    return doPut(url + '/products/' + id + '/votes');
+                    return doPut(url + '/products/' + id + '/votes', null, null, true);
                 },
 
                 addProductToCollection: function(productId, collectionId) {
-                    return doPut(url + '/collections/' + collectionId + '/products/' + productId);
+                    return doPut(url + '/collections/' + collectionId + '/products/' + productId, null, null, true);
                 },
                 
                 deleteCollection: function(id) {
@@ -173,11 +182,11 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 },
                 
                 removeProductFromCollection: function(collectionId, productId) {
-                    return doDelete(url + '/collections/' + collectionId + '/products/' + productId);
+                    return doDelete(url + '/collections/' + collectionId + '/products/' + productId, null, true);
                 },
                 
                 unvoteProduct: function(id) {
-                    return doDelete(url + '/products/' + id + '/votes');
+                    return doDelete(url + '/products/' + id + '/votes', null, true);
                 },
                 
                 deleteProduct: function(id) {
@@ -193,7 +202,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                             {'current_password': currentPass, 'new_password': newPass});
                 },
                 
-                changeProfilePicture: function(data){
+                changeProfilePicture: function(data) {
                     var picture = data.picture;
                     var formData = new FormData();
 
@@ -248,11 +257,11 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 },
 
                 commentProduct: function(id, comment) {
-                    return doPost(url + '/products/' + id + '/comments', {content: comment})
+                    return doPost(url + '/products/' + id + '/comments', {content: comment}, null, true)
                 },
                   
                 commentParentProduct: function(id, comment, parentCommentId) {
-                    return doPost(url + '/products/' + id + '/comments', {content: comment, parent_id: parentCommentId})
+                    return doPost(url + '/products/' + id + '/comments', {content: comment, parent_id: parentCommentId}, null, true)
 				}
 			}
 		}]);
