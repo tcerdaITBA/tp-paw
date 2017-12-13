@@ -170,14 +170,18 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 		$scope.votedDisable = $scope.votedProducts.length < pageSize;
 
 		var collectionsPage = 1, uploadedPage = 1, votedPage = 1;
+		var showedNoConnectionCollections = false;
+		var showedNoConnectionUploaded = false;
+		var showedNoConnectionVoted = false;
 
 		$scope.loadMoreCollections = function() {
 			$scope.collectionScrollBusy = true;
-			collectionsPage++;
-			var params = {page: collectionsPage, 'pageSize': pageSize};
+			var params = {page: collectionsPage + 1, 'pageSize': pageSize};
 			
 			restService.getCollectionsForUser(user.id, params)
 			.then(function(data) {
+				collectionsPage++;
+				showedNoConnectionCollections = false;
 				$scope.collectionScrollBusy = false;
 				if (data.count != 0) {
 					$scope.collections.push.apply($scope.collections, data.collections);
@@ -186,16 +190,24 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				} else {
 					$scope.collectionsDisable = true;
 				}
+			})
+			.catch(function() {
+				$scope.collectionScrollBusy = false;
+				if (!showedNoConnectionCollections) {
+					showedNoConnectionCollections = true;
+					snackbarService.showNoConnection();
+				}
 			});
 		};
 
 		$scope.loadMoreUploaded = function() {
 			$scope.uploadedScrollBusy = true;
-			uploadedPage++;
-			var params = {page: uploadedPage, 'pageSize': pageSize};
+			var params = {page: uploadedPage + 1, 'pageSize': pageSize};
 			
 			restService.getPostedByUser(user.id, params)
 			.then(function(data) {
+				uploadedPage++;
+				showedNoConnectionUploaded = false;
 				$scope.uploadedScrollBusy = false;
 				if (data.count != 0) {
 					$scope.createdProducts.push.apply($scope.createdProducts, data.products); 
@@ -204,16 +216,24 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				} else {
 					$scope.uploadedDisable = true;
 				}
+			})
+			.catch(function() {
+				$scope.uploadedScrollBusy = false;
+				if (!showedNoConnectionUploaded) {
+					showedNoConnectionUploaded = true;
+					snackbarService.showNoConnection();
+				}
 			});
 		};
 		
 		$scope.loadMoreVoted = function() {
 			$scope.votedScrollBusy = true;
-			votedPage++;
-			var params = {page: votedPage, 'pageSize': pageSize};
-			
+			var params = {page: votedPage + 1, 'pageSize': pageSize};
+			console.log(votedPage + 1);
 			restService.getVotedByUser(user.id, params)
 			.then(function(data) {
+				votedPage++;
+				showedNoConnectionVoted = false;
 				$scope.votedScrollBusy = false;
 				if (data.count != 0) {
 					$scope.votedProducts.push.apply($scope.votedProducts, data.products); 
@@ -222,9 +242,14 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				} else {
 					$scope.votedDisable = true;
 				}
+			})
+			.catch(function() {
+				$scope.votedScrollBusy = false;
+				if (!showedNoConnectionVoted) {
+					showedNoConnectionVoted = true;
+					snackbarService.showNoConnection();
+				}
 			});
 		};
-		
-		
 	}]);
 });
