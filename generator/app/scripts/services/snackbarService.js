@@ -30,7 +30,7 @@ define(['productSeek', 'jquery'], function(productSeek) {
         }
 
         this.showNoConnection = function(timeout, wait) {
-            this.showSnackbar('noConnection', timeout || 7000, wait);
+            this.showSnackbar('noConnection', timeout, wait);
         }
     }]);
 });
