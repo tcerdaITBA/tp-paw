@@ -8,6 +8,11 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 		$scope.collections = collections.collections;
 		$scope.createdProducts = createdProducts.products;
 		$scope.votedProducts = votedProducts.products;
+
+		$scope.unretrievedCollections = collections.totalCount - $scope.collections.length;
+		$scope.unretrievedCreatedProducts = createdProducts.totalCount - $scope.createdProducts.length;
+		$scope.unretrievedVotedProducts = votedProducts.totalCount - $scope.votedProducts.length;
+		
 		$scope.zrpTranslation = {
 			user: $scope.user.name
 		};
@@ -177,6 +182,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				$scope.collectionScrollBusy = false;
 				if (data.count != 0) {
 					$scope.collections.push.apply($scope.collections, data.collections);
+					$scope.unretrievedCollections -= data.count;
 					$scope.collectionsDisable = data.count < pageSize;
 				} else {
 					$scope.collectionsDisable = true;
@@ -194,6 +200,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				$scope.uploadedScrollBusy = false;
 				if (data.count != 0) {
 					$scope.createdProducts.push.apply($scope.createdProducts, data.products); 
+					$scope.unretrievedCreatedProducts -= data.count;
 					$scope.uploadedDisable = data.count < pageSize;
 				} else {
 					$scope.uploadedDisable = true;
@@ -211,6 +218,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				$scope.votedScrollBusy = false;
 				if (data.count != 0) {
 					$scope.votedProducts.push.apply($scope.votedProducts, data.products); 
+					$scope.unretrievedVotedProducts -= data.count;
 					$scope.votedDisable = data.count < pageSize;
 				} else {
 					$scope.votedDisable = true;

@@ -10,8 +10,8 @@
 			<div class="row tabs-row">
 				<div class="col-md-6 col-md-offset-3">
 					<ul class="nav nav-pills nav-justified search-tabs">
-						<li role="presentation" ng-class="tabs[0] ? 'active' : 'none'"><a href="#products-pane" data-toggle="tab">{{'searchResults.products' | translate}}<span class="badge" ng-bind="products.length"></span></a></li>
-						<li role="presentation" ng-class="tabs[1] ? 'active' : 'none' "><a href="#users-pane" data-toggle="tab">{{'searchResults.users' | translate}}<span class="badge tab-badge" ng-bind="users.length"></span></a></li>
+						<li role="presentation" ng-class="tabs[0] ? 'active' : 'none'"><a href="#products-pane" data-toggle="tab">{{'searchResults.products' | translate}}<span class="badge" ng-bind="totalProducts"></span></a></li>
+						<li role="presentation" ng-class="tabs[1] ? 'active' : 'none' "><a href="#users-pane" data-toggle="tab">{{'searchResults.users' | translate}}<span class="badge tab-badge" ng-bind="totalUsers"></span></a></li>
 					</ul>
 				</div>
 			</div>
