@@ -108,19 +108,19 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				return 1;
 		};
 
+		$scope.newCollection = {};
+		
 		$scope.enableAddCollection = function() {
 			$scope.addCollectionEnabled = true;
-			console.log("enable")
 		};
 		
-		$scope.disableAddCollection = function() {
-			console.log($scope.addCollectionEnabled);
-			console.log($scope.newCollectionName);
+		$scope.disableAddCollection = function(form) {
 			$scope.addCollectionEnabled = false;
-			$scope.newCollectionName = undefined;
+			$scope.newCollection = {};
+			form.$setPristine();
 		}
 		
-		$scope.submitNewCollection = function(name) {
+		$scope.submitNewCollection = function(name, form) {
 			$scope.repeatedCollectionError = false;
 			if (!(name && name.length >= 4 && name.length <= 64))
 				return;
@@ -130,6 +130,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 				$scope.addCollectionEnabled = false;
 				$scope.collections.push(collection)
 				$scope.submittingCollection = false;
+				$scope.disableAddCollection(form);
 			})
 			.catch(function(error) {
 				switch (error.status) {
@@ -141,6 +142,7 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 						break;
 				}
 				$scope.submittingCollection = false;
+				$scope.disableAddCollection(form);
 			});
 		};
 		
