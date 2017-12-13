@@ -1,7 +1,7 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'directives/userItem', 'services/sessionService', 'services/titleService'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'directives/userItem', 'services/sessionService', 'services/titleService', 'services/restService'], function(productSeek) {
 
-	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', '$translate', 'titleService', 'productsData', 'usersData', 'query', 'sessionService', function($scope, $rootScope, $translate, titleService, productsData, usersData, query, session) {
+	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', '$translate', 'titleService', 'productsData', 'usersData', 'query', 'sessionService', 'restService', function($scope, $rootScope, $translate, titleService, productsData, usersData, query, session, restService) {
 		$translate('title.search').then(function(title) {
 			titleService.setTitle(title);
 		});
@@ -28,6 +28,12 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 		else
 			$scope.tabs[0] = true;
       
+		$scope.setTab = function(tab) {
+			var other = tab == 1 ? 0 : 1;
+			$scope.tabs[tab] = true;
+			$scope.tabs[other] = false;
+		};
+
     	$scope.categories = [];
 		
 		// Fill present categories
@@ -48,6 +54,34 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 		$scope.sendMail = function(event) {
 			window.location.href = "mailto:" + user.email;
 			event.stopPropagation();
+		};
+
+		var productsPage = 1, usersPage = 1;
+		$scope.productsDisable = $scope.products.length == $scope.totalProducts;
+		$scope.usersDisable = $scope.users.length == $scope.totalUsers;
+
+		$scope.loadMoreProducts = function() {
+			$scope.productsScrollBusy = true;
+			productsPage++;
+
+			restService.searchProducts(query, productsPage)
+			.then(function(data) {
+				$scope.productsScrollBusy = false;
+				$scope.products.push.apply($scope.products, data.products);
+				$scope.productsDisable = $scope.products.length >= $scope.totalProducts;
+			});
+		};
+
+		$scope.loadMoreUsers = function() {
+			$scope.usersScrollBusy = true;
+			usersPage++;
+
+			restService.searchUsers(query, usersPage)
+			.then(function(data) {
+				$scope.usersScrollBusy = false;
+				$scope.users.push.apply($scope.users, data.users);
+				$scope.usersDisable = $scope.users.length >= $scope.totalUsers;
+			});
 		};
 	}]);
 	

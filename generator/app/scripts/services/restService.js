@@ -40,7 +40,8 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                 
                 if (params) {
                     jQuery.each(params, function(key, value) {
-                        translated[translateTable[key]] = value;
+                        if (value)
+                            translated[translateTable[key]] = value;
                     });
                 }
                 
@@ -83,7 +84,6 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 			function doGet(baseUrl, params) {
                 var params = translate(params);
 				params = Object.keys(params).length ? '?' + jQuery.param(params) : '';
-                
 				return  $http.get(baseUrl + params, authHeaders())
 						.then(function(response) {
 							return response.data;
@@ -152,12 +152,12 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 					return doGet(url + '/product/' + id + '/voters', params);
 				},
                 
-				searchProducts: function(query) {
-					return doGet(url + '/search/products', {query: query});
+				searchProducts: function(query, page, pageSize) {
+					return doGet(url + '/search/products', {query: query, page: page, pageSize: pageSize});
 				},
                 
-				searchUsers: function(query) {
-					return doGet(url + '/search/users', {query: query});
+				searchUsers: function(query, page, pageSize) {
+					return doGet(url + '/search/users', {query: query, page: page, pageSize: pageSize});
 				},
                 
                 voteProduct: function(id) {

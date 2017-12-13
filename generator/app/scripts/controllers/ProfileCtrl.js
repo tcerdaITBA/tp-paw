@@ -160,7 +160,6 @@ define(['productSeek', 'services/authService', 'services/modalService', 'service
 		$scope.activeTab = $scope.firstActiveTab();
         
 		$scope.setTab = function(tab) {
-			console.log(tab);
 			$scope.activeTab = tab;
 		};
 

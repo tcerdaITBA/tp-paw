@@ -10,8 +10,8 @@
 			<div class="row tabs-row">
 				<div class="col-md-6 col-md-offset-3">
 					<ul class="nav nav-pills nav-justified search-tabs">
-						<li role="presentation" ng-class="tabs[0] ? 'active' : 'none'"><a href="#products-pane" data-toggle="tab">{{'searchResults.products' | translate}}<span class="badge" ng-bind="totalProducts"></span></a></li>
-						<li role="presentation" ng-class="tabs[1] ? 'active' : 'none' "><a href="#users-pane" data-toggle="tab">{{'searchResults.users' | translate}}<span class="badge tab-badge" ng-bind="totalUsers"></span></a></li>
+						<li role="presentation" ng-class="tabs[0] ? 'active' : 'none'" ng-click="setTab(0)"><a href="#products-pane" data-toggle="tab">{{'searchResults.products' | translate}}<span class="badge" ng-bind="totalProducts"></span></a></li>
+						<li role="presentation" ng-class="tabs[1] ? 'active' : 'none'" ng-click="setTab(1)"><a href="#users-pane" data-toggle="tab">{{'searchResults.users' | translate}}<span class="badge tab-badge" ng-bind="totalUsers"></span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -40,10 +40,16 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6 product-list">
+					<div class="col-md-6 product-list" infinite-scroll="loadMoreProducts()" infinite-scroll-use-document-bottom="true" infinite-scroll-disabled="productsDisable || productsScrollBusy || tabs[0] != true">
 						<ng-repeat ng-repeat="product in products | categoryFilter:categories">
 							<product-item product="product" hide-delete="true" hide-category="false" border-hover="true"></product-item>
 						</ng-repeat>
+						<div ng-show="productsScrollBusy && !productsDisable" class="infinite-scroll-spinner">
+							<div class="spinner">
+								<div class="dot1"></div>
+								<div class="dot2"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div id="users-pane" ng-class="tabs[1] ? 'active in' : 'none'" class="tab-pane fade row result-for-users">
@@ -56,7 +62,7 @@
 							</div>
 						</div>
 					</div>
-					<div ng-if="users.length > 0">
+					<div ng-if="users.length > 0" infinite-scroll="loadMoreUsers()" infinite-scroll-use-document-bottom="true" infinite-scroll-disabled="usersDisable || usersScrollBusy || tabs[1] != true">
 						<div class="col-md-6 col-md-offset-3">
 							<ng-repeat ng-repeat="user in users">
 								<a class="user-ref search-user" ng-href="#/profile/{{user.id}}">
@@ -84,6 +90,12 @@
 									</div>
 								</a>
 							</ng-repeat>
+							<div ng-show="usersScrollBusy && !usersDisable" class="infinite-scroll-spinner">
+								<div class="spinner">
+									<div class="dot1"></div>
+									<div class="dot2"></div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
