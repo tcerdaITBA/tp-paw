@@ -1,23 +1,23 @@
 <div id="delete-collection-modal">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
-        <h4 class="modal-title">
-            <span class="glyphicon glyphicon-trash"></span>
-            <span ng-bind="'Profile.modal.deleteCollection' | translate"></span>
-        </h4>	
-    </div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">
+			<span class="glyphicon glyphicon-trash"></span>
+			<span ng-bind="'Profile.modal.deleteCollection' | translate"></span>
+		</h4>	
+	</div>
 
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 delete-modal-text">
-                <span ng-bind="'Profile.modal.collectionTextBeginning' | translate"></span>
-                <span class="modal-product-name">{{collection.name}}</span><span>?</span>
-                <p ng-bind="'Profile.modal.textEnd' | translate"></p>
-            </div>
-        </div>
-        <div class="row row-centered">
-            <div class="col-md-12">
-                <button class="delete-product-btn ps-btn-red btn submit-btn modal-btn" type="submit" ng-click="delete()" ng-class="{'disabled': deleting}">
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12 delete-modal-text">
+				<span ng-bind="'Profile.modal.collectionTextBeginning' | translate"></span>
+				<span class="modal-product-name">{{collection.name}}</span><span>?</span>
+				<p ng-bind="'Profile.modal.textEnd' | translate"></p>
+			</div>
+		</div>
+		<div class="row row-centered">
+			<div class="col-md-12">
+				<button class="delete-product-btn ps-btn-red btn submit-btn modal-btn" type="submit" ng-click="delete()" ng-class="{'disabled': deleting}">
 					<span ng-show="!deleting" ng-bind="'Profile.modal.leftButton' | translate"></span>
 					<span ng-show="deleting">
 						<div class="spinner button-spinner">
@@ -27,18 +27,18 @@
 						<span ng-bind="'Profile.modal.deleting' | translate"></span>
 					</span>
 				</button>
-                <button type="button" class="delete-product-btn btn btn-default modal-btn" data-dismiss="modal" ng-bind="'passwordForm.cancel' | translate" ng-click="cancel()">
+				<button type="button" class="delete-product-btn btn btn-default modal-btn" data-dismiss="modal" ng-bind="'passwordForm.cancel' | translate" ng-click="cancel()">
 				</button>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </div>
 <snackbar id="collectionDeleted">
-    <div class="alert alert-success row-centered">
-        <strong>
-            <span class="glyphicon glyphicon-trash"></span>
-            <span class="snackbar-product-name">{{collection.name}}</span>
-        </strong>
-        {{'feedback.collectionDeleted.textEnd' | translate}}
-    </div>
+	<div class="alert alert-success row-centered">
+		<strong>
+			<span class="glyphicon glyphicon-trash"></span>
+			<span class="snackbar-product-name">{{collection.name}}</span>
+		</strong>
+		{{'feedback.collectionDeleted.textEnd' | translate}}
+	</div>
 </snackbar>

@@ -1,35 +1,35 @@
 <div class="row product-list-item product-item-height" id="{{product.id}}" ng-click="directToProduct()">
-    <div class="col-md-3 product-logo">
-        <img ng-src="{{product.logo_url}}">
-    </div>
-    <div class="col-md-9 product-info-box">
-        <div class="row product-name">
-            <div class="col-md-10 capitalize-firstLetter">
-                <p>{{product.name}}</p>
-            </div>
-            <div class="col-md-2" ng-if="!hideDelete">
-                <span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteModal(); $event.stopPropagation()"></span>
-            </div>
-        </div>
-        <div class="row product-short-description">
-            <div class="col-md-12 capitalize-firstLetter">
-                <p>{{product.tagline}}</p>
-            </div>
-        </div>
-        <div class="row product-category">
-            <div class="col-md-3">
+	<div class="col-md-3 product-logo">
+		<img ng-src="{{product.logo_url}}">
+	</div>
+	<div class="col-md-9 product-info-box">
+		<div class="row product-name">
+			<div class="col-md-10 capitalize-firstLetter">
+				<p>{{product.name}}</p>
+			</div>
+			<div class="col-md-2" ng-if="!hideDelete">
+				<span class="glyphicon glyphicon-trash delete-product-button pull-right" ng-click="deleteModal(); $event.stopPropagation()"></span>
+			</div>
+		</div>
+		<div class="row product-short-description">
+			<div class="col-md-12 capitalize-firstLetter">
+				<p>{{product.tagline}}</p>
+			</div>
+		</div>
+		<div class="row product-category">
+			<div class="col-md-3">
 				<div ng-hide="hideCategory" class="product-button category-btn" ng-click="directToCategory(); $event.stopPropagation()">
 					{{product.category | translate}}
 				</div>
-            </div>
-            <div class="col-md-6 col-md-offset-{{offset}}">
-                <div class="pull-right product-button upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()" uib-popover-template="'views/popovers/loginRequiredVote.html'" popover-enable="!isLoggedIn" popover-trigger="'outsideClick'">
-                    <span class="glyphicon glyphicon-arrow-up"></span>{{product.voters_count}}
-                </div>
-                <div ng-show="isLoggedIn" class="product-button pull-right add-to-collection-btn" ng-click="showCollectionModal(); $event.stopPropagation()">
+			</div>
+			<div class="col-md-6 col-md-offset-{{offset}}">
+				<div class="pull-right product-button upvote-btn" ng-class="{voted: product.voted}" ng-click="toggleVote(); $event.stopPropagation()" uib-popover-template="'views/popovers/loginRequiredVote.html'" popover-enable="!isLoggedIn" popover-trigger="'outsideClick'">
+					<span class="glyphicon glyphicon-arrow-up"></span>{{product.voters_count}}
+				</div>
+				<div ng-show="isLoggedIn" class="product-button pull-right add-to-collection-btn" ng-click="showCollectionModal(); $event.stopPropagation()">
 					<span class="glyphicon glyphicon-plus"></span>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

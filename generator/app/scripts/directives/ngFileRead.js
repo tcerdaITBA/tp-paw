@@ -1,11 +1,11 @@
 'use strict';
 define(['productSeek'], function(productSeek) {
-    productSeek.directive('ngFileRead', function() {
-        return {
+	productSeek.directive('ngFileRead', function() {
+		return {
 			scope: {
 				ngFileRead: '='
 			},
-            link: function(scope, element, attrs) {
+			link: function(scope, element, attrs) {
 				element.bind("click", function (click) {
 					// Sin esto no se triggerea el fileRead cuando 
 					// se selecciona la misma imagen y anda mal el delete.
@@ -20,7 +20,7 @@ define(['productSeek'], function(productSeek) {
 					};
 					reader.readAsDataURL(changeEvent.target.files[0]);
 				});
-            }
-        }
-    });
+			}
+		}
+	});
 });

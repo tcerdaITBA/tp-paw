@@ -7,15 +7,15 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 
 		$scope.product = product;
 		$scope.description = product.description;
-        $scope.creator = product.creator;
-        $scope.video_ids = product.video_ids;
-        $scope.image_urls = product.image_urls;
-        $scope.comments = product.comments;
+		$scope.creator = product.creator;
+		$scope.video_ids = product.video_ids;
+		$scope.image_urls = product.image_urls;
+		$scope.comments = product.comments;
 
-        $scope.loggedUser = auth.getLoggedUser();
-        $scope.isLoggedIn = auth.isLoggedIn();
+		$scope.loggedUser = auth.getLoggedUser();
+		$scope.isLoggedIn = auth.isLoggedIn();
 
-        $scope.slickConfig = {
+		$scope.slickConfig = {
 		  draggable: true,
 		  enabled: true,
 		  dots: true,
@@ -23,7 +23,7 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 		  slidesToScroll : 1,
 		  slidesToShow: 1
 		};
-        
+		
 		$scope.parentCommentForm = {};
 
 		$scope.childCommentForm = [];
@@ -33,26 +33,26 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 		$scope.childCommentLengthError = [];
 
 		$.fn.goTo = function() {
-	 		var offset = 100;
-	        $('html, body').animate({
-	            scrollTop: $(this).offset().top - offset + 'px'
-	        }, 'fast');
-	        return this; // for chaining...
-	    };
+			var offset = 100;
+			$('html, body').animate({
+				scrollTop: $(this).offset().top - offset + 'px'
+			}, 'fast');
+			return this; // for chaining...
+		};
 
-	    function validChildCommentSubmit(index) {
+		function validChildCommentSubmit(index) {
 			return $scope.childCommentForm[index].text.length < 512;
-	    };
+		};
 
-	    function validParentCommentSubmit(index) {
+		function validParentCommentSubmit(index) {
 			return $scope.parentCommentForm.text.length < 512;
-	    };
+		};
 
-	    function childCommentSubmitNoError(parentCommentId, index) {
-	    	
-	    	$scope.comments[index].children.push(jsonFromComment($scope.childCommentForm[index]));
+		function childCommentSubmitNoError(parentCommentId, index) {
+			
+			$scope.comments[index].children.push(jsonFromComment($scope.childCommentForm[index]));
 
-	    	restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
+			restService.commentParentProduct($scope.product.id, $scope.childCommentForm[index].text, parentCommentId).
 			then(function(data) {		
 				$scope.childCommentLengthError[index] = false;
 				$scope.childCommentForm[index].text = '';
@@ -69,11 +69,11 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 				$scope.comments[index].children.pop();
 			});	;
 
-	    };
+		};
 
-	   	function parentCommentSubmitNoError() {
+		function parentCommentSubmitNoError() {
 
-	   		$scope.comments.push(jsonFromComment($scope.parentCommentForm));
+			$scope.comments.push(jsonFromComment($scope.parentCommentForm));
 
 			//scroll to bottom of page
 			angular.element(document.getElementsByClassName('footer')).goTo();
@@ -90,20 +90,20 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 				snackbarService.showNoConnection();
 				$scope.comments.pop();
 			});	
-	    };
+		};
 
-	    function jsonFromComment(form) {
+		function jsonFromComment(form) {
 
-	    	var newParentComment = {};
+			var newParentComment = {};
 
-	    	newParentComment.author = $scope.loggedUser;
-	    	newParentComment.children = [];
-	    	newParentComment.content = form.text;
+			newParentComment.author = $scope.loggedUser;
+			newParentComment.children = [];
+			newParentComment.content = form.text;
 
-	    	return newParentComment;
-	    }
+			return newParentComment;
+		}
 
-	    $scope.showReplyForm = function(target) {
+		$scope.showReplyForm = function(target) {
 			// Hide all other open comment forms.
 			if ($scope.isLoggedIn) {
 				$('.reply-comment').hide();
@@ -132,36 +132,36 @@ define(['productSeek', 'angular-slick-carousel', 'directives/productItem', 'serv
 		};
 
 		$scope.trustedVideoUrl = function(video_id) {
-            return $sce.trustAsResourceUrl('//www.youtube.com/embed/' + video_id + '?rel=0');
-        };
-        
-        $scope.isOwnerLogged = function() {
-            return $scope.isLoggedIn ? $scope.loggedUser.id === $scope.creator.id : false;
-        };
+			return $sce.trustAsResourceUrl('//www.youtube.com/embed/' + video_id + '?rel=0');
+		};
+		
+		$scope.isOwnerLogged = function() {
+			return $scope.isLoggedIn ? $scope.loggedUser.id === $scope.creator.id : false;
+		};
 
 		$scope.directToCreatorProfile = function() {
-            $location.url('profile/' + $scope.creator.id);
-        };
+			$location.url('profile/' + $scope.creator.id);
+		};
 
-        $scope.directToLoggedProfile = function() {
-            $location.url('profile/' + $scope.loggedUser.id);
-        };
+		$scope.directToLoggedProfile = function() {
+			$location.url('profile/' + $scope.loggedUser.id);
+		};
 
-        $scope.directToAuthorProfile = function(id) {
-            $location.url('profile/' + id);
-        };
+		$scope.directToAuthorProfile = function(id) {
+			$location.url('profile/' + id);
+		};
 
-        $scope.directToHome = function() {
-        	$location.url('/');
-        };
+		$scope.directToHome = function() {
+			$location.url('/');
+		};
 
-        $scope.$on('user:updated', function() {
-	   		if (!auth.isLoggedIn()) {
-	   			$scope.isLoggedIn = false;
-	  		}
+		$scope.$on('user:updated', function() {
+			if (!auth.isLoggedIn()) {
+				$scope.isLoggedIn = false;
+			}
 		});
 
-        $scope.signInModal = modalService.signInModal;
-        $scope.signUpModal = modalService.signUpModal;
-    }]);
+		$scope.signInModal = modalService.signInModal;
+		$scope.signUpModal = modalService.signUpModal;
+	}]);
 });

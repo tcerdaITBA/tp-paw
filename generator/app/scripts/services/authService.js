@@ -22,22 +22,22 @@ define(['productSeek', 'services/sessionService', 'services/restService'], funct
 					data: {j_username: username, j_password: password}
 				})
 				.then(function(response) {
-                    session.setAccessToken(response.headers('X-AUTH-TOKEN'), saveToSession);
-                    return $http.get(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
-                })
+					session.setAccessToken(response.headers('X-AUTH-TOKEN'), saveToSession);
+					return $http.get(url + '/user', {headers: {'X-AUTH-TOKEN': session.getAccessToken()}});
+				})
 				.then(function(response) {
-                    return response.data;
-                })
+					return response.data;
+				})
 				.then(function(data) {
-                    session.setUser(data, saveToSession);
-                    self.loggedUser = data;
-                    $rootScope.$broadcast('user:updated');
-                    return data;
-                })
+					session.setUser(data, saveToSession);
+					self.loggedUser = data;
+					$rootScope.$broadcast('user:updated');
+					return data;
+				})
 				.catch(function(response) {
-                    self.logOut();
-                    return $q.reject(response);
-                });
+					self.logOut();
+					return $q.reject(response);
+				});
 		};
 
 		AuthService.isLoggedIn = function() {
@@ -47,7 +47,7 @@ define(['productSeek', 'services/sessionService', 'services/restService'], funct
 		AuthService.logOut = function() {
 			session.destroy();
 			this.loggedUser = null;
-            $rootScope.$broadcast('user:updated');
+			$rootScope.$broadcast('user:updated');
 		};
 
 		AuthService.getLoggedUser = function() {

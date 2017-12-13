@@ -1,6 +1,6 @@
 'use strict';
 define(['productSeek', 'services/restService', 'services/authService', 'controllers/DeleteCollectionModalCtrl', 'controllers/CollectionModalCtrl', 'controllers/ChangePasswordModalCtrl', 'controllers/ChangePictureModalCtrl', 'controllers/DeleteModalCtrl', 'controllers/SignInModalCtrl', 'controllers/SignUpModalCtrl'], function(productSeek) {
-    productSeek.service('modalService', ['$uibModal', 'restService', 'authService', function($uibModal, restService, authService) {
+	productSeek.service('modalService', ['$uibModal', 'restService', 'authService', function($uibModal, restService, authService) {
 		this.signInModal = function() {
 			return $uibModal.open({
 				templateUrl: 'views/modals/signInModal.html',
@@ -16,49 +16,49 @@ define(['productSeek', 'services/restService', 'services/authService', 'controll
 				size: 'sm'
 			});
 		};
-        
-        this.collectionModal = function(product, collections) {
+		
+		this.collectionModal = function(product, collections) {
 			return $uibModal.open({
 				templateUrl: 'views/modals/collectionModal.html',
 				controller: 'CollectionModalCtrl',
 				size: 'md',
-                resolve: {
-                    product: function() {
-                        return product;
-                    },
-                    collections: function() {
-                        return restService.getCollectionsForUser(authService.loggedUser.id);
-                    }
-                }
+				resolve: {
+					product: function() {
+						return product;
+					},
+					collections: function() {
+						return restService.getCollectionsForUser(authService.loggedUser.id);
+					}
+				}
 			});            
-        };
-        
-        this.deleteModal = function(product) {
-            return $uibModal.open({
-                templateUrl: 'views/modals/deleteModal.html',
-                controller: 'DeleteModalCtrl',
-                size: 'sm',
-                resolve: {
-                    product: function() {
-                        return product;
-                    }
-                }
-            });
-        };
-        
-        this.deleteCollectionModal = function(favList) {
-            return $uibModal.open({
-                templateUrl: 'views/modals/deleteCollectionModal.html',
-                controller: 'DeleteCollectionModalCtrl',
-                size: 'sm',
-                resolve: {
-                    favList: function() {
-                        return favList;
-                    }
-                }
-            });
-        };
-        
+		};
+		
+		this.deleteModal = function(product) {
+			return $uibModal.open({
+				templateUrl: 'views/modals/deleteModal.html',
+				controller: 'DeleteModalCtrl',
+				size: 'sm',
+				resolve: {
+					product: function() {
+						return product;
+					}
+				}
+			});
+		};
+		
+		this.deleteCollectionModal = function(favList) {
+			return $uibModal.open({
+				templateUrl: 'views/modals/deleteCollectionModal.html',
+				controller: 'DeleteCollectionModalCtrl',
+				size: 'sm',
+				resolve: {
+					favList: function() {
+						return favList;
+					}
+				}
+			});
+		};
+		
 		this.changePictureModal = function() {
 			return $uibModal.open({
 				templateUrl: 'views/modals/changePictureModal.html',
@@ -74,5 +74,5 @@ define(['productSeek', 'services/restService', 'services/authService', 'controll
 				size: 'sm',
 			});
 		};
-    }]);
+	}]);
 });

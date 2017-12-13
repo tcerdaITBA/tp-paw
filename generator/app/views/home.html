@@ -1,23 +1,23 @@
 <div class="container">
 	<div class="row title-row">
 		<div class="col-md-8 col-md-offset-3 title-col">
-            <div class="content-title">
-                <h2 ng-if="!category" ng-bind="'all' | translate"></h2>
-                <div ng-if="category">
-                    <h2 ng-bind="category | translate"></h2>
-                </div>
-                <div ng-if="products.length > 0" class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="order-selection">
-                            <span ng-repeat="sc in sortCriterias" >
-                                <a ng-click="setActiveSortCriteria(sc)" ng-bind="sc.orderBy | translate" class="order-btn" ng-class="{selected: sc.active}" ng-href="#{{sc.url}}">
-                                </a>
-                                <span ng-if="!$last" class="order-divider"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="content-title">
+				<h2 ng-if="!category" ng-bind="'all' | translate"></h2>
+				<div ng-if="category">
+					<h2 ng-bind="category | translate"></h2>
+				</div>
+				<div ng-if="products.length > 0" class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<div class="order-selection">
+							<span ng-repeat="sc in sortCriterias" >
+								<a ng-click="setActiveSortCriteria(sc)" ng-bind="sc.orderBy | translate" class="order-btn" ng-class="{selected: sc.active}" ng-href="#{{sc.url}}">
+								</a>
+								<span ng-if="!$last" class="order-divider"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="row">
@@ -44,12 +44,12 @@
 					</div>
 					<div ng-show="scrollBusy && !disableScroll" class="infinite-scroll-spinner">
 						<div class="spinner">
-                            <div class="dot1"></div>
-                            <div class="dot2"></div>
-                        </div>
+							<div class="dot1"></div>
+							<div class="dot2"></div>
+						</div>
 					</div>
 				</div>
-              	<div ng-if="products.length == 0">
+				<div ng-if="products.length == 0">
 					<div class="zrp" id="category-zrp">
 						<h2 ng-bind="'categoryZRP.sorry' | translate"></h2>
 						<h3 ng-bind="'categoryZRP.noProducts' | translate"></h3>

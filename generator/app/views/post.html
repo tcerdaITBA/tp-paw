@@ -19,7 +19,7 @@
 						</div>
 					</div>
 				</label>
-                <span ng-show="postForm.logo.$invalid && postForm.$submitted" class="align-center help-block" ng-bind="'post.error.addLogo' | translate"></span>
+				<span ng-show="postForm.logo.$invalid && postForm.$submitted" class="align-center help-block" ng-bind="'post.error.addLogo' | translate"></span>
 			</div>
 		</div>
 		<div class="form-group row" ng-class="{'has-error': postForm.name.$invalid && postForm.$submitted}">
@@ -43,15 +43,15 @@
 			<label for="description" class="col-md-3 control-label" ng-bind="'post.description' | translate"></label>
 			<div class="col-md-6">
 				<textarea type="text" class="form-control" id="description" placeholder="{{'post.placeholder.description' | translate}}" rows="4" ng-model="product.description" name="description" required ng-maxlength="8000"></textarea>
-                <span ng-show="postForm.description.$error.required && postForm.$submitted" class="help-block" ng-bind="'post.error.addDescription' | translate"></span>
-                <span ng-show="postForm.description.$error.maxlength && postForm.$submitted" class="help-block" ng-bind="'post.error.descriptionTooLong' | translate"></span>
+				<span ng-show="postForm.description.$error.required && postForm.$submitted" class="help-block" ng-bind="'post.error.addDescription' | translate"></span>
+				<span ng-show="postForm.description.$error.maxlength && postForm.$submitted" class="help-block" ng-bind="'post.error.descriptionTooLong' | translate"></span>
 			</div>
 		</div>
 		<div class="form-group row" ng-class="{'has-error': postForm.webpage.$invalid && postForm.$submitted}">
 			<label for="webpage" class="col-md-3 control-label" ng-bind="'post.webpageOptional' | translate"></label>
 			<div class="col-md-6">
 				<input type="url" ng-pattern="URLregex" class="form-control" id="webpage" placeholder="{{'post.placeholder.webpage' | translate}}" ng-model="product.webpage" name="webpage">
-                <span class="help-block" ng-show="postForm.webpage.$invalid && postForm.$submitted" ng-bind="'post.error.invalidWebpage' | translate"></span>
+				<span class="help-block" ng-show="postForm.webpage.$invalid && postForm.$submitted" ng-bind="'post.error.invalidWebpage' | translate"></span>
 			</div>
 		</div>
 		<div class="form-group row">

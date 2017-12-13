@@ -11,7 +11,7 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 			keyword: query
 		};
 
-    	$scope.query = query;
+		$scope.query = query;
 		$scope.tabs = [false, false];
 
 		$scope.products = productsData.products;
@@ -28,14 +28,14 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 			$scope.tabs[1] = true;
 		else
 			$scope.tabs[0] = true;
-      
+	  
 		$scope.setTab = function(tab) {
 			var other = tab == 1 ? 0 : 1;
 			$scope.tabs[tab] = true;
 			$scope.tabs[other] = false;
 		};
 
-    	$scope.categories = [];
+		$scope.categories = [];
 		
 		// Fill present categories
 		var products = productsData.products;
