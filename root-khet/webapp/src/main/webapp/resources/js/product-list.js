@@ -42,7 +42,6 @@ $(document).ready(function() {
 		return false;
 	});
         
-	// TODO: Se puede mejorar porque ahora se le aplica a TODOS los del html
 	$('.add-to-collection-btn').on('click', function() {
         var addModal = $($(this).data('target'));
 		addModal.modal('show');  
