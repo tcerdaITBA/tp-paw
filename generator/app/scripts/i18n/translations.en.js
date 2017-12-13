@@ -115,7 +115,8 @@ define([], function() {
         'Profile.modal.textEnd': 'This action can\u2019t be undone.',
         'Profile.modal.rightButton': 'Cancel',
         'Profile.modal.leftButton': 'Delete', 
-        
+        'Profile.modal.deleting': 'Deleting',
+		
         'Profile.modal.deleteCollection': 'Delete collection',
 	
         'collection.collectionNamePlaceholder':'Name',

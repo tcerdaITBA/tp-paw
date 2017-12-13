@@ -44,11 +44,14 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 			$scope.loggedUser = auth.getLoggedUser();
 		});
 		
-		$scope.$on('$locationChangeStart', function(event) {
+		$scope.$on('$locationChangeSuccess', function(event) {
 			if ($location.path() == 'post')
 				$scope.hidePost = true;
 			else
 				$scope.hidePost = false;
+			
+			if ($location.path() != 'search')
+				$scope.query = null;
 		});
 
 		$scope.searchFocus = function() {

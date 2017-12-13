@@ -17,7 +17,16 @@
         </div>
         <div class="row row-centered">
             <div class="col-md-12">
-                <button class="delete-product-btn ps-btn-red btn submit-btn modal-btn" type="submit" ng-click="delete()" ng-bind="'Profile.modal.leftButton' | translate"></button>
+                <button class="delete-product-btn ps-btn-red btn submit-btn modal-btn" type="submit" ng-click="delete()" ng-class="{'disabled': deleting}">
+					<span ng-show="!deleting" ng-bind="'Profile.modal.leftButton' | translate"></span>
+					<span ng-show="deleting">
+						<div class="spinner button-spinner">
+							<div class="dot1"></div>
+							<div class="dot2"></div>
+						</div>
+						<span ng-bind="'Profile.modal.deleting' | translate"></span>
+					</span>
+				</button>
                 <button type="button" class="delete-product-btn btn btn-default modal-btn" data-dismiss="modal" ng-bind="'passwordForm.cancel' | translate" ng-click="cancel()"></button>
             </div>
         </div>

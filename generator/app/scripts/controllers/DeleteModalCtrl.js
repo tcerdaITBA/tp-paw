@@ -5,11 +5,17 @@ define(['productSeek', 'services/restService', 'services/snackbarService'], func
         $scope.product = product;
 
         $scope.delete = function() {
+			$scope.deleting = true;
             restService.deleteProduct(product.id)
             .then(function() {
+				$scope.deleting = false;
                 snackbarService.showSnackbar('productDeleted');
                 $uibModalInstance.close(true);
-            });
+            })
+			.catch(function() {
+				$scope.deleting = false;
+				snackbarService.showNoConnection();
+			});
         };
         
         $scope.cancel = function() {

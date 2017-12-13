@@ -1,5 +1,5 @@
 'use strict';
-define(['productSeek', 'services/authService', 'services/modalService','services/snackbarService' ,'controllers/DeleteCollectionModalCtrl', 'controllers/DeleteProductFromCollectionCtrl'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/modalService','services/snackbarService' ,'controllers/DeleteCollectionModalCtrl'], function(productSeek) {
     productSeek.directive('collectionItem', function() {
         return {
             restrict: 'E',
