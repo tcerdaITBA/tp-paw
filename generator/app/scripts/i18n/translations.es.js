@@ -145,7 +145,8 @@ define([], function() {
 	'post.addImageOrVideo': 'Agrega al menos una imagen o video',
         'post.videos': 'Videos de Youtube',
 	'post.link': 'Link',
-	'post.postButton': 'Publicar',
+	'post.postButton': 'Publicar 🎉',
+	'post.posting': 'Publicando',
 
 	'post.error.addImageOrVideo': 'Agrega al menos una imagen o video',
 	'post.error.invalidYoutube': 'Link de Youtube inválido',

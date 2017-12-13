@@ -81,11 +81,14 @@ define(['productSeek', 'directives/ngFileRead', 'services/restService', 'service
             }
 			
 			if ($scope.postForm.$valid && !$scope.noImagesError && !$scope.duplicateVideosError) {
+				$scope.posting = true;
 				restService.postProduct($scope.product)
                 .then(function(data) {
+					$scope.posting = false;
                     $location.url('product/' + data.id);
                 })
                 .catch(function() {
+					$scope.posting = false;
                 	snackbarService.showNoConnection();
                 });
 			}

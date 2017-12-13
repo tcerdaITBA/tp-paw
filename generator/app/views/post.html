@@ -105,7 +105,16 @@
 		</div>
 		<div class="row post-btn-row">
 			<div class="col-md-6 col-md-offset-3">
-				<input class="ps-btn-red btn post-btn" type="submit" ng-click="doSubmit()" value="{{'post.postButton' | translate}}">
+				<button class="ps-btn-red btn post-btn" type="submit" ng-click="doSubmit()"  ng-class="{'disabled': posting}">
+					<span ng-show="!posting" ng-bind="'post.postButton' | translate"></span>
+					<span ng-show="posting">
+						<div class="spinner button-spinner">
+							<div class="dot1"></div>
+							<div class="dot2"></div>
+						</div>
+						<span ng-bind="'post.posting' | translate"></span>
+					</span>
+				</button>
 			</div>
 		</div>
 
