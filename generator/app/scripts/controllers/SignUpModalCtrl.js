@@ -1,7 +1,7 @@
-define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'services/restService', 'services/authService'], function(productSeek) {
+define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'services/restService', 'services/authService', 'services/snackbarService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('SignUpModalCtrl', ['$scope', '$uibModalInstance', 'authService', 'restService', function($scope, $uibModalInstance, authService, restService) {
+    productSeek.controller('SignUpModalCtrl', ['$scope', '$uibModalInstance', 'authService', 'restService', 'snackbarService', function($scope, $uibModalInstance, authService, restService, snackbarService) {
 		
         $scope.user = {};
         $scope.duplicateEmailError = false;
@@ -32,10 +32,17 @@ define(['productSeek', 'directives/validFile', 'directives/ngFileRead', 'service
 					$scope.loggingIn = false;
                     $uibModalInstance.close(true);
                 })
-                .catch(function() {
-                    $scope.duplicateEmailError = true;
-                    $scope.signUpForm.email.$invalid = true;
+                .catch(function(error) {
                     $scope.loggingIn = false;
+					switch (error.status) {
+						case -1:
+							snackbarService.showNoConnection();
+							break;
+						case 409:
+							$scope.duplicateEmailError = true;
+							$scope.signUpForm.email.$invalid = true;
+							break;
+					}
                 });
             }
         };

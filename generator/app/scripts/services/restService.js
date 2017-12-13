@@ -229,7 +229,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
                         return response.data;
                     })
                     .catch(function(response) {
-                        return $q.reject(response.data);
+                        return $q.reject(response);
                     });
                 },
                 
