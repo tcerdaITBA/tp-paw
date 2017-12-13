@@ -99,11 +99,12 @@ public class UsersController {
     		return Response.status(Status.NOT_FOUND).build();    		
     	}
     	
+    	final int totalCollections = userService.getTotalFavLists(id);
     	final int maxPage = userService.getMaxFavListsPageWithSize(id, pageSize);
     	final List<FavList> favLists = userService.getFavListsByUserId(id, page, pageSize);
     	final Link[] linkArray = linkFactory.createLinks(uriContext, page, maxPage).values().toArray(new Link[0]);
     	
-        return Response.ok(new CollectionListDTO(favLists, uriContext.getBaseUri(), 
+        return Response.ok(new CollectionListDTO(favLists, totalCollections, uriContext.getBaseUri(), 
         		Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
 
@@ -123,11 +124,12 @@ public class UsersController {
             return Response.status(Status.NOT_FOUND).build();
     	}
 
+    	final int totalVotedProducts = userService.getTotalVotedProducts(id);
     	final int maxPage = userService.getMaxVotedProductsPageWithSize(id, pageSize);
     	final List<Product> votedProducts = userService.getVotedProductsByUserId(id, page, pageSize);
     	final Link[] linkArray = linkFactory.createLinks(uriContext, page, maxPage).values().toArray(new Link[0]);
     	    	
-    	return Response.ok(new ProductListDTO(votedProducts, uriContext.getBaseUri(), 
+    	return Response.ok(new ProductListDTO(votedProducts, totalVotedProducts, uriContext.getBaseUri(), 
     			Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
     
@@ -147,11 +149,12 @@ public class UsersController {
             return Response.status(Status.NOT_FOUND).build();
     	}
  
+    	final int totalCreatedProducts = userService.getTotalCreatedProducts(id);
     	final int maxPage = userService.getMaxCreatedProductsPageWithSize(id, pageSize);
     	final List<Product> createdProducts = userService.getCreatedProductsByUserId(id, page, pageSize);
     	final Link[] linkArray = linkFactory.createLinks(uriContext, page, maxPage).values().toArray(new Link[0]);
     	    	
-    	return Response.ok(new ProductListDTO(createdProducts, uriContext.getBaseUri(), 
+    	return Response.ok(new ProductListDTO(createdProducts, totalCreatedProducts, uriContext.getBaseUri(), 
     			Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
     

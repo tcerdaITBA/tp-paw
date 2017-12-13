@@ -7,13 +7,14 @@ import java.util.List;
 import tp.paw.khet.model.User;
 
 public class UserListDTO {
-	private List<UserDTO> users;	
+	private List<UserDTO> users;
+	private int totalCount;
 	private int count;
 	
-	public UserListDTO() {
-	}
+	public UserListDTO() {}
 
-	public UserListDTO(final List<User> users, final URI baseUri) {
+	public UserListDTO(final List<User> users, int totalCount, final URI baseUri) {
+		this.setTotalCount(totalCount);
 		this.users = new LinkedList<>();
 		this.setCount(users.size());
 		
@@ -35,6 +36,14 @@ public class UserListDTO {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 
 }

@@ -123,8 +123,17 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int getMaxProductPageWithSize(final Optional<Category> category, final int pageSize) {
-		int total = category.isPresent() ? productDao.getTotalProductsInCategory(category.get()) : productDao.getTotalProducts();
-
+		int total = getTotalProducts(category);
 		return (int) Math.ceil((float) total / pageSize);
+	}
+
+	@Override
+	public int getTotalProductsByKeyword(final String keyword) {
+		return productDao.getTotalProductsByKeyword(buildValidKeywords(keyword));		
+	}
+
+	@Override
+	public int getTotalProducts(final Optional<Category> category) {
+		return category.isPresent() ? productDao.getTotalProductsInCategory(category.get()) : productDao.getTotalProducts();		
 	}
 }

@@ -63,7 +63,7 @@ public interface UserService {
 	 * @return the maximum page number, which is the total number of pages for
 	 *         the given size.
 	 */
-	public int getMaxUserPageByKeyword(String keyword, int pageSize);
+	public int getMaxUsersPageByKeyword(String keyword, int pageSize);
 	
 	/**
 	 * Retrieves an {@link User} profile picture.
@@ -97,6 +97,13 @@ public interface UserService {
 	public User changeProfilePicture(int userId, byte[] profilePicture);
 
 	/**
+	 * Retrieves the total amount of {@link FavList} corresponding to the owner.
+	 * @param userId - ID of the owner of the favLists
+	 * @return the total amount of favLists corresponding to the user
+	 */
+	public int getTotalFavLists(int userId);
+	
+	/**
 	 * Retrieves the amount of {@link FavList} pages available for a given page size
 	 * corresponding to the owner.
 	 * @param userId - ID of the owner of the favLists
@@ -115,6 +122,13 @@ public interface UserService {
 	 */
 	public List<FavList> getFavListsByUserId(int userId, int page, int pageSize);
 
+	/**
+	 * Retrieves the total amount of {@link FavList} corresponding to the owner.
+	 * @param userId - ID of the owner of the favLists
+	 * @return the total amount of favLists corresponding to the user
+	 */
+	public int getTotalVotedProducts(int userId);
+	
 	/**
 	 * Retrieves the amount of voted {@link Product} pages available for a given page size
 	 * corresponding to the voter.
@@ -135,6 +149,13 @@ public interface UserService {
 	public List<Product> getVotedProductsByUserId(int userId, int page, int pageSize);
 
 	/**
+	 * Retrieves the total amount of {@link FavList} corresponding to the owner.
+	 * @param userId - ID of the owner of the favLists
+	 * @return the total amount of favLists corresponding to the user
+	 */
+	public int getTotalCreatedProducts(int userId);
+	
+	/**
 	 * Retrieves the amount of created {@link Product} pages available for a given page size
 	 * corresponding to the creator.
 	 * @param userId - ID of the creator of the products
@@ -152,4 +173,11 @@ public interface UserService {
 	 * @return The list of products corresponding to the creator and page requested.
 	 */
 	public List<Product> getCreatedProductsByUserId(int userId, int page, int pageSize);
+
+	/**
+	 * Retrieved the total amount of {@link User} which matched with the given keyword
+	 * @param keyword - The keyword which should be matched
+	 * @return the total amount of users which matched with the given keyword.
+	 */
+	public int getTotalUsersByKeyword(String keyword);
 }

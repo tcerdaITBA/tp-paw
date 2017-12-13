@@ -130,4 +130,22 @@ public interface ProductService {
 	 *         the given size.
 	 */
 	public int getMaxProductsPageByKeyword(String keyword, int pageSize);
+
+	/**
+	 * Retrieves the total amount of {@link Product} which matched with the given keyword.
+	 * @param keyword - The keyword which should be matched
+	 * @return the total amount of products which matched with the given keyword.
+	 */
+	public int getTotalProductsByKeyword(String keyword);
+
+	/**
+	 * Retrieves the total amount of {@link Product}.
+	 * Optionally, a {@link Category} may be given to aquire the amount of
+	 * products belonging in it.
+	 * 
+	 * @param category
+	 *            - optional category the products belong to. See {@link Optional}.
+	 * @return the total amount of products.
+	 */
+	public int getTotalProducts(Optional<Category> category);
 }

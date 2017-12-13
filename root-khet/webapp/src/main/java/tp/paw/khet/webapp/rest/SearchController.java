@@ -60,12 +60,11 @@ public class SearchController {
             @DefaultValue("" + ProductsController.DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize) {
     	
         if (query.length() < MIN_QUERY_LENGTH) {
-            // TODO: agregar mensaje de explicación ala Github
             return Response.status(UNPROCESSABLE_ENTITY_CODE).build();
         }
         
+        final int totalProducts = productService.getTotalProductsByKeyword(query);
         final int maxPage = productService.getMaxProductsPageByKeyword(query, pageSize);
-
         final List<Product> products = productService.getPlainProductsByKeyword(query, page, pageSize);
 
         LOGGER.debug("Searching products. Query: {}, page: {} per_page: {}", query, page, pageSize);
@@ -74,7 +73,7 @@ public class SearchController {
         final Link[] linkArray = links.values().toArray(new Link[0]);
 
         LOGGER.debug("Links: {}", links);
-        return Response.ok(new ProductListDTO(products, uriContext.getBaseUri(), 
+        return Response.ok(new ProductListDTO(products, totalProducts, uriContext.getBaseUri(), 
         		Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
     }
     
@@ -85,12 +84,11 @@ public class SearchController {
             @DefaultValue("" + ProductsController.DEFAULT_PAGE_SIZE) @QueryParam("per_page") final int pageSize) {
     	
         if (query.length() < MIN_QUERY_LENGTH) {
-            // TODO: agregar mensaje de explicación ala Github
             return Response.status(UNPROCESSABLE_ENTITY_CODE).build();
         }
         
-        final int maxPage = userService.getMaxUserPageByKeyword(query, pageSize); // TODO: getMaxUsersByKeyword
-        
+        final int totalUsersCount = userService.getTotalUsersByKeyword(query);
+        final int maxPage = userService.getMaxUsersPageByKeyword(query, pageSize);
         final List<User> users = userService.getUsersByKeyword(query, page, pageSize);
 
         LOGGER.debug("Searching products. Query: {}, page: {} per_page: {}", query, page, pageSize);
@@ -100,6 +98,6 @@ public class SearchController {
 
         LOGGER.debug("Links: {}", links);
 
-        return Response.ok(new UserListDTO(users, uriContext.getBaseUri())).links(linkArray).build();
+        return Response.ok(new UserListDTO(users, totalUsersCount, uriContext.getBaseUri())).links(linkArray).build();
     }
 }
