@@ -10,10 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import tp.paw.khet.model.Product;
 import tp.paw.khet.model.User;
 
-// TODO: ver si FullProductDTO puede extender de este para no repetir código
-// No me anduvo porque no reconoce que FullProduct tiene los campos de PlainProduct.
-// Tiene que haber atributos para agregar
-
 @XmlRootElement
 public class PlainProductDTO {
 	private int id;
