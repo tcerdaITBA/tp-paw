@@ -1,8 +1,8 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'services/restService', 'directives/loading', 'services/titleService', 'services/authService'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'services/restService', 'services/snackbarService', 'directives/loading', 'services/titleService', 'services/authService'], function(productSeek) {
 
-	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', '$translate', 'titleService', 'restService', 'authService', 'productsData', 'categories', 'categoriesImage', 'sortCriterias', 'defaultSortCriteria', 
-		function($scope, $routeParams, $translate, titleService, restService, authService, productsData, categories, categoriesImage, sortCriterias, defaultSortCriteria) {
+	productSeek.controller('HomeCtrl', ['$scope', '$routeParams', '$translate', 'titleService', 'restService', 'snackbarService', 'authService', 'productsData', 'categories', 'categoriesImage', 'sortCriterias', 'defaultSortCriteria', 
+		function($scope, $routeParams, $translate, titleService, restService, snackbarService, authService, productsData, categories, categoriesImage, sortCriterias, defaultSortCriteria) {
 		
 		if ($routeParams.category) {
 			$translate($routeParams.category).then(function(title) {
@@ -80,24 +80,35 @@ define(['productSeek', 'directives/productItem', 'services/restService', 'direct
 		
 		$scope.disableScroll = $scope.products.length < $scope.pageSize;
 
+		var showedNoConnection = false;
+
 		$scope.loadMoreProducts = function() {
 			$scope.scrollBusy = true;
 			var params = {};
-			$scope.page++;
 			params.category = $scope.category;
-			params.page = $scope.page;
+			params.page = $scope.page + 1;
 			params.pageSize = $scope.pageSize;
 			params.orderBy = $scope.orderBy;
 			params.order = $scope.order;
 
 			restService.getProducts(params)
 			.then(function(productsData) {
+				showedNoConnection = false;
+				$scope.page++;
+				
 				if (productsData.count != 0) {
 					$scope.scrollBusy = false;
 					$scope.products.push.apply($scope.products, productsData.products);
 					$scope.disableScroll = productsData.count < $scope.pageSize;
 				} else {
 					$scope.disableScroll = true;
+				}
+			})
+			.catch(function() {
+				$scope.scrollBusy = false;
+				if (!showedNoConnection) {
+					showedNoConnection = true;
+					snackbarService.showNoConnection();
 				}
 			});
 		};

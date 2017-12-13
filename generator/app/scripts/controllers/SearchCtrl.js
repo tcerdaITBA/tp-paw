@@ -1,7 +1,8 @@
 'use strict';
-define(['productSeek', 'directives/productItem', 'directives/userItem', 'services/sessionService', 'services/titleService', 'services/restService'], function(productSeek) {
+define(['productSeek', 'directives/productItem', 'directives/userItem', 'services/sessionService', 'services/titleService', 'services/restService', 'services/snackbarService'], function(productSeek) {
 
-	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', '$translate', 'titleService', 'productsData', 'usersData', 'query', 'sessionService', 'restService', function($scope, $rootScope, $translate, titleService, productsData, usersData, query, session, restService) {
+	productSeek.controller('SearchCtrl', ['$scope', '$rootScope', '$translate', 'titleService', 'productsData', 'usersData', 'query', 'sessionService', 'restService', 'snackbarService',
+		function($scope, $rootScope, $translate, titleService, productsData, usersData, query, session, restService, snackbarService) {
 		$translate('title.search').then(function(title) {
 			titleService.setTitle(title);
 		});
@@ -60,27 +61,46 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 		$scope.productsDisable = $scope.products.length == $scope.totalProducts;
 		$scope.usersDisable = $scope.users.length == $scope.totalUsers;
 
+		var showedNoConnectionProducts = false;
+		var showedNoConnectionUsers = false;
+
 		$scope.loadMoreProducts = function() {
 			$scope.productsScrollBusy = true;
-			productsPage++;
 
-			restService.searchProducts(query, productsPage)
+			restService.searchProducts(query, productsPage + 1)
 			.then(function(data) {
+				productsPage++;
+				showedNoConnectionProducts = false;
 				$scope.productsScrollBusy = false;
 				$scope.products.push.apply($scope.products, data.products);
 				$scope.productsDisable = $scope.products.length >= $scope.totalProducts;
+			})
+			.catch(function() {
+				$scope.productsScrollBusy = false;
+				if (!showedNoConnectionProducts) {
+					showedNoConnectionProducts = true;
+					snackbarService.showNoConnection();
+				}
 			});
 		};
 
 		$scope.loadMoreUsers = function() {
 			$scope.usersScrollBusy = true;
-			usersPage++;
 
-			restService.searchUsers(query, usersPage)
+			restService.searchUsers(query, usersPage + 1)
 			.then(function(data) {
+				usersPage++;
+				showedNoConnectionUsers = false;
 				$scope.usersScrollBusy = false;
 				$scope.users.push.apply($scope.users, data.users);
 				$scope.usersDisable = $scope.users.length >= $scope.totalUsers;
+			})
+			.catch(function() {
+				$scope.usersScrollBusy = false;
+				if (!showedNoConnectionUsers) {
+					showedNoConnectionUsers = true;
+					snackbarService.showNoConnection();
+				}
 			});
 		};
 	}]);
