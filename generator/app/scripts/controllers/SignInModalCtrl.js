@@ -1,7 +1,7 @@
-define(['productSeek', 'services/authService'], function(productSeek) {
+define(['productSeek', 'services/authService', 'services/snackbarService'], function(productSeek) {
 
     'use strict';
-    productSeek.controller('SignInModalCtrl', ['authService', '$scope', '$uibModalInstance', function(auth, $scope, $signInModal) {
+    productSeek.controller('SignInModalCtrl', ['authService', '$scope', '$uibModalInstance', 'snackbarService', function(auth, $scope, $signInModal, snackbarService) {
         $scope.loginForm = {};
 		
 		$scope.loginForm.username = {};
@@ -20,9 +20,16 @@ define(['productSeek', 'services/authService'], function(productSeek) {
 					$scope.loggingIn = false;
                     $signInModal.close(true);
                 })
-                .catch(function(response) {
+                .catch(function(error) {
 					$scope.loggingIn = false;
-                    $scope.invalidUser = true;
+					switch (error.status) {
+						case -1: // Sin conexión
+							snackbarService.showNoConnection();
+							break;
+						case 401: // Conflict - Nombre repetido
+							$scope.invalidUser = true;
+							break;
+					}
                 });
             }
 		};

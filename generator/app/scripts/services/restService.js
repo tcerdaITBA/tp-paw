@@ -50,7 +50,7 @@ define(['productSeek', 'jquery', 'services/sessionService'], function(productSee
 			
             function authHeaders() {
                 var accessToken = session.getAccessToken();
-                return accessToken ? {headers: {'X-AUTH-TOKEN': accessToken}} : undefined;
+                return accessToken ? {headers: {'X-AUTH-TOKEN': accessToken}} : {};
             }
             
             function multipartMetadata() {

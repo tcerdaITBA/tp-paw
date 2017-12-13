@@ -36,7 +36,7 @@ define(['productSeek', 'services/sessionService', 'services/restService'], funct
                 })
 				.catch(function(response) {
                     self.logOut();
-                    return $q.reject(response.data);
+                    return $q.reject(response);
                 });
 		};
 
