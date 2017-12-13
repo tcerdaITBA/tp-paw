@@ -104,8 +104,7 @@ define(['productSeek', 'jquery', 'services/authService', 'services/sessionServic
 		$scope.autocompleteSearch = function() {
 			if ($scope.query && $scope.query.length >= searchMinLength) {
 				restService.searchProducts($scope.query).then(function(data) {
-					console.log(data);
-					$scope.searchSuggestions = data.products;
+					$scope.searchSuggestions = data.products.slice(0, 5);
 				});
 			} else {
 				$scope.searchSuggestions = [];

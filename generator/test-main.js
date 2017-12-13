@@ -47,7 +47,8 @@ require.config({
         'slick-carousel': '../../bower_components/slick-carousel/slick/slick',
         'angular-slick-carousel': '../../bower_components/angular-slick-carousel/dist/angular-slick',
         ngInfiniteScroll: '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
-        'angular-slick': '../../bower_components/angular-slick/dist/slick'
+        'angular-slick': '../../bower_components/angular-slick/dist/slick',
+        'angular-loading-bar': '../../bower_components/angular-loading-bar/build/loading-bar'
     },
     shim: {
         angular: {
@@ -111,6 +112,11 @@ require.config({
             deps: [
                 'angular'
             ]
+        },
+        'angular-loading-bar': {
+          deps: [
+                'angular'
+          ]
         }
     },
     packages: [

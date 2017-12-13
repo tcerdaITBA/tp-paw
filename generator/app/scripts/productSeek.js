@@ -9,7 +9,8 @@ define(['routes',
 	'bootstrap',
 	'angular-translate',
 	'angular-slick-carousel',
-	'ngInfiniteScroll'],
+	'ngInfiniteScroll',
+	'angular-loading-bar'],
 	function(config, dependencyResolverFor, i18n) {
 		var productSeek = angular.module('productSeek', [
 			'ngRoute',
@@ -17,7 +18,8 @@ define(['routes',
 			'ngSanitize',
 			'ui.bootstrap',
 			'slickCarousel',
-			'infinite-scroll'
+			'infinite-scroll',
+			'angular-loading-bar'
 		]);
 		productSeek
 			.config(
@@ -28,18 +30,19 @@ define(['routes',
 				'$provide',
 				'$translateProvider',
 				'$qProvider',
-                '$locationProvider',
-				function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $translateProvider, $qProvider,  $locationProvider) {
+        		'$locationProvider',
+				'cfpLoadingBarProvider',
+				function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $translateProvider, $qProvider,  $locationProvider, cfpLoadingBarProvider) {
 
 					productSeek.controller = $controllerProvider.register;
 					productSeek.directive = $compileProvider.directive;
 					productSeek.filter = $filterProvider.register;
 					productSeek.factory = $provide.factory;
 					productSeek.service = $provide.service;
-                    
+
 					if (config.routes) {
 						angular.forEach(config.routes, function(route, path) {
-                            var resolved = dependencyResolverFor(['controllers/' + route.controller]);                            
+                            var resolved = dependencyResolverFor(['controllers/' + route.controller]);
                             angular.forEach(route.resolve, function(resolver, name) {
                                 resolved[name] = resolver;
                             });
@@ -47,7 +50,7 @@ define(['routes',
                             $routeProvider.when(path, {templateUrl: route.templateUrl, resolve: resolved, controller: route.controller, gaPageTitle: route.gaPageTitle});
 						});
 					}
-                    
+
 					if (config.defaultRoutePath) {
 						$routeProvider.otherwise({redirectTo: config.defaultRoutePath});
 					}
@@ -57,7 +60,9 @@ define(['routes',
 
 					$qProvider.errorOnUnhandledRejections(false);
                     $locationProvider.hashPrefix('');
-                    
+
+					cfpLoadingBarProvider.latencyThreshold = 100;
+					cfpLoadingBarProvider.includeSpinner = false;
 				}])
             .run(['$rootScope', '$location', function($rootScope, $location) {
                     $rootScope.isViewLoading = false;
@@ -71,7 +76,7 @@ define(['routes',
                     $rootScope.$on('$routeChangeError', function() {
                         $rootScope.isViewLoading = false;
                         $location.path('/404');
-                    });            
+                    });
             }])
             .value('url', 'http://localhost:8080/api')
 			.value('productImagesCount', 4)
@@ -90,7 +95,7 @@ define(['routes',
 					return window.encodeURIComponent(input);
 				}
 			});
-                
+
 		return productSeek;
 	}
 );
