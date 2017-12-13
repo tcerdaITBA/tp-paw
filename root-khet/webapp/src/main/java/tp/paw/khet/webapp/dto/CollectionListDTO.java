@@ -10,13 +10,15 @@ import tp.paw.khet.model.User;
 
 public class CollectionListDTO {
 	private List<CollectionDTO> collections;
+	private int totalCount;
 	private int count;
 	
 	public CollectionListDTO() {}
 	
-	public CollectionListDTO(final List<FavList> favLists, final URI baseURI, final Optional<User> user) {
-		count = favLists.size();
-		collections = new LinkedList<>();
+	public CollectionListDTO(final List<FavList> favLists, int totalCount, final URI baseURI, final Optional<User> user) {
+		this.totalCount = totalCount;
+		this.count = favLists.size();
+		this.collections = new LinkedList<>();
 		
 		for (FavList f: favLists)
 			collections.add(new CollectionDTO(f, baseURI, user));
@@ -36,5 +38,13 @@ public class CollectionListDTO {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 }

@@ -145,15 +145,15 @@ public class ProductsController {
 		LOGGER.debug("Accesing product list. Category: {}, page: {}, per_page: {}, sort: {}, order: {}", categoryOpt, page,
 				pageSize, sortCriteria, order);
 		
+		final int totalProducts = productService.getTotalProducts(categoryOpt);
 		final int maxPage = productService.getMaxProductPageWithSize(categoryOpt, pageSize);
-
 		final List<Product> products = productService.getPlainProductsPaged(categoryOpt, sortCriteria, order, page, pageSize);
 
 		final Map<String, Link> links = linkFactory.createLinks(uriContext, page, maxPage);
 		final Link[] linkArray = links.values().toArray(new Link[0]);
 
 		LOGGER.debug("Links: {}", links);
-		return Response.ok(new ProductListDTO(products, uriContext.getBaseUri(), 
+		return Response.ok(new ProductListDTO(products, totalProducts, uriContext.getBaseUri(), 
 				Optional.ofNullable(securityUserService.getLoggedInUser()))).links(linkArray).build();
 	}
 
@@ -170,7 +170,7 @@ public class ProductsController {
 		} 
 		else {
 			final List<User> users = new LinkedList<>(product.getVotingUsers());
-			return Response.ok(new UserListDTO(users, uriContext.getBaseUri())).build();
+			return Response.ok(new UserListDTO(users, product.getVotingUsers().size(), uriContext.getBaseUri())).build();
 		}
 	}
 	

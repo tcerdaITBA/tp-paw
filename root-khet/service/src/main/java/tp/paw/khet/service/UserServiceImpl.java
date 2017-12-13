@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getMaxUserPageByKeyword(final String keyword, final int pageSize) {
+	public int getMaxUsersPageByKeyword(final String keyword, final int pageSize) {
 		final Set<String> validKeywords = buildValidKeywords(keyword);
 
 		if (validKeywords.isEmpty())
@@ -128,5 +128,29 @@ public class UserServiceImpl implements UserService {
 	
 	private int offset(final int page, final int pageSize) {
 		return (page - 1) * pageSize;
+	}
+
+	@Override
+	@Transactional
+	public int getTotalFavLists(int userId) {
+		final User user = getUserById(userId);
+		return user.getFavLists().size();
+	}
+
+	@Override
+	@Transactional
+	public int getTotalVotedProducts(int userId) {
+		final User user = getUserById(userId);
+		return user.getVotedProducts().size();
+	}
+
+	@Override
+	public int getTotalCreatedProducts(int userId) {
+		return userDao.getTotalCreatedProductsByUserId(userId);
+	}
+
+	@Override
+	public int getTotalUsersByKeyword(String keyword) {
+		return userDao.getTotalUsersByKeyword(buildValidKeywords(keyword));
 	}
 }

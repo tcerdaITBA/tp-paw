@@ -15,6 +15,8 @@ define(['productSeek', 'directives/productItem', 'directives/userItem', 'service
 
 		$scope.products = productsData.products;
 		$scope.users = usersData.users;
+		$scope.totalProducts = productsData.totalCount;
+		$scope.totalUsers = usersData.totalCount;
 		
 		session.saveToSearchHistory(query);
 		$rootScope.$broadcast('searchHistory:updated');
